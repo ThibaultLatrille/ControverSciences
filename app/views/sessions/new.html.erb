@@ -1,0 +1,26 @@
+<% provide(:title, "Connection") %>
+<h1>Qui êtes vous ?</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:session, url: sessions_path) do |f| %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password, 'mot de passe' %>
+      <%= link_to "(Trou de mémoire ?)", new_password_reset_path %>
+      <%= f.password_field :password %>
+
+      <%= f.label :remember_me, class: "checkbox inline" do %>
+        <%= f.check_box :remember_me %>
+        <span>Se souvenir de moi lors des visites suivantes </span>
+      <% end %>
+
+      <%= f.submit "Se connecter", class: "btn btn-primary" %>
+    <% end %>
+
+    <p>Une envie furieuse de contribuer au projet ? <%= link_to 'S\'inscrire dès maintenant !', signup_path %></p>
+  </div>
+</div>
+

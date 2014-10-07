@@ -1,0 +1,14 @@
+<footer class="footer">
+      <p class="pull-right">
+      <%= link_to 'bas de page  <span class="glyphicon-class glyphicon glyphicon-chevron-down"></span>'.html_safe, '#Bottom' %>
+        <%= link_to '<span class="glyphicon-class glyphicon glyphicon-chevron-up"></span> haut de page'.html_safe, '#Top' %>
+      </p>
+      <p>
+        &copy; <%= Time.now.year %> <%= site_name %> 
+        &bull;
+        <%= link_to "A propos",   about_path %>
+        &bull;
+        <%= link_to "Nous contacter", contact_path %>
+      </p>
+</footer>
+

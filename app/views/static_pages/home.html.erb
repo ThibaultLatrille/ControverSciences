@@ -1,0 +1,11 @@
+<% provide(:title, '') %>
+
+<div class="center jumbotron">
+  <h1>Bienvenue sur <%= site_name %> </h1>
+  <%= image_tag("logo.png", alt: "Logo", :class => "img-responsive") %>
+  <h2>
+    Et si on arrêtait de nier les évidences ?
+  </h2>
+
+  <%= link_to "Participer à l'aventure !", signup_path, class: "btn btn-lg btn-primary" %>
+</div>

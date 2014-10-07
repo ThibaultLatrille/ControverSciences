@@ -1,0 +1,38 @@
+    <div class="col-sm-6 col-md-3 timeline">
+      <div class="thumbnail">
+        <div class="caption">
+          <div class="timeline_name">
+            <h2> <%= timeline.name %>
+            </h2>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <%= image_tag("icons/myicon-users.png", alt: "ref", height: "24px") %>
+              Contributeurs
+              <span class="badge">14</span>
+            </li>
+            <li class="list-group-item">
+              <%= image_tag("icons/myicon-edit-rule.png", alt: "ref", height: "24px") %>
+              Edition
+              <span class="badge">154</span>
+            </li>
+            <li class="list-group-item">
+              <%= image_tag("icons/myicon-ref.png", alt: "ref", height: "24px") %>
+              References
+              <span class="badge">114</span>
+            </li>
+          </ul>
+          <div class="progress">
+            <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 35%">
+              <span class="sr-only">35% Complete </span>
+            </div>
+            <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 25%">
+              <span class="sr-only">20% Complete </span>
+            </div>
+            <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 40%">
+              <span class="sr-only">10% Complete </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

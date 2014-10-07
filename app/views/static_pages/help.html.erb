@@ -1,0 +1,127 @@
+<% provide(:title, "Aide") %>
+<% content_for :timeline do %>
+    <%= stylesheet_link_tag 'timeline', media: 'all' %>
+<% end %>
+
+<div class="timeline-jquery-example">
+</div>
+
+<%= javascript_tag do %>
+$(document).ready(function(){
+$('.timeline-jquery-example').verticalTimeline({
+data: [
+{
+"title": "This timeline uses JSON data directly,This timeline uses JSON data directly,This timeline uses JSON data directly",
+"date": "27 Mar 2008",
+"displaydate": "Mar 27",
+"caption": "Mike Baird",
+"button1": 31,
+"button2": 38,
+"button3": 54,
+"color": "red",
+"field1": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"field2": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+},
+{
+"title": "This timeline uses JSON data directly",
+"date": "27 Mar 2008",
+"displaydate": "Mar 27",
+"caption": "Mike Baird",
+"button1": 31,
+"button2": 38,
+"button3": 54,
+"color": "green",
+"field1": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"field2": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+},{
+"title": "This timeline uses JSON data directly",
+"date": "27 Mar 2008",
+"displaydate": "Mar 27",
+"caption": "Mike Baird",
+"button1": 31,
+"button2": 38,
+"button3": 54,
+"color": "red",
+"field1": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"field2": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+},{
+"title": "This timeline uses JSON data directly",
+"date": "27 Mar 2008",
+"displaydate": "Mar 27",
+"caption": "Mike Baird",
+"button1": 31,
+"button2": 38,
+"button3": 54,
+"color": "yellow",
+"field1": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"field2": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+},{
+"title": "This timeline uses JSON data directly",
+"date": "27 Mar 2008",
+"displaydate": "Mar 27",
+"caption": "Mike Baird",
+"button1": 31,
+"button2": 38,
+"button3": 54,
+"color": "red",
+"field1": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"field2": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+},{
+"title": "This timeline uses JSON data directly",
+"date": "27 Mar 2008",
+"displaydate": "Mar 27",
+"caption": "Mike Baird",
+"button1": 31,
+"button2": 38,
+"button3": 54,
+"color": "red",
+"field1": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"field2": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+},{
+"title": "This timeline uses JSON data directly",
+"date": "27 Mar 2008",
+"displaydate": "Mar 27",
+"caption": "Mike Baird",
+"button1": 31,
+"button2": 38,
+"button3": 54,
+"color": "yellow",
+"field1": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"field2": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+},{
+"title": "This timeline uses JSON data directly",
+"date": "27 Mar 2008",
+"displaydate": "Mar 27",
+"caption": "Mike Baird",
+"button1": 31,
+"button2": 38,
+"button3": 54,
+"color": "",
+"field1": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"field2": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+},{
+"title": "This timeline uses JSON data directly",
+"date": "27 Mar 2008",
+"displaydate": "Mar 27",
+"caption": "Mike Baird",
+"button1": 31,
+"button2": 38,
+"button3": 54,
+"color": "green",
+"field1": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"field2": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
+"readmoreurl": "http://www.flickr.com/photos/mikebaird/2529507825/"
+},
+],
+handleResize: true
+});
+});
+<% end %>

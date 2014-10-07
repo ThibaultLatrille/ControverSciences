@@ -1,0 +1,269 @@
+@import "bootstrap-sprockets";
+@import 'bootstrap';
+
+$gray-medium-light: #eaeaea;
+$nav_back: #6898ce;
+$nav_back_bottom: #e9f0f5;
+$nav_hover: #6682b5;
+
+.img-responsive {
+  margin-left: auto;
+  margin-right: auto;
+}
+.navbar-toggle .icon-bar {
+    background-color: black;
+}
+
+.navbar {
+    background-color: $nav_back;
+    background-image:linear-gradient($nav_back, $nav_back_bottom);
+    border-color: $nav_hover;
+}
+
+.btn-default {
+    background-color: transparent;
+    border-color: gray-light;
+    color: black;
+}
+
+.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
+  background-color: $nav_hover;
+}
+
+.dropdown {
+  margin-top: 14px;
+  margin-left: 8px;
+}
+
+.nav{
+  li{
+    a{color: black;
+      padding-top: 0px;
+      padding-bottom: 0px;
+      line-height: 64px;
+      &:hover{
+      background-color: $nav_hover;
+      text-decoration: none;
+      }
+    }
+  }
+}
+
+.dropdown-menu > li > a {
+  line-height: 30px;
+}
+
+@media (max-width: 767px) {
+  .navbar-nav > li > a {
+    line-height: 35px;}
+}
+
+.footer {
+  z-index:150;
+  background-color:white;
+  position:fixed;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  padding-left:5px;
+  padding-right:5px;
+  padding-top:5px;
+  border-top: 1px solid #eaeaea;
+  color: $gray-light;
+  a {
+  color: $gray;
+  &:hover {
+    color: $gray-light;
+    }
+  }
+  small {
+    float: left;
+  }
+}
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+
+/* universal */
+
+body {
+  padding-top: 80px;
+  padding-bottom: 40px;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  h1 {
+    margin-bottom: 10px;
+  }
+  text-align: center;
+}
+
+/* typography */
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2em;
+  letter-spacing: -2px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: normal;
+  color: $gray-light;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+aside {
+  section.user_info {
+    margin-top: 20px;
+  }
+  section {
+    padding: 10px 0;
+    margin-top: 20px;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
+    }
+  }
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.gravatar_edit {
+  margin-top: 15px;
+}
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+
+/* forms */
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
+
+#session_remember_me {
+  width: auto;
+  margin-left: 0;
+}
+
+.pagination a, .pagination span.current, .pagination span.gap {
+  float: left;
+  padding: 0 14px;
+  line-height: 38px;
+  text-decoration: none;
+  background-color: white;
+  border: 1px solid #DDD;
+  border-left-width: 0;
+}
+
+.pagination {
+  border-left: 1px solid #ddd;
+  .first{
+    padding : 0;
+    float: none;
+    border: none;
+  }
+  .prev {
+    padding : 0;
+    float: none;
+    border: none;
+  }
+  .page{
+    padding : 0;
+    float: none;
+    border: none;
+  }
+  .next{
+    padding : 0;
+    float: none;
+    border: none;
+  }
+  .last{
+    padding : 0;
+    float: none;
+    border: none;
+  }
+}
+
+.timeline_name{
+  padding-bottom: 10px;
+}

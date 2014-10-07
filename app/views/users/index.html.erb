@@ -1,0 +1,22 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<table id="users">
+  <thead>
+  <tr>
+    <th>email</th>
+    <th>nom </th>
+    <th> Ha index </th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody class="page">
+  <%= render @users %>
+  </tbody>
+</table>
+
+<br>
+
+<%= paginate @users %>
+

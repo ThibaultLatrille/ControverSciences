@@ -1,0 +1,5 @@
+Bonjour <%= @user.name %>,
+
+Bienvenue sur ControverSciences, il ne vous reste plus qu'à cliquer sur le lien suivant pour commencer à contribuer au projet et éclairer le monde de votre connaissance:
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>

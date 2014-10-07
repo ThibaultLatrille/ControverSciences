@@ -1,0 +1,14 @@
+<% provide(:title, "timelines") %>
+
+<div id="timelines">
+
+  <div class="row page">
+
+  <%= render @timelines %>
+
+ </div>
+
+</div>
+
+
+<%= paginate @timelines %>
