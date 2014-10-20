@@ -1,0 +1,46 @@
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href= <%= "#collapse#{field}" -%> >
+          <%= content %>
+        </a>
+      </h4>
+    </div>
+    <div id=<%= "collapse#{field}" -%> class="panel-collapse collapse">
+      <div class="panel-body">
+            <% if logged_in? %>
+                <% if comment_user %>
+                    Vous avez déjà écrit un commentaire :
+                    <h2>
+                      <%= comment_user.content %>
+                      <%= link_to '<span class="glyphicon glyphicon-edit"></span> Modifier '.html_safe, edit_comment_path(comment_user) %>
+                    </h2>
+                <% else %>
+                    <div class="row">
+                      <aside class="col-md-4">
+                        <section class="micropost_form">
+                          <%= form_for(@comment) do |f| %>
+                              <%= render 'shared/error_messages', object: f.object %>
+                              <div class="field">
+                                <%= f.text_area :content, placeholder: "Vous n'avez actuellement pas écrit de commentaire, tentez votre chance ! " %>
+                                <%= f.hidden_field :field, value: field %>
+                              </div>
+                              <%= f.submit "Publier", class: "btn btn-primary" %>
+                          <% end %>
+                        </section>
+                      </aside>
+                    </div>
+                <% end %>
+            <% end %>
+            <div class="col-md-8">
+              <% if comments.any? %>
+                  <h3> Editions (<%= comments.count %>)</h3>
+                  <ol class="comments">
+                    <%= render comments %>
+                  </ol>
+                  <%= paginate comments, param_name: page_name %>
+              <% end %>
+            </div>
+      </div>
+    </div>
+  </div>

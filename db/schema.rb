@@ -11,24 +11,109 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141004211629) do
+ActiveRecord::Schema.define(version: 20141016062355) do
+
+  create_table "comments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "timeline_id"
+    t.integer  "reference_id"
+    t.integer  "field"
+    t.text     "content"
+    t.integer  "votes_plus",   default: 0
+    t.integer  "votes_minus",  default: 0
+    t.integer  "rank",         default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["reference_id"], name: "index_comments_on_reference_id"
+  add_index "comments", ["timeline_id"], name: "index_comments_on_timeline_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "reference_contributors", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "reference_id"
+    t.boolean  "bool"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reference_contributors", ["reference_id"], name: "index_reference_contributors_on_reference_id"
+  add_index "reference_contributors", ["user_id"], name: "index_reference_contributors_on_user_id"
+
+  create_table "references", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "timeline_id"
+    t.text     "doi"
+    t.integer  "year"
+    t.text     "title"
+    t.text     "title_en"
+    t.text     "authors"
+    t.text     "journal"
+    t.text     "abstract",        default: ""
+    t.integer  "nb_contributors", default: 0
+    t.integer  "nb_edits",        default: 0
+    t.integer  "nb_votes",        default: 0
+    t.integer  "star_1",          default: 0
+    t.integer  "star_2",          default: 0
+    t.integer  "star_3",          default: 0
+    t.integer  "star_4",          default: 0
+    t.integer  "star_5",          default: 0
+    t.integer  "f_1_id"
+    t.text     "f_1_content"
+    t.integer  "f_1_votes_plus"
+    t.integer  "f_1_votes_minus"
+    t.integer  "f_2_id"
+    t.text     "f_2_content"
+    t.integer  "f_2_votes_plus"
+    t.integer  "f_2_votes_minus"
+    t.integer  "f_3_id"
+    t.text     "f_3_content"
+    t.integer  "f_3_votes_plus"
+    t.integer  "f_3_votes_minus"
+    t.integer  "f_4_id"
+    t.text     "f_4_content"
+    t.integer  "f_4_votes_plus"
+    t.integer  "f_4_votes_minus"
+    t.integer  "f_5_id"
+    t.text     "f_5_content"
+    t.integer  "f_5_votes_plus"
+    t.integer  "f_5_votes_minus"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "references", ["timeline_id"], name: "index_references_on_timeline_id"
+  add_index "references", ["user_id"], name: "index_references_on_user_id"
+
+  create_table "timeline_contributors", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "timeline_id"
+    t.boolean  "bool"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "timeline_contributors", ["timeline_id"], name: "index_timeline_contributors_on_timeline_id"
+  add_index "timeline_contributors", ["user_id"], name: "index_timeline_contributors_on_user_id"
 
   create_table "timelines", force: true do |t|
     t.text     "name"
     t.integer  "user_id"
     t.integer  "timeline_edit_id"
     t.text     "timeline_edit_content"
-    t.integer  "timeline_edit_votes"
+    t.integer  "timeline_edit_votes",    default: 0
     t.text     "timeline_edit_username"
-    t.integer  "nb_references"
-    t.integer  "nb_contributors"
-    t.integer  "nb_votes"
-    t.integer  "nb_edits"
-    t.float    "rank"
+    t.integer  "nb_references",          default: 0
+    t.integer  "nb_contributors",        default: 0
+    t.integer  "nb_votes",               default: 0
+    t.integer  "nb_edits",               default: 0
+    t.float    "rank",                   default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "timelines", ["created_at"], name: "index_timelines_on_created_at"
   add_index "timelines", ["user_id"], name: "index_timelines_on_user_id"
 
   create_table "users", force: true do |t|
@@ -47,5 +132,21 @@ ActiveRecord::Schema.define(version: 20141004211629) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
+
+  create_table "votes", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "timeline_id"
+    t.integer  "reference_id"
+    t.integer  "comment_id"
+    t.integer  "field"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["comment_id"], name: "index_votes_on_comment_id"
+  add_index "votes", ["reference_id"], name: "index_votes_on_reference_id"
+  add_index "votes", ["timeline_id"], name: "index_votes_on_timeline_id"
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
 
 end

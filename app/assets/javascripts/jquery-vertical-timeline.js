@@ -47,9 +47,6 @@
       'field3': 'field3',
       'field4': 'field4',
       'field5': 'field5',
-      'field6': 'field6',
-      'field7': 'field7',
-      'field8': 'field8',
       'color':'',
       'read_more_url': 'read more url'
     },
@@ -74,14 +71,16 @@
             <% if (data.field2) { %>  \
             <div class="text"> <div class="bold"> Field 2 <\/div> <%= data.field2 %><\/div> \
             <% } %> \
+            <% if (data.field3) { %>  \
+            <div class="text"> <div class="bold"> Field 3 <\/div> <%= data.field3 %><\/div> \
+            <% } %> \
+            <% if (data.field4) { %>  \
+            <div class="text"> <div class="bold"> Field 4 <\/div> <%= data.field4 %><\/div> \
+            <% } %> \
+            <% if (data.field5) { %>  \
+            <div class="text"> <div class="bold"> Field 5 <\/div> <%= data.field5 %><\/div> \
+            <% } %> \
             <\/div> \
-            <div class="center"> \
-              <div class="btn-group btn-group">  \
-                <button type="button" class="btn btn-danger"> Oui <span class="badge"><%= data.button1 %></span> </button> \
-                <button type="button" class="btn btn-warning"> Non conclusif <span class="badge"><%= data.button2 %></span> </button> \
-                 <button type="button" class="btn btn-success"> Non <span class="badge"><%= data.button3 %></span> </button>  \
-              <\/div> \
-             <\/div> \
              <div class="clearfix"> \
               <% if (data.read_more_url) { %> \
                 <a target="_blank" class="more" href="<%= data.read_more_url %>"> En savoir plus sur cet article<\/a> \

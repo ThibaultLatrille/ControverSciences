@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  timeline_id: 
+  reference_id: 
+  comment_id: 
+  field: 1
+  value: 9.99
+
+two:
+  user_id: 
+  timeline_id: 
+  reference_id: 
+  comment_id: 
+  field: 1
+  value: 9.99

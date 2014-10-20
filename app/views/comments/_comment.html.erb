@@ -1,0 +1,21 @@
+<li id="comment-<%= comment.id %>">
+  <div class="midcol">
+    <div>
+      <%= link_to '<span class="glyphicon glyphicon-arrow-up" ></span>'.html_safe,
+                  new_vote_path(vote: {timeline_id: comment.timeline_id, reference_id: comment.reference_id, comment_id: comment.id, field: comment.field, value: 1}) %>
+      <%= comment.votes_plus %>
+    </div>
+    <div>
+      <%= link_to '<span class="glyphicon glyphicon-arrow-down" ></span>'.html_safe,
+                  new_vote_path(vote: {timeline_id: comment.timeline_id, reference_id: comment.reference_id, comment_id: comment.id, field: comment.field, value: 0}) %>
+      <%= comment.votes_minus %>
+    </div>
+  </div>
+  <div class="comment">
+  <span class="By "><%= link_to comment.user.name, comment.user %></span>
+  <span class="content"><%= comment.content %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(comment.created_at) %> ago.
+  </span>
+  </div>
+</li>

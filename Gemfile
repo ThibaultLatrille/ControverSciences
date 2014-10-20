@@ -11,6 +11,11 @@ gem 'uglifier',     '2.5.1'
 gem 'coffee-rails', '4.0.1'
 gem 'jquery-rails', '3.1.1'
 gem 'jbuilder',     '2.1.3'
+gem 'faraday'
+gem 'json'
+gem 'rabl'
+gem 'oj'
+
 gem 'sdoc',         '0.4.0', group: :doc
 
 group :test do

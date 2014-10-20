@@ -1,0 +1,46 @@
+<% provide(:title, "Edition du profil") %>
+<h1>Voter pour un commentaire</h1>
+
+
+<% if @current_vote %>
+
+Vous avez déjà voté pour un commentaire dans cette section
+
+l'ancien :
+    <ol class="comments">
+    <%= render @current_comment %>
+    </ol>
+Le nouveau :
+      <ol class="comments">
+    <%= render @new_comment %>
+      </ol>
+
+<%= form_for(@vote) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <%= f.hidden_field :timeline_id, value: params[:vote][:timeline_id] %>
+        <%= f.hidden_field :reference_id, value: params[:vote][:reference_id]%>
+        <%= f.hidden_field :comment_id, value: params[:vote][:comment_id] %>
+        <%= f.hidden_field :field, value: params[:vote][:field] %>
+        <%= f.hidden_field :value, value: params[:vote][:value] %>
+        <%= f.submit "Modifier mon vote", name: "update", class: "btn btn-primary" %>
+    <% end %>
+
+<% else %>
+    <ol class="comments">
+    <%= render @new_comment %>
+      </ol>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <%= form_for(@vote) do |f| %>
+            <%= render 'shared/error_messages', object: f.object %>
+            <%= f.hidden_field :timeline_id, value: params[:vote][:timeline_id] %>
+            <%= f.hidden_field :reference_id, value: params[:vote][:reference_id]%>
+            <%= f.hidden_field :comment_id, value: params[:vote][:comment_id] %>
+            <%= f.hidden_field :field, value: params[:vote][:field] %>
+            <%= f.hidden_field :value, value: params[:vote][:value] %>
+            <%= f.submit "Enregistrer le vote", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+
+<% end %>

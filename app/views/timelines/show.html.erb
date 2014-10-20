@@ -1,1 +1,50 @@
 <% provide(:title, @timeline.name) %>
+
+<% content_for :timeline do %>
+    <%= stylesheet_link_tag 'timeline', media: 'all' %>
+<% end %>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= @timeline.name %></h3>
+    <% if logged_in? %>
+    <span class="pull-right">
+        <%= link_to '<span class="glyphicon glyphicon-plus-sign" ></span> Ajouter une réfèrence'.html_safe, new_reference_path %>
+    </span>
+        <div class="clearfix"></div>
+   <% end %>
+
+  </div>
+  <div class="panel-body">
+    <h2>
+    <%= @timeline.timeline_edit_content %>
+    </h2>
+
+  </div>
+  <div class="panel-footer">
+    <%= image_tag("icons/myicon-users.png", alt: "ref", height: "24px") %>
+    <span class="badge"><%= @timeline.nb_contributors %></span>
+    <%= image_tag("icons/myicon-ref.png", alt: "ref", height: "24px") %>
+    <span class="badge"><%= @timeline.nb_references %></span>
+    <%= image_tag("icons/myicon-edit-rule.png", alt: "ref", height: "24px") %>
+    <span class="badge"><%= @timeline.nb_edits %></span>
+    <%= image_tag("icons/myicon-edit-rule.png", alt: "ref", height: "24px") %>
+    <span class="badge"><%= @timeline.nb_votes %></span>
+    <span class="pull-right">
+      Créé par <%= @timeline.user.name %>
+    </span>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="timeline-jquery-example">
+</div>
+
+<%= javascript_tag do %>
+    $(document).ready(function(){
+    $('.timeline-jquery-example').verticalTimeline({
+    data: <%= raw render(template: "timelines/show.json.rabl") -%>,
+    handleResize: true
+    });
+    });
+<% end %>

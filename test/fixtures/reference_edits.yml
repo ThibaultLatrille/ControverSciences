@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  timeline_id: 
+  reference_id: 
+  field: 1
+  content: MyText
+  votes_positif: 1
+  votes_negatif: 1
+  rank: 1.5
+
+two:
+  user_id: 
+  timeline_id: 
+  reference_id: 
+  field: 1
+  content: MyText
+  votes_positif: 1
+  votes_negatif: 1
+  rank: 1.5

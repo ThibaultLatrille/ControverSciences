@@ -1,0 +1,20 @@
+<%= f.label "DOI" %>
+<%= f.text_field :doi, class: 'form-control' %>
+
+<%= f.label "Titre original" %>
+<%= f.text_field :title_en, class: 'form-control' %>
+
+<%= f.label "Titre en Français" %>
+<%= f.text_field :title, class: 'form-control' %>
+
+<%= f.label "Journal" %>
+<%= f.text_field :journal, class: 'form-control' %>
+
+<%= f.label "Date de publication" %>
+<%= f.select :year, (1870..Date.current.year), {:include_blank => true}, { class: 'form-control'} %>
+
+<%= f.label "Les auteurs de l'étude" %>
+<%= f.text_field :authors, class: 'form-control' %>
+
+<%= f.label "Abstract" %>
+<%= f.text_field :abstract, class: 'form-control' %>

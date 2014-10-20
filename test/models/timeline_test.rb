@@ -18,11 +18,11 @@ class TimelineTest < ActiveSupport::TestCase
 
   test "name should be present " do
     @timeline.name = " "
-    assert_not @micropost.valid?
+    assert_not @timeline.valid?
   end
 
   test "name should be less than 140 characters" do
-    @timeline.name = "a" * 141
+    @timeline.name = "a" * 181
     assert_not @timeline.valid?
   end
 

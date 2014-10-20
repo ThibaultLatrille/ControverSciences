@@ -1,5 +1,10 @@
 <% provide(:title, "timelines") %>
 
+<div class="center">
+<%= link_to "Sort by date", timelines_path(:sort=> 'date'),  class: "btn btn-lg btn-primary"%>
+<%= link_to "Sort by relevance", timelines_path(:sort=> 'rank'),  class: "btn btn-lg btn-primary" %>
+</div>
+
 <div id="timelines">
 
   <div class="row page">

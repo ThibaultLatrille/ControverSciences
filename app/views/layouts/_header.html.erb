@@ -14,23 +14,36 @@
        <ul class="nav navbar-nav navbar-right">
             <li><%= link_to '<span class="glyphicon glyphicon-home"></span>'.html_safe,   root_path %></li>
             <li><%= link_to "Timelines",   timelines_path %></li>
-            <li><%= link_to "Aide",   help_path %></li>
           <% if logged_in? %>
             <li><%= link_to "Contributeurs", users_path %></li>
+             <li class="dropdown">
+               <button class="btn btn-default dropdown-toggle" type="button"
+                       id="dropdown_help" data-toggle="dropdown">
+                 <span> Aide </span>
+                 <span class="caret"></span>
+               </button>
+               <ul class="dropdown-menu">
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span>   Qui sommes nous'.html_safe, help_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> Contribuer'.html_safe, help_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> ajouter une timeline'.html_safe, help_path %></li>
+               </ul>
+             </li>
             <li class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button"
-                              id="dropdownMenu1" data-toggle="dropdown"> 
+                              id="dropdown_edit" data-toggle="dropdown">
 		 <span class="glyphicon glyphicon-edit"></span>
                  <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                <li><%= link_to '<span class="glyphicon glyphicon-plus-sign" ></span>   Créer une timeline'.html_safe, '#' %></li>
-                <li><%= link_to '<span class="glyphicon glyphicon-plus-sign" ></span> Ajouter une réfèrence'.html_safe, '#' %></li>
+                <li><%= link_to '<span class="glyphicon glyphicon-plus-sign" ></span>   Créer une timeline'.html_safe, new_timeline_path %></li>
+                <% if session[:timeline_id] %>
+                <li><%= link_to '<span class="glyphicon glyphicon-plus-sign" ></span> Ajouter une réfèrence'.html_safe, new_reference_path %></li>
+                <% end %>
               </ul>
             </li>
             <li class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button"
-                              id="dropdownMenu1" data-toggle="dropdown"> 
+                              id="dropdown_profil" data-toggle="dropdown">
 		 <span class="glyphicon glyphicon-user"></span>
                  <span class="caret"></span>
               </button>
@@ -47,6 +60,17 @@
               </ul>
             </li>
             <% else %>
+             <li class="dropdown">
+               <button class="btn btn-default dropdown-toggle" type="button"
+                       id="dropdown_help" data-toggle="dropdown">
+                 <span> Aide </span>
+                 <span class="caret"></span>
+               </button>
+               <ul class="dropdown-menu">
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span>   Qui sommes nous'.html_safe, help_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> Créer un compte'.html_safe, help_path %></li>
+               </ul>
+             </li>
             <li><%= link_to "S'identifier", login_path, id: "link-navbar" %></li>
             <% end %>
           </ul>

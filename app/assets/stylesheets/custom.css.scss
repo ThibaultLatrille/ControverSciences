@@ -115,6 +115,9 @@ textarea {
 }
 
 /* typography */
+.bold{
+  font-weight: bold;
+}
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -135,12 +138,10 @@ h2 {
 }
 
 h3 {
-  font-size: 1.2em;
+  font-size: 1.4em;
   letter-spacing: -1px;
-  margin-bottom: 15px;
-  text-align: center;
+  text-align: left;
   font-weight: normal;
-  color: $gray-light;
 }
 
 p {
@@ -266,4 +267,46 @@ input {
 
 .timeline_name{
   padding-bottom: 10px;
+}
+
+.page{
+  padding-top: 20px;
+}
+
+.comments {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+  .reference {
+    margin-top: 5em;
+    padding-top: 0;
+  }
+  .content {
+    display: block;
+    margin-left: 60px;
+    img {
+      display: block;
+      padding: 5px 0;
+    }
+  }
+  .timestamp {
+    color: $gray-light;
+    display: block;
+    margin-left: 60px;
+  }
+}
+
+.panel-heading .accordion-toggle:after {
+  /* symbol for "opening" panels */
+  font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+  content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+  float: right;        /* adjust as needed */
+  color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+  /* symbol for "collapsed" panels */
+  content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }

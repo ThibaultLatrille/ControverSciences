@@ -5,6 +5,7 @@
       <h1>
         <%= gravatar_for @user %>
         <%= @user.name %>
+        <span> Auteur de <%= pluralize(current_user.timelines.count, "timeline") %></span>
       </h1>
     </section>
   </aside>

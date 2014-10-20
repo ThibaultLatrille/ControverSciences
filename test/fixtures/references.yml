@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  timeline_id: 
+  doi: MyText
+  date: 2014-10-09
+  name: MyText
+  name_en: MyText
+  abstract: MyText
+  link: MyText
+  nb_contributors: 1
+  nb_edits: 1
+  nb_votes: 1
+  star_1: 1
+  star_2: 1
+  star_3: 1
+  star_4: 1
+  star_5: 1
+  f_1_id: 1
+  f_1_content: MyText
+  f_1_votes: 1
+
+two:
+  user_id: 
+  timeline_id: 
+  doi: MyText
+  date: 2014-10-09
+  name: MyText
+  name_en: MyText
+  abstract: MyText
+  link: MyText
+  nb_contributors: 1
+  nb_edits: 1
+  nb_votes: 1
+  star_1: 1
+  star_2: 1
+  star_3: 1
+  star_4: 1
+  star_5: 1
+  f_1_id: 1
+  f_1_content: MyText
+  f_1_votes: 1

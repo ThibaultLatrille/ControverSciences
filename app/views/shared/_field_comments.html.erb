@@ -1,0 +1,45 @@
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href= <%= "#collapse#{field}" -%> >
+          <%= content ||= "Pas encore de commentaire dans cette section, soyez le premier " %>
+        </a>
+      </h4>
+    </div>
+    <div id=<%= "collapse#{field}" -%> class="panel-collapse collapse">
+      <div class="panel-body">
+            <% if logged_in? %>
+                <% if comment_user %>
+                    Vous avez déjà écrit un commentaire (<%= link_to '<span class="glyphicon glyphicon-edit"></span> Modifier'.html_safe, edit_comment_path(comment_user) -%>) :
+                    <h2>
+                      <%= comment_user.content %>
+                    </h2>
+                <% else %>
+                    <div class="row">
+                      <aside class="col-md-8">
+                        <section class="micropost_form">
+                          <%= form_for(@comment) do |f| %>
+                              <%= render 'shared/error_messages', object: f.object %>
+                              <div class="field">
+                                <%= f.text_area :content, placeholder: "Vous n'avez actuellement pas écrit de commentaire, tentez votre chance ! " %>
+                                <%= f.hidden_field :field, value: field %>
+                                <%= f.submit "Publier mon commentaire", class: "btn btn-primary" %>
+                              </div>
+                          <% end %>
+                        </section>
+                      </aside>
+                    </div>
+                <% end %>
+            <% end %>
+            <div class="col-md-8">
+              <% if comments.any? %>
+                  <h3> Les <%= comments.count %> commentaires les mieux notés </h3>
+                  <ol class="comments">
+                    <%= render comments %>
+                  </ol>
+                  <%= link_to "Il y a d'autres commentaires, assouvisez votre soif de connaissance et decouvrez les", comments_path(reference_id: @reference.id, field: field) %>
+              <% end %>
+            </div>
+      </div>
+    </div>
+  </div>

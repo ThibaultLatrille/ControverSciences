@@ -1,0 +1,17 @@
+<% provide(:title, "Nouvelle réfèrence") %>
+
+
+<h1>Ajouter une réfèrence à la timeline <%= link_to Timeline.find(session[:timeline_id]).name,  Timeline.find(session[:timeline_id]) %></h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@reference) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+
+        <%= render "#{@reference.current_step}_step" , :f => f %>
+
+        <%= f.submit "Suivant", class: "btn btn-primary" %>
+        <%= f.submit "Précèdent", name: "back_button", class: "btn btn-primary" unless @reference.first_step? %>
+    <% end %>
+  </div>
+</div>
