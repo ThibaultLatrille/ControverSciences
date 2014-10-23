@@ -15,14 +15,86 @@
   <%= render 'layouts/shim' %>
   </head>
   <body>
-    <%= render 'layouts/header' %>
-    <div class="container">
-      <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-      <% end %>
-      <%= yield %>
-    </div>
-    <%= render 'layouts/footer' %>
-    <div id="Bottom"></div>
+  <%= render 'layouts/header' %>
+  <div class="container-fluid">
+        <div class="row">
+        <% if logged_in? %>
+          <%= render 'layouts/panel' %>
+          <% else %>
+              <div class="col-sm-6 col-md-2">
+              </div>
+        <% end %>
+                <div class="col-md-8">
+              <% flash.each do |message_type, message| %>
+                <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+              <% end %>
+              <%= yield %>
+                </div>
+        </div>
+  </div>
+  <%= render 'layouts/footer' %>
+  <div id="Bottom"></div>
+
+  <% if logged_in? %>
+      <script>
+          $(function(){
+              $('#slide-submenu').on('click',function() {
+                  $(this).closest('.list-group').fadeOut('slide',function(){
+                      $('.mini-submenu').fadeIn();
+                  });
+              });
+              $('.mini-submenu').on('click',function(){
+                  $(this).next('.list-group').toggle('slide');
+                  $('.mini-submenu').hide();
+              })
+          });
+
+          $(function() {
+              var dashpost = document.querySelector('.poststore');
+              var post = document.querySelector('.staticpoststore');
+              var dashfield = document.querySelector('.fieldstore');
+              var field = document.querySelector('.staticfieldstore');
+              if (dashpost != null && dashfield != null ){
+                  function supportsLocalStorage() {
+                      return typeof(Storage)!== 'undefined';
+                  }
+                  if (!supportsLocalStorage()) {
+                      dashpost.value = 'Votre navigateur date de mathusalem ! Par pitié, mettez à jour votre navigateur pour des raisons de sécurités et pour profitez des fonctionnalités de ControverSciences';
+                  } else {
+                      try {
+                          setInterval(function() {
+                              localStorage.setItem('comment', dashpost.value);
+                              localStorage.setItem('field', dashfield.value);
+                          }, 500);
+                      } catch (e) {
+                          if (e == QUOTA_EXCEEDED_ERR) {
+                              alert('Commentaire tros gros ! ');
+                          }
+                      }
+                      if (localStorage.getItem('comment')) {
+                          dashpost.value = localStorage.getItem('comment');
+                          dashfield.value = localStorage.getItem('field');
+                      }
+                      if ( post != null ) {
+                          post.value = localStorage.getItem('comment');
+                      }
+                      if ( field != null ) {
+                          field.value = localStorage.getItem('field');
+                      }
+                      document.querySelector('.empty').onclick = function() {
+                          localStorage.clear();
+                          dashpost.value = '';
+                          dashfield.value = "0";
+                          if ( field != null && post != null ) {
+                              post.value = '';
+                              field.value = "0";
+                          }
+
+                      };
+                  }
+              }
+          });
+      </script>
+  <% end %>
   </body>
 </html>

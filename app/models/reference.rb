@@ -44,6 +44,36 @@ class Reference < ActiveRecord::Base
     end
   end
 
+  def displayed_comment( comment )
+    case comment.field
+    when 1
+      self.update_attributes(f_1_id: comment.id, f_1_content: comment.content, f_1_votes_plus: comment.votes_plus, f_1_votes_minus: comment.votes_minus)
+    when 2
+      self.update_attributes(f_2_id: comment.id, f_2_content: comment.content, f_2_votes_plus: comment.votes_plus, f_2_votes_minus: comment.votes_minus)
+    when 3
+      self.update_attributes(f_3_id: comment.id, f_3_content: comment.content, f_3_votes_plus: comment.votes_plus, f_3_votes_minus: comment.votes_minus)
+    when 4
+      self.update_attributes(f_4_id: comment.id, f_4_content: comment.content, f_4_votes_plus: comment.votes_plus, f_4_votes_minus: comment.votes_minus)
+    when 5
+      self.update_attributes(f_5_id: comment.id, f_5_content: comment.content, f_5_votes_plus: comment.votes_plus, f_5_votes_minus: comment.votes_minus)
+    end
+  end
+
+  def field_id( field )
+    case field
+      when 1
+        self.f_1_id
+      when 2
+        self.f_2_id
+      when 3
+        self.f_3_id
+      when 4
+        self.f_4_id
+      when 5
+        self.f_5_id
+    end
+  end
+
   private
 
   def cascading_save_ref

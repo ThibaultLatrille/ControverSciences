@@ -15,7 +15,8 @@
 //= require bootstrap
 //= require jquery-vertical-timeline.libs.js
 //= require jquery-vertical-timeline.js
-//= require jquery.infinitescroll
+//= require jquery.infinitescroll.js
 //= require page_timelines.js
 //= require page_users.js
 //= require grid.js
+

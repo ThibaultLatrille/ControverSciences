@@ -12,6 +12,9 @@ class Vote < ActiveRecord::Base
   validates :comment_id, presence: true
   validates :value, presence: true
   validates :field, presence: true
+  validates_uniqueness_of :user_id, :scope => [:reference_id, :field, :value]
+  validates_uniqueness_of :user_id, :scope => [:comment_id, :value]
+
 
   private
 
@@ -23,7 +26,10 @@ class Vote < ActiveRecord::Base
       Comment.increment_counter(:votes_minus, self.comment_id)
       Comment.decrement_counter(:rank, self.comment_id)
     end
-    # update reference if the comment is the most noted
+    most = Comment.where(reference_id: self.reference_id, field: self.field).order(rank: :desc).first
+    if self.comment.id == most.id
+      self.comment.reference.displayed_comment( self.comment )
+    end
     Reference.increment_counter(:nb_votes, self.reference_id)
     Timeline.increment_counter(:nb_votes, self.timeline_id)
   end

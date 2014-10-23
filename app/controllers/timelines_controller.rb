@@ -26,6 +26,7 @@ class TimelinesController < ApplicationController
   def show
     @timeline = Timeline.find(params[:id])
     session[:timeline_id] = @timeline.id
+    session[:timeline_name] = @timeline.name
   end
 
   private

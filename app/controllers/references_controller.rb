@@ -39,21 +39,17 @@ class ReferencesController < ApplicationController
   def show
     @reference = Reference.find(params[:id])
     session[:reference_id] = params[:id]
+    session[:reference_title] = @reference.title
     session[:timeline_id] = @reference.timeline_id
+    session[:timeline_name] = @reference.timeline.name
+    session[:fields_user] = []
     @comment = Comment.new()
-    @comments_f1 = @reference.comments.order(rank: :desc).where(field: 1).first(5)
-    @comment_f1_user = @reference.comments.where(field: 1, user: current_user.id).first
-    @comments_f2 = @reference.comments.order(rank: :desc).where(field: 2).first(5)
-    @comment_f2_user = @reference.comments.where(field: 2, user: current_user.id).first
-    @comments_f3 = @reference.comments.order(rank: :desc).where(field: 3).first(5)
-    @comment_f3_user = @reference.comments.where(field: 3, user: current_user.id).first
-    @comments_f4 = @reference.comments.order(rank: :desc).where(field: 4).first(5)
-    @comment_f4_user = @reference.comments.where(field: 4, user: current_user.id).first
-    @comments_f5 = @reference.comments.order(rank: :desc).where(field: 5).first(5)
-    @comment_f5_user = @reference.comments.where(field: 5, user: current_user.id).first
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json
+    @comments = Hash.new()
+    @comments_user = Hash.new()
+    for fi in 1..5
+      @comments[fi] = @reference.comments.order(rank: :desc).where(field: fi).first(5)
+      @comments_user[fi] = @reference.comments.where(field: fi, user: current_user.id).first
+      session[:fields_user].push(fi) if @comments_user[fi]
     end
   end
 

@@ -1,0 +1,22 @@
+<% provide(:title, "Edition du profil") %>
+
+<h2> Ajouter un commentaire à la réfèrence <%= link_to Reference.find(session[:reference_id]).title,  Reference.find(session[:reference_id]) %>. En lien avec la timeline <%= link_to Timeline.find(session[:timeline_id]).name,  Timeline.find(session[:timeline_id]) %></h2>
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+
+    <%= form_for(@comment) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+
+        <%= f.label "Le champ" %>
+        <%= f.select :field, [["L'éxperience", 1], ["Les résultats", 2],["Les limites", 3],["Quel rapport", 4],["Remarques", 5] ], {}, {class: 'staticfieldstore form-control'} %>
+
+        <%= f.label "Votre commentaire" %>
+        <%= f.text_area :content, class: 'staticpoststore form-control', rows: 16 %>
+
+        <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary" %>
+    <% end %>
+
+  </div>
+</div>

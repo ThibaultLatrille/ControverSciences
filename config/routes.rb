@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show]
   resources :references, only: [:new, :create, :show]
-  resources :comments,          only: [:create, :edit, :update, :index, :destroy]
+  resources :comments,          only: [:new, :create, :edit, :update, :index, :destroy]
   resources :votes,          only: [:new ,:create, :update, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

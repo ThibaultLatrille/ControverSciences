@@ -11,31 +11,14 @@ class Comment < ActiveRecord::Base
   validates :reference_id, presence: true
   validates :content, presence: true
   validates :field, presence: true
+  validates_uniqueness_of :user_id, :scope => [:reference_id, :field]
 
   private
 
   def cascading_save_comment
       reference = self.reference
-      if self.field == 1
-        if reference.f_1_id.nil?
-          reference.update_attributes(f_1_id: self.id, f_1_content: self.content, f_1_votes_plus: self.votes_plus, f_1_votes_minus: self.votes_minus)
-        end
-      elsif self.field == 2
-        if reference.f_2_id.nil?
-          reference.update_attributes(f_2_id: self.id, f_2_content: self.content, f_2_votes_plus: self.votes_plus, f_2_votes_minus: self.votes_minus)
-        end
-      elsif self.field == 3
-        if reference.f_3_id.nil?
-          reference.update_attributes(f_3_id: self.id, f_3_content: self.content, f_3_votes_plus: self.votes_plus, f_3_votes_minus: self.votes_minus)
-        end
-      elsif self.field == 4
-        if reference.f_4_id.nil?
-          reference.update_attributes(f_4_id: self.id, f_4_content: self.content, f_4_votes_plus: self.votes_plus, f_4_votes_minus: self.votes_minus)
-        end
-      elsif self.field == 5
-        if reference.f_5_id.nil?
-          reference.update_attributes(f_5_id: self.id, f_5_content: self.content, f_5_votes_plus: self.votes_plus, f_5_votes_minus: self.votes_minus)
-        end
+      if reference.field_id( self.field ).nil?
+        reference.displayed_comment( self )
       end
       Reference.increment_counter(:nb_edits, self.reference_id)
       Timeline.increment_counter(:nb_edits, self.timeline_id)
