@@ -1,6 +1,4 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-4 col-md-3 sidebar">
+    <div class="col-sm-6 col-md-2 sidebar">
       <div class="mini-submenu">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -13,25 +11,30 @@
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </span>
         </span>
-        <a href="#" class="list-group-item">
-          <i class="fa fa-comment-o"></i> Lorem ipsum
-        </a>
-        <a href="#" class="list-group-item">
-          <i class="fa fa-search"></i> Lorem ipsum
-        </a>
-        <a href="#" class="list-group-item">
-          <i class="fa fa-user"></i> Lorem ipsum
-        </a>
-        <a href="#" class="list-group-item">
-          <i class="fa fa-folder-open-o"></i> Lorem ipsum <span class="badge">14</span>
-        </a>
-        <a href="#" class="list-group-item">
-          <i class="fa fa-bar-chart-o"></i> Lorem ipsumr <span class="badge">14</span>
-        </a>
-        <a href="#" class="list-group-item">
-          <i class="fa fa-envelope"></i> Lorem ipsum
-        </a>
+        <li class="list-group-item">
+          <span class="glyphicon glyphicon-plus-sign" ></span> <%= link_to 'Créer une timeline', new_timeline_path %>
+        </li>
+        <% if session[:timeline_id] %>
+            <li class="list-group-item">
+            <span class="glyphicon glyphicon-plus-sign" ></span> Ajouter une réfèrence à la timeline
+              <%= link_to session[:timeline_name], timeline_path(session[:timeline_id]) %>
+            </li>
+        <% end %>
+        <% if session[:reference_id] %>
+        <li class="list-group-item">
+          <span class="glyphicon glyphicon-plus-sign" ></span> Ajouter un commentaire à la référence
+          <%= link_to session[:reference_title], reference_path(session[:reference_id]) %>
+           <select class="fieldstore form-control">
+             <option value="1"> L'expérience </option>
+             <option value="2"> Les résultats  </option>
+             <option value="3"> Les limites </option>
+             <option value="4"> Quel rapport </option>
+             <option value="5"> Remarques </option>
+           </select>
+           <textarea class="poststore form-control" rows="16" placeholder="Soyez courager, publiez votre commentaire"></textarea>
+           <button class="empty btn btn-default"> vider le cache </button>
+           <%= link_to "Publier mon commentaire", new_comment_path, class: "btn btn-lg btn-primary" %>
+        </li>
+        <% end %>
       </div>
     </div>
-  </div>
-</div>

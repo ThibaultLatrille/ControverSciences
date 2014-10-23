@@ -27,8 +27,8 @@ class Vote < ActiveRecord::Base
       Comment.decrement_counter(:rank, self.comment_id)
     end
     most = Comment.where(reference_id: self.reference_id, field: self.field).order(rank: :desc).first
-    if self.comment.id == most.id
-      self.comment.reference.displayed_comment( self.comment )
+    if most.reference.field_id( self.field ) != most.id
+      most.reference.displayed_comment( most )
     end
     Reference.increment_counter(:nb_votes, self.reference_id)
     Timeline.increment_counter(:nb_votes, self.timeline_id)
