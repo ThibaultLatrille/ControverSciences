@@ -61,16 +61,6 @@
                   if (!supportsLocalStorage()) {
                       dashpost.value = 'Votre navigateur date de mathusalem ! Par pitié, mettez à jour votre navigateur pour des raisons de sécurités et pour profitez des fonctionnalités de ControverSciences';
                   } else {
-                      try {
-                          setInterval(function() {
-                              localStorage.setItem('comment', dashpost.value);
-                              localStorage.setItem('field', dashfield.value);
-                          }, 500);
-                      } catch (e) {
-                          if (e == QUOTA_EXCEEDED_ERR) {
-                              alert('Commentaire tros gros ! ');
-                          }
-                      }
                       if (localStorage.getItem('comment')) {
                           dashpost.value = localStorage.getItem('comment');
                           dashfield.value = localStorage.getItem('field');
@@ -80,6 +70,16 @@
                       }
                       if ( field != null ) {
                           field.value = localStorage.getItem('field');
+                      }
+                      try {
+                          setInterval(function() {
+                              localStorage.setItem('comment', dashpost.value);
+                              localStorage.setItem('field', dashfield.value);
+                          }, 500);
+                      } catch (e) {
+                          if (e == QUOTA_EXCEEDED_ERR) {
+                              alert('Commentaire tros gros ! ');
+                          }
                       }
                       document.querySelector('.empty').onclick = function() {
                           localStorage.clear();
