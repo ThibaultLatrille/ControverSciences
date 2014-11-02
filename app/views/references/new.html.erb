@@ -12,6 +12,7 @@
 
         <%= f.submit "Suivant", class: "btn btn-primary" %>
         <%= f.submit "Précèdent", name: "back_button", class: "btn btn-primary" unless @reference.first_step? %>
+        <%= f.submit "Annuler", name: "stop_button", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>

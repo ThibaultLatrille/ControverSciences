@@ -8,15 +8,34 @@ class ReferencesController < ApplicationController
   end
 
   def create
-    session[:reference_params].deep_merge!(params[:reference]) if params[:reference]
-    @reference = Reference.new(session[:reference_params])
-    @reference.current_step = session[:reference_step]
+    if params[:stop_button]
+      session[:reference_step] = session[:reference_params] = nil
+      return redirect_to root_path
+    elsif params[:panel_button]
+      session[:reference_params] = {user_id: current_user.id, timeline_id: session[:timeline_id]}
+      @reference = Reference.new(session[:reference_params])
+      @reference.current_step = session[:reference_step] = @reference.steps.first
+      query = params[:reference][:title]
+    else
+      session[:reference_params].deep_merge!(params[:reference]) if params[:reference]
+      @reference = Reference.new(session[:reference_params])
+      @reference.current_step = session[:reference_step]
+      query = @reference.title
+    end
     if params[:back_button]
       @reference.previous_step
     elsif @reference.valid?
       if @reference.first_step?
-        if not @reference.title_en.empty?
-          fetch_from_crossref
+        unless query.empty?
+          begin
+          @reference = fetch_reference( query )
+          rescue ArgumentError
+            flash.now[:danger] = "Votre requête avec n'a rien donné de concluant, vous allez devoir tout rentrer à la main :-("
+          rescue ConnectionError
+            flash.now[:danger] = "Impossible de se connecter aux serveurs qui délivrent les metadonnées"
+          rescue StandardError
+            flash.now[:danger] = "Une erreur que nous ne savons pas gérer est survenue inopinément !"
+          end
         end
         @reference.next_step
       elsif @reference.last_step?
@@ -31,7 +50,7 @@ class ReferencesController < ApplicationController
       render 'new'
     else
       session[:reference_step] = session[:reference_params] = nil
-      flash[:success] = "Référence créer"
+      flash[:success] = "Référence crée"
       redirect_to @reference
     end
   end
@@ -56,7 +75,7 @@ class ReferencesController < ApplicationController
   private
 
   def reference_params
-    params.require(:reference).permit(:title, :title_en, :author, :year, :doi, :journal, :abstract)
+    params.require(:reference).permit(:title, :title_fr, :author, :year, :doi, :journal, :abstract)
   end
 
 end

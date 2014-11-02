@@ -1,11 +1,14 @@
 <%= f.label "DOI" %>
 <%= f.text_field :doi, class: 'form-control' %>
 
+<%= f.label "Lien vers la publication" %>
+<%= f.text_field :url, class: 'form-control' %>
+
 <%= f.label "Titre original" %>
-<%= f.text_field :title_en, class: 'form-control' %>
+<%= f.text_field :title, class: 'form-control' %>
 
 <%= f.label "Titre en Français" %>
-<%= f.text_field :title, class: 'form-control' %>
+<%= f.text_field :title_fr, class: 'form-control' %>
 
 <%= f.label "Journal" %>
 <%= f.text_field :journal, class: 'form-control' %>

@@ -47,7 +47,7 @@ users = User.order(:created_at).take(10)
     timeline.save()
     10.times do |n|
       title  = Faker::Lorem.sentence(2)
-      title_en  = Faker::Lorem.sentence(2)
+      title_fr  = Faker::Lorem.sentence(2)
       journal = 'Royal Society of'
       author = Faker::Name.name
       year = rand(1995..2005)
@@ -56,7 +56,7 @@ users = User.order(:created_at).take(10)
                    timeline_id: timeline.id,
                    user_id: user.id,
                    title: title,
-                   title_en: title_en,
+                   title_fr: title_fr,
                    journal: journal,
                    author: author,
                    doi: doi,

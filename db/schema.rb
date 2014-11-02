@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20141016062355) do
     t.text     "url"
     t.integer  "year"
     t.text     "title"
-    t.text     "title_en"
+    t.text     "title_fr"
     t.text     "author"
     t.text     "journal"
     t.text     "abstract",        default: ""

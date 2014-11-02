@@ -19,8 +19,8 @@
             <span class="glyphicon glyphicon-plus-sign" ></span> Ajouter une réfèrence à la timeline
               <%= link_to session[:timeline_name], timeline_path(session[:timeline_id]) %>
               <%= form_for :reference, url: references_path do |f| %>
-                  Doi: <%= f.text_field :doi, class: 'form-control' %><br />
-                  <%= f.submit "Ajouter une référence", class: "btn btn-primary" %>
+                  Titre ou doi : <%= f.text_field :title, class: 'form-control' %><br />
+                  <%= f.submit "Ajouter une référence", name: "panel_button", class: "btn btn-primary" %>
               <% end %>
             </li>
         <% end %>
