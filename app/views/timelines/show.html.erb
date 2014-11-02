@@ -7,12 +7,6 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title"><%= @timeline.name %></h3>
-    <% if logged_in? %>
-    <span class="pull-right">
-        <%= link_to '<span class="glyphicon glyphicon-plus-sign" ></span> Ajouter une réfèrence'.html_safe, new_reference_path %>
-    </span>
-        <div class="clearfix"></div>
-   <% end %>
 
   </div>
   <div class="panel-body">
@@ -36,6 +30,14 @@
     <div class="clearfix"></div>
   </div>
 </div>
+
+<% if logged_in? %>
+    <span class="new-reference">
+        <%= link_to '<span class="glyphicon glyphicon-plus-sign" >
+            </span> Ajouter une réfèrence à cette controverse'.html_safe,
+                    new_reference_path %>
+    </span>
+<% end %>
 
 <div class="timeline-jquery-example">
 </div>

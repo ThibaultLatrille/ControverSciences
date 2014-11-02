@@ -61,14 +61,14 @@ class ReferencesController < ApplicationController
     session[:reference_title] = @reference.title
     session[:timeline_id] = @reference.timeline_id
     session[:timeline_name] = @reference.timeline.name
-    session[:fields_user] = []
     @comment = Comment.new()
     @comments = Hash.new()
     @comments_user = Hash.new()
     for fi in 1..5
       @comments[fi] = @reference.comments.order(rank: :desc).where(field: fi).first(5)
+      if logged_in?
       @comments_user[fi] = @reference.comments.where(field: fi, user: current_user.id).first
-      session[:fields_user].push(fi) if @comments_user[fi]
+      end
     end
   end
 

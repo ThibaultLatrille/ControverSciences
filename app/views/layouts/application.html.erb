@@ -18,18 +18,20 @@
   <%= render 'layouts/header' %>
   <div class="container-fluid">
         <div class="row">
-        <% if logged_in? %>
-          <%= render 'layouts/panel' %>
-          <% else %>
-              <div class="col-sm-6 col-md-2">
+
+            <% if logged_in? %>
+              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+              <%= render 'layouts/panel' %>
               </div>
-        <% end %>
-                <div class="col-md-8">
+              <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+             <% else %>
+              <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
+            <% end %>
               <% flash.each do |message_type, message| %>
                 <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
               <% end %>
               <%= yield %>
-                </div>
+           </div>
         </div>
   </div>
   <%= render 'layouts/footer' %>

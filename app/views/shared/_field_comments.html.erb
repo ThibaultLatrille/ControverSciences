@@ -2,7 +2,7 @@
     <div class="panel-heading">
       <h4 class="panel-title">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href= <%= "#collapse#{field}" -%> >
-          <%= content ||= "Pas encore de commentaire dans cette section, soyez le premier " %>
+          <%= content ||= "<span class=\"no-comment\"> Pas encore de commentaire dans cette section, soyez le premier </span> ".html_safe %>
         </a>
       </h4>
     </div>
@@ -19,7 +19,7 @@
                             new_comment_path(field: field) %>
                 <% end %>
             <% end %>
-            <div class="col-md-8">
+            <div class="col-xs-12">
               <% if @comments[field].any? %>
                   <h3> Les <%= @comments[field].count %> commentaires les mieux notés </h3>
                   <ol class="comments">
