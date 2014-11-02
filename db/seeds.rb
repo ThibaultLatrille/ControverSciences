@@ -49,7 +49,7 @@ users = User.order(:created_at).take(10)
       title  = Faker::Lorem.sentence(2)
       title_en  = Faker::Lorem.sentence(2)
       journal = 'Royal Society of'
-      authors = Faker::Name.name
+      author = Faker::Name.name
       year = rand(1995..2005)
       doi = 'http://tinyurl.com/2g9mqh'
       reference=Reference.new( {
@@ -58,7 +58,7 @@ users = User.order(:created_at).take(10)
                    title: title,
                    title_en: title_en,
                    journal: journal,
-                   authors: authors,
+                   author: author,
                    doi: doi,
                    year: year })
       reference.save()

@@ -8,7 +8,7 @@
   <div class="panel-body">
         <ul class="list-group">
           <li class="list-group-item"> <div class="bold"> Titre original de la référence : </div> <%= @reference.title_en %></li>
-          <li class="list-group-item"> <div class="bold"> Les auteurs de l'étude : </div> <%= @reference.authors %> </li>
+          <li class="list-group-item"> <div class="bold"> Les auteurs de l'étude : </div> <%= @reference.author %> </li>
           <li class="list-group-item"> <div class="bold"> Année de publication : </div> <%= @reference.year %> </li>
           <li class="list-group-item"> <div class="bold"> Journal qui a osé éditer cette bouse : </div> <%= @reference.journal %></li>
           <% if not @reference.abstract.empty? %>

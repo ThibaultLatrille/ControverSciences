@@ -56,7 +56,7 @@ class ReferencesController < ApplicationController
   private
 
   def reference_params
-    params.require(:reference).permit(:title, :title_en, :authors, :year, :doi, :journal, :abstract)
+    params.require(:reference).permit(:title, :title_en, :author, :year, :doi, :journal, :abstract)
   end
 
 end

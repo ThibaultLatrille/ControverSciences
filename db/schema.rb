@@ -45,10 +45,11 @@ ActiveRecord::Schema.define(version: 20141016062355) do
     t.integer  "user_id"
     t.integer  "timeline_id"
     t.text     "doi"
+    t.text     "url"
     t.integer  "year"
     t.text     "title"
     t.text     "title_en"
-    t.text     "authors"
+    t.text     "author"
     t.text     "journal"
     t.text     "abstract",        default: ""
     t.integer  "nb_contributors", default: 0

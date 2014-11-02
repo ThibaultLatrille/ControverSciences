@@ -14,7 +14,7 @@
 <%= f.select :year, (1870..Date.current.year), {:include_blank => true}, { class: 'form-control'} %>
 
 <%= f.label "Les auteurs de l'étude" %>
-<%= f.text_field :authors, class: 'form-control' %>
+<%= f.text_field :author, class: 'form-control' %>
 
 <%= f.label "Abstract" %>
 <%= f.text_field :abstract, class: 'form-control' %>

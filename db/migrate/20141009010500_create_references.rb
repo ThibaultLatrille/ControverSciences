@@ -4,11 +4,13 @@ class CreateReferences < ActiveRecord::Migration
       t.references :user, index: true
       t.references :timeline, index: true
       t.text :doi
+      t.text :url
       t.integer :year
       t.text :title
       t.text :title_en
-      t.text :authors
+      t.text :author
       t.text :journal
+      t.text :publisher
       t.text :abstract, default: ""
       t.integer :nb_contributors, default: 0
       t.integer :nb_edits, default: 0
