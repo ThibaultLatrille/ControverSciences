@@ -64,7 +64,7 @@ def seed_references(users, timelines)
   references = []
   bibtex = BibTeX.open('./db/seeds.bib')
   timelines.each do |timeline|
-    array = Array((0..bibtex.length)).sample(5)
+    array = Array((0..bibtex.length-1)).sample(5)
     array.each do |rand|
       bib = bibtex[rand]
       ref = Reference.new(
