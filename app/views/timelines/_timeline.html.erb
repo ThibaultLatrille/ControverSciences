@@ -28,14 +28,25 @@
             </li>
           </ul>
           <div class="progress">
-            <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: 35%">
-              <span class="sr-only">35% Complete </span>
+            <div class="progress-bar progress-bar-striped progress-bar-danger"
+                 style="width: <%= timeline.star_percent(1) -%>% ;">
+              <%= timeline.star_1 -%>
             </div>
-            <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: 25%">
-              <span class="sr-only">20% Complete </span>
+            <div class="progress-bar progress-bar-striped progress-bar-warning"
+                 style="width: <%= timeline.star_percent(2) -%>% ;">
+              <%= timeline.star_2 -%>
             </div>
-            <div class="progress-bar progress-bar-success progress-bar-striped" style="width: 40%">
-              <span class="sr-only">10% Complete </span>
+            <div class="progress-bar progress-bar-striped progress-bar-success"
+                 style="width: <%= timeline.star_percent(3) -%>% ;">
+              <%= timeline.star_3 -%>
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-info"
+                 style="width: <%= timeline.star_percent(4) -%>% ;">
+              <%= timeline.star_4 -%>
+            </div>
+            <div class="progress-bar progress-bar-striped progress-bar-primary"
+                 style="width: <%= timeline.star_percent(5) -%>% ;">
+              <%= timeline.star_5 -%>
             </div>
           </div>
         </div>

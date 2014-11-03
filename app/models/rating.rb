@@ -15,29 +15,37 @@ class Rating < ActiveRecord::Base
   private
 
   def cascading_save_rating
-    increment_stars_counter(self.value)
-    Reference.increment_counter(:nb_votes_star, self.reference_id)
-    Timeline.increment_counter(:nb_votes_star, self.timeline_id)
-    ref = Reference.find(self.reference_id)
-    most = { 1 => ref.star_1, 2 => ref.star_2,
-            3 => ref.star_3, 4 => ref.star_4,
-            5 => ref.star_5}.max_by{ |k,v| v }[0]
-    if ref.star_most != most
-      ref.update_attributes(star_most: most)
-    end
+    increment_stars_counter( self.value )
+    Reference.increment_counter( :nb_votes_star, self.reference_id )
+    Timeline.increment_counter( :nb_votes_star, self.timeline_id )
+    update_most_stared( self.reference_id )
   end
 
   def cascading_update_rating
     old_value = self.value_was
     yield
-    decrement_stars_counter(old_value)
-    increment_stars_counter(self.value)
-    ref = Reference.find(self.reference_id)
-    most = { 1 => ref.star_1, 2 => ref.star_2,
-             3 => ref.star_3, 4 => ref.star_4,
-             5 => ref.star_5}.max_by{ |k,v| v }[0]
-    if ref.star_most != most
-      ref.update_attributes(star_most: most)
+    decrement_stars_counter( old_value )
+    increment_stars_counter( self.value )
+    update_most_stared( self.reference_id )
+  end
+
+  def update_most_stared( reference_id )
+    ref = Reference.find( reference_id )
+    dico = { 1 => ref.star_1, 2 => ref.star_2,
+            3 => ref.star_3, 4 => ref.star_4,
+            5 => ref.star_5}
+    most = dico.max_by{ |k,v| v }
+    if ref.star_most != most[0] && most[1]>3
+      ref.update_attributes(star_most: most[0])
+      v_to_symbol = { 1 => :star_1, 2 => :star_2,
+                      3 => :star_3, 4 => :star_4,
+                      5 => :star_5}
+      if dico.find_all{ |k,v| v == 4 }.length == 1
+        Timeline.increment_counter( v_to_symbol[most[0]], self.timeline_id)
+      else
+        Timeline.increment_counter( v_to_symbol[most[0]], self.timeline_id)
+        Timeline.decrement_counter( v_to_symbol[ref.star_most], self.timeline_id)
+      end
     end
   end
 
