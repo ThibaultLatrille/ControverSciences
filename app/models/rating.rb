@@ -15,7 +15,7 @@ class Rating < ActiveRecord::Base
   private
 
   def cascading_save_rating
-    self.increment_stars_counter(self.value)
+    increment_stars_counter(self.value)
     Reference.increment_counter(:nb_votes, self.reference_id)
     Timeline.increment_counter(:nb_votes, self.timeline_id)
     ref = self.reference
@@ -30,8 +30,8 @@ class Rating < ActiveRecord::Base
   def cascading_update_rating
     old_value = self.value_was
     yield
-    self.decrement_stars_counter(old_value)
-    self.increment_stars_counter(self.value)
+    decrement_stars_counter(old_value)
+    increment_stars_counter(self.value)
     ref = self.reference
     most = { 1 => ref.star_1, 2 => ref.star_2,
              3 => ref.star_3, 4 => ref.star_4,
