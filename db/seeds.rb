@@ -1,82 +1,117 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create!(name:  "thibault",
-             email: "thibault.latrille@ens-lyon.fr",
-             password:              "tiboln",
-             password_confirmation: "tiboln",
-	     admin: true,
-             activated: true,
-             activated_at: Time.zone.now)
+def seed_users
+  users = []
+  users << User.new(name:  "thibault",
+               email: "thibault.latrille@ens-lyon.fr",
+               password:              "password",
+               password_confirmation: "password",
+               admin: true,
+               activated: true,
+               activated_at: Time.zone.now)
 
-User.create!(name:  "Romain",
-             email: "romanoferon@free.fr",
-             password:              "controversciences",
-             password_confirmation: "controversciences",
-             admin: true,
-             activated: true,
-             activated_at: Time.zone.now)
+  users << User.new(name:  "Romain",
+               email: "romanoferon@free.fr",
+               password:              "password",
+               password_confirmation: "password",
+               admin: true,
+               activated: true,
+               activated_at: Time.zone.now)
 
-50.times do |n|
-  first_name  = Faker::Name.first_name
-  last_name  = Faker::Name.last_name
-  email = "#{n+1}@univmontp2.org"
-  password = "password"
-  User.create!(name: "#{first_name} #{last_name}",
-              email: email,
-              password:              password,
-              password_confirmation: password,
-              activated: true,
-              activated_at: Time.zone.now)
+  30.times do |n|
+    first_name  = Faker::Name.first_name
+    last_name  = Faker::Name.last_name
+    email = "#{n+1}@edu.org"
+    password = "password"
+    users << User.new(name: "#{first_name} #{last_name}",
+                 email: email,
+                 password:              password,
+                 password_confirmation: password,
+                 activated: true,
+                 activated_at: Time.zone.now)
+  end
+  users.map do |u|
+    u.save
+  end
+  users
 end
 
-users = User.order(:created_at).take(10)
-5.times do
-  name  = Faker::Lorem.sentence(5)
+def seed_timelines(users)
+  timelines = []
+  names = []
+  names << "Les OGMs sont-ils nocifs pour la santé ?"
+  names << "Les chats vont-ils conquérir la terre ?"
+  names << "Les ondes éléctromagnétiques sont elles dangeureuse ?"
+  names << "Les animaux ne sont pas homosexuels ?"
+  names << "Les poissons de Fukushima sont-ils fluorescent ?"
+  names << "La masturbation rend elle sourd ?"
+  names << "Les coraux vont-ils disparaître ?"
+  names << "L'herbe rend elle con ?"
+  names << "La café est il dangeureux ?"
+  names << "Le LHC va-t-il créer un trou noir ?"
+  names << "Yellowstone va bientôt sauter ?"
+
   content = Faker::Lorem.sentence(8)
-  users.each do |user|
-    timeline = Timeline.new(
-        user_id: user.id,
-        name:  name,
-        timeline_edit_content: content,
-        rank: 4.2)
-    timeline.save()
-    10.times do |n|
-      title  = Faker::Lorem.sentence(2)
-      title_fr  = Faker::Lorem.sentence(2)
-      journal = 'Royal Society of'
-      author = Faker::Name.name
-      year = rand(1995..2005)
-      doi = 'http://tinyurl.com/2g9mqh'
-      reference=Reference.new( {
-                   timeline_id: timeline.id,
-                   user_id: user.id,
-                   title: title,
-                   title_fr: title_fr,
-                   journal: journal,
-                   author: author,
-                   doi: doi,
-                   year: year })
-      reference.save()
+  names.each do |name|
+      timelines << Timeline.new(
+      user: users[rand(users.length)],
+      name:  name,
+      timeline_edit_content: content,
+      rank: 4.2)
+  end
+  timelines.map do |t|
+    t.save
+  end
+  timelines
+end
+
+def seed_references(users, timelines)
+  references = []
+  bibtex = BibTeX.open('./db/seeds.bib')
+  timelines.each do |timeline|
+    array = Array((0..bibtex.length)).sample(5)
+    array.each do |rand|
+      bib = bibtex[rand]
+      ref = Reference.new(
+          user: users[rand(users.length)],
+          timeline: timeline)
+      reference_attributes = [:title, :doi, :year, :url, :journal, :author, :abstract]
+      reference_attributes.each do |attr|
+        ref[attr] = bib.respond_to?(attr) ? bib[attr].value : ''
+      end
+      ref.title_fr = Faker::Lorem.sentence(4)
+      references << ref
     end
   end
+  references.map do |r|
+    r.save
+  end
+  references
 end
 
-users = User.all
-users.each do |user|
-  content = Faker::Lorem.sentence(8)
-  field = rand(1..5)
-  timeline = Reference.first.timeline
-  timeline.update_attributes(rank: 10)
-  comment=Comment.new(
-        user_id: user.id,
-        timeline_id:  timeline.id,
-        reference_id: 1,
-        field: field,
-        content: content)
-  comment.save()
+def seed_comments(users, timelines)
+  comments = []
+  timeline = timelines[0]
+  references = timeline.references
+  references.each do |ref|
+    contributors = users.sample(users.length/2)
+    contributors.each do |user|
+      content = Faker::Lorem.sentence(8)
+      field = rand(1..5)
+      comments << Comment.new(
+          user: user,
+          timeline:  timeline,
+          reference: ref,
+          field: field,
+          content: content)
+    end
+  end
+
+  comments.map do |c|
+    c.save
+  end
+  comments
 end
+
+users = seed_users
+timelines = seed_timelines(users)
+seed_references(users, timelines)
+seed_comments(users, timelines)
