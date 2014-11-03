@@ -77,6 +77,7 @@ def seed_references(users, timelines)
       reference_attributes.each do |attr|
         ref[attr] = bib.respond_to?(attr) ? bib[attr].value : ''
       end
+      ref.year = ref.year.to_i
       ref.title_fr = Faker::Lorem.sentence(4)
       references << ref
     end
