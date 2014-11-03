@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016062355) do
+ActiveRecord::Schema.define(version: 20141103124421) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -29,6 +29,19 @@ ActiveRecord::Schema.define(version: 20141016062355) do
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id"
   add_index "comments", ["timeline_id"], name: "index_comments_on_timeline_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "ratings", force: true do |t|
+    t.integer  "reference_id"
+    t.integer  "timeline_id"
+    t.integer  "user_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ratings", ["reference_id"], name: "index_ratings_on_reference_id"
+  add_index "ratings", ["timeline_id"], name: "index_ratings_on_timeline_id"
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id"
 
   create_table "reference_contributors", force: true do |t|
     t.integer  "user_id"
