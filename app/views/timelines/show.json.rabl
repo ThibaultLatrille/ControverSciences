@@ -16,3 +16,16 @@ attribute f_5_content: 'field5', if: lambda { |m| !m.f_5_content.nil? }
 node :readmoreurl do |ref|
   reference_url(ref)
 end
+
+node :color do |ref|
+  case ref.star_most
+    when 1 || 2
+      "red"
+    when 3
+      "yellow"
+    when 4 || 5
+      "green"
+    else
+      "else"
+  end
+end
