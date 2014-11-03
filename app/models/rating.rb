@@ -16,14 +16,14 @@ class Rating < ActiveRecord::Base
 
   def cascading_save_rating
     increment_stars_counter(self.value)
-    Reference.increment_counter(:nb_votes, self.reference_id)
-    Timeline.increment_counter(:nb_votes, self.timeline_id)
-    ref = self.reference
+    Reference.increment_counter(:nb_votes_star, self.reference_id)
+    Timeline.increment_counter(:nb_votes_star, self.timeline_id)
+    ref = Reference.find(self.reference_id)
     most = { 1 => ref.star_1, 2 => ref.star_2,
-             3 => ref.star_3, 4 => ref.star_4,
-             5 => ref.star_5}.max_by{ |k,v| v }[0]
+            3 => ref.star_3, 4 => ref.star_4,
+            5 => ref.star_5}.max_by{ |k,v| v }[0]
     if ref.star_most != most
-      ref.star_most = most
+      ref.update_attributes(star_most: most)
     end
   end
 
@@ -32,12 +32,12 @@ class Rating < ActiveRecord::Base
     yield
     decrement_stars_counter(old_value)
     increment_stars_counter(self.value)
-    ref = self.reference
+    ref = Reference.find(self.reference_id)
     most = { 1 => ref.star_1, 2 => ref.star_2,
              3 => ref.star_3, 4 => ref.star_4,
              5 => ref.star_5}.max_by{ |k,v| v }[0]
     if ref.star_most != most
-      ref.star_most = most
+      ref.update_attributes(star_most: most)
     end
   end
 

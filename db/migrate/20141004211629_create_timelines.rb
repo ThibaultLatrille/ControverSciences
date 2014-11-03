@@ -10,6 +10,7 @@ class CreateTimelines < ActiveRecord::Migration
       t.integer :nb_references, default: 0
       t.integer :nb_contributors, default: 0
       t.integer :nb_votes, default: 0
+      t.integer :nb_votes_star, default: 0
       t.integer :nb_edits, default: 0
       t.float :rank, index: true, default: 0
       t.timestamps
