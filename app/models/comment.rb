@@ -10,7 +10,7 @@ class Comment < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validates :content, presence: true
-  validates :field, presence: true
+  validates :field, presence: true, inclusion: { in: 1..5 }
   validates_uniqueness_of :user_id, :scope => [:reference_id, :field]
 
   private
@@ -22,14 +22,14 @@ class Comment < ActiveRecord::Base
       end
       Reference.increment_counter(:nb_edits, self.reference_id)
       Timeline.increment_counter(:nb_edits, self.timeline_id)
-      if not TimelineContributor.where({user_id: self.user_id, timeline_id: self.timeline_id}).any?
+      unless TimelineContributor.where({user_id: self.user_id, timeline_id: self.timeline_id}).any?
         timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
-        timrelation.save()
+        timrelation.save
         Timeline.increment_counter(:nb_contributors, self.timeline_id)
       end
-      if not ReferenceContributor.where({user_id: self.user_id, reference_id: self.reference_id}).any?
+      unless ReferenceContributor.where({user_id: self.user_id, reference_id: self.reference_id}).any?
         refrelation=ReferenceContributor.new({user_id: self.user_id, reference_id: self.reference_id, bool: true})
-        refrelation.save()
+        refrelation.save
         Reference.increment_counter(:nb_contributors, self.reference_id)
       end
   end

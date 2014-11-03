@@ -11,20 +11,21 @@ class Vote < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validates :comment_id, presence: true
-  validates :value, presence: true
-  validates :field, presence: true
+  validates :value, presence: true, inclusion: { in: 0..1 }
+  validates :field, presence: true, inclusion: { in: 1..5 }
   validates_uniqueness_of :user_id, :scope => [:reference_id, :field, :value]
   validates_uniqueness_of :user_id, :scope => [:comment_id, :value]
 
   private
 
   def cascading_save_vote
-    if self.value == 1
-      Comment.increment_counter(:votes_plus, self.comment_id)
-      Comment.increment_counter(:rank, self.comment_id)
-    elsif self.value == 0
-      Comment.increment_counter(:votes_minus, self.comment_id)
-      Comment.decrement_counter(:rank, self.comment_id)
+    case self.value
+      when 1
+        Comment.increment_counter(:votes_plus, self.comment_id)
+        Comment.increment_counter(:rank, self.comment_id)
+      when 0
+        Comment.increment_counter(:votes_minus, self.comment_id)
+        Comment.decrement_counter(:rank, self.comment_id)
     end
     most = Comment.where(reference_id: self.reference_id, field: self.field).order(rank: :desc).first
     if most.reference.field_id( self.field ) != most.id
@@ -37,16 +38,17 @@ class Vote < ActiveRecord::Base
   def cascading_update_vote
     old_comment_id = self.comment_id_was
     yield
-    if self.value == 1
-      Comment.decrement_counter( :votes_plus, old_comment_id)
-      Comment.decrement_counter( :rank, old_comment_id)
-      Comment.increment_counter( :votes_plus, self.comment_id)
-      Comment.increment_counter( :rank, self.comment_id)
-    elsif self.value == 0
-      Comment.decrement_counter(:votes_minus, old_comment_id)
-      Comment.increment_counter(:rank, old_comment_id)
-      Comment.increment_counter(:votes_minus, self.comment_id)
-      Comment.decrement_counter(:rank, self.comment_id)
+    case self.value
+      when 1
+        Comment.decrement_counter( :votes_plus, old_comment_id)
+        Comment.decrement_counter( :rank, old_comment_id)
+        Comment.increment_counter( :votes_plus, self.comment_id)
+        Comment.increment_counter( :rank, self.comment_id)
+      when 0
+        Comment.decrement_counter(:votes_minus, old_comment_id)
+        Comment.increment_counter(:rank, old_comment_id)
+        Comment.increment_counter(:votes_minus, self.comment_id)
+        Comment.decrement_counter(:rank, self.comment_id)
     end
     most = Comment.where(reference_id: self.reference_id, field: self.field ).order(rank: :desc).first
     if most.reference.field_id( self.field ) != most.id
