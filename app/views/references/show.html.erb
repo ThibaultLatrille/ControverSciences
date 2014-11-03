@@ -7,6 +7,7 @@
   </div>
   <div class="panel-body">
         <ul class="list-group">
+          <li class="list-group-item"> <div class="bold"> Doi : </div> <%= @reference.doi %></li>
           <li class="list-group-item"> <div class="bold"> Titre original de la référence : </div> <%= @reference.title %></li>
           <li class="list-group-item"> <div class="bold"> Les auteurs de l'étude : </div> <%= @reference.author %> </li>
           <li class="list-group-item"> <div class="bold"> Année de publication : </div> <%= @reference.year %> </li>
@@ -14,7 +15,7 @@
           <% if not @reference.abstract.empty? %>
           <li class="list-group-item"> <div class="bold"> Abstract (dans sa langue original) : </div> <%= @reference.abstract %></li>
           <% end %>
-          <li class="list-group-item"> <div class="bold"> Lien vers la référence : </div> <%= link_to @reference.doi, @reference.doi, target: "_blank" %></li>
+          <li class="list-group-item"> <div class="bold"> Lien vers la référence : </div> <%= link_to @reference.url, @reference.url, target: "_blank" %></li>
           <li class="list-group-item"> <div class="bold"> Timeline dans laquelle apparait cet article : </div> <%= link_to @reference.timeline.name, @reference.timeline, target: "_blank" %></li>
         </ul>
         <div class="panel-group" id="accordion">
