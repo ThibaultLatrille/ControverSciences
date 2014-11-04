@@ -19,13 +19,17 @@ end
 
 node :color do |ref|
   case ref.star_most
-    when 1 || 2
+    when 1
       "red"
-    when 3
+    when 2
       "yellow"
-    when 4 || 5
+    when 3
       "green"
+    when 4
+      "light-blue"
+    when 5
+      "blue"
     else
-      "else"
+      "default"
   end
 end

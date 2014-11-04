@@ -9,6 +9,7 @@ $color_border: #6682b5;
 $color_line: #6682b5;
 $color_caption: black;
 
+
 .justify{
   text-align: justify;
 }
@@ -94,21 +95,34 @@ display: none;
 }
 
 .red {
-border-color: rgb(217,83,79);
-background-color: #fdf4f4;
+  border-color: #d9534f;
+  background-color: #ffffff;
 }
 
 .yellow {
-border-color: rgb(240,173,78);
-background-color: #fefbf5;
+  border-color: #f0ad4e;
+  background-color: #ffffff;
 }
 
 .green {
-border-color: rgb(92,184,92);
-background-color: #f6fbf6;
+  border-color: #5cb85c;
+  background-color: #ffffff;
 }
 
+.light-blue {
+  border-color: #5bc0de;
+  background-color: #ffffff;
+}
 
+.blue {
+  border-color: #428bca;
+  background-color: #ffffff;
+}
+
+.default {
+  border-color: #dddddd;
+  background-color: #ffffff;
+}
 
   &.right {
      float: right;
