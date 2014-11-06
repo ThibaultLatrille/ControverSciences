@@ -1,11 +1,10 @@
 class VotesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :update, :destroy]
-  before_action :correct_user,   only: [:update, :destroy]
+  before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def new
     @new_comment = Comment.find(vote_params[:comment_id])
     if @new_comment.user_id == current_user.id
-      flash[:danger] = "Vous croyez vraiment qu'on aller vous laissez voter pour votre propre commentaire"
+      flash.now[:danger] = "Vous croyez vraiment qu'on aller vous laissez voter pour votre propre commentaire"
       redirect_to reference_path(@new_comment.reference_id)
     else
       @current_vote = Vote.where({user_id: current_user.id, reference_id: vote_params[:reference_id], field: vote_params[:field], value: vote_params[:value]}).first
@@ -20,7 +19,7 @@ class VotesController < ApplicationController
     if params[:update]
       comment = Comment.find(vote_params[:comment_id])
       if comment.user_id == current_user.id
-        flash[:danger] = "Vous croyez vraiment qu'on aller vous laissez voter pour votre propre commentaire"
+        flash.now[:danger] = "Vous croyez vraiment qu'on aller vous laissez voter pour votre propre commentaire"
         redirect_to reference_path(comment.reference_id)
       else
         @my_vote = Vote.where({user_id: current_user.id, reference_id: vote_params[:reference_id], field: vote_params[:field], value: vote_params[:value]}).first
