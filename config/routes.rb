@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :timelines, only: [:new, :create, :index, :show]
   resources :references, only: [:new, :create, :show]
   resources :comments,          only: [:new, :create, :edit, :update, :index, :destroy]
-  resources :votes,          only: [:new ,:create, :update, :destroy]
+  resources :votes,          only: [:new ,:create, :destroy]
+  resources :ratings,          only: [:create, :destroy]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
