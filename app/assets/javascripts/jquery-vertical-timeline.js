@@ -66,19 +66,19 @@
               <div class="caption"><%= data.caption %><\/div> \
             <% } %> \
             <% if (data.field1) { %>  \
-            <div class="text"> <div class="bold"> Field 1 <\/div> <%= data.field1 %><\/div> \
+            <div class="text"> <div class="bold"> L\'éxperience <\/div> <%= data.field1 %><\/div> \
             <% } %> \
             <% if (data.field2) { %>  \
-            <div class="text"> <div class="bold"> Field 2 <\/div> <%= data.field2 %><\/div> \
+            <div class="text"> <div class="bold"> Les résultats <\/div> <%= data.field2 %><\/div> \
             <% } %> \
             <% if (data.field3) { %>  \
-            <div class="text"> <div class="bold"> Field 3 <\/div> <%= data.field3 %><\/div> \
+            <div class="text"> <div class="bold"> Les limites <\/div> <%= data.field3 %><\/div> \
             <% } %> \
             <% if (data.field4) { %>  \
-            <div class="text"> <div class="bold"> Field 4 <\/div> <%= data.field4 %><\/div> \
+            <div class="text"> <div class="bold"> Quel rapport <\/div> <%= data.field4 %><\/div> \
             <% } %> \
             <% if (data.field5) { %>  \
-            <div class="text"> <div class="bold"> Field 5 <\/div> <%= data.field5 %><\/div> \
+            <div class="text"> <div class="bold"> Remarques <\/div> <%= data.field5 %><\/div> \
             <% } %> \
             <\/div> \
              <div class="clearfix"> \
