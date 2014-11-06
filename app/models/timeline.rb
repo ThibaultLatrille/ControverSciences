@@ -1,7 +1,7 @@
 class Timeline < ActiveRecord::Base
   belongs_to :user
   has_many :references, dependent: :destroy
-  has_many :votes, dependent: :destroy
+
   default_scope -> { order('rank DESC') }
 
   after_create :cascading_save_timeline
