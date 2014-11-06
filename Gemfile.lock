@@ -140,6 +140,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.1.2)
       json (~> 1.4)
+    redcarpet (3.2.0)
     ruby-progressbar (1.6.1)
     sass (3.2.19)
     sass-rails (4.0.3)
@@ -198,6 +199,7 @@ DEPENDENCIES
   rabl
   rails (= 4.1.6)
   rails_serve_static_assets
+  redcarpet
   sass-rails (= 4.0.3)
   sdoc (= 0.4.0)
   spring (= 1.1.3)
