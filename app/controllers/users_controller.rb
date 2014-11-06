@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.send_activation_email
       message = "Le lien pour activer le compte doit être parvenu à votre boîte mail, "
-      message += "à moins qu'il se soit noyé dans les spams."
+      message += "à moins qu'il se soit noyé dans vos spams ou perdu dans les méandres d'internet."
       flash[:info] = message
       redirect_to root_url
     else
