@@ -67,33 +67,37 @@ class ReferencesController < ApplicationController
     for fi in 1..5
       @comments[fi] = @reference.comments.order(rank: :desc).where(field: fi).first(5)
       if logged_in?
-      @comments_user[fi] = @reference.comments.where(field: fi, user: current_user.id).first
+      @comments_user[fi] = @reference.comments.where(field: fi, user_id: current_user.id).first
       end
     end
     sum = @reference.star_1+@reference.star_2+@reference.star_3+@reference.star_4+@reference.star_5
     if sum != 0
-      @rating = {}
-      @rating[1] = @reference.star_1*100/sum
-      @rating[2] = @reference.star_2*100/sum
-      @rating[3] = @reference.star_3*100/sum
-      @rating[4] = @reference.star_4*100/sum
-      @rating[5] = @reference.star_5*100/sum
+      @rating_hash = {}
+      @rating_hash[1] = @reference.star_1*100/sum
+      @rating_hash[2] = @reference.star_2*100/sum
+      @rating_hash[3] = @reference.star_3*100/sum
+      @rating_hash[4] = @reference.star_4*100/sum
+      @rating_hash[5] = @reference.star_5*100/sum
     else
-      @rating = { 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, panel: "default" }
+      @rating_hash = { 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, panel: "default" }
     end
     case @reference.star_most
       when 1
-        @rating[:panel] = "danger"
+        @rating_hash[:panel] = "danger"
       when 2
-        @rating[:panel] = "warning"
+        @rating_hash[:panel] = "warning"
       when 3
-        @rating[:panel] = "success"
+        @rating_hash[:panel] = "success"
       when 4
-        @rating[:panel] = "info"
+        @rating_hash[:panel] = "info"
       when 5
-        @rating[:panel] = "primary"
+        @rating_hash[:panel] = "primary"
       else
-        @rating[:panel] = "default"
+        @rating_hash[:panel] = "default"
+    end
+    if logged_in?
+      user_rating = @reference.ratings.where(user_id: current_user.id).first
+      @rating_hash[:user_value] = user_rating[:value] unless user_rating.nil?
     end
   end
 

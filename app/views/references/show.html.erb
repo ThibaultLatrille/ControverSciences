@@ -1,7 +1,7 @@
 <% provide(:title, @reference.title) %>
 
 <div class="col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
-<div class="panel panel-<%= @rating[:panel] -%>">
+<div class="panel panel-<%= @rating_hash[:panel] -%>">
   <div class="panel-heading">
     <h3 class="panel-title"><%= @reference.title_fr %></h3>
   </div>
@@ -32,30 +32,54 @@
         <%= link_to @reference.timeline.name, @reference.timeline,
                     target: "_blank" %></li>
       <li class="list-group-item">
-        <div class="bold"> Qui kiffe cette référence ?
+        <div class="bold"> Ceux que les autres pensent de cette réfèrence :
         </div>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-danger"
-               style="width: <%= @rating[1] -%>% ;">
+               style="width: <%= @rating_hash[1] -%>% ;">
             <%= @reference.star_1 -%>
           </div>
           <div class="progress-bar progress-bar-striped progress-bar-warning"
-               style="width: <%= @rating[2] -%>% ;">
+               style="width: <%= @rating_hash[2] -%>% ;">
             <%= @reference.star_2 -%>
           </div>
           <div class="progress-bar progress-bar-striped progress-bar-success"
-               style="width: <%= @rating[3] -%>% ;">
+               style="width: <%= @rating_hash[3] -%>% ;">
             <%= @reference.star_3 -%>
           </div>
           <div class="progress-bar progress-bar-striped progress-bar-info"
-               style="width: <%= @rating[4] -%>% ;">
+               style="width: <%= @rating_hash[4] -%>% ;">
             <%= @reference.star_4 -%>
           </div>
           <div class="progress-bar progress-bar-striped progress-bar-primary"
-               style="width: <%= @rating[5] -%>% ;">
+               style="width: <%= @rating_hash[5] -%>% ;">
             <%= @reference.star_5 -%>
           </div>
         </div>
+        <% if logged_in? %>
+            <%= form_for :rating, :url => ratings_path do |f| %>
+
+                <%= f.hidden_field :reference_id, value: @reference.id %>
+                <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
+                <% if @rating_hash[:user_value].nil? %>
+                    <%= f.label "Que pensez vous de cette référence" %>
+                <% else %>
+                    <%= f.label "Vous avez déjà donné #{@rating_hash[:user_value]} étoiles à cette référence. Mais vous avez peut être changé d'avis :" %>
+                <% end %>
+                <%= f.select :value, [["Elle rape un peu les fesses quand on se torche avec (1 étoile)", 1],
+                                      ["Heuresement pour eux que j'étais pas reviewer (2 étoiles)", 2],
+                                      ["Ils se sont quand même pas foulés trois neurones pour le pondre (3 étoiles)", 3],
+                                      ["Des bons petits gars et du bon boulot (4 étoiles)", 4],
+                                      ["J'ai eu un orgasme cérébrale en le lisant (5 étoiles)", 5]
+                                     ].delete_if{ |select| select[1] == @rating_hash[:user_value] },
+                             {}, {class: 'form-control'} %>
+                <% if @rating_hash[:user_value].nil? %>
+                    <%= f.submit "Enregistrer cet avis", class: "btn btn-primary" %>
+                <% else %>
+                    <%= f.submit "Enregistrer la modification", class: "btn btn-primary", name: "update" %>
+                <% end %>
+          <% end %>
+        <% end %>
       </li>
     </ul>
     <div class="panel-group" id="accordion">
