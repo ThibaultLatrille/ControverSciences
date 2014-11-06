@@ -32,7 +32,7 @@
         <%= link_to @reference.timeline.name, @reference.timeline,
                     target: "_blank" %></li>
       <li class="list-group-item">
-        <div class="bold"> Ceux que les autres pensent de cette réfèrence :
+        <div class="bold"> Ceux que les contributeurs pensent de cette réfèrence :
         </div>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-danger"
@@ -62,12 +62,12 @@
                 <%= f.hidden_field :reference_id, value: @reference.id %>
                 <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                 <% if @rating_hash[:user_value].nil? %>
-                    <%= f.label "Que pensez vous de cette référence" %>
+                    <%= f.label "Que pensez vous de ce papier ?" %>
                 <% else %>
-                    <%= f.label "Vous avez déjà donné #{@rating_hash[:user_value]} étoiles à cette référence. Mais vous avez peut être changé d'avis :" %>
+                    <%= f.label "Vous avez déjà donné #{@rating_hash[:user_value]} étoiles à ce papier. Mais vous avez peut être changé d'avis ?" %>
                 <% end %>
-                <%= f.select :value, [["Elle rape un peu les fesses quand on se torche avec (1 étoile)", 1],
-                                      ["Heuresement pour eux que j'étais pas reviewer (2 étoiles)", 2],
+                <%= f.select :value, [["Je trouve qu'il rape un peu les fesses quand on se torche avec (1 étoile)", 1],
+                                      ["Heuresement pour eux que je n'étais pas un des reviewers (2 étoiles)", 2],
                                       ["Ils se sont quand même pas foulés trois neurones pour le pondre (3 étoiles)", 3],
                                       ["Des bons petits gars et du bon boulot (4 étoiles)", 4],
                                       ["J'ai eu un orgasme cérébrale en le lisant (5 étoiles)", 5]

@@ -6,27 +6,29 @@
             </h2>
           </div>
           <ul class="list-group">
-            <li class="list-group-item">
+            <li class="list-group-item clearfix">
               <%= image_tag("icons/myicon-users.png", alt: "ref", height: "24px") %>
               Contributeurs
               <span class="badge"><%= timeline.nb_contributors %></span>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item clearfix">
               <%= image_tag("icons/myicon-ref.png", alt: "ref", height: "24px") %>
               References
               <span class="badge"><%= timeline.nb_references %></span>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item clearfix">
               <%= image_tag("icons/myicon-edit-rule.png", alt: "ref", height: "24px") %>
               Editions
               <span class="badge"><%= timeline.nb_edits %></span>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item clearfix">
               <%= image_tag("icons/myicon-votes.png", alt: "ref", height: "24px") %>
               Votes
               <span class="badge"><%= timeline.nb_votes %></span>
             </li>
           </ul>
+          <div class="bold"> Ceux que les contributeurs pensent de cette réfèrence :
+          </div>
           <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-danger"
                  style="width: <%= timeline.star_percent(1) -%>% ;">
