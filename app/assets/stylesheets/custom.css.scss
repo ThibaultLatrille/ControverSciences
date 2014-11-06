@@ -302,6 +302,10 @@ input {
   }
 }
 
+.panel-heading .panel-title{
+  padding-bottom: 10px;
+  padding-top: 2px;
+}
 .panel-heading .accordion-toggle:after {
   /* symbol for "opening" panels */
   font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
