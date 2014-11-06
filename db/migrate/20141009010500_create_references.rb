@@ -22,6 +22,7 @@ class CreateReferences < ActiveRecord::Migration
       t.integer :star_4, default: 0
       t.integer :star_5, default: 0
       t.integer :star_most, default: 0
+      t.boolean :star_counted, default: false
       t.integer :f_1_id
       t.text :f_1_content
       t.integer :f_1_votes_plus
