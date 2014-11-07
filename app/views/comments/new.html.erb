@@ -16,7 +16,8 @@
         <% end %>
 
         <%= f.label "Votre commentaire" %>
-        <%= f.text_area :content, class: 'staticpoststore form-control', rows: 16 %>
+        <%= f.text_area :content, {:rows => 16, :placeholder => "Enter some text.",
+                                            :class => "staticpoststore form-control", "data-provide" => "markdown" }%>
 
         <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary" %>
     <% end %>
