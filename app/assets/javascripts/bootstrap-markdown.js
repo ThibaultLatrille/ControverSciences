@@ -1021,7 +1021,7 @@
           name: 'cmdImage',
           title: 'Image',
           hotkey: 'Ctrl+G',
-          icon: { glyph: 'glyphicon glyphicon-picture', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
+          icon: { glyph: 'glyphicon glyphicon-pushpin', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
           callback: function(e){
             // Give ![] surround the selection and prepend the image link
             var chunk, cursor, selected = e.getSelection(), content = e.getContent(), link
@@ -1172,52 +1172,6 @@
             } else {
               e.replaceSelection('`'+chunk+'`')
               cursor = selected.start+1
-            }
-
-            // Set the cursor
-            e.setSelection(cursor,cursor+chunk.length)
-          }
-        },
-        {
-          name: 'cmdQuote',
-          hotkey: 'Ctrl+Q',
-          title: 'Quote',
-          icon: { glyph: 'glyphicon glyphicon-comment', fa: 'fa fa-quote-left', 'fa-3': 'icon-quote-left' },
-          callback: function(e) {
-            // Prepend/Give - surround the selection
-            var chunk, cursor, selected = e.getSelection(), content = e.getContent()
-
-            // transform selection and set the cursor into chunked text
-            if (selected.length == 0) {
-              // Give extra word
-              chunk = e.__localize('quote here')
-              e.replaceSelection('> '+chunk)
-              // Set the cursor
-              cursor = selected.start+2
-
-            } else {
-              if (selected.text.indexOf('\n') < 0) {
-                chunk = selected.text
-
-                e.replaceSelection('> '+chunk)
-
-                // Set the cursor
-                cursor = selected.start+2
-              } else {
-                var list = []
-
-                list = selected.text.split('\n')
-                chunk = list[0]
-
-                $.each(list,function(k,v) {
-                  list[k] = '> '+v
-                })
-
-                e.replaceSelection('\n\n'+list.join('\n'))
-
-                // Set the cursor
-                cursor = selected.start+4
-              }
             }
 
             // Set the cursor
