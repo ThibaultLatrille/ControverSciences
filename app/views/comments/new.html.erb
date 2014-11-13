@@ -21,6 +21,8 @@
 
         <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary" %>
     <% end %>
-
+  </div>
+  <div class="col-md-3">
+    <%= select("post", "person_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
   </div>
 </div>

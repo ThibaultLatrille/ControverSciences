@@ -1,8 +1,9 @@
 class CommentsController < ApplicationController
-  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
 
   def new
     @comment = Comment.new()
+    @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title_fr, :id )
   end
 
   def create

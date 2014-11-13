@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  require 'HTMLlinks'
+
   belongs_to :user
   belongs_to :timeline
   belongs_to :reference
@@ -21,19 +23,21 @@ class Comment < ActiveRecord::Base
         # (ignored by default)
         hard_wrap:       true,
         # hash for extra link options, for example 'nofollow'
-        link_attributes: { rel: 'nofollow' }
+        link_attributes: { rel: 'nofollow' },
         # more
         # will remove <img> tags from output
-        # no_images: true
+        no_images: true,
         # will remove <a> tags from output
         # no_links: true
         # will remove <style> tags from output
-        # no_styles: true
+        no_styles: true,
         # generate links for only safe protocols
-        # safe_links_only: true
+        safe_links_only: true
         # and more ... (prettify, with_toc_data, xhtml)
     }
-    renderer = Redcarpet::Render::HTML.new(render_options)
+
+    renderer = HTMLlinks.new(render_options)
+    renderer.
 
     extensions = {
         #will parse links without need of enclosing them
@@ -43,7 +47,7 @@ class Comment < ActiveRecord::Base
         # ```ruby
         # block of code
         # ```
-        fenced_code_blocks: true,
+        #fenced_code_blocks: true,
         # will ignore standard require for empty lines surrounding HTML blocks
         lax_spacing:        true,
         # will not generate emphasis inside of words, for example no_emph_no
