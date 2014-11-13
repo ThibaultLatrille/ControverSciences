@@ -21,7 +21,7 @@ class Timeline < ActiveRecord::Base
       when 2
         self.star_2*100/self.nb_references
       when 3
-        self.star_3*100/self.nb_references
+        (self.nb_references - self.star_1 - self.star_2 - self.star_4 - self.star_5)*100/self.nb_references
       when 4
         self.star_4*100/self.nb_references
       when 5

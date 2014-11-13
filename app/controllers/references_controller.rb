@@ -86,8 +86,6 @@ class ReferencesController < ApplicationController
         @rating_hash[:panel] = "danger"
       when 2
         @rating_hash[:panel] = "warning"
-      when 3
-        @rating_hash[:panel] = "success"
       when 4
         @rating_hash[:panel] = "info"
       when 5

@@ -27,7 +27,7 @@
               <span class="badge"><%= timeline.nb_votes %></span>
             </li>
           </ul>
-          <div class="bold"> Ce que les contributeurs pensent de cette réfèrence :
+          <div class="bold"> Ce que les contributeurs pensent des références de cette controverse :
           </div>
           <div class="progress">
             <div class="progress-bar progress-bar-striped progress-bar-danger"
@@ -38,9 +38,9 @@
                  style="width: <%= timeline.star_percent(2) -%>% ;">
               <%= timeline.star_2 -%>
             </div>
-            <div class="progress-bar progress-bar-striped progress-bar-success"
+            <div class="progress-bar progress-bar-default"
                  style="width: <%= timeline.star_percent(3) -%>% ;">
-              <%= timeline.star_3 -%>
+              <%= timeline.nb_references - timeline.star_1 - timeline.star_2 - timeline.star_4 - timeline.star_5 -%>
             </div>
             <div class="progress-bar progress-bar-striped progress-bar-info"
                  style="width: <%= timeline.star_percent(4) -%>% ;">
