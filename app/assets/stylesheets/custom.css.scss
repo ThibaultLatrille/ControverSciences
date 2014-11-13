@@ -323,15 +323,13 @@ input {
   padding-top: 2px;
 }
 .panel-heading .accordion-toggle:after {
-  /* symbol for "opening" panels */
-  font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
-  content: "\e114";    /* adjust as needed, taken from bootstrap.css */
-  float: right;        /* adjust as needed */
-  color: grey;         /* adjust as needed */
+  font-family: 'Glyphicons Halflings';
+  content: "\e113";
+  float: right;
+  color: grey;
 }
 .panel-heading .accordion-toggle.collapsed:after {
-  /* symbol for "collapsed" panels */
-  content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+  content: "\e114";
 }
 
 /* Sidebar Styles */

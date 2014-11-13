@@ -1,13 +1,13 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href= <%= "#collapse#{field}" -%> >
+        <div class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href= <%= "#collapse#{field}" -%> >
           <% if content.nil? %>
               <%= "<span class=\"no-comment\"> Pas encore de commentaire dans cette section, soyez le premier </span> ".html_safe %>
           <% else %>
               <%= content.html_safe %>
           <% end %>
-        </a>
+        </div>
       </h4>
     </div>
     <div id=<%= "collapse#{field}" -%> class="panel-collapse collapse">
