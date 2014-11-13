@@ -48,9 +48,10 @@
       'field4': 'field4',
       'field5': 'field5',
       'color':'',
+      'expansion': 'collapsed',
       'read_more_url': 'read more url'
     },
-    postTemplate: '<div class="item post <%= options.defaultExpansion %>" data-timestamp="<%= data.timestamp %>"> \
+    postTemplate: '<div class="item post <%= data.expansion %>" data-timestamp="<%= data.timestamp %>"> \
         <div class="inner <%= data.color %>"> \
           <div class="title"> \
             <h3> \
@@ -119,7 +120,8 @@
       <\/div> \
     ',
     loadingTemplate: '<div class="loading"> \
-        Loading... \
+        Vous avez sous les yeux est une controverse de Schrodïnger, elle est ou bien \
+        vide ou bien tellement remplie que le chargement est long... A moins que ce ne soit une superposition des deux. \
       <\/div> \
     '
   };

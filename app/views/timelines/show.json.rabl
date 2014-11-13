@@ -33,3 +33,11 @@ node :color do |ref|
       "default"
   end
 end
+
+node :expansion do |ref|
+  if ref.star_most > 3
+    'expanded'
+  else
+    'collapsed'
+  end
+end
