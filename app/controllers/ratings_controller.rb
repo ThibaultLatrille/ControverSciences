@@ -14,8 +14,6 @@ class RatingsController < ApplicationController
       @rating = Rating.new({user_id: current_user.id,
                             timeline_id: rating_params[:timeline_id],
                             reference_id: rating_params[:reference_id], value: rating_params[:value]})
-      puts @rating.reference_id
-      puts @rating.timeline_id
       if @rating.save
         case rating_params[:value]
           when 1 || 2

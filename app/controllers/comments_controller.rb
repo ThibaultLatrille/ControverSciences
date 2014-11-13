@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   def new
     @comment = Comment.new()
-    @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title_fr, :id )
+    @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title, :id )
   end
 
   def create
@@ -17,14 +17,13 @@ class CommentsController < ApplicationController
               reference_id: session[:reference_id], timeline_id: session[:timeline_id]})
       @comment.content = comment_params[:content]
       @comment.field = comment_params[:field]
-      links = @comment.markdown(reference_url)
+      links = @comment.markdown(root_url)
       if @comment.save
         reference_ids = Reference.where(timeline_id: @comment.timeline_id).pluck(:id)
         links.each do |link|
           if reference_ids.include? link
             Link.create({comment_id: @comment.id, user_id: current_user.id,
                          reference_id: link, timeline_id: @comment.timeline_id})
-            puts Link.last.inspect
           end
         end
         flash[:success] = "Edition enregistré"
@@ -37,18 +36,17 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
-    @content = @comment.content
+    @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title, :id )
     if params[:content]
     @comment.content = params[:content]
     end
   end
 
-
   def update
     @comment = Comment.find(params[:id])
     if @comment.user_id == current_user.id
       @comment.content = comment_params[:content]
-      links = @comment.markdown(reference_url)
+      links = @comment.markdown(root_url)
       if Comment.update(@comment.id, content: @comment.content,
             content_markdown: @comment.content_markdown)
         Link.where(user_id: current_user.id, comment_id: @comment.id).destroy_all
@@ -57,7 +55,6 @@ class CommentsController < ApplicationController
           if reference_ids.include? link
             Link.create({comment_id: @comment.id, user_id: current_user.id,
                          reference_id: link, timeline_id: @comment.timeline_id})
-            puts Link.last.inspect
           end
         end
         ref = Reference.where(id: @comment.reference_id).first
@@ -65,7 +62,6 @@ class CommentsController < ApplicationController
           ref.displayed_comment( @comment )
         end
         flash[:success] = "Commentaire modifié"
-        puts links
         redirect_to @comment.reference
       else
         render 'edit'

@@ -15,7 +15,6 @@ module ReferencesHelper
   def parse_ref_json(ref_json)
     ref = Reference.new
     fullcit = ref_json["fullCitation"]
-    puts fullcit
     begin
       ref.journal = /<i>(.+)<\/i>/.match(fullcit)[1]
     rescue StandardError

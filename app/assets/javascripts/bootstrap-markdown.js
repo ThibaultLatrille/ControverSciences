@@ -894,7 +894,7 @@
         data: [{
           name: 'cmdBold',
           hotkey: 'Ctrl+B',
-          title: 'Bold',
+          title: 'Gras',
           icon: { glyph: 'glyphicon glyphicon-bold', fa: 'fa fa-bold', 'fa-3': 'icon-bold' },
           callback: function(e){
             // Give/remove ** surround the selection
@@ -902,7 +902,7 @@
 
             if (selected.length == 0) {
               // Give extra word
-              chunk = e.__localize('strong text')
+              chunk = e.__localize('texte important')
             } else {
               chunk = selected.text
             }
@@ -923,7 +923,7 @@
           }
         },{
           name: 'cmdItalic',
-          title: 'Italic',
+          title: 'Italique',
           hotkey: 'Ctrl+I',
           icon: { glyph: 'glyphicon glyphicon-italic', fa: 'fa fa-italic', 'fa-3': 'icon-italic' },
           callback: function(e){
@@ -932,7 +932,7 @@
 
             if (selected.length == 0) {
               // Give extra word
-              chunk = e.__localize('emphasized text')
+              chunk = e.__localize('texte souligné')
             } else {
               chunk = selected.text
             }
@@ -951,46 +951,12 @@
             // Set the cursor
             e.setSelection(cursor,cursor+chunk.length)
           }
-        },{
-          name: 'cmdHeading',
-          title: 'Heading',
-          hotkey: 'Ctrl+H',
-          icon: { glyph: 'glyphicon glyphicon-header', fa: 'fa fa-header', 'fa-3': 'icon-font' },
-          callback: function(e){
-            // Append/remove ### surround the selection
-            var chunk, cursor, selected = e.getSelection(), content = e.getContent(), pointer, prevChar
-
-            if (selected.length == 0) {
-              // Give extra word
-              chunk = e.__localize('heading text')
-            } else {
-              chunk = selected.text + '\n';
-            }
-
-            // transform selection and set the cursor into chunked text
-            if ((pointer = 4, content.substr(selected.start-pointer,pointer) == '### ')
-                || (pointer = 3, content.substr(selected.start-pointer,pointer) == '###')) {
-              e.setSelection(selected.start-pointer,selected.end)
-              e.replaceSelection(chunk)
-              cursor = selected.start-pointer
-            } else if (selected.start > 0 && (prevChar = content.substr(selected.start-1,1), !!prevChar && prevChar != '\n')) {
-              e.replaceSelection('\n\n### '+chunk)
-              cursor = selected.start+6
-            } else {
-              // Empty string before element
-              e.replaceSelection('### '+chunk)
-              cursor = selected.start+4
-            }
-
-            // Set the cursor
-            e.setSelection(cursor,cursor+chunk.length)
-          }
         }]
       },{
         name: 'groupLink',
         data: [{
           name: 'cmdUrl',
-          title: 'URL/Link',
+          title: 'Insérer un lien HTTP',
           hotkey: 'Ctrl+L',
           icon: { glyph: 'glyphicon glyphicon-link', fa: 'fa fa-link', 'fa-3': 'icon-link' },
           callback: function(e){
@@ -999,12 +965,12 @@
 
             if (selected.length == 0) {
               // Give extra word
-              chunk = e.__localize('enter link description here')
+              chunk = e.__localize('entrez la description du lien ici')
             } else {
               chunk = selected.text
             }
 
-            link = prompt(e.__localize('Insert Hyperlink'),'http://')
+            link = prompt(e.__localize('Insérez le lien hypertexte'),'http://')
 
             if (link != null && link != '' && link != 'http://' && link.substr(0,4) == 'http') {
               var sanitizedLink = $('<div>'+link+'</div>').text()
@@ -1018,44 +984,33 @@
             }
           }
         },{
-          name: 'cmdImage',
-          title: 'Image',
+          name: 'cmdLinkInt',
+          title: 'Lien vers une référence de cette controverse',
           hotkey: 'Ctrl+G',
           icon: { glyph: 'glyphicon glyphicon-pushpin', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
-          callback: function(e){
-            // Give ![] surround the selection and prepend the image link
-            var chunk, cursor, selected = e.getSelection(), content = e.getContent(), link
+            callback: function(e){
+                // Replace selection with some drinks
+                var cursor,
+                    selected = e.getSelection(), content = e.getContent()
 
-            if (selected.length == 0) {
-              // Give extra word
-              chunk = e.__localize('enter image description here')
-            } else {
-              chunk = selected.text
+                var elt = document.getElementById("list-ref")
+                var chunk = elt.options[elt.selectedIndex].text
+                var link = elt.options[elt.selectedIndex].value
+
+                // transform selection and set the cursor into chunked text
+                e.replaceSelection('['+chunk+']('+link+')')
+                cursor = selected.start
+
+                // Set the cursor
+                e.setSelection(cursor,cursor+chunk.length)
             }
-
-            link = prompt(e.__localize('Insert Image Hyperlink'),'http://')
-
-            if (link != null && link != '' && link != 'http://' && link.substr(0,4) == 'http') {
-              var sanitizedLink = $('<div>'+link+'</div>').text()
-              
-              // transform selection and set the cursor into chunked text
-              e.replaceSelection('!['+chunk+']('+sanitizedLink+' "'+e.__localize('enter image title here')+'")')
-              cursor = selected.start+2
-
-              // Set the next tab
-              e.setNextTab(e.__localize('enter image title here'))
-
-              // Set the cursor
-              e.setSelection(cursor,cursor+chunk.length)
-            }
-          }
         }]
       },{
         name: 'groupMisc',
         data: [{
           name: 'cmdList',
           hotkey: 'Ctrl+U',
-          title: 'Unordered List',
+          title: 'Liste à puces',
           icon: { glyph: 'glyphicon glyphicon-list', fa: 'fa fa-list', 'fa-3': 'icon-list-ul' },
           callback: function(e){
             // Prepend/Give - surround the selection
@@ -1064,7 +1019,7 @@
             // transform selection and set the cursor into chunked text
             if (selected.length == 0) {
               // Give extra word
-              chunk = e.__localize('list text here')
+              chunk = e.__localize('texte à puce ici')
 
               e.replaceSelection('- '+chunk)
               // Set the cursor
@@ -1102,7 +1057,7 @@
         {
           name: 'cmdListO',
           hotkey: 'Ctrl+O',
-          title: 'Ordered List',
+          title: 'Liste ordonnée',
           icon: { glyph: 'glyphicon glyphicon-th-list', fa: 'fa fa-list-ol', 'fa-3': 'icon-list-ol' },
           callback: function(e) {
 
@@ -1112,7 +1067,7 @@
             // transform selection and set the cursor into chunked text
             if (selected.length == 0) {
               // Give extra word
-              chunk = e.__localize('list text here')
+              chunk = e.__localize('texte ici')
               e.replaceSelection('1. '+chunk)
               // Set the cursor
               cursor = selected.start+3
@@ -1145,38 +1100,6 @@
             // Set the cursor
             e.setSelection(cursor,cursor+chunk.length)
           }
-        },
-        {
-          name: 'cmdCode',
-          hotkey: 'Ctrl+K',
-          title: 'Code',
-          icon: { glyph: 'glyphicon glyphicon-asterisk', fa: 'fa fa-code', 'fa-3': 'icon-code' },
-          callback: function(e) {
-
-            // Give/remove ** surround the selection
-            var chunk, cursor, selected = e.getSelection(), content = e.getContent()
-
-            if (selected.length == 0) {
-              // Give extra word
-              chunk = e.__localize('code text here')
-            } else {
-              chunk = selected.text
-            }
-
-            // transform selection and set the cursor into chunked text
-            if (content.substr(selected.start-1,1) == '`'
-                && content.substr(selected.end,1) == '`' ) {
-              e.setSelection(selected.start-1,selected.end+1)
-              e.replaceSelection(chunk)
-              cursor = selected.start-1
-            } else {
-              e.replaceSelection('`'+chunk+'`')
-              cursor = selected.start+1
-            }
-
-            // Set the cursor
-            e.setSelection(cursor,cursor+chunk.length)
-          }
         }]
       },{
         name: 'groupUtil',
@@ -1184,8 +1107,8 @@
           name: 'cmdPreview',
           toggle: true,
           hotkey: 'Ctrl+P',
-          title: 'Preview',
-          btnText: 'Preview',
+          title: 'Prévisualiser',
+          btnText: 'Prévisualiser',
           btnClass: 'btn btn-primary btn-sm',
           icon: { glyph: 'glyphicon glyphicon-search', fa: 'fa fa-search', 'fa-3': 'icon-search' },
           callback: function(e){

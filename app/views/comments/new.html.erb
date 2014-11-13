@@ -4,7 +4,8 @@
 
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
+  <div class="col-md-12 col-lg-8 col-lg-offset-2">
+
     <%= form_for(@comment) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
@@ -15,14 +16,15 @@
             <%= f.select :field, [["L'éxperience", 1], ["Les résultats", 2],["Les limites", 3],["Quel rapport", 4],["Remarques", 5] ], {}, {class: 'staticfieldstore form-control'} %>
         <% end %>
 
+        <%= f.label "Références vers lesquels vont pouvez créer des liens" %>
+
+        <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
+
         <%= f.label "Votre commentaire" %>
         <%= f.text_area :content, {:rows => 16, :placeholder => "Enter some text.",
                                             :class => "staticpoststore form-control", "data-provide" => "markdown" }%>
 
         <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary" %>
     <% end %>
-  </div>
-  <div class="col-md-3">
-    <%= select("post", "person_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
   </div>
 </div>
