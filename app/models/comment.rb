@@ -16,7 +16,7 @@ class Comment < ActiveRecord::Base
   validates :field, presence: true, inclusion: { in: 1..5 }
   validates_uniqueness_of :user_id, :scope => [:reference_id, :field]
 
-  def markdown
+  def markdown(ref_url)
     render_options = {
         # will remove from the output HTML tags inputted by user
         filter_html:     true,
@@ -39,6 +39,7 @@ class Comment < ActiveRecord::Base
 
     renderer = HTMLlinks.new(render_options)
     renderer.links = []
+    renderer.ref_url = ref_url
 
     extensions = {
         #will parse links without need of enclosing them

@@ -17,7 +17,7 @@ class CommentsController < ApplicationController
               reference_id: session[:reference_id], timeline_id: session[:timeline_id]})
       @comment.content = comment_params[:content]
       @comment.field = comment_params[:field]
-      links = @comment.markdown
+      links = @comment.markdown(reference_url)
       if @comment.save
         reference_ids = Reference.where(timeline_id: @comment.timeline_id).pluck(:id)
         links.each do |link|
@@ -48,7 +48,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.user_id == current_user.id
       @comment.content = comment_params[:content]
-      links = @comment.markdown
+      links = @comment.markdown(reference_url)
       if Comment.update(@comment.id, content: @comment.content,
             content_markdown: @comment.content_markdown)
         Link.where(user_id: current_user.id, comment_id: @comment.id).destroy_all
