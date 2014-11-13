@@ -14,8 +14,9 @@ class CommentsController < ApplicationController
       @comment = Comment.new({user_id: current_user.id, reference_id: session[:reference_id], timeline_id: session[:timeline_id]})
       @comment.content = comment_params[:content]
       @comment.field = comment_params[:field]
+      links = @comment.markdown
       if @comment.save
-        #if not already one comment from current user
+        puts links
         flash[:success] = "Edition enregistré"
         redirect_to controller: 'references', action: 'show', id: session[:reference_id]
       else
@@ -35,8 +36,12 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find(params[:id])
-    if @comment.update(comment_params) && @comment.user_id == current_user.id
+    @comment.content = comment_params[:content]
+    links = @comment.markdown
+    if Comment.update(@comment.id, content: @comment.content,
+          content_markdown: @comment.content_markdown) && @comment.user_id == current_user.id
       flash[:success] = "Commentaire modifié"
+      puts links
       redirect_to @comment.reference
     else
       render 'edit'

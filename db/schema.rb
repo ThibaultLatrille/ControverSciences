@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141103124421) do
+ActiveRecord::Schema.define(version: 20141113101141) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -19,11 +19,12 @@ ActiveRecord::Schema.define(version: 20141103124421) do
     t.integer  "reference_id"
     t.integer  "field"
     t.text     "content"
-    t.integer  "votes_plus",   default: 0
-    t.integer  "votes_minus",  default: 0
-    t.integer  "rank",         default: 0
+    t.integer  "votes_plus",       default: 0
+    t.integer  "votes_minus",      default: 0
+    t.integer  "rank",             default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "content_markdown"
   end
 
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id"

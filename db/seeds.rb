@@ -94,12 +94,14 @@ def seed_comments(users, timelines)
     contributors.each do |user|
       content = Faker::Lorem.sentence(8)
       field = rand(1..5)
-      comments << Comment.new(
+      comment = Comment.new(
           user: user,
           timeline:  timeline,
           reference: ref,
           field: field,
           content: content)
+      comment.markdown
+      comments << comment
     end
   end
   comments.map do |c|

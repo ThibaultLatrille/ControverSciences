@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="comment">
-  <span class="content"><%= comment.markdown %></span>
+  <span class="content"><%= comment.content_markdown.html_safe %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= link_to comment.user.name, comment.user %>
   </span>

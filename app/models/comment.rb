@@ -37,7 +37,7 @@ class Comment < ActiveRecord::Base
     }
 
     renderer = HTMLlinks.new(render_options)
-
+    renderer.links = []
 
     extensions = {
         #will parse links without need of enclosing them
@@ -59,7 +59,8 @@ class Comment < ActiveRecord::Base
         # will require a space after # in defining headers
         # space_after_headers: true
     }
-    Redcarpet::Markdown.new(renderer, extensions).render(self.content).html_safe
+    self.content_markdown = Redcarpet::Markdown.new(renderer, extensions).render(self.content)
+    renderer.links
   end
 
   private
