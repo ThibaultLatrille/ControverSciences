@@ -60,6 +60,10 @@ class CommentsController < ApplicationController
             puts Link.last.inspect
           end
         end
+        ref = Reference.where(id: @comment.reference_id).first
+        if ref.field_id( @comment.field ) == @comment.id
+          ref.displayed_comment( @comment )
+        end
         flash[:success] = "Commentaire modifié"
         puts links
         redirect_to @comment.reference
