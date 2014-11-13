@@ -37,7 +37,7 @@ class Comment < ActiveRecord::Base
     }
 
     renderer = HTMLlinks.new(render_options)
-    renderer.
+
 
     extensions = {
         #will parse links without need of enclosing them
