@@ -12,11 +12,11 @@
             </span>
         </span>
         <li class="list-group-item">
-          <span class="glyphicon glyphicon-plus-sign" ></span> <%= link_to 'Créer une timeline', new_timeline_path %>
+          <span class="glyphicon glyphicon-plus-sign" ></span> <%= link_to 'Créer une controverse', new_timeline_path %>
         </li>
         <% if session[:timeline_id] %>
             <li class="list-group-item">
-            <span class="glyphicon glyphicon-plus-sign" ></span> Ajouter une réfèrence à la timeline
+            <span class="glyphicon glyphicon-plus-sign" ></span> Ajouter une réfèrence à la controverse
               <%= link_to session[:timeline_name], timeline_path(session[:timeline_id]) %>
               <%= form_for :reference, url: references_path do |f| %>
                   Titre ou doi : <%= f.text_field :title, class: 'form-control' %><br />
