@@ -5,6 +5,7 @@ class Comment < ActiveRecord::Base
   belongs_to :timeline
   belongs_to :reference
   has_many :votes, dependent: :destroy
+  has_many :links, dependent: :destroy
 
   after_create :cascading_save_comment
 

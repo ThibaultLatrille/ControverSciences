@@ -1,6 +1,11 @@
 class Timeline < ActiveRecord::Base
   belongs_to :user
+  has_many :timeline_contributors, dependent: :destroy
   has_many :references, dependent: :destroy
+  has_many :ratings, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :links, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   default_scope -> { order('rank DESC') }
 

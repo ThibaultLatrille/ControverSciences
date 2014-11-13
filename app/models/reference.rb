@@ -1,8 +1,10 @@
 class Reference < ActiveRecord::Base
   belongs_to :user
   belongs_to :timeline
+  has_many :links, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :ratings, dependent: :destroy
+  has_many :reference_contributors, dependent: :destroy
 
   after_create  :cascading_save_ref
 
