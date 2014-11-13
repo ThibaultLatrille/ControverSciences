@@ -13,11 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require bootstrap-markdown.js
+//= require markdown
+//= require to-markdown
+//= require bootstrap-markdown
 //= require jquery-vertical-timeline.libs.js
 //= require jquery-vertical-timeline.js
 //= require jquery.infinitescroll.js
 //= require page_timelines.js
 //= require page_users.js
 //= require grid.js
-
