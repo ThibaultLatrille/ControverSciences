@@ -1,18 +1,34 @@
 <% provide(:title, "Nouvelle timeline") %>
 
-<h2>Créer une nouvelle timeline</h2>
+<h2>Créer une nouvelle Controverse</h2>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@timeline) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :name %>
+        <%= f.label :Nom %>
         <%= f.text_field :name, class: 'form-control' %>
 
-        <%= f.label :content %>
+        <%= f.label :Contenu %>
         <%= f.text_field :timeline_edit_content, class: 'form-control' %>
 
+        <%= f.label :Tags %> </br>
+
+        <div data-toggle="buttons">
+          <% [["planet","Environement"],["biology","Biologie"],["immunity","Immunité et santé"],
+              ["pharmacy","Médicaments"],["animal","Animaux"],["plant","Végétaux"],
+              ["space","Espace"],["physics","Physique"],["chemistry","Chimie"],
+              ["economy","Economie et Finance"],["social","Sciences sociales"]].each do |key, value| %>
+          <label class="btn btn-default">
+          <%= f.check_box :tag_list, { :multiple => true}, checked_value = key, unchecked_value = nil %>
+            <%= image_tag("icons/myicon-#{key}.png", alt: value, height: "28px")%> <%= value %>
+          </label>
+          <% end %>
+        </div>
+        <div>
+          </br>
+        </div>
         <%= f.submit "Créer une timeline", class: "btn btn-primary" %>
     <% end %>
   </div>

@@ -46,7 +46,7 @@ def seed_timelines(users)
   names << "La café est il dangeureux ?"
   names << "Le LHC va-t-il créer un trou noir ?"
   names << "Yellowstone va bientôt sauter ?"
-  tags = ["chemistry", "biology", "physics", "economy", "environment", "social", "immunity", "pharmacy"]
+  tags = %w(chemistry biology physics economy planet social immunity pharmacy animal plant space)
   content = Faker::Lorem.sentence(8)
   names.each do |name|
       timeline = Timeline.new(
@@ -54,7 +54,7 @@ def seed_timelines(users)
       name:  name,
       timeline_edit_content: content,
       rank: 4.2)
-      timeline.set_tag_list( tags.sample(rand(1..4)) )
+      timeline.set_tag_list( tags.sample(rand(1..7)) )
       timelines << timeline
   end
   timelines.map do |t|

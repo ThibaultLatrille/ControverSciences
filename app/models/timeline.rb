@@ -1,4 +1,5 @@
 class Timeline < ActiveRecord::Base
+  attr_accessor :tag_list
   belongs_to :user
   has_many :timeline_contributors, dependent: :destroy
   has_many :references, dependent: :destroy
@@ -19,17 +20,21 @@ class Timeline < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 180 }
 
   def star_percent( value )
-    case value
-      when 1
-        self.star_1*100/self.nb_references
-      when 2
-        self.star_2*100/self.nb_references
-      when 3
-        (self.nb_references - self.star_1 - self.star_2 - self.star_4 - self.star_5)*100/self.nb_references
-      when 4
-        self.star_4*100/self.nb_references
-      when 5
-        self.star_5*100/self.nb_references
+    if self.nb_references > 0
+      case value
+        when 1
+          self.star_1*100/self.nb_references
+        when 2
+          self.star_2*100/self.nb_references
+        when 3
+          (self.nb_references - self.star_1 - self.star_2 - self.star_4 - self.star_5)*100/self.nb_references
+        when 4
+          self.star_4*100/self.nb_references
+        when 5
+          self.star_5*100/self.nb_references
+      end
+    else
+      0
     end
   end
 
@@ -43,12 +48,17 @@ class Timeline < ActiveRecord::Base
   end
 
   def get_tag_list
-    tags.map(&:name).join(", ")
+    tags.map(&:name)
   end
 
   def set_tag_list(names)
-    self.tags = names.map do |n|
-      Tag.where(name: n.strip).first_or_create!
+    if !names.nil?
+      list = %w(chemistry biology physics economy planet social immunity pharmacy animal plant space)
+      self.tags = names.map do |n|
+        if list.include? n
+          Tag.where(name: n.strip).first_or_create!
+        end
+      end
     end
   end
 

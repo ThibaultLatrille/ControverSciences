@@ -14,11 +14,9 @@ class TimelinesController < ApplicationController
   end
 
   def create
-    @timeline = current_user.timelines.build(timeline_params)
-
-    names = ["life sciences", "biology"]
-    @timeline.set_tag_list (names)
-    puts @timeline.get_tag_list
+    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name],
+                      timeline_edit_content: timeline_params[:timeline_edit_content])
+    @timeline.set_tag_list(params[:timeline][:tag_list][0..6])
     if @timeline.save
       flash[:success] = "Timeline créer"
       redirect_to @timeline
