@@ -48,7 +48,8 @@
       <% [["planet","Environement"],["biology","Biologie"],["immunity","Immunité et santé"],
           ["pharmacy","Médicaments"],["animal","Animaux"],["plant","Végétaux"],
           ["space","Espace"],["physics","Physique"],["chemistry","Chimie"],
-          ["economy","Economie et Finance"],["social","Sciences sociales"]].each do |key, value| %>
+          ["economy","Economie et Finance"],["social","Sciences sociales"],
+          ["pie","Mathématiques"]].each do |key, value| %>
           <li>
             <%= link_to image_tag("icons/myicon-#{key}.png", alt: value,
                  height: "28px")+"&nbsp".html_safe+value, timelines_path(:sort => params[:sort],

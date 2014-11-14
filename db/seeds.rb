@@ -46,7 +46,7 @@ def seed_timelines(users)
   names << "La café est il dangeureux ?"
   names << "Le LHC va-t-il créer un trou noir ?"
   names << "Yellowstone va bientôt sauter ?"
-  tags = %w(chemistry biology physics economy planet social immunity pharmacy animal plant space)
+  tags = %w(chemistry biology physics economy planet social immunity pharmacy animal plant space pie)
   content = Faker::Lorem.sentence(8)
   names.each do |name|
       timeline = Timeline.new(

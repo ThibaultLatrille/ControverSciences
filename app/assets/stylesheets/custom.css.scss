@@ -60,13 +60,15 @@ $nav_hover: #6682b5;
 
 @media handheld{
   #footer-screen { display: none; }
+  #sidebar { display: none; }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 1024px) {
   #footer-screen { display: none; }
+  #sidebar { display: none; }
 }
 
-@media screen and (min-width: 651px) {
+@media screen and (min-width: 1025px) {
   #footer-screen { display: block; }
 }
 
