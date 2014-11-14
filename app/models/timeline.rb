@@ -7,6 +7,10 @@ class Timeline < ActiveRecord::Base
   has_many :links, dependent: :destroy
   has_many :votes, dependent: :destroy
 
+  has_many :taggings
+  has_many :tags, through: :taggings
+
+
   default_scope -> { order('rank DESC') }
 
   after_create :cascading_save_timeline
@@ -26,6 +30,25 @@ class Timeline < ActiveRecord::Base
         self.star_4*100/self.nb_references
       when 5
         self.star_5*100/self.nb_references
+    end
+  end
+
+  def self.tagged_with(name)
+    Tag.find_by_name!(name).timelines
+  end
+
+  def self.tag_counts
+    Tag.select("tags.*, count(taggings.tag_id) as count").
+        joins(:taggings).group("taggings.tag_id")
+  end
+
+  def get_tag_list
+    tags.map(&:name).join(", ")
+  end
+
+  def set_tag_list(names)
+    self.tags = names.map do |n|
+      Tag.where(name: n.strip).first_or_create!
     end
   end
 

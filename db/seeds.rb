@@ -46,13 +46,16 @@ def seed_timelines(users)
   names << "La café est il dangeureux ?"
   names << "Le LHC va-t-il créer un trou noir ?"
   names << "Yellowstone va bientôt sauter ?"
+  tags = ["chemistry", "biology", "physics", "economy", "environment", "social", "immunity", "pharmacy"]
   content = Faker::Lorem.sentence(8)
   names.each do |name|
-      timelines << Timeline.new(
+      timeline = Timeline.new(
       user: users[rand(users.length)],
       name:  name,
       timeline_edit_content: content,
       rank: 4.2)
+      timeline.set_tag_list( tags.sample(rand(1..4)) )
+      timelines << timeline
   end
   timelines.map do |t|
     t.save!
@@ -86,6 +89,7 @@ def seed_references(users, timelines)
 end
 
 def seed_comments(users, timelines)
+  root_url = "0.0.0.0:3000/"
   comments = []
   timeline = timelines[0]
   references = timeline.references
@@ -100,7 +104,7 @@ def seed_comments(users, timelines)
           reference: ref,
           field: field,
           content: content)
-      comment.markdown
+      comment.markdown (root_url)
       comments << comment
     end
   end
