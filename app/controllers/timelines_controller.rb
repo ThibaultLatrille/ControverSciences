@@ -2,10 +2,16 @@ class TimelinesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create]
 
   def index
-    if params[:sort]=='date'
-    @timelines = Timeline.order(created_at: :desc).page(params[:page]).per(36)
+    if !params[:sort].nil?
+      if params[:sort]=='date'
+        @timelines = Timeline.order(created_at: :desc).page(params[:page]).per(6)
+      else
+        @timelines = Timeline.order(rank: :desc).page(params[:page]).per(6)
+      end
+    elsif !params[:tag].nil?
+      @timelines = Timeline.tagged_with(params[:tag]).page(params[:page]).per(6)
     else
-    @timelines = Timeline.order(rank: :desc).page(params[:page]).per(36)
+      @timelines = Timeline.order(rank: :desc).page(params[:page]).per(6)
     end
   end
 
