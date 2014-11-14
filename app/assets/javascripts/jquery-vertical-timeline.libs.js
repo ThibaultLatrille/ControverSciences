@@ -172,25 +172,6 @@ u[o]&&(delete u[o],c?delete n[l]:typeof n.removeAttribute!==i?n.removeAttribute(
     },
 
     /*
-      Use Cross-Origin XMLHttpRequest to get the data in browsers that support it.
-    */
-    xhrFetch: function(path, callback) {
-      //support IE8's separate cross-domain object
-      var xhr = inLegacyIE ? new XDomainRequest() : new XMLHttpRequest();
-      xhr.open("GET", this.endpoint + path);
-      var self = this;
-      xhr.onload = function() {
-        try {
-          var json = JSON.parse(xhr.responseText);
-        } catch (e) {
-          console.error(e);
-        }
-        callback.call(self, json);
-      };
-      xhr.send();
-    },
-    
-    /*
       Insert the URL into the page as a script tag. Once it's loaded the spreadsheet data
       it triggers the callback. This helps you avoid cross-domain errors
       http://code.google.com/apis/gdata/samples/spreadsheet_sample.html
