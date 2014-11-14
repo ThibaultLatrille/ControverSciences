@@ -2,16 +2,38 @@ class TimelinesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create]
 
   def index
-    if !params[:sort].nil?
-      if params[:sort]=='date'
-        @timelines = Timeline.order(created_at: :desc).page(params[:page]).per(6)
+    if !params[:tag].nil?
+      if params[:tag] != 'all'
+        if !params[:sort].nil?
+          if !params[:order].nil?
+            @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(8)
+          else
+            @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => :desc).page(params[:page]).per(8)
+          end
+        else
+          if !params[:order].nil?
+            @timelines = Timeline.tagged_with(params[:tag]).order(:rank => params[:order].to_sym).page(params[:page]).per(8)
+          else
+            @timelines = Timeline.tagged_with(params[:tag]).order(:rank => :desc).page(params[:page]).per(8)
+          end
+        end
       else
-        @timelines = Timeline.order(rank: :desc).page(params[:page]).per(6)
+        if !params[:sort].nil?
+          if !params[:order].nil?
+            @timelines = Timeline.order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(8)
+          else
+            @timelines = Timeline.order(params[:sort].to_sym => :desc).page(params[:page]).per(8)
+          end
+        else
+          if !params[:order].nil?
+            @timelines = Timeline.order(:rank => params[:order].to_sym).page(params[:page]).per(8)
+          else
+            @timelines = Timeline.order(:rank => :desc).page(params[:page]).per(8)
+          end
+        end
       end
-    elsif !params[:tag].nil?
-      @timelines = Timeline.tagged_with(params[:tag]).page(params[:page]).per(6)
     else
-      @timelines = Timeline.order(rank: :desc).page(params[:page]).per(6)
+      @timelines = Timeline.order(rank: :desc).page(params[:page]).per(8)
     end
   end
 

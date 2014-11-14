@@ -1,27 +1,58 @@
 <% provide(:title, "timelines") %>
 
 <div class="btn-group">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuTri" data-toggle="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button"
+            id="dropdownMenuTri" data-toggle="dropdown">
       Trier par
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" >
-      <li> <%= link_to "Date de création",timelines_path(:sort=> 'date') %> </li>
-      <li> <%= link_to "Magique ",timelines_path(:sort=> 'rank') %> </li>
+      <li> <%= link_to "Les plus cotées (par défault)",timelines_path(:sort=> 'rank',
+                               :order => params[:order], :tag => params[:tag]) %> </li>
+      <li> <%= link_to "Date de création",timelines_path(:sort => 'created_at',
+                               :order => params[:order], :tag => params[:tag]) %> </li>
+      <li> <%= link_to "Nombre de références",timelines_path(:sort => 'nb_references',
+                               :order => params[:order], :tag => params[:tag]) %> </li>
+      <li> <%= link_to "Nombre de contributeurs",timelines_path(:sort => 'nb_contributors',
+                               :order => params[:order], :tag => params[:tag]) %> </li>
+      <li> <%= link_to "Nombre d\'édition",timelines_path(:sort => 'nb_edits',
+                               :order => params[:order], :tag => params[:tag]) %> </li>
+      <li> <%= link_to "Nombre de votes",timelines_path(:sort => 'nb_votes',
+                               :order => params[:order], :tag => params[:tag]) %> </li>
     </ul>
 </div>
 <div class="btn-group">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuTag" data-toggle="dropdown">
-    Par tag
+  <button class="btn btn-default dropdown-toggle" type="button"
+          id="dropdownMenuOrder" data-toggle="dropdown">
+    Ordre
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu" >
+    <li> <%= link_to "Décroissant (par défault)",timelines_path(:sort=> params[:sort],
+                                         :order => 'desc', :tag => params[:tag]) %> </li>
+    <li> <%= link_to "Croissant",timelines_path(:sort => 'created_at',
+                                         :order => 'asc', :tag => params[:tag]) %> </li>
+  </ul>
+</div>
+<div class="btn-group">
+    <button class="btn btn-default dropdown-toggle" type="button"
+            id="dropdownMenuTag" data-toggle="dropdown">
+    Tag
     <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" >
+      <li>
+        <%= link_to 'Tous (par défault)', timelines_path(:sort => params[:sort],
+                                                      :order => params[:order], :tag => 'all')%>
+      </li>
       <% [["planet","Environement"],["biology","Biologie"],["immunity","Immunité et santé"],
           ["pharmacy","Médicaments"],["animal","Animaux"],["plant","Végétaux"],
           ["space","Espace"],["physics","Physique"],["chemistry","Chimie"],
           ["economy","Economie et Finance"],["social","Sciences sociales"]].each do |key, value| %>
           <li>
-            <%= link_to image_tag("icons/myicon-#{key}.png", alt: value, height: "28px")+"&nbsp".html_safe+value,timelines_path(:tag => key)%>
+            <%= link_to image_tag("icons/myicon-#{key}.png", alt: value,
+                 height: "28px")+"&nbsp".html_safe+value, timelines_path(:sort => params[:sort],
+                                          :order => params[:order], :tag => key) %>
           </li>
       <% end %>
     </ul>
