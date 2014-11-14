@@ -170,6 +170,7 @@
             // determine loading.finished actions
             opts.loading.finished = opts.loading.finished || function() {
                 $('.timeline_name').responsiveEqualHeightGrid();
+                $('.caption').responsiveEqualHeightGrid();
                 if (!opts.state.isBeyondMaxPage)
                     opts.loading.msg.fadeOut(opts.loading.speed);
             };
