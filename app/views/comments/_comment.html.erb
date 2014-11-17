@@ -13,7 +13,7 @@
       <%= comment.votes_minus %>
     </div>
   </div>
-  <% if logged_in? %>
+  <% if logged_in? && melioration %>
   <div class="pull-right">
     <div>
       <%= link_to image_tag("icons/myicon-escalation.png", alt: "escalation", height: "24px"),

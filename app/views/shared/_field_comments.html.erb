@@ -16,7 +16,7 @@
                 <% if @comments_user[field] %>
                     Vous avez déjà écrit un commentaire (<%= link_to '<span class="glyphicon glyphicon-edit"></span> Modifier'.html_safe, edit_comment_path(@comments_user[field]) -%>)
                 <ol class="comments">
-                <%= render @comments_user[field] %>
+                <%= render @comments_user[field], melioration: false %>
                 </ol>
                 <% else %>
                 <%= link_to '<span class="glyphicon glyphicon-plus" ></span> Ajouter votre commentaire à cette section '.html_safe,
@@ -27,7 +27,7 @@
               <% if @comments[field].any? %>
                   <h3> Les <%= @comments[field].count %> commentaires les mieux notés </h3>
                   <ol class="comments">
-                    <%= render @comments[field] %>
+                    <%= render @comments[field], melioration: true %>
                   </ol>
                   <%= link_to "Il y a d'autres commentaires, assouvisez votre soif de connaissance et decouvrez les", comments_path(reference_id: @reference.id, field: field) %>
               <% end %>
