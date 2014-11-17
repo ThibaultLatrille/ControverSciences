@@ -1,4 +1,4 @@
-<% provide(:title, 'All users') %>
+<% provide(:title, 'Suggestions reçues') %>
 <h2> Les suggestions d'autres contributeurs</h2>
 
 <table class='table table-hover' id='meliorations'>
@@ -13,7 +13,7 @@
 </thead>
 
 <tbody class="page">
-<%= render @meliorations %>
+<%= render @meliorations, mine: false %>
 </tbody>
 </table>
 

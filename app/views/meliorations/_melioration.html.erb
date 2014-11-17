@@ -13,7 +13,13 @@
         <% end %>
     <% end %>
   </td>
-  <td><%= link_to melioration.user.name, melioration.user %></td>
+  <td>
+    <% if mine %>
+        <%= link_to User.find( melioration.to_user_id ).name, user_path(melioration.to_user_id) %>
+    <% else %>
+        <%= link_to melioration.user.name, melioration.user %>
+    <% end %>
+  </td>
   <td><%= link_to melioration.comment.timeline.name, melioration.comment.timeline %> </td>
   <td><%= link_to melioration.comment.reference.title, melioration.comment.reference %> </td>
   <td><%= link_to melioration.message, melioration %>  </td>

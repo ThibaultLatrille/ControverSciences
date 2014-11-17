@@ -39,6 +39,9 @@
 				current_user %> </li>
                 <li><%= link_to '<span class="glyphicon glyphicon-cog"></span> Paramètres'.html_safe,
 				edit_user_path(current_user) %> </li>
+                <li class="divider"></li>
+                <li><%= link_to "<span class=\"badge\">#{current_user.waiting_meliorations}</span> Suggestions envoyées".html_safe,
+                                meliorations_path %> </li>
                 <li><%= link_to "<span class=\"badge\">#{current_user.pending_meliorations}</span> Suggestions reçues".html_safe,
                                 pending_meliorations_path %> </li>
                 <li class="divider"></li>
