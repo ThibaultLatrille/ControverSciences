@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20141117153406) do
     t.text     "content"
     t.text     "message"
     t.boolean  "pending",    default: true
-    t.boolean  "accepted",   default: false
+    t.boolean  "accepted"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

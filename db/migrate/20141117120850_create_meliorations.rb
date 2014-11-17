@@ -7,7 +7,7 @@ class CreateMeliorations < ActiveRecord::Migration
       t.text :content
       t.text :message
       t.boolean :pending, default: true
-      t.boolean :accepted, default: false
+      t.boolean :accepted
 
       t.timestamps
     end
