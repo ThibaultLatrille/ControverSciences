@@ -52,6 +52,7 @@ GEM
       sass (~> 3.2.19)
     compass-rails (2.0.0)
       compass (>= 0.12.2)
+    diffy (3.0.7)
     erubis (2.7.0)
     execjs (2.2.2)
     faker (1.4.2)
@@ -184,6 +185,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.2.0.0)
   coffee-rails (= 4.0.1)
   compass-rails
+  diffy
   faker (= 1.4.2)
   faraday
   faraday_middleware

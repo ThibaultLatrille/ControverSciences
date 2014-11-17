@@ -31,6 +31,7 @@ class MeliorationsController < ApplicationController
       @melioration.update_attributes( pending: false )
       User.decrement_counter( :pending_meliorations, current_user.id)
     end
+    @diff = Diffy::Diff.new(@comment.content, @melioration.content, :include_plus_and_minus_in_html => true).to_s(:html)
   end
 
   def accept
