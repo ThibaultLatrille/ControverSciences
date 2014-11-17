@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   resources :comments,          only: [:new, :create, :edit, :update, :index, :destroy]
   resources :votes,          only: [:new ,:create, :destroy]
   resources :ratings,          only: [:create, :destroy]
+  resources :meliorations, only: [:new,:create, :index, :destroy] do
+    collection do
+      get 'pending'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
