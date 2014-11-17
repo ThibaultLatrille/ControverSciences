@@ -1,0 +1,37 @@
+<% provide(:title, "Edition du profil") %>
+
+<h2> Modifier un commentaire existant </h2>
+
+La référence :
+
+<%= link_to Reference.where(id: @comment.reference_id ).pluck(:title)[0], reference_url(@comment.reference_id) %> <br>
+La timeline :
+<%= link_to Timeline.where(id: @comment.timeline_id ).pluck(:name)[0], timeline_url(@comment.timeline_id) %>
+<div class="row">
+  <div class="col-md-12 col-lg-8 col-lg-offset-2">
+
+    <%= form_for(@melioration) do |f| %>
+
+        <%= f.label "L'analyse que vous souhaitez modifier'" %>
+        <ol class="comments">
+          <%= render @comment %>
+        </ol>
+
+        <%= f.hidden_field :comment_id, value: @comment.id %>
+        <%= f.label "Références vers lesquels vous pouvez créer des liens" %>
+
+        <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
+
+        <%= f.label "Votre amélioration" %>
+        <%= f.text_area :content, {:rows => 16,
+                                   :class => "form-control", "data-provide" => "markdown" }%>
+
+        <%= f.label "Votre message à l'auteur" %>
+        <%= f.text_area :message, {:rows => 6,
+                                   :class => "form-control"}%>
+
+        <%= f.submit "Modifier l'analyse", class: "btn btn-primary" %>
+    <% end %>
+
+  </div>
+</div>
