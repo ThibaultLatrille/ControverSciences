@@ -94,7 +94,7 @@ def seed_comments(users, timelines)
   timeline = timelines[0]
   references = timeline.references
   references.each do |ref|
-    contributors = users.sample(1+rand(users.length/2))
+    contributors = users[1..-1].sample(rand(users.length/2))
     contributors << users[0]
     contributors.each do |user|
       content = Faker::Lorem.sentence(6)+"\n"+Faker::Lorem.sentence(4)
@@ -175,6 +175,19 @@ def seed_meliorations(users, comments)
           message: message,
           comment_id: com.id)
     end
+  end
+  all_other_comments = comments.select{ |c| c.user_id != user.id }
+  other_comments = all_other_comments.sample(rand(all_other_comments.length))
+  other_comments.each do |com|
+    content = com.content.dup
+    content.insert(rand(content.length), Faker::Lorem.sentence(2))
+    message = Faker::Lorem.sentence(10)
+    meliorations << Melioration.new(
+        to_user_id: com.user_id,
+        user_id: user.id,
+        content:  content,
+        message: message,
+        comment_id: com.id)
   end
   meliorations.map do |r|
     r.save!
