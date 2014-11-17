@@ -23,8 +23,6 @@ node :color do |ref|
       "red"
     when 2
       "yellow"
-    when 3
-      "green"
     when 4
       "light-blue"
     when 5
