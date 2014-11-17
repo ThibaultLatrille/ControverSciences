@@ -53,7 +53,7 @@ class Timeline < ActiveRecord::Base
 
   def set_tag_list(names)
     if !names.nil?
-      list = %w(chemistry biology physics economy planet social immunity pharmacy animal plant space)
+      list = %w(chemistry biology physics economy planet social immunity pharmacy animal plant space pie)
       self.tags = names.map do |n|
         if list.include? n
           Tag.where(name: n.strip).first_or_create!
