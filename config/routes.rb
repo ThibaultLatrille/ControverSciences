@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   resources :votes,          only: [:new ,:create, :destroy]
   resources :ratings,          only: [:create, :destroy]
   resources :meliorations, only: [:new, :create, :show, :index, :destroy] do
+    member do
+      get 'accept'
+    end
     collection do
       get 'pending'
     end

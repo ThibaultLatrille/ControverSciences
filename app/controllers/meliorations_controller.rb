@@ -1,6 +1,10 @@
 class MeliorationsController < ApplicationController
   def new
     @comment = Comment.find(params[:comment_id])
+    if @comment.user_id == current_user.id
+      flash[:danger] = "Vous n'avez pas accés à cette page !"
+      redirect_to root_url
+    end
     @melioration = Melioration.new(user_id: current_user.id, comment_id: @comment.id,
                    content: @comment.content,  to_user_id: @comment.user_id)
     @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
@@ -8,12 +12,15 @@ class MeliorationsController < ApplicationController
 
   def create
     comment = Comment.find( melioration_params[:comment_id])
+    if comment.user_id == current_user.id
+      flash[:danger] = "Vous n'avez pas ces droits !"
+      redirect_to root_url
+    end
     @melioration = Melioration.new( user_id: current_user.id,
             comment_id: comment.id, to_user_id: comment.user_id,
             content: melioration_params[:content], message: melioration_params[:message] )
     if @melioration.save
       flash[:success] = "Amélioration envoyé"
-      User.increment_counter(:pending_meliorations, comment.user_id)
       redirect_to reference_url( comment.reference_id )
     else
       render 'static_pages/home'
@@ -23,7 +30,7 @@ class MeliorationsController < ApplicationController
   def show
     @melioration = Melioration.find( params[:id] )
     if @melioration.to_user_id != current_user.id
-      flash.now[:danger] = "Vous n'avez pas l'accés à cette page !"
+      flash[:danger] = "Vous n'avez pas accés à cette page !"
       redirect_to root_url
     end
     @comment = Comment.find( @melioration.comment_id )
@@ -31,17 +38,42 @@ class MeliorationsController < ApplicationController
       @melioration.update_attributes( pending: false )
       User.decrement_counter( :pending_meliorations, current_user.id)
     end
+    @comment_modif = Comment.new(user_id: current_user.id,
+                                 created_at: @comment.created_at,
+                                 votes_plus: @comment.votes_plus,
+                                 votes_minus: @comment.votes_minus,
+                          content: @melioration.content )
+    @comment_modif.markdown(root_url)
     @diff = Diffy::Diff.new(@comment.content, @melioration.content, :include_plus_and_minus_in_html => true).to_s(:html)
+
   end
 
   def accept
-  end
-
-  def decline
+    melioration = Melioration.find( params[:id] )
+    if melioration.to_user_id != current_user.id
+      flash[:danger] = "Vous n'avez pas cette autorisation"
+      redirect_to root_url
+    end
+    if params[:accept] == "true"
+      comment = Comment.find( melioration.comment_id )
+      comment.content = melioration.content
+      if comment.update_markdown( root_url, current_user.id )
+        melioration.update_attributes(accepted: true)
+        flash[:success] = "Acceptée"
+        redirect_to pending_meliorations_path
+      else
+        flash[:danger] = "Echec"
+        redirect_to pending_meliorations_path
+      end
+    else
+      melioration.update_attributes(accepted: false)
+      flash[:danger] = "Déclinée"
+      redirect_to pending_meliorations_path
+    end
   end
 
   def pending
-    @meliorations = Melioration.where( to_user_id: current_user.id).page(params[:page]).per(50)
+    @meliorations = Melioration.where( to_user_id: current_user.id).order( pending: :desc).page(params[:page]).per(10)
   end
 
   def index
