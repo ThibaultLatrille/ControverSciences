@@ -59,6 +59,7 @@ class MeliorationsController < ApplicationController
       comment.content = melioration.content
       if comment.update_markdown( root_url, current_user.id )
         melioration.update_attributes(accepted: true)
+        User.decrement_counter( :waiting_meliorations, melioration.to_user_id)
         flash[:success] = "Acceptée"
         redirect_to pending_meliorations_path
       else
@@ -67,6 +68,7 @@ class MeliorationsController < ApplicationController
       end
     else
       melioration.update_attributes(accepted: false)
+      User.decrement_counter( :waiting_meliorations, melioration.to_user_id)
       flash[:danger] = "Déclinée"
       redirect_to pending_meliorations_path
     end
@@ -77,7 +79,7 @@ class MeliorationsController < ApplicationController
   end
 
   def index
-    @meliorations = Melioration.where( user_id: current_user.id)
+    @meliorations = Melioration.where( user_id: current_user.id).order( pending: :desc).page(params[:page]).per(10)
   end
 
   private

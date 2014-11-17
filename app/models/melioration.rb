@@ -10,5 +10,6 @@ class Melioration < ActiveRecord::Base
 
   def update_user
     User.increment_counter(:pending_meliorations, self.to_user_id)
+    User.increment_counter(:waiting_meliorations, self.user_id)
   end
 end
