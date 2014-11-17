@@ -65,6 +65,44 @@ class Comment < ActiveRecord::Base
     renderer.links
   end
 
+  def save_with_markdown( root_url, user_id)
+    links = self.markdown(root_url)
+    if self.save
+      reference_ids = Reference.where(timeline_id: self.timeline_id).pluck(:id)
+      links.each do |link|
+        if reference_ids.include? link
+          Link.create({comment_id: self.id, user_id: user_id,
+                       reference_id: link, timeline_id: self.timeline_id})
+        end
+      end
+      true
+    else
+      false
+    end
+  end
+
+  def update_markdown( root_url, user_id)
+    links = self.markdown(root_url)
+    if Comment.update(self.id, content: self.content,
+                      content_markdown: self.content_markdown)
+      Link.where(user_id: user_id, comment_id: self.id).destroy_all
+      reference_ids = Reference.where(timeline_id: self.timeline_id).pluck(:id)
+      links.each do |link|
+        if reference_ids.include? link
+          Link.create({comment_id: self.id, user_id: user_id,
+                       reference_id: link, timeline_id: self.timeline_id})
+        end
+      end
+      ref = Reference.find( self.reference_id )
+      if ref.field_id( self.field ) == self.id
+        ref.displayed_comment( self )
+      end
+      true
+    else
+      false
+    end
+  end
+
   private
 
   def cascading_save_comment

@@ -17,15 +17,7 @@ class CommentsController < ApplicationController
               reference_id: session[:reference_id], timeline_id: session[:timeline_id]})
       @comment.content = comment_params[:content]
       @comment.field = comment_params[:field]
-      links = @comment.markdown(root_url)
-      if @comment.save
-        reference_ids = Reference.where(timeline_id: @comment.timeline_id).pluck(:id)
-        links.each do |link|
-          if reference_ids.include? link
-            Link.create({comment_id: @comment.id, user_id: current_user.id,
-                         reference_id: link, timeline_id: @comment.timeline_id})
-          end
-        end
+      if @comment.save_with_markdown( root_url, current_user.id )
         flash[:success] = "Edition enregistré"
         redirect_to controller: 'references', action: 'show', id: session[:reference_id]
       else
@@ -46,21 +38,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     if @comment.user_id == current_user.id
       @comment.content = comment_params[:content]
-      links = @comment.markdown(root_url)
-      if Comment.update(@comment.id, content: @comment.content,
-            content_markdown: @comment.content_markdown)
-        Link.where(user_id: current_user.id, comment_id: @comment.id).destroy_all
-        reference_ids = Reference.where(timeline_id: @comment.timeline_id).pluck(:id)
-        links.each do |link|
-          if reference_ids.include? link
-            Link.create({comment_id: @comment.id, user_id: current_user.id,
-                         reference_id: link, timeline_id: @comment.timeline_id})
-          end
-        end
-        ref = Reference.where(id: @comment.reference_id).first
-        if ref.field_id( @comment.field ) == @comment.id
-          ref.displayed_comment( @comment )
-        end
+      if @comment.update_markdown( root_url, current_user.id )
         flash[:success] = "Commentaire modifié"
         redirect_to @comment.reference
       else
