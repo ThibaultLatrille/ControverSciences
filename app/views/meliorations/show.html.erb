@@ -1,12 +1,22 @@
 
-La votre :
+Votre analyse :
 <ol class="comments">
- <%= render @comment %>
+ <%= render @comment, melioration: false %>
 </ol>
-Celle qui vous est proposé par <%= @melioration.user.name %> (texte brut) : </br>
-<%= @melioration.content %> </br>
-accompagné du message : </br>
-<%= @melioration.message %> </br>
-<%= @diff.html_safe %> </br>
+<%= @melioration.user.name %> vous a laisser le message suivant : <%= @melioration.message %> </br>
+Et vous propose modifier votre analyse en celle ci :
+<ol class="comments">
+  <%= render @comment_modif, melioration: false %>
+</ol>
 
+<div class="panel panel-default">
+  <div class="panel-heading"> Les diffèrences dans le texte brut sont : </div>
+  <div class="panel-body">
+    <%= @diff.html_safe %>
+  </div>
+</div>
+
+
+<%= link_to "Décliner", accept_melioration_path( accept: false ), class: "btn btn-lg btn-danger" %>
+<%= link_to "Accepter", accept_melioration_path( accept: true ), class: "btn btn-lg btn-primary" %>
 

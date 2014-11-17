@@ -1,4 +1,18 @@
-<tr class="melioration">
+<tr class="melioration <%= "active" if melioration.pending%>">
+  <td>
+    <% if melioration.pending %>
+        <span class="glyphicon glyphicon-eye-open"  style="color: #a9a9a9"></span>
+    <% else %>
+        <span class="glyphicon glyphicon-eye-open"></span> /
+        <% if melioration.accepted.nil? %>
+            Non évaluée
+        <% elsif melioration.accepted %>
+            <span class="glyphicon glyphicon-ok"></span>
+        <% else%>
+            <span class="glyphicon glyphicon-remove"></span>
+        <% end %>
+    <% end %>
+  </td>
   <td><%= link_to melioration.user.name, melioration.user %></td>
   <td><%= link_to melioration.comment.timeline.name, melioration.comment.timeline %> </td>
   <td><%= link_to melioration.comment.reference.title, melioration.comment.reference %> </td>

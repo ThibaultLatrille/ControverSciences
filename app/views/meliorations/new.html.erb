@@ -14,7 +14,7 @@ La timeline :
 
         <%= f.label "L'analyse que vous souhaitez modifier'" %>
         <ol class="comments">
-          <%= render @comment %>
+          <%= render @comment, melioration: false %>
         </ol>
 
         <%= f.hidden_field :comment_id, value: @comment.id %>
