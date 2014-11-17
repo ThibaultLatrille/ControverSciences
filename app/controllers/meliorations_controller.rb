@@ -20,8 +20,27 @@ class MeliorationsController < ApplicationController
     end
   end
 
+  def show
+    @melioration = Melioration.find( params[:id] )
+    if @melioration.to_user_id != current_user.id
+      flash.now[:danger] = "Vous n'avez pas l'accés à cette page !"
+      redirect_to root_url
+    end
+    @comment = Comment.find( @melioration.comment_id )
+    if @melioration.pending
+      @melioration.update_attributes( pending: false )
+      User.decrement_counter( :pending_meliorations, current_user.id)
+    end
+  end
+
+  def accept
+  end
+
+  def decline
+  end
+
   def pending
-    @meliorations = Melioration.where( to_user_id: current_user.id)
+    @meliorations = Melioration.where( to_user_id: current_user.id).page(params[:page]).per(50)
   end
 
   def index

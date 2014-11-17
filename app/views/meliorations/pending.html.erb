@@ -1,1 +1,22 @@
-<h2> ca marche </h2>
+<% provide(:title, 'All users') %>
+<h1> Les améliorations proposées par d'autres contributeurs</h1>
+
+<table class='table table-striped table-hover' id='meliorations'>
+<thead>
+<tr>
+  <th class="col-sm-1"> Auteur </th>
+  <th class="col-sm-3"> Controverse </th>
+  <th class="col-sm-3"> Reference </th>
+  <th class="col-sm-5"> Message </th>
+</tr>
+</thead>
+
+<tbody class="page">
+<%= render @meliorations %>
+</tbody>
+</table>
+
+<br>
+
+<%= paginate @meliorations %>
+
