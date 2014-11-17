@@ -1,6 +1,12 @@
-<% provide(:title, "Edition du profil") %>
+<% provide(:title, "Création d'une analyse") %>
 
-<h2> Ajouter un commentaire à la réfèrence <%= link_to Reference.find(session[:reference_id]).title,  Reference.find(session[:reference_id]) %>. En lien avec la timeline <%= link_to Timeline.find(session[:timeline_id]).name,  Timeline.find(session[:timeline_id]) %></h2>
+<h2> Créer une analyse </h2>
+
+La référence :
+
+<%= link_to Reference.where(id: session[:reference_id]).pluck(:title)[0], reference_url(session[:reference_id]) %> <br>
+La timeline :
+<%= link_to Timeline.where(id: session[:timeline_id]).pluck(:name)[0], timeline_url(session[:timeline_id]) %>
 
 
 <div class="row">
@@ -16,7 +22,7 @@
             <%= f.select :field, [["L'éxperience", 1], ["Les résultats", 2],["Les limites", 3],["Quel rapport", 4],["Remarques", 5] ], {}, {class: 'staticfieldstore form-control'} %>
         <% end %>
 
-        <%= f.label "Références vers lesquels vont pouvez créer des liens" %>
+        <%= f.label "Références vers lesquels vous pouvez créer des liens" %>
 
         <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
 

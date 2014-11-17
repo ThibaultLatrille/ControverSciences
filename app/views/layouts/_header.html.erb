@@ -25,6 +25,7 @@
                  <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span>   Qui sommes nous'.html_safe, help_path %></li>
                  <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> Contribuer'.html_safe, help_path %></li>
                  <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> ajouter une timeline'.html_safe, help_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-user"></span> Qui sont les contributeurs'.html_safe, users_path %> </li>
                </ul>
              </li>
             <li class="dropdown">
@@ -38,7 +39,8 @@
 				current_user %> </li>
                 <li><%= link_to '<span class="glyphicon glyphicon-cog"></span> Paramètres'.html_safe,
 				edit_user_path(current_user) %> </li>
-                <li><%= link_to '<span class="glyphicon glyphicon-user"></span> Contributeurs'.html_safe, users_path %> </li>
+                <li><%= link_to "<span class=\"badge\">#{current_user.pending_meliorations}</span> Améliorations reçues".html_safe,
+                                pending_meliorations_path %> </li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to '<span class="glyphicon glyphicon-off"></span> Se déconnecter'.html_safe,
