@@ -2,8 +2,7 @@ class MeliorationsController < ApplicationController
   def new
     @comment = Comment.find(params[:comment_id])
     if @comment.user_id == current_user.id
-      flash[:danger] = "Vous n'avez pas accés à cette page !"
-      redirect_to root_url
+      redirect_to edit_comment_path( @comment )
     end
     @melioration = Melioration.new(user_id: current_user.id, comment_id: @comment.id,
                    content: @comment.content,  to_user_id: @comment.user_id)
