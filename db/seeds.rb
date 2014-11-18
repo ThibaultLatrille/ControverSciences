@@ -53,7 +53,7 @@ def seed_timelines(users)
       user: users[rand(users.length)],
       name:  name,
       timeline_edit_content: content,
-      rank: 4.2)
+      score: 4.2)
       timeline.set_tag_list( tags.sample(rand(1..7)) )
       timelines << timeline
   end

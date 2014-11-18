@@ -17,7 +17,8 @@ class CreateTimelines < ActiveRecord::Migration
       t.integer :star_3, default: 0
       t.integer :star_4, default: 0
       t.integer :star_5, default: 0
-      t.float :rank, index: true, default: 0
+      t.float :score, index: true, default: 1.0
+      t.float :score_recent, index: true, default: 1.0
       t.timestamps
     end
     add_index :timelines, [:created_at]

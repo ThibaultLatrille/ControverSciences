@@ -22,12 +22,12 @@ class Vote < ActiveRecord::Base
     case self.value
       when 1
         Comment.increment_counter(:votes_plus, self.comment_id)
-        Comment.increment_counter(:rank, self.comment_id)
+        Comment.update_counters(self.comment_id, score: self.user.score )
       when 0
         Comment.increment_counter(:votes_minus, self.comment_id)
-        Comment.decrement_counter(:rank, self.comment_id)
+        Comment.update_counters(self.comment_id, score: -self.user.score )
     end
-    most = Comment.where(reference_id: self.reference_id, field: self.field).order(rank: :desc).first
+    most = Comment.where(reference_id: self.reference_id, field: self.field).order(score: :desc).first
     if most.reference.field_id( self.field ) != most.id
       most.reference.displayed_comment( most )
     end
@@ -41,16 +41,16 @@ class Vote < ActiveRecord::Base
     case self.value
       when 1
         Comment.decrement_counter( :votes_plus, old_comment_id)
-        Comment.decrement_counter( :rank, old_comment_id)
+        Comment.update_counters(old_comment_id, score: -self.user.score )
         Comment.increment_counter( :votes_plus, self.comment_id)
-        Comment.increment_counter( :rank, self.comment_id)
+        Comment.update_counters(self.comment_id, score: self.user.score )
       when 0
         Comment.decrement_counter(:votes_minus, old_comment_id)
-        Comment.increment_counter(:rank, old_comment_id)
+        Comment.update_counters(old_comment_id, score: self.user.score )
         Comment.increment_counter(:votes_minus, self.comment_id)
-        Comment.decrement_counter(:rank, self.comment_id)
+        Comment.update_counters(self.comment_id, score: -self.user.score )
     end
-    most = Comment.where(reference_id: self.reference_id, field: self.field ).order(rank: :desc).first
+    most = Comment.where(reference_id: self.reference_id, field: self.field ).order(score: :desc).first
     if most.reference.field_id( self.field ) != most.id
       most.reference.displayed_comment( most )
     end

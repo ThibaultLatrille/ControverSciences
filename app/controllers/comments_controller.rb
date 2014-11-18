@@ -50,8 +50,23 @@ class CommentsController < ApplicationController
   end
 
   def index
-    @comments = Comment.order(rank: :desc).where({field: params[:field],
-                      reference_id: params[:reference_id]}).page(params[:page]).per(20)
+    if !params[:sort].nil?
+      if !params[:order].nil?
+        @comments = Comment.order(params[:sort].to_sym => params[:order].to_sym).where({field: params[:field],
+                                reference_id: params[:reference_id]}).page(params[:page]).per(8)
+      else
+        @comments = Comment.order(params[:sort].to_sym => :desc).where({field: params[:field],
+                                reference_id: params[:reference_id]}).page(params[:page]).per(8)
+      end
+    else
+      if !params[:order].nil?
+        @comments = Comment.order(:score => params[:order].to_sym).where({field: params[:field],
+                                reference_id: params[:reference_id]}).page(params[:page]).per(8)
+      else
+        @comments = Comment.order(:score => :desc).page(params[:page]).where({field: params[:field],
+                                reference_id: params[:reference_id]}).per(8)
+      end
+    end
   end
 
   def destroy

@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117153406) do
+ActiveRecord::Schema.define(version: 20141118115026) do
+
+  create_table "best_comments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "reference_id"
+    t.integer  "comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "best_comments", ["comment_id"], name: "index_best_comments_on_comment_id"
+  add_index "best_comments", ["reference_id"], name: "index_best_comments_on_reference_id"
+  add_index "best_comments", ["user_id"], name: "index_best_comments_on_user_id"
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -21,7 +33,8 @@ ActiveRecord::Schema.define(version: 20141117153406) do
     t.text     "content"
     t.integer  "votes_plus",       default: 0
     t.integer  "votes_minus",      default: 0
-    t.integer  "rank",             default: 0
+    t.float    "score",            default: 0.0
+    t.float    "score_recent",     default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "content_markdown"
@@ -178,7 +191,8 @@ ActiveRecord::Schema.define(version: 20141117153406) do
     t.integer  "star_3",                 default: 0
     t.integer  "star_4",                 default: 0
     t.integer  "star_5",                 default: 0
-    t.float    "rank",                   default: 0.0
+    t.float    "score",                  default: 1.0
+    t.float    "score_recent",           default: 1.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -189,6 +203,7 @@ ActiveRecord::Schema.define(version: 20141117153406) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
+    t.float    "score",                default: 1.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"

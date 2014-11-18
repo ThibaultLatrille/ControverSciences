@@ -8,7 +8,8 @@ class CreateComments < ActiveRecord::Migration
       t.text :content
       t.integer :votes_plus, default: 0
       t.integer :votes_minus, default: 0
-      t.integer :rank, default: 0
+      t.float :score, default: 0.0
+      t.float :score_recent, default: 0.0
 
       t.timestamps
     end

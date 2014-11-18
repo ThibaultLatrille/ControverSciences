@@ -65,7 +65,7 @@ class ReferencesController < ApplicationController
     @comments = Hash.new()
     @comments_user = Hash.new()
     for fi in 1..5
-      @comments[fi] = @reference.comments.order(rank: :desc).where(field: fi).first(5)
+      @comments[fi] = @reference.comments.order(score: :desc).where(field: fi).first(5)
       if logged_in?
       @comments_user[fi] = @reference.comments.where(field: fi, user_id: current_user.id).first
       end
