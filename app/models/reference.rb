@@ -48,18 +48,14 @@ class Reference < ActiveRecord::Base
   end
 
   def displayed_comment( comment )
-    case comment.field
-    when 1
-      self.update_attributes(f_1_id: comment.id, f_1_content: comment.content_markdown, f_1_votes_plus: comment.votes_plus, f_1_votes_minus: comment.votes_minus)
-    when 2
-      self.update_attributes(f_2_id: comment.id, f_2_content: comment.content_markdown, f_2_votes_plus: comment.votes_plus, f_2_votes_minus: comment.votes_minus)
-    when 3
-      self.update_attributes(f_3_id: comment.id, f_3_content: comment.content_markdown, f_3_votes_plus: comment.votes_plus, f_3_votes_minus: comment.votes_minus)
-    when 4
-      self.update_attributes(f_4_id: comment.id, f_4_content: comment.content_markdown, f_4_votes_plus: comment.votes_plus, f_4_votes_minus: comment.votes_minus)
-    when 5
-      self.update_attributes(f_5_id: comment.id, f_5_content: comment.content_markdown, f_5_votes_plus: comment.votes_plus, f_5_votes_minus: comment.votes_minus)
+    i = comment.field
+    if self[ "f_#{i}_id".to_sym ]
+      BestComment.find_by_comment_id( self[ "f_#{i}_id".to_sym ] ).destroy
     end
+    self.update_attributes("f_#{i}_id".to_sym => comment.id, "f_#{i}_content".to_sym => comment.content_markdown,
+                           "f_#{i}_votes_plus".to_sym => comment.votes_plus, "f_#{i}_votes_minus".to_sym => comment.votes_minus)
+    BestComment.create( user_id: comment.user_id, reference_id: comment.reference_id,
+                   comment_id: comment.id )
   end
 
   def field_id( field )
