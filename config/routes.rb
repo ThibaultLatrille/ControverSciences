@@ -23,6 +23,10 @@ Rails.application.routes.draw do
       get 'pending'
     end
   end
+  get 'assistant' => 'assistant#view'
+  get 'assistant/users' => 'assistant#users'
+  get 'assistant/timelines' => 'assistant#timelines'
+  get 'assistant/comments' => 'assistant#comments'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
