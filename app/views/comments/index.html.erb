@@ -1,6 +1,46 @@
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
-      <ol class="comments">
-        <%= render @comments, melioration: true %>
-      </ol>
-      <%= paginate @comments%>
+
+  <div class="btn-group">
+    <button class="btn btn-default dropdown-toggle" type="button"
+            id="dropdownMenuTri" data-toggle="dropdown">
+      Trier par
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" >
+      <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
+        <%= link_to "Les plus cotées (par défault)", comments_path(:sort=> 'score', field: params[:field],
+                                         reference_id: params[:reference_id], :order => params[:order]) %> </li>
+      <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
+        <%= link_to "Les controverses du moment", comments_path(:sort=> 'score_recent', field: params[:field],
+                                         reference_id: params[:reference_id], :order => params[:order]) %> </li>
+      <li <%= params[:sort]=='votes_plus' ? "class=selected" : nil %> >
+        <%= link_to "Nombre de votes positifs", comments_path(:sort => 'votes_plus', field: params[:field],
+                                         reference_id: params[:reference_id], :order => params[:order]) %> </li>
+      <li <%= params[:sort]=='votes_minus' ? "class=selected" : nil %> >
+        <%= link_to "Nombre de votes négatifs", comments_path(:sort => 'votes_minus', field: params[:field],
+                                         reference_id: params[:reference_id], :order => params[:order]) %> </li>
+    </ul>
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-default dropdown-toggle" type="button"
+            id="dropdownMenuOrder" data-toggle="dropdown">
+      Ordre
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" >
+      <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
+        <%= link_to "Décroissant (par défault)", comments_path(:sort=> params[:sort], field: params[:field],
+                                             reference_id: params[:reference_id], :order => 'desc') %> </li>
+      <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
+        <%= link_to "Croissant", comments_path(:sort => 'created_at', field: params[:field],
+                                             reference_id: params[:reference_id], :order => 'asc') %> </li>
+    </ul>
+  </div>
+  <div>
+    </br>
+  </div>
+<ol class="comments">
+<%= render @comments, melioration: true %>
+</ol>
+<%= paginate @comments%>
 </div>
