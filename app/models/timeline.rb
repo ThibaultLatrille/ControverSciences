@@ -11,9 +11,6 @@ class Timeline < ActiveRecord::Base
   has_many :taggings
   has_many :tags, through: :taggings
 
-
-  default_scope -> { order('rank DESC') }
-
   after_create :cascading_save_timeline
 
   validates :user_id, presence: true
@@ -60,6 +57,10 @@ class Timeline < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def compute_score( nb_references, nb_comments, nb_votes )
+    return 1.0/(1.0/(1+Math.log(1+nb_references))+1.0/(1+Math.log(1+0.1*nb_comments))+1.0/(1+Math.log(1+0.001*nb_votes)))
   end
 
   private

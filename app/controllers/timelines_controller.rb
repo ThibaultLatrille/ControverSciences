@@ -2,38 +2,34 @@ class TimelinesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create]
 
   def index
-    if !params[:tag].nil?
-      if params[:tag] != 'all'
-        if !params[:sort].nil?
-          if !params[:order].nil?
-            @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(8)
-          else
-            @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => :desc).page(params[:page]).per(8)
-          end
+    if params[:tag] != 'all' && !params[:tag].nil?
+      if !params[:sort].nil?
+        if !params[:order].nil?
+          @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(8)
         else
-          if !params[:order].nil?
-            @timelines = Timeline.tagged_with(params[:tag]).order(:rank => params[:order].to_sym).page(params[:page]).per(8)
-          else
-            @timelines = Timeline.tagged_with(params[:tag]).order(:rank => :desc).page(params[:page]).per(8)
-          end
+          @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => :desc).page(params[:page]).per(8)
         end
       else
-        if !params[:sort].nil?
-          if !params[:order].nil?
-            @timelines = Timeline.order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(8)
-          else
-            @timelines = Timeline.order(params[:sort].to_sym => :desc).page(params[:page]).per(8)
-          end
+        if !params[:order].nil?
+          @timelines = Timeline.tagged_with(params[:tag]).order(:score => params[:order].to_sym).page(params[:page]).per(8)
         else
-          if !params[:order].nil?
-            @timelines = Timeline.order(:rank => params[:order].to_sym).page(params[:page]).per(8)
-          else
-            @timelines = Timeline.order(:rank => :desc).page(params[:page]).per(8)
-          end
+          @timelines = Timeline.tagged_with(params[:tag]).order(:score => :desc).page(params[:page]).per(8)
         end
       end
     else
-      @timelines = Timeline.order(rank: :desc).page(params[:page]).per(8)
+      if !params[:sort].nil?
+        if !params[:order].nil?
+          @timelines = Timeline.order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(8)
+        else
+          @timelines = Timeline.order(params[:sort].to_sym => :desc).page(params[:page]).per(8)
+        end
+      else
+        if !params[:order].nil?
+          @timelines = Timeline.order(:score => params[:order].to_sym).page(params[:page]).per(8)
+        else
+          @timelines = Timeline.order(:score => :desc).page(params[:page]).per(8)
+        end
+      end
     end
   end
 
