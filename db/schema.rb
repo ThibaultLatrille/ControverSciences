@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119101342) do
+ActiveRecord::Schema.define(version: 20141119222011) do
 
   create_table "best_comments", force: true do |t|
     t.integer  "user_id"
@@ -101,6 +101,48 @@ ActiveRecord::Schema.define(version: 20141119101342) do
 
   add_index "meliorations", ["comment_id"], name: "index_meliorations_on_comment_id"
   add_index "meliorations", ["user_id"], name: "index_meliorations_on_user_id"
+
+  create_table "notification_comments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.boolean  "read",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_comments", ["comment_id"], name: "index_notification_comments_on_comment_id"
+  add_index "notification_comments", ["user_id"], name: "index_notification_comments_on_user_id"
+
+  create_table "notification_references", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "reference_id"
+    t.boolean  "read",         default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_references", ["reference_id"], name: "index_notification_references_on_reference_id"
+  add_index "notification_references", ["user_id"], name: "index_notification_references_on_user_id"
+
+  create_table "notification_timelines", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "timeline_id"
+    t.boolean  "read",        default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_timelines", ["timeline_id"], name: "index_notification_timelines_on_timeline_id"
+  add_index "notification_timelines", ["user_id"], name: "index_notification_timelines_on_user_id"
+
+  create_table "notifications", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "read",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
 
   create_table "ratings", force: true do |t|
     t.integer  "reference_id"
@@ -232,19 +274,22 @@ ActiveRecord::Schema.define(version: 20141119101342) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.float    "score",                default: 1.0
+    t.float    "score",                   default: 1.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_digest"
-    t.boolean  "admin",                default: false
+    t.boolean  "admin",                   default: false
     t.string   "activation_digest"
-    t.boolean  "activated",            default: false
+    t.boolean  "activated",               default: false
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
-    t.integer  "pending_meliorations", default: 0
-    t.integer  "waiting_meliorations", default: 0
+    t.integer  "pending_meliorations",    default: 0
+    t.integer  "waiting_meliorations",    default: 0
+    t.integer  "notifications_timeline"
+    t.integer  "notifications_reference"
+    t.integer  "notifications_comment"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
