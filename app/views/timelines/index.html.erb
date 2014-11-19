@@ -56,7 +56,7 @@
         <%= link_to 'Tous (par défault)', timelines_path(:sort => params[:sort],
                                                       :order => params[:order], :tag => 'all')%>
       </li>
-      <% tags_list.each do |key, value| %>
+      <% tags_hash.each do |key, value| %>
           <li <%= params[:tag]==key ? "class=selected" : nil %> >
             <%= link_to image_tag("icons/myicon-#{key}.png", alt: value,
                  height: "28px")+"&nbsp".html_safe+value, timelines_path(:sort => params[:sort],
@@ -66,10 +66,18 @@
     </ul>
 </div>
 <span class="pull-right">
-<%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-</span> Suivre les nouvelles controverses".html_safe,
-            following_new_timelines_path, method: :post %>
-</span> </br>
+  <% if params[:tag].nil? || params[:tag]=='all' %>
+    <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+    </span> Suivre les nouvelles controverses".html_safe,
+                following_new_timelines_path, method: :post %>
+  <% else %>
+      <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+    </span> Suivre les controverces tagées par : #{tags_hash[params[:tag]]}".html_safe,
+                  following_new_timelines_path(tag: params[:tag] ), method: :post %>
+      <%= image_tag("icons/myicon-#{params[:tag]}.png", alt: tags_hash[params[:tag]],
+                 height: "28px") %>
+  <% end %>
+</span>
 <div id="timelines">
   <div class="row page">
   <%= render @timelines %>

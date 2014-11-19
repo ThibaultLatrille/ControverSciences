@@ -27,4 +27,12 @@ class ApplicationController < ActionController::Base
     flash[:danger] = "Vous devez être Admin pour accéder à cette page"
     redirect_to(root_url) unless current_user.admin?
   end
+
+  def tags_hash
+    {"planet" => "Environement", "biology" => "Biologie", "immunity" => "Immunité et santé",
+     "pharmacy" => "Médicaments", "animal" => "Animaux", "plant" => "Végétaux",
+     "space" => "Espace", "physics" => "Physique", "chemistry" => "Chimie",
+     "economy" => "Economie et Finance", "social" => "Sciences sociales",
+     "pie" => "Mathématiques"}
+  end
 end
