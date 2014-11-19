@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4 col-lg-2">
-    <table id="following-timelines" class="table table-striped table-hover">
+    <table id="following-new-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-sm-6"> Tags </th>
@@ -10,13 +10,13 @@
 
       <tbody class="page">
       <% if !@fo_new_timelines.any? %>
-          <tr class="following-timeline">
+          <tr class="following-new-timeline">
             <td> Vous n'avez pas encore d'abonnements </td>
             <td>  </td>
           </tr>
       <% else %>
           <% @fo_new_timelines.each do |tag| %>
-              <tr class="following-timeline">
+              <tr class="following-new-timeline">
                 <td> <%= link_to image_tag("icons/myicon-#{tag[1]}.png", alt: tag[1],
                                            height: "28px")+"&nbsp".html_safe, timelines_path(:tag => tag[1]) %>  </td>
                 <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
@@ -67,7 +67,7 @@
 
       <tbody class="page">
       <% if !@fo_references.any? %>
-          <tr class="following-timeline">
+          <tr class="following-reference">
             <td> Vous n'avez pas encore d'abonnements </td>
             <td>  </td>
           </tr>
