@@ -41,7 +41,7 @@
 <span class="new-reference">
 <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
 </span> S'abonner à cette controverse".html_safe,
-        following_timelines_create_path( timeline_id: @timeline.id ) %>
+        following_timelines_path( timeline_id: @timeline.id ), method: :post %>
 </span> </br>
 <span class="new-reference">
     <%= link_to '<span class="glyphicon glyphicon-plus-sign" >

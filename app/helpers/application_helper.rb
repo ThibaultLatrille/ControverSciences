@@ -8,4 +8,12 @@ module ApplicationHelper
       "#{page_title} | #{base_title} "
     end
   end
+
+  def tags_list
+    [["planet","Environement"],["biology","Biologie"],["immunity","Immunité et santé"],
+     ["pharmacy","Médicaments"],["animal","Animaux"],["plant","Végétaux"],
+     ["space","Espace"],["physics","Physique"],["chemistry","Chimie"],
+     ["economy","Economie et Finance"],["social","Sciences sociales"],
+     ["pie","Mathématiques"]]
+  end
 end

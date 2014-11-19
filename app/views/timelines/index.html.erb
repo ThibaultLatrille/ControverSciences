@@ -56,11 +56,7 @@
         <%= link_to 'Tous (par défault)', timelines_path(:sort => params[:sort],
                                                       :order => params[:order], :tag => 'all')%>
       </li>
-      <% [["planet","Environement"],["biology","Biologie"],["immunity","Immunité et santé"],
-          ["pharmacy","Médicaments"],["animal","Animaux"],["plant","Végétaux"],
-          ["space","Espace"],["physics","Physique"],["chemistry","Chimie"],
-          ["economy","Economie et Finance"],["social","Sciences sociales"],
-          ["pie","Mathématiques"]].each do |key, value| %>
+      <% tags_list.each do |key, value| %>
           <li <%= params[:tag]==key ? "class=selected" : nil %> >
             <%= link_to image_tag("icons/myicon-#{key}.png", alt: value,
                  height: "28px")+"&nbsp".html_safe+value, timelines_path(:sort => params[:sort],
@@ -72,7 +68,7 @@
 <span class="pull-right">
 <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
 </span> Suivre les nouvelles controverses".html_safe,
-            following_new_timelines_create_path %>
+            following_new_timelines_path, method: :post %>
 </span> </br>
 <div id="timelines">
   <div class="row page">

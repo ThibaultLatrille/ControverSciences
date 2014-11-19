@@ -8,7 +8,7 @@
       <span>
         <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
         </span> Suivre les nouvelles analyses apportées à cette référence".html_safe,
-                    following_references_create_path( reference_id: @reference.id ) %>
+                    following_references_path( reference_id: @reference.id ), method: :post %>
       </span> </br>
       <div class="panel-group" id="accordion">
         <h3> L'éxperience réalisé : </h3>
