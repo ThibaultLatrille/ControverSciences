@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   resources :following_timelines, only: [:create, :destroy]
   resources :following_new_timelines, only: [:create, :destroy]
   get 'followings/index'
+  get 'notifications/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

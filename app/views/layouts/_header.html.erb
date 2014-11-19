@@ -40,6 +40,9 @@
                 <li><%= link_to '<span class="glyphicon glyphicon-cog"></span> Paramètres'.html_safe,
 				edit_user_path(current_user) %> </li>
                 <li class="divider"></li>
+                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_timeline +
+                        current_user.notifications_reference + current_user.notifications_comment}</span> Notifications ".html_safe,
+                                notifications_index_path %> </li>
                 <li><%= link_to '<span class="glyphicon glyphicon-eye-open"></span> Gérer mes abonnements'.html_safe,
                                 followings_index_path %> </li>
                 <li class="divider"></li>

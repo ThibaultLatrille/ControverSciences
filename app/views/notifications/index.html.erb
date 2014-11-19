@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-6 col-lg-4">
+    <%= current_user.notifications_timeline %> notifications
+    <table id="notification-timelines" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="col-sm-9"> La timeline </th>
+      </tr>
+      </thead>
+
+      <tbody class="page">
+      <% if !@timelines.any? %>
+          <tr class="notification-timeline">
+            <td> Pas de nouvelles notifications </td>
+          </tr>
+      <% else %>
+          <% @timelines.each do |timeline| %>
+              <tr class="following-timeline">
+                <td> <%= link_to timeline[1], timeline_path(timeline[0]) %> </td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6 col-lg-4">
+    <%= current_user.notifications_reference %> notifications
+    <table id="notification-references" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="col-sm-9"> La référence </th>
+      </tr>
+      </thead>
+
+      <tbody class="page">
+      <% if !@references.any? %>
+          <tr class="notification-reference">
+            <td> Pas de notifications </td>
+          </tr>
+      <% else %>
+          <% @references.each do |reference| %>
+              <tr class="notification-reference">
+                <td> <%= link_to reference[1], reference_path(reference[0]) %>   </td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-8 col-md-offset-2 col-lg-4 col-lg-offset-0">
+    <%= current_user.notifications_comment %> notifications
+    <ol class="comments">
+      <%= render @comments, melioration: true %>
+    </ol>
+  </div>
+</div>
