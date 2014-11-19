@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141118115026) do
+ActiveRecord::Schema.define(version: 20141119101342) do
 
   create_table "best_comments", force: true do |t|
     t.integer  "user_id"
@@ -43,6 +43,34 @@ ActiveRecord::Schema.define(version: 20141118115026) do
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id"
   add_index "comments", ["timeline_id"], name: "index_comments_on_timeline_id"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+
+  create_table "following_new_timelines", force: true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "following_new_timelines", ["user_id"], name: "index_following_new_timelines_on_user_id"
+
+  create_table "following_references", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "reference_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "following_references", ["reference_id"], name: "index_following_references_on_reference_id"
+  add_index "following_references", ["user_id"], name: "index_following_references_on_user_id"
+
+  create_table "following_timelines", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "timeline_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "following_timelines", ["timeline_id"], name: "index_following_timelines_on_timeline_id"
+  add_index "following_timelines", ["user_id"], name: "index_following_timelines_on_user_id"
 
   create_table "links", force: true do |t|
     t.integer  "user_id"
