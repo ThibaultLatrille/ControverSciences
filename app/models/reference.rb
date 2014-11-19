@@ -75,16 +75,24 @@ class Reference < ActiveRecord::Base
 
   private
 
+  def create_notifications
+    user_ids = FollowingTimeline.where( timeline_id: self.timeline_id ).pluck( :user_id )
+    user_ids.each do |user_id|
+      NotificationReference.create( user_id: user_id, reference_id: self.id )
+    end
+  end
+
   def cascading_save_ref
-      Timeline.increment_counter(:nb_references, self.timeline_id)
-      refrelation = ReferenceContributor.new({user_id: self.user_id, reference_id: self.id, bool: true})
-      refrelation.save()
-      Reference.increment_counter(:nb_contributors, self.id)
-      if not TimelineContributor.where({user_id: self.user_id, timeline_id: self.timeline_id}).any?
-        timrelation = TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
-        timrelation.save()
-        Timeline.increment_counter(:nb_contributors, self.timeline_id)
-      end
+    self.create_notifications
+    Timeline.increment_counter(:nb_references, self.timeline_id)
+    refrelation = ReferenceContributor.new({user_id: self.user_id, reference_id: self.id, bool: true})
+    refrelation.save()
+    Reference.increment_counter(:nb_contributors, self.id)
+    if not TimelineContributor.where({user_id: self.user_id, timeline_id: self.timeline_id}).any?
+      timrelation = TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
+      timrelation.save()
+      Timeline.increment_counter(:nb_contributors, self.timeline_id)
+    end
   end
 
 end

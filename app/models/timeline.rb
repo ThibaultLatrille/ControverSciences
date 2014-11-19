@@ -65,7 +65,12 @@ class Timeline < ActiveRecord::Base
 
   private
 
+  def create_notifications
+    nil
+  end
+
   def cascading_save_timeline
+      self.create_notifications
       timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.id, bool: true})
       timrelation.save()
       Timeline.increment_counter(:nb_contributors, self.id)
