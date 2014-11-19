@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20141119101342) do
 
   create_table "following_new_timelines", force: true do |t|
     t.integer  "user_id"
+    t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
