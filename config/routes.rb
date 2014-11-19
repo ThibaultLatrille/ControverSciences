@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   get 'assistant/users' => 'assistant#users'
   get 'assistant/timelines' => 'assistant#timelines'
   get 'assistant/comments' => 'assistant#comments'
+  get 'following_references/create'
+  get 'following_timelines/create'
+  get 'following_new_timelines/create'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
