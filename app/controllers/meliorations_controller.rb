@@ -1,4 +1,6 @@
 class MeliorationsController < ApplicationController
+  before_action :logged_in_user, only: [:new, :create, :show, :accept, :pending, :index]
+
   def new
     @comment = Comment.find(params[:comment_id])
     if @comment.user_id == current_user.id

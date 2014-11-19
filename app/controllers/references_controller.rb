@@ -2,6 +2,9 @@ class ReferencesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create]
 
   def new
+    if params[:timeline_id]
+      session[:timeline_id] = params[:timeline_id]
+    end
     session[:reference_params] ||= {user_id: current_user.id, timeline_id: session[:timeline_id]}
     @reference = Reference.new(session[:reference_params])
     @reference.current_step = session[:reference_step]
