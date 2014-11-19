@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  include ApplicationHelper
   include SessionsHelper
   include ReferencesHelper
 
@@ -26,13 +27,5 @@ class ApplicationController < ActionController::Base
   def admin_user
     flash[:danger] = "Vous devez être Admin pour accéder à cette page"
     redirect_to(root_url) unless current_user.admin?
-  end
-
-  def tags_hash
-    {"planet" => "Environement", "biology" => "Biologie", "immunity" => "Immunité et santé",
-     "pharmacy" => "Médicaments", "animal" => "Animaux", "plant" => "Végétaux",
-     "space" => "Espace", "physics" => "Physique", "chemistry" => "Chimie",
-     "economy" => "Economie et Finance", "social" => "Sciences sociales",
-     "pie" => "Mathématiques"}
   end
 end
