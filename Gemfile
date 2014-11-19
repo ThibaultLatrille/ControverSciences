@@ -49,6 +49,8 @@ gem 'redcarpet'
 # Get diffs between two strings
 gem 'diffy'
 
+# Bulk insert
+gem "activerecord-import"
 
 group :test do
   gem 'minitest-reporters', '1.0.5'
