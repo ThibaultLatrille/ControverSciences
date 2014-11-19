@@ -69,6 +69,11 @@
       <% end %>
     </ul>
 </div>
+<span class="pull-right">
+<%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+</span> Suivre les nouvelles controverses".html_safe,
+            following_new_timelines_create_path %>
+</span> </br>
 <div id="timelines">
   <div class="row page">
   <%= render @timelines %>
