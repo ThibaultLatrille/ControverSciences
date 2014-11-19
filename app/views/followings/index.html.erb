@@ -1,11 +1,34 @@
 <div class="row">
-  <div class="col-md-12">
-    <%= @fo_new_timelines %>
-  </div>
-</div>
+  <div class="col-md-4 col-lg-2">
+    <table id="following-timelines" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="col-sm-6"> Tags </th>
+        <th class="col-sm-6"> Supprimer </th>
+      </tr>
+      </thead>
 
-<div class="row">
-  <div class="col-md-6">
+      <tbody class="page">
+      <% if !@fo_new_timelines.any? %>
+          <tr class="following-timeline">
+            <td> Vous n'avez pas encore d'abonnements </td>
+            <td>  </td>
+          </tr>
+      <% else %>
+          <% @fo_new_timelines.each do |tag| %>
+              <tr class="following-timeline">
+                <td> <%= link_to image_tag("icons/myicon-#{tag[1]}.png", alt: tag[1],
+                                           height: "28px")+"&nbsp".html_safe, timelines_path(:tag => tag[1]) %>  </td>
+                <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                 following_new_timeline_path( tag[0] ), method: :delete,
+                                 data: { confirm: " Vous êtes certains ?" } %>  </td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-8 col-lg-5">
     <table id="following-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
@@ -33,7 +56,7 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-12 col-lg-5">
     <table id="following-references" class="table table-striped table-hover">
       <thead>
       <tr>
