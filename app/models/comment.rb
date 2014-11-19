@@ -103,24 +103,35 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def create_notifications
+    user_ids = FollowingReference.where( reference_id: self.reference_id ).pluck( :user_id )
+    notifications = []
+    user_ids.each do |user_id|
+      notifications << NotificationComment.new( user_id: user_id, comment_id: self.id )
+    end
+    NotificationComment.import notifications
+    User.increment_counter( :notifications_comment, user_ids)
+  end
+
   private
 
   def cascading_save_comment
-      reference = self.reference
-      if reference.field_id( self.field ).nil?
-        reference.displayed_comment( self )
-      end
-      Reference.increment_counter(:nb_edits, self.reference_id)
-      Timeline.increment_counter(:nb_edits, self.timeline_id)
-      unless TimelineContributor.where({user_id: self.user_id, timeline_id: self.timeline_id}).any?
-        timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
-        timrelation.save
-        Timeline.increment_counter(:nb_contributors, self.timeline_id)
-      end
-      unless ReferenceContributor.where({user_id: self.user_id, reference_id: self.reference_id}).any?
-        refrelation=ReferenceContributor.new({user_id: self.user_id, reference_id: self.reference_id, bool: true})
-        refrelation.save
-        Reference.increment_counter(:nb_contributors, self.reference_id)
-      end
+    self.create_notifications
+    reference = self.reference
+    if reference.field_id( self.field ).nil?
+      reference.displayed_comment( self )
+    end
+    Reference.increment_counter(:nb_edits, self.reference_id)
+    Timeline.increment_counter(:nb_edits, self.timeline_id)
+    unless TimelineContributor.where({user_id: self.user_id, timeline_id: self.timeline_id}).any?
+      timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
+      timrelation.save
+      Timeline.increment_counter(:nb_contributors, self.timeline_id)
+    end
+    unless ReferenceContributor.where({user_id: self.user_id, reference_id: self.reference_id}).any?
+      refrelation=ReferenceContributor.new({user_id: self.user_id, reference_id: self.reference_id, bool: true})
+      refrelation.save
+      Reference.increment_counter(:nb_contributors, self.reference_id)
+    end
   end
 end

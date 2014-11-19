@@ -50,7 +50,7 @@ class Timeline < ActiveRecord::Base
 
   def set_tag_list(names)
     if !names.nil?
-      list = %w(chemistry biology physics economy planet social immunity pharmacy animal plant space pie)
+      list = tags_hash.keys
       self.tags = names.map do |n|
         if list.include? n
           Tag.where(name: n.strip).first_or_create!
@@ -63,16 +63,23 @@ class Timeline < ActiveRecord::Base
     return 1.0/(1.0/(1+Math.log(1+nb_references))+1.0/(1+Math.log(1+0.1*nb_comments))+1.0/(1+Math.log(1+0.001*nb_votes)))
   end
 
-  private
-
   def create_notifications
-    nil
+    tag_ids = self.tags.pluck(:id)
+    user_ids = FollowingNewTimeline.where( tag_id: tag_ids ).pluck( :user_id )
+    notifications = []
+    user_ids.each do |user_id|
+      notifications << NotificationTimeline.new( user_id: user_id, timeline_id: self.id )
+    end
+    NotificationTimeline.import notifications
+    User.increment_counter( :notifications_timeline, user_ids)
   end
 
+  private
+
   def cascading_save_timeline
-      self.create_notifications
-      timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.id, bool: true})
-      timrelation.save()
-      Timeline.increment_counter(:nb_contributors, self.id)
+    self.create_notifications
+    timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.id, bool: true})
+    timrelation.save()
+    Timeline.increment_counter(:nb_contributors, self.id)
   end
 end

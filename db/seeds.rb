@@ -1,3 +1,5 @@
+include ApplicationHelper
+
 def seed_users
   users = []
   users << User.new(name:  "thibault",
@@ -32,7 +34,7 @@ def seed_users
   users
 end
 
-def seed_timelines(users)
+def seed_timelines(users, tags)
   timelines = []
   names = []
   names << "Les OGMs sont-ils nocifs pour la santé ?"
@@ -46,7 +48,6 @@ def seed_timelines(users)
   names << "La café est il dangeureux ?"
   names << "Le LHC va-t-il créer un trou noir ?"
   names << "Yellowstone va bientôt sauter ?"
-  tags = %w(chemistry biology physics economy planet social immunity pharmacy animal plant space pie)
   content = Faker::Lorem.sentence(8)
   names.each do |name|
       timeline = Timeline.new(
@@ -61,6 +62,35 @@ def seed_timelines(users)
     t.save!
   end
   timelines
+end
+
+def seed_following_new_timelines(users, tags)
+  following_new_timelines = []
+  users.each do |user|
+    s = tags.length
+    tag_ids = Array(1..s).sample(rand(s+1))
+    tag_ids.each do |tag_id|
+      following_new_timelines << FollowingNewTimeline.new( user_id: user.id, tag_id: tag_id )
+    end
+  end
+  following_new_timelines.map do |f|
+    f.save!
+  end
+  following_new_timelines
+end
+
+def seed_following_timelines(users, timelines)
+  following_timelines = []
+  users.each do |user|
+    user_timelines = timelines.sample(1+rand(timelines.length-1))
+    user_timelines.each do |timeline|
+      following_timelines << FollowingTimeline.new( user_id: user.id, timeline_id: timeline.id )
+    end
+  end
+  following_timelines.map do |f|
+    f.save!
+  end
+  following_timelines
 end
 
 def seed_references(users, timelines)
@@ -88,13 +118,27 @@ def seed_references(users, timelines)
   references
 end
 
+def seed_following_references(users, references)
+  following_references = []
+  users.each do |user|
+    user_references = references.sample(1+rand(references.length-1))
+    user_references.each do |reference|
+      following_references << FollowingReference.new( user_id: user.id, reference_id: reference.id )
+    end
+  end
+  following_references.map do |f|
+    f.save!
+  end
+  following_references
+end
+
 def seed_comments(users, timelines)
   root_url = "0.0.0.0:3000/"
   comments = []
   timeline = timelines[0]
   references = timeline.references
   references.each do |ref|
-    contributors = users[1..-1].sample(rand(users.length/2))
+    contributors = users[1..-1].sample(1+rand(users.length/2-1))
     contributors << users[0]
     contributors.each do |user|
       content = Faker::Lorem.sentence(6)+"\n"+Faker::Lorem.sentence(4)
@@ -142,7 +186,7 @@ end
 def seed_ratings(users, references)
   ratings = []
   references.each do |ref|
-    voters = users.sample(rand(users.length))
+    voters = users.sample(1+rand(users.length-1))
     voters.each do |user|
       value = rand(1..5)
       ratings << Rating.new(
@@ -163,7 +207,7 @@ def seed_meliorations(users, comments)
   user_comments = comments.select{ |c| c.user_id == user.id }
   meliorations = []
   user_comments.each do |com|
-    contributors = users[1..-1].sample(rand(users.length))
+    contributors = users[1..-1].sample(1+rand(users.length-2))
     contributors.each do |contributor|
       content = com.content.dup
       content.insert(rand(content.length), Faker::Lorem.sentence(2))
@@ -195,9 +239,13 @@ def seed_meliorations(users, comments)
   meliorations
 end
 
+tags = tags_hash.keys
 users = seed_users
-timelines = seed_timelines(users)
+seed_following_new_timelines(users, tags)
+timelines = seed_timelines(users, tags)
+seed_following_timelines(users, timelines)
 references = seed_references(users, timelines)
+seed_following_references(users, references[0..4])
 comments = seed_comments(users, timelines)
 seed_votes(users, comments)
 seed_ratings(users, references)

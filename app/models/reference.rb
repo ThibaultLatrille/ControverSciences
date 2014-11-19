@@ -73,14 +73,17 @@ class Reference < ActiveRecord::Base
     end
   end
 
-  private
-
   def create_notifications
     user_ids = FollowingTimeline.where( timeline_id: self.timeline_id ).pluck( :user_id )
+    notifications = []
     user_ids.each do |user_id|
-      NotificationReference.create( user_id: user_id, reference_id: self.id )
+      notifications << NotificationReference.new( user_id: user_id, reference_id: self.id )
     end
+    NotificationReference.import notifications
+    User.increment_counter( :notifications_reference, user_ids)
   end
+
+  private
 
   def cascading_save_ref
     self.create_notifications
