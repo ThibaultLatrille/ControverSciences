@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119222011) do
+ActiveRecord::Schema.define(version: 20141120151427) do
 
   create_table "best_comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "reference_id"
+    t.integer  "field"
     t.integer  "comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -33,8 +34,8 @@ ActiveRecord::Schema.define(version: 20141119222011) do
     t.text     "content"
     t.integer  "votes_plus",       default: 0
     t.integer  "votes_minus",      default: 0
+    t.integer  "balance",          default: 0
     t.float    "score",            default: 0.0
-    t.float    "score_recent",     default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "content_markdown"
@@ -87,21 +88,6 @@ ActiveRecord::Schema.define(version: 20141119222011) do
   add_index "links", ["timeline_id"], name: "index_links_on_timeline_id"
   add_index "links", ["user_id"], name: "index_links_on_user_id"
 
-  create_table "meliorations", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "comment_id"
-    t.integer  "to_user_id"
-    t.text     "content"
-    t.text     "message"
-    t.boolean  "pending",    default: true
-    t.boolean  "accepted"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "meliorations", ["comment_id"], name: "index_meliorations_on_comment_id"
-  add_index "meliorations", ["user_id"], name: "index_meliorations_on_user_id"
-
   create_table "notification_comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "comment_id"
@@ -123,6 +109,39 @@ ActiveRecord::Schema.define(version: 20141119222011) do
 
   add_index "notification_references", ["reference_id"], name: "index_notification_references_on_reference_id"
   add_index "notification_references", ["user_id"], name: "index_notification_references_on_user_id"
+
+  create_table "notification_selection_losses", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.boolean  "read",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_selection_losses", ["comment_id"], name: "index_notification_selection_losses_on_comment_id"
+  add_index "notification_selection_losses", ["user_id"], name: "index_notification_selection_losses_on_user_id"
+
+  create_table "notification_selection_wins", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.boolean  "read",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_selection_wins", ["comment_id"], name: "index_notification_selection_wins_on_comment_id"
+  add_index "notification_selection_wins", ["user_id"], name: "index_notification_selection_wins_on_user_id"
+
+  create_table "notification_selections", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.boolean  "read",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_selections", ["comment_id"], name: "index_notification_selections_on_comment_id"
+  add_index "notification_selections", ["user_id"], name: "index_notification_selections_on_user_id"
 
   create_table "notification_timelines", force: true do |t|
     t.integer  "user_id"
@@ -191,26 +210,11 @@ ActiveRecord::Schema.define(version: 20141119222011) do
     t.integer  "star_5",          default: 0
     t.integer  "star_most",       default: 0
     t.boolean  "star_counted",    default: false
-    t.integer  "f_1_id"
     t.text     "f_1_content"
-    t.integer  "f_1_votes_plus"
-    t.integer  "f_1_votes_minus"
-    t.integer  "f_2_id"
     t.text     "f_2_content"
-    t.integer  "f_2_votes_plus"
-    t.integer  "f_2_votes_minus"
-    t.integer  "f_3_id"
     t.text     "f_3_content"
-    t.integer  "f_3_votes_plus"
-    t.integer  "f_3_votes_minus"
-    t.integer  "f_4_id"
     t.text     "f_4_content"
-    t.integer  "f_4_votes_plus"
-    t.integer  "f_4_votes_minus"
-    t.integer  "f_5_id"
     t.text     "f_5_content"
-    t.integer  "f_5_votes_plus"
-    t.integer  "f_5_votes_minus"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -285,11 +289,12 @@ ActiveRecord::Schema.define(version: 20141119222011) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
-    t.integer  "pending_meliorations",    default: 0
-    t.integer  "waiting_meliorations",    default: 0
-    t.integer  "notifications_timeline"
-    t.integer  "notifications_reference"
-    t.integer  "notifications_comment"
+    t.integer  "notifications_timeline",  default: 0
+    t.integer  "notifications_reference", default: 0
+    t.integer  "notifications_comment",   default: 0
+    t.integer  "notifications_selection", default: 0
+    t.integer  "notifications_win",       default: 0
+    t.integer  "notifications_loss",      default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

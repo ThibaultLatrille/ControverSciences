@@ -2,45 +2,50 @@
 <h1>Voter pour un commentaire</h1>
 
 
-<% if @current_vote %>
+Petit rappel des régles du jeu avant de voter:
+- </br>
+Vous vous appreter à voter pour cette analyse
 
-Vous avez déjà voté pour un commentaire dans cette section
+La meilleur analyse actuellement:
+<ol class="comments">
+  <%= render @best_comment, melioration: false %>
+</ol>
+L'analyse pour laquelle vous allez voter:
+<ol class="comments">
+  <%= render @comment, melioration: false %>
+</ol>
 
-l'ancien :
-    <ol class="comments">
-    <%= render @current_comment %>
-    </ol>
-Le nouveau :
-      <ol class="comments">
-    <%= render @new_comment %>
-      </ol>
+<div class="panel panel-default">
+  <div class="panel-heading"> Les diffèrences dans le texte brut sont : </div>
+  <div class="panel-body">
+    <%= @diff.html_safe %>
+  </div>
+</div>
 
-<%= form_for(@vote) do |f| %>
+<% if @my_vote %>
+    Vous allez changer votre vote de
+    <%= image_tag("icons/myicon-#{ @my_vote.value == 1 ? "up" : "down"}.png", alt: "up", height: "16px") %> vers
+    <%= image_tag("icons/myicon-#{ params[:vote][:value] == "1" ? "up" : "down"}.png", alt: "up", height: "16px") %>
+<% else %>
+    Vous souhaitez voter
+    <%= image_tag("icons/myicon-#{ params[:vote][:value] == "1" ? "up" : "down"}.png", alt: "up", height: "16px") %>
+<% end %>
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@vote) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <%= f.hidden_field :timeline_id, value: params[:vote][:timeline_id] %>
         <%= f.hidden_field :reference_id, value: params[:vote][:reference_id]%>
         <%= f.hidden_field :comment_id, value: params[:vote][:comment_id] %>
         <%= f.hidden_field :field, value: params[:vote][:field] %>
         <%= f.hidden_field :value, value: params[:vote][:value] %>
-        <%= f.submit "Modifier mon vote", name: "update", class: "btn btn-primary" %>
-    <% end %>
-
-<% else %>
-    <ol class="comments">
-    <%= render @new_comment %>
-      </ol>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <%= form_for(@vote) do |f| %>
-            <%= render 'shared/error_messages', object: f.object %>
-            <%= f.hidden_field :timeline_id, value: params[:vote][:timeline_id] %>
-            <%= f.hidden_field :reference_id, value: params[:vote][:reference_id]%>
-            <%= f.hidden_field :comment_id, value: params[:vote][:comment_id] %>
-            <%= f.hidden_field :field, value: params[:vote][:field] %>
-            <%= f.hidden_field :value, value: params[:vote][:value] %>
+        <% if @my_vote %>
+            <%= f.submit "Modifier mon vote", name: "update", class: "btn btn-primary" %>
+        <% else %>
             <%= f.submit "Enregistrer le vote", class: "btn btn-primary" %>
         <% end %>
-      </div>
-    </div>
-
-<% end %>
+    <% end %>
+  </div>
+</div>

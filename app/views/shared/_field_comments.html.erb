@@ -12,16 +12,20 @@
     </div>
     <div id=<%= "collapse#{field}" -%> class="panel-collapse collapse">
       <div class="panel-body">
-            <% if logged_in? %>
-                <% if @comments_user[field] %>
-                    Vous avez déjà écrit un commentaire (<%= link_to '<span class="glyphicon glyphicon-edit"></span> Modifier'.html_safe, edit_comment_path(@comments_user[field]) -%>)
+            <% if @comments_user[field] %>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Vous avez déjà écrit un commentaire (<%= link_to '<span
+                         class="glyphicon glyphicon-edit"></span> Modifier'.html_safe,
+                                  edit_comment_path(@comments_user[field]) -%>)
                 <ol class="comments">
-                <%= render @comments_user[field], melioration: false %>
+                  <%= render @comments_user[field], melioration: false %>
                 </ol>
+              </div>
+            </div>
                 <% else %>
-                <%= link_to '<span class="glyphicon glyphicon-plus" ></span> Ajouter votre commentaire à cette section '.html_safe,
-                            new_comment_path(field: field) %>
-                <% end %>
+            <%= link_to '<span class="glyphicon glyphicon-plus" ></span> Ajouter votre commentaire à cette section '.html_safe,
+                        new_comment_path(field: field, reference_id: @reference.id, timeline_id: @reference.timeline_id ) %>
             <% end %>
             <div class="col-xs-12">
               <% if @comments[field].any? %>

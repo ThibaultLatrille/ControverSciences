@@ -13,16 +13,19 @@
       <%= comment.votes_minus %>
     </div>
   </div>
-  <% if logged_in? && melioration %>
+  <% if melioration %>
   <div class="pull-right">
     <div>
       <%= link_to image_tag("icons/myicon-escalation.png", alt: "escalation", height: "24px"),
-                  new_melioration_path(comment_id: comment.id) %>
+                  new_comment_path(comment_id: comment.id) %>
     </div>
   </div>
   <% end %>
   <div class="comment">
-  <span class="content"><%= comment.content_markdown.html_safe %></span>
+  <span class="content">
+   <%= link_to '<span class="glyphicon glyphicon-eye-open"></span> Comparer'.html_safe,
+                        comment_path(comment.id) %>
+    <%= comment.content_markdown.html_safe %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= link_to comment.user.name, comment.user %>
   </span>

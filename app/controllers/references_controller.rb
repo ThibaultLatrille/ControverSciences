@@ -68,9 +68,18 @@ class ReferencesController < ApplicationController
     @comments = Hash.new()
     @comments_user = Hash.new()
     for fi in 1..5
-      @comments[fi] = @reference.comments.order(score: :desc).where(field: fi).first(5)
+      best_comment = BestComment.find_by( field: fi, reference_id: @reference.id)
+      if best_comment
+        @comments[fi] = Comment.order(balance: :desc ).where(
+                   field: fi, reference_id: @reference.id ).where.not(
+                   id: best_comment.comment_id, user_id: current_user.id ).first(5)
+      else
+        @comments[fi] = []
+      end
       if logged_in?
-      @comments_user[fi] = @reference.comments.where(field: fi, user_id: current_user.id).first
+        @comments_user[fi] = @reference.comments.where(field: fi, user_id: current_user.id).first
+      else
+        @comments_user[fi] = nil
       end
     end
     sum = @reference.star_1+@reference.star_2+@reference.star_3+@reference.star_4+@reference.star_5

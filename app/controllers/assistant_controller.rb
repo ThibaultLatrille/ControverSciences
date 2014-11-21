@@ -1,5 +1,5 @@
 class AssistantController < ApplicationController
-  before_action :admin_user, only: [:view, :users, :timelines, :comments]
+  before_action :admin_user, only: [:view, :users, :timelines, :selection, :fitness]
 
   def view
   end
@@ -13,7 +13,7 @@ class AssistantController < ApplicationController
       score = 3.0/(1.0/(1+score_comments)+1.0/(1+score_references)+1.0/(1+score_timeline))
       user.update_attributes( score: score)
     end
-    flash[:success] = "Les indices des utilisateurs sont à jour"
+    flash[:success] = "Les valeurs sélectives des utilisateurs sont à jour"
     redirect_to assistant_path
   end
 
@@ -28,15 +28,33 @@ class AssistantController < ApplicationController
       recent_score = timeline.compute_score( nb_references, nb_comments, nb_votes)
       timeline.update_attributes( score_recent: recent_score, score: score)
     end
-    flash[:success] = "Les indices des controverses sont à jour"
+    flash[:success] = "Les valeurs sélectives des controverses sont à jour"
     redirect_to assistant_path
   end
 
-  def comments
+  def selection
+    references = Reference.all
+    references.each do |reference|
+      (1..5).each do |field|
+        most = Comment.where( reference_id: reference.id, field: field ).order(score: :desc).first
+        if most
+          if most.score > 3.0
+            best_comment = BestComment.find_by(reference_id: reference.id, field: field )
+            reference.displayed_comment( most, best_comment )
+            Vote.where( reference_id: reference.id, field: field ).destroy_all
+          end
+        end
+      end
+    end
+    flash[:success] = "La sélection a opérée"
+    redirect_to assistant_path
+  end
+
+  def fitness
     comments = Comment.all
     comments.each do |comment|
       votes = Vote.where( comment_id: comment.id)
-      score = 0
+      score = 0.0
       votes.each do |vote|
         if vote.value == 1
           score += vote.user.score
@@ -44,30 +62,9 @@ class AssistantController < ApplicationController
           score -= vote.user.score
         end
       end
-      ago = Time.now - 7.days
-      recent_votes = Vote.where( comment_id: comment.id, created_at: ago..Time.now)
-      recent_score = 0
-      recent_votes.each do |vote|
-        if vote.value == 1
-          recent_score += vote.user.score
-        elsif vote.value == 0
-          recent_score -= vote.user.score
-        end
-      end
-      comment.update_attributes( score_recent: recent_score, score: score)
+      comment.update_attributes( score: score)
     end
-    references = Reference.all
-    references.each do |reference|
-      (1..5).each do |field|
-        most = Comment.where( reference_id: reference.id, field: field ).order(score: :desc).first
-        if most
-          if reference.field_id( field ) != most.id
-            reference.displayed_comment( most )
-          end
-        end
-      end
-    end
-    flash[:success] = "Les indices des analyses sont à jour"
+    flash[:success] = "Les valeurs sélectives des analyses sont à jour"
     redirect_to assistant_path
   end
 end

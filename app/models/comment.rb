@@ -93,10 +93,6 @@ class Comment < ActiveRecord::Base
                        reference_id: link, timeline_id: self.timeline_id})
         end
       end
-      ref = Reference.find( self.reference_id )
-      if ref.field_id( self.field ) == self.id
-        ref.displayed_comment( self )
-      end
       true
     else
       false
@@ -118,8 +114,8 @@ class Comment < ActiveRecord::Base
   def cascading_save_comment
     self.create_notifications
     reference = self.reference
-    if reference.field_id( self.field ).nil?
-      reference.displayed_comment( self )
+    if reference["f_#{self.field}_content".to_sym].nil?
+      reference.displayed_comment( self)
     end
     Reference.increment_counter(:nb_edits, self.reference_id)
     Timeline.increment_counter(:nb_edits, self.timeline_id)

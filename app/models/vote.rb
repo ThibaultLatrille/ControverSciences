@@ -13,8 +13,22 @@ class Vote < ActiveRecord::Base
   validates :comment_id, presence: true
   validates :value, presence: true, inclusion: { in: 0..1 }
   validates :field, presence: true, inclusion: { in: 1..5 }
-  validates_uniqueness_of :user_id, :scope => [:reference_id, :field, :value]
-  validates_uniqueness_of :user_id, :scope => [:comment_id, :value]
+  validates_uniqueness_of :user_id, :scope => [:comment_id]
+  validate :not_best_comment
+  validate :not_user_comment
+
+  def not_best_comment
+    best_comment = BestComment.find_by_comment_id(self.comment_id)
+    if best_comment
+      errors.add(:comment_id, "The comment is the best and can't be voted")
+    end
+  end
+
+  def not_user_comment
+    if self.comment.user_id == self.user_id
+      errors.add(:user_id, "The comment is owned by the user")
+    end
+  end
 
   private
 
@@ -22,37 +36,29 @@ class Vote < ActiveRecord::Base
     case self.value
       when 1
         Comment.increment_counter(:votes_plus, self.comment_id)
-        Comment.update_counters(self.comment_id, score: self.user.score )
+        Comment.increment_counter(:balance, self.comment_id)
       when 0
         Comment.increment_counter(:votes_minus, self.comment_id)
-        Comment.update_counters(self.comment_id, score: -self.user.score )
-    end
-    most = Comment.where(reference_id: self.reference_id, field: self.field).order(score: :desc).first
-    if most.reference.field_id( self.field ) != most.id
-      most.reference.displayed_comment( most )
+        Comment.decrement_counter(:balance, self.comment_id)
     end
     Reference.increment_counter(:nb_votes, self.reference_id)
     Timeline.increment_counter(:nb_votes, self.timeline_id)
   end
 
   def cascading_update_vote
-    old_comment_id = self.comment_id_was
+    value = self.value_was
     yield
-    case self.value
-      when 1
-        Comment.decrement_counter( :votes_plus, old_comment_id)
-        Comment.update_counters(old_comment_id, score: -self.user.score )
-        Comment.increment_counter( :votes_plus, self.comment_id)
-        Comment.update_counters(self.comment_id, score: self.user.score )
-      when 0
-        Comment.decrement_counter(:votes_minus, old_comment_id)
-        Comment.update_counters(old_comment_id, score: self.user.score )
-        Comment.increment_counter(:votes_minus, self.comment_id)
-        Comment.update_counters(self.comment_id, score: -self.user.score )
-    end
-    most = Comment.where(reference_id: self.reference_id, field: self.field ).order(score: :desc).first
-    if most.reference.field_id( self.field ) != most.id
-      most.reference.displayed_comment( most )
+    if value != self.value
+      case self.value
+        when 1
+          Comment.decrement_counter( :votes_minus, self.comment_id)
+          Comment.increment_counter( :votes_plus, self.comment_id)
+          Comment.update_counters(self.comment_id, balance: 2 )
+        when 0
+          Comment.decrement_counter(:votes_plus, self.comment_id)
+          Comment.increment_counter(:votes_minus, self.comment_id)
+          Comment.update_counters(self.comment_id, balance: -2 )
+      end
     end
   end
 end

@@ -1,5 +1,12 @@
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
-
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      La meilleur analyse du moment est :
+      <ol class="comments">
+        <%= render @best_comment, melioration: true %>
+      </ol>
+    </div>
+  </div>
   <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" type="button"
             id="dropdownMenuTri" data-toggle="dropdown">
@@ -7,11 +14,11 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" >
-      <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-        <%= link_to "Les plus cotées (par défault)", comments_path(:sort=> 'score', field: params[:field],
+      <li <%= params[:sort]=='balance' || params[:sort].nil? ? "class=selected" : nil %> >
+        <%= link_to "Les meilleurs compétiteurs (par défault)", comments_path(:sort=> 'balance', field: params[:field],
                                          reference_id: params[:reference_id], :order => params[:order]) %> </li>
-      <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
-        <%= link_to "Les controverses du moment", comments_path(:sort=> 'score_recent', field: params[:field],
+      <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
+        <%= link_to "Date de création", comments_path(:sort=> 'created_at', field: params[:field],
                                          reference_id: params[:reference_id], :order => params[:order]) %> </li>
       <li <%= params[:sort]=='votes_plus' ? "class=selected" : nil %> >
         <%= link_to "Nombre de votes positifs", comments_path(:sort => 'votes_plus', field: params[:field],

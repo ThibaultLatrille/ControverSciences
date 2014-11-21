@@ -23,26 +23,11 @@ class CreateReferences < ActiveRecord::Migration
       t.integer :star_5, default: 0
       t.integer :star_most, default: 0
       t.boolean :star_counted, default: false
-      t.integer :f_1_id
       t.text :f_1_content
-      t.integer :f_1_votes_plus
-      t.integer :f_1_votes_minus
-      t.integer :f_2_id
       t.text :f_2_content
-      t.integer :f_2_votes_plus
-      t.integer :f_2_votes_minus
-      t.integer :f_3_id
       t.text :f_3_content
-      t.integer :f_3_votes_plus
-      t.integer :f_3_votes_minus
-      t.integer :f_4_id
       t.text :f_4_content
-      t.integer :f_4_votes_plus
-      t.integer :f_4_votes_minus
-      t.integer :f_5_id
       t.text :f_5_content
-      t.integer :f_5_votes_plus
-      t.integer :f_5_votes_minus
 
       t.timestamps
     end

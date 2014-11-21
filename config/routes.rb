@@ -12,26 +12,20 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show]
   resources :references, only: [:new, :create, :show]
-  resources :comments,          only: [:new, :create, :edit, :update, :index, :destroy]
+  resources :comments,          only: [:show, :new, :create, :edit, :update, :index, :destroy]
   resources :votes,          only: [:new ,:create, :destroy]
   resources :ratings,          only: [:create, :destroy]
-  resources :meliorations, only: [:new, :create, :show, :index, :destroy] do
-    member do
-      get 'accept'
-    end
-    collection do
-      get 'pending'
-    end
-  end
   get 'assistant' => 'assistant#view'
   get 'assistant/users' => 'assistant#users'
   get 'assistant/timelines' => 'assistant#timelines'
-  get 'assistant/comments' => 'assistant#comments'
+  get 'assistant/fitness' => 'assistant#fitness'
+  get 'assistant/selection' => 'assistant#selection'
   resources :following_references, only: [:create, :destroy]
   resources :following_timelines, only: [:create, :destroy]
   resources :following_new_timelines, only: [:create, :destroy]
   get 'followings/index'
   get 'notifications/index'
+  get 'notifications/important'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

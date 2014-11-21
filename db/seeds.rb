@@ -161,24 +161,21 @@ end
 
 def seed_votes(users, comments)
   votes = []
-  comments.group_by{ |c| c.reference_id }.each do |reference_id, comments_by_reference|
-    comments_by_reference.group_by{ |c| c.field }.each do |field, comments_by_reference_field|
-      voters = users.sample(rand(users.length))
-      voters.each do |user|
-        value = rand(0..1)
-        comment = comments_by_reference_field[rand(comments_by_reference_field.length)]
-        votes << Vote.new(
-            user: user,
-            comment: comment,
-            timeline:  comment.timeline,
-            reference_id: reference_id,
-            field: field,
-            value: value)
-      end
+  users.each do |user|
+    comments_user = comments.sample(rand(comments.length))
+    comments_user.each do |comment|
+      value = rand(0..1)
+      votes << Vote.new(
+          user_id: user.id,
+          comment_id: comment.id,
+          timeline_id:  comment.timeline_id,
+          reference_id: comment.reference_id,
+          field: comment.field,
+          value: value)
     end
   end
   votes.map do |v|
-    v.save!
+    v.save
   end
   votes
 end
@@ -202,43 +199,6 @@ def seed_ratings(users, references)
   ratings
 end
 
-def seed_meliorations(users, comments)
-  user = users[0]
-  user_comments = comments.select{ |c| c.user_id == user.id }
-  meliorations = []
-  user_comments.each do |com|
-    contributors = users[1..-1].sample(1+rand(users.length-2))
-    contributors.each do |contributor|
-      content = com.content.dup
-      content.insert(rand(content.length), Faker::Lorem.sentence(2))
-      message = Faker::Lorem.sentence(10)
-      meliorations << Melioration.new(
-          to_user_id: user.id,
-          user_id: contributor.id,
-          content:  content,
-          message: message,
-          comment_id: com.id)
-    end
-  end
-  all_other_comments = comments.select{ |c| c.user_id != user.id }
-  other_comments = all_other_comments.sample(rand(all_other_comments.length))
-  other_comments.each do |com|
-    content = com.content.dup
-    content.insert(rand(content.length), Faker::Lorem.sentence(2))
-    message = Faker::Lorem.sentence(10)
-    meliorations << Melioration.new(
-        to_user_id: com.user_id,
-        user_id: user.id,
-        content:  content,
-        message: message,
-        comment_id: com.id)
-  end
-  meliorations.map do |r|
-    r.save!
-  end
-  meliorations
-end
-
 tags = tags_hash.keys
 users = seed_users
 seed_following_new_timelines(users, tags)
@@ -249,4 +209,3 @@ seed_following_references(users, references[0..4])
 comments = seed_comments(users, timelines)
 seed_votes(users, comments)
 seed_ratings(users, references)
-seed_meliorations(users, comments)
