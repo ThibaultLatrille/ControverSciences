@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120151427) do
+ActiveRecord::Schema.define(version: 20141121094019) do
 
   create_table "best_comments", force: true do |t|
     t.integer  "user_id"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20141120151427) do
   add_index "best_comments", ["comment_id"], name: "index_best_comments_on_comment_id"
   add_index "best_comments", ["reference_id"], name: "index_best_comments_on_reference_id"
   add_index "best_comments", ["user_id"], name: "index_best_comments_on_user_id"
+
+  create_table "comment_relationships", force: true do |t|
+    t.integer  "parent_id"
+    t.integer  "child_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
