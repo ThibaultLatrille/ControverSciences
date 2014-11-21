@@ -3,7 +3,7 @@
     <div class="panel-heading">
       La meilleur analyse du moment est :
       <ol class="comments">
-        <%= render @best_comment, melioration: true %>
+        <%= render @best_comment, fork: true %>
       </ol>
     </div>
   </div>
@@ -47,7 +47,7 @@
     </br>
   </div>
 <ol class="comments">
-<%= render @comments, melioration: true %>
+<%= render @comments, fork: true %>
 </ol>
 <%= paginate @comments%>
 </div>

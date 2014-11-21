@@ -1,13 +1,35 @@
-<div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
+<div class="col-md-4">
   <div class="panel panel-default">
     <div class="panel-heading">
       La meilleur analyse du moment est :
       <ol class="comments">
-        <%= render @best_comment, melioration: true %>
+        <%= render @best_comment, fork: true %>
       </ol>
     </div>
   </div>
   <ol class="comments">
-    <%= render @comment, melioration: true %>
+    <%= render @comment, fork: true %>
   </ol>
+</div>
+
+<div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Avec les bébé :
+      <ol class="comments">
+        <%= render @comment.children, fork: true %>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Avec les bébé :
+      <ol class="comments">
+        <%= render @comment.parent, fork: true %>
+      </ol>
+    </div>
+  </div>
 </div>

@@ -13,10 +13,10 @@
       <%= comment.votes_minus %>
     </div>
   </div>
-  <% if melioration %>
+  <% if fork %>
   <div class="pull-right">
     <div>
-      <%= link_to image_tag("icons/myicon-escalation.png", alt: "escalation", height: "24px"),
+      <%= link_to image_tag("icons/myicon-fork.png", alt: "escalation", height: "24px"),
                   new_comment_path(comment_id: comment.id) %>
     </div>
   </div>

@@ -3,14 +3,14 @@
   <%= current_user.notifications_win %>
   de vos analyses ont surpassé d'autres analyses lors des récents épisodes de séléctions
   <ol class="comments">
-    <%= render @wins, melioration: false %>
+    <%= render @wins, fork: false %>
   </ol>
 </div>
 <div class="col-md-6 col-lg-3">
   <%= current_user.notifications_loss %>
   de vos analyses ont été surpassé par d'autres lors des récents épisodes de séléctions
   <ol class="comments">
-    <%= render @losses, melioration: true %>
+    <%= render @losses, fork: true %>
   </ol>
 </div>
 </div>
