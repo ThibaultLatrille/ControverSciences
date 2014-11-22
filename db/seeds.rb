@@ -38,16 +38,19 @@ def seed_timelines(users, tags)
   timelines = []
   names = []
   names << "Les OGMs sont-ils nocifs pour la santé ?"
-  names << "Les chats vont-ils conquérir la terre ?"
-  names << "Les ondes éléctromagnétiques sont elles dangeureuse ?"
-  names << "Les animaux ne sont pas homosexuels ?"
+  names << "Les crevettes sont elles conscientes"
+  names << "Les ondes des portables vont-elles nous griller le cerveau ?"
+  names << "Les animaux peuvent-ils être homosexuels ?"
   names << "Les poissons de Fukushima sont-ils fluorescent ?"
+  names << "Les poules ont elles des dents ?"
+  names << "Sommes nous descendant de Néanderthal ? "
+  names << "Le nuage de Tchernobyl s'est il arreté à la frontière "
   names << "La masturbation rend elle sourd ?"
-  names << "Les coraux vont-ils disparaître ?"
-  names << "L'herbe rend elle con ?"
-  names << "La café est il dangeureux ?"
+  names << "Les coraux vont-ils disparaîtrent ?"
+  names << "Le THC rend elle stupide et con ?"
+  names << "La café est il mauvais pour la santé ?"
   names << "Le LHC va-t-il créer un trou noir ?"
-  names << "Yellowstone va bientôt sauter ?"
+  names << "Yellowstone va-il bientôt sauter ?"
   content = Faker::Lorem.sentence(8)
   names.each do |name|
       timeline = Timeline.new(
@@ -199,6 +202,33 @@ def seed_ratings(users, references)
   ratings
 end
 
+def seed_children(users, comments)
+  root_url = "0.0.0.0:3000/"
+  user = users[0]
+  user_comments = comments.select{ |c| c.user_id == user.id }
+  children = []
+  user_comments.each do |com|
+    contributors = users[1..-1].sample(1+rand(users.length-2))
+    contributors.each do |contributor|
+      content = com.content.dup
+      content.insert(rand(content.length), Faker::Lorem.sentence(2))
+      new_comment = Comment.new(
+          user_id: contributor.id,
+          timeline_id:  com.timeline_id,
+          reference_id: com.reference_id,
+          field: com.field,
+          content: content)
+      new_comment.markdown (root_url)
+      new_comment.save!
+      children << CommentRelationship.new( parent_id: com.id, child_id: new_comment.id)
+    end
+  end
+  children.map do |r|
+    r.save!
+  end
+  children
+end
+
 tags = tags_hash.keys
 users = seed_users
 seed_following_new_timelines(users, tags)
@@ -207,5 +237,6 @@ seed_following_timelines(users, timelines)
 references = seed_references(users, timelines)
 seed_following_references(users, references[0..4])
 comments = seed_comments(users, timelines)
+seed_children(users, comments)
 seed_votes(users, comments)
 seed_ratings(users, references)
