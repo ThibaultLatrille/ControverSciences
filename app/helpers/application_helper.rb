@@ -20,7 +20,8 @@ module ApplicationHelper
      "pie" => "Mathématiques"}
   end
 
-  def fields_list
-    [["L'éxperience", 1], ["Les résultats", 2],["Les limites", 3],["Quel rapport", 4],["Remarques", 5] ]
+  def fields_hash
+    {1 => "L'éxperience", 2 => "Les résultats", 3 => "Les limites",
+     4 => "Quel rapport", 5 => "Remarques" }
   end
 end
