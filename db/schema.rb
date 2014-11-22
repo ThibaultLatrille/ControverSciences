@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20141121094019) do
   create_table "best_comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "reference_id"
-    t.integer  "field"
     t.integer  "comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -37,16 +36,24 @@ ActiveRecord::Schema.define(version: 20141121094019) do
     t.integer  "user_id"
     t.integer  "timeline_id"
     t.integer  "reference_id"
-    t.integer  "field"
     t.text     "content"
-    t.integer  "votes_plus",       default: 0
-    t.integer  "votes_minus",      default: 0
-    t.integer  "balance",          default: 0
-    t.float    "score",            default: 0.0
-    t.boolean  "best",             default: false
+    t.integer  "votes_plus",   default: 0
+    t.integer  "votes_minus",  default: 0
+    t.integer  "balance",      default: 0
+    t.float    "score",        default: 0.0
+    t.boolean  "best",         default: false
+    t.text     "content_1"
+    t.text     "content_2"
+    t.text     "content_3"
+    t.text     "content_4"
+    t.text     "content_5"
+    t.text     "markdown_1"
+    t.text     "markdown_2"
+    t.text     "markdown_3"
+    t.text     "markdown_4"
+    t.text     "markdown_5"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "content_markdown"
   end
 
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id"
@@ -312,7 +319,6 @@ ActiveRecord::Schema.define(version: 20141121094019) do
     t.integer  "timeline_id"
     t.integer  "reference_id"
     t.integer  "comment_id"
-    t.integer  "field"
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
