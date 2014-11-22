@@ -10,6 +10,7 @@ class CreateComments < ActiveRecord::Migration
       t.integer :votes_minus, default: 0
       t.integer :balance, default: 0
       t.float :score, default: 0.0
+      t.boolean :best, default: false
 
       t.timestamps
     end
