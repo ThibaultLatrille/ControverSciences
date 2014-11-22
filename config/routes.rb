@@ -27,6 +27,11 @@ Rails.application.routes.draw do
   get 'notifications/index'
   get 'notifications/important'
 
+  get 'my_items/timelines'
+  get 'my_items/references'
+  get 'my_items/comments'
+  get 'my_items/votes'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
