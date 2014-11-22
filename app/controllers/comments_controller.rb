@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def new
     @comment = Comment.new()
@@ -60,18 +60,13 @@ class CommentsController < ApplicationController
 
   def show
     @comment = Comment.find(params[:id])
-    @best_comment = BestComment.find_by( reference_id: @comment.reference_id ).comment
-    @best_comment.diff = Diffy::Diff.new(@comment.content_1, @best_comment.content_1,
-                                         :include_plus_and_minus_in_html => true).to_s(:html)
     @children = @comment.children
     @children.each do |comment|
-      comment.diff = Diffy::Diff.new(@comment.content_1, comment.content_1,
-                              :include_plus_and_minus_in_html => true).to_s(:html)
+      comment.diffy( @comment)
     end
     @parent = @comment.parent
     if @parent
-      @parent.diff = Diffy::Diff.new(@comment.content_1, @parent.content_1,
-                                     :include_plus_and_minus_in_html => true).to_s(:html)
+      @parent.diffy( @comment)
     end
   end
 
