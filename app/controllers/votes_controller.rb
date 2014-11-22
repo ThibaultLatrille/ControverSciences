@@ -14,7 +14,7 @@ pour votre propre analyse"
 les autres analyses relativement à celle-ci"
       redirect_to reference_path(@comment.reference_id)
     else
-      @diff = Diffy::Diff.new(@best_comment.content, @comment.content,
+      @comment.diff = Diffy::Diff.new(@best_comment.content, @comment.content,
                               :include_plus_and_minus_in_html => true).to_s(:html)
       @my_vote = Vote.find_by({user_id: current_user.id,
                                 comment_id: vote_params[:comment_id]})
