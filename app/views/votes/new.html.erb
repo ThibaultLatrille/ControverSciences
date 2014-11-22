@@ -47,7 +47,6 @@ Petit rappel des régles du jeu avant de voter: </br>
         <%= f.hidden_field :timeline_id, value: params[:vote][:timeline_id] %>
         <%= f.hidden_field :reference_id, value: params[:vote][:reference_id]%>
         <%= f.hidden_field :comment_id, value: params[:vote][:comment_id] %>
-        <%= f.hidden_field :field, value: params[:vote][:field] %>
         <%= f.hidden_field :value, value: params[:vote][:value] %>
         <% if @my_vote %>
             <%= f.submit "Modifier mon vote", name: "update", class: "btn btn-primary" %>

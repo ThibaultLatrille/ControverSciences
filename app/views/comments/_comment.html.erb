@@ -16,10 +16,10 @@
       <% else %>
           <%= link_to image_tag("icons/myicon-up.png", alt: "up", height: "16px")+" "+comment.votes_plus.to_s,
                       new_vote_path(vote: {timeline_id: comment.timeline_id,
-                        reference_id: comment.reference_id, comment_id: comment.id, field: comment.field, value: 1}), :class => "btn btn-default" %>
+                        reference_id: comment.reference_id, comment_id: comment.id, value: 1}), :class => "btn btn-default" %>
           <%= link_to image_tag("icons/myicon-down.png", alt: "down", height: "16px")+" "+comment.votes_minus.to_s,
                       new_vote_path(vote: {timeline_id: comment.timeline_id,
-                        reference_id: comment.reference_id, comment_id: comment.id, field: comment.field, value: 0}), :class => "btn btn-default" %>
+                        reference_id: comment.reference_id, comment_id: comment.id, value: 0}), :class => "btn btn-default" %>
       <% end %>
     </div>
     <% if fork %>
@@ -31,7 +31,11 @@
   </div>
   <div class="comment">
   <span class="content">
-    <%= comment.content_markdown.html_safe %></span>
+    <% for fi in 1..5 %>
+        <%= fields_hash[fi] %>
+        <%= comment["markdown_#{fi}".to_sym].html_safe %>
+    <% end %>
+  </span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= link_to comment.user.name, comment.user %>
   </span>

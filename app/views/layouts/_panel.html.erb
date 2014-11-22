@@ -28,13 +28,6 @@
         <li class="list-group-item">
           <span class="glyphicon glyphicon-plus-sign" ></span> Ajouter un commentaire à la référence
           <%= link_to session[:reference_title], reference_path(session[:reference_id]) %>
-           <select class="fieldstore form-control">
-             <option value="1"> L'expérience </option>
-             <option value="2"> Les résultats  </option>
-             <option value="3"> Les limites </option>
-             <option value="4"> Quel rapport </option>
-             <option value="5"> Remarques </option>
-           </select>
            <textarea class="poststore form-control" rows="16" placeholder="Soyez courageux, publiez votre commentaire"></textarea>
            <button class="empty btn btn-block btn-default"> vider le cache </button>
            <%= link_to "Publier mon commentaire", new_comment_path, class: "btn btn-block btn-primary" %>

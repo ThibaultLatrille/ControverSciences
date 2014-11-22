@@ -32,8 +32,7 @@
                                 class: "alert alert-#{message_type}") %>
               <% end %>
               <%= yield %>
-           </div>
-        </div>
+git
   </div>
   <%= render 'layouts/footer' %>
   <div id="Bottom"></div>
@@ -66,26 +65,19 @@
               }
               var dashpost = document.querySelector('.poststore');
               var post = document.querySelector('.staticpoststore');
-              var dashfield = document.querySelector('.fieldstore');
-              var field = document.querySelector('.staticfieldstore');
-              if (dashpost != null && dashfield != null ){
+              if (dashpost != null ){
                   if (!supportsLocalStorage()) {
                       dashpost.value = 'Votre navigateur date de mathusalem ! Par pitié, mettez à jour votre navigateur pour des raisons de sécurités et pour profitez des fonctionnalités de ControverSciences';
                   } else {
                       if (localStorage.getItem('comment')) {
                           dashpost.value = localStorage.getItem('comment');
-                          dashfield.value = localStorage.getItem('field');
                       }
                       if ( post != null ) {
                           post.value = localStorage.getItem('comment');
                       }
-                      if ( field != null ) {
-                          field.value = localStorage.getItem('field');
-                      }
                       try {
                           window.onunload = function () {
                               localStorage.setItem('comment', dashpost.value);
-                              localStorage.setItem('field', dashfield.value);
                           }
                       } catch (e) {
                           if (e == QUOTA_EXCEEDED_ERR) {
@@ -95,10 +87,8 @@
                       document.querySelector('.empty').onclick = function() {
                           localStorage.clear();
                           dashpost.value = '';
-                          dashfield.value = "0";
-                          if ( field != null && post != null ) {
+                          if ( post != null ) {
                               post.value = '';
-                              field.value = "0";
                           }
 
                       };

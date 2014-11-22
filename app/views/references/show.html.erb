@@ -2,7 +2,7 @@
 <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-7 col-lg-offset-0">
   <div class="panel panel-<%= @rating_hash[:panel] -%>">
     <div class="panel-heading">
-      <h3 class="panel-title"> Les analyses </h3>
+      <h3 class="panel-title"> La meilleur analyse </h3>
     </div>
     <div class="panel-body">
       <span>
@@ -10,30 +10,50 @@
         </span> Suivre les nouvelles analyses apportées à cette référence".html_safe,
                     following_references_path( reference_id: @reference.id ), method: :post %>
       </span> </br>
-      <div class="panel-group" id="accordion">
-        <h3> L'éxperience réalisé : </h3>
-        <%= render 'shared/field_comments', field: 1, content: @reference.f_1_content %>
-        <h3> Ce que l'étude démontre : </h3>
-        <%= render 'shared/field_comments', field: 2, content: @reference.f_2_content %>
-        <h3> Les limites de l'étude : </h3>
-        <%= render 'shared/field_comments', field: 3, content: @reference.f_3_content %>
-        <h3> Le rapport à la question : </h3>
-        <%= render 'shared/field_comments', field: 4, content: @reference.f_4_content %>
-        <h3> Remarques éventuelles :</h3>
-        <%= render 'shared/field_comments', field: 5, content: @reference.f_5_content %>
-      </div>
+      <% if @comment.nil? %>
+          <%= "<span class=\"no-comment\"> Pas encore de commentaire dans cette section, soyez le premier </span> ".html_safe %>
+      <% else %>
+          <ol class="comments">
+          <%= render @comment, ref: false, view: true, fork: true, diff: false %>
+          </ol>
+      <% end %>
     </div>
     <div class="panel-footer">
-      <%= image_tag("icons/myicon-users.png", alt: "ref", height: "24px") %>
-      <span class="badge"><%= @reference.nb_contributors %></span>
-      <%= image_tag("icons/myicon-edit-rule.png", alt: "ref", height: "24px") %>
-      <span class="badge"><%= @reference.nb_edits %></span>
-      <%= image_tag("icons/myicon-votes.png", alt: "ref", height: "24px") %>
-      <span class="badge"><%= @reference.nb_votes %></span>
     <span class="pull-right">
-      Référence ajouté par <%= @reference.user.name %>
+      Analyse ajouté par <%= @comment.user.name %>
     </span>
       <div class="clearfix"></div>
+    </div>
+  </div>
+  <div class="panel panel-<%= @rating_hash[:panel] -%>">
+    <div class="panel-heading">
+      <h3 class="panel-title"> Vos analyses </h3>
+    </div>
+    <div class="panel-body">
+      <span>
+            <%= link_to '<span class="glyphicon glyphicon-plus" ></span> Ajouter votre analyse'.html_safe,
+                        new_comment_path( reference_id: @reference.id, timeline_id: @reference.timeline_id ) %>
+      </span> </br>
+      <% if @comments_user.any? %>
+          <ol class="comments">
+          <%= render @comments_user, ref: false, view: true, fork: true, diff: false %>
+          </ol>
+      <% end %>
+    </div>
+  </div>
+  <div class="panel panel-<%= @rating_hash[:panel] -%>">
+    <div class="panel-heading">
+      <h3 class="panel-title"> les autres analyses </h3>
+    </div>
+    <div class="panel-body">
+      <% if @comments.any? %>
+          <ol class="comments">
+          <%= render @comments, ref: false, view: true, fork: true, diff: false %>
+          </ol>
+          <%= link_to "Il y a d'autres analyses, assouvisez votre
+                      soif de connaissance etdecouvrez les",
+                      comments_path(reference_id: @reference.id) %>
+      <% end %>
     </div>
   </div>
 </div>
@@ -121,6 +141,12 @@
     </ul>
   </div>
   <div class="panel-footer">
+    <%= image_tag("icons/myicon-users.png", alt: "ref", height: "24px") %>
+    <span class="badge"><%= @reference.nb_contributors %></span>
+    <%= image_tag("icons/myicon-edit-rule.png", alt: "ref", height: "24px") %>
+    <span class="badge"><%= @reference.nb_edits %></span>
+    <%= image_tag("icons/myicon-votes.png", alt: "ref", height: "24px") %>
+    <span class="badge"><%= @reference.nb_votes %></span>
     <span class="pull-right">
       Référence ajouté par <%= @reference.user.name %>
     </span>

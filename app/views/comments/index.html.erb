@@ -18,16 +18,16 @@
     </button>
     <ul class="dropdown-menu" role="menu" >
       <li <%= params[:sort]=='balance' || params[:sort].nil? ? "class=selected" : nil %> >
-        <%= link_to "Les meilleurs compétiteurs (par défault)", comments_path(:sort=> 'balance', field: params[:field],
+        <%= link_to "Les meilleurs compétiteurs (par défault)", comments_path(:sort=> 'balance',
                                          reference_id: params[:reference_id], :order => params[:order]) %> </li>
       <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-        <%= link_to "Date de création", comments_path(:sort=> 'created_at', field: params[:field],
+        <%= link_to "Date de création", comments_path(:sort=> 'created_at',
                                          reference_id: params[:reference_id], :order => params[:order]) %> </li>
       <li <%= params[:sort]=='votes_plus' ? "class=selected" : nil %> >
-        <%= link_to "Nombre de votes positifs", comments_path(:sort => 'votes_plus', field: params[:field],
+        <%= link_to "Nombre de votes positifs", comments_path(:sort => 'votes_plus',
                                          reference_id: params[:reference_id], :order => params[:order]) %> </li>
       <li <%= params[:sort]=='votes_minus' ? "class=selected" : nil %> >
-        <%= link_to "Nombre de votes négatifs", comments_path(:sort => 'votes_minus', field: params[:field],
+        <%= link_to "Nombre de votes négatifs", comments_path(:sort => 'votes_minus',
                                          reference_id: params[:reference_id], :order => params[:order]) %> </li>
     </ul>
   </div>
@@ -39,10 +39,10 @@
     </button>
     <ul class="dropdown-menu" role="menu" >
       <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-        <%= link_to "Décroissant (par défault)", comments_path(:sort=> params[:sort], field: params[:field],
+        <%= link_to "Décroissant (par défault)", comments_path(:sort=> params[:sort],
                                              reference_id: params[:reference_id], :order => 'desc') %> </li>
       <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-        <%= link_to "Croissant", comments_path(:sort => 'created_at', field: params[:field],
+        <%= link_to "Croissant", comments_path(:sort => 'created_at',
                                              reference_id: params[:reference_id], :order => 'asc') %> </li>
     </ul>
   </div>

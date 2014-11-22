@@ -14,7 +14,7 @@ attribute f_3_content: 'field3', if: lambda { |m| !m.f_3_content.nil? }
 attribute f_4_content: 'field4', if: lambda { |m| !m.f_4_content.nil? }
 attribute f_5_content: 'field5', if: lambda { |m| !m.f_5_content.nil? }
 node :readmoreurl do |ref|
-  reference_url(ref)
+  reference_path(ref.id)
 end
 
 node :color do |ref|
