@@ -53,6 +53,7 @@ class Reference < ActiveRecord::Base
       NotificationSelectionLoss.create( user_id: best_comment.user_id,
                                         comment_id: best_comment.comment_id)
       User.increment_counter( :notifications_loss, best_comment.user_id)
+      Comment.find( best_comment.comment_id ).update_attributes( best: false )
       best_comment.update_attributes( user_id: comment.user_id, comment_id: comment.id )
       NotificationSelectionWin.create( user_id: comment.user_id, comment_id: comment.id)
       User.increment_counter( :notifications_win, comment.user_id )
@@ -62,6 +63,7 @@ class Reference < ActiveRecord::Base
                                      comment_id: comment.id, field: comment.field )
     end
     self.update_attributes("f_#{field}_content".to_sym => comment.content_markdown)
+    comment.update_attributes( best: true)
   end
 
   def create_notifications
