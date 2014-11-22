@@ -4,6 +4,16 @@
     <%= stylesheet_link_tag 'timeline', media: 'all' %>
 <% end %>
 
+<div class="row">
+  <% if logged_in? %>
+      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+        <%= render 'layouts/panel' %>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+  <% else %>
+      <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
+  <% end %>
+
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title"><%= @timeline.name %></h3>
@@ -50,6 +60,9 @@
 </span>
 
 <div class="timeline-jquery-example">
+</div>
+
+</div>
 </div>
 
 <%= javascript_tag do %>

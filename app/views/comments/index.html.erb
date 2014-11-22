@@ -1,3 +1,13 @@
+<div class="row">
+<% if logged_in? %>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+      <%= render 'layouts/panel' %>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+<% else %>
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
+<% end %>
+
 <div class="col-md-5">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -53,4 +63,7 @@
 <%= render @comments, ref: true, view: true, fork: true, diff: false %>
 </ol>
 <%= paginate @comments %>
+</div>
+
+</div>
 </div>

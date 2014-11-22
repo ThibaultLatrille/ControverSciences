@@ -1,5 +1,10 @@
 <% provide(:title, "Nouvelle réfèrence") %>
 
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+    <%= render 'layouts/panel' %>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
 
 <h2>Ajouter une réfèrence à la timeline <%= link_to Timeline.find(session[:timeline_id]).name,  Timeline.find(session[:timeline_id]) %></h2>
 
@@ -15,4 +20,7 @@
         <%= f.submit "Annuler", name: "stop_button", class: "btn btn-primary" %>
     <% end %>
   </div>
+</div>
+
+</div>
 </div>

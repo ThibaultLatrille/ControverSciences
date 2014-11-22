@@ -1,4 +1,15 @@
-<div class="col-md-8 col-md-offset-2">
+<div class="row">
+<% if logged_in? %>
+    <div class="col-xs-12 col-md-4 col-lg-2">
+      <%= render 'layouts/panel' %>
+    </div>
+    <div class="col-xs-12 col-md-8 col-lg-10">
+<% else %>
+    <div class="col-xs-12 col-md-10 col-md-offset-1">
+<% end %>
+
+<div class="row">
+<div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
   <div class="panel panel-default">
     <div class="panel-heading">
  Cette analyse appartient à la référence
@@ -10,20 +21,29 @@
   </div>
 </div>
 
-<div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <%= image_tag("icons/myicon-laurel.png", alt: "laurel", height: "24px")%>
-      La meilleur analyse dans la même section :
-      <ol class="comments">
-        <%= render @best_comment, ref: false, view: true, fork: true, diff: true %>
-      </ol>
+<div class="col-lg-6">
+<% if @parent %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= image_tag("icons/myicon-parent.png", alt: "laurel", height: "24px")%>
+        Et comme parent :
+        <ol class="comments">
+          <%= render @parent, ref: false, view: true, fork: true, diff: true %>
+        </ol>
+      </div>
     </div>
-  </div>
+<% else %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <%= image_tag("icons/myicon-no-parent.png", alt: "laurel", height: "24px")%>
+        Cette analyse n'a aucun parent !
+      </div>
+    </div>
+<% end %>
 </div>
 
-<div class="col-md-4">
-  <% if @comment.children.any? %>
+<div class="col-lg-6">
+  <% if @children.any? %>
   <div class="panel panel-default">
     <div class="panel-heading">
       <%= image_tag("icons/myicon-children.png", alt: "laurel", height: "24px")%>
@@ -43,23 +63,6 @@
   <% end %>
 </div>
 
-<div class="col-md-4">
-  <% if @comment.parent %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <%= image_tag("icons/myicon-parent.png", alt: "laurel", height: "24px")%>
-      Et comme parent :
-      <ol class="comments">
-        <%= render @parent, ref: false, view: true, fork: true, diff: true %>
-      </ol>
-    </div>
-  </div>
-  <% else %>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <%= image_tag("icons/myicon-no-parent.png", alt: "laurel", height: "24px")%>
-          Cette analyse n'a aucun parent !
-        </div>
-      </div>
-  <% end %>
+</div>
+</div>
 </div>

@@ -1,4 +1,11 @@
 <% provide(:title, "Edition du profil") %>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+    <%= render 'layouts/panel' %>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+
 <h1>Voter <%= image_tag("icons/myicon-#{ params[:vote][:value] == "1" ? "up" : "down"}.png", alt: "up", height: "36px") %> pour une analyse </h1>
 
 
@@ -55,4 +62,7 @@ Petit rappel des régles du jeu avant de voter: </br>
         <% end %>
     <% end %>
 
+</div>
+
+</div>
 </div>
