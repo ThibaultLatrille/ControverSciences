@@ -15,7 +15,7 @@ La timeline :
 
         <%= f.label "Votre ancien comentaire" %>
         <ol class="comments">
-          <%= render @comment, fork: false %>
+          <%= render @comment, ref: true, view: false, fork: false, diff: false %>
         </ol>
 
         <%= f.label "Le champ" %>

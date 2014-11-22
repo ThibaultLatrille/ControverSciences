@@ -1,12 +1,15 @@
-<div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
+<div class="col-md-5">
   <div class="panel panel-default">
     <div class="panel-heading">
-      La meilleur analyse du moment est :
+      <%= image_tag("icons/myicon-laurel.png", alt: "laurel", height: "24px")%>
+      La meilleur analyse dans la même section :
       <ol class="comments">
-        <%= render @best_comment, fork: true %>
+        <%= render @best_comment, ref: true, view: false, fork: true, diff: false %>
       </ol>
     </div>
   </div>
+</div>
+<div class="col-md-7">
   <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" type="button"
             id="dropdownMenuTri" data-toggle="dropdown">
@@ -47,7 +50,7 @@
     </br>
   </div>
 <ol class="comments">
-<%= render @comments, fork: true %>
+<%= render @comments, ref: true, view: true, fork: true, diff: false %>
 </ol>
-<%= paginate @comments%>
+<%= paginate @comments %>
 </div>

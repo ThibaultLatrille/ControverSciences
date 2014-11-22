@@ -2,24 +2,43 @@
 
 <h2> Créer une analyse </h2>
 
-La référence :
+Pour la référence :
 
 <%= link_to Reference.where(id: session[:reference_id]).pluck(:title)[0], reference_url(session[:reference_id]) %> <br>
-La timeline :
+
+Dans la timeline :
 <%= link_to Timeline.where(id: session[:timeline_id]).pluck(:name)[0], timeline_url(session[:timeline_id]) %>
 
-
 <div class="row">
-  <div class="col-md-12 col-lg-8 col-lg-offset-2">
+  <div class="col-md-12 col-lg-10 col-lg-offset-1">
 
+    <% if @parent %>
+        <div class="row">
+          <div class="col-md-12 col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <%= image_tag("icons/myicon-parent.png", alt: "laurel", height: "24px")%>
+            L'analyse que vous souhaitez améliorer :
+            <ol class="comments">
+              <%= render @parent, ref: false, view: true, fork: false, diff: false %>
+            </ol>
+          </div>
+        </div>
+          </div>
+        </div>
+    <% end %>
     <%= form_for(@comment) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
         <%= f.label "Le champ" %>
         <% if params[:field] %>
-            <%= f.select :field, [["L'éxperience", 1], ["Les résultats", 2],["Les limites", 3],["Quel rapport", 4],["Remarques", 5] ], {selected: params[:field]}, {class: 'form-control'} %>
+            <%= f.select :field, fields_list, {selected: params[:field]}, {class: 'form-control'} %>
+        <% elsif @parent %>
+          <%= f.select :field, fields_list, {selected: @parent.field}, {class: 'form-control', disabled: 'disabled'} %>
+          <%= f.hidden_field :field, value: @parent.field %>
+          <%= f.hidden_field :id, value: @parent.id %>
         <% else %>
-            <%= f.select :field, [["L'éxperience", 1], ["Les résultats", 2],["Les limites", 3],["Quel rapport", 4],["Remarques", 5] ], {}, {class: 'staticfieldstore form-control'} %>
+            <%= f.select :field, fields_list, {}, {class: 'staticfieldstore form-control'} %>
         <% end %>
 
         <%= f.label "Références vers lesquels vous pouvez créer des liens" %>
@@ -27,10 +46,11 @@ La timeline :
         <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
 
         <%= f.label "Votre commentaire" %>
-        <%= f.text_area :content, {:rows => 16, :placeholder => "Enter some text.",
-                                            :class => "staticpoststore form-control", "data-provide" => "markdown" }%>
+        <%= f.text_area :content, {:rows => 16, :placeholder => "A vous de jouer",
+                                            :class => @parent ? "form-control": "staticpoststore form-control",
+                                            "data-provide" => "markdown" }%>
 
-        <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary" %>
+        <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary"%>
     <% end %>
   </div>
 </div>

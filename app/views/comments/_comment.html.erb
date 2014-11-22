@@ -1,33 +1,44 @@
 <li id="comment-<%= comment.id %>">
-  <div class="pull-left">
-    <div>
-      <%= link_to image_tag("icons/myicon-up.png", alt: "up", height: "16px"),
-                  new_vote_path(vote: {timeline_id: comment.timeline_id,
-                    reference_id: comment.reference_id, comment_id: comment.id, field: comment.field, value: 1}) %>
-      <%= comment.votes_plus %>
+  <div class="clearfix">
+    <div class="btn-group">
+      <% if ref %>
+            <%= link_to image_tag("icons/myicon-ref.png", alt: "reference", height: "22px"),
+                        reference_path( comment.reference_id), :class => "btn btn-default", :style => "padding: 5px"%>
+      <% end %>
+      <% if view %>
+        <%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe,
+                    comment_path( comment.id ), :class => "btn btn-default" %>
+      <% end %>
+      <% if comment.best %>
+          <button class="btn btn-default" style="padding: 2px">
+          <%= image_tag("icons/myicon-laurel.png", alt: "best", height: "28px") %>
+          </button>
+      <% else %>
+          <%= link_to image_tag("icons/myicon-up.png", alt: "up", height: "16px")+" "+comment.votes_plus.to_s,
+                      new_vote_path(vote: {timeline_id: comment.timeline_id,
+                        reference_id: comment.reference_id, comment_id: comment.id, field: comment.field, value: 1}), :class => "btn btn-default" %>
+          <%= link_to image_tag("icons/myicon-down.png", alt: "down", height: "16px")+" "+comment.votes_minus.to_s,
+                      new_vote_path(vote: {timeline_id: comment.timeline_id,
+                        reference_id: comment.reference_id, comment_id: comment.id, field: comment.field, value: 0}), :class => "btn btn-default" %>
+      <% end %>
     </div>
-    <div>
-      <%= link_to image_tag("icons/myicon-down.png", alt: "down", height: "16px"),
-                  new_vote_path(vote: {timeline_id: comment.timeline_id,
-                    reference_id: comment.reference_id, comment_id: comment.id, field: comment.field, value: 0}) %>
-      <%= comment.votes_minus %>
-    </div>
+    <% if fork %>
+        <div class="pull-right">
+            <%= link_to image_tag("icons/myicon-fork.png", alt: "fork", height: "28px"),
+                        new_comment_path(comment_id: comment.id), :class => "btn btn-default", :style => "padding: 2px"%>
+        </div>
+    <% end %>
   </div>
-  <% if fork %>
-  <div class="pull-right">
-    <div>
-      <%= link_to image_tag("icons/myicon-fork.png", alt: "escalation", height: "24px"),
-                  new_comment_path(comment_id: comment.id) %>
-    </div>
-  </div>
-  <% end %>
   <div class="comment">
   <span class="content">
-   <%= link_to '<span class="glyphicon glyphicon-eye-open"></span> Comparer'.html_safe,
-                        comment_path(comment.id) %>
     <%= comment.content_markdown.html_safe %></span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= link_to comment.user.name, comment.user %>
   </span>
   </div>
+  <% if diff %>
+      <div class="panel panel-default">
+        <%= comment.diff.html_safe %>
+      </div>
+  <% end %>
 </li>

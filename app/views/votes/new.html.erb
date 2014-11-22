@@ -1,39 +1,47 @@
 <% provide(:title, "Edition du profil") %>
-<h1>Voter pour un commentaire</h1>
+<h1>Voter <%= image_tag("icons/myicon-#{ params[:vote][:value] == "1" ? "up" : "down"}.png", alt: "up", height: "36px") %> pour une analyse </h1>
 
 
-Petit rappel des régles du jeu avant de voter:
-- </br>
-Vous vous appreter à voter pour cette analyse
+Petit rappel des régles du jeu avant de voter: </br>
+- Si l'analyse est mieux que celle affiché actuellement, voter plus, sinon voter moins
 
-La meilleur analyse actuellement:
-<ol class="comments">
-  <%= render @best_comment, fork: false %>
-</ol>
-L'analyse pour laquelle vous allez voter:
-<ol class="comments">
-  <%= render @comment, fork: false %>
-</ol>
+</br>
 
-<div class="panel panel-default">
-  <div class="panel-heading"> Les diffèrences dans le texte brut sont : </div>
-  <div class="panel-body">
-    <%= @diff.html_safe %>
+<div class="row">
+<div class="col-md-5 col-md-offset-1">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= image_tag("icons/myicon-laurel.png", alt: "laurel", height: "24px")%>
+      La meilleur analyse dans la même section :
+      <ol class="comments">
+        <%= render @best_comment, ref: true, view: true, fork: true, diff: false %>
+      </ol>
+    </div>
   </div>
 </div>
 
+<div class="col-md-5">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= image_tag("icons/myicon-#{ params[:vote][:value] == "1" ? "up" : "down"}.png", alt: "up", height: "16px") %>
+      L'analyse pour laquelle vous allez voter et les différences :
+      <ol class="comments">
+        <%= render @comment, ref: true, view: true, fork: true, diff: true %>
+      </ol>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div class="col-md-4 col-md-offset-4">
 <% if @my_vote %>
     Vous allez changer votre vote de
     <%= image_tag("icons/myicon-#{ @my_vote.value == 1 ? "up" : "down"}.png", alt: "up", height: "16px") %> vers
     <%= image_tag("icons/myicon-#{ params[:vote][:value] == "1" ? "up" : "down"}.png", alt: "up", height: "16px") %>
-<% else %>
-    Vous souhaitez voter
-    <%= image_tag("icons/myicon-#{ params[:vote][:value] == "1" ? "up" : "down"}.png", alt: "up", height: "16px") %>
 <% end %>
 
-
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
     <%= form_for(@vote) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
         <%= f.hidden_field :timeline_id, value: params[:vote][:timeline_id] %>
@@ -44,8 +52,8 @@ L'analyse pour laquelle vous allez voter:
         <% if @my_vote %>
             <%= f.submit "Modifier mon vote", name: "update", class: "btn btn-primary" %>
         <% else %>
-            <%= f.submit "Enregistrer le vote", class: "btn btn-primary" %>
+            <%= f.submit "Enregistrer mon vote", class: "btn btn-primary" %>
         <% end %>
     <% end %>
-  </div>
+
 </div>

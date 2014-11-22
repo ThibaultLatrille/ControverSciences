@@ -1,35 +1,61 @@
-<div class="col-md-4">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      La meilleur analyse du moment est :
-      <ol class="comments">
-        <%= render @best_comment, fork: true %>
-      </ol>
-    </div>
-  </div>
+<div class="col-md-6 col-md-offset-3">
+ Cette analyse appartient à la référence
+  <%= link_to( @comment.reference.title_fr , reference_path(@comment.reference_id) ) %>
   <ol class="comments">
-    <%= render @comment, fork: true %>
+    <%= render @comment, ref: true, view: false, fork: true, diff: false %>
   </ol>
 </div>
 
 <div class="col-md-4">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Avec les bébé :
+      <%= image_tag("icons/myicon-laurel.png", alt: "laurel", height: "24px")%>
+      La meilleur analyse dans la même section :
       <ol class="comments">
-        <%= render @comment.children, fork: true %>
+        <%= render @best_comment, ref: false, view: true, fork: true, diff: true %>
       </ol>
     </div>
   </div>
 </div>
 
 <div class="col-md-4">
+  <% if @comment.children.any? %>
   <div class="panel panel-default">
     <div class="panel-heading">
-      Avec les bébé :
+      <%= image_tag("icons/myicon-children.png", alt: "laurel", height: "24px")%>
+      Cette analyse a fait des émules :
       <ol class="comments">
-        <%= render @comment.parent, fork: true %>
+        <%= render @children, ref: false, view: true, fork: true, diff: true %>
       </ol>
     </div>
   </div>
+  <% else %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= image_tag("icons/myicon-no-child.png", alt: "laurel", height: "24px")%>
+          Cette analyse n'a aucun enfant !
+        </div>
+      </div>
+  <% end %>
+</div>
+
+<div class="col-md-4">
+  <% if @comment.parent %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= image_tag("icons/myicon-parent.png", alt: "laurel", height: "24px")%>
+      Et comme parent :
+      <ol class="comments">
+        <%= render @parent, ref: false, view: true, fork: true, diff: true %>
+      </ol>
+    </div>
+  </div>
+  <% else %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= image_tag("icons/myicon-no-parent.png", alt: "laurel", height: "24px")%>
+          Cette analyse n'a aucun parent !
+        </div>
+      </div>
+  <% end %>
 </div>
