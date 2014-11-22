@@ -6,6 +6,5 @@ class BestComment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :reference_id, presence: true
   validates :comment_id, presence: true
-  validates :field, presence: true, inclusion: { in: 1..5 }
-  validates_uniqueness_of :reference_id, :scope => [:field, :comment_id]
+  validates_uniqueness_of :reference_id, :scope => [:comment_id]
 end

@@ -8,4 +8,6 @@ class Link < ActiveRecord::Base
   validates :comment_id, presence: true
   validates :reference_id, presence: true
   validates :timeline_id, presence: true
+
+  validates_uniqueness_of :user_id, :scope => [:comment_id ,:reference_id]
 end

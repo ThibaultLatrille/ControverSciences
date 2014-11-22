@@ -24,9 +24,6 @@ class Comment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
-  validates :content, presence: true
-  validates :field, presence: true, inclusion: { in: 1..5 }
-  #validates_uniqueness_of :user_id, :scope => [:reference_id, :field]
 
   def markdown(root_url)
     render_options = {
@@ -73,17 +70,19 @@ class Comment < ActiveRecord::Base
         # will require a space after # in defining headers
         # space_after_headers: true
     }
-    self.content_markdown = Redcarpet::Markdown.new(renderer, extensions).render(self.content)
+    for fi in 1..5
+      self["markdown_#{fi}".to_sym ] = Redcarpet::Markdown.new(renderer, extensions).render(self["content_#{fi}".to_sym ])
+    end
     renderer.links
   end
 
-  def save_with_markdown( root_url, user_id)
+  def save_with_markdown( root_url )
     links = self.markdown(root_url)
     if self.save
       reference_ids = Reference.where(timeline_id: self.timeline_id).pluck(:id)
       links.each do |link|
         if reference_ids.include? link
-          Link.create({comment_id: self.id, user_id: user_id,
+          Link.create({comment_id: self.id, user_id: self.user_id,
                        reference_id: link, timeline_id: self.timeline_id})
         end
       end
@@ -91,6 +90,44 @@ class Comment < ActiveRecord::Base
     else
       false
     end
+  end
+
+
+  def selection_update( best_comment = nil )
+    if best_comment
+      NotificationSelectionLoss.create( user_id: best_comment.user_id,
+                                        comment_id: best_comment.comment_id)
+      User.increment_counter( :notifications_loss, best_comment.user_id)
+      Comment.find( best_comment.comment_id ).update_attributes( best: false )
+      best_comment.update_attributes( user_id: comment.user_id, comment_id: comment.id )
+      NotificationSelectionWin.create( user_id: comment.user_id, comment_id: comment.id)
+      User.increment_counter( :notifications_win, comment.user_id )
+      self.selection_notifications
+    else
+      BestComment.create( user_id: self.user_id, reference_id: self.reference_id,
+                          comment_id: self.id)
+    end
+    Reference.find( self.reference_id ).update_attributes( f_1_content: self.markdown_1,
+                                                           f_2_content: self.markdown_2,
+                                                           f_3_content: self.markdown_3,
+                                                           f_4_content: self.markdown_4,
+                                                           f_5_content: self.markdown_5)
+    self.update_attributes( best: true)
+  end
+
+  def selection_notifications
+    ids = Comment.where( reference_id: self.reference_id ).pluck(:id, :user_id )
+    notifications = []
+    user_ids = []
+    comment_ids = []
+    ids.each do |comment_id, user_id|
+      user_ids << user_id
+      comment_ids << comment_id
+      notifications << NotificationSelection.new( user_id: user_id, comment_id: comment_id )
+    end
+    NotificationSelection.import notifications
+    User.increment_counter( :notifications_selection, user_ids)
+    Comment.where(id: comment_ids).update_all(votes_plus: 0, votes_minus: 0, balance: 0 )
   end
 
   def create_notifications
@@ -107,9 +144,9 @@ class Comment < ActiveRecord::Base
 
   def cascading_save_comment
     self.create_notifications
-    reference = self.reference
-    if reference["f_#{self.field}_content".to_sym].nil?
-      reference.displayed_comment( self)
+    best_comment = BestComment.find_by(reference_id: self.reference_id )
+    unless best_comment
+      self.selection_update
     end
     Reference.increment_counter(:nb_edits, self.reference_id)
     Timeline.increment_counter(:nb_edits, self.timeline_id)

@@ -12,7 +12,6 @@ class Vote < ActiveRecord::Base
   validates :reference_id, presence: true
   validates :comment_id, presence: true
   validates :value, presence: true, inclusion: { in: 0..1 }
-  validates :field, presence: true, inclusion: { in: 1..5 }
   validates_uniqueness_of :user_id, :scope => [:comment_id]
   validate :not_best_comment
   validate :not_user_comment
