@@ -76,6 +76,14 @@ class Comment < ActiveRecord::Base
     renderer.links
   end
 
+  def diffy( comment )
+    self.diff = {}
+    for fi in 1..5
+      self.diff[fi] = Diffy::Diff.new(comment["content_#{fi}".to_sym ], self["content_#{fi}".to_sym ],
+                                     :include_plus_and_minus_in_html => true).to_s(:html)
+    end
+  end
+
   def save_with_markdown( root_url )
     links = self.markdown(root_url)
     if self.save
