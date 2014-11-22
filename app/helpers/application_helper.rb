@@ -10,10 +10,17 @@ module ApplicationHelper
   end
 
   def tags_hash
-    {"planet" => "Environement", "biology" => "Biologie", "immunity" => "Immunité et santé",
+    {"biology" => "Biologie",
+     "immunity" => "Virus et pathogénes", "medicine" => "Médecine et santé",
      "pharmacy" => "Médicaments", "animal" => "Animaux", "plant" => "Végétaux",
+     "planet" => "Environement", "energy" => "Energies renouvellables",
+     "rig" => "Energies fossiles", "archeology" => "Archéologie",
      "space" => "Espace", "physics" => "Physique", "chemistry" => "Chimie",
      "economy" => "Economie et Finance", "social" => "Sciences sociales",
      "pie" => "Mathématiques"}
+  end
+
+  def fields_list
+    [["L'éxperience", 1], ["Les résultats", 2],["Les limites", 3],["Quel rapport", 4],["Remarques", 5] ]
   end
 end
