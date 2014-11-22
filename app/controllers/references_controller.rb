@@ -64,23 +64,20 @@ class ReferencesController < ApplicationController
     session[:reference_title] = @reference.title
     session[:timeline_id] = @reference.timeline_id
     session[:timeline_name] = @reference.timeline.name
-    @comment = Comment.new()
-    @comments = Hash.new()
-    @comments_user = Hash.new()
-    for fi in 1..5
-      best_comment = BestComment.find_by( field: fi, reference_id: @reference.id)
-      if best_comment
-        @comments[fi] = Comment.order(balance: :desc ).where(
-                   field: fi, reference_id: @reference.id ).where.not(
+    best_comment = BestComment.find_by( reference_id: @reference.id )
+    if best_comment
+      @comment = Comment.find( @reference.id)
+      @comments = Comment.order(balance: :desc ).where(
+                   reference_id: @reference.id ).where.not(
                    id: best_comment.comment_id, user_id: current_user.id ).first(5)
-      else
-        @comments[fi] = []
-      end
-      if logged_in?
-        @comments_user[fi] = @reference.comments.where(field: fi, user_id: current_user.id).first
-      else
-        @comments_user[fi] = nil
-      end
+    else
+        @comment = nil
+        @comments = []
+    end
+    if logged_in?
+        @comments_user = @reference.comments.where(user_id: current_user.id)
+    else
+        @comments_user = nil
     end
     sum = @reference.star_1+@reference.star_2+@reference.star_3+@reference.star_4+@reference.star_5
     if sum != 0

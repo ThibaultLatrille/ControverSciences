@@ -35,16 +35,14 @@ class AssistantController < ApplicationController
   def selection
     references = Reference.all
     references.each do |reference|
-      (1..5).each do |field|
-        most = Comment.where( reference_id: reference.id, field: field ).order(score: :desc).first
-        if most
-          if most.score > 3.0
-            best_comment = BestComment.find_by(reference_id: reference.id, field: field )
-            reference.displayed_comment( most, best_comment )
-            Vote.where( reference_id: reference.id, field: field ).destroy_all
-          end
-        end
+    most = Comment.where( reference_id: reference.id ).order(score: :desc).first
+    if most
+      if most.score > 3.0
+        best_comment = BestComment.find_by(reference_id: reference.id )
+        most.selection_update( best_comment )
+        Vote.where( reference_id: reference.id ).destroy_all
       end
+    end
     end
     flash[:success] = "La sélection a opérée"
     redirect_to assistant_path

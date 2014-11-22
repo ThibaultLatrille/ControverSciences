@@ -53,6 +53,7 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find(params[:id])
     session[:timeline_id] = @timeline.id
     session[:timeline_name] = @timeline.name
+    @references = @timeline.references
   end
 
   private

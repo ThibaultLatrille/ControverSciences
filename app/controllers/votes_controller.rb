@@ -3,8 +3,7 @@ class VotesController < ApplicationController
 
   def new
     @comment = Comment.find(vote_params[:comment_id])
-    @best_comment = BestComment.find_by(reference_id: vote_params[:reference_id],
-                            field: vote_params[:field]).comment
+    @best_comment = BestComment.find_by(reference_id: vote_params[:reference_id]).comment
     if @comment.user_id == current_user.id
       flash[:danger] = "Vous croyez vraiment qu'on aller vous laissez voter
 pour votre propre analyse"
@@ -14,7 +13,7 @@ pour votre propre analyse"
 les autres analyses relativement à celle-ci"
       redirect_to reference_path(@comment.reference_id)
     else
-      @comment.diff = Diffy::Diff.new(@best_comment.content, @comment.content,
+      @comment.diff = Diffy::Diff.new(@best_comment.content_1, @comment.content_1,
                               :include_plus_and_minus_in_html => true).to_s(:html)
       @my_vote = Vote.find_by({user_id: current_user.id,
                                 comment_id: vote_params[:comment_id]})
@@ -44,7 +43,7 @@ les autres analyses relativement à celle-ci"
                       reference_id: vote_params[:reference_id],
                       timeline_id: vote_params[:timeline_id],
                      comment_id: vote_params[:comment_id],
-                     value: vote_params[:value], field: vote_params[:field]})
+                     value: vote_params[:value]})
         if vote.save
           flash[:success] = "Vote enregistré"
           redirect_to controller: 'references', action: 'show',
@@ -61,6 +60,6 @@ les autres analyses relativement à celle-ci"
   private
 
   def vote_params
-    params.require(:vote).permit(:timeline_id, :reference_id, :comment_id, :value, :field)
+    params.require(:vote).permit(:timeline_id, :reference_id, :comment_id, :value)
   end
 end
