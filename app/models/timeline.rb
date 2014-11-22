@@ -1,4 +1,6 @@
 class Timeline < ActiveRecord::Base
+  include ApplicationHelper
+
   attr_accessor :tag_list
   belongs_to :user
   has_many :timeline_contributors, dependent: :destroy
@@ -15,6 +17,10 @@ class Timeline < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :name, presence: true, length: { maximum: 180 }
+
+  def user_name
+    User.select( :name ).find( self.user_id ).name
+  end
 
   def star_percent( value )
     if self.nb_references > 0

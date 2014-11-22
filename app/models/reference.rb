@@ -16,6 +16,14 @@ class Reference < ActiveRecord::Base
   validates_presence_of :title, :title_fr, :author, :year, :doi, :url, :journal, :if => lambda { |o| o.current_step == "metadata" }
   validates_uniqueness_of :timeline_id, :scope => [:doi], :if => lambda { |o| o.current_step == "metadata" }
 
+  def user_name
+    User.select( :name ).find( self.user_id ).name
+  end
+
+  def timeline_name
+    Timeline.select( :name ).find( self.timeline_id ).name
+  end
+
   def current_step
     @current_step || steps.first
   end

@@ -25,6 +25,18 @@ class Comment < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
 
+  def user_name
+    User.select( :name ).find( self.user_id ).name
+  end
+
+  def reference_title
+    Reference.select( :title_fr ).find( self.reference_id ).title_fr
+  end
+
+  def timeline_name
+    Timeline.select( :name ).find( self.timeline_id ).name
+  end
+
   def markdown(root_url)
     render_options = {
         # will remove from the output HTML tags inputted by user

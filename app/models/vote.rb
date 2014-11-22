@@ -16,6 +16,26 @@ class Vote < ActiveRecord::Base
   validate :not_best_comment
   validate :not_user_comment
 
+  def user_name
+    User.select( :name ).find( self.user_id ).name
+  end
+
+  def to_user_name
+    User.select( :name ).find( self.user_id ).name
+  end
+
+  def comment_short
+    Comment.select( :content_1, :user_id ).find( self.comment_id )
+  end
+
+  def reference_title
+    Reference.select( :title_fr ).find( self.reference_id ).title_fr
+  end
+
+  def timeline_name
+    Timeline.select( :name ).find( self.timeline_id ).name
+  end
+
   def not_best_comment
     best_comment = BestComment.find_by_comment_id(self.comment_id)
     if best_comment
