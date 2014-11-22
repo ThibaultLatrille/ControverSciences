@@ -13,7 +13,6 @@ pour votre propre analyse"
 les autres analyses relativement à celle-ci"
       redirect_to reference_path(@comment.reference_id)
     else
-      @comment.diffy( @best_comment )
       @my_vote = Vote.find_by({user_id: current_user.id,
                                 comment_id: vote_params[:comment_id]})
       if @my_vote
