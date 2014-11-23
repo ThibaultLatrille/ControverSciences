@@ -40,6 +40,15 @@
                 <li><%= link_to '<span class="glyphicon glyphicon-cog"></span> Paramètres'.html_safe,
 				edit_user_path(current_user) %> </li>
                 <li class="divider"></li>
+                <li><%= link_to "Mes controverses",
+                                my_items_timelines_path %> </li>
+                <li><%= link_to "Mes références",
+                                my_items_references_path %> </li>
+                <li><%= link_to "Mes analyses",
+                                my_items_comments_path %> </li>
+                <li><%= link_to "Mes votes",
+                                my_items_votes_path %> </li>
+                <li class="divider"></li>
                 <li><%= link_to "<span class=\"badge\">#{current_user.notifications_win +
                                 current_user.notifications_loss}</span> Important ".html_safe,
                                 notifications_important_path %> </li>

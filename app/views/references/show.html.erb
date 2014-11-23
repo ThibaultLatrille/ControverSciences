@@ -15,25 +15,22 @@
       <h3 class="panel-title"> La meilleur analyse </h3>
     </div>
     <div class="panel-body">
-      <span>
-        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-        </span> Suivre les nouvelles analyses apportées à cette référence".html_safe,
-                    following_references_path( reference_id: @reference.id ), method: :post %>
-      </span> </br>
       <% if @comment.nil? %>
-          <%= "<span class=\"no-comment\"> Pas encore de commentaire dans cette section, soyez le premier </span> ".html_safe %>
+          <%= link_to "<span class=\"glyphicon glyphicon-plus\" ></span> Pas encore d'analyse dans cette section, soyez le premier".html_safe,
+                      new_comment_path( reference_id: @reference.id, timeline_id: @reference.timeline_id ) %>
+          </div>
       <% else %>
           <ol class="comments">
           <%= render @comment, ref: false, view: true, fork: true, diff: false %>
           </ol>
+          </div>
+          <div class="panel-footer">
+            <span class="pull-right">
+              Analyse ajouté par <%= @comment.user_name %>
+            </span>
+            <div class="clearfix"></div>
+          </div>
       <% end %>
-    </div>
-    <div class="panel-footer">
-    <span class="pull-right">
-      Analyse ajouté par <%= @comment.user.name %>
-    </span>
-      <div class="clearfix"></div>
-    </div>
   </div>
   <div class="panel panel-<%= @rating_hash[:panel] -%>">
     <div class="panel-heading">
@@ -56,6 +53,11 @@
       <h3 class="panel-title"> les autres analyses </h3>
     </div>
     <div class="panel-body">
+      <span>
+        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+        </span> Suivre les nouvelles analyses apportées à cette référence".html_safe,
+                    following_references_path( reference_id: @reference.id ), method: :post %>
+      </span> </br>
       <% if @comments.any? %>
           <ol class="comments">
           <%= render @comments, ref: false, view: true, fork: true, diff: false %>
@@ -158,7 +160,7 @@
     <%= image_tag("icons/myicon-votes.png", alt: "ref", height: "24px") %>
     <span class="badge"><%= @reference.nb_votes %></span>
     <span class="pull-right">
-      Référence ajouté par <%= @reference.user.name %>
+      Référence ajouté par <%= @reference.user_name %>
     </span>
     <div class="clearfix"></div>
   </div>
