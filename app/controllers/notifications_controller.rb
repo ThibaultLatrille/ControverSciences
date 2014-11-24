@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_action :logged_in_user, only: [:index]
+  before_action :logged_in_user, only: [:index, :important]
 
   def index
     timeline_ids = NotificationTimeline.where( user_id: current_user.id, read: false ).pluck( :timeline_id )
