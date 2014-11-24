@@ -72,6 +72,7 @@ class Timeline < ActiveRecord::Base
   def create_notifications
     tag_ids = self.tags.pluck(:id)
     user_ids = FollowingNewTimeline.where( tag_id: tag_ids ).pluck( :user_id )
+    user_ids.uniq!
     notifications = []
     user_ids.each do |user_id|
       notifications << NotificationTimeline.new( user_id: user_id, timeline_id: self.id )
