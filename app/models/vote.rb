@@ -49,6 +49,20 @@ class Vote < ActiveRecord::Base
     end
   end
 
+  def destroy_with_counters
+    Timeline.update_counters( self.timeline_id, nb_votes: -1 )
+    Reference.update_counters( self.reference_id, nb_votes: -1 )
+    case self.value
+      when 1
+        Comment.decrement_counter(:votes_plus, self.comment_id)
+        Comment.decrement_counter(:balance, self.comment_id)
+      when 0
+        Comment.decrement_counter(:votes_minus, self.comment_id)
+        Comment.increment_counter(:balance, self.comment_id)
+    end
+    self.destroy
+  end
+
   private
 
   def cascading_save_vote

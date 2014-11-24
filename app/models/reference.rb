@@ -65,6 +65,15 @@ class Reference < ActiveRecord::Base
     User.increment_counter( :notifications_reference, user_ids)
   end
 
+  def destroy_with_counters
+    nb_comments = self.comments.count
+    nb_votes = self.votes.count
+    Timeline.decrement_counter( :nb_references , self.timeline_id)
+    Timeline.update_counters( self.timeline_id, nb_edits: -nb_comments )
+    Timeline.update_counters( self.timeline_id, votes: -nb_votes )
+    self.destroy
+  end
+
   private
 
   def cascading_save_ref

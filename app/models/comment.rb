@@ -160,6 +160,15 @@ class Comment < ActiveRecord::Base
     User.increment_counter( :notifications_comment, user_ids)
   end
 
+
+  def destroy_with_counters
+    nb_votes = self.votes.count
+    Timeline.decrement_counter( :nb_comments , self.timeline_id )
+    Reference.update_counters( self.reference_id, nb_edits: -1 )
+    Reference.update_counters( self.reference_id, nb_votes: -nb_votes )
+    self.destroy
+  end
+
   private
 
   def cascading_save_comment
