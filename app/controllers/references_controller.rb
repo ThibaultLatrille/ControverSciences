@@ -77,7 +77,7 @@ class ReferencesController < ApplicationController
     if logged_in?
         @comments_user = @reference.comments.where(user_id: current_user.id)
     else
-        @comments_user = nil
+        @comments_user = []
     end
     sum = @reference.star_1+@reference.star_2+@reference.star_3+@reference.star_4+@reference.star_5
     if sum != 0
