@@ -1,6 +1,6 @@
 <div class="col-md-10 col-md-offset-1">
   Mes analyses
-  <table id="notification-references" class="table table-striped table-hover">
+  <table id="notification-comments" class="table table-striped table-hover">
     <thead>
     <tr>
       <th class="col-xs-4"> L'analyse </th>
@@ -12,12 +12,12 @@
 
     <tbody class="page">
     <% if !@comments.any? %>
-        <tr class="notification-reference">
+        <tr class="notification-comment">
           <td> Pas encore de références  </td>
         </tr>
     <% else %>
         <% @comments.each do |com| %>
-            <tr class="notification-reference">
+            <tr class="notification-comment">
               <td> <%= link_to com.content_1[0..70]+"...", comment_path(com.id ) %>   </td>
               <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
               <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
