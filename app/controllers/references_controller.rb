@@ -1,5 +1,5 @@
 class ReferencesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create]
+  before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def new
     if params[:timeline_id]
@@ -105,6 +105,14 @@ class ReferencesController < ApplicationController
     if logged_in?
       user_rating = @reference.ratings.where(user_id: current_user.id).first
       @rating_hash[:user_value] = user_rating[:value] unless user_rating.nil?
+    end
+  end
+
+  def destroy
+    reference = Reference.find(params[:id])
+    if reference.user_id == current_user.id
+      reference.destroy_with_counters
+      redirect_to my_items_references_path
     end
   end
 

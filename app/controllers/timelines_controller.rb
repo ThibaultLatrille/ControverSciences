@@ -1,5 +1,5 @@
 class TimelinesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create]
+  before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def index
     if params[:tag] != 'all' && !params[:tag].nil?
@@ -54,6 +54,14 @@ class TimelinesController < ApplicationController
     session[:timeline_id] = @timeline.id
     session[:timeline_name] = @timeline.name
     @references = @timeline.references
+  end
+
+  def destroy
+    timeline = Timeline.find(params[:id])
+    if timeline.user_id == current_user.id
+      timeline.destroy
+      redirect_to my_items_timelines_path
+    end
   end
 
   private

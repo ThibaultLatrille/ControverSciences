@@ -71,6 +71,14 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    comment = Comment.find(params[:id])
+    if comment.user_id == current_user.id && !comment.best
+      comment.destroy_with_counters
+      redirect_to my_items_comments_path
+    else
+      flash[:danger] = "Ce commentaire est le meilleur est ne peux être supprimer"
+      redirect_to comment_path(params[:id])
+    end
   end
 
   private

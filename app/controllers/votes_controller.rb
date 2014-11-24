@@ -53,6 +53,11 @@ les autres analyses relativement à celle-ci"
   end
 
   def destroy
+    votes = Vote.find(params[:id])
+    if votes.user_id == current_user.id
+      votes.destroy_with_counters
+      redirect_to my_items_votes_path
+    end
   end
 
   private
