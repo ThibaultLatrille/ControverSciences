@@ -1,66 +1,190 @@
-<div class="row">
-  <div class="col-md-6 col-lg-3">
-    <%= current_user.notifications_timeline %>
-    Nouvelles controverses
+<%= form_for( @notification, url: notifications_delete_path, method: :post ) do |f| %>
+    <div class="row">
+    <div class="col-md-2">
+    <%= f.submit "Supprimer les notifications sélectionnées", class: "btn btn-danger"%>
+    </div>
+    </div>
+
+
+    <div class="row">
+  <div class="col-md-6 col-lg-2">
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-sm-9"> La controverse </th>
+        <th class="col-sm-2"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
+        <th class="col-sm-10"> Les nouvelles controverses (<%= current_user.notifications_timeline %>) </th>
       </tr>
       </thead>
 
       <tbody class="page">
       <% if !@timelines.any? %>
           <tr class="notification-timeline">
+            <td></td>
             <td> Pas de nouvelles notifications </td>
           </tr>
       <% else %>
           <% @timelines.each do |timeline| %>
               <tr class="following-timeline">
-                <td> <%= link_to timeline[1], timeline_path(timeline[0]) %> </td>
+                <td> <%= f.check_box :timeline_ids, { :multiple => true},
+                             checked_value = timeline.id, unchecked_value = nil %> </td>
+                <td> <%= link_to timeline.name, notifications_timeline_url( id: timeline.id) %> </td>
               </tr>
           <% end %>
       <% end %>
       </tbody>
     </table>
   </div>
-  <div class="col-md-6 col-lg-3">
-    <%= current_user.notifications_reference %>
-    nouvelles références
+  <div class="col-md-6 col-lg-2">
     <table id="notification-references" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-sm-9"> La référence </th>
+        <th class="col-sm-2"> <input title="toggle all" type="checkbox" id="checkreferences"> </th>
+        <th class="col-sm-6"> Les nouvelles références (<%= current_user.notifications_reference %>) </th>
+        <th class="col-sm-4"> Dans la controverse </th>
       </tr>
       </thead>
 
       <tbody class="page">
       <% if !@references.any? %>
           <tr class="notification-reference">
+            <td></td>
+            <td></td>
             <td> Pas de notifications </td>
           </tr>
       <% else %>
           <% @references.each do |reference| %>
               <tr class="notification-reference">
-                <td> <%= link_to reference[1], reference_path(reference[0]) %>   </td>
+                <td> <%= f.check_box :reference_ids, { :multiple => true},
+                                     checked_value = reference.id, unchecked_value = nil %> </td>
+                <td> <%= link_to reference.title_fr,
+                            notifications_reference_path( id: reference.id ) %>   </td>
+                <td> <%= link_to reference.timeline_name, timeline_path( reference.timeline_id ) %>   </td>
               </tr>
           <% end %>
       <% end %>
       </tbody>
     </table>
   </div>
-  <div class="col-md-6 col-lg-3">
-    <%= current_user.notifications_comment %>
-    commentaires ont été ajouté aux références que vous suivez
-    <ol class="comments">
-      <%= render @comments, ref: true, view: true, fork: true, diff: false %>
-    </ol>
+  <div class="col-md-6 col-lg-4">
+    <table id="notification-comments" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="col-sm-1"> <input title="toggle all" type="checkbox" id="checkcomments"> </th>
+        <th class="col-sm-4"> Les nouvelles analyses (<%= current_user.notifications_comment %>) </th>
+        <th class="col-sm-4"> De la référence </th>
+        <th class="col-sm-3"> Dans la controverse </th>
+      </tr>
+      </thead>
+
+      <tbody class="page">
+      <% if !@comments.any? %>
+          <tr class="notification-comment">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td> Pas de notifications  </td>
+          </tr>
+      <% else %>
+          <% @comments.each do |com| %>
+              <tr class="notification-comment">
+                <td> <%= f.check_box :comment_ids, { :multiple => true},
+                                     checked_value = com.id, unchecked_value = nil %> </td>
+                <td> <%= link_to com.content_1[0..70]+"...", notifications_comment_path(id: com.id ) %>   </td>
+                <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
+                <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
   </div>
-  <div class="col-md-6 col-lg-3">
-    <%= current_user.notifications_selection %>
-    de vos commentaires ont subit une sélection récement
-    <ol class="comments">
-      <%= render @comments_sel, ref: true, view: true, fork: true, diff: false %>
-    </ol>
+  <div class="col-md-6 col-lg-4">
+  <table id="notification-sel-comments" class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th class="col-sm-1"> <input title="toggle all" type="checkbox" id="checkselcomments"> </th>
+      <th class="col-sm-4"> Vos analyses qui ont subit une sélection récement
+                (<%= current_user.notifications_selection %>) </th>
+      <th class="col-sm-4"> De la référence </th>
+      <th class="col-sm-3"> Dans la controverse </th>
+    </tr>
+    </thead>
+
+    <tbody class="page">
+    <% if !@comments_sel.any? %>
+        <tr class="notification-sel-comment">
+          <td></td>
+          <td></td>
+          <td></td>
+          <td> Pas de notifications  </td>
+        </tr>
+    <% else %>
+        <% @comments_sel.each do |com| %>
+            <tr class="notification-sel-comment">
+              <td> <%= f.check_box :sel_comment_ids, { :multiple => true},
+                                   checked_value = com.id, unchecked_value = nil %> </td>
+              <td> <%= link_to com.content_1[0..70]+"...", notifications_selection_path(id: com.id ) %>   </td>
+              <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
+              <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+            </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+  </table>
   </div>
 </div>
+
+<% end %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#checktimelines').click(function () {
+        if ($('#checktimelines').is(':checked')) {
+            $('#notification-timelines input[type=checkbox]').each(function () {
+                $(this).prop("checked", true);
+            });
+
+        } else {
+            $("#notification-timelines input[type=checkbox]").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+    $('#checkreferences').click(function () {
+        if ($('#checkreferences').is(':checked')) {
+            $('#notification-references input[type=checkbox]').each(function () {
+                $(this).prop("checked", true);
+            });
+
+        } else {
+            $("#notification-references input[type=checkbox]").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+    $('#checkcomments').click(function () {
+        if ($('#checkcomments').is(':checked')) {
+            $('#notification-comments input[type=checkbox]').each(function () {
+                $(this).prop("checked", true);
+            });
+
+        } else {
+            $("#notification-comments input[type=checkbox]").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+    $('#checkselcomments').click(function () {
+        if ($('#checkselcomments').is(':checked')) {
+            $('#notification-sel-comments input[type=checkbox]').each(function () {
+                $(this).prop("checked", true);
+            });
+
+        } else {
+            $("#notification-sel-comments input[type=checkbox]").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+})
+</script>

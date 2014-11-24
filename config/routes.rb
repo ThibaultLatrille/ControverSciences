@@ -26,6 +26,11 @@ Rails.application.routes.draw do
   get 'followings/index'
   get 'notifications/index'
   get 'notifications/important'
+  post 'notifications/delete'
+  get 'notifications/timeline'
+  get 'notifications/reference'
+  get 'notifications/comment'
+  get 'notifications/selection'
 
   get 'my_items/timelines'
   get 'my_items/references'
