@@ -2,7 +2,7 @@ class FollowingsController < ApplicationController
   before_action :logged_in_user, only: [:index]
 
   def index
-    tag_ids = FollowingNewTimeline.where( current_user.id ).pluck( :tag_id )
+    tag_ids = FollowingNewTimeline.where( user_id: current_user.id ).pluck( :tag_id )
     @fo_new_timelines = Tag.where( id: tag_ids ).pluck( :id, :name )
     timeline_ids = FollowingTimeline.where( user_id: current_user.id ).pluck( :timeline_id )
     @fo_timelines = Timeline.where( id: timeline_ids ).pluck( :id, :name )
