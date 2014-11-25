@@ -100,30 +100,6 @@
         <%= link_to @reference.timeline.name, @reference.timeline,
                     target: "_blank" %></li>
       <li class="list-group-item">
-        <div class="bold"> Ce que les contributeurs pensent de cette réfèrence :
-        </div>
-        <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-danger"
-               style="width: <%= @rating_hash[1] -%>% ;">
-            <%= @reference.star_1 -%>
-          </div>
-          <div class="progress-bar progress-bar-striped progress-bar-warning"
-               style="width: <%= @rating_hash[2] -%>% ;">
-            <%= @reference.star_2 -%>
-          </div>
-          <div class="progress-bar progress-bar-default"
-               style="width: <%= @rating_hash[3] -%>% ;">
-            <%= @reference.star_3 -%>
-          </div>
-          <div class="progress-bar progress-bar-striped progress-bar-info"
-               style="width: <%= @rating_hash[4] -%>% ;">
-            <%= @reference.star_4 -%>
-          </div>
-          <div class="progress-bar progress-bar-striped progress-bar-primary"
-               style="width: <%= @rating_hash[5] -%>% ;">
-            <%= @reference.star_5 -%>
-          </div>
-        </div>
         <% if logged_in? %>
             <%= form_for :rating, :url => ratings_path do |f| %>
 
@@ -132,31 +108,42 @@
                 <% if @rating_hash[:user_value].nil? %>
                     <%= f.label "Que pensez vous de ce papier ?" %>
                 <% else %>
-                    <%= f.label "Vous avez déjà donné #{@rating_hash[:user_value]} étoiles à ce papier, mais vous avez peut être changé d'avis ?" %>
+                    <%= image_tag("icons/myicon-#{@rating_hash[:user_value]}.svg", height: "28px") +
+                                " : "+ star_hash[@rating_hash[:user_value]] %> 
                 <% end %>
-                <%= f.select :value, [["Je trouve qu'il rape un peu les fesses quand on se torche avec (1 étoile)", 1],
-                                      ["Heuresement pour eux que je n'étais pas un des reviewers (2 étoiles)", 2],
-                                      ["Ils se sont quand même pas foulés trois neurones pour le pondre (3 étoiles)", 3],
-                                      ["Des bons petits gars et du bon boulot (4 étoiles)", 4],
-                                      ["J'ai eu un orgasme cérébrale en le lisant (5 étoiles)", 5]
-                                     ].delete_if{ |select| select[1] == @rating_hash[:user_value] },
-                             {}, {class: 'form-control'} %>
+                <div class="btn-group-justified" data-toggle="buttons">
+                  <% star_hash.each do |key, value| %>
+                      <label class="btn btn-default <%= @rating_hash[:user_value] == key ? "active" : nil %>"
+                             title="<%= value %>">
+                            <%= f.radio_button :value, checked_value = key,
+                                               {id: key, autocomplete: "off"} %>
+                        <%= image_tag("icons/myicon-#{key}.svg", height: "28px")%>
+                      </label>
+                  <% end %>
+                </div>
                 <% if @rating_hash[:user_value].nil? %>
                     <%= f.submit "Enregistrer cet avis", class: "btn btn-primary" %>
                 <% else %>
                     <%= f.submit "Enregistrer la modification", class: "btn btn-primary", name: "update" %>
                 <% end %>
-          <% end %>
+            <% end %>
+        <% else %>
+                <span class="bold"> Les avis sur cette référence :
+                 </span></br>
+                <% for i in 1..5 %>
+                    <%= image_tag("icons/myicon-#{i}.svg", height: "28px")%>
+                    <%= @reference["star_#{i}".to_sym] -%>
+                <% end %>
         <% end %>
       </li>
     </ul>
   </div>
   <div class="panel-footer">
-    <%= image_tag("icons/myicon-users.png", alt: "ref", height: "24px") %>
+    <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "24px") %>
     <span class="badge"><%= @reference.nb_contributors %></span>
-    <%= image_tag("icons/myicon-edit-rule.png", alt: "ref", height: "24px") %>
+    <%= image_tag("icons/myicon-edit-rule.svg", alt: "ref", height: "24px") %>
     <span class="badge"><%= @reference.nb_edits %></span>
-    <%= image_tag("icons/myicon-votes.png", alt: "ref", height: "24px") %>
+    <%= image_tag("icons/myicon-votes.svg", alt: "ref", height: "24px") %>
     <span class="badge"><%= @reference.nb_votes %></span>
     <span class="pull-right">
       Référence ajouté par <%= @reference.user_name %>
