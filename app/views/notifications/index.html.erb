@@ -12,7 +12,8 @@
       <thead>
       <tr>
         <th class="col-sm-2"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-sm-10"> Les nouvelles controverses (<%= current_user.notifications_timeline %>) </th>
+        <th class="col-sm-7"> Les nouvelles controverses (<%= current_user.notifications_timeline %>) </th>
+        <th class="col-sm-3"> Tags </th>
       </tr>
       </thead>
 
@@ -21,6 +22,7 @@
           <tr class="notification-timeline">
             <td></td>
             <td> Pas de nouvelles notifications </td>
+            <td></td>
           </tr>
       <% else %>
           <% @timelines.each do |timeline| %>
@@ -28,6 +30,12 @@
                 <td> <%= f.check_box :timeline_ids, { :multiple => true},
                              checked_value = timeline.id, unchecked_value = nil %> </td>
                 <td> <%= link_to timeline.name, notifications_timeline_url( id: timeline.id) %> </td>
+                <td>
+                  <% timeline.get_tag_list.each do |name| %>
+                      <%= image_tag("icons/myicon-#{name}.png", alt: name,
+                                    title: tags_hash[name],  height: "24px")%>
+                  <% end %>
+                </td>
               </tr>
           <% end %>
       <% end %>

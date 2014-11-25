@@ -3,8 +3,8 @@
     <table id="following-new-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-sm-6"> Tags </th>
-        <th class="col-sm-6"> Supprimer </th>
+        <th class="col-sm-11"> Tags </th>
+        <th class="col-sm-1"> Supprimer </th>
       </tr>
       </thead>
 
@@ -17,11 +17,15 @@
       <% else %>
           <% @fo_new_timelines.each do |tag| %>
               <tr class="following-new-timeline">
-                <td> <%= link_to image_tag("icons/myicon-#{tag.name}.png", alt: tag.name,
+                <td> <%= link_to( image_tag("icons/myicon-#{tag.name}.png",
+                                            alt: tag.name,
                                            title: tags_hash[tag.name],
                                            height: "28px")+"&nbsp".html_safe,
-                                            timelines_path(:tag => tag.name) %>  </td>
-                <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                            timelines_path(:tag => tag.name))+
+                                            " "+tags_hash[tag.name] %>
+                </td>
+                <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
+                                                            </span>".html_safe,
                                  following_new_timeline_path( tag.id ), method: :delete,
                                  data: { confirm: " Vous êtes certains ?" } %>  </td>
               </tr>
@@ -44,7 +48,8 @@
             <li>
               <%= link_to image_tag("icons/myicon-#{key}.png", alt: value,
                                     height: "28px")+"&nbsp".html_safe+value,
-                          following_new_timelines_path(tag: key, redirect: true), method: :post %>
+                          following_new_timelines_path(tag: key, redirect: true),
+                          method: :post %>
             </li>
         <% end %>
       </ul>
@@ -55,8 +60,9 @@
     <table id="following-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-sm-9"> La timeline </th>
-        <th class="col-sm-3"> Supprimer </th>
+        <th class="col-sm-7"> La timeline </th>
+        <th class="col-sm-4"> Tags </th>
+        <th class="col-sm-1"> Supprimer </th>
       </tr>
       </thead>
 
@@ -65,12 +71,20 @@
           <tr class="following-timeline">
             <td> Vous n'avez pas encore d'abonnements </td>
             <td>  </td>
+            <td>  </td>
           </tr>
       <% else %>
         <% @fo_timelines.each do |timeline| %>
           <tr class="following-timeline">
-            <td> <%= link_to timeline.name, timeline_path(timeline.id) %>   </td>
-            <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+            <td> <%= link_to timeline.name, timeline_path(timeline.id) %> </td>
+            <td>
+              <% timeline.get_tag_list.each do |name| %>
+                  <%= image_tag("icons/myicon-#{name}.png", alt: name,
+                                title: tags_hash[name],  height: "24px")%>
+              <% end %>
+            </td>
+            <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
+                                                        </span>".html_safe,
                        following_timeline_path( timeline.id ), method: :delete,
                        data: { confirm: " Vous êtes certains ?" } %>  </td>
           </tr>
@@ -83,8 +97,9 @@
     <table id="following-references" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-sm-9"> La référence </th>
-        <th class="col-sm-3"> Supprimer </th>
+        <th class="col-sm-7"> La référence </th>
+        <th class="col-sm-4"> Dans la controverse </th>
+        <th class="col-sm-1"> Supprimer </th>
       </tr>
       </thead>
 
@@ -92,13 +107,16 @@
       <% if !@fo_references.any? %>
           <tr class="following-reference">
             <td> Vous n'avez pas encore d'abonnements </td>
-            <td>  </td>
+            <td></td>
+            <td></td>
           </tr>
       <% else %>
         <% @fo_references.each do |reference| %>
           <tr class="following-reference">
             <td> <%= link_to reference.title_fr, reference_path(reference.id) %>   </td>
-            <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+            <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>
+            <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
+                                                            </span>".html_safe,
                              following_reference_path( reference.id ), method: :delete,
                              data: { confirm: " Vous êtes certains ?" } %>  </td>
           </tr>
