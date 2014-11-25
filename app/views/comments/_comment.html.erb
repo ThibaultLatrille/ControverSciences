@@ -1,46 +1,42 @@
 <li id="comment-<%= comment.id %>">
   <div class="clearfix">
-    <div class="btn-group">
-      <% if ref %>
-            <%= link_to image_tag("icons/myicon-ref.png", alt: "reference", height: "22px"),
-                        reference_path( comment.reference_id), :class => "btn btn-default", :style => "padding: 5px"%>
-      <% end %>
-      <% if view %>
-        <%= link_to '<span class="glyphicon glyphicon-eye-open"></span>'.html_safe,
-                    comment_path( comment.id ), :class => "btn btn-default" %>
-      <% end %>
-      <% if comment.best %>
-          <button class="btn btn-default" style="padding: 2px">
-          <%= image_tag("icons/myicon-laurel.png", alt: "best", height: "28px") %>
-          </button>
+      <% if vote %>
+        <%= form_for(:vote, url: votes_path, method: :post) do |f| %>
+            <div class="btn btn-default">
+              Mon vote <%= comment.my_vote( current_user.id ) %>
+            </div>
+            <%= f.hidden_field :comment_id, value: comment.id %>
+            <%= f.hidden_field :reference_id, value: comment.reference_id %>
+            <%= f.hidden_field :timeline_id, value: comment.timeline_id %>
+            <div class="col-md-2">
+              <%= f.select :value, (0..(12 + comment.my_vote( current_user.id ) - session[:my_votes])),
+                           {selected: comment.my_vote( current_user.id )}, { class: "form-control" } %>
+            </div>
+            <div class="col-md-3">
+              <%= f.submit "Enregistrer le vote", class: "btn btn-primary"%>
+            </div>
+        <% end %>
       <% else %>
-          <%= link_to image_tag("icons/myicon-up.png", alt: "up", height: "16px")+" "+comment.votes_plus.to_s,
-                      new_vote_path(vote: {timeline_id: comment.timeline_id,
-                        reference_id: comment.reference_id, comment_id: comment.id, value: 1}), :class => "btn btn-default" %>
-          <%= link_to image_tag("icons/myicon-down.png", alt: "down", height: "16px")+" "+comment.votes_minus.to_s,
-                      new_vote_path(vote: {timeline_id: comment.timeline_id,
-                        reference_id: comment.reference_id, comment_id: comment.id, value: 0}), :class => "btn btn-default" %>
+        <div class="btn btn-default">
+          <%= comment.balance %>
+        </div>
       <% end %>
-    </div>
-    <% if fork %>
-        <div class="pull-right">
+      <div class="pull-right">
             <%= link_to image_tag("icons/myicon-fork.png", alt: "fork", height: "28px"),
                         new_comment_path(comment_id: comment.id), :class => "btn btn-default", :style => "padding: 2px"%>
-        </div>
-    <% end %>
+      </div>
   </div>
   <div class="comment">
   <span class="content">
+    <%= comment.balance %>
     <% for fi in 1..5 %>
         <%= fields_hash[fi] %>
         <%= comment["markdown_#{fi}".to_sym].html_safe %>
-        <% if diff %>
-            <%= comment.diff[fi].html_safe %>
-      <% end %>
     <% end %>
+
   </span>
   <span class="timestamp">
     Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= link_to comment.user_name, user_path(comment.user_id) %>
-  </span>
+   </span>
   </div>
 </li>

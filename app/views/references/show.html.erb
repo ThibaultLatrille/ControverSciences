@@ -1,83 +1,82 @@
 <% provide(:title, @reference.title) %>
 <div class="row">
-  <% if logged_in? %>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-        <%= render 'layouts/panel' %>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-  <% else %>
-      <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
-  <% end %>
 
-<div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-7 col-lg-offset-0">
-  <div class="panel panel-<%= @rating_hash[:panel] -%>">
-    <div class="panel-heading">
-      <h3 class="panel-title"> La meilleur analyse </h3>
-    </div>
-    <div class="panel-body">
-      <% if @comment.nil? %>
-          <%= link_to "<span class=\"glyphicon glyphicon-plus\" ></span> Pas encore d'analyse dans cette section, soyez le premier".html_safe,
-                      new_comment_path( reference_id: @reference.id, timeline_id: @reference.timeline_id ) %>
-          </div>
-      <% else %>
-          <ol class="comments">
-          <%= render @comment, ref: false, view: true, fork: true, diff: false %>
-          </ol>
-          </div>
-          <div class="panel-footer">
-            <span class="pull-right">
-              Analyse ajouté par <%= @comment.user_name %>
-            </span>
-            <div class="clearfix"></div>
-          </div>
-      <% end %>
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+<% if logged_in? %>
+<%= render 'layouts/panel' %>
+<% end %>
+</div>
+
+<div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-5 col-lg-offset-0">
+  <div class="btn-group">
+    <button class="btn btn-default dropdown-toggle" type="button"
+            id="dropdownMenuTri" data-toggle="dropdown">
+      Trier par
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" >
+      <li <%= params[:sort]=='balance' || params[:sort].nil? ? "class=selected" : nil %> >
+        <%= link_to "Les meilleurs compétiteurs (par défault)", reference_path(:sort=> 'balance',
+                                                                              :order => params[:order]) %> </li>
+      <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
+        <%= link_to "Date de création", reference_path(:sort=> 'created_at',
+                                                      :order => params[:order]) %> </li>
+    </ul>
   </div>
-  <div class="panel panel-<%= @rating_hash[:panel] -%>">
-    <div class="panel-heading">
-      <h3 class="panel-title"> Vos analyses </h3>
-    </div>
-    <div class="panel-body">
-      <span>
-            <%= link_to '<span class="glyphicon glyphicon-plus" ></span> Ajouter votre analyse'.html_safe,
-                        new_comment_path( reference_id: @reference.id, timeline_id: @reference.timeline_id ) %>
-      </span> </br>
-      <% if @comments_user.any? %>
-          <ol class="comments">
-          <%= render @comments_user, ref: false, view: true, fork: true, diff: false %>
-          </ol>
-      <% end %>
-    </div>
+  <div class="btn-group">
+    <button class="btn btn-default dropdown-toggle" type="button"
+            id="dropdownMenuOrder" data-toggle="dropdown">
+      Ordre
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" >
+      <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
+        <%= link_to "Décroissant (par défault)", reference_path(:sort=> params[:sort], :order => 'desc') %> </li>
+      <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
+        <%= link_to "Croissant", reference_path(:sort => params[:sort], :order => 'asc') %> </li>
+    </ul>
   </div>
-  <div class="panel panel-<%= @rating_hash[:panel] -%>">
-    <div class="panel-heading">
-      <h3 class="panel-title"> les autres analyses </h3>
-    </div>
+  <% if logged_in? %>
+  <div class="pull-right">
+  <div class="btn-group">
+    <% if params[:filter] %>
+        <%= link_to "Toute les analyses (sauf les miennes)",
+                    reference_path, class: "btn btn-default"  %>
+    <% else %>
+      <%= link_to "Uniquement les analyses pour lesquels j'ai voté",
+                  reference_path(:filter => 'mine'), class: "btn btn-default"  %>
+    <% end %>
+  </div>
+  </div>
+  <% end %>
+  <div>
+    </br>
+  </div>
+  <div class="panel panel-default">
+    <h4> &nbsp Les analyses  écrites par les contributeurs : </h4>
     <div class="panel-body">
-      <span>
-        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-        </span> Suivre les nouvelles analyses apportées à cette référence".html_safe,
-                    following_references_path( reference_id: @reference.id ), method: :post %>
-      </span> </br>
       <% if @comments.any? %>
           <ol class="comments">
-          <%= render @comments, ref: false, view: true, fork: true, diff: false %>
-
-          <%= link_to "Il y a d'autres analyses, assouvisez votre
-                      soif de connaissance etdecouvrez les",
-                      comments_path(reference_id: @reference.id) %>
+          <%= render @comments, vote: logged_in? ? true : false %>
+          </ol>
+          <%= paginate @comments %>
+      <% elsif params[:filter] %>
+          Vous n'avez pas encore voté
+      <% else %>
+          <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+        </span> Il n'y a pas d'analyse, soyez le premier ! ".html_safe,
+                      new_comment_path %>
       <% end %>
     </div>
   </div>
 </div>
-<div class="col-sm-10 col-sm-offset-1 col-md-10  col-lg-5 col-lg-offset-0">
+<div class="col-sm-10 col-sm-offset-1 col-md-10  col-lg-3 col-lg-offset-0">
 <div class="panel panel-<%= @rating_hash[:panel] -%>">
   <div class="panel-heading">
-    <h3 class="panel-title"> La référence </h3>
+    <h3 class="panel-title"> <%= @reference.title_fr %> </h3>
   </div>
   <div class="panel-body">
     <ul class="list-group">
-      <li class="list-group-item"> <div class="bold">
-        Titre : </div> <%= @reference.title_fr %></li>
       <li class="list-group-item"> <div class="bold">
         Titre original de la référence : </div> <%= @reference.title %></li>
       <li class="list-group-item"> <div class="bold">
@@ -133,7 +132,7 @@
                 <% if @rating_hash[:user_value].nil? %>
                     <%= f.label "Que pensez vous de ce papier ?" %>
                 <% else %>
-                    <%= f.label "Vous avez déjà donné #{@rating_hash[:user_value]} étoiles à ce papier. Mais vous avez peut être changé d'avis ?" %>
+                    <%= f.label "Vous avez déjà donné #{@rating_hash[:user_value]} étoiles à ce papier, mais vous avez peut être changé d'avis ?" %>
                 <% end %>
                 <%= f.select :value, [["Je trouve qu'il rape un peu les fesses quand on se torche avec (1 étoile)", 1],
                                       ["Heuresement pour eux que je n'étais pas un des reviewers (2 étoiles)", 2],
@@ -165,6 +164,19 @@
     <div class="clearfix"></div>
   </div>
 </div>
+</div>
+
+<div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-2 col-lg-offset-0">
+  <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+        </span> Ecrire une analyse".html_safe,
+              new_comment_path, class: "btn btn-block btn-primary" %>
+  <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+        </span> Suivre les nouvelles analyses".html_safe,
+              following_references_path( reference_id: @reference.id ),
+              method: :post, class: "btn btn-block btn-primary" %>
+  <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+        </span> Voir mes analyses".html_safe,
+              comments_path( reference_id: @reference.id ), class: "btn btn-block btn-primary" %>
 </div>
 
 </div>

@@ -15,7 +15,7 @@
  Cette analyse appartient à la référence
   <%= link_to( @comment.reference.title_fr , reference_path(@comment.reference_id) ) %>
   <ol class="comments">
-    <%= render @comment, ref: true, view: false, fork: true, diff: false %>
+    <%= render @comment %>
   </ol>
     </div>
   </div>
