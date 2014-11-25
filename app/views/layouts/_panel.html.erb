@@ -12,27 +12,38 @@
         </span>
     </span>
     <li class="list-group-item">
-      <span class="glyphicon glyphicon-plus-sign" ></span> <%= link_to 'Créer une controverse', new_timeline_path %>
+      <span class="glyphicon glyphicon-plus-sign" ></span> <%= link_to 'Créer une controverse',
+                                                                       new_timeline_path %>
     </li>
     <% if session[:timeline_id] %>
         <li class="list-group-item">
-        <span class="glyphicon glyphicon-plus-sign" ></span> Ajouter une réfèrence à la controverse
+        Ajouter une réfèrence à la controverse
           <%= link_to session[:timeline_name], timeline_path(session[:timeline_id]) %>
           <%= form_for :reference, url: references_path do |f| %>
-              Titre ou doi : <%= f.text_field :title, class: 'form-control' %>
-              <%= f.submit "Ajouter une référence", name: "panel_button", class: "btn btn-block btn-primary" %>
+            <%= f.text_field :title, placeholder: "Titre ou doi", class: 'form-control' %>
+            <%= f.submit "Rechercher", name: "panel_button",
+                           class: "btn btn-block btn-primary" %>
           <% end %>
         </li>
     <% end %>
     <% if session[:reference_id] %>
     <li class="list-group-item">
-      <span class="glyphicon glyphicon-plus-sign" ></span> Ajouter un commentaire à la référence
+      Ecrire une analyse de
       <%= link_to session[:reference_title], reference_path(session[:reference_id]) %>
-       <textarea class="poststore form-control" rows="16" placeholder="Soyez courageux, publiez votre commentaire"></textarea>
-       <button class="empty btn btn-block btn-default"> vider le cache </button>
-       <%= link_to "Publier mon commentaire", new_comment_path, class: "btn btn-block btn-primary" %>
+       <%= link_to "Je suis courageux", new_comment_path,
+                   class: "btn btn-block btn-primary" %>
+    </li>
+    <li class="list-group-item">
+      Il vous reste <%=12 - session[:my_votes] %> crédits non dépensé pour cette référence
+      <%= link_to "Rendez moi mes crédits", vote_path( id: 'all', reference_id: session[:reference_id]), method: :delete,
+                  class: "btn btn-block btn-primary" %>
     </li>
     <% end %>
+    <li class="list-group-item">
+    <textarea class="poststore form-control" rows="16"
+              placeholder="Presse-Papier"></textarea>
+    <button class="empty btn btn-block btn-default"> vider le presse papier </button>
+    </li>
   </div>
 </div>
 
