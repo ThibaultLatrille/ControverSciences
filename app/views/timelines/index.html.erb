@@ -85,7 +85,8 @@
                   following_new_timelines_path(tag: params[:tag] ), method: :post %>
       <%= image_tag("icons/myicon-#{params[:tag]}.png", alt: tags_hash[params[:tag]],
                  height: "28px") %>
-  <% end %></br>
+  <% end %>
+  </br>
   <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
     </span> Ajouter une controverse".html_safe,
               new_timeline_path %>
