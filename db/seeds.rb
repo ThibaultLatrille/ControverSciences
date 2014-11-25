@@ -170,15 +170,19 @@ end
 def seed_votes(users, comments)
   votes = []
   users.each do |user|
-    comments_user = comments.sample(rand(comments.length))
-    comments_user.each do |comment|
-      value = rand(0..1)
-      votes << Vote.new(
-          user_id: user.id,
-          comment_id: comment.id,
-          timeline_id:  comment.timeline_id,
-          reference_id: comment.reference_id,
-          value: value)
+    comments.group_by{ |c| c.reference_id }.each do |_, comments_by_reference|
+      sum = 0
+      comments_user = comments_by_reference.sample(rand(comments_by_reference.length/2))
+      comments_user.each do |comment|
+        value = rand(0..(12-sum))
+        sum += value
+        votes << Vote.new(
+            user_id: user.id,
+            comment_id: comment.id,
+            timeline_id:  comment.timeline_id,
+            reference_id: comment.reference_id,
+            value: value)
+      end
     end
   end
   votes.map do |v|
@@ -206,31 +210,6 @@ def seed_ratings(users, references)
   ratings
 end
 
-def seed_children(users, comments)
-  root_url = "0.0.0.0:3000/"
-  user = users[0]
-  user_comments = comments.select{ |c| c.user_id == user.id }
-  children = []
-  user_comments.each do |com|
-    contributors = users[1..-1].sample(1+rand(users.length-2))
-    contributors.each do |contributor|
-      fi = rand(1..5)
-      content = com["f_#{fi}_content".to_sym].dup
-      content.insert(rand(content.length), Faker::Lorem.sentence(2))
-      new_comment = com.dup
-      new_comment.user_id = contributor.id
-      new_comment.id = nil
-      new_comment["f_#{fi}_content".to_sym] = content
-      new_comment.save_with_markdown( root_url )
-      children << CommentRelationship.new( parent_id: com.id, child_id: new_comment.id)
-    end
-  end
-  children.map do |r|
-    r.save!
-  end
-  children
-end
-
 tags = tags_hash.keys
 users = seed_users
 seed_following_new_timelines(users, tags)
@@ -239,6 +218,5 @@ seed_following_timelines(users, timelines)
 references = seed_references(users, timelines)
 seed_following_references(users, references[0..4])
 comments = seed_comments(users, timelines)
-seed_children(users, comments)
 seed_votes(users, comments)
 seed_ratings(users, references)
