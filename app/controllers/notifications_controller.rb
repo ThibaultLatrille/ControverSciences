@@ -9,7 +9,7 @@ class NotificationsController < ApplicationController
     @references = Reference.select(:id, :timeline_id, :title_fr).where( id: reference_ids )
     comment_ids = NotificationComment.where( user_id: current_user.id, read: false ).pluck( :comment_id )
     @comments = Comment.select(:id, :timeline_id, :reference_id,
-                               :content_1).where( id: comment_ids )
+                               :f_1_content).where( id: comment_ids )
     comment_sel_ids = NotificationSelection.where( user_id: current_user.id, read: false ).pluck( :comment_id )
     @comments_sel = Comment.select(:id, :comment_id, :timeline_id, :reference_id,
                                    :value).where( id: comment_sel_ids )

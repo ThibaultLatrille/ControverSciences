@@ -144,20 +144,20 @@ def seed_comments(users, timelines)
     contributors = users[1..-1].sample(1+rand(users.length/2-1))
     contributors << users[0]
     contributors.each do |user|
-      content_1 = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
-      content_2 = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
-      content_3 = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
-      content_4 = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
-      content_5 = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
+      f_1_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
+      f_2_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
+      f_3_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
+      f_4_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
+      f_5_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
       comment = Comment.new(
           user: user,
           timeline:  timeline,
           reference: ref,
-          content_1: content_1,
-          content_2: content_2,
-          content_3: content_3,
-          content_4: content_4,
-          content_5: content_5)
+          f_1_content: f_1_content,
+          f_2_content: f_2_content,
+          f_3_content: f_3_content,
+          f_4_content: f_4_content,
+          f_5_content: f_5_content)
       comments << comment
     end
   end
@@ -215,12 +215,12 @@ def seed_children(users, comments)
     contributors = users[1..-1].sample(1+rand(users.length-2))
     contributors.each do |contributor|
       fi = rand(1..5)
-      content = com["content_#{fi}".to_sym].dup
+      content = com["f_#{fi}_content".to_sym].dup
       content.insert(rand(content.length), Faker::Lorem.sentence(2))
       new_comment = com.dup
       new_comment.user_id = contributor.id
       new_comment.id = nil
-      new_comment["content_#{fi}".to_sym] = content
+      new_comment["f_#{fi}_content".to_sym] = content
       new_comment.save_with_markdown( root_url )
       children << CommentRelationship.new( parent_id: com.id, child_id: new_comment.id)
     end

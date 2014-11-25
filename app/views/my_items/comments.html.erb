@@ -18,7 +18,7 @@
     <% else %>
         <% @comments.each do |com| %>
             <tr class="notification-comment">
-              <td> <%= link_to com.content_1[0..70]+"...", comment_path(com.id ) %>   </td>
+              <td> <%= link_to com.f_1_content[0..70]+"...", comment_path(com.id ) %>   </td>
               <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
               <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
               <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,

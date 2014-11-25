@@ -9,7 +9,7 @@ class MyItemsController < ApplicationController
 
   def comments
     @comments = Comment.select(:id, :timeline_id, :reference_id,
-                               :content_1).where( user_id: current_user.id)
+                               :f_1_content).where( user_id: current_user.id)
   end
 
   def votes

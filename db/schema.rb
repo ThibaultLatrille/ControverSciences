@@ -42,11 +42,11 @@ ActiveRecord::Schema.define(version: 20141121094019) do
     t.integer  "balance",      default: 0
     t.float    "score",        default: 0.0
     t.boolean  "best",         default: false
-    t.text     "content_1"
-    t.text     "content_2"
-    t.text     "content_3"
-    t.text     "content_4"
-    t.text     "content_5"
+    t.text     "f_1_content"
+    t.text     "f_2_content"
+    t.text     "f_3_content"
+    t.text     "f_4_content"
+    t.text     "f_5_content"
     t.text     "markdown_1"
     t.text     "markdown_2"
     t.text     "markdown_3"

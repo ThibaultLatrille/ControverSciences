@@ -83,7 +83,7 @@ class Comment < ActiveRecord::Base
         # space_after_headers: true
     }
     for fi in 1..5
-      self["markdown_#{fi}".to_sym ] = Redcarpet::Markdown.new(renderer, extensions).render(self["content_#{fi}".to_sym ])
+      self["markdown_#{fi}".to_sym ] = Redcarpet::Markdown.new(renderer, extensions).render(self["f_#{fi}_content".to_sym ])
     end
     renderer.links
   end
@@ -91,7 +91,7 @@ class Comment < ActiveRecord::Base
   def diffy( comment )
     self.diff = {}
     for fi in 1..5
-      self.diff[fi] = Diffy::Diff.new(comment["content_#{fi}".to_sym ], self["content_#{fi}".to_sym ],
+      self.diff[fi] = Diffy::Diff.new(comment["f_#{fi}_content".to_sym ], self["f_#{fi}_content".to_sym ],
                                      :include_plus_and_minus_in_html => true).to_s(:html)
     end
   end

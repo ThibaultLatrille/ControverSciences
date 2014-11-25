@@ -23,7 +23,7 @@
               <td> <%= image_tag("icons/myicon-#{ vote.value == 1 ?
                       "up" : "down"}.png", alt: "up",
                                  height: "38px", :class => "btn btn-default") %>  </td>
-              <td> <%= link_to vote.comment_short.content_1[0..70]+"...", comment_path(vote.comment_id ) %>
+              <td> <%= link_to vote.comment_short.f_1_content[0..70]+"...", comment_path(vote.comment_id ) %>
                 par <%= link_to vote.comment_short.user_name, user_path(vote.comment_short.user_id ) %></td>
               <td> <%= link_to vote.reference_title, reference_path(vote.reference_id) %>   </td>
               <td> <%= link_to vote.timeline_name, timeline_path(vote.timeline_id ) %>   </td>

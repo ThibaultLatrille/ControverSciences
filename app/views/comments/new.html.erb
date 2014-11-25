@@ -1,58 +1,60 @@
 <% provide(:title, "New analyse") %>
 
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
     <%= render 'layouts/panel' %>
-  </div>
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
+    </div>
 
-<div class="row">
-  <h2> Créer une analyse </h2>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
+        <div class="row">
+          <h2> Créer une analyse </h2>
 
-  <div class="center">
-    Pour la référence :
+          <div class="center">
+            Pour la référence :
 
-    <%= link_to Reference.where(id: session[:reference_id]).pluck(:title)[0], reference_url(session[:reference_id]) %> <br>
+            <%= link_to Reference.where(id: session[:reference_id]).pluck(:title)[0],
+                                reference_url(session[:reference_id]) %> <br>
 
-    Dans la timeline :
-    <%= link_to Timeline.where(id: session[:timeline_id]).pluck(:name)[0], timeline_url(session[:timeline_id]) %>
-    <%= form_for(@comment, url: comments_path, method: :post) do |f| %>
-        </div>
-  <div class="col-md-12 col-lg-7 col-lg-offset-1">
-        <%= render 'shared/error_messages', object: f.object %>
-
-        <% for fi in 1..5 %>
-            <%= f.label fields_hash[fi] %>
-
-            <%= f.text_area "content_#{fi}".to_sym, {:rows => 8, :placeholder => "A vous de jouer",
-                                       :class => "form-control",
-                                       "data-provide" => "markdown" }%>
-        <% end %>
-
-        <% if params[:comment_id] %>
-          <%= f.hidden_field :id, value: @comment.id %>
-        <% end %>
-
-        <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary"%>
-    <% end %>
-  </div>
-  <div class="col-md-12 col-lg-4">
-    <%= label_tag "Références vers lesquels vous pouvez créer des liens" %>
-
-    <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
-    <% if params[:comment_id] %>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <%= image_tag("icons/myicon-parent.png", alt: "laurel", height: "24px")%>
-            L'analyse que vous souhaitez améliorer :
-            <ol class="comments">
-              <%= render @comment, ref: false, view: true, fork: false, diff: false %>
-            </ol>
+            Dans la timeline :
+            <%= link_to Timeline.where(id: session[:timeline_id]).pluck(:name)[0],
+                                timeline_url(session[:timeline_id]) %>
           </div>
-        </div>
-    <% end %>
-   </div>
-</div>
+          <div class="col-md-12 col-lg-7 col-lg-offset-1">
+            <%= form_for(@comment, url: comments_path, method: :post) do |f| %>
+                <%= render 'shared/error_messages', object: f.object %>
 
-</div>
+                <% for fi in 1..5 %>
+                    <%= f.label fields_hash[fi] %>
+
+                    <%= f.text_area "f_#{fi}_content".to_sym, {:rows => 8,
+                                               :placeholder => "A vous de jouer",
+                                               :class => "form-control",
+                                               "data-provide" => "markdown" }%>
+                <% end %>
+
+                <% if params[:comment_id] %>
+                  <%= f.hidden_field :id, value: @comment.id %>
+                <% end %>
+
+                <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary"%>
+            <% end %>
+          </div>
+          <div class="col-md-12 col-lg-4">
+            <%= label_tag "Références vers lesquels vous pouvez créer des liens" %>
+
+            <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
+            <% if params[:comment_id] %>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <%= image_tag("icons/myicon-parent.png", alt: "laurel", height: "24px")%>
+                    L'analyse que vous souhaitez améliorer :
+                    <ol class="comments">
+                      <%= render @comment, ref: false, view: true, fork: false, diff: false %>
+                    </ol>
+                  </div>
+                </div>
+            <% end %>
+           </div>
+        </div>
+    </div>
 </div>

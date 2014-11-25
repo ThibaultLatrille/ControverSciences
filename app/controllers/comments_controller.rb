@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
       @comment = Comment.new({user_id: current_user.id,
               reference_id: session[:reference_id], timeline_id: session[:timeline_id]})
       for fi in 1..5
-        @comment["content_#{fi}".to_sym ] = comment_params[ "content_#{fi}".to_sym ]
+        @comment["f_#{fi}_content".to_sym ] = comment_params[ "f_#{fi}_content".to_sym ]
       end
       parent_id = comment_params[:id]
       if @comment.save_with_markdown( root_url )
@@ -84,6 +84,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content_1, :content_2, :content_3, :content_4, :content_5, :id)
+    params.require(:comment).permit(:f_1_content, :f_2_content, :f_3_content, :f_4_content, :f_5_content, :id)
   end
 end

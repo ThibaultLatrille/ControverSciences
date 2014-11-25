@@ -25,7 +25,7 @@ class Vote < ActiveRecord::Base
   end
 
   def comment_short
-    Comment.select( :content_1, :user_id ).find( self.comment_id )
+    Comment.select( :f_1_content, :user_id ).find( self.comment_id )
   end
 
   def reference_title

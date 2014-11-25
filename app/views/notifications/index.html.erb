@@ -89,7 +89,7 @@
               <tr class="notification-comment">
                 <td> <%= f.check_box :comment_ids, { :multiple => true},
                                      checked_value = com.id, unchecked_value = nil %> </td>
-                <td> <%= link_to com.content_1[0..70]+"...", notifications_comment_path(id: com.id ) %>   </td>
+                <td> <%= link_to com.f_1_content[0..70]+"...", notifications_comment_path(id: com.id ) %>   </td>
                 <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
                 <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
               </tr>
@@ -123,7 +123,7 @@
             <tr class="notification-sel-comment">
               <td> <%= f.check_box :sel_comment_ids, { :multiple => true},
                                    checked_value = com.id, unchecked_value = nil %> </td>
-              <td> <%= link_to com.content_1[0..70]+"...", notifications_selection_path(id: com.id ) %>   </td>
+              <td> <%= link_to com.f_1_content[0..70]+"...", notifications_selection_path(id: com.id ) %>   </td>
               <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
               <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
             </tr>
