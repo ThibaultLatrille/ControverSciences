@@ -19,7 +19,11 @@ class FollowingNewTimelinesController < ApplicationController
       end
       flash[:success] = "Grand curieux, vous suivez maintenant toutes les nouvelles controverses"
     end
-    redirect_to timelines_path
+    if params[:redirect]
+      redirect_to followings_index_path
+    else
+      redirect_to timelines_path
+    end
   end
 
   def destroy
