@@ -4,8 +4,6 @@ class CreateComments < ActiveRecord::Migration
       t.references :user, index: true
       t.references :timeline, index: true
       t.references :reference, index: true
-      t.integer :votes_plus, default: 0
-      t.integer :votes_minus, default: 0
       t.integer :balance, default: 0
       t.float :score, default: 0.0
       t.boolean :best, default: false

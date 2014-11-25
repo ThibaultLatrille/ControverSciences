@@ -5,7 +5,7 @@ class CreateVotes < ActiveRecord::Migration
       t.references :timeline, index: true
       t.references :reference, index: true
       t.references :comment, index: true
-      t.integer :value
+      t.integer :value, default: 0
 
       t.timestamps
     end

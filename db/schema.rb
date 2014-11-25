@@ -36,8 +36,6 @@ ActiveRecord::Schema.define(version: 20141121094019) do
     t.integer  "user_id"
     t.integer  "timeline_id"
     t.integer  "reference_id"
-    t.integer  "votes_plus",   default: 0
-    t.integer  "votes_minus",  default: 0
     t.integer  "balance",      default: 0
     t.float    "score",        default: 0.0
     t.boolean  "best",         default: false
@@ -318,7 +316,7 @@ ActiveRecord::Schema.define(version: 20141121094019) do
     t.integer  "timeline_id"
     t.integer  "reference_id"
     t.integer  "comment_id"
-    t.integer  "value"
+    t.integer  "value",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
