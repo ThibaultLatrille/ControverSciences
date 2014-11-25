@@ -7,28 +7,28 @@
           </div>
           <ul class="list-group">
             <li class="list-group-item clearfix">
-              <%= image_tag("icons/myicon-users.png", alt: "ref", height: "24px") %>
+              <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "24px") %>
               Contributeurs
               <span class="badge"><%= timeline.nb_contributors %></span>
             </li>
             <li class="list-group-item clearfix">
-              <%= image_tag("icons/myicon-ref.png", alt: "ref", height: "24px") %>
+              <%= image_tag("icons/myicon-ref.svg", alt: "ref", height: "24px") %>
               References
               <span class="badge"><%= timeline.nb_references %></span>
             </li>
             <li class="list-group-item clearfix">
-              <%= image_tag("icons/myicon-edit-rule.png", alt: "ref", height: "24px") %>
+              <%= image_tag("icons/myicon-edit-rule.svg", alt: "ref", height: "24px") %>
               Editions
               <span class="badge"><%= timeline.nb_edits %></span>
             </li>
             <li class="list-group-item clearfix">
-              <%= image_tag("icons/myicon-votes.png", alt: "ref", height: "24px") %>
+              <%= image_tag("icons/myicon-votes.svg", alt: "ref", height: "24px") %>
               Votes
               <span class="badge"><%= timeline.nb_votes %></span>
             </li>
             <li class="list-group-item clearfix">
                 <% timeline.get_tag_list.each do |name| %>
-                      <%= image_tag("icons/myicon-#{name}.png", alt: name, title: tags_hash[name],  height: "24px")%>
+                      <%= image_tag("icons/myicon-#{name}.svg", alt: name, title: tags_hash[name],  height: "24px")%>
                 <% end %>
             </li>
             <li class="list-group-item clearfix">

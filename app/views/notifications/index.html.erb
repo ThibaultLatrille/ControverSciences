@@ -32,7 +32,7 @@
                 <td> <%= link_to timeline.name, notifications_timeline_url( id: timeline.id) %> </td>
                 <td>
                   <% timeline.get_tag_list.each do |name| %>
-                      <%= image_tag("icons/myicon-#{name}.png", alt: name,
+                      <%= image_tag("icons/myicon-#{name}.svg", alt: name,
                                     title: tags_hash[name],  height: "24px")%>
                   <% end %>
                 </td>

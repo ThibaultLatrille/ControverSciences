@@ -67,7 +67,7 @@
       </li>
       <% tags_hash.each do |key, value| %>
           <li <%= params[:tag]==key ? "class=selected" : nil %> >
-            <%= link_to image_tag("icons/myicon-#{key}.png", alt: value,
+            <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
                  height: "28px")+"&nbsp".html_safe+value, timelines_path(:sort => params[:sort],
                                           :order => params[:order], :tag => key) %>
           </li>
@@ -83,7 +83,7 @@
       <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
     </span> Suivre les controverces tagées par : #{tags_hash[params[:tag]]}".html_safe,
                   following_new_timelines_path(tag: params[:tag] ), method: :post %>
-      <%= image_tag("icons/myicon-#{params[:tag]}.png", alt: tags_hash[params[:tag]],
+      <%= image_tag("icons/myicon-#{params[:tag]}.svg", alt: tags_hash[params[:tag]],
                  height: "28px") %>
   <% end %>
   </br>
