@@ -12,7 +12,7 @@ module ApplicationHelper
   def tags_hash
     {"biology" => "Biologie",
      "immunity" => "Virus et pathogénes", "medicine" => "Médecine et santé",
-     "pharmacy" => "Médicaments", "animal" => "Animaux", "plant" => "Végétaux",
+     "pharmacy" => "Médicaments", "animal" => "Biologie animale", "plant" => "Biologie Végétale",
      "planet" => "Environement", "energy" => "Energies renouvellables",
      "rig" => "Energies fossiles", "archeology" => "Archéologie",
      "space" => "Espace", "physics" => "Physique", "chemistry" => "Chimie",
