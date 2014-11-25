@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :destroy]
+  before_action :logged_in_user, only: [:new, :index, :create, :destroy]
 
   def new
     @comment = Comment.new()
@@ -34,28 +34,8 @@ class CommentsController < ApplicationController
   end
 
   def index
-    @best_comment = BestComment.find_by( reference_id: params[:reference_id] ).comment
-    if !params[:sort].nil?
-      if !params[:order].nil?
-        @comments = Comment.order(params[:sort].to_sym => params[:order].to_sym).where(
-            reference_id: params[:reference_id]).where.not(
-            id: @best_comment.id).page(params[:page]).per(8)
-      else
-        @comments = Comment.order(params[:sort].to_sym => :desc).where(
-            reference_id: params[:reference_id]).where.not(
-            id: @best_comment.id).page(params[:page]).per(8)
-      end
-    else
-      if !params[:order].nil?
-        @comments = Comment.order(:score => params[:order].to_sym).where(
-            reference_id: params[:reference_id]).where.not(
-            id: @best_comment.id).page(params[:page]).per(8)
-      else
-        @comments = Comment.order(:score => :desc).page(params[:page]).where(
-            reference_id: params[:reference_id]).where.not(
-            id: @best_comment.id).page(params[:page]).per(8)
-      end
-    end
+    @comments = Comment.order(:balance => :desc).page(params[:page]).where(
+        reference_id: params[:reference_id], user_id: current_user.id)
   end
 
   def show

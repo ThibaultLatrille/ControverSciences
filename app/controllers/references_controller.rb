@@ -63,21 +63,39 @@ class ReferencesController < ApplicationController
     session[:reference_id] = params[:id]
     session[:reference_title] = @reference.title
     session[:timeline_id] = @reference.timeline_id
-    session[:timeline_name] = @reference.timeline.name
-    best_comment = BestComment.find_by( reference_id: @reference.id )
-    if best_comment
-      @comment = Comment.find( @reference.id)
-      @comments = Comment.order(balance: :desc ).where(
-                   reference_id: @reference.id ).where.not(
-                   id: best_comment.comment_id, user_id: current_user.id ).first(5)
-    else
-        @comment = nil
-        @comments = []
-    end
+    session[:timeline_name] = @reference.timeline_name
     if logged_in?
-        @comments_user = @reference.comments.where(user_id: current_user.id)
+      user_id = current_user.id
+      @my_votes = Vote.where( user_id: user_id, reference_id: @reference.id).sum( :value )
+      session[:my_votes] = @my_votes
     else
-        @comments_user = []
+      user_id = nil
+    end
+    if params[:filter]
+      comment_ids = Vote.where( user_id: user_id, reference_id: @reference.id).pluck( :comment_id )
+      @comments = Comment.where( id: comment_ids ).page(params[:page]).per(10)
+    else
+      if !params[:sort].nil?
+        if !params[:order].nil?
+          @comments = Comment.order(params[:sort].to_sym => params[:order].to_sym).where(
+              reference_id: params[:id]).where.not(
+              user_id: user_id).page(params[:page]).per(5)
+        else
+          @comments = Comment.order(params[:sort].to_sym => :desc).where(
+              reference_id: params[:id]).where.not(
+              user_id: user_id).page(params[:page]).per(5)
+        end
+      else
+        if !params[:order].nil?
+          @comments = Comment.order(:created_at => params[:order].to_sym).where(
+              reference_id: params[:id]).where.not(
+              user_id: user_id).page(params[:page]).per(5)
+        else
+          @comments = Comment.order(:created_at => :desc).page(params[:page]).where(
+              reference_id: params[:id]).where.not(
+              user_id: user_id).page(params[:page]).per(5)
+        end
+      end
     end
     sum = @reference.star_1+@reference.star_2+@reference.star_3+@reference.star_4+@reference.star_5
     if sum != 0

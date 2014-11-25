@@ -13,7 +13,6 @@ class MyItemsController < ApplicationController
   end
 
   def votes
-    @votes = Vote.select(:id, :comment_id, :timeline_id, :reference_id,
-                            :value).where( user_id: current_user.id)
+    @votes = Vote.where( user_id: current_user.id)
   end
 end
