@@ -28,7 +28,7 @@
             </li>
             <li class="list-group-item clearfix">
                 <% timeline.get_tag_list.each do |name| %>
-                      <%= image_tag("icons/myicon-#{name}.png", alt: name, height: "24px")%>
+                      <%= image_tag("icons/myicon-#{name}.png", alt: name, title: tags_hash[name],  height: "24px")%>
                 <% end %>
             </li>
           </ul>

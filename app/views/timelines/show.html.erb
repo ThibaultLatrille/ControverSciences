@@ -38,7 +38,7 @@
     <span class="pull-right">
           <div class="btn-group">
             <% @timeline.get_tag_list.each do |name| %>
-                <label class="btn btn-default">
+                <label class="btn btn-default" title="<%= tags_hash[name] %>" >
                   <%= image_tag("icons/myicon-#{name}.png", alt: name, height: "24px")%>
                 </label>
             <% end %>
