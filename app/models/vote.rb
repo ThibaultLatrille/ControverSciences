@@ -11,10 +11,10 @@ class Vote < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validates :comment_id, presence: true
-  validates :value, presence: true, inclusion: { in: 0..1 }
+  validates :value, presence: true, inclusion: { in: 0..12 }
   validates_uniqueness_of :user_id, :scope => [:comment_id]
-  validate :not_best_comment
   validate :not_user_comment
+  validate :not_excede_value
 
   def user_name
     User.select( :name ).find( self.user_id ).name
@@ -36,62 +36,52 @@ class Vote < ActiveRecord::Base
     Timeline.select( :name ).find( self.timeline_id ).name
   end
 
-  def not_best_comment
-    best_comment = BestComment.find_by_comment_id(self.comment_id)
-    if best_comment
-      errors.add(:comment_id, "The comment is the best and can't be voted")
-    end
+  def sum
+    puts self.inspect
+    Vote.where( user_id: self.user_id, reference_id: self.reference_id).sum( :value )
   end
 
   def not_user_comment
-    if self.comment.user_id == self.user_id
+    comment = Comment.select( :user_id).find( self.comment_id )
+    if comment.user_id == self.user_id
       errors.add(:user_id, "The comment is owned by the user")
     end
   end
 
-  def destroy_with_counters
-    Timeline.update_counters( self.timeline_id, nb_votes: -1 )
-    Reference.update_counters( self.reference_id, nb_votes: -1 )
-    case self.value
-      when 1
-        Comment.decrement_counter(:votes_plus, self.comment_id)
-        Comment.decrement_counter(:balance, self.comment_id)
-      when 0
-        Comment.decrement_counter(:votes_minus, self.comment_id)
-        Comment.increment_counter(:balance, self.comment_id)
+  def not_excede_value
+    sum = Vote.where( user_id: self.user_id,
+                reference_id: self.reference_id ).sum( :value )
+    puts sum
+    sum += self.value
+    puts sum
+    if sum > 12
+      errors.add(:value, "The value exceded the permitted amount")
     end
+  end
+
+  def destroy_with_counters
+    Comment.update_counters(self.comment_id, balance: -self.value )
+    Reference.update_counters(self.reference_id, nb_votes: -self.value )
+    Timeline.update_counters(self.timeline_id, nb_votes: -self.value )
     self.destroy
   end
 
   private
 
   def cascading_save_vote
-    case self.value
-      when 1
-        Comment.increment_counter(:votes_plus, self.comment_id)
-        Comment.increment_counter(:balance, self.comment_id)
-      when 0
-        Comment.increment_counter(:votes_minus, self.comment_id)
-        Comment.decrement_counter(:balance, self.comment_id)
-    end
-    Reference.increment_counter(:nb_votes, self.reference_id)
-    Timeline.increment_counter(:nb_votes, self.timeline_id)
+    Comment.update_counters(self.comment_id, balance: self.value )
+    Reference.update_counters(self.reference_id, nb_votes: self.value )
+    Timeline.update_counters(self.timeline_id, nb_votes: self.value )
   end
 
   def cascading_update_vote
     value = self.value_was
     yield
     if value != self.value
-      case self.value
-        when 1
-          Comment.decrement_counter( :votes_minus, self.comment_id)
-          Comment.increment_counter( :votes_plus, self.comment_id)
-          Comment.update_counters(self.comment_id, balance: 2 )
-        when 0
-          Comment.decrement_counter(:votes_plus, self.comment_id)
-          Comment.increment_counter(:votes_minus, self.comment_id)
-          Comment.update_counters(self.comment_id, balance: -2 )
-      end
+      diff = self.value - value
+      Comment.update_counters(self.comment_id, balance: diff )
+      Reference.update_counters(self.reference_id, nb_votes: diff )
+      Timeline.update_counters(self.timeline_id, nb_votes: diff )
     end
   end
 end

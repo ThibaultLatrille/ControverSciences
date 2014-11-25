@@ -8,15 +8,14 @@ class Comment < ActiveRecord::Base
   belongs_to :reference
   has_many :votes, dependent: :destroy
   has_many :links, dependent: :destroy
+
   has_many :child_relationships, class_name: "CommentRelationship",
            foreign_key: "parent_id",
            dependent: :destroy
   has_one :parent_relationship, class_name: "CommentRelationship",
              foreign_key: "child_id",
              dependent: :destroy
-
   has_many :children, class_name: "Comment", through: :child_relationships, source: :child
-
   has_one :parent, class_name: "Comment", through: :parent_relationship, source: :parent
 
   after_create :cascading_save_comment
@@ -35,6 +34,15 @@ class Comment < ActiveRecord::Base
 
   def timeline_name
     Timeline.select( :name ).find( self.timeline_id ).name
+  end
+
+  def my_vote( user_id )
+    vote = Vote.select( :value ).find_by( user_id: user_id, comment_id: self.id )
+    if vote
+      vote.value
+    else
+      0
+    end
   end
 
   def markdown(root_url)
