@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="row">
-<div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
+<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-1">
   <div class="panel panel-default">
     <div class="panel-heading">
  Cette analyse appartient à la référence
@@ -21,47 +21,6 @@
   </div>
 </div>
 
-<div class="col-lg-6">
-<% if @parent %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <%= image_tag("icons/myicon-parent.png", alt: "laurel", height: "24px")%>
-        Cette analyse a comme parent :
-        <ol class="comments">
-          <%= render @parent, ref: false, view: true, fork: true, diff: true %>
-        </ol>
-      </div>
-    </div>
-<% else %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <%= image_tag("icons/myicon-no-parent.png", alt: "laurel", height: "24px")%>
-        Cette analyse est orpheline !
-      </div>
-    </div>
-<% end %>
-</div>
-
-<div class="col-lg-6">
-  <% if @children.any? %>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <%= image_tag("icons/myicon-children.png", alt: "laurel", height: "24px")%>
-      Cette analyse a engendré des enfants :
-      <ol class="comments">
-        <%= render @children, ref: false, view: true, fork: true, diff: true %>
-      </ol>
-    </div>
-  </div>
-  <% else %>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <%= image_tag("icons/myicon-no-child.png", alt: "laurel", height: "24px")%>
-          Cette analyse n'a aucun enfant !
-        </div>
-      </div>
-  <% end %>
-</div>
 
 </div>
 </div>

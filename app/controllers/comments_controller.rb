@@ -59,15 +59,11 @@ class CommentsController < ApplicationController
   end
 
   def show
-    @comment = Comment.find(params[:id])
-    @children = @comment.children
-    @children.each do |comment|
-      comment.diffy( @comment)
-    end
-    @parent = @comment.parent
-    if @parent
-      @parent.diffy( @comment)
-    end
+    @comment = Comment.select( :id, :user_id, :reference_id, :timeline_id,
+                               :markdown_1, :markdown_2, :markdown_3, :markdown_4,
+                               :markdown_5, :votes_plus, :votes_minus, :best,
+                               :created_at
+                              ).find(params[:id])
   end
 
   def destroy

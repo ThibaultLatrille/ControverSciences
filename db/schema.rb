@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20141121094019) do
     t.integer  "user_id"
     t.integer  "timeline_id"
     t.integer  "reference_id"
-    t.text     "content"
     t.integer  "votes_plus",   default: 0
     t.integer  "votes_minus",  default: 0
     t.integer  "balance",      default: 0
