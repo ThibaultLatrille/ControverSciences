@@ -37,7 +37,6 @@ class Vote < ActiveRecord::Base
   end
 
   def sum
-    puts self.inspect
     Vote.where( user_id: self.user_id, reference_id: self.reference_id).sum( :value )
   end
 
@@ -51,9 +50,7 @@ class Vote < ActiveRecord::Base
   def not_excede_value
     sum = Vote.where( user_id: self.user_id,
                 reference_id: self.reference_id ).sum( :value )
-    puts sum
     sum += self.value
-    puts sum
     if sum > 12
       errors.add(:value, "The value exceded the permitted amount")
     end
