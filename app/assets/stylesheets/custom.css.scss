@@ -1,6 +1,13 @@
 @import "bootstrap-sprockets";
 @import 'bootstrap';
 
+@font-face {
+  font-family: 'Gentium Book Basic', serif;
+}
+
+body {
+  font-family: 'Gentium Book Basic';
+}
 $gray-medium-light: #eaeaea;
 $nav_back: #6898ce;
 $nav_back_bottom: #e9f0f5;
