@@ -99,32 +99,8 @@ class ReferencesController < ApplicationController
         end
       end
     end
-    sum = @reference.star_1+@reference.star_2+@reference.star_3+@reference.star_4+@reference.star_5
-    if sum != 0
-      @rating_hash = {}
-      @rating_hash[1] = @reference.star_1*100/sum
-      @rating_hash[2] = @reference.star_2*100/sum
-      @rating_hash[3] = @reference.star_3*100/sum
-      @rating_hash[4] = @reference.star_4*100/sum
-      @rating_hash[5] = @reference.star_5*100/sum
-    else
-      @rating_hash = { 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, panel: "default" }
-    end
-    case @reference.star_most
-      when 1
-        @rating_hash[:panel] = "danger"
-      when 2
-        @rating_hash[:panel] = "warning"
-      when 4
-        @rating_hash[:panel] = "info"
-      when 5
-        @rating_hash[:panel] = "primary"
-      else
-        @rating_hash[:panel] = "default"
-    end
     if logged_in?
-      user_rating = @reference.ratings.where(user_id: current_user.id).first
-      @rating_hash[:user_value] = user_rating[:value] unless user_rating.nil?
+      @user_rating = @reference.ratings.find_by(user_id: current_user.id)
     end
   end
 
