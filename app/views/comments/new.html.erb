@@ -27,7 +27,7 @@
                     <%= f.label fields_hash[fi] %>
 
                     <%= f.text_area "f_#{fi}_content".to_sym, {:rows => 8,
-                                               :placeholder => "A vous de jouer",
+                                               :placeholder => fields_hash[fi],
                                                :class => "form-control",
                                                "data-provide" => "markdown" }%>
                 <% end %>

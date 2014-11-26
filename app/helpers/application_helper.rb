@@ -26,8 +26,8 @@ module ApplicationHelper
   end
 
   def star_hash
-    { 1 => "Je trouve qu'il rape un peu les fesses quand on se torche avec",
-      2 => "Heuresement pour eux que je n'étais pas un des reviewers",
+    { 1 => "Elle rape un peu les fesses quand on se torche avec",
+      2 => "Référence très interessante mais, aucun rapport avec la choucroute",
       3 => "Ils se sont quand même pas foulés trois neurones pour le pondre",
       4 => "Des bons petits gars et du bon boulot",
       5 => "J'ai eu un orgasme cérébrale en le lisant"}

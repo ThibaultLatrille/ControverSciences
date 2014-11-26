@@ -34,7 +34,7 @@
                    class: "btn btn-block btn-primary" %>
     </li>
     <li class="list-group-item">
-      Il vous reste <%=12 - session[:my_votes] %> crédits non dépensé pour cette référence
+      <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%> Il vous reste <%=12 - session[:my_votes] %> crédits non dépensé pour cette référence
       <%= link_to "Rendez moi mes crédits", vote_path( id: 'all', reference_id: session[:reference_id]), method: :delete,
                   class: "btn btn-block btn-primary" %>
     </li>

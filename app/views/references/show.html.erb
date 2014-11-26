@@ -109,7 +109,7 @@
                     <%= f.label "Que pensez vous de ce papier ?" %>
                 <% else %>
                     <%= image_tag("icons/myicon-#{@rating_hash[:user_value]}.svg", height: "28px") +
-                                " : "+ star_hash[@rating_hash[:user_value]] %> 
+                                " : "+ star_hash[@rating_hash[:user_value]] %>
                 <% end %>
                 <div class="btn-group-justified" data-toggle="buttons">
                   <% star_hash.each do |key, value| %>
@@ -143,7 +143,7 @@
     <span class="badge"><%= @reference.nb_contributors %></span>
     <%= image_tag("icons/myicon-edit-rule.svg", alt: "ref", height: "24px") %>
     <span class="badge"><%= @reference.nb_edits %></span>
-    <%= image_tag("icons/myicon-votes.svg", alt: "ref", height: "24px") %>
+    <%= image_tag("icons/myicon-ribbon.svg", alt: "ref", height: "24px") %>
     <span class="badge"><%= @reference.nb_votes %></span>
     <span class="pull-right">
       Référence ajouté par <%= @reference.user_name %>
