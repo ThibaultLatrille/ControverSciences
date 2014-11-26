@@ -46,10 +46,10 @@
             <% if params[:comment_id] %>
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <%= image_tag("icons/myicon-parent.png", alt: "laurel", height: "24px")%>
+                    <%= image_tag("icons/myicon-laurel.svg", alt: "laurel", height: "24px")%>
                     L'analyse que vous souhaitez améliorer :
                     <ol class="comments">
-                      <%= render @comment, ref: false, view: true, fork: false, diff: false %>
+                      <%= render @comment, vote: true %>
                     </ol>
                   </div>
                 </div>

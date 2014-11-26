@@ -1,31 +1,4 @@
 <li id="comment-<%= comment.id %>">
-  <div class="clearfix">
-      <% if vote %>
-        <%= form_for(:vote, url: votes_path, method: :post) do |f| %>
-            <div class="btn btn-default">
-              Mon vote <%= comment.my_vote( current_user.id ) %>
-            </div>
-            <%= f.hidden_field :comment_id, value: comment.id %>
-            <%= f.hidden_field :reference_id, value: comment.reference_id %>
-            <%= f.hidden_field :timeline_id, value: comment.timeline_id %>
-            <div class="col-md-2">
-              <%= f.select :value, (0..(12 + comment.my_vote( current_user.id ) - session[:my_votes])),
-                           {selected: comment.my_vote( current_user.id )}, { class: "form-control" } %>
-            </div>
-            <div class="col-md-3">
-              <%= f.submit "Enregistrer le vote", class: "btn btn-primary"%>
-            </div>
-        <% end %>
-      <% else %>
-        <div class="btn btn-default">
-          <%= comment.balance %>
-        </div>
-      <% end %>
-      <div class="pull-right">
-            <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                        new_comment_path(comment_id: comment.id), :class => "btn btn-default", :style => "padding: 2px"%>
-      </div>
-  </div>
   <div class="comment">
   <span class="content">
     <%= comment.balance %>
@@ -35,6 +8,46 @@
     <% end %>
 
   </span>
+    <div class="clearfix">
+    <% if vote %>
+        <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
+        <div class="row">
+          <%= f.hidden_field :comment_id, value: comment.id %>
+          <%= f.hidden_field :reference_id, value: comment.reference_id %>
+          <%= f.hidden_field :timeline_id, value: comment.timeline_id %>
+            <div class="col-md-8">
+              <div class="input-group">
+                <span class="input-group-btn">
+                <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%>
+                  </span>
+              <%= f.select :value, (0..(12 + comment.my_vote( current_user.id ) - session[:my_votes])),
+                           {selected: comment.my_vote( current_user.id )}, { class: "form-control" } %>
+              <span class="input-group-btn">
+                  <% if comment.my_vote( current_user.id ) == 0 %>
+                    <%= f.submit "Accréditer cette analyse", class: "btn btn-primary"%>
+                  <% else %>
+                    <%= f.submit "Changer mes crédits (#{comment.my_vote( current_user.id)} actuellement)", class: "btn btn-primary"%>
+                  <% end %>
+              </span>
+              </div>
+            </div>
+            <div class="pull-right">
+                <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
+                        new_comment_path(comment_id: comment.id), :class => "btn btn-default", title: "Améliorer cette analyse", :style => "padding: 2px"%>
+            </div>
+        </div>
+        <% end %>
+    <% else %>
+        <div class="btn btn-default">
+          <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%>
+          <%= comment.balance %> crédits ont été donné à cette analyse.
+        </div>
+        <div class="pull-right">
+        <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
+                    new_comment_path(comment_id: comment.id), :class => "btn btn-default", title: "Améliorer cette analyse", :style => "padding: 2px"%>
+        </div>
+    <% end %>
+    </div>
   <span class="timestamp">
     Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= link_to comment.user_name, user_path(comment.user_id) %>
    </span>
