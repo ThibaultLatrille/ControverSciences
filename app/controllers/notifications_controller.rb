@@ -2,17 +2,33 @@ class NotificationsController < ApplicationController
   before_action :logged_in_user, only: [:index, :important, :delete, :timeline]
 
   def index
+    if params[:filter]
+      @filter = params[:filter].to_sym
+    else
+      dico = { timeline: current_user.notifications_timeline,
+               reference: current_user.notifications_reference,
+               comment: current_user.notifications_comment,
+               selection: current_user.notifications_selection}
+      most = dico.max_by{ |_,v| v }
+      @filter = most[0]
+    end
     @notification = Notification.new
-    timeline_ids = NotificationTimeline.where( user_id: current_user.id, read: false ).pluck( :timeline_id )
-    @timelines = Timeline.select(:id, :name).where( id: timeline_ids )
-    reference_ids = NotificationReference.where( user_id: current_user.id, read: false ).pluck( :reference_id )
-    @references = Reference.select(:id, :timeline_id, :title_fr).where( id: reference_ids )
-    comment_ids = NotificationComment.where( user_id: current_user.id, read: false ).pluck( :comment_id )
-    @comments = Comment.select(:id, :timeline_id, :reference_id,
-                               :f_1_content).where( id: comment_ids )
-    comment_sel_ids = NotificationSelection.where( user_id: current_user.id, read: false ).pluck( :comment_id )
-    @comments_sel = Comment.select(:id, :comment_id, :timeline_id, :reference_id,
-                                   :value).where( id: comment_sel_ids )
+    case @filter
+      when :timeline
+        timeline_ids = NotificationTimeline.where( user_id: current_user.id, read: false ).pluck( :timeline_id )
+        @timelines = Timeline.select(:id, :name).where( id: timeline_ids ).page(params[:page]).per(20)
+      when :reference
+        reference_ids = NotificationReference.where( user_id: current_user.id, read: false ).pluck( :reference_id )
+        @references = Reference.select(:id, :timeline_id, :title_fr).where( id: reference_ids ).page(params[:page]).per(20)
+      when :comment
+        comment_ids = NotificationComment.where( user_id: current_user.id, read: false ).pluck( :comment_id )
+        @comments = Comment.select(:id, :timeline_id, :reference_id,
+                               :f_1_content).where( id: comment_ids ).page(params[:page]).per(20)
+      when :selection
+        comment_sel_ids = NotificationSelection.where( user_id: current_user.id, read: false ).pluck( :comment_id )
+        @selections = Comment.select(:id, :comment_id, :timeline_id, :reference_id,
+                                       :value).where( id: comment_sel_ids ).page(params[:page]).per(20)
+    end
   end
 
   def important
@@ -28,26 +44,59 @@ class NotificationsController < ApplicationController
                             timeline_id: params[:notification][:timeline_ids] )
       User.update_counters( current_user.id, notifications_timeline: -notifs.length )
       notifs.destroy_all
+      redirect_to notifications_index_path( filter: :timeline)
+      return
     end
     if params[:notification][:reference_ids]
       notifs = NotificationReference.where( user_id: current_user.id,
                             reference_id: params[:notification][:reference_ids] )
       User.update_counters( current_user.id, notifications_reference: -notifs.length )
       notifs.destroy_all
+      redirect_to notifications_index_path( filter: :reference)
+      return
     end
     if params[:notification][:comment_ids]
       notifs = NotificationComment.where( user_id: current_user.id,
                             comment_id: params[:notification][:comment_ids] )
       User.update_counters( current_user.id, notifications_comment: -notifs.length )
       notifs.destroy_all
+      redirect_to notifications_index_path( filter: :comment)
+      return
     end
     if params[:notification][:sel_comment_ids]
       notifs = NotificationSelection.where( user_id: current_user.id,
                             comment_id: params[:notification][:sel_comment_ids] )
       User.update_counters( current_user.id, notifications_selection: -notifs.length )
       notifs.destroy_all
+      redirect_to notifications_index_path( filter: :selection)
+      return
     end
     redirect_to notifications_index_path
+  end
+
+  def delete_all
+    case params[:filter]
+      when :timeline.to_s
+        notifs = NotificationTimeline.where( user_id: current_user.id )
+        User.update_counters( current_user.id, notifications_timeline: -notifs.length )
+        notifs.destroy_all
+        redirect_to notifications_index_path
+      when :reference.to_s
+        notifs = NotificationReference.where( user_id: current_user.id )
+        User.update_counters( current_user.id, notifications_reference: -notifs.length )
+        notifs.destroy_all
+        redirect_to notifications_index_path
+      when :comment.to_s
+        notifs = NotificationComment.where( user_id: current_user.id )
+        User.update_counters( current_user.id, notifications_comment: -notifs.length )
+        notifs.destroy_all
+        redirect_to notifications_index_path
+      when :selection.to_s
+        notifs = NotificationSelection.where( user_id: current_user.id )
+        User.update_counters( current_user.id, notifications_selection: -notifs.length )
+        notifs.destroy_all
+        redirect_to notifications_index_path
+    end
   end
 
   def timeline

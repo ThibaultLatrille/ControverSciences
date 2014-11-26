@@ -4,6 +4,7 @@ class ReferencesController < ApplicationController
   def new
     if params[:timeline_id]
       session[:timeline_id] = params[:timeline_id]
+      session[:timeline_name] = Timeline.select( :name ).find( params[:timeline_id] ).name
     end
     session[:reference_params] ||= {user_id: current_user.id, timeline_id: session[:timeline_id]}
     @reference = Reference.new(session[:reference_params])
@@ -13,7 +14,8 @@ class ReferencesController < ApplicationController
   def create
     if params[:stop_button]
       session[:reference_step] = session[:reference_params] = nil
-      return redirect_to root_path
+      redirect_to root_path
+      return
     elsif params[:panel_button]
       session[:reference_params] = {user_id: current_user.id, timeline_id: session[:timeline_id]}
       @reference = Reference.new(session[:reference_params])

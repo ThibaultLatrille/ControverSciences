@@ -6,11 +6,16 @@ class CommentsController < ApplicationController
     if params[:comment_id]
       @comment = Comment.find(params[:comment_id])
       session[:reference_id] = @comment.reference_id
+      session[:reference_title] = @comment.reference_title
       session[:timeline_id] = @comment.timeline_id
+      session[:timeline_name] = @comment.timeline_name
     end
-    unless session[:timeline_id]
-      session[:reference_id] = params[:reference_id]
-      session[:timeline_id] = params[:timeline_id]
+    unless session[:reference_id]
+      reference = Reference.select(:id, :timeline_id, :title_fr ).find(params[:reference_id])
+      session[:reference_id] = reference.id
+      session[:reference_title] = reference.title_fr
+      session[:timeline_id] = reference.timeline_id
+      session[:timeline_name] = reference.timeline_name
     end
     @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title, :id )
   end
@@ -41,9 +46,13 @@ class CommentsController < ApplicationController
   def show
     @comment = Comment.select( :id, :user_id, :reference_id, :timeline_id,
                                :markdown_1, :markdown_2, :markdown_3, :markdown_4,
-                               :markdown_5, :votes_plus, :votes_minus, :best,
+                               :markdown_5, :balance, :best,
                                :created_at
                               ).find(params[:id])
+    session[:reference_id] = @comment.reference_id
+    session[:reference_title] = @comment.reference_title
+    session[:timeline_id] = @comment.timeline_id
+    session[:timeline_name] = @comment.timeline_name
   end
 
   def destroy
