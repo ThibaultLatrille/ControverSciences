@@ -101,6 +101,9 @@ class ReferencesController < ApplicationController
     end
     if logged_in?
       @user_rating = @reference.ratings.find_by(user_id: current_user.id)
+      unless @user_rating.nil?
+        @user_rating = @user_rating.value
+      end
     end
   end
 

@@ -107,15 +107,15 @@
 
                 <%= f.hidden_field :reference_id, value: @reference.id %>
                 <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-                <% if @user_rating[:value].nil? %>
+                <% if @user_rating.nil? %>
                     <%= f.label "Que pensez vous de ce papier ?" %>
                 <% else %>
-                    <%= image_tag("icons/myicon-#{@user_rating[:value]}.svg", height: "28px") +
-                                " : "+ star_hash[@user_rating[:value]] %>
+                    <%= image_tag("icons/myicon-#{@user_rating}.svg", height: "28px") +
+                                " : "+ star_hash[@user_rating] %>
                 <% end %>
                 <div class="btn-group-justified" data-toggle="buttons">
                   <% star_hash.each do |key, value| %>
-                      <label class="btn btn-default <%= @user_rating[:value] == key ? "active" : nil %>"
+                      <label class="btn btn-default <%= @user_rating == key ? "active" : nil %>"
                              title="<%= value %>">
                             <%= f.radio_button :value, checked_value = key,
                                                {id: key, autocomplete: "off"} %>
@@ -123,7 +123,7 @@
                       </label>
                   <% end %>
                 </div>
-                <% if @user_rating[:value].nil? %>
+                <% if @user_rating.nil? %>
                     <%= f.submit "Enregistrer cet avis", class: "btn btn-primary" %>
                 <% else %>
                     <%= f.submit "Enregistrer la modification", class: "btn btn-primary", name: "update" %>

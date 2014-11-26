@@ -5,7 +5,7 @@
     <tr>
       <th class="col-xs-6"> La référence </th>
       <th class="col-xs-4"> Dans la controverse </th>
-      <th class="col-xs-2"> Supprimer </th>
+      <th class="col-xs-2 center"> Supprimer </th>
     </tr>
     </thead>
 
@@ -21,7 +21,7 @@
             <tr class="notification-reference">
               <td> <%= link_to reference.title_fr, reference_path(reference.id) %>   </td>
               <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>   </td>
-              <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+              <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                reference_path( reference.id ), method: :delete,
                                data: { confirm: " Vous êtes certains ?" } %>  </td>
             </tr>

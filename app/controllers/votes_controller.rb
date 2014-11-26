@@ -46,6 +46,11 @@ class VotesController < ApplicationController
         vote.destroy_with_counters
       end
       redirect_to reference_path( params[:reference_id] )
+    elsif params[:id]=='none'
+      vote = Vote.find_by(comment_id: params[:comment_id], user_id: current_user.id )
+      reference_id = vote.reference_id
+      vote.destroy_with_counters
+      redirect_to reference_path( reference_id )
     else
       votes = Vote.find(params[:id])
       if votes.user_id == current_user.id

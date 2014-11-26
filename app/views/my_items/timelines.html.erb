@@ -6,7 +6,7 @@
       <tr>
         <th class="col-sm-8"> Nom </th>
         <th class="col-sm-3"> Tags </th>
-        <th class="col-sm-1"> Supprimer </th>
+        <th class="col-sm-1 center"> Supprimer </th>
       </tr>
       </thead>
 
@@ -28,13 +28,13 @@
                                     title: tags_hash[name],  height: "24px")%>
                   <% end %>
                 </td>
-                <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                  timeline_path( timeline.id ), method: :delete,
                                  data: { confirm: " Vous êtes certains ?" } %>  </td>
               </tr>
           <% end %>
           <tr class="notification-timeline">
-            <td> <%= link_to "Créer une nouvelle controverse",
+            <td> <%= link_to "<span class=\"glyphicon glyphicon-plus\"> </span> Créer une nouvelle controverse".html_safe,
                              new_timeline_path %> </td>
           </tr>
       <% end %>

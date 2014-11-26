@@ -3,12 +3,11 @@
   <table id="notification-references" class="table table-striped table-hover">
     <thead>
     <tr>
-      <th class="col-xs-1"> Mon vote </th>
+      <th class="col-xs-1 center"> Mon vote </th>
       <th class="col-xs-3"> De l'analyse </th>
       <th class="col-xs-3"> De la référence </th>
       <th class="col-xs-2"> Dans la controverse </th>
-      <th class="col-xs-1"> Supprimer </th>
-      <th class="col-xs-2"> Modifier </th>
+      <th class="col-xs-1 center"> Supprimer </th>
     </tr>
     </thead>
 
@@ -20,26 +19,14 @@
     <% else %>
         <% @votes.each do |vote| %>
             <tr class="notification-reference">
-              <td> <%=vote.value %> </td>
+              <td class="center"> <%=vote.value %> </td>
               <td> <%= link_to vote.comment_short.f_1_content[0..70]+"...", comment_path(vote.comment_id ) %>
                 par <%= link_to vote.comment_short.user_name, user_path(vote.comment_short.user_id ) %></td>
               <td> <%= link_to vote.reference_title, reference_path(vote.reference_id) %>   </td>
               <td> <%= link_to vote.timeline_name, timeline_path(vote.timeline_id ) %>   </td>
-              <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+              <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                vote_path( vote.id ), method: :delete,
                                data: { confirm: " Vous êtes certains ?" } %>  </td>
-              <td>  <%= form_for(:vote, url: votes_path, method: :post) do |f| %>
-                    <%= f.hidden_field :comment_id, value: vote.comment_id %>
-                    <%= f.hidden_field :reference_id, value: vote.reference_id %>
-                    <%= f.hidden_field :timeline_id, value: vote.timeline_id %>
-                    <div class="col-md-6">
-                      <%= f.select :value, (0..(12 + vote.value - vote.sum)),
-                                   {selected: vote.value }, { class: "form-control" } %>
-                    </div>
-                    <div class="col-md-6">
-                      <%= f.submit "Enregistrer le vote", class: "btn btn-primary"%>
-                    </div>
-                <% end %>  </td>
             </tr>
         <% end %>
     <% end %>
