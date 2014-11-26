@@ -7,8 +7,11 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
   <% else %>
-      <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
   <% end %>
+
 <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" type="button"
             id="dropdownMenuTri" data-toggle="dropdown">
@@ -74,30 +77,26 @@
       <% end %>
     </ul>
 </div>
-<span class="pull-right">
-  <% if params[:tag].nil? || params[:tag]=='all' %>
-    <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-    </span> Suivre les nouvelles controverses".html_safe,
-                following_new_timelines_path, method: :post %>
-  <% else %>
-      <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-    </span> Suivre les controverces tagées par : #{tags_hash[params[:tag]]}".html_safe,
-                  following_new_timelines_path(tag: params[:tag] ), method: :post %>
-      <%= image_tag("icons/myicon-#{params[:tag]}.svg", alt: tags_hash[params[:tag]],
-                 height: "28px") %>
-  <% end %>
-  </br>
-  <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
-    </span> Ajouter une controverse".html_safe,
-              new_timeline_path %>
-</span>
 <div id="timelines">
   <div class="row page">
   <%= render @timelines %>
  </div>
 </div>
-
 <%= paginate @timelines %>
-
 </div>
+
+<div class="col-sm-12 col-md-1 col-lg-2">
+  <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+        </span> Ajouter une controverse".html_safe,
+              new_timeline_path, class: "btn btn-block btn-primary" %>
+  <% if params[:tag].nil? || params[:tag]=='all' %>
+    <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+    </span> Suivre les nouvelles controverses".html_safe,
+                following_new_timelines_path, method: :post, class: "btn btn-block btn-primary" %>
+  <% else %>
+      <%= link_to image_tag("icons/myicon-#{params[:tag]}.svg", height: "28px") + "Suivre les controverces tagées par : #{tags_hash[params[:tag]]}".html_safe,
+                  following_new_timelines_path(tag: params[:tag] ), method: :post, class: "btn btn-block btn-primary" %>
+  <% end %>
+</div>
+
 </div>
