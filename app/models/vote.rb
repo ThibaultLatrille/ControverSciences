@@ -11,7 +11,7 @@ class Vote < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validates :comment_id, presence: true
-  validates :value, presence: true, inclusion: { in: 0..12 }
+  validates :value, presence: true, inclusion: { in: 1..12 }
   validates_uniqueness_of :user_id, :scope => [:comment_id]
   validate :not_user_comment
   validate :not_excede_value

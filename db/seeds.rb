@@ -176,13 +176,15 @@ def seed_votes(users, comments)
       comments_user = comments_by_reference.sample(rand(comments_by_reference.length/2))
       comments_user.each do |comment|
         value = rand(0..(12-sum))
-        sum += value
-        votes << Vote.new(
-            user_id: user.id,
-            comment_id: comment.id,
-            timeline_id:  comment.timeline_id,
-            reference_id: comment.reference_id,
-            value: value)
+        if value > 0
+          sum += value
+          votes << Vote.new(
+              user_id: user.id,
+              comment_id: comment.id,
+              timeline_id:  comment.timeline_id,
+              reference_id: comment.reference_id,
+              value: value)
+        end
       end
     end
   end
