@@ -1,23 +1,43 @@
 <%= f.label "DOI" %>
-<%= f.text_field :doi, class: 'form-control' %>
+<%= f.text_field :doi, class: 'form-control', :placeholder => "10.5962/bhl.title.28875" %>
 
 <%= f.label "Lien vers la publication" %>
-<%= f.text_field :url, class: 'form-control' %>
+<%= f.text_field :url, class: 'form-control', :placeholder => "http://www.biodiversitylibrary.org/item/71804" %>
+
+<%= f.label "Journal en Open-Access" %>
+<div class="btn-group-justified" data-toggle="buttons">
+  <label class="btn btn-default active" title="Journal en Open-Access">
+    <%= f.radio_button :open_access, checked_value = true,
+                       {id: "0", autocomplete: "off"} %>
+    <%= image_tag("icons/myicon-lock.svg", height: "24px")%>
+  </label>
+  <label class="btn btn-default" title="Journal sous Pay-Wall">
+    <%= f.radio_button :open_access, checked_value = false,
+                       {id: "1", autocomplete: "off"} %>
+    <%= image_tag("icons/myicon-locked.svg", height: "24px")%>
+  </label>
+</div>
 
 <%= f.label "Titre original" %>
-<%= f.text_field :title, class: 'form-control' %>
+<%= f.text_area :title, {:rows => 2,
+                         :placeholder => "On the origin of species",
+                         :class => "form-control"} %>
 
 <%= f.label "Titre en Français" %>
-<%= f.text_field :title_fr, class: 'form-control' %>
+<%= f.text_area :title_fr, {:rows => 2,
+                            :placeholder => "Sur l'origine des espèces",
+                            :class => "form-control"} %>
 
 <%= f.label "Journal" %>
-<%= f.text_field :journal, class: 'form-control' %>
+<%= f.text_field :journal, class: 'form-control', :placeholder => "New York :D. Appleton and Co.," %>
 
 <%= f.label "Date de publication" %>
 <%= f.select :year, (1870..Date.current.year), {:include_blank => true}, { class: 'form-control'} %>
 
 <%= f.label "Les auteurs de l'étude" %>
-<%= f.text_field :author, class: 'form-control' %>
+<%= f.text_field :author, class: 'form-control', :placeholder => "Darwin, Charles," %>
 
 <%= f.label "Abstract" %>
-<%= f.text_field :abstract, class: 'form-control' %>
+<%= f.text_area :abstract, {:rows => 6,
+                            :placeholder => "In considering the Origin of Species, it is quite conceivable that a naturalist, reflecting on the mutual affinities of organic beings, on their embryological relations, their geographical distribution, geological succession, and other such facts, might come to the conclusion that each species had not been independently created, but had descended, like varieties, from other species. Nevertheless, such a conclusion, even if well founded, would be unsatisfactory, until it could be shown how the innumerable species inhabiting this world have been modified so as to acquire that perfection of structure and co-adaptation which most justly excites our admiration. Naturalists continually refer to external conditions, such as climate, food, &c., as the only possible cause of variation. In one very limited sense, as we shall hereafter see, this may be true; but it is preposterous to attribute to mere external conditions, the structure, for instance, of the woodpecker, with its feet, tail, beak, and tongue, so admirably adapted to catch insects under the bark of trees. In the case of the misseltoe, which draws its nourishment from certain trees, which has seeds that must be transported by certain birds, and which has flowers with separate sexes absolutely requiring the agency of certain insects to bring pollen from one flower to the other, it is equally preposterous to account for the structure of this parasite, with its relations to several distinct organic beings, by the effects of external conditions, or of habit, or of the volition of the plant itself.",
+                            :class => "form-control"} %>
