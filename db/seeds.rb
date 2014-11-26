@@ -112,6 +112,7 @@ def seed_references(users, timelines)
       end
       ref.year = ref.year.to_i
       ref.title_fr = Faker::Lorem.sentence(4)
+      ref.open_access = rand(2) == 1 ? true : false
       references << ref
     end
   end

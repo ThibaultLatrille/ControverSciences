@@ -17,17 +17,18 @@ node :readmoreurl do |ref|
   reference_path(ref.id)
 end
 
+node :url do |ref|
+  ref.url
+end
+
+node :open do |ref|
+  ref.open_access
+end
+
 node :color do |ref|
-  case ref.star_most
-    when 1
-      "red"
-    when 2
-      "yellow"
-    when 4
-      "light-blue"
-    when 5
+  if ref.star_most > 3
       "blue"
-    else
+  else
       "default"
   end
 end

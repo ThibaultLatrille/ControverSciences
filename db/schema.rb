@@ -210,6 +210,7 @@ ActiveRecord::Schema.define(version: 20141121094019) do
     t.text     "author"
     t.text     "journal"
     t.text     "publisher"
+    t.boolean  "open_access",     default: true
     t.text     "abstract",        default: ""
     t.integer  "nb_contributors", default: 0
     t.integer  "nb_edits",        default: 0

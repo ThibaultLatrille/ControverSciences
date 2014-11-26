@@ -70,9 +70,6 @@ display: none;
 }
 
 
-/**
- * Posts
- */
 .post {
     width: 271px;
     margin: 0 0 10px 0;
@@ -80,7 +77,7 @@ display: none;
 
 &.last {
      margin-bottom: 0;
- }
+}
 
 .inner {
     position: relative;
@@ -94,21 +91,6 @@ display: none;
 @include box-shadow(1px 3px 1px 1px #ADADAD);
 }
 
-.red {
-  border-color: #d9534f;
-  background-color: #ffffff;
-}
-
-.yellow {
-  border-color: #f0ad4e;
-  background-color: #ffffff;
-}
-
-.light-blue {
-  border-color: #5bc0de;
-  background-color: #ffffff;
-}
-
 .blue {
   border-color: #428bca;
   background-color: #ffffff;
@@ -119,9 +101,9 @@ display: none;
   background-color: #ffffff;
 }
 
-  &.right {
-     float: right;
- }
+&.right {
+   float: right;
+}
 
 .timestamp {
     display: none;
@@ -155,10 +137,6 @@ h3 {
      display: block;
  }
 
-.body img {
-    max-width: 100%;
-}
-
 .text {
     color: #393939;
     font-family: Georgia, sans-serif;
@@ -169,11 +147,11 @@ h3 {
 
 a.open-close {
     background: transparent image-url("button-up-down-arrow.png") no-repeat;
-    height: 24px;
-    width: 24px;
+    height: 22px;
+    width: 22px;
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: 10px;
+    top: 10px;
 }
 
 &.collapsed a.open-close {

@@ -2,11 +2,11 @@
 @import 'bootstrap';
 
 @font-face {
-  font-family: 'Gentium Book Basic', serif;
+  font-family: 'Lobster', cursive;
 }
 
 body {
-  font-family: 'Gentium Book Basic';
+  font-family: 'Lobster';
 }
 $gray-medium-light: #eaeaea;
 $nav_back: #6898ce;
@@ -343,9 +343,7 @@ input {
   border: 1px solid rgba(0, 0, 0, 0.9);
   border-radius: 4px;
   padding: 9px;
-  /*position: relative;*/
   width: 42px;
-
 }
 
 .mini-submenu:hover{
@@ -378,11 +376,6 @@ input {
   padding: 0 8px;
   border-radius: 4px;
   cursor: pointer;
-}
-
-.progress-bar-default{
-  background-color: #f5f5f5;
-  color: lightslategrey;
 }
 
 .dropdown-menu{

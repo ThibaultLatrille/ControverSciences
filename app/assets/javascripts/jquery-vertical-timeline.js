@@ -49,15 +49,22 @@
       'field5': 'field5',
       'color':'',
       'expansion': 'collapsed',
-      'read_more_url': 'read more url'
+      'read_more_url': 'read more url',
+      'url': 'url'
     },
     postTemplate: '<div class="item post <%= data.expansion %>" data-timestamp="<%= data.timestamp %>"> \
         <div class="inner <%= data.color %>"> \
           <div class="title"> \
             <h3> \
-              <% if (data.title_icon) { %><img class="title-icon" src="<%= data.title_icon %>" \/><% } %> \
               <%= data.title %> \
-              <a href="<%= data.read_more_url %>" target="_blank" ><i class="glyphicon glyphicon-share-alt"></i></a> \
+              <a href="<%= data.url %>" target="_blank" >\
+              <% if (data.open) { %>  \
+                <img alt="open-access" src="/images/lock.png" height="16px" \/> \
+              <% } %> \
+              <% if (!data.open) { %>  \
+                <img alt="pay-wall" src="/images/locked.png" height="16px" \/> \
+              <% } %> \
+              </a> \
             <\/h3> \
           <\/div> \
           <div class="date"><%= data.display_date %><\/div> \
@@ -84,7 +91,7 @@
             <\/div> \
              <div class="clearfix"> \
               <% if (data.read_more_url) { %> \
-                <a target="_blank" class="more" href="<%= data.read_more_url %>"> En savoir plus sur cet article<\/a> \
+                <a class="more" href="<%= data.read_more_url %>"> En savoir plus sur cet article<\/a> \
               <% } %> \
             <\/div> \
           <\/div> \

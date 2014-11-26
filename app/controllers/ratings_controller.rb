@@ -5,7 +5,14 @@ class RatingsController < ApplicationController
     if params[:update]
       @rating = Rating.where({user_id: current_user.id,reference_id: rating_params[:reference_id]}).first
       if @rating.update( {value: rating_params[:value]})
-        flash[:success] = "Changement enregistré"
+        case rating_params[:value]
+          when 1 || 2
+            flash[:info] = "ZZbrraa, comment vous l'avez défoncé la référence !"
+          when 3
+            flash[:info] = "Ca va, vous vous mouillez pas trop !"
+          else
+            flash[:info] = "Mais quelle éloge de cette référence !"
+        end
         redirect_to controller: 'references', action: 'show', id: rating_params[:reference_id]
       else
         render 'static_pages/home'
