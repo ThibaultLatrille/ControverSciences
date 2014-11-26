@@ -53,16 +53,15 @@
 
 </div>
 <div class="col-xs-12 col-lg-2">
+<%= link_to '<span class="glyphicon glyphicon-plus-sign" >
+</span> Ajouter une réfèrence'.html_safe,
+          new_reference_path( timeline_id: @timeline.id),
+          class: "btn btn-block btn-primary" %>
+
 <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
 </span> S'abonner à cette controverse".html_safe,
-        following_timelines_path( timeline_id: @timeline.id ),
-        method: :post, class: "btn btn-block btn-primary" %>
-
-<%= link_to '<span class="glyphicon glyphicon-plus-sign" >
-    </span> Ajouter une réfèrence'.html_safe,
-            new_reference_path( timeline_id: @timeline.id),
-            class: "btn btn-block btn-primary" %>
-
+    following_timelines_path( timeline_id: @timeline.id ),
+    method: :post, class: "btn btn-block btn-primary" %>
 </div>
 </div>
 
