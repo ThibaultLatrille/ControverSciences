@@ -146,13 +146,13 @@ ActiveRecord::Schema.define(version: 20141121094019) do
 
   create_table "notification_selections", force: true do |t|
     t.integer  "user_id"
-    t.integer  "comment_id"
-    t.boolean  "read",       default: false
+    t.integer  "new_comment_id"
+    t.integer  "old_comment_id"
+    t.boolean  "read",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "notification_selections", ["comment_id"], name: "index_notification_selections_on_comment_id"
   add_index "notification_selections", ["user_id"], name: "index_notification_selections_on_user_id"
 
   create_table "notification_timelines", force: true do |t|
