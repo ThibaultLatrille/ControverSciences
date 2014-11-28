@@ -23,6 +23,11 @@ class Comment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
+  validates :f_1_content, presence: true
+  validates :f_2_content, presence: true
+  validates :f_3_content, presence: true
+  validates :f_4_content, presence: true
+
 
   def user_name
     User.select( :name ).find( self.user_id ).name
@@ -114,6 +119,8 @@ class Comment < ActiveRecord::Base
                        reference_id: link, timeline_id: self.timeline_id})
         end
       end
+      FollowingReference.create( user_id: self.user_id,
+                                 reference_id: self.reference_id)
       true
     else
       false
@@ -123,39 +130,36 @@ class Comment < ActiveRecord::Base
 
   def selection_update( best_comment = nil )
     if best_comment
+      old_comment_id = best_comment.comment_id
       NotificationSelectionLoss.create( user_id: best_comment.user_id,
                                         comment_id: best_comment.comment_id)
       User.increment_counter( :notifications_loss, best_comment.user_id)
-      Comment.find( best_comment.comment_id ).update_attributes( best: false )
-      best_comment.update_attributes( user_id: comment.user_id, comment_id: comment.id )
-      NotificationSelectionWin.create( user_id: comment.user_id, comment_id: comment.id)
-      User.increment_counter( :notifications_win, comment.user_id )
-      self.selection_notifications
+      Comment.update( best_comment.comment_id, best: false )
+      best_comment.update_attributes( user_id: self.user_id, comment_id: self.id )
+      NotificationSelectionWin.create( user_id: self.user_id, comment_id: self.id)
+      User.increment_counter( :notifications_win, self.user_id )
+      self.selection_notifications( old_comment_id )
     else
       BestComment.create( user_id: self.user_id, reference_id: self.reference_id,
                           comment_id: self.id)
     end
-    Reference.find( self.reference_id ).update_attributes( f_1_content: self.markdown_1,
-                                                           f_2_content: self.markdown_2,
-                                                           f_3_content: self.markdown_3,
-                                                           f_4_content: self.markdown_4,
-                                                           f_5_content: self.markdown_5)
+    Reference.update(self.reference_id , {f_1_content: self.markdown_1,
+                                         f_2_content: self.markdown_2,
+                                         f_3_content: self.markdown_3,
+                                         f_4_content: self.markdown_4,
+                                         f_5_content: self.markdown_5})
     self.update_attributes( best: true)
   end
 
-  def selection_notifications
-    ids = Comment.where( reference_id: self.reference_id ).pluck(:id, :user_id )
+  def selection_notifications( old_comment_id )
+    user_ids = FollowingReference.where( reference_id: self.reference_id ).pluck(:user_id )
     notifications = []
-    user_ids = []
-    comment_ids = []
-    ids.each do |comment_id, user_id|
-      user_ids << user_id
-      comment_ids << comment_id
-      notifications << NotificationSelection.new( user_id: user_id, comment_id: comment_id )
+    user_ids.each do |user_id|
+      notifications << NotificationSelection.new( user_id: user_id, old_comment_id: old_comment_id,
+                                                  new_comment_id: self.id)
     end
     NotificationSelection.import notifications
     User.increment_counter( :notifications_selection, user_ids)
-    Comment.where(id: comment_ids).update_all(votes_plus: 0, votes_minus: 0, balance: 0 )
   end
 
   def create_notifications
