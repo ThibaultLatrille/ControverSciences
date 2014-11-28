@@ -37,13 +37,13 @@ class AssistantController < ApplicationController
     references.each do |reference_id|
     most = Comment.where( reference_id: reference_id ).order(score: :desc).first
     best_comment = BestComment.find_by(reference_id: reference_id )
-      if best_comment
+      if most
         if most.id != best_comment.comment_id
             most.selection_update( best_comment )
         end
       end
     end
-    flash[:success] = "La sélection a opérée"
+    flash[:success] = "La sélection a opéré"
     redirect_to assistant_path
   end
 
