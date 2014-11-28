@@ -19,7 +19,8 @@ class RatingsController < ApplicationController
         end
         redirect_to controller: 'references', action: 'show', id: rating_params[:reference_id]
       else
-        render 'static_pages/home'
+        flash[:danger] = "Echec"
+        redirect_to controller: 'references', action: 'show', id: rating_params[:reference_id]
       end
     else
       @rating = Rating.new({user_id: current_user.id,

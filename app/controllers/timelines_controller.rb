@@ -46,12 +46,14 @@ class TimelinesController < ApplicationController
   def create
     @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name],
                       timeline_edit_content: timeline_params[:timeline_edit_content])
-    @timeline.set_tag_list(params[:timeline][:tag_list][0..6])
+    if params[:timeline][:tag_list]
+      @timeline.set_tag_list(params[:timeline][:tag_list][0..6])
+    end
     if @timeline.save
       flash[:success] = "Timeline créer"
       redirect_to @timeline
     else
-      render 'static_pages/home'
+      render 'new'
     end
   end
 

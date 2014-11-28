@@ -1,0 +1,41 @@
+fr:
+  views:
+    pagination:
+      first: "&laquo; Première"
+      last: "Dernière &raquo;"
+      previous: "&lsaquo; Précédente"
+      next: "Suivante &rsaquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "Aucun(e) %{entry_name} trouvé(e)s"
+          one: "Affichage de <b>1</b> %{entry_name}"
+          other: "Affichage des <b>%{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "%{entry_name} <b>%{first}</b> à <b>%{last}</b> affiché(e)s sur <b>%{total}</b> au total"
+  activerecord:
+    attributes:
+      user:
+        name: "Nom"
+        email: "Adresse éléctronique"
+        password: "Mot de passe"
+        password_confirmation: "Confirmation de mot de passe"
+    errors:
+      models:
+        user:
+          attributes:
+            name:
+              blank: "ne peut être vide"
+              too_long: "trop long"
+            email:
+              blank: "ne peut être vide"
+              invalid: "invalide"
+            password:
+              blank: "ne peut être vide"
+              too_short: "de minimum 6 caractères"
+            name:
+              blank: "ne peut être vide"
+            password_confirmation:
+              confirmation: "doit être identique"

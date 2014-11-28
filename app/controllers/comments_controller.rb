@@ -30,7 +30,8 @@ class CommentsController < ApplicationController
         flash[:success] = "Edition enregistré"
         redirect_to comment_path(@comment.id)
       else
-        render 'static_pages/home'
+        @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title, :id )
+        render 'new'
       end
   end
 

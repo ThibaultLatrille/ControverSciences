@@ -63,7 +63,13 @@ group :development do
   gem 'spring',  '1.1.3'
 end
 
+#group :production do
+#  gem 'pg'
+#  gem 'rails_serve_static_assets'
+#end
+
 group :production do
-  gem 'pg'
-  gem 'rails_serve_static_assets'
+  gem 'pg',             '0.17.1'
+  gem 'rails_12factor', '0.0.2'
+  gem 'unicorn',        '4.8.3'
 end

@@ -21,12 +21,12 @@
 
         <%= f.label :Tags %> </br>
 
-        <div data-toggle="buttons">
+        <div class="center btn-toolbar"  data-toggle="buttons">
           <% tags_hash.each do |key, value| %>
-          <label class="btn btn-default">
+          <div class="btn btn-default" style="white-space: normal">
           <%= f.check_box :tag_list, { :multiple => true}, checked_value = key, unchecked_value = nil %>
             <%= image_tag("icons/myicon-#{key}.svg", alt: value, height: "28px")%> <%= value %>
-          </label>
+          </div>
           <% end %>
         </div>
         <div>
