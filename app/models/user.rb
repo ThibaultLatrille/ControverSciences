@@ -75,6 +75,30 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.days.ago
   end
 
+  def notifications_timeline
+    NotificationTimeline.where( user_id: self.id ).count
+  end
+
+  def notifications_reference
+    NotificationReference.where( user_id: self.id ).count
+  end
+
+  def notifications_comment
+    NotificationComment.where( user_id: self.id ).count
+  end
+
+  def notifications_selection
+    NotificationSelection.where( user_id: self.id ).count
+  end
+
+  def notifications_win
+    NotificationSelectionWin.where( user_id: self.id ).count
+  end
+
+  def notifications_loss
+    NotificationSelectionLoss.where( user_id: self.id ).count
+  end
+
   private
 
   # Converts email to all lower-case.

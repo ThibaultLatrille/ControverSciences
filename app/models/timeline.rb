@@ -81,7 +81,6 @@ class Timeline < ActiveRecord::Base
       notifications << NotificationTimeline.new( user_id: user_id, timeline_id: self.id )
     end
     NotificationTimeline.import notifications
-    User.increment_counter( :notifications_timeline, user_ids)
   end
 
   private

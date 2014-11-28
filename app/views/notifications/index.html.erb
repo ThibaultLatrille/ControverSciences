@@ -9,7 +9,7 @@
            selection: "Les événements de sélections"}.each do |key, value| %>
           <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
                                 height: "28px")+"&nbsp".html_safe+value+
-                              " ("+current_user["notifications_#{key.to_s}".to_sym].to_s+")",
+                              " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
                       notifications_index_path(filter: key), class: "btn btn-primary btn-block" %>
       <% end %>
     </div>

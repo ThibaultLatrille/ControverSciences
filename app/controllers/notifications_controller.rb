@@ -55,7 +55,6 @@ class NotificationsController < ApplicationController
     if params[:notification][:timeline_ids]
       notifs = NotificationTimeline.where( user_id: current_user.id,
                             timeline_id: params[:notification][:timeline_ids] )
-      User.update_counters( current_user.id, notifications_timeline: -notifs.length )
       notifs.destroy_all
       redirect_to notifications_index_path( filter: :timeline)
       return
@@ -63,7 +62,6 @@ class NotificationsController < ApplicationController
     if params[:notification][:reference_ids]
       notifs = NotificationReference.where( user_id: current_user.id,
                             reference_id: params[:notification][:reference_ids] )
-      User.update_counters( current_user.id, notifications_reference: -notifs.length )
       notifs.destroy_all
       redirect_to notifications_index_path( filter: :reference)
       return
@@ -71,7 +69,6 @@ class NotificationsController < ApplicationController
     if params[:notification][:comment_ids]
       notifs = NotificationComment.where( user_id: current_user.id,
                             comment_id: params[:notification][:comment_ids] )
-      User.update_counters( current_user.id, notifications_comment: -notifs.length )
       notifs.destroy_all
       redirect_to notifications_index_path( filter: :comment)
       return
@@ -79,7 +76,6 @@ class NotificationsController < ApplicationController
     if params[:notification][:sel_comment_ids]
       notifs = NotificationSelection.where( user_id: current_user.id,
                             new_comment_id: params[:notification][:sel_comment_ids] )
-      User.update_counters( current_user.id, notifications_selection: -notifs.length )
       notifs.destroy_all
       redirect_to notifications_index_path( filter: :selection)
       return
@@ -91,22 +87,18 @@ class NotificationsController < ApplicationController
     case params[:filter]
       when :timeline.to_s
         notifs = NotificationTimeline.where( user_id: current_user.id )
-        User.update_counters( current_user.id, notifications_timeline: -notifs.length )
         notifs.destroy_all
         redirect_to notifications_index_path
       when :reference.to_s
         notifs = NotificationReference.where( user_id: current_user.id )
-        User.update_counters( current_user.id, notifications_reference: -notifs.length )
         notifs.destroy_all
         redirect_to notifications_index_path
       when :comment.to_s
         notifs = NotificationComment.where( user_id: current_user.id )
-        User.update_counters( current_user.id, notifications_comment: -notifs.length )
         notifs.destroy_all
         redirect_to notifications_index_path
       when :selection.to_s
         notifs = NotificationSelection.where( user_id: current_user.id )
-        User.update_counters( current_user.id, notifications_selection: -notifs.length )
         notifs.destroy_all
         redirect_to notifications_index_path
     end
@@ -115,7 +107,6 @@ class NotificationsController < ApplicationController
   def timeline
     notif = NotificationTimeline.find_by( user_id: current_user.id,
                         timeline_id: notification_params )
-    User.update_counters( current_user.id, notifications_timeline: -1 )
     notif.destroy
     redirect_to timeline_path( notification_params )
   end
@@ -123,7 +114,6 @@ class NotificationsController < ApplicationController
   def reference
     notif = NotificationReference.find_by( user_id: current_user.id,
                                           reference_id: notification_params )
-    User.update_counters( current_user.id, notifications_reference: -1 )
     notif.destroy
     redirect_to reference_path( notification_params )
   end
@@ -131,7 +121,6 @@ class NotificationsController < ApplicationController
   def comment
     notif = NotificationComment.find_by( user_id: current_user.id,
                                           comment_id: notification_params )
-    User.update_counters( current_user.id, notifications_comment: -1 )
     notif.destroy
     redirect_to comment_path( notification_params )
   end
@@ -139,7 +128,6 @@ class NotificationsController < ApplicationController
   def selection
     notif = NotificationSelection.find_by( user_id: current_user.id,
                                           new_comment_id: notification_params )
-    User.update_counters( current_user.id, notifications_selection: -1 )
     notif.destroy
     redirect_to comment_path( notification_params )
   end

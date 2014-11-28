@@ -67,7 +67,6 @@ class Reference < ActiveRecord::Base
       notifications << NotificationReference.new( user_id: user_id, reference_id: self.id )
     end
     NotificationReference.import notifications
-    User.increment_counter( :notifications_reference, user_ids)
   end
 
   def destroy_with_counters

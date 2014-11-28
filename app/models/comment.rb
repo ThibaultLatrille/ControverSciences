@@ -139,11 +139,9 @@ class Comment < ActiveRecord::Base
       old_comment_id = best_comment.comment_id
       NotificationSelectionLoss.create( user_id: best_comment.user_id,
                                         comment_id: best_comment.comment_id)
-      User.increment_counter( :notifications_loss, best_comment.user_id)
       Comment.update( best_comment.comment_id, best: false )
       best_comment.update_attributes( user_id: self.user_id, comment_id: self.id )
       NotificationSelectionWin.create( user_id: self.user_id, comment_id: self.id)
-      User.increment_counter( :notifications_win, self.user_id )
       self.selection_notifications( old_comment_id )
     else
       BestComment.create( user_id: self.user_id, reference_id: self.reference_id,
@@ -175,7 +173,6 @@ class Comment < ActiveRecord::Base
       notifications << NotificationComment.new( user_id: user_id, comment_id: self.id )
     end
     NotificationComment.import notifications
-    User.increment_counter( :notifications_comment, user_ids)
   end
 
 

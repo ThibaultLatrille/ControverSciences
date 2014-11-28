@@ -291,23 +291,17 @@ ActiveRecord::Schema.define(version: 20141121094019) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.float    "score",                   default: 1.0
+    t.float    "score",             default: 1.0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_digest"
     t.string   "remember_digest"
-    t.boolean  "admin",                   default: false
+    t.boolean  "admin",             default: false
     t.string   "activation_digest"
-    t.boolean  "activated",               default: false
+    t.boolean  "activated",         default: false
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
-    t.integer  "notifications_timeline",  default: 0
-    t.integer  "notifications_reference", default: 0
-    t.integer  "notifications_comment",   default: 0
-    t.integer  "notifications_selection", default: 0
-    t.integer  "notifications_win",       default: 0
-    t.integer  "notifications_loss",      default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
