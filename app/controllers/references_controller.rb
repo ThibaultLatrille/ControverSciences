@@ -2,9 +2,9 @@ class ReferencesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def new
+    session[:reference_id] = nil
     if params[:timeline_id]
       session[:timeline_id] = params[:timeline_id]
-      session[:timeline_name] = Timeline.select( :name ).find( params[:timeline_id] ).name
     end
     session[:reference_params] ||= {user_id: current_user.id, timeline_id: session[:timeline_id]}
     @reference = Reference.new(session[:reference_params])
@@ -12,6 +12,7 @@ class ReferencesController < ApplicationController
   end
 
   def create
+    session[:reference_id] = nil
     if params[:stop_button]
       session[:reference_step] = session[:reference_params] = nil
       redirect_to root_path
@@ -62,14 +63,15 @@ class ReferencesController < ApplicationController
 
   def show
     @reference = Reference.find(params[:id])
-    session[:reference_id] = params[:id]
-    session[:reference_title] = @reference.title
-    session[:timeline_id] = @reference.timeline_id
-    session[:timeline_name] = @reference.timeline_name
     if logged_in?
+      session[:reference_id] = params[:id]
+      session[:timeline_id] = @reference.timeline_id
       user_id = current_user.id
       @my_votes = Vote.where( user_id: user_id, reference_id: @reference.id).sum( :value )
-      session[:my_votes] = @my_votes
+      @user_rating = @reference.ratings.find_by(user_id: user_id)
+      unless @user_rating.nil?
+        @user_rating = @user_rating.value
+      end
     else
       user_id = nil
     end
@@ -97,12 +99,6 @@ class ReferencesController < ApplicationController
               reference_id: params[:id]).where.not(
               user_id: user_id).page(params[:page]).per(5)
         end
-      end
-    end
-    if logged_in?
-      @user_rating = @reference.ratings.find_by(user_id: current_user.id)
-      unless @user_rating.nil?
-        @user_rating = @user_rating.value
       end
     end
   end

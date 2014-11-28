@@ -2,6 +2,8 @@ class AssistantController < ApplicationController
   before_action :admin_user, only: [:view, :users, :timelines, :selection, :fitness]
 
   def view
+    session[:timeline_id] = nil
+    session[:reference_id] = nil
   end
 
   def users
