@@ -13,8 +13,8 @@ class Timeline < ActiveRecord::Base
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
-  has_many :following_timelines, dependent: destroy
-  has_many :notification_timelines, dependent: destroy
+  has_many :following_timelines, dependent: :destroy
+  has_many :notification_timelines, dependent: :destroy
 
   after_create :cascading_save_timeline
 

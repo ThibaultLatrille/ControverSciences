@@ -9,7 +9,7 @@ class Reference < ActiveRecord::Base
   has_many :following_references, dependent: :destroy
   has_many :notification_references, dependent: :destroy
 
-  has_one :best_comment, dependent: destroy
+  has_one :best_comment, dependent: :destroy
 
   after_create  :cascading_save_ref
 

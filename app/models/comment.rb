@@ -23,7 +23,7 @@ class Comment < ActiveRecord::Base
   has_many :notification_selection_wins, dependent: :destroy
   has_many :notification_selections, foreign_key: "new_comment_id", dependent: :destroy
 
-  has_one :best_comment, dependent: destroy
+  has_one :best_comment, dependent: :destroy
 
   after_create :cascading_save_comment
 
