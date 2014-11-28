@@ -5,6 +5,7 @@ class Rating < ActiveRecord::Base
 
   after_create  :cascading_save_rating
   around_update  :cascading_update_rating
+  around_destroy  :cascading_destroy_rating
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
@@ -15,22 +16,27 @@ class Rating < ActiveRecord::Base
   private
 
   def cascading_save_rating
-    increment_stars_counter( self.value )
-    Reference.increment_counter( :nb_votes_star, self.reference_id )
-    Timeline.increment_counter( :nb_votes_star, self.timeline_id )
-    update_most_stared( self.reference_id )
+    Reference.update_counters( self.reference_id, "star_#{self.value}".to_sym => 1 )
+    update_most_stared
+  end
+
+  def cascading_destroy_rating
+    old_value = self.value_was
+    reference_id = self.reference_id
+    yield
+    Reference.update_counters( reference_id, "star_#{old_value}".to_sym => -1 )
   end
 
   def cascading_update_rating
     old_value = self.value_was
     yield
-    decrement_stars_counter( old_value )
-    increment_stars_counter( self.value )
-    update_most_stared( self.reference_id )
+    Reference.update_counters( self.reference_id, "star_#{old_value}".to_sym => -1 )
+    Reference.update_counters( self.reference_id, "star_#{self.value}".to_sym => 1 )
+    update_most_stared
   end
 
-  def update_most_stared( reference_id )
-    ref = Reference.find( reference_id )
+  def update_most_stared
+    ref = Reference.find( self.reference_id )
     dico = { 1 => ref.star_1, 2 => ref.star_2,
             3 => ref.star_3, 4 => ref.star_4,
             5 => ref.star_5}

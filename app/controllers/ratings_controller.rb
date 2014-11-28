@@ -3,8 +3,11 @@ class RatingsController < ApplicationController
 
   def create
     if params[:update]
-      @rating = Rating.where({user_id: current_user.id,reference_id: rating_params[:reference_id]}).first
-      if @rating.update( {value: rating_params[:value]})
+      @rating = Rating.find_by(user_id: current_user.id,reference_id: rating_params[:reference_id])
+      if rating_params[:value] == "none"
+        @rating.destroy
+        redirect_to controller: 'references', action: 'show', id: rating_params[:reference_id]
+      elsif @rating.update( {value: rating_params[:value]})
         case rating_params[:value]
           when 1 || 2
             flash[:info] = "ZZbrraa, comment vous l'avez défoncé la référence !"
@@ -35,9 +38,6 @@ class RatingsController < ApplicationController
         redirect_to root_url
       end
     end
-  end
-
-  def destroy
   end
 
   private

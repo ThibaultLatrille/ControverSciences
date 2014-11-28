@@ -114,6 +114,14 @@
                                 " : "+ star_hash[@user_rating] %>
                 <% end %>
                 <div class="btn-group-justified" data-toggle="buttons">
+                  <% unless @user_rating.nil? %>
+                      <label class="btn btn-default"
+                             title="Retirer mon avis">
+                        <%= f.radio_button :value, checked_value = "none",
+                                           {id: "none", autocomplete: "off"} %>
+                        <%= image_tag("icons/myicon-no.svg", height: "28px")%>
+                      </label>
+                  <% end %>
                   <% star_hash.each do |key, value| %>
                       <label class="btn btn-default <%= @user_rating == key ? "active" : nil %>"
                              title="<%= value %>">
