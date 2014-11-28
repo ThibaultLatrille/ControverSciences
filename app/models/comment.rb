@@ -163,7 +163,6 @@ class Comment < ActiveRecord::Base
                                                   new_comment_id: self.id)
     end
     NotificationSelection.import notifications
-    User.increment_counter( :notifications_selection, user_ids)
   end
 
   def create_notifications

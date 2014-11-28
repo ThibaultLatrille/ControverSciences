@@ -21,7 +21,7 @@
                 <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%>
                 </span>
               <%= f.select :value, (0..(12 + comment.my_vote( current_user.id ) -
-                      (@my_votes ? @my_votes : Vote.where( user_id: current_user.id, reference_id: session[:reference_id])) )),
+                      (@my_votes ? @my_votes : Vote.where( user_id: current_user.id, reference_id: session[:reference_id]).sum( :value ) ) )),
                            {selected: comment.my_vote( current_user.id )}, { class: "form-control selectwidthauto" } %>
               <div>
                   <% if comment.my_vote( current_user.id ) == 0 %>
