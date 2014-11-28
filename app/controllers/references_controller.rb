@@ -75,9 +75,11 @@ class ReferencesController < ApplicationController
     else
       user_id = nil
     end
-    if params[:filter]
+    if params[:filter] == "my-vote"
       comment_ids = Vote.where( user_id: user_id, reference_id: @reference.id).pluck( :comment_id )
       @comments = Comment.where( id: comment_ids ).page(params[:page]).per(10)
+    elsif params[:filter] == "mine"
+      @comments = Comment.where( user_id: user_id, reference_id: @reference.id ).page(params[:page]).per(10)
     else
       if !params[:sort].nil?
         if !params[:order].nil?

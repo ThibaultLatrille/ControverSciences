@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :logged_in_user, only: [:new, :index, :create, :destroy]
+  before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def new
     @comment = Comment.new()
@@ -32,11 +32,6 @@ class CommentsController < ApplicationController
       else
         render 'static_pages/home'
       end
-  end
-
-  def index
-    @comments = Comment.order(:balance => :desc).page(params[:page]).where(
-        reference_id: params[:reference_id], user_id: current_user.id)
   end
 
   def show

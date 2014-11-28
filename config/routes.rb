@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :destroy]
   resources :references, only: [:new, :create, :show, :destroy]
-  resources :comments,          only: [:show, :new, :create, :edit, :update, :index, :destroy, :destroy]
+  resources :comments,          only: [:show, :new, :create, :edit, :update, :destroy, :destroy]
   resources :votes,          only: [:new ,:create, :destroy]
   resources :ratings,          only: [:create, :destroy]
   get 'assistant' => 'assistant#view'
