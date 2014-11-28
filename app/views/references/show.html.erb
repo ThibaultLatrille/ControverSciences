@@ -1,13 +1,19 @@
 <% provide(:title, @reference.title) %>
 <div class="row">
 
-<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-<% if logged_in? %>
-<%= render 'layouts/panel' %>
-<% end %>
-</div>
 
-<div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-5 col-lg-offset-0">
+<% if logged_in? %>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+    <%= render 'layouts/panel' %>
+  </div>
+  <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-0">
+<% else %>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+    <%= link_to "Revenir à la controverse",
+                timeline_path(@reference.timeline_id), class: "btn btn-primary", style: "white-space: normal" %>
+  </div>
+  <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-5 col-lg-offset-0">
+<% end %>
   <div class="clearfix">
   <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" type="button"
@@ -39,15 +45,20 @@
   </div>
   <% if logged_in? %>
   <div class="pull-right">
-  <div class="btn-group">
-    <% if params[:filter] %>
+    <div class="btn-group">
+        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+            </span> Voir mes analyses".html_safe,
+                    comments_path( reference_id: @reference.id ), class: "btn btn-default" %>
+    </div>
+    <div class="btn-group">
+        <% if params[:filter] %>
         <%= link_to "Toute les analyses (sauf les miennes)",
                     reference_path, class: "btn btn-default"  %>
-    <% else %>
-      <%= link_to "Uniquement les analyses pour lesquels j'ai voté",
+        <% else %>
+        <%= link_to "Uniquement les analyses pour lesquels j'ai voté",
                   reference_path(:filter => 'mine'), class: "btn btn-default"  %>
-    <% end %>
-  </div>
+        <% end %>
+    </div>
   </div>
   <% end %>
   <div>
@@ -72,7 +83,23 @@
     </div>
   </div>
 </div>
-<div class="col-sm-10 col-sm-offset-1 col-md-10  col-lg-3 col-lg-offset-0">
+<div class="col-sm-10 col-sm-offset-1 col-md-10  col-lg-4 col-lg-offset-0">
+  <% if logged_in? %>
+      <div class="clearfix">
+      <div class="pull-right">
+          <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+        </span> Ecrire une analyse".html_safe,
+                      new_comment_path, class: "btn btn-primary" %>
+          <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+        </span> Suivre les nouvelles analyses".html_safe,
+                      following_references_path( reference_id: @reference.id ),
+                      method: :post, class: "btn btn-primary" %>
+        <div>
+          </br>
+        </div>
+      </div>
+      </div>
+  <% end %>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title"> <%= @reference.title_fr %> </h3>
@@ -163,19 +190,4 @@
 </div>
 </div>
 
-<div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-2 col-lg-offset-0">
-  <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
-        </span> Ecrire une analyse".html_safe,
-              new_comment_path, class: "btn btn-block btn-primary" %>
-  <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-        </span> Suivre les nouvelles analyses".html_safe,
-              following_references_path( reference_id: @reference.id ),
-              method: :post, class: "btn btn-block btn-primary" %>
-  <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-        </span> Voir mes analyses".html_safe,
-              comments_path( reference_id: @reference.id ), class: "btn btn-block btn-primary" %>
 </div>
-
-</div>
-</div>
-

@@ -83,6 +83,7 @@
 <%= paginate @timelines %>
 </div>
 
+<% if logged_in? %>
 <div class="col-sm-12 col-md-1 col-lg-2">
   <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
         </span> Ajouter une controverse".html_safe,
@@ -96,5 +97,6 @@
                   following_new_timelines_path(tag: params[:tag] ), method: :post, class: "btn btn-block btn-primary" %>
   <% end %>
 </div>
+<% end %>
 
 </div>
