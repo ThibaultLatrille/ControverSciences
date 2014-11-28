@@ -30,7 +30,7 @@
     dateParse: ['MMM DD, YYYY', 'MM/DD/YYYY', 'M/D/YYYY', 'DD MMM YYYY'],
     defaultDirection: 'newest',
     defaultExpansion: 'expanded',
-    groupFunction: 'groupSegmentByYear',
+    groupFunction: 'groupSegmentByDecade',
     sharing: false,
     gutterWidth: 57,
     width: 'auto',

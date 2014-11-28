@@ -48,8 +48,11 @@
   </div>
 </div>
 
-<div class="timeline-jquery-example">
+<div class="row">
+    <div class="timeline-jquery-controverse">
+    </div>
 </div>
+
 
 </div>
   <% if logged_in? %>
@@ -69,9 +72,9 @@
 
 <%= javascript_tag do %>
     $(document).ready(function(){
-    $('.timeline-jquery-example').verticalTimeline({
+    $('.timeline-jquery-controverse').verticalTimeline({
     data: <%= raw render(template: "timelines/show.json.rabl") -%>,
-    handleResize: true
+    handleResize: true,
     });
     });
 <% end %>
