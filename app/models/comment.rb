@@ -18,6 +18,13 @@ class Comment < ActiveRecord::Base
   has_many :children, class_name: "Comment", through: :child_relationships, source: :child
   has_one :parent, class_name: "Comment", through: :parent_relationship, source: :parent
 
+  has_many :notification_comments, dependent: :destroy
+  has_many :notification_selection_losses, dependent: :destroy
+  has_many :notification_selection_wins, dependent: :destroy
+  has_many :notification_selections, foreign_key: "new_comment_id", dependent: :destroy
+
+  has_one :best_comment, dependent: destroy
+
   after_create :cascading_save_comment
 
   validates :user_id, presence: true

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_many :timelines, dependent: :destroy
   has_many :references, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :links, dependent: :destroy
+  has_many :links
   has_many :votes, dependent: :destroy
   has_many :timeline_contributors, dependent: :destroy
   has_many :reference_contributors, dependent: :destroy
