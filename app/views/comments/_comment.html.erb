@@ -16,19 +16,20 @@
           <%= f.hidden_field :reference_id, value: comment.reference_id %>
           <%= f.hidden_field :timeline_id, value: comment.timeline_id %>
             <div class="col-md-9">
-              <div class="input-group">
+              <div class="input-group input-small">
                 <span class="input-group-btn">
                 <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%>
                 </span>
-              <%= f.select :value, (0..(12 + comment.my_vote( current_user.id ) - session[:my_votes])),
-                           {selected: comment.my_vote( current_user.id )}, { class: "form-control" } %>
-              <div class="input-group-btn">
+              <%= f.select :value, (0..(12 + comment.my_vote( current_user.id ) -
+                      (@my_votes ? @my_votes : Vote.where( user_id: current_user.id, reference_id: session[:reference_id])) )),
+                           {selected: comment.my_vote( current_user.id )}, { class: "form-control selectwidthauto" } %>
+              <div>
                   <% if comment.my_vote( current_user.id ) == 0 %>
-                    <%= f.submit "Accréditer cette analyse", class: "btn btn-primary"%>
+                    <%= f.submit "Accréditer cette analyse", class: "btn btn-primary selectwidthauto"%>
                   <% else %>
+                    <%= f.submit "Changer mes crédits (#{comment.my_vote( current_user.id)} actuellement)", class: "btn btn-primary selectwidthauto"%>
                     <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                vote_path(id: "none", comment_id: comment.id ), method: :delete, class: "btn btn-danger" %>
-                    <%= f.submit "Changer mes crédits (#{comment.my_vote( current_user.id)} actuellement)", class: "btn btn-primary"%>
+                                vote_path(id: "none", comment_id: comment.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
                   <% end %>
               </div>
               </div>
