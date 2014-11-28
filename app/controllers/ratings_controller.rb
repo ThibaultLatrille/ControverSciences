@@ -6,6 +6,7 @@ class RatingsController < ApplicationController
       @rating = Rating.find_by(user_id: current_user.id,reference_id: rating_params[:reference_id])
       if rating_params[:value] == "none"
         @rating.destroy
+        flash[:info] = "Votre avis a été supprimé"
         redirect_to controller: 'references', action: 'show', id: rating_params[:reference_id]
       elsif @rating.update( {value: rating_params[:value]})
         case rating_params[:value]
