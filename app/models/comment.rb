@@ -28,7 +28,6 @@ class Comment < ActiveRecord::Base
   validates :f_3_content, presence: true
   validates :f_4_content, presence: true
 
-
   def user_name
     User.select( :name ).find( self.user_id ).name
   end
