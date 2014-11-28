@@ -89,11 +89,11 @@ class ReferencesController < ApplicationController
         end
       else
         if !params[:order].nil?
-          @comments = Comment.order(:created_at => params[:order].to_sym).where(
+          @comments = Comment.order(:score => params[:order].to_sym).where(
               reference_id: params[:id]).where.not(
               user_id: user_id).page(params[:page]).per(5)
         else
-          @comments = Comment.order(:created_at => :desc).page(params[:page]).where(
+          @comments = Comment.order(:score => :desc).page(params[:page]).where(
               reference_id: params[:id]).where.not(
               user_id: user_id).page(params[:page]).per(5)
         end

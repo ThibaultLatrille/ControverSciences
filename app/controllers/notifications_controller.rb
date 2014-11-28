@@ -5,12 +5,23 @@ class NotificationsController < ApplicationController
     if params[:filter]
       @filter = params[:filter].to_sym
     else
-      dico = { timeline: current_user.notifications_timeline,
-               reference: current_user.notifications_reference,
-               comment: current_user.notifications_comment,
-               selection: current_user.notifications_selection}
-      most = dico.max_by{ |_,v| v }
-      @filter = most[0]
+      if current_user.notifications_timeline > 0
+        @filter = :timeline
+      else
+        if current_user.notifications_reference > 0
+          @filter = :reference
+        else
+          if current_user.notifications_comment > 0
+            @filter = :comment
+          else
+            if current_user.notifications_selection > 0
+              @filter = :selection
+            else
+              @filter = :timeline
+            end
+          end
+        end
+      end
     end
     @notification = Notification.new
     case @filter
@@ -25,17 +36,19 @@ class NotificationsController < ApplicationController
         @comments = Comment.select(:id, :timeline_id, :reference_id,
                                :f_1_content).where( id: comment_ids ).page(params[:page]).per(20)
       when :selection
-        comment_sel_ids = NotificationSelection.where( user_id: current_user.id, read: false ).pluck( :comment_id )
-        @selections = Comment.select(:id, :comment_id, :timeline_id, :reference_id,
-                                       :value).where( id: comment_sel_ids ).page(params[:page]).per(20)
+        comment_sel_ids = NotificationSelection.where( user_id: current_user.id, read: false ).pluck( :new_comment_id )
+        @selections = Comment.select(:id, :timeline_id, :reference_id,
+                                     :f_1_content).where( id: comment_sel_ids ).page(params[:page]).per(20)
     end
   end
 
   def important
     win_ids = NotificationSelectionWin.where( user_id: current_user.id, read: false ).pluck( :comment_id )
-    @wins = Comment.where( id: win_ids )
+    @wins = Comment.select(:id, :timeline_id, :reference_id,
+                           :f_1_content).where( id: win_ids ).page(params[:page]).per(20)
     loss_ids = NotificationSelectionLoss.where( user_id: current_user.id, read: false ).pluck( :comment_id )
-    @losses = Comment.where( id: loss_ids )
+    @losses = Comment.select(:id, :timeline_id, :reference_id,
+                             :f_1_content).where( id: loss_ids ).page(params[:page]).per(20)
   end
 
   def delete
@@ -65,7 +78,7 @@ class NotificationsController < ApplicationController
     end
     if params[:notification][:sel_comment_ids]
       notifs = NotificationSelection.where( user_id: current_user.id,
-                            comment_id: params[:notification][:sel_comment_ids] )
+                            new_comment_id: params[:notification][:sel_comment_ids] )
       User.update_counters( current_user.id, notifications_selection: -notifs.length )
       notifs.destroy_all
       redirect_to notifications_index_path( filter: :selection)
@@ -125,7 +138,7 @@ class NotificationsController < ApplicationController
 
   def selection
     notif = NotificationSelection.find_by( user_id: current_user.id,
-                                          comment_id: notification_params )
+                                          new_comment_id: notification_params )
     User.update_counters( current_user.id, notifications_selection: -1 )
     notif.destroy
     redirect_to comment_path( notification_params )
