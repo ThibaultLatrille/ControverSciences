@@ -1,16 +1,64 @@
 <div class="row">
-<div class="col-md-6 col-lg-3">
-  <%= current_user.notifications_win %>
-  de vos analyses ont surpassé d'autres analyses lors des récents épisodes de séléctions
-  <ol class="comments">
-    <%= render @wins, ref: true, view: true, fork: true, diff: false %>
-  </ol>
+<div class="col-md-12 col-lg-6">
+  <table id="notification-sel-comments" class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th class="col-sm-4"> Vos analyses qui ont prit la première place
+        (<%= current_user.notifications_win %>) </th>
+      <th class="col-sm-4"> De la référence </th>
+      <th class="col-sm-3"> Dans la controverse </th>
+    </tr>
+    </thead>
+
+    <tbody class="page">
+    <% if !@wins.any? %>
+        <tr class="notification-sel-comment">
+          <td></td>
+          <td></td>
+          <td> Pas de changements  </td>
+        </tr>
+    <% else %>
+        <% @wins.each do |com| %>
+            <tr class="notification-sel-comment">
+              <td> <%= link_to com.f_1_content[0..70]+"...", notifications_selection_path(id: com.id ) %>   </td>
+              <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
+              <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+            </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @wins %>
 </div>
-<div class="col-md-6 col-lg-3">
-  <%= current_user.notifications_loss %>
-  de vos analyses ont été surpassé par d'autres lors des récents épisodes de séléctions
-  <ol class="comments">
-    <%= render @losses, ref: true, view: true, fork: true, diff: false %>
-  </ol>
+<div class="col-md-12 col-lg-6">
+  <table id="notification-sel-comments" class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th class="col-sm-4"> Vos analyses qui ont perdu la première place
+        (<%= current_user.notifications_loss %>) </th>
+      <th class="col-sm-4"> De la référence </th>
+      <th class="col-sm-3"> Dans la controverse </th>
+    </tr>
+    </thead>
+
+    <tbody class="page">
+    <% if !@losses.any? %>
+        <tr class="notification-sel-comment">
+          <td></td>
+          <td></td>
+          <td> Pas de changements  </td>
+        </tr>
+    <% else %>
+        <% @losses.each do |com| %>
+            <tr class="notification-sel-comment">
+              <td> <%= link_to com.f_1_content[0..70]+"...", notifications_selection_path(id: com.id ) %>   </td>
+              <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
+              <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+            </tr>
+        <% end %>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @losses %>
 </div>
 </div>

@@ -16,8 +16,8 @@
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" >
-      <li <%= params[:sort]=='balance' || params[:sort].nil? ? "class=selected" : nil %> >
-        <%= link_to "Les meilleurs compétiteurs (par défault)", reference_path(:sort=> 'balance',
+      <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
+        <%= link_to "Les meilleurs compétiteurs (par défault)", reference_path(:sort=> 'score',
                                                                               :order => params[:order]) %> </li>
       <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
         <%= link_to "Date de création", reference_path(:sort=> 'created_at',
