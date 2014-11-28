@@ -33,34 +33,29 @@ class AssistantController < ApplicationController
   end
 
   def selection
-    references = Reference.all
-    references.each do |reference|
-    most = Comment.where( reference_id: reference.id ).order(score: :desc).first
-    if most
-      if most.score > 3.0
-        best_comment = BestComment.find_by(reference_id: reference.id )
-        most.selection_update( best_comment )
-        Vote.where( reference_id: reference.id ).destroy_all
+    references = Reference.all.pluck( :id )
+    references.each do |reference_id|
+    most = Comment.where( reference_id: reference_id ).order(score: :desc).first
+    best_comment = BestComment.find_by(reference_id: reference_id )
+      if best_comment
+        if most.id != best_comment.comment_id
+            most.selection_update( best_comment )
+        end
       end
-    end
     end
     flash[:success] = "La sélection a opérée"
     redirect_to assistant_path
   end
 
   def fitness
-    comments = Comment.all
-    comments.each do |comment|
-      votes = Vote.where( comment_id: comment.id)
+    comments = Comment.all.pluck( :id )
+    comments.each do |comment_id|
+      votes = Vote.select( :user_id, :value).where( comment_id: comment_id)
       score = 0.0
       votes.each do |vote|
-        if vote.value == 1
-          score += vote.user.score
-        elsif vote.value == 0
-          score -= vote.user.score
-        end
+        score += User.select( :score ).find( vote.user_id ).score*vote.value
       end
-      comment.update_attributes( score: score)
+      Comment.update( comment_id, score: score)
     end
     flash[:success] = "Les valeurs sélectives des analyses sont à jour"
     redirect_to assistant_path
