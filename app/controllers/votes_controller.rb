@@ -8,15 +8,11 @@ class VotesController < ApplicationController
       if vote_params[:value] == "0"
         my_vote.destroy_with_counters
         flash[:success] = "Vote nul prit en compte"
-        render 'static_pages/home'
       else
         if my_vote.update( {value: vote_params[:value]})
           flash[:success] = "Vote mis à jour"
-          redirect_to controller: 'references', action: 'show',
-                      id: vote_params[:reference_id]
         else
           flash[:danger] = "Erreur"
-          render 'static_pages/home'
         end
       end
     elsif vote_params[:value] != "0"
@@ -27,16 +23,13 @@ class VotesController < ApplicationController
                      value: vote_params[:value]})
         if vote.save
           flash[:success] = "Vote enregistré"
-          redirect_to controller: 'references', action: 'show',
-                      id: vote_params[:reference_id]
         else
           flash[:danger] = "Erreur"
-          render 'static_pages/home'
         end
     else
       flash[:danger] = "Vote nul non prit en compte"
-      render 'static_pages/home'
     end
+    redirect_to reference_path( vote_params[:reference_id])
   end
 
   def destroy
