@@ -66,7 +66,51 @@
 </span> S'abonner à cette controverse".html_safe,
     following_timelines_path( timeline_id: @timeline.id ),
     method: :post, class: "btn btn-block btn-primary" %>
+<%= link_to 'Invitation', '#newinvitation',
+              'data-toggle' => 'modal',
+              class: "btn btn-block btn-primary" %>
 </div>
+
+
+<%# Bootstrap modal markup. @see: http://getbootstrap.com/javascript/#modals %>
+      <div class="modal fade" id="newinvitation" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel"> Inviter un pote </h4>
+            </div>
+            <div class="modal-body">
+              <%= form_for( :invitation, url: invitations_path, remote: true, html: {role: :form, 'data-model' => 'invitation'}) do |f| %>
+
+                  <%# Added Bootstrap classes, and help-block container for error messages %>
+                  <div class="form-group">
+                    <%= f.label :email, class: 'control-label' %><br>
+                    <%= f.text_field :email, class: 'form-control' %>
+                    <span class="help-block"></span>
+                  </div>
+
+                  <%# Added Bootstrap classes, and help-block container for error messages %>
+                  <div class="form-group">
+                    <%= f.label :message, class: 'control-label' %><br>
+                    <%= f.text_field :message, class: 'form-control' %>
+                    <span class="help-block"></span>
+                  </div>
+
+                  <%# Added Bootstrap classes %>
+                  <div class="actions">
+                    <%= f.submit 'Envoyer', class: 'btn btn-primary'%>
+                  </div>
+
+              <% end %>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
  <% end %>
 </div>
 
