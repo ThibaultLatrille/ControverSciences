@@ -104,8 +104,14 @@
                 'tabindex': tabIndex,
                 'data-provider': ns,
                 'data-handler': buttonHandler,
-                'data-hotkey': hotkey
+                'data-hotkey': hotkey,
             });
+            if (button.href == true){
+                buttonContainer.attr({
+                    'data-toggle': 'modal',
+                    'href': '#mylist'
+                });
+            }
             if (button.toggle == true){
               buttonContainer.attr('data-toggle', 'button');
             }
@@ -985,24 +991,31 @@
           }
         },{
           name: 'cmdLinkInt',
+          href: true,
           title: 'Lien vers une référence de cette controverse',
           hotkey: 'Ctrl+G',
           icon: { glyph: 'glyphicon glyphicon-pushpin', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
             callback: function(e){
-                // Replace selection with some drinks
-                var cursor,
-                    selected = e.getSelection(), content = e.getContent()
+                $('#mylist').one('hidden.bs.modal', function ( event ) {
+                    var monelement = document.getElementById('save-button');
+                    if(  monelement.dataset.toggled === 'yes') {
+                        monelement.setAttribute("data-toggled", 'no');
+                        var cursor,
+                            selected = e.getSelection(), content = e.getContent()
+                        var elt = document.getElementById("list-ref")
+                        var chunk = elt.options[elt.selectedIndex].text
+                        var link = elt.options[elt.selectedIndex].value
+                        // transform selection and set the cursor into chunked text
+                        e.replaceSelection('[' + chunk + '](' + link + ')')
+                        cursor = selected.start+1
 
-                var elt = document.getElementById("list-ref")
-                var chunk = elt.options[elt.selectedIndex].text
-                var link = elt.options[elt.selectedIndex].value
+                        // Set the cursor
 
-                // transform selection and set the cursor into chunked text
-                e.replaceSelection('['+chunk+']('+link+')')
-                cursor = selected.start
-
-                // Set the cursor
-                e.setSelection(cursor,cursor+chunk.length)
+                        e.$textarea.focus( )
+                        e.setSelection(cursor, cursor + chunk.length);
+                        options.onFocus( e );
+                    }
+                })
             }
         }]
       },{

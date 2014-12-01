@@ -19,7 +19,7 @@
             <%= link_to Timeline.where(id: session[:timeline_id]).pluck(:name)[0],
                                 timeline_url(session[:timeline_id]) %>
           </div>
-          <div class="col-md-12 col-lg-7">
+          <div class="col-md-12 col-lg-6 col-lg-offset-2">
             <%= form_for(@comment, url: comments_path, method: :post) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
@@ -28,9 +28,10 @@
 
                     <%= f.text_area "f_#{fi}_content".to_sym, {:rows => 8,
                                                :placeholder => fields_hash[fi],
-                                               :class => "form-control",
+                                               :class => "form-control textarea",
                                                "data-provide" => "markdown" }%>
                 <% end %>
+
 
                 <% if params[:comment_id] %>
                   <%= f.hidden_field :id, value: @comment.id %>
@@ -40,9 +41,6 @@
             <% end %>
           </div>
           <div class="col-md-12 col-lg-5">
-            <%= label_tag "Références vers lesquels vous pouvez créer des liens" %>
-
-            <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
             <% if params[:comment_id] %>
                 <div class="panel panel-default">
                   <div class="panel-heading">
@@ -58,3 +56,33 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="mylist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"> Créer un lien vers une référence </h4>
+      </div>
+      <div class="modal-body">
+        <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-button"> Ajouter </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<%= javascript_tag do %>
+    var monelement = document.getElementById('save-button');
+    $('#save-button').on('click', function (event) {
+    monelement.setAttribute("data-toggled",'yes');
+    });
+
+    $(function() {
+    $('.textarea').autogrow();
+    });
+<% end %>
