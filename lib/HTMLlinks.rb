@@ -4,7 +4,7 @@ class HTMLlinks < Redcarpet::Render::HTML
   def link(link, title, content)
     if link !~ /\D/ && !link.empty? && link != "0"
       self.links.push(link.to_i)
-      "<a href=\"#{self.ref_url+link}\"> #{content}</a>"
+      "<a href=\"#{self.ref_url+link}\" onclick= \"toRef( #{link} )\"> #{content}</a>"
     elsif link[0..6] == "http://"
       "<a href=\"#{link}\"> #{content}</a>"
     else

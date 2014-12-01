@@ -37,6 +37,7 @@
     handleResize: true,
     tabletopOptions: {},
     columnMapping: {
+      'id': 'id',
       'title': 'title',
       'title_icon': 'title icon',
       'date': 'date',
@@ -52,7 +53,7 @@
       'read_more_url': 'read more url',
       'url': 'url'
     },
-    postTemplate: '<div class="item post <%= data.expansion %>" data-timestamp="<%= data.timestamp %>"> \
+    postTemplate: '<div id="ref-<%= data.id %>" class="item post <%= data.expansion %>" data-timestamp="<%= data.timestamp %>"> \
         <div class="inner <%= data.color %>"> \
           <div class="title"> \
             <h3> \
@@ -83,7 +84,7 @@
             <div class="text"> <div class="bold"> Les limites <\/div> <%= data.field3 %><\/div> \
             <% } %> \
             <% if (data.field4) { %>  \
-            <div class="text"> <div class="bold"> Quel rapport <\/div> <%= data.field4 %><\/div> \
+            <div class="text"> <div class="bold"> Quel rapport <\/div> <%= data.field4 %> <\/div> \
             <% } %> \
             <% if (data.field5) { %>  \
             <div class="text"> <div class="bold"> Remarques <\/div> <%= data.field5 %><\/div> \
@@ -95,7 +96,7 @@
               <% } %> \
             <\/div> \
           <\/div> \
-          <a href="#" class="open-close"></a> \
+          <a href="#" id="ref-btn-<%= data.id %>" class="open-close"></a> \
         <\/div> \
       <\/div> \
     ',

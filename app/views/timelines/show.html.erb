@@ -115,6 +115,13 @@
 </div>
 
 <%= javascript_tag do %>
+    function toRef( id ){
+    console.log( $("#ref-"+id)[0].classList )
+      if ( jQuery.inArray( 'collapsed', $("#ref-"+id)[0].classList ) ){
+        $(".collapse-all").trigger({ type: "click" });
+        $("#ref-btn-"+id).trigger({ type: "click" });
+      }
+    }
     $(document).ready(function(){
     $('.timeline-jquery-controverse').verticalTimeline({
     data: <%= raw render(template: "timelines/show.json.rabl") -%>,

@@ -137,19 +137,30 @@ def seed_following_references(users, references)
 end
 
 def seed_comments(users, timelines)
-  root_url = "0.0.0.0:3000/"
   comments = []
   timeline = timelines[0]
+  timeline_url = "0.0.0.0:3000/timelines/"+timeline.id.to_s
   references = timeline.references
+  reference_ids = references.map{ |ref| ref.id }
   references.each do |ref|
     contributors = users[1..-1].sample(1+rand(users.length/2-1))
     contributors << users[0]
     contributors.each do |user|
-      f_1_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
-      f_2_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
-      f_3_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
-      f_4_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
-      f_5_content = Faker::Lorem.sentence(rand(12))+"\n"+Faker::Lorem.sentence(rand(8))
+      f_1_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+          reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
+          "\n"+Faker::Lorem.sentence(rand(12))
+      f_2_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+          reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
+      "\n"+Faker::Lorem.sentence(rand(12))
+      f_3_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+          reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
+      "\n"+Faker::Lorem.sentence(rand(12))
+      f_4_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+          reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
+      "\n"+Faker::Lorem.sentence(rand(12))
+      f_5_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+          reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
+      "\n"+Faker::Lorem.sentence(rand(12))
       comment = Comment.new(
           user: user,
           timeline:  timeline,
@@ -163,7 +174,7 @@ def seed_comments(users, timelines)
     end
   end
   comments.map do |c|
-    c.save_with_markdown( root_url )
+    c.save_with_markdown( timeline_url )
   end
   comments
 end

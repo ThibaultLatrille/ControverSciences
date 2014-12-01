@@ -1,6 +1,6 @@
 collection @timeline.references
 
-attribute :title
+attribute :title, :id
 node :date do |ref|
   "01 Jan #{ref.year}"
 end

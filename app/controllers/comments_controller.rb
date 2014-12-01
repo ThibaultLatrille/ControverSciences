@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
         @comment["f_#{fi}_content".to_sym ] = comment_params[ "f_#{fi}_content".to_sym ]
       end
       parent_id = comment_params[:id]
-      if @comment.save_with_markdown( root_url )
+      if @comment.save_with_markdown( timeline_url( session[:timeline_id] ) )
         if parent_id
           CommentRelationship.create(parent_id: parent_id, child_id: @comment.id)
         end

@@ -56,7 +56,7 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  def markdown(root_url)
+  def markdown( timeline_url)
     render_options = {
         # will remove from the output HTML tags inputted by user
         filter_html:     true,
@@ -79,7 +79,7 @@ class Comment < ActiveRecord::Base
 
     renderer = HTMLlinks.new(render_options)
     renderer.links = []
-    renderer.ref_url = root_url+"references/"
+    renderer.ref_url = '#ref-'
 
     extensions = {
         #will parse links without need of enclosing them
@@ -115,8 +115,8 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  def save_with_markdown( root_url )
-    links = self.markdown(root_url)
+  def save_with_markdown( timeline_url )
+    links = self.markdown( timeline_url)
     if self.save
       reference_ids = Reference.where(timeline_id: self.timeline_id).pluck(:id)
       links.each do |link|
