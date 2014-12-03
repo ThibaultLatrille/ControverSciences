@@ -112,6 +112,12 @@
                     'href': '#mylist'
                 });
             }
+            if (button.http == true){
+                buttonContainer.attr({
+                    'data-toggle': 'modal',
+                    'href': '#myref'
+                });
+            }
             if (button.toggle == true){
               buttonContainer.attr('data-toggle', 'button');
             }
@@ -962,32 +968,40 @@
         name: 'groupLink',
         data: [{
           name: 'cmdUrl',
+          http: true,
           title: 'Insérer un lien HTTP',
           hotkey: 'Ctrl+L',
           icon: { glyph: 'glyphicon glyphicon-link', fa: 'fa fa-link', 'fa-3': 'icon-link' },
           callback: function(e){
-            // Give [] surround the selection and prepend the link
-            var chunk, cursor, selected = e.getSelection(), content = e.getContent(), link
+            $('#myref').one('hidden.bs.modal', function ( event ) {
+                var monelement = document.getElementById('save-btn-http');
+                if(  monelement.dataset.toggled === 'yes') {
+                    monelement.setAttribute("data-toggled", 'no');
+                    var chunk, cursor, selected = e.getSelection(), content = e.getContent(), link
 
-            if (selected.length == 0) {
-              // Give extra word
-              chunk = e.__localize('entrez la description du lien ici')
-            } else {
-              chunk = selected.text
-            }
+                    if (selected.length == 0) {
+                      // Give extra word
+                      chunk = e.__localize('entrez la description du lien ici')
+                    } else {
+                      chunk = selected.text
+                    }
 
-            link = prompt(e.__localize('Insérez le lien hypertexte'),'http://')
+                    link = 'http://'+document.getElementById("http-text").value
 
-            if (link != null && link != '' && link != 'http://' && link.substr(0,4) == 'http') {
-              var sanitizedLink = $('<div>'+link+'</div>').text()
+                    if (link != null && link != '' && link != 'http://' && link.substr(0,4) == 'http') {
+                      var sanitizedLink = $('<div>'+link+'</div>').text()
 
-              // transform selection and set the cursor into chunked text
-              e.replaceSelection('['+chunk+']('+sanitizedLink+')')
-              cursor = selected.start+1
+                      // transform selection and set the cursor into chunked text
+                      e.replaceSelection('['+chunk+']('+sanitizedLink+')')
+                      cursor = selected.start+1
 
-              // Set the cursor
-              e.setSelection(cursor,cursor+chunk.length)
-            }
+                      // Set the cursor
+                      e.$textarea.focus( )
+                      e.setSelection(cursor,cursor+chunk.length)
+                      throw new Error("Everythin is alright")
+                    }
+                }
+            });
           }
         },{
           name: 'cmdLinkInt',
@@ -997,7 +1011,7 @@
           icon: { glyph: 'glyphicon glyphicon-pushpin', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
             callback: function(e){
                 $('#mylist').one('hidden.bs.modal', function ( event ) {
-                    var monelement = document.getElementById('save-button');
+                    var monelement = document.getElementById('save-btn');
                     if(  monelement.dataset.toggled === 'yes') {
                         monelement.setAttribute("data-toggled", 'no');
                         var cursor,
@@ -1013,7 +1027,7 @@
 
                         e.$textarea.focus( )
                         e.setSelection(cursor, cursor + chunk.length);
-                        options.onFocus( e );
+                        throw new Error("Everythin is alright")
                     }
                 })
             }
