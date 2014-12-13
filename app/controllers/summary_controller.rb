@@ -1,0 +1,2 @@
+class SummaryController < ApplicationController
+end
