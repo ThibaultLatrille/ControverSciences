@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  timeline_id: 
+  balance: 1
+  score: 1.5
+  best: false
+  content: MyText
+  markdown: MyText
+
+two:
+  user_id: 
+  timeline_id: 
+  balance: 1
+  score: 1.5
+  best: false
+  content: MyText
+  markdown: MyText
