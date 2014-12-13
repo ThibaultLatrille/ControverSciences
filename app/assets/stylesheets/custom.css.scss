@@ -37,9 +37,8 @@ $nav_hover: #6682b5;
   background-color: $nav_hover;
 }
 
-.dropdown {
-  margin-top: 14px;
-  margin-left: 8px;
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: $nav_hover;
 }
 
 .nav{
