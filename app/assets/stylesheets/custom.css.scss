@@ -5,13 +5,19 @@
   font-family: 'Lobster', cursive;
 }
 
-body {
-  font-family: 'Lobster';
-}
 $gray-medium-light: #eaeaea;
 $nav_back: #6898ce;
 $nav_back_bottom: #e9f0f5;
 $nav_hover: #6682b5;
+
+/* universal */
+
+body {
+  padding-top: 80px;
+  padding-bottom: 60px;
+  font-family: 'Lobster';
+  background-color: $nav_back_bottom;
+}
 
 .img-responsive {
   margin-left: auto;
@@ -28,7 +34,7 @@ $nav_hover: #6682b5;
 }
 
 .btn-default {
-    background-color: transparent;
+    background-color: white;
     border-color: gray-light;
     color: black;
 }
@@ -105,14 +111,6 @@ $nav_hover: #6682b5;
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
-}
-
-
-/* universal */
-
-body {
-  padding-top: 80px;
-  padding-bottom: 60px;
 }
 
 html {
