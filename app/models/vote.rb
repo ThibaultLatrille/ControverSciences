@@ -49,7 +49,7 @@ class Vote < ActiveRecord::Base
 
   def not_excede_value
     sum = Vote.where( user_id: self.user_id,
-                reference_id: self.reference_id ).sum( :value )
+                reference_id: self.reference_id ).where.not( id: self.id ).sum( :value )
     sum += self.value
     if sum > 12
       errors.add(:value, "The value exceded the permitted amount")
@@ -74,6 +74,8 @@ class Vote < ActiveRecord::Base
   def cascading_update_vote
     value = self.value_was
     yield
+    puts value
+    puts self.value
     if value != self.value
       diff = self.value - value
       Comment.update_counters(self.comment_id, balance: diff )
