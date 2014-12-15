@@ -47,7 +47,7 @@ def seed_timelines(users, tags)
   names << "Le nuage de Tchernobyl s'est il arreté à la frontière "
   names << "La masturbation rend elle sourd ?"
   names << "Les coraux vont-ils disparaîtrent ?"
-  names << "Le THC rend elle stupide et con ?"
+  names << "Le THC rend il stupide et con ?"
   names << "La café est il mauvais pour la santé ?"
   names << "Le LHC va-t-il créer un trou noir ?"
   names << "Yellowstone va-il bientôt sauter ?"
