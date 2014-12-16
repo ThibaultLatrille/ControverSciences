@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :ratings,          only: [:create, :destroy]
   get 'assistant' => 'assistant#view'
   get 'assistant/users' => 'assistant#users'
+  get 'assistant/index' => 'assistant#index'
+  resources :pending_users, only: [:destroy]
   get 'assistant/timelines' => 'assistant#timelines'
   get 'assistant/fitness' => 'assistant#fitness'
   get 'assistant/selection' => 'assistant#selection'

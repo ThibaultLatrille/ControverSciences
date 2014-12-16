@@ -1,0 +1,34 @@
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<table id="users" class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th class="col-sm-3">email</th>
+        <th class="col-sm-2">nom </th>
+        <th class="col-sm-4"> Pourquoi </th>
+        <th class="col-sm-1"> Accepter</th>
+        <th class="col-sm-1"> Ajouter domaine </th>
+        <th class="col-sm-1"> Supprimer </th>
+    </tr>
+    </thead>
+
+    <tbody class="page">
+    <% @users.each do |user| %>
+    <tr class="user">
+      <td> <%= user.email %>   </td>
+      <td> <%= user.activation_token %>  </td>
+      <td> <%= user.why %> </td>
+      <td> <%= link_to "accept", pending_user_path( id: "none", user_id: user.id, handle: "accept"),
+                       method: :delete %> </td>
+      <td> <%= link_to "accept", pending_user_path( id: "none", user_id: user.id, handle: "accept_domain"),
+                       method: :delete %> </td>
+      <td> <%= link_to "accept", pending_user_path( id: "none", user_id: user.id, handle: "destroy"),
+                       method: :delete %> </td>
+    </tr>
+    <% end %>
+
+    </tbody>
+</table>
+
+<br>
