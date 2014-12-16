@@ -7,10 +7,14 @@
         <%= render 'shared/error_messages', object: f.object %>
 
         <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control', placeholder: "Charles Darwin" %>
-
+        <%= f.text_field :name, class: 'form-control', placeholder: "p. ex.  C. Darwin" %>
         <%= f.label :email %>
-        <%= f.text_field :email, class: 'form-control', placeholder: "Charles.darwin@univ-montp2.fr" %>
+        <%= f.text_field :email, class: 'form-control', placeholder: "p. ex. Charles.darwin@univ-montp2.fr" %>
+
+        <% if f.object.errors[:email].any? %>
+            <%= f.label :why, "Pourquoi souhaitez vous contribuer" %>
+            <%= f.text_area :why, class: 'form-control textarea' %>
+        <% end %>
 
         <%= f.label :password %>
         <%= f.password_field :password, class: 'form-control' %>
@@ -22,3 +26,7 @@
     <% end %>
   </div>
 </div>
+
+<%= javascript_tag do %>
+    $("textarea").autosize();
+<% end %>

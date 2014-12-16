@@ -6,17 +6,33 @@ class User < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   has_many :timeline_contributors, dependent: :destroy
   has_many :reference_contributors, dependent: :destroy
-  attr_accessor :remember_token, :activation_token, :reset_token
+  attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email
   before_save   :downcase_email
   before_create :create_activation_digest
 
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
-  validates :email, presence: true, 
-                    format: { with: VALID_EMAIL_REGEX }, 
+  validates :email, presence: true,
+  #                  format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, length: { minimum: 6 }, allow_blank: true
+  validate :email_domain
+
+  def email_domain
+    mydomain = self.email.partition("@")[2]
+    Domain.all.pluck(:name).each do |domain|
+      if mydomain.include? domain
+        return true
+      end
+    end
+    if self.why.blank?
+      errors.add(:email, 'appartient à un domaine non connu.
+            Veuillez donner des informations complémentaires.')
+    else
+      self.invalid_email = true
+    end
+  end
 
  # Returns the hash digest of the given string.
   def User.digest(string)
@@ -99,16 +115,16 @@ class User < ActiveRecord::Base
     NotificationSelectionLoss.where( user_id: self.id ).count
   end
 
-  private
-
-  # Converts email to all lower-case.
-  def downcase_email
-    self.email = email.downcase
-  end
 
   # Creates and assigns the activation token and digest.
   def create_activation_digest
     self.activation_token  = User.new_token
     self.activation_digest = User.digest(activation_token)
+  end
+  private
+
+  # Converts email to all lower-case.
+  def downcase_email
+    self.email = email.downcase
   end
 end
