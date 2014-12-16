@@ -22,4 +22,4 @@
 //= require page_timelines.js
 //= require page_users.js
 //= require grid.js
-//= require autogrow.js
+//= require autosize.js
