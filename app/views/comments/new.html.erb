@@ -26,8 +26,7 @@
                 <% for fi in 1..5 %>
                     <%= f.label fields_hash[fi] %>
 
-                    <%= f.text_area "f_#{fi}_content".to_sym, {:rows => 8,
-                                               :placeholder => fields_hash[fi],
+                    <%= f.text_area "f_#{fi}_content".to_sym, {rows: 2, :placeholder => fields_hash[fi],
                                                :class => "form-control textarea",
                                                "data-provide" => "markdown" }%>
                 <% end %>
@@ -97,6 +96,10 @@
 
 
 <%= javascript_tag do %>
+    $(document).ready(function() {
+    $('textarea').autosize();
+    });
+
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
     mysavebtn.setAttribute("data-toggled",'yes');
@@ -105,9 +108,5 @@
     var myref = document.getElementById('save-btn-http');
     $('#save-btn-http').on('click', function (event) {
     myref.setAttribute("data-toggled",'yes');
-    });
-
-    $(function() {
-    $('.textarea').autogrow();
     });
 <% end %>
