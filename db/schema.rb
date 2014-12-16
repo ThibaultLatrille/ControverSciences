@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203214114) do
+ActiveRecord::Schema.define(version: 20141216105604) do
 
   create_table "best_comments", force: true do |t|
     t.integer  "user_id"
@@ -69,6 +69,12 @@ ActiveRecord::Schema.define(version: 20141203214114) do
   add_index "credits", ["summary_id"], name: "index_credits_on_summary_id"
   add_index "credits", ["timeline_id"], name: "index_credits_on_timeline_id"
   add_index "credits", ["user_id"], name: "index_credits_on_user_id"
+
+  create_table "domains", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "following_new_timelines", force: true do |t|
     t.integer  "user_id"
@@ -187,6 +193,15 @@ ActiveRecord::Schema.define(version: 20141203214114) do
   end
 
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
+
+  create_table "pending_users", force: true do |t|
+    t.integer  "user_id"
+    t.text     "why"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pending_users", ["user_id"], name: "index_pending_users_on_user_id"
 
   create_table "ratings", force: true do |t|
     t.integer  "reference_id"
