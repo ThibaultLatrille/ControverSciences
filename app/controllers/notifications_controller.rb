@@ -52,33 +52,35 @@ class NotificationsController < ApplicationController
   end
 
   def delete
-    if params[:notification][:timeline_ids]
-      notifs = NotificationTimeline.where( user_id: current_user.id,
-                            timeline_id: params[:notification][:timeline_ids] )
-      notifs.destroy_all
-      redirect_to notifications_index_path( filter: :timeline)
-      return
-    end
-    if params[:notification][:reference_ids]
-      notifs = NotificationReference.where( user_id: current_user.id,
-                            reference_id: params[:notification][:reference_ids] )
-      notifs.destroy_all
-      redirect_to notifications_index_path( filter: :reference)
-      return
-    end
-    if params[:notification][:comment_ids]
-      notifs = NotificationComment.where( user_id: current_user.id,
-                            comment_id: params[:notification][:comment_ids] )
-      notifs.destroy_all
-      redirect_to notifications_index_path( filter: :comment)
-      return
-    end
-    if params[:notification][:sel_comment_ids]
-      notifs = NotificationSelection.where( user_id: current_user.id,
-                            new_comment_id: params[:notification][:sel_comment_ids] )
-      notifs.destroy_all
-      redirect_to notifications_index_path( filter: :selection)
-      return
+    if params[:notification]
+      if params[:notification][:timeline_ids]
+        notifs = NotificationTimeline.where( user_id: current_user.id,
+                              timeline_id: params[:notification][:timeline_ids] )
+        notifs.destroy_all
+        redirect_to notifications_index_path( filter: :timeline)
+        return
+      end
+      if params[:notification][:reference_ids]
+        notifs = NotificationReference.where( user_id: current_user.id,
+                              reference_id: params[:notification][:reference_ids] )
+        notifs.destroy_all
+        redirect_to notifications_index_path( filter: :reference)
+        return
+      end
+      if params[:notification][:comment_ids]
+        notifs = NotificationComment.where( user_id: current_user.id,
+                              comment_id: params[:notification][:comment_ids] )
+        notifs.destroy_all
+        redirect_to notifications_index_path( filter: :comment)
+        return
+      end
+      if params[:notification][:sel_comment_ids]
+        notifs = NotificationSelection.where( user_id: current_user.id,
+                              new_comment_id: params[:notification][:sel_comment_ids] )
+        notifs.destroy_all
+        redirect_to notifications_index_path( filter: :selection)
+        return
+      end
     end
     redirect_to notifications_index_path
   end
