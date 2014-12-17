@@ -11,22 +11,15 @@ gem 'bcrypt',               '3.1.7'
 # Pagination and infinit scrolling
 gem 'kaminari'
 
-# Boostrap libraries
-gem 'bootstrap-sass',       '3.2.0.0'
-
 # Use SCSS for stylesheets
 gem 'sass-rails',   '4.0.3'
 gem 'compass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier',     '2.5.1'
+gem 'uglifier'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '4.0.1'
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails', '3.1.1'
-gem 'jbuilder',     '2.1.3'
+gem 'coffee-rails'
 
 # Produce JSON output
 gem 'rabl'
@@ -47,9 +40,6 @@ gem 'json'
 
 # Markdown processing
 gem 'redcarpet'
-
-# Get diffs between two strings
-gem 'diffy'
 
 # Bulk insert
 gem "activerecord-import"
