@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20141217095244) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "best_comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "reference_id"
@@ -21,9 +24,9 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "best_comments", ["comment_id"], name: "index_best_comments_on_comment_id"
-  add_index "best_comments", ["reference_id"], name: "index_best_comments_on_reference_id"
-  add_index "best_comments", ["user_id"], name: "index_best_comments_on_user_id"
+  add_index "best_comments", ["comment_id"], name: "index_best_comments_on_comment_id", using: :btree
+  add_index "best_comments", ["reference_id"], name: "index_best_comments_on_reference_id", using: :btree
+  add_index "best_comments", ["user_id"], name: "index_best_comments_on_user_id", using: :btree
 
   create_table "comment_relationships", force: true do |t|
     t.integer  "parent_id"
@@ -53,9 +56,9 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["reference_id"], name: "index_comments_on_reference_id"
-  add_index "comments", ["timeline_id"], name: "index_comments_on_timeline_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+  add_index "comments", ["reference_id"], name: "index_comments_on_reference_id", using: :btree
+  add_index "comments", ["timeline_id"], name: "index_comments_on_timeline_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "credits", force: true do |t|
     t.integer  "user_id"
@@ -66,9 +69,9 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "credits", ["summary_id"], name: "index_credits_on_summary_id"
-  add_index "credits", ["timeline_id"], name: "index_credits_on_timeline_id"
-  add_index "credits", ["user_id"], name: "index_credits_on_user_id"
+  add_index "credits", ["summary_id"], name: "index_credits_on_summary_id", using: :btree
+  add_index "credits", ["timeline_id"], name: "index_credits_on_timeline_id", using: :btree
+  add_index "credits", ["user_id"], name: "index_credits_on_user_id", using: :btree
 
   create_table "domains", force: true do |t|
     t.string   "name"
@@ -83,7 +86,7 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "following_new_timelines", ["user_id"], name: "index_following_new_timelines_on_user_id"
+  add_index "following_new_timelines", ["user_id"], name: "index_following_new_timelines_on_user_id", using: :btree
 
   create_table "following_references", force: true do |t|
     t.integer  "user_id"
@@ -92,8 +95,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "following_references", ["reference_id"], name: "index_following_references_on_reference_id"
-  add_index "following_references", ["user_id"], name: "index_following_references_on_user_id"
+  add_index "following_references", ["reference_id"], name: "index_following_references_on_reference_id", using: :btree
+  add_index "following_references", ["user_id"], name: "index_following_references_on_user_id", using: :btree
 
   create_table "following_timelines", force: true do |t|
     t.integer  "user_id"
@@ -102,8 +105,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "following_timelines", ["timeline_id"], name: "index_following_timelines_on_timeline_id"
-  add_index "following_timelines", ["user_id"], name: "index_following_timelines_on_user_id"
+  add_index "following_timelines", ["timeline_id"], name: "index_following_timelines_on_timeline_id", using: :btree
+  add_index "following_timelines", ["user_id"], name: "index_following_timelines_on_user_id", using: :btree
 
   create_table "likes", force: true do |t|
     t.integer  "timeline_id"
@@ -112,7 +115,7 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "likes", ["ip", "timeline_id"], name: "index_likes_on_ip_and_timeline_id"
+  add_index "likes", ["ip", "timeline_id"], name: "index_likes_on_ip_and_timeline_id", unique: true, using: :btree
 
   create_table "links", force: true do |t|
     t.integer  "user_id"
@@ -123,10 +126,10 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "links", ["comment_id"], name: "index_links_on_comment_id"
-  add_index "links", ["reference_id"], name: "index_links_on_reference_id"
-  add_index "links", ["timeline_id"], name: "index_links_on_timeline_id"
-  add_index "links", ["user_id"], name: "index_links_on_user_id"
+  add_index "links", ["comment_id"], name: "index_links_on_comment_id", using: :btree
+  add_index "links", ["reference_id"], name: "index_links_on_reference_id", using: :btree
+  add_index "links", ["timeline_id"], name: "index_links_on_timeline_id", using: :btree
+  add_index "links", ["user_id"], name: "index_links_on_user_id", using: :btree
 
   create_table "notification_comments", force: true do |t|
     t.integer  "user_id"
@@ -136,8 +139,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "notification_comments", ["comment_id"], name: "index_notification_comments_on_comment_id"
-  add_index "notification_comments", ["user_id"], name: "index_notification_comments_on_user_id"
+  add_index "notification_comments", ["comment_id"], name: "index_notification_comments_on_comment_id", using: :btree
+  add_index "notification_comments", ["user_id"], name: "index_notification_comments_on_user_id", using: :btree
 
   create_table "notification_references", force: true do |t|
     t.integer  "user_id"
@@ -147,8 +150,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "notification_references", ["reference_id"], name: "index_notification_references_on_reference_id"
-  add_index "notification_references", ["user_id"], name: "index_notification_references_on_user_id"
+  add_index "notification_references", ["reference_id"], name: "index_notification_references_on_reference_id", using: :btree
+  add_index "notification_references", ["user_id"], name: "index_notification_references_on_user_id", using: :btree
 
   create_table "notification_selection_losses", force: true do |t|
     t.integer  "user_id"
@@ -158,8 +161,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "notification_selection_losses", ["comment_id"], name: "index_notification_selection_losses_on_comment_id"
-  add_index "notification_selection_losses", ["user_id"], name: "index_notification_selection_losses_on_user_id"
+  add_index "notification_selection_losses", ["comment_id"], name: "index_notification_selection_losses_on_comment_id", using: :btree
+  add_index "notification_selection_losses", ["user_id"], name: "index_notification_selection_losses_on_user_id", using: :btree
 
   create_table "notification_selection_wins", force: true do |t|
     t.integer  "user_id"
@@ -169,8 +172,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "notification_selection_wins", ["comment_id"], name: "index_notification_selection_wins_on_comment_id"
-  add_index "notification_selection_wins", ["user_id"], name: "index_notification_selection_wins_on_user_id"
+  add_index "notification_selection_wins", ["comment_id"], name: "index_notification_selection_wins_on_comment_id", using: :btree
+  add_index "notification_selection_wins", ["user_id"], name: "index_notification_selection_wins_on_user_id", using: :btree
 
   create_table "notification_selections", force: true do |t|
     t.integer  "user_id"
@@ -181,7 +184,7 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "notification_selections", ["user_id"], name: "index_notification_selections_on_user_id"
+  add_index "notification_selections", ["user_id"], name: "index_notification_selections_on_user_id", using: :btree
 
   create_table "notification_timelines", force: true do |t|
     t.integer  "user_id"
@@ -191,8 +194,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "notification_timelines", ["timeline_id"], name: "index_notification_timelines_on_timeline_id"
-  add_index "notification_timelines", ["user_id"], name: "index_notification_timelines_on_user_id"
+  add_index "notification_timelines", ["timeline_id"], name: "index_notification_timelines_on_timeline_id", using: :btree
+  add_index "notification_timelines", ["user_id"], name: "index_notification_timelines_on_user_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.integer  "user_id"
@@ -201,7 +204,7 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id"
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "pending_users", force: true do |t|
     t.integer  "user_id"
@@ -210,7 +213,7 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "pending_users", ["user_id"], name: "index_pending_users_on_user_id"
+  add_index "pending_users", ["user_id"], name: "index_pending_users_on_user_id", using: :btree
 
   create_table "ratings", force: true do |t|
     t.integer  "reference_id"
@@ -221,9 +224,9 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "ratings", ["reference_id"], name: "index_ratings_on_reference_id"
-  add_index "ratings", ["timeline_id"], name: "index_ratings_on_timeline_id"
-  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id"
+  add_index "ratings", ["reference_id"], name: "index_ratings_on_reference_id", using: :btree
+  add_index "ratings", ["timeline_id"], name: "index_ratings_on_timeline_id", using: :btree
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
   create_table "reference_contributors", force: true do |t|
     t.integer  "user_id"
@@ -233,8 +236,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "reference_contributors", ["reference_id"], name: "index_reference_contributors_on_reference_id"
-  add_index "reference_contributors", ["user_id"], name: "index_reference_contributors_on_user_id"
+  add_index "reference_contributors", ["reference_id"], name: "index_reference_contributors_on_reference_id", using: :btree
+  add_index "reference_contributors", ["user_id"], name: "index_reference_contributors_on_user_id", using: :btree
 
   create_table "references", force: true do |t|
     t.integer  "user_id"
@@ -268,8 +271,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "references", ["timeline_id"], name: "index_references_on_timeline_id"
-  add_index "references", ["user_id"], name: "index_references_on_user_id"
+  add_index "references", ["timeline_id"], name: "index_references_on_timeline_id", using: :btree
+  add_index "references", ["user_id"], name: "index_references_on_user_id", using: :btree
 
   create_table "summaries", force: true do |t|
     t.integer  "user_id"
@@ -283,8 +286,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "summaries", ["timeline_id"], name: "index_summaries_on_timeline_id"
-  add_index "summaries", ["user_id"], name: "index_summaries_on_user_id"
+  add_index "summaries", ["timeline_id"], name: "index_summaries_on_timeline_id", using: :btree
+  add_index "summaries", ["user_id"], name: "index_summaries_on_user_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
@@ -293,8 +296,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
-  add_index "taggings", ["timeline_id"], name: "index_taggings_on_timeline_id"
+  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+  add_index "taggings", ["timeline_id"], name: "index_taggings_on_timeline_id", using: :btree
 
   create_table "tags", force: true do |t|
     t.string   "name"
@@ -310,8 +313,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "timeline_contributors", ["timeline_id"], name: "index_timeline_contributors_on_timeline_id"
-  add_index "timeline_contributors", ["user_id"], name: "index_timeline_contributors_on_user_id"
+  add_index "timeline_contributors", ["timeline_id"], name: "index_timeline_contributors_on_timeline_id", using: :btree
+  add_index "timeline_contributors", ["user_id"], name: "index_timeline_contributors_on_user_id", using: :btree
 
   create_table "timelines", force: true do |t|
     t.text     "name"
@@ -335,8 +338,8 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "timelines", ["created_at"], name: "index_timelines_on_created_at"
-  add_index "timelines", ["user_id"], name: "index_timelines_on_user_id"
+  add_index "timelines", ["created_at"], name: "index_timelines_on_created_at", using: :btree
+  add_index "timelines", ["user_id"], name: "index_timelines_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
@@ -354,7 +357,7 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "reset_sent_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   create_table "votes", force: true do |t|
     t.integer  "user_id"
@@ -366,9 +369,9 @@ ActiveRecord::Schema.define(version: 20141217095244) do
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["comment_id"], name: "index_votes_on_comment_id"
-  add_index "votes", ["reference_id"], name: "index_votes_on_reference_id"
-  add_index "votes", ["timeline_id"], name: "index_votes_on_timeline_id"
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id"
+  add_index "votes", ["comment_id"], name: "index_votes_on_comment_id", using: :btree
+  add_index "votes", ["reference_id"], name: "index_votes_on_reference_id", using: :btree
+  add_index "votes", ["timeline_id"], name: "index_votes_on_timeline_id", using: :btree
+  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
 end
