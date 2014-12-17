@@ -59,7 +59,6 @@ class Vote < ActiveRecord::Base
   def destroy_with_counters
     Comment.update_counters(self.comment_id, balance: -self.value )
     Reference.update_counters(self.reference_id, nb_votes: -self.value )
-    Timeline.update_counters(self.timeline_id, nb_votes: -self.value )
     self.destroy
   end
 
@@ -68,7 +67,6 @@ class Vote < ActiveRecord::Base
   def cascading_save_vote
     Comment.update_counters(self.comment_id, balance: self.value )
     Reference.update_counters(self.reference_id, nb_votes: self.value )
-    Timeline.update_counters(self.timeline_id, nb_votes: self.value )
   end
 
   def cascading_update_vote
@@ -80,7 +78,6 @@ class Vote < ActiveRecord::Base
       diff = self.value - value
       Comment.update_counters(self.comment_id, balance: diff )
       Reference.update_counters(self.reference_id, nb_votes: diff )
-      Timeline.update_counters(self.timeline_id, nb_votes: diff )
     end
   end
 end
