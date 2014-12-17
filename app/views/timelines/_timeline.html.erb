@@ -22,22 +22,31 @@
               <span class="badge"><%= timeline.nb_edits %></span>
             </li>
             <li class="list-group-item clearfix">
-              <%= image_tag("icons/myicon-ribbon.svg", alt: "ref", height: "24px") %>
+              <%= image_tag("icons/myicon-like.svg", alt: "ref", height: "24px") %>
               Votes
-              <span class="badge"><%= timeline.nb_votes %></span>
+              <span class="badge"><%= timeline.nb_likes %></span>
             </li>
             <li class="list-group-item clearfix">
+              <div class="btn-group">
                 <% timeline.get_tag_list.each do |name| %>
-                      <%= image_tag("icons/myicon-#{name}.svg", alt: name, title: tags_hash[name],  height: "24px")%>
+                    <label class="btn btn-default btn-sm" title="<%= tags_hash[name] %>" >
+                      <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "21px")%>
+                    </label>
                 <% end %>
+              </div>
             </li>
             <li class="list-group-item clearfix">
                <span class="bold"> Qualité des références de cette controverse :
-                 </span></br>
-            <% for i in 1..5 %>
-                <%= image_tag("icons/myicon-#{i}.svg", height: "24px")%>
-                <%= timeline["star_#{i}".to_sym] -%>
-            <% end %>
+                 </span><br/>
+              <div class="btn-group">
+                <% for i in 1..5 %>
+                    <button class="btn btn-default btn-sm" data-toggle="popover"
+                           data-content="<%= star_hash[i] %>" title="Nombre de votes" >
+                    <%= image_tag("icons/myicon-#{i}.svg", height: "21px")%>
+                    <%= timeline["star_#{i}".to_sym] -%>
+                    </button>
+                <% end %>
+              </div>
             </li>
           </ul>
         </div>
