@@ -20,13 +20,15 @@
                                 timeline_url(session[:timeline_id]) %>
           </div>
           <div class="col-md-12 col-lg-6 col-lg-offset-2">
+            <div class="panel panel-default">
+              <div class="panel-body">
             <%= form_for(@comment, url: comments_path, method: :post) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <% for fi in 1..5 %>
                     <%= f.label fields_hash[fi] %>
 
-                    <%= f.text_area "f_#{fi}_content".to_sym, {rows: 2, :placeholder => fields_hash[fi],
+                    <%= f.text_area "f_#{fi}_content".to_sym, {rows: 5, :placeholder => fields_hash[fi],
                                                :class => "form-control textarea",
                                                "data-provide" => "markdown" }%>
                 <% end %>
@@ -38,16 +40,16 @@
 
                 <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary"%>
             <% end %>
+              </div>
+            </div>
           </div>
           <div class="col-md-12 col-lg-4">
             <% if params[:comment_id] %>
                 <div class="panel panel-default">
-                  <div class="panel-heading">
+                  <div class="panel-body">
                     <%= image_tag("icons/myicon-laurel.svg", alt: "laurel", height: "24px")%>
                     L'analyse que vous souhaitez améliorer :
-                    <ol class="comments">
                       <%= render @comment, vote: true %>
-                    </ol>
                   </div>
                 </div>
             <% end %>

@@ -36,13 +36,14 @@
     <%= image_tag("icons/myicon-like.svg", alt: "ref", height: "38px") %>
     <span class="badge"><%= @timeline.nb_likes %></span>
     <span class="pull-right">
-          <div class="btn-group">
-            <% @timeline.get_tag_list.each do |name| %>
-                <label class="btn btn-default" title="<%= tags_hash[name] %>" >
-                  <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "24px")%>
-                </label>
-            <% end %>
-          </div>
+        <div class="btn-group">
+          <% @timeline.get_tag_list.each do |name| %>
+                <button class="btn btn-default btn-sm" data-trigger="focus"
+                        data-toggle="popover" data-content="<%= tags_hash[name] %>" >
+                  <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "21px")%>
+                </button>
+          <% end %>
+        </div>
     </span>
     <div class="clearfix"></div>
   </div>
@@ -66,7 +67,7 @@
 </span> S'abonner à cette controverse".html_safe,
     following_timelines_path( timeline_id: @timeline.id ),
     method: :post, class: "btn btn-block btn-primary" %>
-<%= link_to 'Invitation', '#newinvitation',
+<%= link_to 'Inviter un amis', '#newinvitation',
               'data-toggle' => 'modal',
               class: "btn btn-block btn-primary" %>
 </div>
@@ -114,6 +115,7 @@
       }
     }
     $(document).ready(function(){
+    $('[data-toggle="popover"]').popover({container: 'body'});
     $('.timeline-jquery-controverse').verticalTimeline({
     data: <%= raw render(template: "timelines/show.json.rabl") -%>,
     handleResize: true,

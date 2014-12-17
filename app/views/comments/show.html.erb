@@ -11,9 +11,11 @@
     <div class="panel-heading">
  Cette analyse appartient à la référence
   <%= link_to( @comment.reference.title_fr , reference_path(@comment.reference_id) ) %>
-  <ol class="comments">
-    <%= render @comment, vote: true %>
-  </ol>
+      <% if current_user.id == @comment.user_id %>
+        <%= render @comment, vote: false %>
+      <% else %>
+        <%= render @comment, vote: true %>
+      <% end %>
     </div>
   </div>
 </div>

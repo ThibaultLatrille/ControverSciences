@@ -7,6 +7,18 @@
           </div>
           <ul class="list-group">
             <li class="list-group-item clearfix">
+              <div class="btn-group btn-group-justified">
+                <% timeline.get_tag_list.each do |name| %>
+                    <div class="btn-group btn-group-justified">
+                    <button class="btn btn-default btn-sm" data-trigger="focus"
+                            data-toggle="popover" data-content="<%= tags_hash[name] %>" >
+                      <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "21px") %>
+                    </button>
+                    </div>
+                <% end %>
+              </div>
+            </li>
+            <li class="list-group-item clearfix">
               <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "24px") %>
               Contributeurs
               <span class="badge"><%= timeline.nb_contributors %></span>
@@ -22,29 +34,26 @@
               <span class="badge"><%= timeline.nb_edits %></span>
             </li>
             <li class="list-group-item clearfix">
+              <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                          likes_path(id: timeline.id ),
+                          method: :post, class: "btn btn-primary" %>
               <%= image_tag("icons/myicon-like.svg", alt: "ref", height: "24px") %>
-              Votes
+              Likes
               <span class="badge"><%= timeline.nb_likes %></span>
-            </li>
-            <li class="list-group-item clearfix">
-              <div class="btn-group">
-                <% timeline.get_tag_list.each do |name| %>
-                    <label class="btn btn-default btn-sm" title="<%= tags_hash[name] %>" >
-                      <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "21px")%>
-                    </label>
-                <% end %>
-              </div>
             </li>
             <li class="list-group-item clearfix">
                <span class="bold"> Qualité des références de cette controverse :
                  </span><br/>
-              <div class="btn-group">
+              <div class="btn-group btn-group-justified">
                 <% for i in 1..5 %>
-                    <button class="btn btn-default btn-sm" data-toggle="popover"
-                           data-content="<%= star_hash[i] %>" title="Nombre de votes" >
-                    <%= image_tag("icons/myicon-#{i}.svg", height: "21px")%>
+                    <div class="btn-group">
+                    <button class="btn btn-default btn-xs" data-trigger="focus"
+                       data-toggle="popover" data-content="<%= star_hash[i] %>"
+                       >
+                    <%= image_tag("icons/myicon-#{i}.svg", height: "28px")%>
                     <%= timeline["star_#{i}".to_sym] -%>
                     </button>
+                    </div>
                 <% end %>
               </div>
             </li>

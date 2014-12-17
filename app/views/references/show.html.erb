@@ -72,12 +72,9 @@
     </br>
   </div>
   <div class="panel panel-default">
-    <h4> &nbsp Les analyses  écrites par les contributeurs : </h4>
     <div class="panel-body">
       <% if @comments.any? %>
-          <ol class="comments">
           <%= render @comments, vote: logged_in? && params[:filter] != 'mine' ? true : false %>
-          </ol>
           <%= paginate @comments %>
       <% elsif params[:filter] %>
           Vous n'avez pas encore voté
@@ -157,7 +154,7 @@
                   <% end %>
                   <% star_hash.each do |key, value| %>
                       <label class="btn btn-default <%= @user_rating == key ? "active" : nil %>"
-                             title="<%= value %>">
+                             title="<%= value %>" data-toggle="tooltip">
                             <%= f.radio_button :value, checked_value = key,
                                                {id: key, autocomplete: "off"} %>
                         <%= image_tag("icons/myicon-#{key}.svg", height: "28px")%>
@@ -197,3 +194,9 @@
 </div>
 
 </div>
+
+<%= javascript_tag do %>
+    $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'})
+    })
+<% end %>

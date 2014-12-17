@@ -1,13 +1,13 @@
-<li id="comment-<%= comment.id %>">
-  <div class="comment">
+<div class="panel panel-default">
+  <div class="panel-body">
   <span class="content">
-    <%= comment.balance %>
     <% for fi in 1..5 %>
         <%= fields_hash[fi] %>
         <%= comment["markdown_#{fi}".to_sym].html_safe %>
     <% end %>
-
   </span>
+  </div>
+  <div class="panel-footer">
     <div class="clearfix">
     <% if vote %>
         <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
@@ -36,7 +36,8 @@
             </div>
             <div class="pull-right">
                 <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                        new_comment_path(comment_id: comment.id), :class => "btn btn-default", title: "Améliorer cette analyse", :style => "padding: 2px"%>
+                        new_comment_path(comment_id: comment.id), :class => "btn btn-default", "data-toggle" => "tooltip",
+                        title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
             </div>
         </div>
         <% end %>
@@ -46,8 +47,9 @@
           <%= comment.balance %> crédits ont été donné à cette analyse.
         </div>
         <div class="pull-right">
-        <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                    new_comment_path(comment_id: comment.id), :class => "btn btn-default", title: "Améliorer cette analyse", :style => "padding: 2px"%>
+          <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
+                      new_comment_path(comment_id: comment.id), :class => "btn btn-default", "data-toggle" => "tooltip",
+                      title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
         </div>
     <% end %>
     </div>
@@ -55,4 +57,4 @@
     Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= link_to comment.user_name, user_path(comment.user_id) %>
    </span>
   </div>
-</li>
+</div>

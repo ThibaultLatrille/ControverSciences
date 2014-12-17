@@ -100,3 +100,9 @@
 <% end %>
 
 </div>
+
+<%= javascript_tag do %>
+  $(document).ready(function(){
+  $('[data-toggle="popover"]').popover({container: 'body'})
+  })
+<% end %>
