@@ -42,7 +42,10 @@ gem 'json'
 gem 'redcarpet'
 
 # Bulk insert
-gem "activerecord-import"
+gem 'activerecord-import'
+
+# Postgresql
+gem 'pg'
 
 group :test do
   gem 'minitest-reporters', '1.0.5'
@@ -51,12 +54,10 @@ group :test do
 end
 
 group :development do
-  gem 'sqlite3', '1.3.9'
   gem 'spring',  '1.1.3'
 end
 
 group :production do
-  gem 'pg',             '0.17.1'
   gem 'rails_12factor', '0.0.2'
   gem 'unicorn',        '4.8.3'
 end
