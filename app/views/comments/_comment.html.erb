@@ -1,8 +1,8 @@
-<div class="panel panel-default">
+<div class="panel panel-default comment">
   <div class="panel-body">
   <span class="content">
     <% for fi in 1..5 %>
-        <%= fields_hash[fi] %>
+        <b> <%= fields_hash[fi] %> </b>
         <%= comment["markdown_#{fi}".to_sym].html_safe %>
     <% end %>
   </span>
