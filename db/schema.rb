@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216105604) do
+ActiveRecord::Schema.define(version: 20141217095244) do
 
   create_table "best_comments", force: true do |t|
     t.integer  "user_id"
@@ -104,6 +104,15 @@ ActiveRecord::Schema.define(version: 20141216105604) do
 
   add_index "following_timelines", ["timeline_id"], name: "index_following_timelines_on_timeline_id"
   add_index "following_timelines", ["user_id"], name: "index_following_timelines_on_user_id"
+
+  create_table "likes", force: true do |t|
+    t.integer  "timeline_id"
+    t.text     "ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "likes", ["ip", "timeline_id"], name: "index_likes_on_ip_and_timeline_id"
 
   create_table "links", force: true do |t|
     t.integer  "user_id"
@@ -313,7 +322,7 @@ ActiveRecord::Schema.define(version: 20141216105604) do
     t.text     "timeline_edit_username"
     t.integer  "nb_references",          default: 0
     t.integer  "nb_contributors",        default: 0
-    t.integer  "nb_votes",               default: 0
+    t.integer  "nb_likes",               default: 0
     t.integer  "nb_edits",               default: 0
     t.integer  "star_1",                 default: 0
     t.integer  "star_2",                 default: 0

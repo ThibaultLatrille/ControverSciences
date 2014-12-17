@@ -39,7 +39,7 @@ Rails.application.routes.draw do
   get 'my_items/references'
   get 'my_items/comments'
   get 'my_items/votes'
-
+  resources :likes, only: [:create]
   resources :invitations, only: [:create]
 
   # The priority is based upon order of creation: first created -> highest priority.
