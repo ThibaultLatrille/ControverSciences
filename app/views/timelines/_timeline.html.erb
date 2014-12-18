@@ -1,23 +1,28 @@
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 timeline">
       <div class="thumbnail">
         <div class="caption">
+          <div class="pull-right">
+          <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{timeline.nb_likes} </span>".html_safe,
+                      likes_path(id: timeline.id ),
+                      method: :post, class: "btn btn-primary btn-sm" %>
+          </div>
+          <br/>
           <div class="timeline_name">
             <h2> <%= link_to timeline.name, timeline %>
             </h2>
           </div>
+          <div class="btn-group btn-group-justified">
+            <% timeline.get_tag_list.each do |name| %>
+                <div class="btn-group btn-group-justified">
+                  <button class="btn btn-default btn-sm" data-trigger="focus"
+                          data-toggle="popover" data-content="<%= tags_hash[name] %>" >
+                    <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "21px") %>
+                  </button>
+                </div>
+            <% end %>
+          </div>
+          <br/>
           <ul class="list-group">
-            <li class="list-group-item clearfix">
-              <div class="btn-group btn-group-justified">
-                <% timeline.get_tag_list.each do |name| %>
-                    <div class="btn-group btn-group-justified">
-                    <button class="btn btn-default btn-sm" data-trigger="focus"
-                            data-toggle="popover" data-content="<%= tags_hash[name] %>" >
-                      <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "21px") %>
-                    </button>
-                    </div>
-                <% end %>
-              </div>
-            </li>
             <li class="list-group-item clearfix">
               <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "24px") %>
               Contributeurs
@@ -33,15 +38,7 @@
               Editions
               <span class="badge"><%= timeline.nb_edits %></span>
             </li>
-            <li class="list-group-item clearfix">
-              <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                          likes_path(id: timeline.id ),
-                          method: :post, class: "btn btn-primary" %>
-              <%= image_tag("icons/myicon-like.svg", alt: "ref", height: "24px") %>
-              Likes
-              <span class="badge"><%= timeline.nb_likes %></span>
-            </li>
-            <li class="list-group-item clearfix">
+          </ul>
                <span class="bold"> Qualité des références de cette controverse :
                  </span><br/>
               <div class="btn-group btn-group-justified">
@@ -56,8 +53,6 @@
                     </div>
                 <% end %>
               </div>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

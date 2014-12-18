@@ -16,12 +16,11 @@
 
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title"><%= @timeline.name %></h3>
+    <h3><%= @timeline.name %></h3>
   </div>
   <div class="panel-body">
-    <h2>
     <%= @timeline.timeline_edit_content %>
-    </h2>
+    <br/>
     <span class="pull-right">
     Créé par <%= @timeline.user_name %>
     </span>
@@ -40,7 +39,7 @@
           <% @timeline.get_tag_list.each do |name| %>
                 <button class="btn btn-default btn-sm" data-trigger="focus"
                         data-toggle="popover" data-content="<%= tags_hash[name] %>" >
-                  <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "21px")%>
+                  <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "28px")%>
                 </button>
           <% end %>
         </div>
