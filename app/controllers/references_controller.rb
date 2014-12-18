@@ -80,6 +80,17 @@ class ReferencesController < ApplicationController
       @comments = Comment.where( id: comment_ids ).page(params[:page]).per(10)
     elsif params[:filter] == "mine"
       @comments = Comment.where( user_id: user_id, reference_id: @reference.id ).page(params[:page]).per(10)
+    elsif logged_in?
+      if params[:seed]
+        @seed = params[:seed]
+      else
+        @seed = rand
+      end
+      Comment.connection.execute("select setseed(#{@seed})")
+      puts @seed
+      @comments = Comment.where(
+          reference_id: params[:id]).where.not(
+          user_id: user_id).order('random()').page(params[:page]).per(5)
     else
       if !params[:sort].nil?
         if !params[:order].nil?

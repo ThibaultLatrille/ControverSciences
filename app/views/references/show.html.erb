@@ -15,38 +15,7 @@
   <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-5 col-lg-offset-0">
 <% end %>
   <div class="clearfix">
-  <% unless params[:filter] %>
-  <div class="btn-group">
-    <button class="btn btn-default dropdown-toggle" type="button"
-            id="dropdownMenuTri" data-toggle="dropdown">
-      Trier par
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" >
-      <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-        <%= link_to "Les meilleurs compétiteurs (par défault)", reference_path(:sort=> 'score',
-                                                                              :order => params[:order]) %> </li>
-      <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-        <%= link_to "Date de création", reference_path(:sort=> 'created_at',
-                                                      :order => params[:order]) %> </li>
-    </ul>
-  </div>
-  <div class="btn-group">
-    <button class="btn btn-default dropdown-toggle" type="button"
-            id="dropdownMenuOrder" data-toggle="dropdown">
-      Ordre
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" >
-      <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-        <%= link_to "Décroissant (par défault)", reference_path(:sort=> params[:sort], :order => 'desc') %> </li>
-      <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-        <%= link_to "Croissant", reference_path(:sort => params[:sort], :order => 'asc') %> </li>
-    </ul>
-  </div>
-  <% end %>
   <% if logged_in? %>
-  <div class="pull-right">
     <div class="btn-group">
         <%= link_to " <span class=\"glyphicon glyphicon-eye-open\" >
             </span>Toute les analyses (sauf les miennes)".html_safe,
@@ -65,19 +34,51 @@
                   reference_path(:filter => 'mine'),
                   class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
     </div>
-  </div>
+  <% else %>
+        <div class="btn-group">
+          <button class="btn btn-default dropdown-toggle" type="button"
+                  id="dropdownMenuTri" data-toggle="dropdown">
+            Trier par
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" >
+            <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
+              <%= link_to "Les meilleurs compétiteurs (par défault)", reference_path(:sort=> 'score',
+                                                                                     :order => params[:order]) %> </li>
+            <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
+              <%= link_to "Date de création", reference_path(:sort=> 'created_at',
+                                                             :order => params[:order]) %> </li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-default dropdown-toggle" type="button"
+                  id="dropdownMenuOrder" data-toggle="dropdown">
+            Ordre
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" >
+            <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
+              <%= link_to "Décroissant (par défault)", reference_path(:sort=> params[:sort], :order => 'desc') %> </li>
+            <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
+              <%= link_to "Croissant", reference_path(:sort => params[:sort], :order => 'asc') %> </li>
+          </ul>
+        </div>
   <% end %>
   </div>
   <div>
     </br>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-body">
+  <div id="comments" class="panel panel-default">
+    <div class="panel-body page">
       <% if @comments.any? %>
           <%= render @comments, vote: logged_in? && params[:filter] != 'mine' ? true : false %>
-          <%= paginate @comments %>
-      <% elsif params[:filter] %>
+          <%= paginate @comments, :params => {:seed => @seed } %>
+      <% elsif params[:filter] == "my-vote" %>
           Vous n'avez pas encore voté
+      <% elsif params[:filter] == "mine" %>
+          <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+        </span> Vous n'avez pas encore écrit d'analyse ".html_safe,
+                      new_comment_path %>
       <% else %>
           <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
         </span> Il n'y a pas d'analyse, soyez le premier ! ".html_safe,
