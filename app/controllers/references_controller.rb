@@ -72,6 +72,12 @@ class ReferencesController < ApplicationController
       unless @user_rating.nil?
         @user_rating = @user_rating.value
       end
+      visit = VisiteReference.find_by( user_id: user_id, reference_id: params[:id] )
+      if visit
+        visit.update( updated_at: Time.zone.now )
+      else
+        VisiteReference.create( user_id: user_id, reference_id: params[:id] )
+      end
     else
       user_id = nil
     end
