@@ -21,5 +21,6 @@
 //= require jquery.infinitescroll.js
 //= require page_timelines.js
 //= require page_users.js
+//= require page_comments.js
 //= require grid.js
 //= require autosize.js
