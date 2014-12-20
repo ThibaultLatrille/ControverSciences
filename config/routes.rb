@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :destroy]
   resources :references, only: [:new, :create, :show, :destroy]
-  resources :comments,          only: [:show, :new, :create, :edit, :update, :destroy, :destroy]
+  resources :comments,          only: [:show, :new, :create, :edit, :update, :destroy]
+  resources :comment_drafts, only: [:destroy]
   resources :votes,          only: [:new ,:create, :destroy]
   resources :ratings,          only: [:create, :destroy]
   get 'assistant' => 'assistant#view'
@@ -39,6 +40,7 @@ Rails.application.routes.draw do
   get 'my_items/references'
   get 'my_items/comments'
   get 'my_items/votes'
+  get 'my_items/drafts'
   resources :likes, only: [:create]
   resources :invitations, only: [:create]
 

@@ -12,7 +12,7 @@
     <% if vote %>
         <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
         <div class="row">
-          <%= f.hidden_field :comment_id, value: comment.id %>
+          <%= f.hidden_field :parent_id, value: comment.id %>
           <%= f.hidden_field :reference_id, value: comment.reference_id %>
           <%= f.hidden_field :timeline_id, value: comment.timeline_id %>
             <div class="col-md-9">
@@ -29,14 +29,14 @@
                   <% else %>
                     <%= f.submit "Changer mes crédits (#{comment.my_vote( current_user.id)} actuellement)", class: "btn btn-primary selectwidthauto"%>
                     <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                vote_path(id: "none", comment_id: comment.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
+                                vote_path(id: "none", parent_id: comment.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
                   <% end %>
               </div>
               </div>
             </div>
             <div class="pull-right">
                 <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                        new_comment_path(comment_id: comment.id), :class => "btn btn-default", "data-toggle" => "tooltip",
+                        new_comment_path(parent_id: comment.id), :class => "btn btn-default", "data-toggle" => "tooltip",
                         title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
             </div>
         </div>
@@ -48,7 +48,7 @@
         </div>
         <div class="pull-right">
           <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                      new_comment_path(comment_id: comment.id), :class => "btn btn-default", "data-toggle" => "tooltip",
+                      new_comment_path(parent_id: comment.id), :class => "btn btn-default", "data-toggle" => "tooltip",
                       title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
         </div>
     <% end %>

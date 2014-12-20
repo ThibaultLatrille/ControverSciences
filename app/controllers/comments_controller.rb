@@ -2,11 +2,20 @@ class CommentsController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def new
-    @comment = Comment.new()
-    if params[:comment_id]
-      @comment = Comment.find(params[:comment_id])
+    if params[:parent_id]
+      @parent = Comment.find(params[:parent_id])
+      session[:reference_id] = @parent.reference_id
+      session[:timeline_id] = @parent.timeline_id
+      @comment = @parent
+    elsif params[:draft_id]
+      @comment = CommentDraft.find(params[:draft_id])
       session[:reference_id] = @comment.reference_id
       session[:timeline_id] = @comment.timeline_id
+      if @comment.parent_id
+        @parent = Comment.find(@comment.parent_id)
+      end
+    else
+      @comment = Comment.new
     end
     unless session[:reference_id]
       reference = Reference.select(:id, :timeline_id).find(params[:reference_id])
@@ -17,22 +26,64 @@ class CommentsController < ApplicationController
   end
 
   def create
-      @comment = Comment.new({user_id: current_user.id,
-              reference_id: session[:reference_id], timeline_id: session[:timeline_id]})
+    if params[:draft]
+      if comment_params[:draft_id]
+        @comment = CommentDraft.find(comment_params[:draft_id])
+      else
+        @comment = CommentDraft.new({user_id: current_user.id,
+                                     reference_id: comment_params[:reference_id],
+                                     timeline_id: comment_params[:timeline_id],
+                                     parent_id: comment_params[:id]})
+      end
       for fi in 1..5
         @comment["f_#{fi}_content".to_sym ] = comment_params[ "f_#{fi}_content".to_sym ]
       end
-      parent_id = comment_params[:id]
-      if @comment.save_with_markdown( timeline_url( session[:timeline_id] ) )
+      if @comment.user_id == current_user.id
+        if @comment.save
+          flash.now[:success] = "Brouillon sauvé"
+        else
+          flash.now[:danger] = "Erreur"
+        end
+      end
+      @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
+      if comment_params[:parent_id]
+        @parent = Comment.find(comment_params[:parent_id])
+        params[:parent_id] = comment_params[:paren_id]
+      end
+      params[:draft_id] = @comment.id
+      render 'new'
+    else
+      @comment = Comment.new({user_id: current_user.id,
+                              reference_id: comment_params[:reference_id],
+                              timeline_id: comment_params[:timeline_id]})
+      for fi in 1..5
+        @comment["f_#{fi}_content".to_sym ] = comment_params[ "f_#{fi}_content".to_sym ]
+      end
+      parent_id = comment_params[:parent_id]
+      if @comment.save_with_markdown( timeline_url( comment_params[:timeline_id] ) )
         if parent_id
           CommentRelationship.create(parent_id: parent_id, child_id: @comment.id)
+        end
+        if comment_params[:draft_id]
+          comment = CommentDraft.find(comment_params[:draft_id])
+          if comment.user_id == current_user.id
+             comment.destroy
+          end
         end
         flash[:success] = "Edition enregistré"
         redirect_to comment_path(@comment.id)
       else
-        @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title, :id )
+        puts "kikou"
+        puts comment_params[:draft_id]
+        @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
+        if comment_params[:parent_id]
+          @parent = Comment.find(comment_params[:parent_id])
+          params[:parent_id] = comment_params[:paren_id]
+        end
+        params[:draft_id] = comment_params[:draft_id]
         render 'new'
       end
+    end
   end
 
   def show
@@ -59,6 +110,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:f_1_content, :f_2_content, :f_3_content, :f_4_content, :f_5_content, :id)
+    params.require(:comment).permit(:reference_id, :timeline_id, :f_1_content, :f_2_content,
+                                    :f_3_content, :f_4_content, :f_5_content, :draft_id, :parent_id)
   end
 end

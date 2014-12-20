@@ -1,0 +1,36 @@
+<div class="col-md-10 col-md-offset-1">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      Mes brouillons
+      <table id="notification-comments" class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th class="col-xs-3"> L'analyse </th>
+          <th class="col-xs-4"> De la référence </th>
+          <th class="col-xs-3"> Dans la controverse </th>
+          <th class="col-xs-1 center"> Supprimer </th>
+        </tr>
+        </thead>
+
+        <tbody class="page">
+        <% if !@drafts.any? %>
+            <tr class="notification-comment">
+              <td> Vous n'avez pas de brouillons  </td>
+            </tr>
+        <% else %>
+            <% @drafts.each do |com| %>
+                <tr class="notification-comment">
+                  <td> <%= link_to com.f_1_content[0..70]+"...", new_comment_path( draft_id: com.id ) %>   </td>
+                  <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
+                  <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                  comment_draft_path( com.id ), method: :delete,
+                                                  data: { confirm: " Vous êtes certains ?" } %>  </td>
+                </tr>
+            <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

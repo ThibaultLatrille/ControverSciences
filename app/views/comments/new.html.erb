@@ -7,22 +7,24 @@
 
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
         <div class="row">
-          <h2> Créer une analyse </h2>
-
-          <div class="center">
-            Pour la référence :
-
-            <%= link_to Reference.where(id: session[:reference_id]).pluck(:title)[0],
-                                reference_url(session[:reference_id]) %> <br>
-
-            Dans la timeline :
-            <%= link_to Timeline.where(id: session[:timeline_id]).pluck(:name)[0],
-                                timeline_url(session[:timeline_id]) %>
-          </div>
-          <div class="col-md-12 col-lg-6 col-lg-offset-2">
+          <div class="col-md-12 col-lg-6 col-lg-offset-1">
             <div class="panel panel-default">
+              <div class="panel-header">
+                <h2> Créer une analyse </h2>
+
+                <div class="center">
+                  Pour la référence :
+
+                  <%= link_to Reference.where(id: session[:reference_id]).pluck(:title)[0],
+                              reference_url(session[:reference_id]) %> <br>
+
+                  Dans la timeline :
+                  <%= link_to Timeline.where(id: session[:timeline_id]).pluck(:name)[0],
+                              timeline_url(session[:timeline_id]) %>
+                </div>
+              </div>
               <div class="panel-body">
-            <%= form_for(@comment, url: comments_path, method: :post) do |f| %>
+            <%= form_for(@comment, as: :comment,  url: comments_path, method: :post) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <% for fi in 1..5 %>
@@ -34,22 +36,28 @@
                 <% end %>
 
 
-                <% if params[:comment_id] %>
-                  <%= f.hidden_field :id, value: @comment.id %>
+                <% if @parent %>
+                  <%= f.hidden_field :parent_id, value: @parent.id %>
                 <% end %>
-
-                <%= f.submit "Enregistrer le commentaire", class: "btn btn-primary"%>
+                <% if params[:draft_id] %>
+                    <%= f.hidden_field :draft_id, value: params[:draft_id] %>
+                <% end %>
+                <%= f.hidden_field :reference_id, value: session[:reference_id] %>
+                <%= f.hidden_field :timeline_id, value: session[:timeline_id] %>
+                    <br/>
+                <%= f.submit "Sauver comme brouillon", name: "draft", class: "btn btn-success"%>
+                <%= f.submit "Publier l'analyse", class: "btn btn-primary"%>
             <% end %>
               </div>
             </div>
           </div>
-          <div class="col-md-12 col-lg-4">
-            <% if params[:comment_id] %>
+          <div class="col-md-12 col-lg-4 col-lg-offset-1">
+            <% if @parent %>
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <%= image_tag("icons/myicon-laurel.svg", alt: "laurel", height: "24px")%>
                     L'analyse que vous souhaitez améliorer :
-                      <%= render @comment, vote: true %>
+                      <%= render @parent, vote: true %>
                   </div>
                 </div>
             <% end %>

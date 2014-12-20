@@ -15,4 +15,9 @@ class MyItemsController < ApplicationController
   def votes
     @votes = Vote.where( user_id: current_user.id)
   end
+
+  def drafts
+    @drafts = CommentDraft.select(:id, :timeline_id, :reference_id,
+                                 :f_1_content).where( user_id: current_user.id)
+  end
 end

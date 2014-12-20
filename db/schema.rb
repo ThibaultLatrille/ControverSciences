@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141218003217) do
+ActiveRecord::Schema.define(version: 20141220142612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,24 @@ ActiveRecord::Schema.define(version: 20141218003217) do
   add_index "best_comments", ["comment_id"], name: "index_best_comments_on_comment_id", using: :btree
   add_index "best_comments", ["reference_id"], name: "index_best_comments_on_reference_id", using: :btree
   add_index "best_comments", ["user_id"], name: "index_best_comments_on_user_id", using: :btree
+
+  create_table "comment_drafts", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "timeline_id"
+    t.integer  "reference_id"
+    t.integer  "parent_id"
+    t.text     "f_1_content"
+    t.text     "f_2_content"
+    t.text     "f_3_content"
+    t.text     "f_4_content"
+    t.text     "f_5_content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comment_drafts", ["reference_id"], name: "index_comment_drafts_on_reference_id", using: :btree
+  add_index "comment_drafts", ["timeline_id"], name: "index_comment_drafts_on_timeline_id", using: :btree
+  add_index "comment_drafts", ["user_id"], name: "index_comment_drafts_on_user_id", using: :btree
 
   create_table "comment_relationships", force: true do |t|
     t.integer  "parent_id"

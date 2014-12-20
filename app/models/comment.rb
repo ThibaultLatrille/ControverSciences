@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   require 'HTMLlinks'
 
-  attr_accessor :diff
+  attr_accessor :parent_id, :draft_id
 
   belongs_to :user
   belongs_to :timeline
