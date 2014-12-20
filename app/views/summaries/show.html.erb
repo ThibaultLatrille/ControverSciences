@@ -1,0 +1,26 @@
+<div class="row">
+
+  <div class="col-xs-12 col-md-4 col-lg-2">
+    <%= render 'layouts/panel' %>
+  </div>
+
+  <div class="col-xs-12 col-md-8 col-lg-10">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-1">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+          Ce résumé appartient à la controverse
+          <%= link_to( @summary.timeline_name , timeline_path(@summary.timeline_id) ) %>
+          </div>
+          <div class="panel-body">
+            <% if current_user.id == @summary.user_id %>
+                <%= render @summary, credit: false %>
+            <% else %>
+                <%= render @summary, credit: true %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

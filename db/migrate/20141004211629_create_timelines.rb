@@ -3,10 +3,6 @@ class CreateTimelines < ActiveRecord::Migration
     create_table :timelines do |t|
       t.text :name
       t.references :user, index: true
-      t.integer :timeline_edit_id
-      t.text :timeline_edit_content
-      t.integer :timeline_edit_votes, default: 0
-      t.text :timeline_edit_username
       t.integer :nb_references, default: 0
       t.integer :nb_contributors, default: 0
       t.integer :nb_likes, default: 0

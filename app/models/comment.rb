@@ -169,7 +169,7 @@ class Comment < ActiveRecord::Base
 
   def destroy_with_counters
     nb_votes = self.votes.count
-    Timeline.decrement_counter( :nb_comments , self.timeline_id )
+    Timeline.decrement_counter( :nb_edits , self.timeline_id )
     Reference.update_counters( self.reference_id, nb_edits: -1 )
     Reference.update_counters( self.reference_id, nb_votes: -nb_votes )
     self.destroy
@@ -185,12 +185,12 @@ class Comment < ActiveRecord::Base
     end
     Reference.increment_counter(:nb_edits, self.reference_id)
     Timeline.increment_counter(:nb_edits, self.timeline_id)
-    unless TimelineContributor.where({user_id: self.user_id, timeline_id: self.timeline_id}).any?
+    unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
       timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
       timrelation.save
       Timeline.increment_counter(:nb_contributors, self.timeline_id)
     end
-    unless ReferenceContributor.where({user_id: self.user_id, reference_id: self.reference_id}).any?
+    unless ReferenceContributor.find_by({user_id: self.user_id, reference_id: self.reference_id})
       refrelation=ReferenceContributor.new({user_id: self.user_id, reference_id: self.reference_id, bool: true})
       refrelation.save
       Reference.increment_counter(:nb_contributors, self.reference_id)

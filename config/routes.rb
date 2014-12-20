@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :destroy]
   resources :references, only: [:new, :create, :show, :destroy]
-  resources :comments,          only: [:show, :new, :create, :edit, :update, :destroy]
+  resources :comments,          only: [:show, :new, :create, :destroy]
   resources :comment_drafts, only: [:destroy]
   resources :votes,          only: [:new ,:create, :destroy]
   resources :ratings,          only: [:create, :destroy]
@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get 'assistant/selection' => 'assistant#selection'
   resources :following_references, only: [:create, :destroy]
   resources :following_timelines, only: [:create, :destroy]
+  resources :following_summaries, only: [:create, :destroy]
   resources :following_new_timelines, only: [:create, :destroy]
   get 'followings/index'
   get 'notifications/index'
@@ -34,15 +35,21 @@ Rails.application.routes.draw do
   get 'notifications/timeline'
   get 'notifications/reference'
   get 'notifications/comment'
+  get 'notifications/summary'
   get 'notifications/selection'
 
   get 'my_items/timelines'
   get 'my_items/references'
   get 'my_items/comments'
+  get 'my_items/summaries'
   get 'my_items/votes'
   get 'my_items/drafts'
   resources :likes, only: [:create]
   resources :invitations, only: [:create]
+
+  resources :summaries, only: [:show, :index, :new, :create, :destroy]
+  resources :summary_drafts, only: [:destroy]
+  resources :credits, only: [:new ,:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -93,7 +93,6 @@ class ReferencesController < ApplicationController
         @seed = rand
       end
       Comment.connection.execute("select setseed(#{@seed})")
-      puts @seed
       @comments = Comment.where(
           reference_id: params[:id]).where.not(
           user_id: user_id).order('random()').page(params[:page]).per(5)

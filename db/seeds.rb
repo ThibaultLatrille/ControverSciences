@@ -68,13 +68,11 @@ def seed_timelines(users, tags)
   names << "Le THC rend il stupide et con ?"
   names << "La café est il mauvais pour la santé ?"
   names << "Le LHC va-t-il créer un trou noir ?"
-  names << "Yellowstone va-il bientôt sauter ?"
-  content = Faker::Lorem.sentence(8)
+  names << "Yellowstone va-t-il bientôt sauter ?"
   names.each do |name|
       timeline = Timeline.new(
       user: users[rand(users.length)],
       name:  name,
-      timeline_edit_content: content,
       score: 4.2)
       timeline.set_tag_list( tags.sample(rand(1..7)) )
       timelines << timeline
@@ -152,6 +150,55 @@ def seed_following_references(users, references)
     f.save!
   end
   following_references
+end
+
+def seed_summaries(users, timelines)
+  summaries = []
+  timeline = timelines[0]
+  timeline_url = "0.0.0.0:3000/timelines/"+timeline.id.to_s
+  contributors = users[1..-1].sample(1+rand(users.length/2-1))
+  references = timeline.references
+  reference_ids = references.map{ |ref| ref.id }
+  contributors << users[0]
+  contributors.each do |user|
+    content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+        reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
+    "\n"+Faker::Lorem.sentence(rand(12))
+    summary = Summary.new(
+        user: user,
+        timeline:  timeline,
+        content: content)
+    summaries << summary
+  end
+  summaries.map do |c|
+    c.save_with_markdown( timeline_url )
+  end
+  summaries
+end
+
+def seed_credits(users, summaries)
+  credits = []
+  users.each do |user|
+    summaries.group_by{ |c| c.timeline_id }.each do |_, summaries_by_timelines|
+      sum = 0
+      summaries_user = summaries_by_timelines.sample(rand(summaries_by_timelines.length/2))
+      summaries_user.each do |summary|
+        value = rand(0..(12-sum))
+        if value > 0
+          sum += value
+          credits << Credit.new(
+              user_id: user.id,
+              summary_id: summary.id,
+              timeline_id:  summary.timeline_id,
+              value: value)
+        end
+      end
+    end
+  end
+  credits.map do |v|
+    v.save
+  end
+  credits
 end
 
 def seed_comments(users, timelines)
@@ -250,6 +297,8 @@ timelines = seed_timelines(users, tags)
 seed_following_timelines(users, timelines)
 references = seed_references(users, timelines)
 seed_following_references(users, references[0..4])
+summaries = seed_summaries(users, timelines)
+seed_credits(users, summaries)
 comments = seed_comments(users, timelines)
 seed_votes(users, comments)
 seed_ratings(users, references)

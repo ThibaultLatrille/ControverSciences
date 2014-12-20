@@ -14,16 +14,30 @@
       <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
   <% end %>
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
   <div class="panel-heading">
-    <h3><%= @timeline.name %></h3>
+      <div class="clearfix">
+          <div class="pull-right">
+            <%= link_to '<span class="glyphicon glyphicon-eye-open" >
+    </span> Les résumés'.html_safe,
+                        summaries_path( timeline_id: @timeline.id ),
+                       class: "btn btn-block btn-primary" %>
+          </div>
+          <div class="panel-heading">
+            <h3><%= @timeline.name %></h3>
+          </div>
+      </div>
   </div>
   <div class="panel-body">
-    <%= @timeline.timeline_edit_content %>
-    <br/>
-    <span class="pull-right">
-    Créé par <%= @timeline.user_name %>
-    </span>
+    <% if @summary %>
+        <%= @summary[:content] %>
+        <br/>
+        <span class="pull-right">
+        Créé par <%= @summary.user_name %>
+        </span>
+    <% else %>
+        Pas de résumé
+    <% end %>
   </div>
   <div class="panel-footer">
     <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "38px") %>

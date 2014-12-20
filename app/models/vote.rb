@@ -20,12 +20,8 @@ class Vote < ActiveRecord::Base
     User.select( :name ).find( self.user_id ).name
   end
 
-  def to_user_name
-    User.select( :name ).find( self.user_id ).name
-  end
-
   def comment_short
-    Comment.select( :f_1_content, :user_id ).find( self.comment_id )
+    Comment.select( :id, :f_1_content, :user_id ).find( self.comment_id )
   end
 
   def reference_title
@@ -72,8 +68,6 @@ class Vote < ActiveRecord::Base
   def cascading_update_vote
     value = self.value_was
     yield
-    puts value
-    puts self.value
     if value != self.value
       diff = self.value - value
       Comment.update_counters(self.comment_id, balance: diff )

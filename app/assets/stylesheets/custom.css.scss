@@ -322,22 +322,7 @@ input {
     display: block;
     margin-left: 20px;
   }
-}
-
-.panel-heading .panel-title{
-  padding-bottom: 10px;
-  padding-top: 2px;
-}
-.panel-heading .accordion-toggle:after {
-  font-family: 'Glyphicons Halflings';
-  content: "\e113";
-  float: right;
-  color: grey;
-}
-.panel-heading .accordion-toggle.collapsed:after {
-  content: "\e114";
-}
-
+}*
 /* Sidebar Styles */
 .mini-submenu{
   display:none;

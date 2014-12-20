@@ -59,6 +59,12 @@ class TimelinesController < ApplicationController
 
   def show
     @timeline = Timeline.find(params[:id])
+    summary_best = SummaryBest.find_by(timeline_id: params[:id])
+    if summary_best
+      @summary = Summary.find( summary_best.summary_id )
+    else
+      @summary = nil
+    end
     @references = @timeline.references
     if logged_in?
       session[:timeline_id] = @timeline.id

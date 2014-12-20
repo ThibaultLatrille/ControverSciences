@@ -8,10 +8,12 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-1">
   <div class="panel panel-default">
+    <div class="panel-heading">
+      Cette analyse appartient à la référence
+      <%= link_to( @comment.reference_title , reference_path(@comment.reference_id) ) %>
+    </div>
     <div class="panel-body">
- Cette analyse appartient à la référence
-  <%= link_to( @comment.reference.title_fr , reference_path(@comment.reference_id) ) %>
-      <% if current_user.id == @comment.user_id %>
+       <% if current_user.id == @comment.user_id %>
         <%= render @comment, vote: false %>
       <% else %>
         <%= render @comment, vote: true %>

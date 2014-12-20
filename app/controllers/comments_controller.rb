@@ -73,8 +73,6 @@ class CommentsController < ApplicationController
         flash[:success] = "Edition enregistré"
         redirect_to comment_path(@comment.id)
       else
-        puts "kikou"
-        puts comment_params[:draft_id]
         @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
         if comment_params[:parent_id]
           @parent = Comment.find(comment_params[:parent_id])
