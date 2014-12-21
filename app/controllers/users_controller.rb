@@ -13,10 +13,23 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @user_detail = UserDetail.find_by_user_id( params[:id] )
+    @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
+    @references = Reference.select(:id, :timeline_id, :title_fr).where(user_id: params[:id])
+    @comments = Comment.select(:id, :reference_id, :f_1_content ).where(user_id: params[:id])
+    @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: params[:id])
   end
 
   def edit
     @user = User.find(params[:id])
+    @user_detail = UserDetail.find_by_user_id( params[:id] )
+    unless @user_detail
+      @user_detail = UserDetail.new( user_id: params[:id] )
+    end
+    @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
+    @references = Reference.select(:id, :timeline_id, :title_fr).where(user_id: params[:id])
+    @comments = Comment.select(:id, :reference_id, :f_1_content ).where(user_id: params[:id])
+    @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: params[:id])
   end
 
   def create
@@ -57,8 +70,12 @@ class UsersController < ApplicationController
 
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation, :why)
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :password,
+                                 :password_confirmation, :why)
+  end
+
+  def user_detail_params
+    params.require(:user_detail).permit(:user_id, :biography, :picture)
+  end
 end

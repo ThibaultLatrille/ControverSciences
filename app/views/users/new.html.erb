@@ -3,6 +3,11 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3> Créer un compte </h3>
+      </div>
+      <div class="panel-body">
     <%= form_for(@user) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
@@ -24,6 +29,8 @@
 
       <%= f.submit "Créer mon compte", class: "btn btn-primary" %>
     <% end %>
+      </div>
+    </div>
   </div>
 </div>
 

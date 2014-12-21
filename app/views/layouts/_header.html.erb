@@ -34,15 +34,15 @@
               </a>
               <ul class="dropdown-menu">
                 <li><%= link_to '<span class="glyphicon glyphicon-user"></span> Mon profil'.html_safe,
-				current_user %> </li>
-                <li><%= link_to '<span class="glyphicon glyphicon-cog"></span> Paramètres'.html_safe,
-				edit_user_path(current_user) %> </li>
+                                edit_user_path(current_user) %> </li>
                 <li class="divider"></li>
                 <li><%= link_to "Mes controverses",
                                 my_items_timelines_path %> </li>
+                <li><%= link_to "Mes résumés de controverses",
+                                my_items_summaries_path %> </li>
                 <li><%= link_to "Mes références",
                                 my_items_references_path %> </li>
-                <li><%= link_to "Mes analyses",
+                <li><%= link_to "Mes analyses de références",
                                 my_items_comments_path %> </li>
                 <li><%= link_to "Mes votes",
                                 my_items_votes_path %> </li>

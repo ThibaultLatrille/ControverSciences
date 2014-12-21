@@ -1,29 +1,71 @@
 <% provide(:title, "Edition du profil") %>
-<h1>Modifier votre profil</h1>
-
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@user) do |f| %>
+  <div class="col-md-4">
+    <%= render 'users/partial_user' %>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3> Modifier vos informations </h3>
+      </div>
+      <div class="panel-body">
+    <%= form_for(@user_detail, html: { multipart: true },  url: user_details_path, method: :post) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control' %>
+        <%= f.label :job, "Fonction/métier" %>
+        <%= f.text_field :job, placeholder: "Votre biographie", class: 'form-control' %>
 
-        <%= f.label :email %>
-        <%= f.text_field :email, class: 'form-control' %>
+        <%= f.label :institution, "Institution" %>
+        <%= f.text_field :institution, placeholder: "Votre biographie", class: 'form-control' %>
 
-        <%= f.label :password, "Mot de passe" %>
-        <%= f.password_field :password, class: 'form-control' %>
+        <%= f.label :website, "Site personel" %>
+        <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
 
-        <%= f.label :password_confirmation, "Confirmation de mot de passe" %>
-        <%= f.password_field :password_confirmation, class: 'form-control' %>
+        <%= f.label :biography, "Biographie" %>
+        <%= f.text_area :biography, placeholder: "Votre biographie", class: 'form-control' %>
 
-      <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
+        <%= f.hidden_field :user_id, value: @user.id %>
+        <span class="picture">
+        <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', class: 'form-control' %>
+        </span>
+        <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
     <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3> Modifier votre profil </h3>
+      </div>
+      <div class="panel-body">
+        <%= form_for(@user) do |f| %>
+            <%= render 'shared/error_messages', object: f.object %>
 
-    <div class="gravatar_edit">
-      <%= gravatar_for @user %>
-      <a href="http://gravatar.com/emails">change</a>
+            <%= f.label :name %>
+            <%= f.text_field :name, class: 'form-control' %>
+
+            <%= f.label :email %>
+            <%= f.text_field :email, class: 'form-control' %>
+
+            <%= f.label :password, "Mot de passe" %>
+            <%= f.password_field :password, class: 'form-control' %>
+
+            <%= f.label :password_confirmation, "Confirmation de mot de passe" %>
+            <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+            <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $('#user_detail_picture').bind('change', function() {
+        size_in_megabytes = this.files[0].size/1024/1024;
+        if (size_in_megabytes > 5) {
+            alert('Maximum file size is 5MB. Please choose a smaller file.');
+        }
+    });
+</script>

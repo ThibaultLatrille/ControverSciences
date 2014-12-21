@@ -12,6 +12,10 @@ class MyItemsController < ApplicationController
                                :f_1_content, :balance ).where( user_id: current_user.id)
   end
 
+  def summaries
+    @summaries = Summary.select(:id, :timeline_id, :content, :balance ).where( user_id: current_user.id)
+  end
+
   def votes
     @votes = Vote.where( user_id: current_user.id)
   end

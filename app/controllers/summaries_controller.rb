@@ -74,7 +74,7 @@ class SummariesController < ApplicationController
   end
 
   def show
-    @summary = Summary.select( :id, :user_id, :reference_id, :timeline_id,
+    @summary = Summary.select( :id, :user_id, :timeline_id,
                                :markdown, :balance, :best,
                                :created_at
     ).find(params[:id])

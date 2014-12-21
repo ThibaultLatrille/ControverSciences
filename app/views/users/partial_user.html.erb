@@ -1,0 +1,172 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <% if @user_detail && @user_detail.picture? %>
+        <%= image_tag @user_detail.picture.url, class: "img-circle", height: "80px" %>
+    <% end %>
+    <span style="font-size: 3em">
+      &nbsp <%= @user.name %> </span>
+  </div>
+  <div class="panel-body">
+    <% if @user_detail && @user_detail.job %>
+        <%= @user.name %> est <%= @user_detail.job  %>
+    <% end %>
+    <% if @user_detail && @user_detail.institution %>
+        <%= @user.name %> travaille à : <%= @user_detail.institution %> <br/>
+    <% end %>
+    <% if @user_detail && @user_detail.biography %>
+        <b> Biographie : </b> <%= @user_detail.biography %> <br/>
+    <% end %>
+    <% if @user_detail && @user_detail.website %>
+        <%= @user.name %> a même un site personnel : <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %>
+    <% end %>
+    <br/>
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <%= @user.name %> a ajouté <%= pluralize(
+                                    @timelines.length, "timeline") %>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <table id="notification-timelines" class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th class="col-sm-8"> Nom </th>
+              <th class="col-sm-3"> Tags </th>
+            </tr>
+            </thead>
+
+            <tbody class="page">
+            <% if !@timelines.any? %>
+                <tr class="notification-timeline">
+                  <td> Auncune controverses </td>
+                  <td>  </td>
+                </tr>
+            <% else %>
+                <% @timelines.each do |timeline| %>
+                    <tr class="following-timeline">
+                      <td> <%= link_to timeline.name, timeline_path(timeline.id) %> </td>
+                      <td>
+                        <% timeline.get_tag_list.each do |name| %>
+                            <%= image_tag("icons/myicon-#{name}.svg", alt: name,
+                                          title: tags_hash[name],  height: "24px")%>
+                        <% end %>
+                      </td>
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a class="collapsed" data-toggle="collapse"href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <%= @user.name %> a ajouté  <%= pluralize(
+                                    @references.length, "reference") %>
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <table id="notification-references" class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th class="col-xs-6"> La référence </th>
+              <th class="col-xs-4"> Dans la controverse </th>
+            </tr>
+            </thead>
+
+            <tbody class="page">
+            <% if !@references.any? %>
+                <tr class="notification-reference">
+                  <td> Aucune références ajoutées  </td>
+                  <td></td>
+                </tr>
+            <% else %>
+                <% @references.each do |reference| %>
+                    <tr class="notification-reference">
+                      <td> <%= link_to reference.title_fr, reference_path(reference.id) %>   </td>
+                      <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>   </td>
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title">
+            <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+              <%= @user.name %> a écrit <%= pluralize(
+                                                    @summaries.length, "résumé")%> de controverses
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+          <table id="notification-summaries" class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th class="col-xs-5"> Résumé </th>
+              <th class="col-xs-5"> De la controverse </th>
+            </tr>
+            </thead>
+            <tbody class="page">
+            <% if !@summaries.any? %>
+                <tr class="notification-summary">
+                  <td> Aucun résumés </td>
+                </tr>
+            <% else %>
+                <% @summaries.each do |com| %>
+                    <td> <%= link_to com.content[0..70]+"...", summary_path(com.id ) %>   </td>
+                    <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title">
+            <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <%= @user.name %> a écrit <%= pluralize(
+                                    @comments.length, "analyse") %> de références
+            </a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <table id="notification-comments" class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th class="col-xs-3"> L'analyse </th>
+              <th class="col-xs-4"> De la référence </th>
+            </tr>
+            </thead>
+
+            <tbody class="page">
+            <% if !@comments.any? %>
+                <tr class="notification-comment">
+                  <td> Aucune analyses </td>
+                </tr>
+            <% else %>
+                <% @comments.each do |com| %>
+                    <tr class="notification-comment">
+                      <td> <%= link_to com.f_1_content[0..70]+"...", comment_path(com.id ) %>   </td>
+                      <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

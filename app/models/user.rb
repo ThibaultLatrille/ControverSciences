@@ -2,8 +2,10 @@ class User < ActiveRecord::Base
   has_many :timelines, dependent: :destroy
   has_many :references, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :summaries, dependent: :destroy
   has_many :links
   has_many :votes, dependent: :destroy
+  has_many :credits, dependent: :destroy
   has_many :timeline_contributors, dependent: :destroy
   has_many :reference_contributors, dependent: :destroy
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email

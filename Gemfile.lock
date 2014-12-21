@@ -35,6 +35,11 @@ GEM
     bibtex-ruby (4.0.5)
       latex-decode (~> 0.0)
     builder (3.2.2)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     chunky_png (1.3.3)
@@ -53,6 +58,7 @@ GEM
     compass-rails (2.0.0)
       compass (>= 0.12.2)
     erubis (2.7.0)
+    excon (0.42.1)
     execjs (2.2.2)
     faker (1.4.2)
       i18n (~> 0.5)
@@ -61,6 +67,29 @@ GEM
     faraday_middleware (0.9.1)
       faraday (>= 0.7.4, < 0.10)
     ffi (1.9.6)
+    fog (1.23.0)
+      fog-brightbox
+      fog-core (~> 1.23)
+      fog-json
+      fog-softlayer
+      ipaddress (~> 0.5)
+      nokogiri (~> 1.5, >= 1.5.11)
+    fog-brightbox (0.7.1)
+      fog-core (~> 1.22)
+      fog-json
+      inflecto (~> 0.0.2)
+    fog-core (1.27.2)
+      builder
+      excon (~> 0.38)
+      formatador (~> 0.2)
+      mime-types
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+    fog-json (1.0.0)
+      multi_json (~> 1.0)
+    fog-softlayer (0.3.26)
+      fog-core
+      fog-json
     formatador (0.2.5)
     fssm (0.2.10)
     guard (2.10.4)
@@ -76,6 +105,8 @@ GEM
     hike (1.2.3)
     hitimes (1.2.2)
     i18n (0.6.11)
+    inflecto (0.0.2)
+    ipaddress (0.8.0)
     json (1.8.1)
     kaminari (0.16.1)
       actionpack (>= 3.0.0)
@@ -95,6 +126,9 @@ GEM
     mini_backtrace (0.1.3)
       minitest (> 1.2.0)
       rails (>= 2.3.3)
+    mini_magick (3.8.0)
+      subexec (~> 0.2.1)
+    mini_portile (0.6.1)
     minitest (5.5.0)
     minitest-reporters (1.0.5)
       ansi
@@ -104,6 +138,11 @@ GEM
     multi_json (1.10.1)
     multipart-post (2.0.0)
     nenv (0.1.1)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.1)
+    nokogiri (1.6.5)
+      mini_portile (~> 0.6.0)
     oj (2.11.1)
     pg (0.17.1)
     pry (0.10.1)
@@ -164,6 +203,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    subexec (0.2.3)
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
@@ -187,15 +227,18 @@ DEPENDENCIES
   activerecord-import
   bcrypt (= 3.1.7)
   bibtex-ruby
+  carrierwave (= 0.10.0)
   coffee-rails
   compass-rails
   faker (= 1.4.2)
   faraday
   faraday_middleware
+  fog (= 1.23.0)
   guard-minitest (= 2.3.1)
   json
   kaminari
   mini_backtrace (= 0.1.3)
+  mini_magick (= 3.8.0)
   minitest-reporters (= 1.0.5)
   oj
   pg

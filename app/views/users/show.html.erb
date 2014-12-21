@@ -1,12 +1,8 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-        <span> Auteur de <%= pluralize(current_user.timelines.count, "timeline") %></span>
-      </h1>
-    </section>
-  </aside>
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-6">
+    <%= render 'users/partial_user' %>
+  </div>
 </div>
