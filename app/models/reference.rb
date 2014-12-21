@@ -2,6 +2,7 @@ class Reference < ActiveRecord::Base
   belongs_to :user
   belongs_to :timeline
   has_many :links
+  has_many :votes
   has_many :comments, dependent: :destroy
   has_many :ratings, dependent: :destroy
   has_many :reference_contributors, dependent: :destroy
@@ -71,10 +72,8 @@ class Reference < ActiveRecord::Base
 
   def destroy_with_counters
     nb_comments = self.comments.count
-    nb_votes = self.votes.count
     Timeline.decrement_counter( :nb_references , self.timeline_id)
     Timeline.update_counters( self.timeline_id, nb_edits: -nb_comments )
-    Timeline.update_counters( self.timeline_id, votes: -nb_votes )
     self.destroy
   end
 

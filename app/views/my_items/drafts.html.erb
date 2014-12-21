@@ -1,7 +1,7 @@
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-0">
   <div class="panel panel-default">
     <div class="panel-body">
-      Mes brouillons
+      Mes brouillons d'analyses
     </div>
       <table id="notification-comments" class="table table-striped table-hover">
         <thead>
@@ -14,12 +14,15 @@
         </thead>
 
         <tbody class="page">
-        <% if !@drafts.any? %>
+        <% if !@comment_drafts.any? %>
             <tr class="notification-comment">
               <td> Vous n'avez pas de brouillons  </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
             </tr>
         <% else %>
-            <% @drafts.each do |com| %>
+            <% @comment_drafts.each do |com| %>
                 <tr class="notification-comment">
                   <td> <%= link_to com.f_1_content[0..70]+"...", new_comment_path( draft_id: com.id ) %>   </td>
                   <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
@@ -32,5 +35,41 @@
         <% end %>
         </tbody>
       </table>
+  </div>
+</div>
+<div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-0">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      Mes brouillons de résumés
+    </div>
+    <table id="notification-comments" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="col-xs-3"> Le résumé </th>
+        <th class="col-xs-3"> De la controverse </th>
+        <th class="col-xs-1 center"> Supprimer </th>
+      </tr>
+      </thead>
+
+      <tbody class="page">
+      <% if !@summary_drafts.any? %>
+          <tr class="notification-comment">
+            <td> Vous n'avez pas de brouillons  </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+      <% else %>
+          <% @summary_drafts.each do |com| %>
+              <tr class="notification-comment">
+                <td> <%= link_to com.content[0..70]+"...", new_summary_path(timeline_id: com.timeline_id, draft_id: com.id ) %>   </td>
+                <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                summary_draft_path( com.id ), method: :delete,
+                                                data: { confirm: " Vous êtes certains ?" } %>  </td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

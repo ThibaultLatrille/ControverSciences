@@ -115,7 +115,8 @@ class Summary < ActiveRecord::Base
       Summary.update( best_summary.summary_id, best: false )
       best_summary.update_attributes( user_id: self.user_id, summary_id: self.id )
     else
-      SummaryBest.create( user_id: self.user_id, summary_id: self.id)
+      SummaryBest.create( user_id: self.user_id,
+                          summary_id: self.id, timeline_id: self.timeline_id)
     end
     self.update_attributes( best: true)
   end

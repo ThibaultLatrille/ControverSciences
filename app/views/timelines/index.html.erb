@@ -84,19 +84,19 @@
 </div>
 
 <% if logged_in? %>
-<div class="col-sm-12 col-md-1 col-lg-2">
-  <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
-        </span> Ajouter une controverse".html_safe,
-              new_timeline_path, class: "btn btn-block btn-primary" %>
-  <% if params[:tag].nil? || params[:tag]=='all' %>
-    <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-    </span> Suivre les nouvelles controverses".html_safe,
-                following_new_timelines_path, method: :post, class: "btn btn-block btn-primary" %>
-  <% else %>
-      <%= link_to image_tag("icons/myicon-#{params[:tag]}.svg", height: "28px") + "Suivre les controverces tagées par : #{tags_hash[params[:tag]]}".html_safe,
-                  following_new_timelines_path(tag: params[:tag] ), method: :post, class: "btn btn-block btn-primary" %>
-  <% end %>
-</div>
+  <div class="col-xs-12 col-md-1 col-lg-2">
+      <% if params[:tag].nil? || params[:tag]=='all' %>
+          <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+             </span> Suivre les nouvelles controverses".html_safe,
+                      following_new_timelines_path, method: :post, class: "btn btn-block btn-primary" %>
+      <% else %>
+          <%= link_to image_tag("icons/myicon-#{params[:tag]}.svg", height: "28px") + "Suivre les controverces tagées par : #{tags_hash[params[:tag]]}".html_safe,
+                      following_new_timelines_path(tag: params[:tag] ), method: :post, class: "btn btn-block btn-primary" %>
+      <% end %>
+      <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+                       </span> Ajouter une controverse".html_safe,
+                           new_timeline_path, class: "btn btn-block btn-primary" %>
+  </div>
 <% end %>
 
 </div>

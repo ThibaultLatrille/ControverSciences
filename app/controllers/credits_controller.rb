@@ -47,7 +47,7 @@ class CreditsController < ApplicationController
       credits = Credit.find(params[:id])
       if credits.user_id == current_user.id
         credits.destroy_with_counters
-        redirect_to my_items_credits_path
+        redirect_to my_items_votes_path
       end
     end
   end

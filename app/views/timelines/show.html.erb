@@ -16,44 +16,57 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-      <div class="clearfix">
-          <div class="pull-right">
-            <%= link_to '<span class="glyphicon glyphicon-eye-open" >
-    </span> Les résumés'.html_safe,
-                        summaries_path( timeline_id: @timeline.id ),
-                       class: "btn btn-block btn-primary" %>
-          </div>
-          <div class="panel-heading">
-            <h3><%= @timeline.name %></h3>
-          </div>
+    <span class="pull-right">
+        <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{@timeline.nb_likes} </span>".html_safe,
+                    likes_path(id: @timeline.id ),
+                    method: :post, class: "btn btn-primary" %>
+    </span>
+      <div class="panel-heading">
+        <h3><%= @timeline.name %></h3> par <%= link_to @timeline.user_name, user_path( @timeline.user_id) %>
       </div>
   </div>
   <div class="panel-body">
     <% if @summary %>
-        <%= @summary[:content] %>
+        <%= @summary.markdown.html_safe %>
         <br/>
-        <span class="pull-right">
-        Créé par <%= @summary.user_name %>
+        <span class="pull-left">
+        Créé par <%= link_to @summary.user_name, user_path( @summary.user_id) %>
         </span>
+        <br/>
+        <%= link_to 'Voir les résumés de cette controverse'.html_safe,
+                    summaries_path( timeline_id: @timeline.id ),
+                    class: "btn btn-default" %>
     <% else %>
-        Pas de résumé
+        <%= link_to '<span class="glyphicon glyphicon-pencil" >
+    </span> Pas de résumés, soyez le premier'.html_safe,
+                    new_summary_path( timeline_id: @timeline.id ),
+                    class: "btn btn-primary" %>
     <% end %>
   </div>
   <div class="panel-footer">
-    <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "38px") %>
-    <span class="badge"><%= @timeline.nb_contributors %></span>
-    <%= image_tag("icons/myicon-reference.svg", alt: "ref", height: "38px") %>
-    <span class="badge"><%= @timeline.nb_references %></span>
-    <%= image_tag("icons/myicon-comment.svg", alt: "ref", height: "38px") %>
-    <span class="badge"><%= @timeline.nb_edits %></span>
-    <%= image_tag("icons/myicon-like.svg", alt: "ref", height: "38px") %>
-    <span class="badge"><%= @timeline.nb_likes %></span>
+    <div class="btn-group">
+        <button class="btn btn-default btn-sm" data-trigger="focus"
+              data-toggle="popover" data-content="<%= @timeline.nb_contributors %> contributeurs" >
+            <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "32px") %>
+            <%= @timeline.nb_contributors %>
+        </button>
+        <button class="btn btn-default btn-sm" data-trigger="focus"
+                data-toggle="popover" data-content="<%= @timeline.nb_references %> références scientifiques" >
+            <%= image_tag("icons/myicon-reference.svg", alt: "ref", height: "32px") %>
+            <%= @timeline.nb_references %>
+        </button>
+        <button class="btn btn-default btn-sm" data-trigger="focus"
+              data-toggle="popover" data-content="<%= @timeline.nb_edits %> contributions" >
+            <%= image_tag("icons/myicon-comment.svg", alt: "ref", height: "32px") %>
+            <%= @timeline.nb_edits %>
+        </button>
+    </div>
     <span class="pull-right">
         <div class="btn-group">
           <% @timeline.get_tag_list.each do |name| %>
                 <button class="btn btn-default btn-sm" data-trigger="focus"
                         data-toggle="popover" data-content="<%= tags_hash[name] %>" >
-                  <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "28px")%>
+                  <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "32px")%>
                 </button>
           <% end %>
         </div>
@@ -71,16 +84,20 @@
 </div>
   <% if logged_in? %>
 <div class="col-xs-12 col-lg-2">
+<%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+</span> S'abonner à cette controverse".html_safe,
+              following_timelines_path( timeline_id: @timeline.id ),
+              method: :post, class: "btn btn-block btn-primary" %>
 <%= link_to '<span class="glyphicon glyphicon-plus-sign" >
 </span> Ajouter une réfèrence'.html_safe,
           new_reference_path( timeline_id: @timeline.id),
           class: "btn btn-block btn-primary" %>
-
-<%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-</span> S'abonner à cette controverse".html_safe,
-    following_timelines_path( timeline_id: @timeline.id ),
-    method: :post, class: "btn btn-block btn-primary" %>
-<%= link_to 'Inviter un amis', '#newinvitation',
+<%= link_to '<span class="glyphicon glyphicon-pencil" >
+</span> Ecrire un résumé'.html_safe,
+          new_summary_path( timeline_id: @timeline.id),
+          class: "btn btn-block btn-primary" %>
+<%= link_to "<span class=\"glyphicon glyphicon-envelope\" >
+</span> Inviter un amis".html_safe, '#newinvitation',
               'data-toggle' => 'modal',
               class: "btn btn-block btn-primary" %>
 </div>

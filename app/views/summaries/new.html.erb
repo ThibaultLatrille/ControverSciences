@@ -14,7 +14,6 @@
               De la controverse :
               <%= link_to Timeline.where(id: session[:timeline_id]).pluck(:name)[0],
                           timeline_url(session[:timeline_id]) %>
-            </div>
           </div>
           <div class="panel-body">
             <%= form_for(@summary, as: :summary,  url: summaries_path, method: :post) do |f| %>

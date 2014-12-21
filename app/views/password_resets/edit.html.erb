@@ -1,8 +1,13 @@
 <% provide(:title, "Réinitialisation de mot de passe") %>
-<h1>Réinitialiser votre mot de passe</h1>
+
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Réinitialiser votre mot de passe</h3>
+      </div>
+      <div class="panel-body">
     <%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
@@ -16,6 +21,7 @@
 
         <%= f.submit "Enregistrer le nouveau mot de passe", class: "btn btn-primary" %>
     <% end %>
-
+      </div>
+    </div>
   </div>
 </div>

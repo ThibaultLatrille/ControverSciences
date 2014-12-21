@@ -17,19 +17,19 @@
   <div class="clearfix">
   <% if logged_in? %>
     <div class="btn-group">
-        <%= link_to " <span class=\"glyphicon glyphicon-eye-open\" >
+        <%= link_to " <span class=\"glyphicon glyphicon-search\" >
             </span>Toute les analyses (sauf les miennes)".html_safe,
                     reference_path,
                     class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
     </div>
     <div class="btn-group">
-        <%= link_to " <span class=\"glyphicon glyphicon-eye-open\" >
+        <%= link_to " <span class=\"glyphicon glyphicon-search\" >
             </span> Les analyses que j'ai crédité".html_safe,
                   reference_path(:filter => 'my-vote'),
                   class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
     </div>
     <div class="btn-group">
-      <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+      <%= link_to "<span class=\"glyphicon glyphicon-search\" >
             </span> Mes analyses".html_safe,
                   reference_path(:filter => 'mine'),
                   class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
@@ -76,11 +76,11 @@
       <% elsif params[:filter] == "my-vote" %>
           Vous n'avez pas encore voté
       <% elsif params[:filter] == "mine" %>
-          <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+          <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Vous n'avez pas encore écrit d'analyse ".html_safe,
                       new_comment_path %>
       <% else %>
-          <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+          <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Il n'y a pas d'analyse, soyez le premier ! ".html_safe,
                       new_comment_path %>
       <% end %>
@@ -91,13 +91,13 @@
   <% if logged_in? %>
       <div class="clearfix">
       <div class="pull-right">
-          <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+        </span> Suivre les nouvelles analyses".html_safe,
+                    following_references_path( reference_id: @reference.id ),
+                    method: :post, class: "btn btn-primary" %>
+          <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Ecrire une analyse".html_safe,
                       new_comment_path, class: "btn btn-primary" %>
-          <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-        </span> Suivre les nouvelles analyses".html_safe,
-                      following_references_path( reference_id: @reference.id ),
-                      method: :post, class: "btn btn-primary" %>
         <div>
           </br>
         </div>
@@ -187,7 +187,7 @@
     <%= image_tag("icons/myicon-ribbon.svg", alt: "ref", height: "24px") %>
     <span class="badge"><%= @reference.nb_votes %></span>
     <span class="pull-right">
-      Référence ajouté par <%= @reference.user_name %>
+      Référence ajouté par <%= link_to @reference.user_name, user_path(@reference.user_id) %>
     </span>
     <div class="clearfix"></div>
   </div>

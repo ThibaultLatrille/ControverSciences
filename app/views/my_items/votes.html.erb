@@ -1,7 +1,7 @@
-<div class="col-md-10 col-md-offset-1">
+<div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-0">
   <div class="panel panel-default">
     <div class="panel-body">
-  Mes votes
+        Mes credits accordés aux analyses
     </div>
   <table id="notification-references" class="table table-striped table-hover">
     <thead>
@@ -17,7 +17,11 @@
     <tbody class="page">
     <% if !@votes.any? %>
         <tr class="notification-reference">
-          <td> Pas encore de références  </td>
+          <td>  </td>
+          <td> Pas encore de crédits  </td>
+          <td>  </td>
+          <td>  </td>
+          <td> </td>
         </tr>
     <% else %>
         <% @votes.each do |vote| %>
@@ -36,4 +40,44 @@
     </tbody>
   </table>
 </div>
+</div>
+<div class="col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-0">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      Mes credits accordés aux résumés
+    </div>
+    <table id="notification-references" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="col-xs-1 center"> Mon vote </th>
+        <th class="col-xs-3"> Du résumé </th>
+        <th class="col-xs-2"> De la controverse </th>
+        <th class="col-xs-1 center"> Supprimer </th>
+      </tr>
+      </thead>
+
+      <tbody class="page">
+      <% if !@credits.any? %>
+          <tr class="notification-reference">
+            <td>  </td>
+            <td> Pas encore de crédits  </td>
+            <td>  </td>
+            <td>  </td>
+          </tr>
+      <% else %>
+          <% @credits.each do |vote| %>
+              <tr class="notification-reference">
+                <td class="center"> <%=vote.value %> </td>
+                <td> <%= link_to vote.summary_short.content[0..70]+"...", summary_path(vote.summary_id ) %>
+                  par <%= link_to vote.summary_short.user_name, user_path(vote.summary_short.user_id ) %></td>
+                <td> <%= link_to vote.timeline_name, timeline_path(vote.timeline_id ) %>   </td>
+                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                credit_path( vote.id ), method: :delete,
+                                                data: { confirm: " Vous êtes certains ?" } %>  </td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

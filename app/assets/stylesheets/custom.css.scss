@@ -63,13 +63,13 @@ body {
   }
 }
 
-.dropdown-menu > li > a {
-  line-height: 30px;
-}
-
 @media (max-width: 767px) {
   .navbar-nav > li > a {
     line-height: 35px;}
+}
+
+.dropdown-menu > li > a {
+  line-height: 30px;
 }
 
 @media handheld{

@@ -1,4 +1,4 @@
-<div class="panel panel-default summary">
+<div class="panel panel-default comment">
   <div class="panel-body">
   <span class="content">
         <%= summary.markdown.html_safe %>
@@ -21,9 +21,9 @@
                                  {selected: summary.my_credit( current_user.id )}, { class: "form-control selectwidthauto" } %>
                     <div>
                       <% if summary.my_credit( current_user.id ) == 0 %>
-                          <%= f.submit "Accréditer cette analyse", class: "btn btn-primary selectwidthauto"%>
+                          <%= f.submit "Accréditer ce résumé", class: "btn btn-primary selectwidthauto"%>
                       <% else %>
-                          <%= f.submit "Changer mes crédits (#{summary.my_credit( current_user.id)} actuellement)", class: "btn btn-primary selectwidthauto"%>
+                          <%= f.submit "Modifier mes crédits (#{summary.my_credit( current_user.id)} actuellement)", class: "btn btn-primary selectwidthauto"%>
                           <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                       credit_path(id: "none", parent_id: summary.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
                       <% end %>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="pull-right">
                   <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                              new_summary_path(parent_id: summary.id), :class => "btn btn-default", "data-toggle" => "tooltip",
+                              new_summary_path(parent_id: summary.id, timeline_id: summary.timeline_id), :class => "btn btn-default", "data-toggle" => "tooltip",
                               title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
                 </div>
               </div>
@@ -40,11 +40,11 @@
       <% else %>
           <div class="btn btn-default">
             <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%>
-            <%= summary.balance %> crédits ont été donné à cette analyse.
+            <%= summary.balance %> crédits ont été donné à ce résumé.
           </div>
           <div class="pull-right">
             <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                        new_summary_path(parent_id: summary.id), :class => "btn btn-default", "data-toggle" => "tooltip",
+                        new_summary_path(parent_id: summary.id, timeline_id: summary.timeline_id), :class => "btn btn-default", "data-toggle" => "tooltip",
                         title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
           </div>
       <% end %>

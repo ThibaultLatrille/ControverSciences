@@ -3,33 +3,37 @@
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
       <%= render 'layouts/panel' %>
     </div>
-    <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-0">
 <% else %>
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
       <%= link_to "Revenir à la controverse",
                   timeline_path( params[:timeline_id]), class: "btn btn-primary", style: "white-space: normal" %>
     </div>
-    <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-5 col-lg-offset-0">
 <% end %>
+  <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-1">
 <div class="clearfix">
   <% if logged_in? %>
       <div class="btn-group">
-        <%= link_to " <span class=\"glyphicon glyphicon-eye-open\" >
+        <%= link_to " <span class=\"glyphicon glyphicon-search\" >
             </span>Toute les analyses (sauf les miennes)".html_safe,
                     summaries_path( timeline_id: params[:timeline_id] ),
                     class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
       </div>
       <div class="btn-group">
-        <%= link_to " <span class=\"glyphicon glyphicon-eye-open\" >
+        <%= link_to " <span class=\"glyphicon glyphicon-search\" >
             </span> Les analyses que j'ai crédité".html_safe,
                     summaries_path( timeline_id: params[:timeline_id], :filter => 'my-vote'),
                     class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
       </div>
       <div class="btn-group">
-        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+        <%= link_to "<span class=\"glyphicon glyphicon-search\" >
             </span> Mes analyses".html_safe,
                     summaries_path( timeline_id: params[:timeline_id], :filter => 'mine'),
                     class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
+      </div>
+      <div class="pull-right">
+        <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Ecrire un résumé".html_safe,
+                    new_summary_path( timeline_id:params[:timeline_id]  ), class: "btn btn-primary" %>
       </div>
   <% else %>
       <div class="btn-group">
@@ -69,7 +73,7 @@
 <div>
   </br>
 </div>
-<div id="summaries" class="panel panel-default">
+<div id="comments" class="panel panel-default">
   <div class="panel-body page">
     <% if @summaries.any? %>
         <%= render @summaries, credit: logged_in? && params[:filter] != 'mine' ? true : false %>
@@ -77,30 +81,15 @@
     <% elsif params[:filter] == "my-vote" %>
         Vous n'avez pas donné de crédits
     <% elsif params[:filter] == "mine" %>
-        <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+        <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Vous n'avez pas encore écrit d'analyse ".html_safe,
                     new_summary_path %>
     <% else %>
-        <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
+        <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Il n'y a pas d'analyse, soyez le premier ! ".html_safe,
                     new_summary_path %>
     <% end %>
   </div>
 </div>
 </div>
-<div class="col-sm-10 col-sm-offset-1 col-md-10  col-lg-4 col-lg-offset-0">
-  <% if logged_in? %>
-      <div class="clearfix">
-        <div class="pull-right">
-          <%= link_to "<span class=\"glyphicon glyphicon-plus\" >
-        </span> Ecrire un résumé".html_safe,
-                      new_summary_path, class: "btn btn-primary" %>
-          <div>
-            </br>
-          </div>
-        </div>
-      </div>
-  <% end %>
-</div>
-
 </div>

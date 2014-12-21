@@ -1,16 +1,21 @@
 <% provide(:title, "Connection") %>
-<h1>Qui êtes vous ?</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(:session, url: sessions_path) do |f| %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1>Qui êtes vous ?</h1>
+        <%= link_to "Un inconnu sur se site qui souhaite contribuer au projet et créer un compte, c\'est par ici", signup_path, class: "btn btn-block btn-primary" %>
+      </div>
+      <div class="panel-body">
+        <%= form_for(:session, url: sessions_path) do |f| %>
 
       <%= f.label :email %>
-      <%= f.text_field :email %>
+      <%= f.text_field :email, class: "form-control" %>
 
       <%= f.label :password, 'Mot de passe' %>
       <%= link_to "(Trou de mémoire ?)", new_password_reset_path %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, class: "form-control" %>
 
       <%= f.label :remember_me, class: "checkbox inline" do %>
         <%= f.check_box :remember_me %>
@@ -19,8 +24,9 @@
 
       <%= f.submit "Se connecter", class: "btn btn-primary" %>
     <% end %>
-
-    <p>Une envie furieuse de contribuer au projet ? <%= link_to 'S\'inscrire dès maintenant !', signup_path %></p>
+     <br/>
+      </div>
+    </div>
   </div>
 </div>
 

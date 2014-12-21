@@ -1,13 +1,18 @@
 <% provide(:title, '') %>
 <div class="col-md-10 col-md-offset-1 col-lg-4 col-lg-offset-4">
+  <div class="panel panel-default">
+    <div class="panel-body">
   <%= image_tag("logo.png", alt: "Logo", :class => "img-responsive") %>
   <h2>
-    Et si on arrêtait de nier les évidences ?
+    Et si on arrêtait de parler sans savoir ?
   </h2>
+      <br/>
   <%= link_to "Découvrez les controverses !", timelines_path,
               class: "btn btn-block btn-lg btn-primary" %>
   <%= link_to "Participez à l'aventure, Join Us !", signup_path,
               class: "btn btn-block btn-lg btn-primary" %>
   </div>
+  </div>
+</div>
 
 

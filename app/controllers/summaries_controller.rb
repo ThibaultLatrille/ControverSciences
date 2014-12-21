@@ -16,7 +16,7 @@ class SummariesController < ApplicationController
     else
       @summary = Summary.new
     end
-    session[:timeline_id] = params[:reference_id]
+    session[:timeline_id] = params[:timeline_id]
     @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title, :id )
   end
 
@@ -141,7 +141,7 @@ class SummariesController < ApplicationController
       summary.destroy_with_counters
       redirect_to my_items_summaries_path
     else
-      flash[:danger] = "Ce summaryaire est le meilleur est ne peux être supprimer"
+      flash[:danger] = "Ce résumé est le meilleur est ne peux être supprimer"
       redirect_to summary_path(params[:id])
     end
   end

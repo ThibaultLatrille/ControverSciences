@@ -16,7 +16,10 @@
       <tbody class="page">
       <% if !@summaries.any? %>
           <tr class="notification-summary">
+            <td> </td>
             <td> Pas encore de de résumés ajoutés </td>
+            <td> </td>
+            <td> </td>
           </tr>
       <% else %>
           <% @summaries.each do |com| %>
