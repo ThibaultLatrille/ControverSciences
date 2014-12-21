@@ -5,11 +5,13 @@
     <%= render 'layouts/panel' %>
   </div>
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-
-<h2>Créer une nouvelle Controverse</h2>
-
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+      <h3>Créer une nouvelle Controverse</h3>
+      </div>
+      <div class="panel-body">
     <%= form_for(@timeline) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
@@ -17,22 +19,34 @@
         <%= f.text_field :name, class: 'form-control' %>
 
         <%= f.label :Tags %> </br>
-
-        <div class="center btn-toolbar"  data-toggle="buttons">
+        <div  class="container-fluid">
+        <div class="row"  data-toggle="buttons">
           <% tags_hash.each do |key, value| %>
-          <div class="btn btn-default" style="white-space: normal">
+          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+            <div class="my-btn">
           <%= f.check_box :tag_list, { :multiple => true}, checked_value = key, unchecked_value = nil %>
             <%= image_tag("icons/myicon-#{key}.svg", alt: value, height: "28px")%> <%= value %>
+            </div>
           </div>
           <% end %>
+        </div>
         </div>
         <div>
           </br>
         </div>
         <%= f.submit "Créer une timeline", class: "btn btn-primary" %>
     <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
 </div>
 </div>
+
+
+<%= javascript_tag do %>
+    $(document).ready(function(){
+    $('.my-btn').responsiveEqualHeightGrid();
+    })
+<% end %>

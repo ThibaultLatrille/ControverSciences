@@ -36,6 +36,11 @@ body {
     color: black;
 }
 
+.btn {
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
   background-color: $nav_hover;
 }
@@ -288,7 +293,7 @@ input {
   }
 }
 
-.timeline_name{
+.timeline-name{
   padding-bottom: 10px;
   overflow-wrap: break-word;
 }
