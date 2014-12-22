@@ -58,6 +58,14 @@ class UsersController < ApplicationController
       flash[:success] = "Profil modifié"
       redirect_to @user
     else
+      @user_detail = UserDetail.find_by_user_id( params[:id] )
+      unless @user_detail
+        @user_detail = UserDetail.new( user_id: params[:id] )
+      end
+      @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
+      @references = Reference.select(:id, :timeline_id, :title_fr).where(user_id: params[:id])
+      @comments = Comment.select(:id, :reference_id, :f_1_content ).where(user_id: params[:id])
+      @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: params[:id])
       render 'edit'
     end
   end

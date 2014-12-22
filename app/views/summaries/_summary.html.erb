@@ -9,7 +9,7 @@
       <% if credit %>
           <%= form_for(:credit, url: credits_path, method: :post, class: "input-group-sm") do |f| %>
               <div class="row">
-                <%= f.hidden_field :parent_id, value: summary.id %>
+                <%= f.hidden_field :summary_id, value: summary.id %>
                 <%= f.hidden_field :timeline_id, value: summary.timeline_id %>
                 <div class="col-md-9">
                   <div class="input-group input-small">
@@ -25,7 +25,7 @@
                       <% else %>
                           <%= f.submit "Modifier mes crédits (#{summary.my_credit( current_user.id)} actuellement)", class: "btn btn-primary selectwidthauto"%>
                           <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                      credit_path(id: "none", parent_id: summary.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
+                                      credit_path(id: "none", summary_id: summary.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
                       <% end %>
                     </div>
                   </div>

@@ -13,21 +13,22 @@
         <%= render 'shared/error_messages', object: f.object %>
 
         <%= f.label :job, "Fonction/métier" %>
-        <%= f.text_field :job, placeholder: "Votre biographie", class: 'form-control' %>
-
+        <%= f.text_field :job, placeholder: "Votre fonction/métier", class: 'form-control' %>
+            <br/>
         <%= f.label :institution, "Institution" %>
-        <%= f.text_field :institution, placeholder: "Votre biographie", class: 'form-control' %>
-
+        <%= f.text_field :institution, placeholder: "Où vous travaillez", class: 'form-control' %>
+            <br/>
         <%= f.label :website, "Site personel" %>
         <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
-
+            <br/>
         <%= f.label :biography, "Biographie" %>
         <%= f.text_area :biography, placeholder: "Votre biographie", class: 'form-control' %>
-
+            <br/>
         <%= f.hidden_field :user_id, value: @user.id %>
         <span class="picture">
         <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', class: 'form-control' %>
         </span>
+            <br/>
         <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
     <% end %>
       </div>
@@ -44,16 +45,16 @@
 
             <%= f.label :name %>
             <%= f.text_field :name, class: 'form-control' %>
-
+            <br/>
             <%= f.label :email %>
             <%= f.text_field :email, class: 'form-control' %>
-
+            <br/>
             <%= f.label :password, "Mot de passe" %>
             <%= f.password_field :password, class: 'form-control' %>
-
+            <br/>
             <%= f.label :password_confirmation, "Confirmation de mot de passe" %>
             <%= f.password_field :password_confirmation, class: 'form-control' %>
-
+            <br/>
             <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
         <% end %>
       </div>
@@ -67,5 +68,8 @@
         if (size_in_megabytes > 5) {
             alert('Maximum file size is 5MB. Please choose a smaller file.');
         }
+    });
+    $(document).ready(function() {
+        $('textarea').autosize();
     });
 </script>

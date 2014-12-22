@@ -61,8 +61,8 @@
         <%= f.label "Les auteurs de l'étude" %>
         <%= f.text_field :author, class: 'form-control' %>
 
-        <%= f.label "Abstract" %>
-        <%= f.text_area :abstract, {:rows => 6,
+        <%= f.label "Abstract (Facultatif)" %>
+        <%= f.text_area :abstract, {:rows => 2,
                                     :class => "form-control"} %>
         <%= f.submit "Ajouter la référence", class: "btn btn-primary" %>
     <% end %>
@@ -71,10 +71,8 @@
   </div>
 </div>
 
-<%= javascript_tag do %>
-    $(function() {
-    $('#submit').click(function() {
-    $('#form').submit();
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('textarea').autosize();
     });
-    });
-<% end %>
+</script>

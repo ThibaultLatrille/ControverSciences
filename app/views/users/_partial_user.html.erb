@@ -7,17 +7,20 @@
       &nbsp <%= @user.name %> </span>
   </div>
   <div class="panel-body">
-    <% if @user_detail && @user_detail.job %>
-        <%= @user.name %> est <%= @user_detail.job  %>
+    <% if @user_detail && @user_detail.job != "" %>
+        <% if @user_detail.institution != "" %>
+            <%= @user.name %> est <%= @user_detail.job  %> et travaille dans un lieu que l'on nomme <%= @user_detail.institution %> <br/>
+        <% else %>
+            <%= @user.name %> est <%= @user_detail.job  %> dans une lieu qu'il ne souhaite pas communiquer sur se site <br/>
+        <% end %>
+    <% elsif @user_detail && @user_detail.institution != "" %>
+            <%= @user.name %> travaille dans un lieu que l'on nomme <%= @user_detail.institution %> <br/>
     <% end %>
-    <% if @user_detail && @user_detail.institution %>
-        <%= @user.name %> travaille à : <%= @user_detail.institution %> <br/>
-    <% end %>
-    <% if @user_detail && @user_detail.biography %>
+    <% if @user_detail && @user_detail.biography != "" %>
         <b> Biographie : </b> <%= @user_detail.biography %> <br/>
     <% end %>
-    <% if @user_detail && @user_detail.website %>
-        <%= @user.name %> a même un site personnel : <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %>
+    <% if @user_detail && @user_detail.website != "" %>
+        <%= @user.name %> a même un site personnel : <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %> <br/>
     <% end %>
     <br/>
     <div class="panel-group" role="tablist" aria-multiselectable="true">
@@ -62,6 +65,7 @@
           </table>
         </div>
       </div>
+      <br/>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
           <h4 class="panel-title">
@@ -98,6 +102,7 @@
           </table>
         </div>
       </div>
+      <br/>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingThree">
           <h4 class="panel-title">
@@ -130,9 +135,9 @@
             <% end %>
             </tbody>
           </table>
-
         </div>
       </div>
+      <br/>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingThree">
           <h4 class="panel-title">
