@@ -43,6 +43,9 @@ GEM
       mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    clockwork (1.1.0)
+      activesupport
+      tzinfo
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -51,6 +54,11 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    delayed_job (4.0.6)
+      activesupport (>= 3.0, < 5.0)
+    delayed_job_active_record (4.0.3)
+      activerecord (>= 3.0, < 5.0)
+      delayed_job (>= 3.0, < 4.1)
     erubis (2.7.0)
     excon (0.42.1)
     execjs (2.2.2)
@@ -264,7 +272,9 @@ DEPENDENCIES
   bcrypt (= 3.1.7)
   bibtex-ruby
   carrierwave
+  clockwork
   coffee-rails
+  delayed_job_active_record
   faker (= 1.4.2)
   faraday
   faraday_middleware
