@@ -220,17 +220,17 @@ DEPENDENCIES
   activerecord-import
   bcrypt (= 3.1.7)
   bibtex-ruby
-  carrierwave (= 0.10.0)
+  carrierwave
   coffee-rails
   faker (= 1.4.2)
   faraday
   faraday_middleware
-  fog (= 1.23.0)
+  fog
   guard-minitest (= 2.3.1)
   json
   kaminari
   mini_backtrace (= 0.1.3)
-  mini_magick (= 3.8.0)
+  mini_magick
   minitest-reporters (= 1.0.5)
   oj
   pg

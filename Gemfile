@@ -47,9 +47,9 @@ gem 'activerecord-import'
 gem 'pg'
 
 # Image upload, resize and storing
-gem 'carrierwave',             '0.10.0'
-gem 'mini_magick',             '3.8.0'
-gem 'fog',                     '1.23.0'
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog'
 
 group :test do
   gem 'minitest-reporters', '1.0.5'
