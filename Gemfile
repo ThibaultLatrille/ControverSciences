@@ -51,10 +51,6 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 
-# Schedulling jobs
-gem 'clockwork'
-gem 'delayed_job_active_record'
-
 group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace',     '0.1.3'
