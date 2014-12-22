@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 20141221160028) do
 
   create_table "likes", force: true do |t|
     t.integer  "timeline_id"
-    t.text     "ip"
+    t.inet     "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

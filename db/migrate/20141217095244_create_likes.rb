@@ -1,8 +1,8 @@
 class CreateLikes < ActiveRecord::Migration
   def change
-    create_table :likes do |t|
+    create_table( :likes, force: true) do |t|
       t.references :timeline
-      t.text :ip
+      t.inet :ip
 
       t.timestamps
     end

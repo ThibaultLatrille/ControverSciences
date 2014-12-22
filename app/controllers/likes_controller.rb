@@ -1,8 +1,7 @@
 class LikesController < ApplicationController
   def create
-    puts request.inspect
     like = Like.new(timeline_id: like_params,
-                    ip: request.remote_ip.to_s )
+                    ip: request.remote_ip )
     begin
       like.save
       flash[:success] = "Vous aimez cette controverse"
