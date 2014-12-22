@@ -1,7 +1,9 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <% if @user_detail && @user_detail.picture? %>
-        <%= image_tag @user_detail.picture.url, class: "img-circle", height: "80px" %>
+    <% unless Rails.env.production? %>
+        <% if @user_detail && @user_detail.picture? %>
+            <%= image_tag @user_detail.picture.url, class: "img-circle", height: "80px" %>
+        <% end %>
     <% end %>
     <span style="font-size: 3em">
       &nbsp <%= @user.name %> </span>

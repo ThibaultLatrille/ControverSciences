@@ -25,10 +25,12 @@
         <%= f.text_area :biography, placeholder: "Votre biographie", class: 'form-control' %>
             <br/>
         <%= f.hidden_field :user_id, value: @user.id %>
-        <span class="picture">
-        <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', class: 'form-control' %>
-        </span>
-            <br/>
+        <% unless Rails.env.production? %>
+            <span class="picture">
+            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', class: 'form-control' %>
+            </span>
+                <br/>
+        <% end %>
         <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
     <% end %>
       </div>
