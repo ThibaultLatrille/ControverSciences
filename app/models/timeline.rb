@@ -68,8 +68,8 @@ class Timeline < ActiveRecord::Base
     end
   end
 
-  def compute_score( nb_references, nb_comments, nb_votes )
-    return 1.0/(1.0/(1+Math.log(1+nb_references))+1.0/(1+Math.log(1+0.1*nb_comments))+1.0/(1+Math.log(1+0.001*nb_votes)))
+  def compute_score( nb_contributors, nb_references, nb_edits )
+    3.0/(1.0/(1+Math.log(1+nb_contributors))+1.0/(1+Math.log(1+10*nb_references))+1.0/(1+Math.log(1+5*nb_edits)))
   end
 
   def create_notifications

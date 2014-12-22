@@ -289,6 +289,24 @@ def seed_ratings(users, references)
   ratings
 end
 
+def seed_visites(users, references, timelines)
+  visites = []
+  users.each do |user|
+    timelines.each do |timeline|
+      visites << VisiteTimeline.new( user_id: user.id,
+                                      timeline_id: timeline.id )
+    end
+    references.each do |reference|
+      visites << VisiteReference.new( user_id: user.id,
+                                     reference_id: reference.id )
+    end
+  end
+  visites.map do |v|
+    v.save
+  end
+  visites
+end
+
 seed_domains
 tags = tags_hash.keys
 users = seed_users
@@ -302,3 +320,4 @@ seed_credits(users, summaries)
 comments = seed_comments(users, timelines)
 seed_votes(users, comments)
 seed_ratings(users, references)
+seed_visites(users, references, timelines)
