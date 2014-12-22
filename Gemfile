@@ -12,8 +12,7 @@ gem 'bcrypt',               '3.1.7'
 gem 'kaminari'
 
 # Use SCSS for stylesheets
-gem 'sass-rails',   '4.0.3'
-gem 'compass-rails'
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'

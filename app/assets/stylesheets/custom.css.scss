@@ -6,6 +6,7 @@ $gray-medium-light: #eaeaea;
 $nav_back: #6898ce;
 $nav_back_bottom: #e9f0f5;
 $nav_hover: #6682b5;
+$red-error:#d9534f;
 
 /* universal */
 
@@ -149,26 +150,22 @@ h1 {
   margin-bottom: 15px;
   text-align: center;
 }
-
 h2 {
   font-size: 2em;
   letter-spacing: -2px;
   margin-bottom: -5px;
   text-align: center;
 }
-
 h3 {
   font-size: 2em;
   letter-spacing: -1px;
   text-align: left;
   font-weight: normal;
 }
-
 p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
-
 aside {
   section.user_info {
     margin-top: 20px;
@@ -194,43 +191,35 @@ aside {
     }
   }
 }
-
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
   @include box_sizing;
 }
-
 input {
   height: auto !important;
 }
-
-
 .textarea {
   resize: vertical;
   -webkit-transition: height 0.5s;
   -moz-transition: height 0.5s;
   transition: height 0.5s;
 }
-
-/* forms */
-
 #error_explanation {
-  color: red;
+  color: $red-error;
   ul {
-    color: red;
+    color: $red-error;
     margin: 0 0 30px 0;
   }
 }
-
 .field_with_errors {
-  @extend .has-error;
+  @extend .has-error !optional;
   .form-control {
-    color: state-danger-text;
+    border-color: $red-error;
+    box-shadow: 0px 0px 5px $red-error;
   }
 }
-
 .checkbox {
   margin-top: -10px;
   margin-bottom: 10px;
@@ -239,12 +228,10 @@ input {
     font-weight: normal;
   }
 }
-
 #session_remember_me {
   width: auto;
   margin-left: 0;
 }
-
 .pagination a, .pagination span.current, .pagination span.gap {
   float: left;
   padding: 0 14px;
@@ -372,4 +359,291 @@ input {
 .selectwidthauto
 {
   width:auto !important;
+}
+
+#my-timeline {
+  $gray-medium-light: #eaeaea;
+  $color_back: #e9f0f5;
+  $color_date_back: white;
+  $color_date: #6682b5;
+  $color_border: #6682b5;
+  $color_line: #6682b5;
+  $color_caption: black;
+  .justify{
+    text-align: justify;
+  }
+  body {
+    background-color: $color_back
+  }
+  @mixin inline-block() {
+    display: -moz-inline-stack;
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+  }
+  @mixin clearfix() {
+    *zoom: 1;
+
+    &:before,
+    &:after {
+      content: " ";
+      display: table;
+    }
+
+    &:after {
+      clear: both;
+    }
+  }
+  .vertical-timeline-container {
+    @include clearfix();
+    .vertical-timeline-timeline {
+      margin: 20px auto 30px auto;
+      display: none;
+    }
+    .clearfix {
+      @include clearfix();
+    }
+    .loading {
+      text-align: center;
+      font-size: 2em;
+      margin: 1em;
+      color: #565656;
+    }
+    .post {
+      width: 271px;
+      margin: 0 0 10px 0;
+      float: left;
+      &.last {
+        margin-bottom: 0;
+      }
+      .inner {
+        position: relative;
+        padding: 11px;
+        border: 3px #adadad solid;
+        background-color: #fff;
+        min-height: 37px;
+        word-wrap: break-word;
+        border-color: $color_border;
+      }
+      .blue {
+        border-color: #428bca;
+        background-color: #ffffff;
+      }
+      .default {
+        border-color: #dddddd;
+        background-color: #ffffff;
+      }
+      &.right {
+        float: right;
+      }
+      .timestamp {
+        display: none;
+      }
+      h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: normal;
+        color: #010101;
+        padding-right: 30px;
+        line-height: 1.3em;
+      }
+      .body {
+        margin-top: 10px;
+      }
+      &.collapsed .body {
+        display: none;
+      }
+      &.expanded .body {
+        display: block;
+      }
+      .text {
+        color: #393939;
+        font-size: 15px;
+        margin: 10px 0;
+        line-height: 1.5;
+      }
+      a.open-close {
+        background: transparent image-url("button-up-down-arrow.png") no-repeat;
+        height: 22px;
+        width: 22px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+      &.collapsed a.open-close {
+        background-position: left bottom;
+      }
+      .title .title-icon {
+        height: 20px;
+        width: 20px;
+        margin-right: 4px;
+        vertical-align: top;
+      }
+      &.closed .title {
+        display: table;
+        min-height: 40px;
+
+        h3 {
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
+      a.more {
+        color: #676767;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        padding: 4px 15px;
+        margin: 5px auto 0 auto;
+        border: 1px #BDBDBD solid;
+        display: block;
+        line-height: 28px;
+      }
+      a.more:hover {
+        background-color: #FAFAFA;
+      }
+      .date {
+        color: black;
+        font-size: 11px;
+        text-align: center;
+        position: absolute;
+        top: 19px;
+        display: block;
+        width: 54px;
+        height: 21px;
+        line-height: 20px;
+      }
+      &.left .date {
+        background: transparent image-url("tab-left.png") no-repeat right;
+        right: -54px;
+      }
+      &.right .date {
+        background: transparent image-url("tab-right.png") no-repeat left;
+        left: -54px;
+      }
+    }
+    .group-marker {
+      float: left;
+      width: 80px;
+      margin: 50px 0 15px 0;
+      .timestamp {
+        display: none;
+      }
+      &.top {
+        margin-top: 0;
+      }
+      .inner {
+        width: 76px;
+        height: 26px;
+        padding: 2px;
+        background-color: $color_date_back;
+      }
+      .inner2 {
+        background-color: $color_date;
+      }
+    }
+    .group {
+      text-align: center;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      height: 26px;
+      line-height: 26px;
+    }
+
+    .vertical-timeline-buttons {
+      text-align: center;
+      margin: 20px 0 10px 0;
+      div {
+        @include inline-block();
+      }
+      .expand-collapse-buttons {
+        margin-right: 20px;
+      }
+      a {
+        @include inline-block();
+        width: 126px;
+        border: 1px #adadad solid;
+        font-size: 12px;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 10px 12px;
+        background-color: #FFF;
+        color: #3b3b3b;
+        text-transform: uppercase;
+      }
+      a.active:hover,
+      a.active {
+        background-color: #f6f6f6;
+        color: #a9a9a9;
+        cursor: default;
+      }
+      a:hover {
+      }
+      a span {
+        padding-right: 15px;
+        background-position: right -20px;
+      }
+      a.active span {
+        background-position: right 4px;
+      }
+      a.expand-all span,
+      a.sort-newest span {
+        background-image: image-url("down-arrows.png");
+        background-repeat: no-repeat;
+      }
+      a.collapse-all span,
+      a.sort-oldest span {
+        background-image: image-url("up-arrows.png");
+        background-repeat: no-repeat;
+      }
+      @media (max-width: 675px) {
+        .expand-collapse-buttons,
+        .sort-buttons {
+          margin: 0 0 10px 0;
+        }
+      }
+    }
+    .line-container {
+      width: 4px;
+      text-align: center;
+      margin: 0 auto;
+      display: block;
+    }
+    .isotope .line {
+      margin: 0 auto;
+      background-color: $color_line;
+      display: block;
+      float: left;
+      height: 100%;
+      left: 298px;
+      width: 4px;
+      position: absolute;
+    }
+    .isotope-item {
+      z-index: 2;
+    }
+    .isotope-hidden.isotope-item {
+      pointer-events: none;
+      z-index: 1;
+    }
+    .vertical-timeline-container .isotope,
+    .vertical-timeline-container .isotope .isotope-item {
+    }
+    .vertical-timeline-container .isotope {
+    }
+    .vertical-timeline-container .isotope .isotope-item {
+      -webkit-transition-property: -webkit-transform, opacity;
+      -moz-transition-property: -moz-transform, opacity;
+      -ms-transition-property: -ms-transform, opacity;
+      -o-transition-property: top, left, opacity;
+      transition-property: transform, opacity;
+    }
+    .isotope.no-transition,
+    .isotope.no-transition .isotope-item,
+    .isotope .isotope-item.no-transition {
+    }
+  }
 }

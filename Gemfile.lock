@@ -21,7 +21,7 @@ GEM
       activemodel (= 4.1.6)
       activesupport (= 4.1.6)
       arel (~> 5.0.0)
-    activerecord-import (0.6.0)
+    activerecord-import (0.7.0)
       activerecord (>= 3.0)
     activesupport (4.1.6)
       i18n (~> 0.6, >= 0.6.9)
@@ -42,7 +42,6 @@ GEM
       mime-types (>= 1.16)
     celluloid (0.16.0)
       timers (~> 4.0.0)
-    chunky_png (1.3.3)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -51,12 +50,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-    compass (0.12.7)
-      chunky_png (~> 1.2)
-      fssm (>= 0.2.7)
-      sass (~> 3.2.19)
-    compass-rails (2.0.0)
-      compass (>= 0.12.2)
     erubis (2.7.0)
     excon (0.42.1)
     execjs (2.2.2)
@@ -91,7 +84,6 @@ GEM
       fog-core
       fog-json
     formatador (0.2.5)
-    fssm (0.2.10)
     guard (2.10.4)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -104,7 +96,7 @@ GEM
       minitest (>= 3.0)
     hike (1.2.3)
     hitimes (1.2.2)
-    i18n (0.6.11)
+    i18n (0.7.0)
     inflecto (0.0.2)
     ipaddress (0.8.0)
     json (1.8.1)
@@ -114,7 +106,7 @@ GEM
     kgio (2.9.2)
     latex-decode (0.1.1)
       unicode (~> 0.4)
-    listen (2.8.3)
+    listen (2.8.4)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -182,19 +174,20 @@ GEM
     rdoc (4.2.0)
       json (~> 1.4)
     redcarpet (3.2.2)
-    ruby-progressbar (1.7.0)
-    sass (3.2.19)
-    sass-rails (4.0.3)
+    ruby-progressbar (1.7.1)
+    sass (3.4.9)
+    sass-rails (5.0.0)
       railties (>= 4.0.0, < 5.0)
-      sass (~> 3.2.0)
-      sprockets (~> 2.8, <= 2.11.0)
-      sprockets-rails (~> 2.0)
+      sass (~> 3.1)
+      sprockets (>= 2.8, < 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
+      tilt (~> 1.1)
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
     slop (3.6.0)
     spring (1.1.3)
-    sprockets (2.11.0)
+    sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -229,7 +222,6 @@ DEPENDENCIES
   bibtex-ruby
   carrierwave (= 0.10.0)
   coffee-rails
-  compass-rails
   faker (= 1.4.2)
   faraday
   faraday_middleware
@@ -246,7 +238,7 @@ DEPENDENCIES
   rails (= 4.1.6)
   rails_12factor (= 0.0.2)
   redcarpet
-  sass-rails (= 4.0.3)
+  sass-rails
   sdoc (= 0.4.0)
   spring (= 1.1.3)
   uglifier

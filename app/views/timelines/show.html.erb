@@ -1,9 +1,5 @@
 <% provide(:title, @timeline.name) %>
 
-<% content_for :timeline do %>
-    <%= stylesheet_link_tag 'timeline', media: 'all' %>
-<% end %>
-
 <div class="row">
   <% if logged_in? %>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
@@ -75,7 +71,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" id="my-timeline">
     <div class="timeline-jquery-controverse">
     </div>
 </div>

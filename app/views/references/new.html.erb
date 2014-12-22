@@ -14,7 +14,6 @@
     <%= form_for(@reference) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
-
         <%= f.hidden_field :timeline_id, value: session[:timeline_id] %>
         <%= f.label "DOI" %>
         <div class="input-group">
@@ -24,10 +23,8 @@
             <%= f.text_field :doi, class: 'form-control' %>
         </div>
         <br/>
-
         <%= f.label "Lien vers la publication" %>
         <%= f.text_field :url, class: 'form-control' %>
-
         <%= f.label "Journal en Open-Access" %>
         <div class="btn-group-justified" data-toggle="buttons">
           <label class="btn btn-default active" title="Journal en Open-Access">
@@ -42,7 +39,6 @@
           </label>
         </div>
         <br/>
-
         <%= f.label "Titre original" %>
         <div class="input-group">
           <span class="input-group-btn">
