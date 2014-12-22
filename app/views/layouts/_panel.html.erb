@@ -23,7 +23,7 @@
                       timeline_path(session[:timeline_id]) %>
           <%= form_for :reference, url: references_path do |f| %>
             <%= f.text_field :title, placeholder: "Titre ou doi", class: 'form-control' %>
-            <%= f.submit "Ajouter une référence", name: "panel_button",
+            <%= f.submit "Ajouter une référence", name: "title",
                            class: "btn btn-block btn-primary" %>
           <% end %>
         </li>

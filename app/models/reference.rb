@@ -19,8 +19,8 @@ class Reference < ActiveRecord::Base
 
   attr_writer :current_step
 
-  validates_presence_of :title, :title_fr, :author, :year, :doi, :url, :journal, :if => lambda { |o| o.current_step == "metadata" }
-  validates_uniqueness_of :timeline_id, :scope => [:doi], :if => lambda { |o| o.current_step == "metadata" }
+  validates_presence_of :title, :title_fr, :author, :year, :doi, :url, :journal
+  validates_uniqueness_of :timeline_id, :scope => [:doi]
 
   def user_name
     User.select( :name ).find( self.user_id ).name
@@ -28,37 +28,6 @@ class Reference < ActiveRecord::Base
 
   def timeline_name
     Timeline.select( :name ).find( self.timeline_id ).name
-  end
-
-  def current_step
-    @current_step || steps.first
-  end
-
-  def steps
-    %w[doi_name metadata confirmation]
-  end
-
-  def next_step
-    self.current_step = steps[steps.index(current_step)+1]
-  end
-
-  def previous_step
-    self.current_step = steps[steps.index(current_step)-1]
-  end
-
-  def first_step?
-    current_step == steps.first
-  end
-
-  def last_step?
-    current_step == steps.last
-  end
-
-  def all_valid?
-    steps.all? do |step|
-      self.current_step = step
-      valid?
-    end
   end
 
   def create_notifications

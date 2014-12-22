@@ -6,58 +6,38 @@ class ReferencesController < ApplicationController
     if params[:timeline_id]
       session[:timeline_id] = params[:timeline_id]
     end
-    session[:reference_params] ||= {user_id: current_user.id, timeline_id: session[:timeline_id]}
-    @reference = Reference.new(session[:reference_params])
-    @reference.current_step = session[:reference_step]
+    @reference = Reference.new
   end
 
   def create
     session[:reference_id] = nil
-    if params[:stop_button]
-      session[:reference_step] = session[:reference_params] = nil
-      redirect_to root_path
-      return
-    elsif params[:panel_button]
-      session[:reference_params] = {user_id: current_user.id, timeline_id: session[:timeline_id]}
-      @reference = Reference.new(session[:reference_params])
-      @reference.current_step = session[:reference_step] = @reference.steps.first
-      query = params[:reference][:title]
-    else
-      session[:reference_params].deep_merge!(params[:reference]) if params[:reference]
-      @reference = Reference.new(session[:reference_params])
-      @reference.current_step = session[:reference_step]
-      query = @reference.title
-    end
-    if params[:back_button]
-      @reference.previous_step
-    elsif @reference.valid?
-      if @reference.first_step?
-        unless query.empty?
-          begin
-          @reference = fetch_reference( query )
-          rescue ArgumentError
-            flash.now[:danger] = "Votre requête avec n'a rien donné de concluant, vous allez devoir tout rentrer à la main :-("
-          rescue ConnectionError
-            flash.now[:danger] = "Impossible de se connecter aux serveurs qui délivrent les metadonnées"
-          rescue StandardError
-            flash.now[:danger] = "Une erreur que nous ne savons pas gérer est survenue inopinément !"
-          end
-        end
-        @reference.next_step
-      elsif @reference.last_step?
-        #if not one reference with the same DOI
-        @reference.save if @reference.all_valid?
+    @reference = Reference.new( reference_params )
+    @reference.user_id = current_user.id
+    if params[:title] || params[:doi]
+      if params[:title]
+        query = params[:reference][:title]
       else
-        @reference.next_step
+        query = params[:reference][:doi]
       end
-    end
-    session[:reference_step] = @reference.current_step
-    if @reference.new_record?
+      unless query.empty?
+        begin
+          @reference = fetch_reference( query )
+        rescue ArgumentError
+          flash.now[:danger] = "Votre requête avec n'a rien donné de concluant, vous allez devoir tout rentrer à la main :-("
+        rescue ConnectionError
+          flash.now[:danger] = "Impossible de se connecter aux serveurs qui délivrent les metadonnées"
+        rescue StandardError
+          flash.now[:danger] = "Une erreur que nous ne savons pas gérer est survenue inopinément !"
+        end
+      end
       render 'new'
     else
-      session[:reference_step] = session[:reference_params] = nil
-      flash[:success] = "Référence crée"
-      redirect_to @reference
+      if @reference.save
+        flash[:success] = "Référence créé"
+        redirect_to @reference
+      else
+        render 'new'
+      end
     end
   end
 
@@ -132,7 +112,8 @@ class ReferencesController < ApplicationController
   private
 
   def reference_params
-    params.require(:reference).permit(:title, :title_fr, :author, :year, :doi, :journal, :abstract)
+    params.require(:reference).permit(:title, :title_fr, :timeline_id,
+                                      :open_access, :url, :author, :year, :doi, :journal, :abstract)
   end
 
 end
