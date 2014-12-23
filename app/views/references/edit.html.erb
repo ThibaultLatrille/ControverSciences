@@ -1,0 +1,69 @@
+<% provide(:title, "Nouvelle réfèrence") %>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+        <%= render 'layouts/panel' %>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3> Ajouter une réfèrence à la controverse <%= link_to Timeline.find(session[:timeline_id]).name,
+                    Timeline.find(session[:timeline_id]) %></h3>
+            </div>
+            <div class="panel-body">
+                <%= form_for(@reference) do |f| %>
+                <%= render 'shared/error_messages', object: f.object %>
+
+                <%= f.hidden_field :timeline_id, value: session[:timeline_id] %>
+                <%= f.label "DOI" %>
+                <%= f.text_field :doi, class: 'form-control' %>
+                <br/>
+                <%= f.label "Lien vers la publication" %>
+                <%= f.text_field :url, class: 'form-control' %>
+                <%= f.label "Journal en Open-Access" %>
+                <div class="btn-group-justified" data-toggle="buttons">
+                    <label class="btn btn-default active" title="Journal en Open-Access">
+                        <%= f.radio_button :open_access, checked_value = true,
+                        {id: "0", autocomplete: "off"} %>
+                        <%= image_tag("icons/myicon-lock.svg", height: "24px")%>
+                    </label>
+                    <label class="btn btn-default" title="Journal sous Pay-Wall">
+                        <%= f.radio_button :open_access, checked_value = false,
+                        {id: "1", autocomplete: "off"} %>
+                        <%= image_tag("icons/myicon-locked.svg", height: "24px")%>
+                    </label>
+                </div>
+                <br/>
+                <%= f.label "Titre original" %>
+                <%= f.text_area :title, {:rows => 2,
+                :class => "form-control"} %>
+                <br/>
+                <%= f.label "Titre en Français" %>
+                <%= f.text_area :title_fr, {:rows => 2,
+                :class => "form-control"} %>
+                <br/>
+                <%= f.label "Journal" %>
+                <%= f.text_field :journal, class: 'form-control' %>
+                <br/>
+                <%= f.label "Date de publication" %>
+                <%= f.select :year, (1870..Date.current.year), {:include_blank => true}, { class: 'form-control'} %>
+                <br/>
+                <%= f.label "Les auteurs de l'étude" %>
+                <%= f.text_field :author, class: 'form-control' %>
+                <br/>
+                <%= f.label "Abstract (Facultatif)" %>
+                <%= f.text_area :abstract, {:rows => 2,
+                :class => "form-control"} %>
+                <br/>
+                <%= f.submit "Modifier la référence", class: "btn btn-primary" %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('textarea').autosize();
+    });
+</script>

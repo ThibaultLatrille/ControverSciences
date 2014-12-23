@@ -12,6 +12,7 @@ class ReferencesController < ApplicationController
   def create
     session[:reference_id] = nil
     @reference = Reference.new( reference_params )
+    session[:timeline_id] = @reference.timeline_id
     @reference.user_id = current_user.id
     if params[:title] || params[:doi]
       if params[:title]
@@ -38,6 +39,28 @@ class ReferencesController < ApplicationController
       else
         render 'new'
       end
+    end
+  end
+
+  def edit
+    session[:reference_id] = params[:id]
+    @reference = Reference.find( params[:id] )
+    session[:timeline_id] = @reference.timeline_id
+  end
+
+  def update
+    session[:reference_id] = params[:id]
+    @reference = Reference.find( params[:id] )
+    session[:timeline_id] = @reference.timeline_id
+    if @reference.user_id == current_user.id
+      if @reference.update( reference_params )
+        flash[:success] = "Référence modifié"
+        redirect_to @reference
+      else
+        render 'edit'
+      end
+    else
+      redirect_to @reference
     end
   end
 

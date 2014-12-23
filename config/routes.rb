@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :destroy]
-  resources :references, only: [:new, :create, :show, :destroy]
+  resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :comments,          only: [:show, :new, :create, :destroy]
   resources :comment_drafts, only: [:destroy]
   resources :votes,          only: [:new ,:create, :destroy]

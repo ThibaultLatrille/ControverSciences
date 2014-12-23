@@ -25,6 +25,7 @@
         <br/>
         <%= f.label "Lien vers la publication" %>
         <%= f.text_field :url, class: 'form-control' %>
+            <br/>
         <%= f.label "Journal en Open-Access" %>
         <div class="btn-group-justified" data-toggle="buttons">
           <label class="btn btn-default active" title="Journal en Open-Access">
@@ -51,19 +52,20 @@
         <%= f.label "Titre en Français" %>
         <%= f.text_area :title_fr, {:rows => 2,
                                     :class => "form-control"} %>
-
+            <br/>
         <%= f.label "Journal" %>
         <%= f.text_field :journal, class: 'form-control' %>
-
+            <br/>
         <%= f.label "Date de publication" %>
         <%= f.select :year, (1870..Date.current.year), {:include_blank => true}, { class: 'form-control'} %>
-
+            <br/>
         <%= f.label "Les auteurs de l'étude" %>
         <%= f.text_field :author, class: 'form-control' %>
-
+            <br/>
         <%= f.label "Abstract (Facultatif)" %>
         <%= f.text_area :abstract, {:rows => 2,
                                     :class => "form-control"} %>
+            <br/>
         <%= f.submit "Ajouter la référence", class: "btn btn-primary" %>
     <% end %>
       </div>
