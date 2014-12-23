@@ -4,7 +4,6 @@ class CreateNotificationSelections < ActiveRecord::Migration
       t.references :user, index: true
       t.integer :new_comment_id
       t.integer :old_comment_id
-      t.boolean :read, default: false
 
       t.timestamps
     end

@@ -8,6 +8,19 @@ class User < ActiveRecord::Base
   has_many :credits, dependent: :destroy
   has_many :timeline_contributors, dependent: :destroy
   has_many :reference_contributors, dependent: :destroy
+  has_many :notification_timelines, dependent: :destroy
+  has_many :notification_references, dependent: :destroy
+  has_many :notification_selections, dependent: :destroy
+  has_many :notification_comments, dependent: :destroy
+  has_many :notification_selection_losses, dependent: :destroy
+  has_many :notification_selection_wins, dependent: :destroy
+  has_many :notification_summaries, dependent: :destroy
+  has_many :notification_summary_selections, dependent: :destroy
+  has_many :notification_summary_selection_losses, dependent: :destroy
+  has_many :notification_summary_selection_wins, dependent: :destroy
+  has_many :visite_references, dependent: :destroy
+  has_many :visite_timelines, dependent: :destroy
+
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -97,6 +110,10 @@ class User < ActiveRecord::Base
     NotificationTimeline.where( user_id: self.id ).count
   end
 
+  def notifications_summary
+    NotificationSummary.where( user_id: self.id ).count
+  end
+
   def notifications_reference
     NotificationReference.where( user_id: self.id ).count
   end
@@ -107,6 +124,10 @@ class User < ActiveRecord::Base
 
   def notifications_selection
     NotificationSelection.where( user_id: self.id ).count
+  end
+
+  def notifications_summary_selection
+    NotificationSummarySelection.where( user_id: self.id ).count
   end
 
   def notifications_win

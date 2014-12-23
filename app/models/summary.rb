@@ -112,15 +112,30 @@ class Summary < ActiveRecord::Base
 
   def selection_update( best_summary = nil )
     if best_summary
+      old_summary_id = best_summary.summary_id
+      NotificationSummarySelectionLoss.create( user_id: best_summary.user_id,
+                                        summary_id: best_summary.summary_id)
       Summary.update( best_summary.summary_id, best: false )
       best_summary.update_attributes( user_id: self.user_id, summary_id: self.id )
+      NotificationSummarySelectionWin.create( user_id: self.user_id, summary_id: self.id )
+      self.selection_notifications( old_summary_id )
     else
       SummaryBest.create( user_id: self.user_id,
                           summary_id: self.id, timeline_id: self.timeline_id)
     end
     self.update_attributes( best: true)
   end
-  
+
+  def selection_notifications( old_summary_id )
+    user_ids = FollowingSummary.where( timeline_id: self.timeline_id ).pluck(:user_id )
+    notifications = []
+    user_ids.each do |user_id|
+      notifications << NotificationSummarySelection.new( user_id: user_id, old_summary_id: old_summary_id,
+                                                  new_summary_id: self.id)
+    end
+    NotificationSummarySelection.import notifications
+  end
+
   def create_notifications
     user_ids = FollowingSummary.where( timeline_id: self.id ).pluck( :user_id )
     notifications = []

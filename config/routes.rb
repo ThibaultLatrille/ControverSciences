@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get 'notifications/comment'
   get 'notifications/summary'
   get 'notifications/selection'
+  get 'notifications/summary_selection'
 
   get 'my_items/timelines'
   get 'my_items/references'

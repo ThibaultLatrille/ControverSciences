@@ -87,7 +87,7 @@ def seed_following_new_timelines(users, tags)
   following_new_timelines = []
   users.each do |user|
     s = tags.length
-    tag_ids = Array(1..s).sample(rand(s+1))
+    tag_ids = Array(1..s).sample(1+rand(s/3))
     tag_ids.each do |tag_id|
       following_new_timelines << FollowingNewTimeline.new( user_id: user.id, tag_id: tag_id )
     end
@@ -101,7 +101,7 @@ end
 def seed_following_timelines(users, timelines)
   following_timelines = []
   users.each do |user|
-    user_timelines = timelines.sample(1+rand(timelines.length-1))
+    user_timelines = timelines.sample(1+rand(timelines.length/3))
     user_timelines.each do |timeline|
       following_timelines << FollowingTimeline.new( user_id: user.id, timeline_id: timeline.id )
     end
@@ -110,6 +110,21 @@ def seed_following_timelines(users, timelines)
     f.save!
   end
   following_timelines
+end
+
+
+def seed_following_summaries(users, timelines)
+  following_summaries = []
+  users.each do |user|
+    user_timelines = timelines.sample(1+rand(timelines.length/4))
+    user_timelines.each do |timeline|
+      following_summaries << FollowingSummary.new( user_id: user.id, timeline_id: timeline.id )
+    end
+  end
+  following_summaries.map do |f|
+    f.save!
+  end
+  following_summaries
 end
 
 def seed_references(users, timelines)
@@ -138,10 +153,11 @@ def seed_references(users, timelines)
   references
 end
 
-def seed_following_references(users, references)
+def seed_following_references(users, timelines)
+  references = timelines[0].references
   following_references = []
   users.each do |user|
-    user_references = references.sample(1+rand(references.length-1))
+    user_references = references.sample(1+rand(references.length/2))
     user_references.each do |reference|
       following_references << FollowingReference.new( user_id: user.id, reference_id: reference.id )
     end
@@ -191,6 +207,12 @@ def seed_credits(users, summaries)
               summary_id: summary.id,
               timeline_id:  summary.timeline_id,
               value: value)
+          visit = VisiteTimeline.find_by( user_id: user.id, timeline_id: summary.timeline_id )
+          if visit
+            visit.update( updated_at: Time.zone.now )
+          else
+            VisiteTimeline.create( user_id: user.id, timeline_id: summary.timeline_id )
+          end
         end
       end
     end
@@ -260,6 +282,12 @@ def seed_votes(users, comments)
               timeline_id:  comment.timeline_id,
               reference_id: comment.reference_id,
               value: value)
+          visit = VisiteReference.find_by( user_id: user.id, reference_id: comment.reference_id )
+          if visit
+            visit.update( updated_at: Time.zone.now )
+          else
+            VisiteReference.create( user_id: user.id, reference_id: comment.reference_id )
+          end
         end
       end
     end
@@ -270,7 +298,9 @@ def seed_votes(users, comments)
   votes
 end
 
-def seed_ratings(users, references)
+def seed_ratings(users, timelines)
+  timeline = timelines[0]
+  references = timeline.references
   ratings = []
   references.each do |ref|
     voters = users.sample(1+rand(users.length-1))
@@ -289,35 +319,17 @@ def seed_ratings(users, references)
   ratings
 end
 
-def seed_visites(users, references, timelines)
-  visites = []
-  users.each do |user|
-    timelines.each do |timeline|
-      visites << VisiteTimeline.new( user_id: user.id,
-                                      timeline_id: timeline.id )
-    end
-    references.each do |reference|
-      visites << VisiteReference.new( user_id: user.id,
-                                     reference_id: reference.id )
-    end
-  end
-  visites.map do |v|
-    v.save
-  end
-  visites
-end
-
 seed_domains
 tags = tags_hash.keys
 users = seed_users
 seed_following_new_timelines(users, tags)
 timelines = seed_timelines(users, tags)
 seed_following_timelines(users, timelines)
+seed_following_summaries(users, timelines)
 references = seed_references(users, timelines)
-seed_following_references(users, references[0..4])
+seed_following_references(users, timelines)
 summaries = seed_summaries(users, timelines)
 seed_credits(users, summaries)
 comments = seed_comments(users, timelines)
 seed_votes(users, comments)
-seed_ratings(users, references)
-seed_visites(users, references, timelines)
+seed_ratings(users, timelines)

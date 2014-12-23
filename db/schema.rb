@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141222223714) do
+ActiveRecord::Schema.define(version: 20141223112223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -240,6 +240,36 @@ ActiveRecord::Schema.define(version: 20141222223714) do
   add_index "notification_summaries", ["summary_id"], name: "index_notification_summaries_on_summary_id", using: :btree
   add_index "notification_summaries", ["user_id"], name: "index_notification_summaries_on_user_id", using: :btree
 
+  create_table "notification_summary_selection_losses", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "summary_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_summary_selection_losses", ["summary_id"], name: "index_notification_summary_selection_losses_on_summary_id", using: :btree
+  add_index "notification_summary_selection_losses", ["user_id"], name: "index_notification_summary_selection_losses_on_user_id", using: :btree
+
+  create_table "notification_summary_selection_wins", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "summary_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_summary_selection_wins", ["summary_id"], name: "index_notification_summary_selection_wins_on_summary_id", using: :btree
+  add_index "notification_summary_selection_wins", ["user_id"], name: "index_notification_summary_selection_wins_on_user_id", using: :btree
+
+  create_table "notification_summary_selections", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "old_summary_id"
+    t.integer  "new_summary_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_summary_selections", ["user_id"], name: "index_notification_summary_selections_on_user_id", using: :btree
+
   create_table "notification_timelines", force: true do |t|
     t.integer  "user_id"
     t.integer  "timeline_id"
@@ -463,6 +493,7 @@ ActiveRecord::Schema.define(version: 20141222223714) do
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
+    t.integer  "important"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

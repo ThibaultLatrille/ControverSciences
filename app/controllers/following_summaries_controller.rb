@@ -7,7 +7,7 @@ class FollowingSummariesController < ApplicationController
     if follow.save
       flash[:success] = "Abonnement confirmé"
     else
-      flash[:danger] = "Vous suivez déjà cette référence avec attention"
+      flash[:danger] = "Vous suivez déjà les résumés de cette controverse avec attention"
     end
     redirect_to summaries_path( timeline_id: params[:timemline_id])
   end
