@@ -1,37 +1,30 @@
 module StaticPagesHelper
 
   def site_name
-    # Change the value below between the quotes.
     "ControverSciences"
   end
 
   def site_url
     if Rails.env.production?
-      # Place your production URL in the quotes below
-      "http://www.controversciences.fr"
+      "http://www.controversciences.org"
     else
-      # Our dev & test URL
       "http://localhost:3000"
     end
   end
 
   def meta_author
-    # Change the value below between the quotes.
     "Thibault Latrille"
   end
 
   def meta_description
-    # Change the value below between the quotes.
-    "Add your website description here"
+    "Portail de vulgarisation scientique déstiné à éclairer débats et controverses.
+      Animé par des scientifiques, pour tout public"
   end
 
   def meta_keywords
-    # Change the value below between the quotes.
-    "Add your keywords here"
+    "controverse scientifique débat discussion interpretation polémique"
   end
 
-  # Returns the full title on a per-page basis.
-  # No need to change any of this we set page_title and site_name elsewhere.
   def full_title(page_title)
     if page_title.empty?
       site_name

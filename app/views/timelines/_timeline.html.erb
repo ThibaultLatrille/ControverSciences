@@ -4,7 +4,7 @@
     <div class="panel-body">
       <button type="button" class="btn btn-default" data-toggle="collapse"
               data-target="#tags<%= timeline.id %>,#group<%= timeline.id %>">
-        Tags
+        Thèmes
       </button>
       <div class="pull-right">
       <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{timeline.nb_likes} </span>".html_safe,
@@ -12,8 +12,8 @@
                   method: :post, class: "btn btn-primary" %>
       </div>
       <div class="timeline-name">
-        <h2> <%= link_to timeline.name, timeline %>
-        </h2>
+        <h4> <%= link_to timeline.name, timeline %>
+        </h4>
       </div>
       <div class="collapse collapsed" id="tags<%= timeline.id %>">
         <div  class="container-fluid">

@@ -55,20 +55,31 @@ end
 def seed_timelines(users, tags)
   timelines = []
   names = []
-  names << "Les OGMs sont-ils nocifs pour la santé ?"
-  names << "Les crevettes sont elles conscientes"
-  names << "Les ondes des portables vont-elles nous griller le cerveau ?"
+  names << "Lorem Lipsum"
+  names << "Les OGMs ont ils un effet sur la santé humaine ?"
+  names << "Faut il enlever les quotas laitiers ?"
+  names << "les pillules de 3eme génération, un danger ? "
+  names << "Les ondes des portables ont-elles un impact sur notre corps ?"
   names << "Les animaux peuvent-ils être homosexuels ?"
-  names << "Les poissons de Fukushima sont-ils fluorescent ?"
   names << "Les poules ont elles des dents ?"
-  names << "Sommes nous descendant de Néanderthal ? "
-  names << "Le nuage de Tchernobyl s'est il arreté à la frontière "
-  names << "La masturbation rend elle sourd ?"
-  names << "Les coraux vont-ils disparaîtrent ?"
-  names << "Le THC rend il stupide et con ?"
-  names << "La café est il mauvais pour la santé ?"
-  names << "Le LHC va-t-il créer un trou noir ?"
-  names << "Yellowstone va-t-il bientôt sauter ?"
+  names << "La production de cacao va-t-elle répondre à la demande de chocolat"
+  names << "Sommes nous des descendants de Néanderthal ? "
+  names << "Le THC entraîne-t-il des changements neurologiques irréversibles?"
+  names << "Le café est-il bénéfique pour la santé ?"
+  names << "Viande rouge ou viande blanche, l'impact sur la santé ?"
+  names << "Existe-t-il des planétes viables"
+  names << "L'homme a-t-il engendré des seismes"
+  names << "L'homéopathie est elle efficace"
+  names << "Faut-il craindre les vaccins et leurs effets secondaires ?"
+  names << "Les abeilles vont-elles disparaitrent ?"
+  names << "Replantons nous plus d'arbre que l'on en coupe"
+  names << "Quotient intellectuel, quel part de génétique ?"
+  names << "Les vaches détectent-elles le champ magnétique terrestre ?"
+  names << "Le vaccin de l'hépatite B a-t-il un lien avec la sclérose en plaque"
+  names << "Les jeux vidéo rendent ils violents ?"
+  names << "Théorie du genre ?"
+  names << "Quelles conséquences de l'accident Tchernobyl ?"
+  names << "Existe-t-il un point G ?"
   names.each do |name|
       timeline = Timeline.new(
       user: users[rand(users.length)],
@@ -172,14 +183,14 @@ def seed_summaries(users, timelines)
   summaries = []
   timeline = timelines[0]
   timeline_url = "0.0.0.0:3000/timelines/"+timeline.id.to_s
-  contributors = users[1..-1].sample(1+rand(users.length/2-1))
+  contributors = users[1..-1].sample(1+rand(users.length/2))
   references = timeline.references
   reference_ids = references.map{ |ref| ref.id }
   contributors << users[0]
   contributors.each do |user|
-    content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
-        reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
-    "\n"+Faker::Lorem.sentence(rand(12))
+    content = Faker::Lorem.sentence(rand(60))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+        reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))+
+    "\n"+Faker::Lorem.sentence(rand(120))
     summary = Summary.new(
         user: user,
         timeline:  timeline,
@@ -233,21 +244,21 @@ def seed_comments(users, timelines)
     contributors = users[1..-1].sample(1+rand(users.length/2-1))
     contributors << users[0]
     contributors.each do |user|
-      f_1_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+      f_1_content = Faker::Lorem.sentence(rand(16))+"["+Faker::Lorem.sentence(rand(2))+"]("+
           reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
-          "\n"+Faker::Lorem.sentence(rand(12))
-      f_2_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
-          reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
-      "\n"+Faker::Lorem.sentence(rand(12))
-      f_3_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+          "\n"+Faker::Lorem.sentence(rand(20))
+      f_2_content = Faker::Lorem.sentence(rand(26))+"["+Faker::Lorem.sentence(rand(2))+"]("+
           reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
       "\n"+Faker::Lorem.sentence(rand(12))
-      f_4_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+      f_3_content = Faker::Lorem.sentence(rand(25))+"["+Faker::Lorem.sentence(rand(2))+"]("+
           reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
-      "\n"+Faker::Lorem.sentence(rand(12))
+      "\n"+Faker::Lorem.sentence(rand(36))
+      f_4_content = Faker::Lorem.sentence(rand(85))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+          reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
+      "\n"+Faker::Lorem.sentence(rand(42))
       f_5_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
           reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
-      "\n"+Faker::Lorem.sentence(rand(12))
+      "\n"+Faker::Lorem.sentence(rand(30))
       comment = Comment.new(
           user: user,
           timeline:  timeline,

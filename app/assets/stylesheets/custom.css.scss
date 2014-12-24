@@ -14,7 +14,7 @@ body {
   padding-top: 80px;
   padding-bottom: 60px;
   font-family: 'Lobster';
-  background-color: $nav_back_bottom;
+  background-color: #F5FAFA;
 }
 
 .img-responsive {
@@ -161,6 +161,13 @@ h3 {
   letter-spacing: -1px;
   text-align: left;
   font-weight: normal;
+}
+h4 {
+  font-size: 1.5em;
+  letter-spacing: -1px;
+  text-align: center;
+  font-weight: normal;
+  margin-bottom: -5px;
 }
 p {
   font-size: 1.1em;
