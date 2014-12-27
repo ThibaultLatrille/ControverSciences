@@ -4,9 +4,8 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h1>Qui êtes vous ?</h1>
-        <%= link_to "Un inconnu sur se site qui souhaite contribuer au projet et créer un compte, c\'est par ici", signup_path, class: "btn btn-block btn-primary" %>
-      </div>
+        <h3> S'identifier </h3>
+        </div>
       <div class="panel-body">
         <%= form_for(:session, url: sessions_path) do |f| %>
 
@@ -22,9 +21,19 @@
         <span>Se souvenir de moi lors des visites suivantes </span>
       <% end %>
 
-      <%= f.submit "Se connecter", class: "btn btn-primary" %>
+            <div class="pull-right">
+      <%= f.submit "Se connecter", class: "btn btn-lg btn-primary" %>
+            </div>
     <% end %>
      <br/>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3> Je n'ai pas encore de compte mais j'ai une furieuse envie de montrer mes arguments </h3>
+      </div>
+      <div class="panel-body">
+        <%= link_to "C\'est donc par ici", signup_path, class: "btn btn-lg btn-block btn-primary" %>
       </div>
     </div>
   </div>
