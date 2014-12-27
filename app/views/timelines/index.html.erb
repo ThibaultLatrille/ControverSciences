@@ -71,9 +71,9 @@
 <div id="timelines">
   <div class="row page">
   <%= render @timelines %>
-<%= paginate @timelines %>
   </div>
 </div>
+  <%= paginate @timelines %>
 </div>
 
 <% if logged_in? %>
