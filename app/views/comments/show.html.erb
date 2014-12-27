@@ -1,7 +1,11 @@
 <div class="row">
 
 <div class="col-xs-12 col-md-4 col-lg-2">
-  <%= render 'layouts/panel' %>
+  <%= link_to "Revenir à la controverse",
+  timeline_path(@comment.reference_id), class: "btn btn-block btn-primary", style: "white-space: normal" %>
+  <%= link_to "Revenir à la référence",
+              reference_path(@comment.timeline_id), class: "btn btn-block btn-primary", style: "white-space: normal" %>
+
 </div>
 
 <div class="col-xs-12 col-md-8 col-lg-10">

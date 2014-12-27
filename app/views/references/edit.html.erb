@@ -2,19 +2,20 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-        <%= render 'layouts/panel' %>
+      <%= link_to "Revenir à la controverse",
+                  timeline_path(@reference.timeline_id), class: "btn btn-block btn-primary" %>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3> Ajouter une réfèrence à la controverse <%= link_to Timeline.find(session[:timeline_id]).name,
-                    Timeline.find(session[:timeline_id]) %></h3>
+                <h3> Editer une réfèrence appartenant à la controverse <%= link_to Timeline.find(@reference.timeline_id).name,
+                    Timeline.find(@reference.timeline_id) %></h3>
             </div>
             <div class="panel-body">
                 <%= form_for(@reference) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
-                <%= f.hidden_field :timeline_id, value: session[:timeline_id] %>
+                <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                 <%= f.label "DOI" %>
                 <%= f.text_field :doi, class: 'form-control' %>
                 <br/>
@@ -61,9 +62,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('textarea').autosize();
-    });
-</script>

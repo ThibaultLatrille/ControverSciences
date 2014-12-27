@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root             'static_pages#home'
   get 'help'    => 'static_pages#help'
+  get 'faq'    => 'static_pages#faq'
   get 'about'   => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
   get 'signup' => 'users#new'
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
   get 'notifications/index'
   get 'notifications/important'
   get 'notifications/delete_all'
+  get 'notifications/delete_selection_all'
   post 'notifications/delete'
   get 'notifications/timeline'
   get 'notifications/reference'
@@ -39,6 +41,10 @@ Rails.application.routes.draw do
   get 'notifications/summary'
   get 'notifications/selection'
   get 'notifications/summary_selection'
+  get 'notifications/selection_win'
+  get 'notifications/summary_selection_win'
+  get 'notifications/selection_loss'
+  get 'notifications/summary_selection_loss'
 
   get 'my_items/timelines'
   get 'my_items/references'

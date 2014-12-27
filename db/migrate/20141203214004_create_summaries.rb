@@ -5,7 +5,7 @@ class CreateSummaries < ActiveRecord::Migration
       t.references :timeline, index: true
       t.integer :balance
       t.float :score
-      t.boolean :best
+      t.boolean :best, default: false
       t.text :content
       t.text :markdown
 

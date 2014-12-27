@@ -1,15 +1,23 @@
 <div class="row">
+
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+<%= link_to "Revenir à la controverse",
+            timeline_path( params[:timeline_id]), class: "btn btn-block btn-primary" %>
 <% if logged_in? %>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-      <%= render 'layouts/panel' %>
-    </div>
-<% else %>
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-      <%= link_to "Revenir à la controverse",
-                  timeline_path( params[:timeline_id]), class: "btn btn-primary", style: "white-space: normal" %>
-    </div>
+    <br/>
+    <div class="panel panel-default">
+      <div class="panel-body page">
+    <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%> Il vous reste
+  <%=12 - Credit.where( user_id: current_user.id, timeline_id: params[:timeline_id] ).sum( :value ) %>
+  crédits à dispenser aux résumés de cette controverse
+  <%= link_to "Récupérer tous les crédits", credit_path( id: 'all', timeline_id: params[:timeline_id] ), method: :delete,
+              class: "btn btn-block btn-primary" %>
+  </div>
+  </div>
 <% end %>
-  <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-1">
+</div>
+
+<div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-1">
 <div class="clearfix">
   <% if logged_in? %>
       <div class="btn-group">
@@ -29,11 +37,6 @@
             </span> Mes analyses".html_safe,
                     summaries_path( timeline_id: params[:timeline_id], :filter => 'mine'),
                     class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
-      </div>
-      <div class="pull-right">
-        <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Ecrire un résumé".html_safe,
-                    new_summary_path( timeline_id:params[:timeline_id]  ), class: "btn btn-primary" %>
       </div>
   <% else %>
       <div class="btn-group">
@@ -74,22 +77,40 @@
   </br>
 </div>
 <div id="comments" class="panel panel-default">
-  <div class="panel-body page">
+  <div class="panel-body">
     <% if @summaries.any? %>
+        <div class="page">
         <%= render @summaries, credit: logged_in? && params[:filter] != 'mine' ? true : false %>
         <%= paginate @summaries, :params => {:seed => @seed } %>
+        </div>
+        <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Ecrire un résumé".html_safe,
+                    new_summary_path( timeline_id: params[:timeline_id]  ), class: "btn btn-primary" %>
+
     <% elsif params[:filter] == "my-vote" %>
         Vous n'avez pas donné de crédits
     <% elsif params[:filter] == "mine" %>
         <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Vous n'avez pas encore écrit d'analyse ".html_safe,
-                    new_summary_path %>
+                    new_summary_path( timeline_id: params[:timeline_id]  ) %>
     <% else %>
         <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Il n'y a pas d'analyse, soyez le premier ! ".html_safe,
-                    new_summary_path %>
+                    new_summary_path( timeline_id: params[:timeline_id]  ) %>
     <% end %>
   </div>
 </div>
 </div>
+
+<% if logged_in? %>
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2 col-lg-offset-1">
+      <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+            </span> Ecrire un résumé".html_safe,
+                  new_summary_path( timeline_id:params[:timeline_id]  ), class: "btn btn-block btn-primary" %>
+      <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+            </span> Suivre les nouveaux résumés de cette controverse".html_safe,
+                  following_summaries_path( timeline_id: params[:timeline_id] ), method: :post, class: "btn btn-block btn-primary" %>
+    </div>
+<% end %>
+
 </div>

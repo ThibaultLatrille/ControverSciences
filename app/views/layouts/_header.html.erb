@@ -20,9 +20,8 @@
                  <span class="caret"></span>
                </a>
                <ul class="dropdown-menu">
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span>   Qui sommes nous'.html_safe, help_path %></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> Contribuer'.html_safe, help_path %></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> ajouter une timeline'.html_safe, help_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> Premiers pas'.html_safe, help_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> FAQ'.html_safe, faq_path %></li>
                  <li><%= link_to '<span class="glyphicon glyphicon-user"></span> Qui sont les contributeurs'.html_safe, users_path %> </li>
                </ul>
              </li>
@@ -49,11 +48,9 @@
                 <li><%= link_to "Mes brouillons",
                                 my_items_drafts_path %> </li>
                 <li class="divider"></li>
-                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_win +
-                                current_user.notifications_loss}</span> Important ".html_safe,
+                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all_important}</span> Important ".html_safe,
                                 notifications_important_path %> </li>
-                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_timeline +
-                        current_user.notifications_reference + current_user.notifications_comment}</span> Notifications ".html_safe,
+                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all }</span> Notifications ".html_safe,
                                 notifications_index_path %> </li>
                 <li><%= link_to '<span class="glyphicon glyphicon-eye-open"></span> Gérer mes abonnements'.html_safe,
                                 followings_index_path %> </li>
@@ -64,6 +61,11 @@
                 </li>
               </ul>
             </li>
+             <li>
+               <%= link_to link_to "<span class=\"glyphicon glyphicon-envelope\" >
+</span>".html_safe, '#newinvitation',
+                                   'data-toggle' => 'modal' %>
+             </li>
             <% else %>
             <li><%= link_to "S'identifier", login_path, id: "link-navbar" %></li>
             <% end %>

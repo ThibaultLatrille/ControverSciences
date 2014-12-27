@@ -130,6 +130,11 @@ class User < ActiveRecord::Base
     NotificationSummarySelection.where( user_id: self.id ).count
   end
 
+  def notifications_all
+    notifications_timeline+notifications_summary+notifications_reference+
+        notifications_comment+notifications_selection+notifications_summary_selection
+  end
+
   def notifications_win
     NotificationSelectionWin.where( user_id: self.id ).count
   end
@@ -138,6 +143,18 @@ class User < ActiveRecord::Base
     NotificationSelectionLoss.where( user_id: self.id ).count
   end
 
+  def notifications_summary_win
+    NotificationSummarySelectionWin.where( user_id: self.id ).count
+  end
+
+  def notifications_summary_loss
+    NotificationSummarySelectionLoss.where( user_id: self.id ).count
+  end
+
+  def notifications_all_important
+    notifications_win+notifications_loss+notifications_summary_win+
+        notifications_summary_loss
+  end
 
   # Creates and assigns the activation token and digest.
   def create_activation_digest

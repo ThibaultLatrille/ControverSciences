@@ -1,14 +1,7 @@
 <% provide(:title, "timelines") %>
 
 <div class="row">
-  <% if logged_in? %>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-        <%= render 'layouts/panel' %>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-  <% else %>
-      <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-  <% end %>
+<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
 
 <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" type="button"
@@ -78,9 +71,9 @@
 <div id="timelines">
   <div class="row page">
   <%= render @timelines %>
- </div>
-</div>
 <%= paginate @timelines %>
+  </div>
+</div>
 </div>
 
 <% if logged_in? %>

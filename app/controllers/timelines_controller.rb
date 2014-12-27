@@ -2,10 +2,6 @@ class TimelinesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def index
-    if logged_in?
-      session[:timeline_id] = nil
-      session[:reference_id] = nil
-    end
     if params[:tag] != 'all' && !params[:tag].nil?
       if !params[:sort].nil?
         if !params[:order].nil?
@@ -38,8 +34,6 @@ class TimelinesController < ApplicationController
   end
 
   def new
-    session[:timeline_id] = nil
-    session[:reference_id] = nil
     @timeline = Timeline.new
   end
 
@@ -65,15 +59,9 @@ class TimelinesController < ApplicationController
       @summary = nil
     end
     @references = @timeline.references
-    if logged_in?
-      session[:timeline_id] = @timeline.id
-      session[:reference_id] = nil
-    end
   end
 
   def destroy
-    session[:timeline_id] = nil
-    session[:reference_id] = nil
     timeline = Timeline.find(params[:id])
     if timeline.user_id == current_user.id
       timeline.destroy

@@ -2,17 +2,11 @@ class ReferencesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def new
-    session[:reference_id] = nil
-    if params[:timeline_id]
-      session[:timeline_id] = params[:timeline_id]
-    end
     @reference = Reference.new
   end
 
   def create
-    session[:reference_id] = nil
     @reference = Reference.new( reference_params )
-    session[:timeline_id] = @reference.timeline_id
     @reference.user_id = current_user.id
     if params[:title] || params[:doi]
       if params[:title]
@@ -31,27 +25,25 @@ class ReferencesController < ApplicationController
           flash.now[:danger] = "Une erreur que nous ne savons pas gérer est survenue inopinément !"
         end
       end
+      params[:timeline_id] = reference_params[:timeline_id]
       render 'new'
     else
       if @reference.save
         flash[:success] = "Référence créé"
         redirect_to @reference
       else
+        params[:timeline_id] = reference_params[:timeline_id]
         render 'new'
       end
     end
   end
 
   def edit
-    session[:reference_id] = params[:id]
     @reference = Reference.find( params[:id] )
-    session[:timeline_id] = @reference.timeline_id
   end
 
   def update
-    session[:reference_id] = params[:id]
     @reference = Reference.find( params[:id] )
-    session[:timeline_id] = @reference.timeline_id
     if @reference.user_id == current_user.id
       if @reference.update( reference_params )
         flash[:success] = "Référence modifié"
@@ -67,8 +59,6 @@ class ReferencesController < ApplicationController
   def show
     @reference = Reference.find(params[:id])
     if logged_in?
-      session[:reference_id] = params[:id]
-      session[:timeline_id] = @reference.timeline_id
       user_id = current_user.id
       @my_votes = Vote.where( user_id: user_id, reference_id: @reference.id).sum( :value )
       @user_rating = @reference.ratings.find_by(user_id: user_id)

@@ -56,30 +56,29 @@ def seed_timelines(users, tags)
   timelines = []
   names = []
   names << "Lorem Lipsum"
-  names << "Les OGMs ont ils un effet sur la santé humaine ?"
-  names << "Faut il enlever les quotas laitiers ?"
-  names << "les pillules de 3eme génération, un danger ? "
-  names << "Les ondes des portables ont-elles un impact sur notre corps ?"
-  names << "Les animaux peuvent-ils être homosexuels ?"
-  names << "Les poules ont elles des dents ?"
-  names << "La production de cacao va-t-elle répondre à la demande de chocolat"
-  names << "Sommes nous des descendants de Néanderthal ? "
+  names << "Quels sont les effets des OGMs sur la santé humaine ?"
+  names << "Quels conséquences des quotas laitiers ?"
+  names << "Quels dangers pour les pillules de 3eme génération ?"
+  names << "Les ondes des portables, quels dangers pour notre corps ?"
+  names << "L'homosexualité chez les animaux."
+  names << "La production de cacao peut-t-elle répondre à la demande de chocolat ?"
+  names << "Sommes nous des descendants de Néanderthal ?"
   names << "Le THC entraîne-t-il des changements neurologiques irréversibles?"
   names << "Le café est-il bénéfique pour la santé ?"
   names << "Viande rouge ou viande blanche, l'impact sur la santé ?"
-  names << "Existe-t-il des planétes viables"
-  names << "L'homme a-t-il engendré des seismes"
-  names << "L'homéopathie est elle efficace"
-  names << "Faut-il craindre les vaccins et leurs effets secondaires ?"
+  names << "L'homme peut-il habiter sur une autre planète ?"
+  names << "L'homme a-t-il engendré des seismes ?"
+  names << "L'homéopathie est-elle efficace ?"
+  names << "Les vaccins et leurs effets secondaires"
   names << "Les abeilles vont-elles disparaitrent ?"
-  names << "Replantons nous plus d'arbre que l'on en coupe"
-  names << "Quotient intellectuel, quel part de génétique ?"
+  names << "Replantons nous plus d'arbre que l'on en coupe ?"
+  names << "Quotient intellectuel, quelle part de génétique ?"
   names << "Les vaches détectent-elles le champ magnétique terrestre ?"
-  names << "Le vaccin de l'hépatite B a-t-il un lien avec la sclérose en plaque"
-  names << "Les jeux vidéo rendent ils violents ?"
-  names << "Théorie du genre ?"
-  names << "Quelles conséquences de l'accident Tchernobyl ?"
-  names << "Existe-t-il un point G ?"
+  names << "Le vaccin de l'hépatite B, un lien avec la sclérose en plaque ?"
+  names << "Les liens entre jeux vidéo et violence chez les enfants ?"
+  names << "La théorie du genre"
+  names << "Quelles conséquences a eu l'accident Tchernobyl ?"
+  names << "Le point G, mythe ou réalité ?"
   names.each do |name|
       timeline = Timeline.new(
       user: users[rand(users.length)],
@@ -96,6 +95,7 @@ end
 
 def seed_following_new_timelines(users, tags)
   following_new_timelines = []
+  users = [users[0]]
   users.each do |user|
     s = tags.length
     tag_ids = Array(1..s).sample(1+rand(s/3))
@@ -111,8 +111,10 @@ end
 
 def seed_following_timelines(users, timelines)
   following_timelines = []
+  users = [users[0]]
   users.each do |user|
     user_timelines = timelines.sample(1+rand(timelines.length/3))
+    user_timelines << timelines[0]
     user_timelines.each do |timeline|
       following_timelines << FollowingTimeline.new( user_id: user.id, timeline_id: timeline.id )
     end
@@ -126,8 +128,10 @@ end
 
 def seed_following_summaries(users, timelines)
   following_summaries = []
+  users = [users[0]]
   users.each do |user|
-    user_timelines = timelines.sample(1+rand(timelines.length/4))
+    user_timelines = timelines[1..-1].sample(1+rand(timelines.length/3))
+    user_timelines << timelines[0]
     user_timelines.each do |timeline|
       following_summaries << FollowingSummary.new( user_id: user.id, timeline_id: timeline.id )
     end
@@ -141,6 +145,7 @@ end
 def seed_references(users, timelines)
   references = []
   bibtex = BibTeX.open('./db/seeds.bib')
+  timelines = [timelines[0]]
   timelines.each do |timeline|
     array = Array((0..bibtex.length-1)).sample(5)
     array.each do |rand|
@@ -167,8 +172,9 @@ end
 def seed_following_references(users, timelines)
   references = timelines[0].references
   following_references = []
+  users = [users[0]]
   users.each do |user|
-    user_references = references.sample(1+rand(references.length/2))
+    user_references = references.sample(1+rand(references.length))
     user_references.each do |reference|
       following_references << FollowingReference.new( user_id: user.id, reference_id: reference.id )
     end
@@ -183,10 +189,10 @@ def seed_summaries(users, timelines)
   summaries = []
   timeline = timelines[0]
   timeline_url = "0.0.0.0:3000/timelines/"+timeline.id.to_s
-  contributors = users[1..-1].sample(1+rand(users.length/2))
+  contributors = [users[0]]
+  contributors += users[1..-1].sample(1+rand(users.length))
   references = timeline.references
   reference_ids = references.map{ |ref| ref.id }
-  contributors << users[0]
   contributors.each do |user|
     content = Faker::Lorem.sentence(rand(60))+"["+Faker::Lorem.sentence(rand(2))+"]("+
         reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))+

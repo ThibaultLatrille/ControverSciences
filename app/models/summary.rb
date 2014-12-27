@@ -137,7 +137,7 @@ class Summary < ActiveRecord::Base
   end
 
   def create_notifications
-    user_ids = FollowingSummary.where( timeline_id: self.id ).pluck( :user_id )
+    user_ids = FollowingSummary.where( timeline_id: self.timeline_id ).pluck( :user_id )
     notifications = []
     user_ids.each do |user_id|
       notifications << NotificationSummary.new( user_id: user_id, summary_id: self.id )
@@ -155,13 +155,13 @@ class Summary < ActiveRecord::Base
 
   def cascading_save_summary
     self.create_notifications
-    best_summary = SummaryBest.find_by(timeline_id: self.id )
+    best_summary = SummaryBest.find_by(timeline_id: self.timeline_id )
     unless best_summary
       self.selection_update
     end
     Timeline.increment_counter(:nb_edits, self.timeline_id)
-    unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.id})
-      timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.id, bool: true})
+    unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
+      timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
       timrelation.save
       Timeline.increment_counter(:nb_contributors, self.id)
     end

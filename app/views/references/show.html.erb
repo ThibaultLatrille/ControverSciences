@@ -4,7 +4,18 @@
 
 <% if logged_in? %>
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-    <%= render 'layouts/panel' %>
+    <%= link_to "Revenir à la controverse",
+                timeline_path(@reference.timeline_id), class: "btn btn-block btn-primary" %>
+    <br/>
+    <div class="panel panel-default">
+    <div class="panel-body page">
+    <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%> Il vous reste
+    <%=12 - Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value ) %>
+    crédits à dispenser aux analyses de cette référence
+    <%= link_to "Récupérer tous les crédits", vote_path( id: 'all', reference_id: @reference.id), method: :delete,
+                class: "btn btn-block btn-primary" %>
+    </div>
+    </div>
   </div>
   <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-0">
 <% else %>
@@ -69,20 +80,25 @@
     </br>
   </div>
   <div id="comments" class="panel panel-default">
-    <div class="panel-body page">
+    <div class="panel-body">
       <% if @comments.any? %>
+          <div class="page">
           <%= render @comments, vote: logged_in? && params[:filter] != 'mine' ? true : false %>
           <%= paginate @comments, :params => {:seed => @seed } %>
+          </div>
+          <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Ecrire une analyse".html_safe,
+                      new_comment_path(reference_id: @reference.id ), class: "btn btn-primary" %>
       <% elsif params[:filter] == "my-vote" %>
           Vous n'avez pas encore voté
       <% elsif params[:filter] == "mine" %>
           <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Vous n'avez pas encore écrit d'analyse ".html_safe,
-                      new_comment_path %>
+                      new_comment_path(reference_id: @reference.id ) %>
       <% else %>
           <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Il n'y a pas d'analyse, soyez le premier ! ".html_safe,
-                      new_comment_path %>
+                      new_comment_path(reference_id: @reference.id ) %>
       <% end %>
     </div>
   </div>
@@ -97,7 +113,7 @@
                     method: :post, class: "btn btn-primary" %>
           <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Ecrire une analyse".html_safe,
-                      new_comment_path, class: "btn btn-primary" %>
+                      new_comment_path(reference_id: @reference.id ), class: "btn btn-primary" %>
         <div>
           </br>
         </div>

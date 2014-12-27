@@ -3,7 +3,7 @@ class InvitationsController < ApplicationController
     UserMailer.invitation({user_from: current_user,
                           to: invitation_params[:email],
                           message: invitation_params[:message],
-                          path: timeline_url(session[:timeline_id])}).deliver
+                          path: timeline_url(invitation_params[:message])}).deliver
     render 'invitation/success'
   end
 

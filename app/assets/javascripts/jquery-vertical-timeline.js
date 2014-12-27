@@ -91,9 +91,11 @@
             <% } %> \
             <\/div> \
              <div class="clearfix"> \
-              <% if (data.read_more_url) { %> \
+                <div class="pull-right"> \
+                    Par <%= data.user_name %> \
+                <\/div> \
+                <br\/> \
                 <a class="more" href="<%= data.read_more_url %>"> En savoir plus sur cet article<\/a> \
-              <% } %> \
             <\/div> \
           <\/div> \
           <a href="#" id="ref-btn-<%= data.id %>" class="open-close"></a> \

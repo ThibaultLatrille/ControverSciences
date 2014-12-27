@@ -3,10 +3,6 @@ module SessionsHelper
   # Logs in the given user.
   def log_in(user)
     session[:user_id] = user.id
-    session[:timeline_id] = nil
-    session[:reference_id] = nil
-    session[:reference_step] = nil
-    session[:reference_params] = nil
   end
 
   # Remembers a user in a persistent session.

@@ -54,10 +54,16 @@ class NotificationsController < ApplicationController
   def important
     win_ids = NotificationSelectionWin.where( user_id: current_user.id ).pluck( :comment_id )
     @wins = Comment.select(:id, :timeline_id, :reference_id,
-                           :f_1_content).where( id: win_ids ).page(params[:page]).per(20)
+                           :f_1_content).where( id: win_ids )
     loss_ids = NotificationSelectionLoss.where( user_id: current_user.id ).pluck( :comment_id )
     @losses = Comment.select(:id, :timeline_id, :reference_id,
-                             :f_1_content).where( id: loss_ids ).page(params[:page]).per(20)
+                             :f_1_content).where( id: loss_ids )
+    summary_win_ids = NotificationSummarySelectionWin.where( user_id: current_user.id ).pluck( :summary_id )
+    @summary_wins = Summary.select(:id, :timeline_id,
+                           :content).where( id: summary_win_ids )
+    summary_loss_ids = NotificationSummarySelectionLoss.where( user_id: current_user.id ).pluck( :summary_id )
+    @summary_losses = Summary.select(:id, :timeline_id,
+                           :content).where( id: summary_loss_ids )
   end
 
   def delete
@@ -170,6 +176,34 @@ class NotificationsController < ApplicationController
   def summary_selection
     notif = NotificationSummarySelection.find_by( user_id: current_user.id,
                                            new_summary_id: notification_params )
+    notif.destroy
+    redirect_to summary_path( notification_params )
+  end
+
+  def selection_win
+    notif = NotificationSelectionWin.find_by( user_id: current_user.id,
+                                           comment_id: notification_params )
+    notif.destroy
+    redirect_to comment_path( notification_params )
+  end
+
+  def summary_selection_win
+    notif = NotificationSummarySelectionWin.find_by( user_id: current_user.id,
+                                                  summary_id: notification_params )
+    notif.destroy
+    redirect_to summary_path( notification_params )
+  end
+
+  def selection_loss
+    notif = NotificationSelectionLoss.find_by( user_id: current_user.id,
+                                              comment_id: notification_params )
+    notif.destroy
+    redirect_to comment_path( notification_params )
+  end
+
+  def summary_selection_loss
+    notif = NotificationSummarySelectionLoss.find_by( user_id: current_user.id,
+                                                     summary_id: notification_params )
     notif.destroy
     redirect_to summary_path( notification_params )
   end

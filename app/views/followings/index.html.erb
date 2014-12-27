@@ -2,6 +2,8 @@
   <div class="col-md-4 col-lg-2">
     <div class="panel panel-default">
       <div class="panel-body">
+        Suivre les nouvelles controverses
+      </div>
     <table id="following-new-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
@@ -56,16 +58,59 @@
         <% end %>
       </ul>
     </div>
-      </div>
     </div>
   </div>
   <div class="col-md-8 col-lg-5">
     <div class="panel panel-default">
       <div class="panel-body">
+        Suivre les nouvelles références ajoutées aux controverses
+      </div>
+        <table id="following-timelines" class="table table-striped table-hover">
+          <thead>
+          <tr>
+            <th class="col-sm-7"> La contrverse </th>
+            <th class="col-sm-4"> Thèmes </th>
+            <th class="col-sm-1"> Supprimer </th>
+          </tr>
+          </thead>
+
+          <tbody class="page">
+          <% if !@fo_timelines.any? %>
+              <tr class="following-timeline">
+                <td> Vous n'avez pas encore d'abonnements </td>
+                <td>  </td>
+                <td>  </td>
+              </tr>
+          <% else %>
+              <% @fo_timelines.each do |timeline| %>
+                  <tr class="following-timeline">
+                    <td> <%= link_to timeline.name, timeline_path(timeline.id) %> </td>
+                    <td>
+                      <% timeline.get_tag_list.each do |name| %>
+                          <%= image_tag("icons/myicon-#{name}.svg", alt: name,
+                                        title: tags_hash[name],  height: "24px")%>
+                      <% end %>
+                    </td>
+                    <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
+                                                        </span>".html_safe,
+                                     following_timeline_path( timeline.id ), method: :delete,
+                                     data: { confirm: " Vous êtes certains ?" } %>  </td>
+                  </tr>
+              <% end %>
+          <% end %>
+          </tbody>
+        </table>
+    </div>
+  </div>
+  <div class="col-md-8 col-lg-5">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Suivre les nouveaux résumés de controverses
+      </div>
         <table id="following-summary" class="table table-striped table-hover">
           <thead>
           <tr>
-            <th class="col-sm-7"> La timeline </th>
+            <th class="col-sm-7"> La controverse </th>
             <th class="col-sm-4"> Thèmes </th>
             <th class="col-sm-1"> Supprimer </th>
           </tr>
@@ -89,60 +134,18 @@
                     </td>
                     <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
                                                         </span>".html_safe,
-                                     following_summaries_path( timeline.id ), method: :delete,
+                                     following_summary_path( timeline.id ), method: :delete,
                                      data: { confirm: " Vous êtes certains ?" } %>  </td>
                   </tr>
               <% end %>
           <% end %>
           </tbody>
         </table>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        Suivre les nouvelles analyses de références
       </div>
-    </div>
-  </div>
-  <div class="col-md-8 col-lg-5">
-    <div class="panel panel-default">
-      <div class="panel-body">
-    <table id="following-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-sm-7"> La timeline </th>
-        <th class="col-sm-4"> Tags </th>
-        <th class="col-sm-1"> Supprimer </th>
-      </tr>
-      </thead>
-
-      <tbody class="page">
-      <% if !@fo_timelines.any? %>
-          <tr class="following-timeline">
-            <td> Vous n'avez pas encore d'abonnements </td>
-            <td>  </td>
-            <td>  </td>
-          </tr>
-      <% else %>
-        <% @fo_timelines.each do |timeline| %>
-          <tr class="following-timeline">
-            <td> <%= link_to timeline.name, timeline_path(timeline.id) %> </td>
-            <td>
-              <% timeline.get_tag_list.each do |name| %>
-                  <%= image_tag("icons/myicon-#{name}.svg", alt: name,
-                                title: tags_hash[name],  height: "24px")%>
-              <% end %>
-            </td>
-            <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
-                                                        </span>".html_safe,
-                       following_timeline_path( timeline.id ), method: :delete,
-                       data: { confirm: " Vous êtes certains ?" } %>  </td>
-          </tr>
-        <% end %>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-    </div>
-  </div>
-  <div class="col-md-12 col-lg-5">
-    <div class="panel panel-default">
-      <div class="panel-body">
     <table id="following-references" class="table table-striped table-hover">
       <thead>
       <tr>
@@ -173,7 +176,6 @@
       <% end %>
       </tbody>
     </table>
-      </div>
     </div>
   </div>
 </div>

@@ -1,14 +1,7 @@
 <% provide(:title, @timeline.name) %>
 
 <div class="row">
-  <% if logged_in? %>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-        <%= render 'layouts/panel' %>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-  <% else %>
-      <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
-  <% end %>
+<div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
 
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -23,10 +16,12 @@
   </div>
   <div class="panel-body">
     <% if @summary %>
+        <div class="text-justify">
         <%= @summary.markdown.html_safe %>
+        </div>
         <br/>
-        <span class="pull-left">
-        Créé par <%= link_to @summary.user_name, user_path( @summary.user_id) %>
+        <span class="pull-right">
+        Par <%= link_to @summary.user_name, user_path( @summary.user_id) %>
         </span>
         <br/>
         <%= link_to 'Voir les résumés de cette controverse'.html_safe,
@@ -92,44 +87,8 @@
 </span> Ecrire un résumé'.html_safe,
           new_summary_path( timeline_id: @timeline.id),
           class: "btn btn-block btn-primary" %>
-<%= link_to "<span class=\"glyphicon glyphicon-envelope\" >
-</span> Inviter un amis".html_safe, '#newinvitation',
-              'data-toggle' => 'modal',
-              class: "btn btn-block btn-primary" %>
 </div>
 
-
-<div class="modal fade" id="newinvitation" tabindex="-1" role="dialog">
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4 class="modal-title" id="myModalLabel"> Inviter un amis </h4>
-    </div>
-    <div class="modal-body">
-      <%= form_for( :invitation, url: invitations_path, remote: true,
-                    html: {role: :form, 'data-model' => 'invitation'}) do |f| %>
-          <div class="form-group">
-            <%= f.label :email, class: 'control-label' %><br>
-            <%= f.text_field :email, class: 'form-control' %>
-            <span class="help-block"></span>
-          </div>
-          <div class="form-group">
-            <%= f.label :message, class: 'control-label' %><br>
-            <%= f.text_field :message, class: 'form-control' %>
-            <span class="help-block"></span>
-          </div>
-          <div class="actions">
-            <%= f.submit 'Envoyer', class: 'btn btn-primary'%>
-          </div>
-      <% end %>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    </div>
-  </div>
-</div>
-</div>
  <% end %>
 </div>
 

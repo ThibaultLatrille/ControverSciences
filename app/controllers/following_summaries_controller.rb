@@ -3,17 +3,17 @@ class FollowingSummariesController < ApplicationController
 
   def create
     follow = FollowingSummary.new( user_id: current_user.id,
-                                     timemline_id: params[:timemline_id])
+                                     timeline_id: params[:timeline_id])
     if follow.save
       flash[:success] = "Abonnement confirmé"
     else
       flash[:danger] = "Vous suivez déjà les résumés de cette controverse avec attention"
     end
-    redirect_to summaries_path( timeline_id: params[:timemline_id])
+    redirect_to summaries_path( timeline_id: params[:timeline_id])
   end
 
   def destroy
-    fo = FollowingSummary.find_by( user_id: current_user.id, timemline_id: params[:timemline_id] )
+    fo = FollowingSummary.find_by( user_id: current_user.id, timeline_id: params[:id] )
     unless fo.nil?
       fo.destroy
     end

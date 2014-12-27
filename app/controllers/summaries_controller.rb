@@ -4,20 +4,16 @@ class SummariesController < ApplicationController
   def new
     if params[:parent_id]
       @parent = Summary.find(params[:parent_id])
-      session[:timeline_id] = @parent.timeline_id
       @summary = @parent
     elsif params[:draft_id]
       @summary = SummaryDraft.find(params[:draft_id])
-
-      session[:timeline_id] = @summary.timeline_id
       if @summary.parent_id
         @parent = Summary.find(@summary.parent_id)
       end
     else
       @summary = Summary.new
     end
-    session[:timeline_id] = params[:timeline_id]
-    @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title, :id )
+    @list = Reference.where( timeline_id: params[:timeline_id] ).pluck( :title, :id )
   end
 
   def create
@@ -43,6 +39,7 @@ class SummariesController < ApplicationController
         params[:parent_id] = summary_params[:paren_id]
       end
       params[:draft_id] = @summary.id
+      params[:timeline_id] = @summary.timeline_id
       render 'new'
     else
       @summary = Summary.new({user_id: current_user.id,
@@ -68,6 +65,7 @@ class SummariesController < ApplicationController
           params[:parent_id] = summary_params[:paren_id]
         end
         params[:draft_id] = summary_params[:draft_id]
+        params[:timeline_id] = summary_params[:timeline_id]
         render 'new'
       end
     end
@@ -78,12 +76,10 @@ class SummariesController < ApplicationController
                                :markdown, :balance, :best,
                                :created_at
     ).find(params[:id])
-    session[:timeline_id] = @summary.timeline_id
   end
   
   def index
     if logged_in?
-      session[:timeline_id] = params[:timeline_id]
       user_id = current_user.id
       @my_credits = Credit.where( user_id: user_id, timeline_id: params[:timeline_id] ).sum( :value )
       visit = VisiteTimeline.find_by( user_id: user_id, timeline_id: params[:timeline_id] )

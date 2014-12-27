@@ -2,27 +2,22 @@ class CommentsController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def new
+    @comment = Comment.new
     if params[:parent_id]
       @parent = Comment.find(params[:parent_id])
-      session[:reference_id] = @parent.reference_id
-      session[:timeline_id] = @parent.timeline_id
       @comment = @parent
     elsif params[:draft_id]
       @comment = CommentDraft.find(params[:draft_id])
-      session[:reference_id] = @comment.reference_id
-      session[:timeline_id] = @comment.timeline_id
       if @comment.parent_id
         @parent = Comment.find(@comment.parent_id)
       end
-    else
-      @comment = Comment.new
     end
-    unless session[:reference_id]
-      reference = Reference.select(:id, :timeline_id).find(params[:reference_id])
-      session[:reference_id] = reference.id
-      session[:timeline_id] = reference.timeline_id
+    unless @comment.reference_id
+      reference = Reference.select(:id, :timeline_id).find( params[:reference_id] )
+      @comment.reference_id = reference.id
+      @comment.timeline_id = reference.timeline_id
     end
-    @list = Reference.where( timeline_id: session[:timeline_id] ).pluck( :title, :id )
+    @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
   end
 
   def create
@@ -51,6 +46,7 @@ class CommentsController < ApplicationController
         params[:parent_id] = comment_params[:paren_id]
       end
       params[:draft_id] = @comment.id
+      params[:reference_id] = @comment.reference_id
       render 'new'
     else
       @comment = Comment.new({user_id: current_user.id,
@@ -79,6 +75,7 @@ class CommentsController < ApplicationController
           params[:parent_id] = comment_params[:paren_id]
         end
         params[:draft_id] = comment_params[:draft_id]
+        params[:reference_id] = comment_params[:reference_id]
         render 'new'
       end
     end
@@ -90,8 +87,6 @@ class CommentsController < ApplicationController
                                :markdown_5, :balance, :best,
                                :created_at
                               ).find(params[:id])
-    session[:reference_id] = @comment.reference_id
-    session[:timeline_id] = @comment.timeline_id
   end
 
   def destroy

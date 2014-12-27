@@ -2,7 +2,11 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-    <%= render 'layouts/panel' %>
+      <%= link_to "Revenir à la controverse",
+                  timeline_path(@comment.reference_id), class: "btn btn-primary", style: "white-space: normal" %>
+      <%= link_to "Revenir à la référence",
+                  reference_path(@comment.timeline_id), class: "btn btn-primary", style: "white-space: normal" %>
+
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
@@ -15,12 +19,12 @@
                 <div class="center">
                   Pour la référence :
 
-                  <%= link_to Reference.where(id: session[:reference_id]).pluck(:title)[0],
-                              reference_url(session[:reference_id]) %> <br>
+                  <%= link_to Reference.where(id: @comment.reference_id).pluck(:title)[0],
+                              reference_url(@comment.reference_id) %> <br>
 
                   Dans la timeline :
-                  <%= link_to Timeline.where(id: session[:timeline_id]).pluck(:name)[0],
-                              timeline_url(session[:timeline_id]) %>
+                  <%= link_to Timeline.where(id: @comment.timeline_id).pluck(:name)[0],
+                              timeline_url(@comment.timeline_id) %>
                 </div>
               </div>
               <div class="panel-body">
@@ -42,8 +46,8 @@
                 <% if params[:draft_id] %>
                     <%= f.hidden_field :draft_id, value: params[:draft_id] %>
                 <% end %>
-                <%= f.hidden_field :reference_id, value: session[:reference_id] %>
-                <%= f.hidden_field :timeline_id, value: session[:timeline_id] %>
+                <%= f.hidden_field :reference_id, value: @comment.reference_id %>
+                <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
                     <br/>
                 <%= f.submit "Sauver comme brouillon", name: "draft", class: "btn btn-success"%>
                 <%= f.submit "Publier l'analyse", class: "btn btn-primary"%>
@@ -106,9 +110,6 @@
 
 
 <%= javascript_tag do %>
-    $(document).ready(function() {
-    $('textarea').autosize();
-    });
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
     mysavebtn.setAttribute("data-toggled",'yes');

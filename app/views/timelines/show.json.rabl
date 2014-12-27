@@ -23,6 +23,9 @@ end
 node :url do |ref|
   ref.url
 end
+node :user_name do |ref|
+  ref.user_name
+end
 
 node :open do |ref|
   ref.open_access

@@ -6,5 +6,5 @@ class SummaryBest < ActiveRecord::Base
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :summary_id, presence: true
-  validates_uniqueness_of :timeline_id, :scope => [:summary_id]
+  validates_uniqueness_of :timeline_id
 end
