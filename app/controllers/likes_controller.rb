@@ -6,7 +6,7 @@ class LikesController < ApplicationController
       like.save
       flash[:success] = "Vous aimez cette controverse"
     rescue
-      flash[:danger] = "Cette IP a déjà été utiliser pour aimer cette controverse"
+      flash[:danger] = "Cette IP a déjà été utilisée pour aimer cette controverse"
     end
     redirect_to timeline_path( like_params )
   end

@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   get 'how_to'    => 'static_pages#how_to'
   get 'how_to_edit'    => 'static_pages#how_to_edit'
   get 'faq'    => 'static_pages#faq'
-  get 'suggestion'    => 'static_pages#suggestion'
   get 'about'   => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
   get 'signup' => 'users#new'
@@ -61,6 +60,8 @@ Rails.application.routes.draw do
   resources :summaries, only: [:show, :index, :new, :create, :destroy]
   resources :summary_drafts, only: [:destroy]
   resources :credits, only: [:new ,:create, :destroy]
+  resources :suggestions, only: [:index, :create]
+  resources :suggestion_votes, only: [:create]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

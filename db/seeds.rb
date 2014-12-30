@@ -194,7 +194,7 @@ def seed_summaries(users, timelines)
   references = timeline.references
   reference_ids = references.map{ |ref| ref.id }
   contributors.each do |user|
-    content = Faker::Lorem.sentence(rand(60))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+    content = Faker::Lorem.sentence(1+rand(60))+"["+Faker::Lorem.sentence(rand(2))+"]("+
         reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))+
     "\n"+Faker::Lorem.sentence(rand(120))
     summary = Summary.new(
@@ -250,19 +250,19 @@ def seed_comments(users, timelines)
     contributors = users[1..-1].sample(1+rand(users.length/2-1))
     contributors << users[0]
     contributors.each do |user|
-      f_1_content = Faker::Lorem.sentence(rand(16))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+      f_1_content = Faker::Lorem.sentence(1+rand(16))+"["+Faker::Lorem.sentence(rand(2))+"]("+
           reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
-          "\n"+Faker::Lorem.sentence(rand(20))
+          "\n"+Faker::Lorem.sentence(1+rand(20))
       f_2_content = Faker::Lorem.sentence(rand(26))+"["+Faker::Lorem.sentence(rand(2))+"]("+
           reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
       "\n"+Faker::Lorem.sentence(rand(12))
-      f_3_content = Faker::Lorem.sentence(rand(25))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+      f_3_content = Faker::Lorem.sentence(1+rand(25))+"["+Faker::Lorem.sentence(rand(2))+"]("+
           reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
       "\n"+Faker::Lorem.sentence(rand(36))
-      f_4_content = Faker::Lorem.sentence(rand(85))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+      f_4_content = Faker::Lorem.sentence(1+rand(85))+"["+Faker::Lorem.sentence(rand(2))+"]("+
           reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
       "\n"+Faker::Lorem.sentence(rand(42))
-      f_5_content = Faker::Lorem.sentence(rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
+      f_5_content = Faker::Lorem.sentence(1+rand(6))+"["+Faker::Lorem.sentence(rand(2))+"]("+
           reference_ids[rand(reference_ids.length)].to_s+")"+Faker::Lorem.sentence(rand(4))
       "\n"+Faker::Lorem.sentence(rand(30))
       comment = Comment.new(
@@ -336,6 +336,22 @@ def seed_ratings(users, timelines)
   ratings
 end
 
+def suggestions
+  suggestions = []
+  30.times do
+    first_name  = Faker::Name.first_name
+    last_name  = Faker::Name.last_name
+    suggestions << Suggestion.new(
+        name: "#{first_name[0].upcase}. #{last_name}",
+        comment: Faker::Lorem.sentence(1+rand(30))
+    )
+  end
+  suggestions.map do |r|
+    r.save!
+  end
+  suggestions
+end
+
 seed_domains
 tags = tags_hash.keys
 users = seed_users
@@ -350,3 +366,4 @@ seed_credits(users, summaries)
 comments = seed_comments(users, timelines)
 seed_votes(users, comments)
 seed_ratings(users, timelines)
+suggestions

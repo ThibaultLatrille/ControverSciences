@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141223112223) do
+ActiveRecord::Schema.define(version: 20141230150724) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -357,6 +357,46 @@ ActiveRecord::Schema.define(version: 20141223112223) do
 
   add_index "references", ["timeline_id"], name: "index_references_on_timeline_id", using: :btree
   add_index "references", ["user_id"], name: "index_references_on_user_id", using: :btree
+
+  create_table "suggestion_children", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "suggestion_id"
+    t.text     "comment"
+    t.string   "email"
+    t.string   "name"
+    t.integer  "balance", default: 0
+    t.integer  "plus", default: 0
+    t.integer  "minus", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "suggestion_children", ["suggestion_id"], name: "index_suggestion_children_on_suggestion_id", using: :btree
+  add_index "suggestion_children", ["user_id"], name: "index_suggestion_children_on_user_id", using: :btree
+
+  create_table "suggestion_votes", force: true do |t|
+    t.integer  "suggestion_id"
+    t.boolean  "value"
+    t.inet     "ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "suggestion_votes", ["ip", "suggestion_id"], name: "index_suggestion_votes_on_ip_and_suggestion_id", unique: true, using: :btree
+
+  create_table "suggestions", force: true do |t|
+    t.integer  "user_id"
+    t.text     "comment"
+    t.string   "email"
+    t.string   "name"
+    t.integer  "balance", default: 0
+    t.integer  "plus",  default: 0
+    t.integer  "minus", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "suggestions", ["user_id"], name: "index_suggestions_on_user_id", using: :btree
 
   create_table "summaries", force: true do |t|
     t.integer  "user_id"
