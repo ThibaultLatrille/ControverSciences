@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   root             'static_pages#home'
   get 'help'    => 'static_pages#help'
+  get 'how_to'    => 'static_pages#how_to'
+  get 'how_to_edit'    => 'static_pages#how_to_edit'
   get 'faq'    => 'static_pages#faq'
+  get 'suggestion'    => 'static_pages#suggestion'
   get 'about'   => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
   get 'signup' => 'users#new'

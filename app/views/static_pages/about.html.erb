@@ -1,10 +1,19 @@
 <% provide(:title, "A propos") %>
-ControverSciences est à but non lucratif.
 
-<p>
-        <li>
-          Powered by :
+
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        A propos de ControverSciences
+      </div>
+      <div class="panel-body clearfix">
+        ControverSciences est une passerelle entre les scientifiques et la société. Association à but non lucratif.
+        <div class="pull-right">
           <%= link_to image_tag("ruby.png", alt: "Rails"), 'http://rubyonrails.org/' %>
           <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
-        </li>
-</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

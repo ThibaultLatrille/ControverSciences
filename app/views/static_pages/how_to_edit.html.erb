@@ -1,0 +1,18 @@
+<% provide(:title, "Aide") %>
+
+<div class="col-xs-12 col-lg-4 col-lg-offset-4">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Comment contribuer à ControverSciences.
+    </div>
+    <div class="panel-body">
+      <br/>
+      <%= link_to "La mission de ControverSciences", help_path,
+                  class: "btn btn-block btn-lg btn-primary" %>
+      <%= link_to "Tutoriel pour les visiteurs", how_to_edit_path,
+                  class: "btn btn-block btn-lg btn-primary" %>
+      <%= link_to "Suggèrer une amélioration pour le site", suggestion_path,
+                  class: "btn btn-block btn-lg btn-primary" %>
+    </div>
+  </div>
+</div>
