@@ -336,7 +336,7 @@ def seed_ratings(users, timelines)
   ratings
 end
 
-def suggestions
+def seed_suggestions
   suggestions = []
   30.times do
     first_name  = Faker::Name.first_name
@@ -350,6 +350,25 @@ def suggestions
     r.save!
   end
   suggestions
+end
+
+def seed_suggestion_children( suggestions )
+  children = []
+  suggestions.each do |suggestion|
+    (1+rand(10)).times do
+      first_name  = Faker::Name.first_name
+      last_name  = Faker::Name.last_name
+      children << SuggestionChild.new(
+          suggestion_id: suggestion.id,
+          name: "#{first_name[0].upcase}. #{last_name}",
+          comment: Faker::Lorem.sentence(1+rand(30))
+      )
+    end
+  end
+  children.map do |r|
+    r.save!
+  end
+  children
 end
 
 seed_domains
@@ -366,4 +385,5 @@ seed_credits(users, summaries)
 comments = seed_comments(users, timelines)
 seed_votes(users, comments)
 seed_ratings(users, timelines)
-suggestions
+suggestions = seed_suggestions
+seed_suggestion_children( suggestions )

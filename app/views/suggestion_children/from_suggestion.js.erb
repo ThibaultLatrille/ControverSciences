@@ -1,0 +1,2 @@
+$("#children<%= params[:suggestion_id] %>").html("<%= escape_javascript(render partial: 'children', locals: { suggestion_children: @suggestion_children } ) %>");
+$("#button<%= params[:suggestion_id] %>").hide()

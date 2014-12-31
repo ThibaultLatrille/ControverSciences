@@ -1,0 +1,36 @@
+<br/>
+<div class="row">
+      <div class="col-md-offset-3 col-md-9">
+        <% suggestion_children.each do |suggestion_child| %>
+            <div class="panel panel-default suggestion">
+              <div class="panel-body">
+              <span class="content">
+                <div class="text-justify">
+                  <%= suggestion_child.comment %>
+                </div>
+              </span>
+              </div>
+              <div class="panel-footer">
+                <div class="clearfix">
+                  <div class="pull-right">
+                    <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{suggestion_child.plus} </span>".html_safe,
+                                suggestion_votes_path(vote: {suggestion_id: suggestion_child.id, value: "true" } ),
+                                method: :post, class: "btn btn-primary" %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-thumbs-down\"> #{suggestion_child.minus} </span>".html_safe,
+                                suggestion_votes_path(vote: {suggestion_id: suggestion_child.id, value: "false" } ),
+                                method: :post, class: "btn btn-primary" %>
+                  </div>
+                  <span class="timestamp">
+                    Publié il y a <%= time_ago_in_words(suggestion_child.created_at) %> par
+                    <% if suggestion_child.user_id %>
+                        <%= link_to suggestion_child.user_name, user_path(suggestion_child.user_id) %>
+                    <% else %>
+                        <%= suggestion_child.name %>
+                    <% end %>
+                   </span>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
