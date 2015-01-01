@@ -10,6 +10,13 @@ $red-error:#d9534f;
 
 /* universal */
 
+textarea {
+  resize: vertical;
+  -webkit-transition: height 0.5s;
+  -moz-transition: height 0.5s;
+  transition: height 0.5s;
+}
+
 body {
   padding-top: 80px;
   padding-bottom: 60px;
@@ -124,10 +131,6 @@ section {
   overflow: auto;
 }
 
-textarea {
-  resize: vertical;
-}
-
 .center {
   h1 {
     margin-bottom: 10px;
@@ -176,12 +179,7 @@ p {
 input {
   height: auto !important;
 }
-.textarea {
-  resize: vertical;
-  -webkit-transition: height 0.5s;
-  -moz-transition: height 0.5s;
-  transition: height 0.5s;
-}
+
 #error_explanation {
   color: $red-error;
   ul {

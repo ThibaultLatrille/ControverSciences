@@ -1,2 +1,5 @@
-$("#children<%= params[:suggestion_id] %>").html("<%= escape_javascript(render partial: 'children', locals: { suggestion_children: @suggestion_children } ) %>");
-$("#button<%= params[:suggestion_id] %>").hide()
+$("#children<%= params[:suggestion_id] %>").html("<%= escape_javascript(render partial: 'children', locals: { suggestion_children: @suggestion_children, suggestion_id: params[:suggestion_id]} ) %>");
+$("#button<%= params[:suggestion_id] %>").hide();
+$(document).ready(function() {
+    $('textarea').autosize();
+});

@@ -1,36 +1,39 @@
-<div class="panel panel-default">
-  <div class="panel-body">
-  <span class="content">
-    <div class="clearfix">
-      <div id="button<%= suggestion.id %>" class="pull-right">
-        <%= link_to "Voir les réactions", fetch_children_path(:suggestion_id => suggestion.id), :remote => true, class: "btn btn-primary" %>
-      </div>
-      <div class="text-justify">
-        <%= suggestion.comment %>
-      </div>
-    </div>
-  </span>
-  </div>
-  <div class="panel-footer">
-    <div class="clearfix">
-        <div class="pull-right">
-          <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{suggestion.plus} </span>".html_safe,
-                      suggestion_votes_path(vote: {suggestion_id: suggestion.id, value: "true" } ),
-                      method: :post, class: "btn btn-primary" %>
-          <%= link_to "<span class=\"glyphicon glyphicon-thumbs-down\"> #{suggestion.minus} </span>".html_safe,
-                      suggestion_votes_path(vote: {suggestion_id: suggestion.id, value: "false" } ),
-                      method: :post, class: "btn btn-primary" %>
-        </div>
-      <span class="timestamp">
-        Publié il y a <%= time_ago_in_words(suggestion.created_at) %> par
-        <% if suggestion.user_id %>
-            <%= link_to suggestion.user_name, user_path(suggestion.user_id) %>
-        <% else %>
-            <%= suggestion.name %>
-        <% end %>
-       </span>
-    </div>
-        <div id="children<%= suggestion.id %>">
-        </div>
+<div class="col-xs-12 col-lg-2">
+  <div class="clearfix pull-right">
+<%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{suggestion.plus} </span>".html_safe,
+            suggestion_votes_path(vote: {suggestion_id: suggestion.id, value: "true" } ),
+            method: :post, class: "btn btn-primary" %>
+    <br/>
+<%= link_to "<span class=\"glyphicon glyphicon-thumbs-down\"> #{suggestion.minus} </span>".html_safe,
+            suggestion_votes_path(vote: {suggestion_id: suggestion.id, value: "false" } ),
+            method: :post, class: "btn btn-primary" %>
+    <br/>
   </div>
 </div>
+<div class="col-xs-12 col-lg-10">
+    <div class="panel panel-default">
+      <div class="panel-body">
+          <div class="text-justify">
+            <%= suggestion.comment %>
+          </div>
+      </div>
+      <div class="panel-footer">
+        <div class="clearfix">
+          <div id="button<%= suggestion.id %>" class="pull-right">
+            <%= link_to "Voir les réactions", fetch_children_path(:suggestion_id => suggestion.id), :remote => true, class: "btn btn-primary" %>
+          </div>
+          <span class="timestamp">
+            Publié il y a <%= time_ago_in_words(suggestion.created_at) %> par
+            <% if suggestion.user_id %>
+                <%= link_to suggestion.name, user_path(suggestion.user_id) %>
+            <% else %>
+                <%= suggestion.name %>
+            <% end %>
+           </span>
+        </div>
+            <div id="children<%= suggestion.id %>">
+            </div>
+      </div>
+    </div>
+</div>
+

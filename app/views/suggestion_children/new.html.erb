@@ -1,0 +1,65 @@
+<div class="col-xs-12 col-lg-2">
+  <div class="clearfix pull-right">
+    <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{@suggestion.plus} </span>".html_safe,
+                suggestion_votes_path(vote: {suggestion_id: @suggestion.id, value: "true" } ),
+                method: :post, class: "btn btn-primary" %>
+    <br/>
+    <%= link_to "<span class=\"glyphicon glyphicon-thumbs-down\"> #{@suggestion.minus} </span>".html_safe,
+                suggestion_votes_path(vote: {suggestion_id: @suggestion.id, value: "false" } ),
+                method: :post, class: "btn btn-primary" %>
+    <br/>
+  </div>
+</div>
+<div class="col-xs-12 col-lg-9">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <div class="text-justify">
+        <%= @suggestion.comment %>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <div class="clearfix">
+          <span class="timestamp">
+            Publié il y a <%= time_ago_in_words(@suggestion.created_at) %> par
+            <% if @suggestion.user_id %>
+                <%= link_to suggestion.name, user_path(@suggestion.user_id) %>
+            <% else %>
+                <%= @suggestion.name %>
+            <% end %>
+           </span>
+      </div>
+      <br/>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Répondre à la suggestion
+        </div>
+        <div class="panel-body">
+          <%= form_for @suggestion_child do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
+              <%= f.hidden_field :suggestion_id, value: @suggestion_child.suggestion_id %>
+              <div class="form-group">
+                <%= f.label :comment, class: 'control-label' %><br>
+                <%= f.text_area :comment, class: 'form-control' %>
+                <span class="help-block"></span>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <% if logged_in? %>
+                      <%= f.text_field :name, value: current_user.name, class: 'form-control selectwidthauto' %>
+                  <% else %>
+                      <%= f.text_field :name, class: 'form-control selectwidthauto' %>
+                  <% end %>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="pull-right">
+                    <%= f.submit 'Publier', class: 'btn btn-primary'%>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
