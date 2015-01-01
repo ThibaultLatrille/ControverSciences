@@ -35,12 +35,8 @@
         </div>
       </div>
       <div class="col-xs-12 col-lg-6">
-        <div id="comments">
-            <div class="page">
                 <%= render @suggestions %>
                 <%= paginate @suggestions %>
-            </div>
-        </div>
       </div>
       <div class="col-xs-12 col-lg-2">
         <%= link_to "La mission de ControverSciences", help_path,

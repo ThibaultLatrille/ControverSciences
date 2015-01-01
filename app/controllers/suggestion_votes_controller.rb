@@ -7,7 +7,6 @@ class SuggestionVotesController < ApplicationController
       vote = SuggestionVote.new(suggestion_id: suggestion_vote_params[:suggestion_id],
                     ip: request.remote_ip, value: false )
     end
-    puts vote.inspect
     begin
       vote.save
       flash[:success] = "Votre vote a été prit en compte"

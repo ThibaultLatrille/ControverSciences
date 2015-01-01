@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141230150724) do
+ActiveRecord::Schema.define(version: 20141231012129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,7 +178,6 @@ ActiveRecord::Schema.define(version: 20141230150724) do
   create_table "notification_comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "comment_id"
-    t.boolean  "read",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -189,7 +188,6 @@ ActiveRecord::Schema.define(version: 20141230150724) do
   create_table "notification_references", force: true do |t|
     t.integer  "user_id"
     t.integer  "reference_id"
-    t.boolean  "read",         default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -200,7 +198,6 @@ ActiveRecord::Schema.define(version: 20141230150724) do
   create_table "notification_selection_losses", force: true do |t|
     t.integer  "user_id"
     t.integer  "comment_id"
-    t.boolean  "read",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -211,7 +208,6 @@ ActiveRecord::Schema.define(version: 20141230150724) do
   create_table "notification_selection_wins", force: true do |t|
     t.integer  "user_id"
     t.integer  "comment_id"
-    t.boolean  "read",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -223,7 +219,6 @@ ActiveRecord::Schema.define(version: 20141230150724) do
     t.integer  "user_id"
     t.integer  "new_comment_id"
     t.integer  "old_comment_id"
-    t.boolean  "read",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -251,8 +246,8 @@ ActiveRecord::Schema.define(version: 20141230150724) do
   add_index "notification_summary_selection_losses", ["user_id"], name: "index_notification_summary_selection_losses_on_user_id", using: :btree
 
   create_table "notification_summary_selection_wins", force: true do |t|
-    t.integer  "user_id"
     t.integer  "summary_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -273,22 +268,12 @@ ActiveRecord::Schema.define(version: 20141230150724) do
   create_table "notification_timelines", force: true do |t|
     t.integer  "user_id"
     t.integer  "timeline_id"
-    t.boolean  "read",        default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "notification_timelines", ["timeline_id"], name: "index_notification_timelines_on_timeline_id", using: :btree
   add_index "notification_timelines", ["user_id"], name: "index_notification_timelines_on_user_id", using: :btree
-
-  create_table "notifications", force: true do |t|
-    t.integer  "user_id"
-    t.boolean  "read",       default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "pending_users", force: true do |t|
     t.integer  "user_id"
@@ -358,15 +343,25 @@ ActiveRecord::Schema.define(version: 20141230150724) do
   add_index "references", ["timeline_id"], name: "index_references_on_timeline_id", using: :btree
   add_index "references", ["user_id"], name: "index_references_on_user_id", using: :btree
 
+  create_table "suggestion_child_votes", force: true do |t|
+    t.integer  "suggestion_child_id"
+    t.boolean  "value"
+    t.inet     "ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "suggestion_child_votes", ["ip", "suggestion_child_id"], name: "index_suggestion_child_votes_on_ip_and_suggestion_child_id", unique: true, using: :btree
+
   create_table "suggestion_children", force: true do |t|
     t.integer  "user_id"
     t.integer  "suggestion_id"
     t.text     "comment"
     t.string   "email"
     t.string   "name"
-    t.integer  "balance", default: 0
-    t.integer  "plus", default: 0
-    t.integer  "minus", default: 0
+    t.integer  "balance",       default: 0
+    t.integer  "plus",          default: 0
+    t.integer  "minus",         default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -389,9 +384,9 @@ ActiveRecord::Schema.define(version: 20141230150724) do
     t.text     "comment"
     t.string   "email"
     t.string   "name"
-    t.integer  "balance", default: 0
-    t.integer  "plus",  default: 0
-    t.integer  "minus", default: 0
+    t.integer  "balance",    default: 0
+    t.integer  "plus",       default: 0
+    t.integer  "minus",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -403,7 +398,7 @@ ActiveRecord::Schema.define(version: 20141230150724) do
     t.integer  "timeline_id"
     t.integer  "balance"
     t.float    "score"
-    t.boolean  "best"
+    t.boolean  "best",        default: false
     t.text     "content"
     t.text     "markdown"
     t.datetime "created_at"

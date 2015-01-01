@@ -62,6 +62,8 @@ Rails.application.routes.draw do
   resources :credits, only: [:new ,:create, :destroy]
   resources :suggestions, only: [:index, :create]
   resources :suggestion_votes, only: [:create]
+  resources :suggestion_children, only: [:index, :create]
+  resources :suggestion_child_votes, only: [:create]
   get "/fetch_children" => 'suggestion_children#from_suggestion', as: 'fetch_children'
 
   # The priority is based upon order of creation: first created -> highest priority.
