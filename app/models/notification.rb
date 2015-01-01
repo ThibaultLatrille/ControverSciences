@@ -1,6 +1,4 @@
-class Notification < ActiveRecord::Base
-  belongs_to :user
-
+class Notification
   attr_accessor :timeline_ids
   attr_accessor :reference_ids
   attr_accessor :comment_ids
