@@ -52,7 +52,7 @@
                 <% if logged_in? %>
                     <%= f.text_field :name, value: current_user.name, class: 'form-control selectwidthauto' %>
                 <% else %>
-                    <%= f.text_field :name, class: 'form-control selectwidthauto' %>
+                    <%= f.text_field :name, value: 'Un illustre Anonyme', class: 'form-control selectwidthauto' %>
                 <% end %>
               </div>
               <div class="col-xs-12 col-md-6">
