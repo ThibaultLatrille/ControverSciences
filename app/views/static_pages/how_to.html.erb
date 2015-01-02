@@ -1,18 +1,38 @@
 <% provide(:title, "Aide") %>
 
-<div class="col-xs-12 col-lg-4 col-lg-offset-4">
+<div class="col-xs-12 col-lg-8 col-lg-offset-2">
   <div class="panel panel-default">
     <div class="panel-heading">
       Comment naviguer sur ControverSciences.
     </div>
     <div class="panel-body">
+          <div class="row" id="my-timeline">
+            <div class="timeline-jquery-controverse">
+            </div>
+          </div>
         <br/>
         <%= link_to "La mission de ControverSciences", help_path,
-                    class: "btn btn-block btn-lg btn-primary" %>
+                    class: "btn btn-block btn-primary" %>
         <%= link_to "Tutoriel pour les contributeurs", how_to_edit_path,
-                    class: "btn btn-block btn-lg btn-primary" %>
+                    class: "btn btn-block btn-primary" %>
         <%= link_to "Suggèrer une amélioration pour le site", suggestions_path,
-                    class: "btn btn-block btn-lg btn-primary" %>
+                    class: "btn btn-block btn-primary" %>
     </div>
   </div>
 </div>
+
+<%= javascript_tag do %>
+    function toRef( id ){
+    if ( jQuery.inArray( 'collapsed', $("#ref-"+id)[0].classList ) ){
+    $(".collapse-all").trigger({ type: "click" });
+    $("#ref-btn-"+id).trigger({ type: "click" });
+    }
+    }
+    $(document).ready(function(){
+    $('[data-toggle="popover"]').popover({container: 'body'});
+    $('.timeline-jquery-controverse').verticalTimeline({
+    data: {},
+    handleResize: true,
+    });
+    });
+<% end %>
