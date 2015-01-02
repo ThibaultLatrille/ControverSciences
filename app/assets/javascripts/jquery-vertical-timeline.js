@@ -112,8 +112,8 @@
     ',
     buttonTemplate: '<div class="vertical-timeline-buttons clearfix"> \
         <div class="expand-collapse-buttons"> \
-          <a class="expand-all <% if (data.defaultExpansion == "expanded") { %>active<% } %>" href="#"><span> ouvrir <\/span><\/a> \
-          <a class="collapse-all <% if (data.defaultExpansion == "collapsed") { %>active<% } %>" href="#"><span> cacher <\/span><\/a> \
+          <a class="expand-all <% if (data.defaultExpansion == "expanded") { %>active<% } %>" href="#"><span> Développer <\/span><\/a> \
+          <a class="collapse-all <% if (data.defaultExpansion == "collapsed") { %>active<% } %>" href="#"><span> Réduire <\/span><\/a> \
         <\/div> \
         <div class="sort-buttons"> \
           <a class="sort-newest <% if (data.defaultDirection == "newest") { %>active<% } %>" href="#"><span> Ascendant <\/span><\/a> \

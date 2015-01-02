@@ -537,7 +537,7 @@ input {
         margin-right: 20px;
       }
       a {
-        @include inline-block();
+        display: inline-block;
         width: 126px;
         border: 1px #adadad solid;
         font-size: 12px;
@@ -550,6 +550,7 @@ input {
       }
       a.active:hover,
       a.active {
+        display: none;
         background-color: #f6f6f6;
         color: #a9a9a9;
         cursor: default;
