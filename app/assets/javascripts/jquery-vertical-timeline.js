@@ -55,50 +55,63 @@
     },
     postTemplate: '<div id="ref-<%= data.id %>" class="item post <%= data.expansion %>" data-timestamp="<%= data.timestamp %>"> \
         <div class="inner <%= data.color %>"> \
-          <div class="title"> \
-            <h3> \
+            <div class="title"> \
+              <h3> \
               <%= data.title %> \
-              <a href="<%= data.url %>" target="_blank" >\
-              <% if (data.open) { %>  \
-                <img alt="open-access" src="/images/lock.png" height="16px" \/> \
-              <% } %> \
-              <% if (!data.open) { %>  \
-                <img alt="pay-wall" src="/images/locked.png" height="16px" \/> \
-              <% } %> \
-              </a> \
-            <\/h3> \
-          <\/div> \
-          <div class="date"><%= data.display_date %><\/div> \
-          <div class="body"> \
-           <div class="justify"> \
-            <% if (data.caption) { %> \
-              <div class="caption"><%= data.caption %><\/div> \
-            <% } %> \
-            <% if (data.field1) { %>  \
-            <div class="text"> <div class="bold"> L\'éxperience <\/div> <%= data.field1 %><\/div> \
-            <% } %> \
-            <% if (data.field2) { %>  \
-            <div class="text"> <div class="bold"> Les résultats <\/div> <%= data.field2 %><\/div> \
-            <% } %> \
-            <% if (data.field3) { %>  \
-            <div class="text"> <div class="bold"> Les limites <\/div> <%= data.field3 %><\/div> \
-            <% } %> \
-            <% if (data.field4) { %>  \
-            <div class="text"> <div class="bold"> Quel rapport <\/div> <%= data.field4 %> <\/div> \
-            <% } %> \
-            <% if (data.field5) { %>  \
-            <div class="text"> <div class="bold"> Remarques <\/div> <%= data.field5 %><\/div> \
-            <% } %> \
+              <% if (data.user_name) { %> \
+                  <a href="<%= data.url %>" target="_blank" >\
+                  <% if (data.open) { %>  \
+                    <img alt="open-access" src="/images/lock.png" height="16px" \/> \
+                  <% } %> \
+                  <% if (!data.open) { %>  \
+                    <img alt="pay-wall" src="/images/locked.png" height="16px" \/> \
+                  <% } %> \
+                  </a> \
+              <\/h3> \
             <\/div> \
-             <div class="clearfix"> \
-                <div class="pull-right"> \
-                    Par <%= data.user_name %> \
-                <\/div> \
-                <br\/> \
-                <a class="more" href="<%= data.read_more_url %>"> En savoir plus sur cet article<\/a> \
-            <\/div> \
-          <\/div> \
-          <a href="#" id="ref-btn-<%= data.id %>" class="open-close"></a> \
+            <div class="date"><%= data.display_date %><\/div> \
+              <div class="body"> \
+               <div class="justify"> \
+                <% if (data.caption) { %> \
+                  <div class="caption"><%= data.caption %><\/div> \
+                <% } %> \
+                <% if (data.field1) { %>  \
+                <div class="text"> <div class="bold"> L\'éxperience <\/div> <%= data.field1 %><\/div> \
+                <% } %> \
+                <% if (data.field2) { %>  \
+                <div class="text"> <div class="bold"> Les résultats <\/div> <%= data.field2 %><\/div> \
+                <% } %> \
+                <% if (data.field3) { %>  \
+                <div class="text"> <div class="bold"> Les limites <\/div> <%= data.field3 %><\/div> \
+                <% } %> \
+                <% if (data.field4) { %>  \
+                <div class="text"> <div class="bold"> Quel rapport <\/div> <%= data.field4 %> <\/div> \
+                <% } %> \
+                <% if (data.field5) { %>  \
+                <div class="text"> <div class="bold"> Remarques <\/div> <%= data.field5 %><\/div> \
+                <% } %> \
+               <\/div> \
+                 <div class="clearfix"> \
+                    <div class="pull-right"> \
+                        Par <%= data.user_name %> \
+                    <\/div> \
+                    <br\/> \
+                    <a class="more" href="<%= data.read_more_url %>"> En savoir plus sur cet article<\/a> \
+                 <\/div> \
+             <\/div> \
+              <a href="#" id="ref-btn-<%= data.id %>" class="open-close"></a> \
+           <% } %> \
+           <% if (!data.user_name) { %> \
+           <\/h3> \
+           <\/div> \
+           <div class="date"><%= data.display_date %><\/div> \
+              <div class="body"> \
+               <div class="justify"> \
+                <div class="text">  <%= data.field1 %><\/div> \
+               <\/div> \
+             <\/div> \
+             <a href="#" id="ref-btn-<%= data.id %>" class="open-close"></a> \
+           <% } %> \
         <\/div> \
       <\/div> \
     ',

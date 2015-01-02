@@ -3,17 +3,24 @@
 <div class="col-xs-12 col-lg-8 col-lg-offset-2">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Comment naviguer sur ControverSciences.
+      <h3>
+      Comment fonctionne ControverSciences.
+      </h3>
     </div>
     <div class="panel-body">
           <div class="row" id="my-timeline">
+            <div class="col-lg-offset-1 col-lg-10">
+            <h2>
+              Pour comprendre comment fonctionne ControverSciences, suivont les étapes de la vie (sans fin) d'une controverse.
+            </h2>
             <div class="timeline-jquery-controverse">
             </div>
+          </div>
           </div>
         <br/>
         <%= link_to "La mission de ControverSciences", help_path,
                     class: "btn btn-block btn-primary" %>
-        <%= link_to "Tutoriel pour les contributeurs", how_to_edit_path,
+        <%= link_to "Contribuer à ControverSciences", how_to_edit_path,
                     class: "btn btn-block btn-primary" %>
         <%= link_to "Suggèrer une amélioration pour le site", suggestions_path,
                     class: "btn btn-block btn-primary" %>
@@ -21,18 +28,87 @@
   </div>
 </div>
 
-<%= javascript_tag do %>
+<script type="text/javascript">
     function toRef( id ){
-    if ( jQuery.inArray( 'collapsed', $("#ref-"+id)[0].classList ) ){
-    $(".collapse-all").trigger({ type: "click" });
-    $("#ref-btn-"+id).trigger({ type: "click" });
-    }
+        if ( jQuery.inArray( 'collapsed', $("#ref-"+id)[0].classList ) ){
+            $(".collapse-all").trigger({ type: "click" });
+            $("#ref-btn-"+id).trigger({ type: "click" });
+        }
     }
     $(document).ready(function(){
-    $('[data-toggle="popover"]').popover({container: 'body'});
     $('.timeline-jquery-controverse').verticalTimeline({
-    data: {},
+    data: [{"id":1,
+            "field1":"<p> Un contributeur va créer la controverse et indiquer les thèmes auquels appartient cette controverse. " +
+                    "Une controverse est une question ouverte ou fermé qui peut être éclairé par des résultats scientifiques.</p>\n",
+            "title":"Naissance de la controverse",
+            "date":"01 Jan 1",
+            "displaydate":"1",
+            "expansion":"collapsed"},
+            {"id":2,
+            "field1":"<p>Les liens vers des références scientifiques publiées dans des journeaux scientifiques, ainsi que des certaines informations sont ajoutés.</p>\n",
+            "title":"Ajouts de références scientifiques en lien avec la controverse",
+            "date":"01 Jan 2",
+            "displaydate":"2",
+            "expansion":"collapsed"},
+            {"id":3,
+            "field1":"<p> Pour chaque <a href=\"#ref-2\" onclick= \"toRef( 2 )\">référence</a> des analyses en français sont écrites par les contributeurs. " +
+                    "Chaque contributeur peut écrire son (ou ses) analyse(s)  </p>\n",
+            "title":"Ecriture des analyses de références",
+            "date":"01 Jan 3",
+            "displaydate":"3",
+            "expansion":"collapsed"},
+            {"id":4,
+            "field1":"<p>Les <a href=\"#ref-3\" onclick= \"toRef( 3 )\"> analyses </a> plus objectives se voient attribuer des crédites par les contributeurs. " +
+                    "Pour chaque <a href=\"#ref-2\" onclick= \"toRef( 2 )\">référence</a>, chaque contributeur à un nombre limité de crédits à distribuer entre les diffèrentes <a href=\"#ref-3\" onclick= \"toRef( 3 )\"> analyses </a>.</p>\n",
+            "title":"Attribution des crédits aux analyses",
+            "date":"01 Jan 4",
+            "displaydate":"4",
+            "expansion":"collapsed"},
+            {"id":5,
+            "field1":"<p>Pour chaque <a href=\"#ref-2\" onclick= \"toRef( 2 )\">référence</a>, l'<a href=\"#ref-3\" onclick= \"toRef( 3 )\">analyse</a> ayant le meilleur score est affiché par défaut</p>\n",
+            "title":"Sélection des meilleures analyses",
+            "date":"01 Jan 5",
+            "displaydate":"5",
+            "expansion":"collapsed"},
+            {"id":6,
+            "field1":"<p> Des résumés de la controverse sont écrits par les contributeurs </p>\n",
+            "title":"Ecriture des résumés",
+            "date":"01 Jan 6",
+            "displaydate":"6",
+            "expansion":"collapsed"},
+            {"id":7,
+            "field1":"<p>Les <a href=\"#ref-6\" onclick= \"toRef( 6 )\">résumés</a> les plus objectifs se voient attribuer des crédites par les contributeurs. "+
+                "Chaque contributeur à un nombre limité de crédits à distribuer entre les diffèrents <a href=\"#ref-6\" onclick= \"toRef( 6 )\"> résumés </a>.</p>\n",
+            "title":"Attribution des crédits aux résumés",
+            "date":"01 Jan 7",
+            "displaydate":"7",
+            "expansion":"collapsed"},
+            {"id":8,
+            "field1":"<p>Le <a href=\"#ref-3\" onclick= \"toRef( 3 )\"> résumé </a> ayant le meilleur score est affiché par défaut </p>\n",
+            "title":"Sélection du meilleur résumé",
+            "date":"01 Jan 8",
+            "displaydate":"8",
+            "expansion":"collapsed"},
+            {"id":9,
+            "field1":"<p> De nouvelles références sont ajoutées, de nouvelles analyses et résumés sont écrits, les crédits sont constaement redistribués et la controverse continue à évoluer.</p>\n",
+            "title":"La controverse continue à évoluer",
+            "date":"01 Jan 9",
+            "displaydate":"9",
+            "expansion":"collapsed"}],
     handleResize: true,
+    defaultDirection: 'oldest',
+    groupMarkerTemplate: '',
+    buttonTemplate: '<div class="vertical-timeline-buttons clearfix"> \
+        <div class="expand-collapse-buttons"> \
+          <a class="collapse-all" style="display: none" href="#"><\/a> \
+        <\/div> \
+        <\/div> \
+    ',
+    groupFunction: 'groupSegmentByYear',
+    loadingTemplate: '<div class="loading"> \
+    Chargement...\
+    <\/div> \
+    '
     });
     });
-<% end %>
+</script>

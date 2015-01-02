@@ -1,18 +1,106 @@
 <% provide(:title, "Aide") %>
 
-<div class="col-xs-12 col-lg-4 col-lg-offset-4">
+<div class="col-xs-12 col-lg-8 col-lg-offset-2">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Comment contribuer à ControverSciences.
+      <h3>
+        Comment contribuer à ControverSciences.
+      </h3>
     </div>
     <div class="panel-body">
+      <div class="row" id="my-timeline">
+        <div class="col-lg-offset-1 col-lg-10">
+          <h2>
+            Tutoriel pour les contributeurs.
+          </h2>
+          <div class="timeline-jquery-controverse">
+          </div>
+        </div>
+      </div>
       <br/>
       <%= link_to "La mission de ControverSciences", help_path,
-                  class: "btn btn-block btn-lg btn-primary" %>
-      <%= link_to "Tutoriel pour les visiteurs", how_to_edit_path,
-                  class: "btn btn-block btn-lg btn-primary" %>
+                  class: "btn btn-block btn-primary" %>
+      <%= link_to "Comment fonctionne ControverSciences", how_to_path,
+                  class: "btn btn-block btn-primary" %>
       <%= link_to "Suggèrer une amélioration pour le site", suggestions_path,
-                  class: "btn btn-block btn-lg btn-primary" %>
+                  class: "btn btn-block btn-primary" %>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    function toRef( id ){
+        if ( jQuery.inArray( 'collapsed', $("#ref-"+id)[0].classList ) ){
+            $(".collapse-all").trigger({ type: "click" });
+            $("#ref-btn-"+id).trigger({ type: "click" });
+        }
+    }
+    $(document).ready(function(){
+        $('.timeline-jquery-controverse').verticalTimeline({
+            data: [{"id":1,
+                "field1":"<p> Il est nécessaire de disposer d'une adresse éléctronique universitaire ou d'un organisme scientifique reconnu. "+
+                "Dans le cas où l'adresse n'est pas reconnue automatique par nos serveurs, il suffit d'ajouter ces motivations dans l'encart prévu à cet effet. "+
+                "La validation du compte sera manuelle.</p>\n",
+                "title":"Création d'un compte",
+                "date":"01 Jan 1",
+                "displaydate":"1",
+                "expansion":"collapsed"},
+                {"id":2,
+                "field1":"<p> </p>\n",
+                "title":"Suivre les nouvelles controverses, références, analyses et résumés",
+                "date":"01 Jan 2",
+                "displaydate":"2",
+                "expansion":"collapsed"},
+                {"id":3,
+                "field1":"<p> </p>\n",
+                "title":"Attribution des crédits aux analyses et résumés ",
+                "date":"01 Jan 3",
+                "displaydate":"3",
+                "expansion":"collapsed"},
+                {"id":4,
+                "field1":"<p> </p>\n",
+                "title":"Amélioration des analyses et résumés existant",
+                "date":"01 Jan 4",
+                "displaydate":"4",
+                "expansion":"collapsed"},
+                {"id":5,
+                "field1":"<p> </p>\n",
+                "title":"Ecriture d'analyses et de résumés",
+                "date":"01 Jan 5",
+                "displaydate":"5",
+                "expansion":"collapsed"},
+                {"id":6,
+                "field1":"<p> </p>\n",
+                "title":"Ajout de références",
+                "date":"01 Jan 6",
+                "displaydate":"6",
+                "expansion":"collapsed"},
+                {"id":7,
+                "field1":"<p> </p>\n",
+                "title":"Création de nouvelles controverses",
+                "date":"01 Jan 7",
+                "displaydate":"7",
+                "expansion":"collapsed"},
+                {"id":8,
+                "field1":"<p> </p>\n",
+                "title":"Suggérer des améliorations",
+                "date":"01 Jan 8",
+                "displaydate":"8",
+                "expansion":"collapsed"}],
+            handleResize: true,
+            defaultDirection: 'oldest',
+            groupMarkerTemplate: '',
+            buttonTemplate: '<div class="vertical-timeline-buttons clearfix"> \
+        <div class="expand-collapse-buttons"> \
+          <a class="collapse-all" style="display: none" href="#"><\/a> \
+        <\/div> \
+        <\/div> \
+    ',
+            groupFunction: 'groupSegmentByYear',
+            loadingTemplate: '<div class="loading"> \
+    Chargement...\
+    <\/div> \
+    '
+        });
+    });
+</script>
