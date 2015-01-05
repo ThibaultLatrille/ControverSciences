@@ -3,9 +3,9 @@
 }
 
 $gray-medium-light: #eaeaea;
-$nav_back: #6898ce;
+$nav_back: #4E7DC9;
 $nav_back_bottom: #e9f0f5;
-$nav_hover: #6682b5;
+$nav_hover: #405899;
 $red-error:#d9534f;
 
 /* universal */
@@ -21,7 +21,7 @@ body {
   padding-top: 80px;
   padding-bottom: 60px;
   font-family: 'Lobster';
-  background-color: #F5FAFA;
+  background-color: #f1f4f9;
 }
 
 .img-responsive {
@@ -34,7 +34,6 @@ body {
 
 .navbar {
     background-color: $nav_back;
-    background-image:linear-gradient($nav_back, $nav_back_bottom);
     border-color: $nav_hover;
 }
 
@@ -59,12 +58,16 @@ body {
 
 .nav{
   li{
-    a{color: black;
+    li > a {
+      color: black;
+    }
+    a{color: white;
       padding-top: 0px;
       padding-bottom: 0px;
       line-height: 64px;
       &:hover{
       background-color: $nav_hover;
+      color: white;
       text-decoration: none;
       }
     }
