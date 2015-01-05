@@ -14,15 +14,17 @@
       <div class="col-xs-12 col-lg-4 col-lg-offset-4">
         <%= image_tag("logo.png", alt: "Logo", :class => "img-responsive") %>
           <h2>
-            Et si on arrêtait de parler sans savoir ?
+            Et si on arrêtait d'ignorer les résultats scientifiques ?
           </h2>
       <br/>
-        <%= link_to "Mais c'est quoi ControverSciences ?", help_path,
-                    class: "btn btn-block btn-lg btn-primary" %>
-        <%= link_to "Découvrez les controverses !", timelines_path,
-                      class: "btn btn-block btn-lg btn-primary" %>
-          <%= link_to "Participez à l'aventure, Join Us !", signup_path,
-                      class: "btn btn-block btn-lg btn-primary" %>
+        <%= link_to "Heu, c'est quoi ControverSciences ?", help_path,
+                    class: "btn btn-block btn-primary" %>
+        <%= link_to "Et comment fonctionne ControverSciences?", how_to_path,
+                    class: "btn btn-block btn-primary" %>
+        <%= link_to "Montrez moi les controverses, je suis venu pour ça !", timelines_path,
+                      class: "btn btn-block btn-primary" %>
+          <%= link_to "Je veux contribuer, comment faire ?", signup_path,
+                      class: "btn btn-block btn-primary" %>
       </div>
   </div>
   </div>
