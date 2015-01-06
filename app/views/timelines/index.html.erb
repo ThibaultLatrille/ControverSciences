@@ -95,6 +95,8 @@
 </div>
 
 <%= javascript_tag do %>
+$('.timeline-name').responsiveEqualHeightGrid();
+$('.timeline-body').responsiveEqualHeightGrid();
   $('.collapse').on('shown.bs.collapse', function () {
       $('.my-btn', this).responsiveEqualHeightGrid();
       $(".timeline-body").responsiveEqualHeightGrid();

@@ -97,7 +97,7 @@ def seed_following_new_timelines(users, tags)
   following_new_timelines = []
   users = [users[0]]
   users.each do |user|
-    s = tags.length
+    s = Tag.all.length
     tag_ids = Array(1..s).sample(1+rand(s/3))
     tag_ids.each do |tag_id|
       following_new_timelines << FollowingNewTimeline.new( user_id: user.id, tag_id: tag_id )

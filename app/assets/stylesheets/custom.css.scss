@@ -50,10 +50,12 @@ body {
 
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
   background-color: $nav_hover;
+  color: white;
 }
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: $nav_hover;
+  color: white;
 }
 
 .nav{

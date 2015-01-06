@@ -171,6 +171,10 @@
             opts.loading.finished = opts.loading.finished || function() {
                 $('.timeline-name').responsiveEqualHeightGrid();
                 $('.timeline-body').responsiveEqualHeightGrid();
+                $('.collapse').on('shown.bs.collapse', function () {
+                    $('.my-btn', this).responsiveEqualHeightGrid();
+                    $(".timeline-body").responsiveEqualHeightGrid();
+                });
                 if (!opts.state.isBeyondMaxPage)
                     opts.loading.msg.fadeOut(opts.loading.speed);
             };
