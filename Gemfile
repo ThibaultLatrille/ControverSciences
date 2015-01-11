@@ -46,6 +46,9 @@ gem 'activerecord-import'
 # Postgresql
 gem 'pg'
 
+# Use octokit for GitHub API
+gem 'octokit'
+
 # Image upload, resize and storing
 gem 'carrierwave'
 gem 'mini_magick'
