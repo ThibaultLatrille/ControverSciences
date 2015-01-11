@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141231012129) do
+ActiveRecord::Schema.define(version: 20150111210149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,17 @@ ActiveRecord::Schema.define(version: 20141231012129) do
 
   add_index "following_timelines", ["timeline_id"], name: "index_following_timelines_on_timeline_id", using: :btree
   add_index "following_timelines", ["user_id"], name: "index_following_timelines_on_user_id", using: :btree
+
+  create_table "issues", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.text     "labels",     default: [], array: true
+    t.string   "author"
+    t.integer  "importance"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "url"
+  end
 
   create_table "likes", force: true do |t|
     t.integer  "timeline_id"

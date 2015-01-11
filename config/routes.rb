@@ -66,6 +66,8 @@ Rails.application.routes.draw do
   resources :suggestion_child_votes, only: [:create]
   get "/fetch_children" => 'suggestion_children#from_suggestion', as: 'fetch_children'
 
+  resources :issues, only: [:create]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
