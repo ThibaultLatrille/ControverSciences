@@ -7,22 +7,9 @@
   </div>
   <div class="panel-body">
     <div class="panel-group" role="tablist" aria-multiselectable="true">
-      <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
-            <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Comment contribuer ?
-            </a>
-          </h4>
-        </div>
-        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-          <div class="panel-body">
-          Créer en compte, rentrer dans l'arène avec les autres gladiateurs et sortir ses arguments
-          </div>
-        </div>
-      </div>
-      <br/>
-      </div>
+      <%= render 'collapse', title: 'Comment contribuer ?', id: 1,
+                 content: "Créer en compte, rentrer dans l'arène avec les autres gladiateurs et sortir ses arguments" %>
+    </div>
     <div class="actions pull-right">
       <%= link_to "<span class=\"glyphicon glyphicon-question-sign\">
     </span> Poser une question".html_safe, '#newquestion',

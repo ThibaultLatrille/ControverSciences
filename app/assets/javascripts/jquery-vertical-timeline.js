@@ -58,7 +58,6 @@
             <div class="title"> \
               <h3> \
               <%= data.title %> \
-              <% if (data.user_name) { %> \
                   <a href="<%= data.url %>" target="_blank" >\
                   <% if (data.open) { %>  \
                     <img alt="open-access" src="/images/lock.png" height="16px" \/> \
@@ -100,18 +99,6 @@
                  <\/div> \
              <\/div> \
               <a href="#" id="ref-btn-<%= data.id %>" class="open-close"></a> \
-           <% } %> \
-           <% if (!data.user_name) { %> \
-           <\/h3> \
-           <\/div> \
-           <div class="date"><%= data.display_date %><\/div> \
-              <div class="body"> \
-               <div class="justify"> \
-                <div class="text">  <%= data.field1 %><\/div> \
-               <\/div> \
-             <\/div> \
-             <a href="#" id="ref-btn-<%= data.id %>" class="open-close"></a> \
-           <% } %> \
         <\/div> \
       <\/div> \
     ',

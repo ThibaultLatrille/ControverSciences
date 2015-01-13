@@ -1,114 +1,226 @@
 <% provide(:title, "Aide") %>
 
 <div class="col-xs-12 col-lg-8 col-lg-offset-2">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3>
-      Comment fonctionne ControverSciences.
-      </h3>
-    </div>
-    <div class="panel-body">
-          <div class="row" id="my-timeline">
-            <div class="col-lg-offset-1 col-lg-10">
-            <h2>
-              Pour comprendre comment fonctionne ControverSciences, suivont les étapes de la vie (sans fin) d'une controverse.
-            </h2>
-            <div class="timeline-jquery-controverse">
-            </div>
+<div class="panel panel-default">
+<div class="panel-heading">
+  <h3>
+    Comment fonctionnent les controverses de ControverSciences?
+  </h3>
+</div>
+<div class="panel-body">
+<div class="row">
+  <div class="col-lg-offset-3 col-lg-6">
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-success">
+        <div class="panel-heading" role="tab" id="heading1">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse1" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse1" aria-expanded="true" aria-controls="Collapse1">
+              Création d'une controverse.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Les contributeurs de ControverSciences ajoutent une nouvelle controverse.
+            </p>
           </div>
+        </div>
+      </div>
+      <div class="panel panel-success">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse2" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse2" aria-expanded="true" aria-controls="Collapse2">
+              Les contibuteurs ajoutent des références scientifiques.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Les références doivent provenir de journaux scientifiques reconnus publiquement.
+              Ces références ont été relues et examinées par des pairs scientifiques avant d'être publiées.
+            </p>
           </div>
-        <br/>
-        <%= link_to "La mission de ControverSciences", help_path,
-                    class: "btn btn-block btn-primary" %>
-        <%= link_to "Contribuer à ControverSciences", how_to_edit_path,
-                    class: "btn btn-block btn-primary" %>
-        <%= link_to "Suggèrer une amélioration pour le site", suggestions_path,
-                    class: "btn btn-block btn-primary" %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="heading3">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse3" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse3" aria-expanded="true" aria-controls="Collapse3">
+              Les références sont analysées.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Le contributeur qui a ajouté la référence ou d'autres contributeurs peuvent proposer une analyse (en
+              français) de cette étude.
+              Une analyse décrit l'éxperience réalisée dans l'étude, les résultats obtenus et les limites de cette étude.
+              Les contributeurs expliquent aussi ce que cette étude apporte de nouveau dans la controverse et des remarques
+              éventuelles peuvent être adjointes.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="heading1">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse4" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse4" aria-expanded="true" aria-controls="Collapse4">
+              Les contributeurs accréditent les analyses qu'ils considèrent commme les meilleures
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Chaque contributeur dispose d'un nombre limité de crédits par référence qu'il peut choisir de répartir entre
+              les analyses qu'il considère comme les plus objectifs
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse5" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse5" aria-expanded="true" aria-controls="Collapse5">
+              La meilleur analyse est sélectionnée.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Pour chaque référence, en se basant sur les crédits accordés aux analyses, la meilleure analyse
+              est sélectionnée. Elle est affichée par défault dans la frise chronologique de la controverse.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-danger">
+        <div class="panel-heading" role="tab" id="heading3">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse6" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse6" aria-expanded="true" aria-controls="Collapse6">
+              Des synthèses de la controverse sont proposées.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Chaque contributeur peut écrire une synthèse de la controverse en se basant sur les références déjà analysées.
+              Une synthèse est un résumé général de la situation qui sert d'introduction à l'exploration de la frise chronologique.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-danger">
+        <div class="panel-heading" role="tab" id="heading1">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse7" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse7" aria-expanded="true" aria-controls="Collapse7">
+              Les contributeurs accréditent les synhtèses qu'ils considèrent commme les meilleures.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Chaque contributeur dispose d'un nombre limité de crédits pour cette controverse qu'il peut choisir de répartir entre
+              les synthèses qu'il considère comme les plus objectifs
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-danger">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse8" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse8" aria-expanded="true" aria-controls="Collapse8">
+              La meilleur synthèse est sélectionnée.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              En se basant sur les crédits accordés aux synthèses, la meilleure synthèse
+              est sélectionnée. Elle est affichée par défault en en-tête de la frise chronologique de la controverse.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-offset-3 col-lg-6">
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-success">
+        <div class="panel-heading" role="tab" id="heading1">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse9" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse9" aria-expanded="true" aria-controls="Collapse9">
+              La controverse continue à être alimentée.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              De nouvelles références, analyses et synthèses sont ajoutées par les contributeurs pour enrichir le débat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="center">
+      <svg height="14" width="14">
+        <circle cx="7" cy="7" r="6" fill="black" />
+      </svg> <br/>
+      <svg height="14" width="14">
+        <circle cx="7" cy="7" r="6" fill="black" />
+      </svg> <br/>
+      <svg height="14" width="14">
+        <circle cx="7" cy="7" r="6" fill="black" />
+      </svg> <br/>
+    </div>
+  </div>
+</div>
+<br/>
+<%= link_to "La mission de ControverSciences", help_path,
+            class: "btn btn-block btn-primary" %>
+<%= link_to "Contribuer à ControverSciences", how_to_edit_path,
+            class: "btn btn-block btn-primary" %>
+<%= link_to "Suggèrer une amélioration pour le site", suggestions_path,
+            class: "btn btn-block btn-primary" %>
+</div>
+</div>
+</div>
 
 <script type="text/javascript">
-    function toRef( id ){
-        if ( jQuery.inArray( 'collapsed', $("#ref-"+id)[0].classList ) ){
-            $(".collapse-all").trigger({ type: "click" });
-            $("#ref-btn-"+id).trigger({ type: "click" });
-        }
-    }
-    $(document).ready(function(){
-    $('.timeline-jquery-controverse').verticalTimeline({
-    data: [{"id":1,
-            "field1":"<p> Création de la page controverse. " +
-                    "</p>\n",
-            "title":"Creation d'une nouvelle controverse sur controversciences",
-            "date":"01 Jan 1",
-            "displaydate":"1",
-            "expansion":"collapsed"},
-            {"id":2,
-            "field1":"<p>Les liens vers des références scientifiques publiées dans des journeaux scientifiques, ainsi que des certaines informations sont ajoutés.</p>\n",
-            "title":"Ajout de références scientifiques en lien avec la controverse",
-            "date":"01 Jan 2",
-            "displaydate":"2",
-            "expansion":"collapsed"},
-            {"id":3,
-            "field1":"<p> Pour chaque <a href=\"#ref-2\" onclick= \"toRef( 2 )\">référence</a> des analyses en français sont écrites par les contributeurs. " +
-                    "Chaque contributeur peut écrire son (ou ses) analyse(s)  </p>\n",
-            "title":"Ecriture des analyses de références",
-            "date":"01 Jan 3",
-            "displaydate":"3",
-            "expansion":"collapsed"},
-            {"id":4,
-            "field1": "Pour chaque <a href=\"#ref-2\" onclick= \"toRef( 2 )\">référence</a>, chaque contributeur à un nombre limité de crédits a distribuer entre les différentes <a href=\"#ref-3\" onclick= \"toRef( 3 )\"> analyses</a>.</p>\n"+
-                    "<p>Les <a href=\"#ref-3\" onclick= \"toRef( 3 )\">analyses</a> les plus objectives sont récompensées",
-            "title":"Attribution des crédits aux analyses",
-            "date":"01 Jan 4",
-            "displaydate":"4",
-            "expansion":"collapsed"},
-            {"id":5,
-            "field1":"<p>Pour chaque <a href=\"#ref-2\" onclick= \"toRef( 2 )\">référence</a>, l'<a href=\"#ref-3\" onclick= \"toRef( 3 )\">analyse</a> ayant le meilleur score est affiché par défaut</p>\n",
-            "title":"Sélection des meilleures analyses",
-            "date":"01 Jan 5",
-            "displaydate":"5",
-            "expansion":"collapsed"},
-            {"id":6,
-            "field1":"<p> Des résumés de la controverse sont écrits par les contributeurs </p>\n",
-            "title":"Ecriture des résumés",
-            "date":"01 Jan 6",
-            "displaydate":"6",
-            "expansion":"collapsed"},
-            {"id":7,
-            "field1":"<p>Les <a href=\"#ref-6\" onclick= \"toRef( 6 )\">résumés</a> les plus objectifs se voient attribuer des crédites par les contributeurs. "+
-                "Chaque contributeur à un nombre limité de crédits à distribuer entre les diffèrents <a href=\"#ref-6\" onclick= \"toRef( 6 )\"> résumés </a>.</p>\n",
-            "title":"Attribution des crédits aux résumés",
-            "date":"01 Jan 7",
-            "displaydate":"7",
-            "expansion":"collapsed"},
-            {"id":8,
-            "field1":"<p>Le <a href=\"#ref-3\" onclick= \"toRef( 3 )\"> résumé </a> ayant le meilleur score est affichée par défaut.</p>\n",
-            "title":"Sélection du meilleur résumé",
-            "date":"01 Jan 8",
-            "displaydate":"8",
-            "expansion":"collapsed"},
-            {"id":9,
-            "field1":"<p> De nouvelles références sont ajoutées, de nouvelles analyses et résumés sont écrits, les crédits sont constaement redistribués et la controverse continue à évoluer.</p>\n",
-            "title":"La controverse continue à évoluer",
-            "date":"01 Jan 9",
-            "displaydate":"9",
-            "expansion":"collapsed"}],
-    handleResize: true,
-    defaultDirection: 'oldest',
-    groupMarkerTemplate: '',
-    buttonTemplate: '<div class="vertical-timeline-buttons clearfix"> \
-        <div class="expand-collapse-buttons"> \
-          <a class="collapse-all" style="display: none" href="#"><\/a> \
-        <\/div> \
-        <\/div> \
-    ',
-    groupFunction: 'groupSegmentByYear',
-    loadingTemplate: '<div class="loading"> \
-    Chargement...\
-    <\/div> \
-    '
+    $('.collapse').on('show.bs.collapse', function () {
+        $(this).parent(".panel").find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+
     });
+    $('.collapse').on('hide.bs.collapse', function () {
+        $(this).parent("div").parent("div").find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
     });
 </script>

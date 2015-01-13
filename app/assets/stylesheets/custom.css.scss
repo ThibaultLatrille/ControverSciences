@@ -339,6 +339,11 @@ input {
 {
   width:auto !important;
 }
+.panel-body{
+  p{
+    text-align: justify;
+  }
+}
 
 #my-timeline {
   $gray-medium-light: #eaeaea;

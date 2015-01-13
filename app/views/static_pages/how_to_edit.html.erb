@@ -1,106 +1,191 @@
 <% provide(:title, "Aide") %>
 
 <div class="col-xs-12 col-lg-8 col-lg-offset-2">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3>
-        Comment contribuer à ControverSciences.
-      </h3>
-    </div>
-    <div class="panel-body">
-      <div class="row" id="my-timeline">
-        <div class="col-lg-offset-1 col-lg-10">
-          <h2>
-            Tutoriel pour les contributeurs.
-          </h2>
-          <div class="timeline-jquery-controverse">
+<div class="panel panel-default">
+<div class="panel-heading">
+  <h3>
+    Comment contribuer à ControverSciences ? <br/>
+    Voici l'éventail des possibilités qui s'offrent à vous en tant que contributeur.
+  </h3>
+</div>
+<div class="panel-body">
+<div class="row">
+  <div class="col-lg-offset-3 col-lg-6">
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-danger">
+        <div class="panel-heading" role="tab" id="heading1">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse1" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse1" aria-expanded="true" aria-controls="Collapse1">
+              Tout d'abord il vous faut créer un compte.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body clearfix">
+            <p>
+              Il est nécessaire de disposer d'une adresse éléctronique universitaire
+              ou d'un organisme scientifique reconnu pour s'inscrire. Si tel n'est pas le cas mais que vous souhaitez
+              tout de même contribuer, tout n'est pas perdu !
+              Il vous suffit de préciser vos motivations lors de l'inscription.
+            </p>
+            <div class="pull-right">
+              <%= link_to  "Prêt à rentrer dans l'arène !", new_user_path, class: "btn btn-primary" %>
+            </div>
           </div>
         </div>
       </div>
-      <br/>
-      <%= link_to "La mission de ControverSciences", help_path,
-                  class: "btn btn-block btn-primary" %>
-      <%= link_to "Comment fonctionne ControverSciences", how_to_path,
-                  class: "btn btn-block btn-primary" %>
-      <%= link_to "Suggèrer une amélioration pour le site", suggestions_path,
-                  class: "btn btn-block btn-primary" %>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse2" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse2" aria-expanded="true" aria-controls="Collapse2">
+              Vous pouvez etre tenu au courant des contributions.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Un système de <%= link_to  "notifications", notifications_index_path %> et
+              <%= link_to  "d'abonnements", followings_index_path %> vous permet de suivre les dernières contributions
+              sur les sujets qui vous intèressent. On ne spam pas votre boîte mail ! Aucun mail n'est envoyé,
+              ces notifications sont gérées sur le site.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse3" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse3" aria-expanded="true" aria-controls="Collapse3">
+              Vous disposez de 12 crédits par références à distribuer entre diffèrentes analyses.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Ces crédits peuvent être redistribués à tout moment, en particulier lors de la publication
+              d'une nouvelle analyse.
+                De la même manière vous disposez de 12 crédits à répartir entre les différentes synthèses.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse4" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse4" aria-expanded="true" aria-controls="Collapse4">
+              Aucun texte ne vous satisfait pleinement, à vous de faire mieux !
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+            Vous pouvez proposer de nouvelles analyses et synthèses (dans la langue de Molière).
+              Pour cela vous pouvez en écrire une <i>ex nihilo</i>, ou bien repartir d'une préexistante et
+              l'améliorer (<%= image_tag "icons/myicon-fork.svg", alt: "fork", height: "20px" %>).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse5" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse5" aria-expanded="true" aria-controls="Collapse5">
+              Vous pouvez ajouter une référence qui vous semble pertinente.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <p>
+              Dans un soucis d'uniformité des références, celle-ci doivent répondrent à certain nombre de contraintes
+              avant d'être ajoutées. Il vous faudra préciser les champs suivants : <br/>
+              • <a href="http://fr.wikipedia.org/wiki/Digital_Object_Identifier"
+                   target="_blank"> Le DOI (Digital Object Identifier) </a>  <br/>
+              • Le titre (original et en français) <br/>
+              • Le journal dans lequel la référence a été publiée <br/>
+              • Le(s) auteur(s) de l'étude <br/>
+              • La date de Publication <br/>
+              • Un lien vers la référence <br/>
+              <i>Nota Bene : </i>L'autocomplétion de ces données est possible en
+              renseignant uniquement le titre ou le DOI de l'étude.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse6" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse6" aria-expanded="true" aria-controls="Collapse6">
+              Et si le coeur vous en dit, vous pouvez ajouter une controverse.
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body clearfix">
+            <p>
+                <div class="pull-right">
+                  <%= link_to  "Ajouter une controverse", new_timeline_path, class: "btn btn-primary" %>
+                </div>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading2">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#Collapse7" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a data-toggle="collapse" href="#Collapse7" aria-expanded="true" aria-controls="Collapse7">
+              Vous avez en tête une amélioration pour le site ? Exprimez-la !
+            </a>
+          </h4>
+        </div>
+        <div id="Collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body clearfix">
+            <p>
+              Une salle de discussion pour les améliorations a été ouverte.
+                <div class="pull-right">
+                  <%= link_to  "Entrer dans la salle de discussion", new_user_path, class: "btn btn-primary" %>
+                </div>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<%= link_to "La mission de ControverSciences", help_path,
+            class: "btn btn-block btn-primary" %>
+<%= link_to "Comment fonctionne ControverSciences ?", how_to_path,
+            class: "btn btn-block btn-primary" %>
+<%= link_to "Suggèrer une amélioration pour le site", suggestions_path,
+            class: "btn btn-block btn-primary" %>
+</div>
+</div>
+</div>
 
 <script type="text/javascript">
-    function toRef( id ){
-        if ( jQuery.inArray( 'collapsed', $("#ref-"+id)[0].classList ) ){
-            $(".collapse-all").trigger({ type: "click" });
-            $("#ref-btn-"+id).trigger({ type: "click" });
-        }
-    }
-    $(document).ready(function(){
-        $('.timeline-jquery-controverse').verticalTimeline({
-            data: [{"id":1,
-                "field1":"<p> Il est nécessaire de disposer d'une adresse éléctronique universitaire ou d'un organisme scientifique reconnu. "+
-                "Dans le cas où l'adresse n'est pas reconnue automatique par nos serveurs, il suffit d'ajouter ces motivations dans l'encart prévu à cet effet. "+
-                "La validation du compte sera manuelle.</p>\n",
-                "title":"Création d'un compte",
-                "date":"01 Jan 1",
-                "displaydate":"1",
-                "expansion":"collapsed"},
-                {"id":2,
-                "field1":"<p> </p>\n",
-                "title":"Suivre les nouvelles controverses, références, analyses et résumés",
-                "date":"01 Jan 2",
-                "displaydate":"2",
-                "expansion":"collapsed"},
-                {"id":3,
-                "field1":"<p> </p>\n",
-                "title":"Attribution des crédits aux analyses et résumés ",
-                "date":"01 Jan 3",
-                "displaydate":"3",
-                "expansion":"collapsed"},
-                {"id":4,
-                "field1":"<p> </p>\n",
-                "title":"Amélioration des analyses et résumés existant",
-                "date":"01 Jan 4",
-                "displaydate":"4",
-                "expansion":"collapsed"},
-                {"id":5,
-                "field1":"<p> </p>\n",
-                "title":"Ecriture d'analyses et de résumés",
-                "date":"01 Jan 5",
-                "displaydate":"5",
-                "expansion":"collapsed"},
-                {"id":6,
-                "field1":"<p> </p>\n",
-                "title":"Ajout de références",
-                "date":"01 Jan 6",
-                "displaydate":"6",
-                "expansion":"collapsed"},
-                {"id":7,
-                "field1":"<p> </p>\n",
-                "title":"Création de nouvelles controverses",
-                "date":"01 Jan 7",
-                "displaydate":"7",
-                "expansion":"collapsed"},
-                {"id":8,
-                "field1":"<p> </p>\n",
-                "title":"Suggérer des améliorations",
-                "date":"01 Jan 8",
-                "displaydate":"8",
-                "expansion":"collapsed"}],
-            handleResize: true,
-            defaultDirection: 'oldest',
-            groupMarkerTemplate: '',
-            buttonTemplate: '<div class="vertical-timeline-buttons clearfix"> \
-        <div class="expand-collapse-buttons"> \
-          <a class="collapse-all" style="display: none" href="#"><\/a> \
-        <\/div> \
-        <\/div> \
-    ',
-            groupFunction: 'groupSegmentByYear',
-            loadingTemplate: '<div class="loading"> \
-    Chargement...\
-    <\/div> \
-    '
-        });
+    $('.collapse').on('show.bs.collapse', function () {
+        $(this).parent(".panel").find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+
+    });
+    $('.collapse').on('hide.bs.collapse', function () {
+        $(this).parent("div").parent("div").find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
     });
 </script>
