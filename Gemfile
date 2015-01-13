@@ -49,6 +49,9 @@ gem 'pg'
 # Use octokit for GitHub API
 gem 'octokit'
 
+# Use octokit for GitHub API
+gem 'browser'
+
 # Image upload, resize and storing
 gem 'carrierwave'
 gem 'mini_magick'
