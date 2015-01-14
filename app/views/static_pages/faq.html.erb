@@ -7,8 +7,67 @@
   </div>
   <div class="panel-body">
     <div class="panel-group" role="tablist" aria-multiselectable="true">
-      <%= render 'collapse', title: 'Comment contribuer ?', id: 1,
-                 content: "Créer en compte, rentrer dans l'arène avec les autres gladiateurs et sortir ses arguments" %>
+      <%= render 'collapse', id: 34, title: "Quelle est la différence entre une analyse est une synthèse ?",
+                 content: "Une analyse est version vulgarisée en français d'une publication scientifique. Une synthèse est un bilan
+                 de l'ensemble des analyses, pour une controverse donnée." %>
+      <%= render 'collapse', id: 23, title: "Je ne suis pas d'accord avec un contributeur, comment puis-je lui répondre ?",
+                 content: "Vous ne pouvez tout simplement pas, et pas parce que les codeurs du site n'ont pas fini le travail !
+                 Ceci est absolument intentionnel, désolé pour la frustration.
+                 Nous souhaitons favoriser les approches constructifs et ne voulons absolument pas reproduire la situation des commentaires Youtube
+                 ou du Monde. Sur ControverScience, on répond à une analyse (synthèse) par une autre analyse (synthèse).
+                 Les autres contributeurs s'occuperont de déterminer laquelle est de meilleure qualité selon leurs point de vue. <br/>
+                 <strong> Si vous trouvez qu'une analyse ou une synthèse est mauvaise, faites mieux ;-) </strong>".html_safe %>
+      <%= render 'collapse', id: 42, title: "Comment distribuer mes crédits ?",
+                 content: "De la façon qu'il vous convient, mais ils sont limités. Les critères qui doivent déterminer la qualité d'une
+                 analyse ou d'une synthèse sont : <br/>
+                 • Objectivité <br/>
+                 • Clarté <br/>".html_safe %>
+      <%= render 'collapse', id: 2, title: "A quoi servent les scores des contributeurs ?",
+                 content: "Ils servent à calculer les scores des analyses et synthèses afin de déterminer les meilleures.
+                 Plus un contributeur a un score élevé plus les crédits qu'il a distribué ont du poids." %>
+      <%= render 'collapse', id: 3, title: "Comment sont calculés les scores des contributeurs ?",
+                 content: "Par un algorithme secret qui ne sera jamais révélé afin que les administrateur puissent favoriser
+                  leurs contributeurs préférés ;-) En réalité ils sont re-calculés toutes les nuits, il s'agit d'une moyenne harmonique des différents indices.
+                  Ces indices prennent en compte la qualité des analyses et synthèses, ainsi que la qualité des références ajoutées par le contributeur.
+                  Le score est nombre réel compris entre 1 et 4" %>
+      <%= render 'collapse', id: 4, title: "Qu'advient-il des contenus de mauvaises qualités ?",
+                 content: "Un algorithme s'occupe de nettoyer de temps en temps les contenus désués qui ne sont pas accrédités ?" %>
+      <%= render 'collapse', id: 1, title: "Comment sont évités les trolls ?",
+                 content: "Deux homo erectus sont poursuivis par un lion dans la savane, l'un d'eux déclame au second : <br/>
+                 \"Mais ça ne sert à rien de courir car de toute façon il finira par nous rattraper\". <br/>
+                 Ce à quoi le second répond :<br/> \"Mais je ne cherche pas à courir plus vite que le lion, mais plus vite que toi\". <br/>
+                 Pour ControverSciences, c'est un pue la même chose, les contraintes permettent de dissuader une grosse majorité des trolls qui vont troller
+                 d'autres sites.
+                 Pour les trolls de compétitions, on supprime ce qui est nécessaire à la main.
+                 D'ailleurs ça prend beaucoup moins de temps à nous de le supprimer qu'à eux de l'écrire ;-)".html_safe %>
+      <%= render 'collapse', id: 5, title: "Quand je suis connecté, les analyses ou synthèse semble arriver dans
+                    un ordre aléatoire, quand ce bug sera-t-il corrigé ?",
+                 content: "Ce comportement est tout à fait normal, il est même entièrement voulu. Les analyses et synthèses sont rangées dans
+                 un ordre pseudo-aléatoire afin de n'en favoriser aucune. La distribution uniforme donne toute ces chances à toutes les
+                 analyses/synthèses. Egalité et pas de traitement de faveur." %>
+      <%= render 'collapse', id: 6, title: "Quand je suis connecté je n'arrive pas à voir les crédits donnés
+                    aux analyses et synthèse, où est cette information ?",
+                 content: "Cette information est volontairment nvisible au contributeur afin qu'il ne soit pas biaisé
+                 dans l'attribution des crédits.
+                 Sinon une analyse/synthèse qui aurait beaucoup crédits en recevrait encore plus par effet de consensus.
+                 Egalité et pas de traitement de faveur." %>
+
+      <%= render 'collapse', id: 7, title: "Qu'advient-il de mes contributions ?",
+                 content: "Les contributions que vous déposez sur controversciences n'ont en premier lieu aucun copyright.
+                   Elles sont ensuite mit au enchères et revendu à l'entreprise/entité la plus offrantes qui
+               en disposera. Il se peut donc que celle-ci décide de mettre un copyright dessus afin que cette analyse ne puisse plus
+                être diffusé sans leur accord. C'est sur ce business model novateur et très lucratif qu'est financé controversciences.
+                <br/>
+                Evidement que les contibutions sont dans le domaine publique. Plus précisement les contributions sont CC-BY-SA" %>
+      <%= render 'collapse', id: 7, title: "Comment est financé ControverSciences ?".html_safe,
+                 content: "Pour l'instant le site ControverSciences est codé et maintenu par des bénévoles qui
+                 donc ne sont pas payés mais sont convaincus de la raison d'être d'un tel site. Les frais d'hébergements
+                 du site sont actuellement maigres (~30E/mois) mais vont
+                 évidement augmenter avec l'affluence du site. \n
+                Ce site ne sera jamais sous l'influence de la pub.
+                Si vous trouvez l'initative intéressante et que vous n'avez pas donné toute votre argent pour préserver
+                les lamantins du golfe de guinée vous pouvez nous aider (les dons seront bientôt possibles).
+                Si vous avez l'âme d'un mécène on sera ravi bien évidement !" %>
     </div>
     <div class="actions pull-right">
       <%= link_to "<span class=\"glyphicon glyphicon-question-sign\">
@@ -36,7 +95,7 @@
             </div>
             <div class="form-group">
               <%= f.label :body, "Remarques", class: 'control-label' %><br>
-              <%= f.text_area :body, class: 'form-control' %>
+              <%= f.text_area :body, class: 'form-control textarea' %>
               <span class="help-block"></span>
             </div>
             <%= f.hidden_field :url, value: request.original_url %>
@@ -72,3 +131,13 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $('.collapse').on('show.bs.collapse', function () {
+        $(this).parent(".panel").find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+
+    });
+    $('.collapse').on('hide.bs.collapse', function () {
+        $(this).parent("div").parent("div").find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+    });
+</script>

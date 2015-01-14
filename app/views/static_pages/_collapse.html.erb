@@ -1,14 +1,17 @@
 <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="heading<%= id %>">
-        <h4 class="panel-title">
+        <h3 class="panel-title clearfix">
+          <a data-toggle="collapse" href="#Collapse<%= id %>" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse<%= id %>" aria-expanded="true" aria-controls="Collapse<%= id %>">
                <%= title %>
             </a>
-        </h4>
+        </h3>
     </div>
     <div id="Collapse<%= id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
+          <p>
            <%= content %>
+          </p>
         </div>
     </div>
 </div>
