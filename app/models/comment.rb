@@ -30,10 +30,11 @@ class Comment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
-  validates :f_1_content, presence: true
-  validates :f_2_content, presence: true
-  validates :f_3_content, presence: true
-  validates :f_4_content, presence: true
+  validates :f_1_content, presence: true, length: {maximum: 1000}
+  validates :f_2_content, presence: true, length: {maximum: 1000}
+  validates :f_3_content, presence: true, length: {maximum: 1000}
+  validates :f_4_content, presence: true, length: {maximum: 1000}
+  validates :f_4_content, length: {maximum: 1000}
 
   def user_name
     User.select( :name ).find( self.user_id ).name

@@ -24,7 +24,7 @@ class Summary < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
-  validates :content, presence: true
+  validates :content, presence: true, length: {maximum: 5000}
 
   def user_name
     User.select( :name ).find( self.user_id ).name
