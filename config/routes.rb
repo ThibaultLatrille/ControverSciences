@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'how_to'    => 'static_pages#how_to'
   get 'how_to_edit'    => 'static_pages#how_to_edit'
   get 'faq'    => 'static_pages#faq'
+  get 'terms'    => 'static_pages#terms'
   get 'about'   => 'static_pages#about'
   get 'contact' => 'static_pages#contact'
   get 'signup' => 'users#new'
