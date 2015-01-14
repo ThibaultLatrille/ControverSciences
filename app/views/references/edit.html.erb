@@ -37,11 +37,11 @@
                 <br/>
                 <%= f.label "Titre original" %>
                 <%= f.text_area :title, {:rows => 2,
-                :class => "form-control"} %>
+                :class => "form-control textarea"} %>
                 <br/>
                 <%= f.label "Titre en Français" %>
                 <%= f.text_area :title_fr, {:rows => 2,
-                :class => "form-control"} %>
+                :class => "form-control textarea"} %>
                 <br/>
                 <%= f.label "Journal" %>
                 <%= f.text_field :journal, class: 'form-control' %>
@@ -54,7 +54,7 @@
                 <br/>
                 <%= f.label "Abstract (Facultatif)" %>
                 <%= f.text_area :abstract, {:rows => 2,
-                :class => "form-control"} %>
+                :class => "form-control textarea"} %>
                 <br/>
                 <%= f.submit "Modifier la référence", class: "btn btn-primary" %>
                 <% end %>

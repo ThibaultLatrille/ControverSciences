@@ -22,7 +22,7 @@
         <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
             <br/>
         <%= f.label :biography, "Biographie" %>
-        <%= f.text_area :biography, placeholder: "Votre biographie", class: 'form-control' %>
+        <%= f.text_area :biography, placeholder: "Votre biographie", class: 'form-control textarea' %>
             <br/>
         <%= f.hidden_field :user_id, value: @user.id %>
         <% unless Rails.env.production? %>

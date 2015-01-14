@@ -19,13 +19,13 @@
         <%= f.label "DOI" %>
         <div class="input-group">
           <span class="input-group-btn">
-            <button class="btn btn-primary" name="doi" type="submit"> <span class="glyphicon glyphicon-refresh"></span> </button>
+            <button class="btn btn-primary" name="doi" type="submit" onclick="freeze()"> <span class="glyphicon glyphicon-refresh"> </span> </button>
           </span>
-            <%= f.text_field :doi, class: 'form-control' %>
+            <%= f.text_field :doi, class: 'form-control myforms' %>
         </div>
         <br/>
         <%= f.label "Lien vers la publication" %>
-        <%= f.text_field :url, class: 'form-control' %>
+        <%= f.text_field :url, class: 'form-control myforms' %>
             <br/>
         <%= f.label "Journal en Open-Access" %>
         <div class="btn-group-justified" data-toggle="buttons">
@@ -44,28 +44,28 @@
         <%= f.label "Titre original" %>
         <div class="input-group">
           <span class="input-group-btn">
-            <button class="btn btn-primary" name="title" type="submit"> <span class="glyphicon glyphicon-refresh"></span> </button>
+            <button class="btn btn-primary" name="title" type="submit" onclick="freeze()"> <span class="glyphicon glyphicon-refresh"></span> </button>
           </span>
-              <%= f.text_field :title, class: 'form-control' %>
+              <%= f.text_field :title, class: 'form-control myforms' %>
         </div>
         <br/>
 
         <%= f.label "Titre en Français" %>
         <%= f.text_area :title_fr, {:rows => 2,
-                                    :class => "form-control"} %>
+                                    :class => "form-control myforms textarea"} %>
             <br/>
         <%= f.label "Journal" %>
-        <%= f.text_field :journal, class: 'form-control' %>
+        <%= f.text_field :journal, class: 'form-control myforms' %>
             <br/>
         <%= f.label "Date de publication" %>
-        <%= f.select :year, (1870..Date.current.year), {:include_blank => true}, { class: 'form-control'} %>
+        <%= f.select :year, (1870..Date.current.year), {:include_blank => true}, { class: 'form-control myforms'} %>
             <br/>
         <%= f.label "Les auteurs de l'étude" %>
-        <%= f.text_field :author, class: 'form-control' %>
+        <%= f.text_field :author, class: 'form-control myforms' %>
             <br/>
         <%= f.label "Résumé (Facultatif)" %>
         <%= f.text_area :abstract, {:rows => 2,
-                                    :class => "form-control"} %>
+                                    :class => "form-control myforms textarea"} %>
             <br/>
         <%= f.submit "Ajouter la référence", class: "btn btn-primary" %>
     <% end %>
@@ -73,3 +73,9 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    function freeze(){
+        $(".myforms").attr('readonly', true)
+    }
+</script>

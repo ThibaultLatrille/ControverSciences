@@ -31,7 +31,7 @@
             </div>
             <div class="form-group">
               <%= f.label :message, class: 'control-label' %><br>
-              <%= f.text_area :message, class: 'form-control' %>
+              <%= f.text_area :message, class: 'form-control textarea' %>
               <span class="help-block"></span>
             </div>
             <div class="actions pull-right">
@@ -64,7 +64,7 @@
             </div>
             <div class="form-group">
               <%= f.label :body, "Description", class: 'control-label' %><br>
-              <%= f.text_area :body, class: 'form-control' %>
+              <%= f.text_area :body, class: 'form-control textarea' %>
               <span class="help-block"></span>
             </div>
             <%= f.hidden_field :url, value: request.original_url %>
