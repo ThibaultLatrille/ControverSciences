@@ -27,7 +27,7 @@
               Il est nécessaire de disposer d'une adresse éléctronique universitaire
               ou d'un organisme scientifique reconnu pour s'inscrire. Si tel n'est pas le cas mais que vous souhaitez
               tout de même contribuer, tout n'est pas perdu !
-              Il vous suffit de préciser vos motivations lors de l'inscription.
+              Il vous faut préciser vos motivations lors de l'inscription.
             </p>
             <div class="pull-right">
               <%= link_to  "Prêt à rentrer dans l'arène !", new_user_path, class: "btn btn-primary" %>
@@ -53,8 +53,8 @@
             <p>
               Un système de <%= link_to  "notifications", notifications_index_path %> et
               <%= link_to  "d'abonnements", followings_index_path %> vous permet de suivre les dernières contributions
-              sur les sujets qui vous intèressent. On ne spam pas votre boîte mail ! Aucun mail n'est envoyé,
-              ces notifications sont gérées sur le site.
+              sur les sujets qui vous intèressent. On ne spam pas votre boîte mail ! Aucun courrier éléctronique n'est envoyé,
+              ces notifications sont gérées sur ControverSciences.
             </p>
           </div>
         </div>
@@ -174,6 +174,8 @@
             class: "btn btn-block btn-primary" %>
 <%= link_to "Comment fonctionne ControverSciences ?", how_to_path,
             class: "btn btn-block btn-primary" %>
+  <%= link_to "Foire aux questions (FAQ)", faq_path,
+              class: "btn btn-block btn-primary" %>
 <%= link_to "Suggèrer une amélioration pour le site", suggestions_path,
             class: "btn btn-block btn-primary" %>
 </div>
