@@ -5,29 +5,29 @@ class TimelinesController < ApplicationController
     if params[:tag] != 'all' && !params[:tag].nil?
       if !params[:sort].nil?
         if !params[:order].nil?
-          @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(10)
+          @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(12)
         else
-          @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => :desc).page(params[:page]).per(10)
+          @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => :desc).page(params[:page]).per(12)
         end
       else
         if !params[:order].nil?
-          @timelines = Timeline.tagged_with(params[:tag]).order(:score => params[:order].to_sym).page(params[:page]).per(10)
+          @timelines = Timeline.tagged_with(params[:tag]).order(:score => params[:order].to_sym).page(params[:page]).per(12)
         else
-          @timelines = Timeline.tagged_with(params[:tag]).order(:score => :desc).page(params[:page]).per(10)
+          @timelines = Timeline.tagged_with(params[:tag]).order(:score => :desc).page(params[:page]).per(12)
         end
       end
     else
       if !params[:sort].nil?
         if !params[:order].nil?
-          @timelines = Timeline.order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(10)
+          @timelines = Timeline.order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(12)
         else
-          @timelines = Timeline.order(params[:sort].to_sym => :desc).page(params[:page]).per(10)
+          @timelines = Timeline.order(params[:sort].to_sym => :desc).page(params[:page]).per(12)
         end
       else
         if !params[:order].nil?
-          @timelines = Timeline.order(:score => params[:order].to_sym).page(params[:page]).per(10)
+          @timelines = Timeline.order(:score => params[:order].to_sym).page(params[:page]).per(12)
         else
-          @timelines = Timeline.order(:score => :desc).page(params[:page]).per(10)
+          @timelines = Timeline.order(:score => :desc).page(params[:page]).per(12)
         end
       end
     end

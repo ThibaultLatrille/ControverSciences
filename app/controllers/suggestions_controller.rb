@@ -1,7 +1,7 @@
 class SuggestionsController < ApplicationController
 
   def index
-    @suggestions = Suggestion.order( :created_at).all.page(params[:page]).per(10)
+    @suggestions = Suggestion.order( created_at: :desc).all.page(params[:page]).per(10)
     @suggestion = Suggestion.new
     if logged_in? && !@suggestion.name
       @suggestion.name = current_user.name
