@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   get 'my_items/drafts'
   resources :likes, only: [:create]
   resources :invitations, only: [:create]
+  resources :new_accounts, only: [:create]
 
   resources :summaries, only: [:show, :index, :new, :create, :destroy]
   resources :summary_drafts, only: [:destroy]

@@ -1,4 +1,6 @@
 class InvitationsController < ApplicationController
+  before_action :logged_in_user, only: [:create]
+
   def create
     UserMailer.invitation({user_from: current_user,
                           to: invitation_params[:email],

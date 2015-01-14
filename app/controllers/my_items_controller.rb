@@ -1,4 +1,6 @@
 class MyItemsController < ApplicationController
+  before_action :logged_in_user, only: [:timelines, :references, :comments, :summaries, :votes, :drafts]
+
   def timelines
     @timelines = Timeline.select(:id, :name).where( user_id: current_user.id)
   end

@@ -1,6 +1,7 @@
 class NotificationsController < ApplicationController
-  before_action :logged_in_user, only: [:index, :important, :delete, :delete_all,
-                       :summary_selection, :selection, :timeline, :reference, :comment]
+  before_action :logged_in_user, only: [:index, :important, :delete, :delete_all, :summary,
+                       :summary_selection, :selection, :timeline, :reference, :comment,
+                       :selection_win, :summary_selection_win, :selection_loss, :summary_selection_loss]
 
   def index
     if params[:filter]

@@ -20,4 +20,12 @@ class UserMailer < ActionMailer::Base
          subject: "Invitation sur ControverSciences de la part de #{@user.name}"
   end
 
+  def new_account( pending_user )
+    @user = pending_user.user
+    @why = pending_user.why
+    mail from: @user.email,
+         to: "thibault.latrille@ens-lyon.fr",
+         subject: "Demande de validation pour #{@user.name} sur ControverSciences"
+  end
+
 end
