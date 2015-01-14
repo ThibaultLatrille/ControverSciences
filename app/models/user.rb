@@ -21,10 +21,11 @@ class User < ActiveRecord::Base
   has_many :visite_references, dependent: :destroy
   has_many :visite_timelines, dependent: :destroy
 
-  attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email
+  attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
   before_save   :downcase_email
   before_create :create_activation_digest
 
+  validates_acceptance_of :terms_of_service
   validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
   validates :email, presence: true,
