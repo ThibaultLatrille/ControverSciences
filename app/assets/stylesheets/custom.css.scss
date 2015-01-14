@@ -10,7 +10,7 @@ $red-error:#d9534f;
 
 /* universal */
 
-textarea {
+.textarea {
   resize: vertical;
   -webkit-transition: height 0.5s;
   -moz-transition: height 0.5s;
@@ -556,7 +556,6 @@ input {
         padding: 10px 12px;
         background-color: #FFF;
         color: #3b3b3b;
-        text-transform: uppercase;
       }
       a.active:hover,
       a.active {
