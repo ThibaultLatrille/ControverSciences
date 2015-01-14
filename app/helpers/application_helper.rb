@@ -5,18 +5,19 @@ module ApplicationHelper
     if page_title.empty?
       base_title
     else
-      "#{page_title} | #{base_title} "
+      "#{base_title} | #{page_title}"
     end
   end
 
   def tags_hash
     {"biology" => "Biologie",
      "immunity" => "Virus et pathogénes", "medicine" => "Médecine et santé",
-     "pharmacy" => "Médicaments", "animal" => "Biologie animale", "plant" => "Biologie Végétale",
+     "pharmacy" => "Médicaments", "neuro" => "Neuro & psycho", "animal" => "Biologie animale",
+     "plant" => "Biologie Végétale",
      "planet" => "Environement", "energy" => "Energies renouvellables",
      "rig" => "Energies fossiles", "archeology" => "Archéologie",
      "space" => "Espace", "physics" => "Physique", "chemistry" => "Chimie",
-     "economy" => "Economie et Finance", "social" => "Sciences sociales",
+     "social" => "Sciences sociales",
      "pie" => "Mathématiques"}
   end
 
