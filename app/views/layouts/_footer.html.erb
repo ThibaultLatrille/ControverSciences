@@ -34,6 +34,7 @@
               <%= f.text_area :message, class: 'form-control textarea' %>
               <span class="help-block"></span>
             </div>
+            <%= f.hidden_field :url, value: request.original_url %>
             <div class="actions pull-right">
               <%= f.submit 'Envoyer', class: 'btn btn-primary'%>
             </div>
