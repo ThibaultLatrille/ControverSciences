@@ -28,10 +28,10 @@
                  Plus un contributeur a un score élevé plus les crédits qu'il a distribué ont du poids." %>
       <%= render 'collapse', id: 3, title: "Comment sont calculés les scores des contributeurs ?",
                  content: "Par un algorithme secret qui ne sera jamais révélé afin que les administrateur puissent favoriser
-                  en toute discrétion leurs contributeurs préférés ;-) En réalité ces scores sont re-calculés toutes les nuits par nos serveurs.
+                  en toute discrétion leurs contributeurs préférés. <br/>En réalité ces scores sont re-calculés toutes les nuits par nos serveurs.
                   Il s'agit d'une moyenne harmonique de différents indices.
                   Ces indices prennent en compte la qualité des analyses et synthèses, ainsi que la qualité des références ajoutées par le contributeur.
-                  Le score est nombre réel compris entre 1 et 4." %>
+                  Le score est un nombre réel compris entre 1 et 4.".html_safe %>
       <%= render 'collapse', id: 4, title: "Qu'advient-il des contenus de mauvaises qualités ?",
                  content: "Un algorithme s'occupe de nettoyer de temps en temps les contenus désués qui ne sont pas accrédités." %>
       <%= render 'collapse', id: 1, title: "Comment sont évités les trolls ?",
@@ -41,15 +41,15 @@
                  Pour ControverSciences, c'est un peu la même chose, les contraintes permettent de dissuader une grosse majorité des trolls
                  qui vont préférer troller d'autres sites moins contraignant ou les gens s'énervent rapidement.
                  Pour les trolls de compétitions, on supprime ce qui est nécessaire à la main.
-                 Pour finir de les dissuader, ça prend beaucoup moins de temps à nous de les supprimer qu'à eux d'écrire ;-)
+                 Pour finir de les dissuader, ça prend beaucoup moins de temps à nous de les supprimer qu'à eux d'écrire.
                  ".html_safe %>
-      <%= render 'collapse', id: 5, title: "Quand je suis connecté, les analyses ou synthèse semble arriver dans
+      <%= render 'collapse', id: 5, title: "Quand je suis connecté, les analyses ou synthèses semble arriver dans
                     un ordre aléatoire, quand ce bug sera-t-il corrigé ?",
                  content: "Ce comportement est tout à fait normal, il est même entièrement voulu. Les analyses et synthèses sont rangées dans
                  un ordre pseudo-aléatoire afin de n'en favoriser aucune. La distribution uniforme donne toute ces chances à toutes les
                  analyses/synthèses. Egalité et pas de traitement de faveur." %>
       <%= render 'collapse', id: 6, title: "Quand je suis connecté je n'arrive pas à voir les crédits donnés
-                    aux analyses et synthèse, où est cette information ?",
+                    aux analyses et synthèses, où est cette information ?",
                  content: "Cette information est volontairment invisible au contributeur afin qu'il ne soit pas biaisé
                  dans l'attribution des crédits.
                  Sinon une analyse/synthèse qui aurait beaucoup crédits en recevrait encore plus par effet de consensus.

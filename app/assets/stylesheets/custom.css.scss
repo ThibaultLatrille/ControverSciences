@@ -7,6 +7,7 @@ $nav_back: #4E7DC9;
 $nav_back_bottom: #e9f0f5;
 $nav_hover: #405899;
 $red-error:#d9534f;
+$backgound:#f1f4f9;
 
 /* universal */
 
@@ -21,7 +22,7 @@ body {
   padding-top: 80px;
   padding-bottom: 60px;
   font-family: 'Droid Sans';
-  background-color: #f1f4f9;
+  background-color: $backgound;
 }
 
 .img-responsive {
@@ -263,6 +264,19 @@ input {
   color: black;
   padding-left: 20px;
 }
+
+.panel-default{
+  .timeline-body{
+    background-color: $backgound;
+    .btn-default{
+      background-color: $backgound;
+    }
+    .list-group-item{
+      background-color: $backgound;
+    }
+  }
+}
+
 
 .comments {
   list-style: none;

@@ -2,9 +2,9 @@
 <div class="col-xs-12">
   <div class="panel panel-danger">
     <div class="panel-heading">
-        Le site est actuellement en phase de tests, on chase les bugs derrière nos claviers, un jeu super fun ;-)
-        Si vous souhaitez apporter votre feedback sur le site ou participer aux tests, n'hésitez surtout pas à nous contacter
-        ... Pour ça un p'tit mail à thibault.latrille@ens-lyon.fr
+        Le site est actuellement en tests. <br/>
+        Si vous souhaitez apporter votre feedback sur le site, utilisez le bug-tracker en haut à droite : "signaler un bug"  <br/>
+        Vous pouvez aussi nous contacter à thibault.latrille@ens-lyon.fr
     </div>
   </div>
 </div>
@@ -12,19 +12,19 @@
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="col-xs-12 col-lg-4 col-lg-offset-4">
-        <%= image_tag("logo.png", alt: "Logo", :class => "img-responsive") %>
+        <%= image_tag("logo.svg", alt: "Logo", :class => "img-responsive") %>
           <h2>
             Et si on arrêtait d'ignorer les résultats scientifiques ?
           </h2>
       <br/>
-        <%= link_to "Heu, c'est quoi ControverSciences ?", help_path,
+        <%= link_to "Les controverses", timelines_path,
                     class: "btn btn-block btn-primary" %>
-        <%= link_to "Et comment fonctionne ControverSciences?", how_to_path,
+        <%= link_to "La mission de ControverSciences", help_path,
                     class: "btn btn-block btn-primary" %>
-        <%= link_to "Montrez moi les controverses, je suis venu pour ça !", timelines_path,
-                      class: "btn btn-block btn-primary" %>
-          <%= link_to "Je veux contribuer, comment faire ?", signup_path,
-                      class: "btn btn-block btn-primary" %>
+        <%= link_to "Comment fonctionne ControverSciences ?", how_to_path,
+                    class: "btn btn-block btn-primary" %>
+        <%= link_to "Comment contribuer à ControverSciences ?", how_to_edit_path,
+                    class: "btn btn-block btn-primary" %>
       </div>
   </div>
   </div>

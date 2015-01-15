@@ -130,7 +130,7 @@
       <\/div> \
     ',
     loadingTemplate: '<div class="loading"> \
-        Vous avez sous les yeux est une controverse de Schrodïnger, elle est ou bien \
+        Vous avez sous les yeux est une controverse de Schrödinger, elle est ou bien \
         vide ou bien tellement remplie que le chargement est long... A moins que ce ne soit une superposition des deux. \
       <\/div> \
     '
