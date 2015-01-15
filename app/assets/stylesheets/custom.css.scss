@@ -271,6 +271,9 @@ input {
     .btn-default{
       background-color: $backgound;
     }
+    .btn-default:hover, .btn-default:focus, .btn-default:active,{
+      background-color: $nav_hover;
+    }
     .list-group-item{
       background-color: $backgound;
     }
