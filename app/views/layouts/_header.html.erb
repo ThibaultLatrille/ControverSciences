@@ -40,7 +40,7 @@
                 <li class="divider"></li>
                 <li><%= link_to "Mes controverses",
                                 my_items_timelines_path %> </li>
-                <li><%= link_to "Mes résumés de controverses",
+                <li><%= link_to "Mes synthèses de controverses",
                                 my_items_summaries_path %> </li>
                 <li><%= link_to "Mes références",
                                 my_items_references_path %> </li>
@@ -51,10 +51,11 @@
                 <li><%= link_to "Mes brouillons",
                                 my_items_drafts_path %> </li>
                 <li class="divider"></li>
-                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all_important}</span> Important ".html_safe,
+                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all_important}</span> Notifications ".html_safe,
                                 notifications_important_path %> </li>
-                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all }</span> Notifications ".html_safe,
+                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all }</span> Nouveautés ".html_safe,
                                 notifications_index_path %> </li>
+                <li class="divider"></li>
                 <li><%= link_to '<span class="glyphicon glyphicon-eye-open"></span> Gérer mes abonnements'.html_safe,
                                 followings_index_path %> </li>
                 <li class="divider"></li>

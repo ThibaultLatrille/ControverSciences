@@ -23,7 +23,7 @@
                                  {selected: summary.my_credit( current_user.id )}, { class: "form-control selectwidthauto" } %>
                     <div>
                       <% if summary.my_credit( current_user.id ) == 0 %>
-                          <%= f.submit "Accréditer ce résumé", class: "btn btn-primary selectwidthauto"%>
+                          <%= f.submit "Accréditer cette synthèse", class: "btn btn-primary selectwidthauto"%>
                       <% else %>
                           <%= f.submit "Modifier mes crédits (#{summary.my_credit( current_user.id)} actuellement)", class: "btn btn-primary selectwidthauto"%>
                           <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
@@ -42,7 +42,7 @@
       <% else %>
           <div class="btn btn-default">
             <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%>
-            <%= summary.balance %> crédits ont été donné à ce résumé.
+            <%= summary.balance %> crédits ont été donné à cette synthèse.
           </div>
           <div class="pull-right">
             <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),

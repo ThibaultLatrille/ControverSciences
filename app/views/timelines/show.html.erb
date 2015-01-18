@@ -24,12 +24,12 @@
         Par <%= link_to @summary.user_name, user_path( @summary.user_id) %>
         </span>
         <br/>
-        <%= link_to 'Voir les résumés de cette controverse'.html_safe,
+        <%= link_to 'Voir les synthèses de cette controverse'.html_safe,
                     summaries_path( timeline_id: @timeline.id ),
                     class: "btn btn-default" %>
     <% else %>
         <%= link_to '<span class="glyphicon glyphicon-pencil" >
-    </span> Pas de résumés, soyez le premier'.html_safe,
+    </span> Pas de synthèses, soyez le premier'.html_safe,
                     new_summary_path( timeline_id: @timeline.id ),
                     class: "btn btn-primary" %>
     <% end %>
@@ -80,11 +80,11 @@
               following_timelines_path( timeline_id: @timeline.id ),
               method: :post, class: "btn btn-block btn-primary" %>
 <%= link_to '<span class="glyphicon glyphicon-plus-sign" >
-</span> Ajouter une réfèrence'.html_safe,
+</span> Ajouter une référence'.html_safe,
           new_reference_path( timeline_id: @timeline.id),
           class: "btn btn-block btn-primary" %>
 <%= link_to '<span class="glyphicon glyphicon-pencil" >
-</span> Ecrire un résumé'.html_safe,
+</span> Ecrire une synthèse'.html_safe,
           new_summary_path( timeline_id: @timeline.id),
           class: "btn btn-block btn-primary" %>
 </div>

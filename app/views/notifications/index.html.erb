@@ -4,32 +4,47 @@
 <div class="row">
 
 <div class="col-md-2">
+  <strong>
+  Les nouvelles :
+  </strong>
     <div>
-      <% { timeline: "Les nouvelles controverses",
-           summary: "Les nouveaux résumés",
-           reference: "Les nouvelles références",
-           comment: "Les nouvelles analyses",
-           selection: "Les événements de sélections des analyses",
-           summary_selection: "Les événements de sélections des résumés"}.each do |key, value| %>
+      <% { timeline: "Controverses",
+           summary: "Synthèses",
+           reference: "Références",
+           comment: "Analyses"}.each do |key, value| %>
           <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
                                 height: "28px")+"&nbsp".html_safe+value+
                               " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
                       notifications_index_path(filter: key), class: "btn btn-primary btn-block" %>
       <% end %>
     </div>
+  <br/>
+  <strong>
+  Ont pris la première place :
+  </strong>
+  <div>
+    <% { summary_selection: "Synthèses",
+         selection: "Analyses"
+         }.each do |key, value| %>
+        <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
+                              height: "28px")+"&nbsp".html_safe+value+
+                            " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
+                    notifications_index_path(filter: key), class: "btn btn-primary btn-block" %>
+    <% end %>
+  </div>
 </div>
 
 <div class="col-md-8">
 <div class="panel panel-default">
   <% if @filter == :timeline %>
   <div class="panel-heading">
-    Les nouvelles controverses
+    Les nouvelles controverses (<%= current_user.notifications_timeline %>)
   </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-sm-2"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-sm-7"> Les nouvelles controverses (<%= current_user.notifications_timeline %>) </th>
+        <th class="col-sm-7"> La controverse  </th>
         <th class="col-sm-3"> Thèmes </th>
       </tr>
       </thead>
@@ -61,13 +76,13 @@
         
     <% elsif @filter == :summary %>
     <div class="panel-heading">
-      Les nouveaux résumés
+      Les nouvelles synthèses (<%= current_user.notifications_summary %>)
     </div>
     <table id="notification-summaries" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-sm-1"> <input title="toggle all" type="checkbox" id="checksummaries"> </th>
-        <th class="col-sm-4"> Les nouveaux résumés (<%= current_user.notifications_summary %>) </th>
+        <th class="col-sm-4"> La synthèse  </th>
         <th class="col-sm-3"> De la controverse </th>
       </tr>
       </thead>
@@ -75,8 +90,8 @@
       <% if !@summaries.any? %>
           <tr class="notification-summary">
             <td></td>
+            <td> Pas de notifications </td>
             <td></td>
-            <td> Pas de notifications  </td>
           </tr>
       <% else %>
           <% @summaries.each do |com| %>
@@ -94,13 +109,13 @@
         
     <% elsif @filter == :reference %>
     <div class="panel-heading">
-      Les nouvelles références
+      Les nouvelles références (<%= current_user.notifications_reference %>)
     </div>
     <table id="notification-references" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-sm-2"> <input title="toggle all" type="checkbox" id="checkreferences"> </th>
-        <th class="col-sm-6"> Les nouvelles références (<%= current_user.notifications_reference %>) </th>
+        <th class="col-sm-6"> La référence  </th>
         <th class="col-sm-4"> Dans la controverse </th>
       </tr>
       </thead>
@@ -128,13 +143,13 @@
         
   <% elsif @filter == :comment %>
     <div class="panel-heading">
-      Les nouvelles analyses
+      Les nouvelles analyses (<%= current_user.notifications_comment %>)
     </div>
     <table id="notification-comments" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-sm-1"> <input title="toggle all" type="checkbox" id="checkcomments"> </th>
-        <th class="col-sm-4"> Les nouvelles analyses (<%= current_user.notifications_comment %>) </th>
+        <th class="col-sm-4"> L'analyse  </th>
         <th class="col-sm-4"> De la référence </th>
         <th class="col-sm-3"> Dans la controverse </th>
       </tr>
@@ -143,9 +158,9 @@
       <% if !@comments.any? %>
           <tr class="notification-comment">
             <td></td>
+            <td> Pas de notifications </td>
             <td></td>
             <td></td>
-            <td> Pas de notifications  </td>
           </tr>
       <% else %>
           <% @comments.each do |com| %>
@@ -164,14 +179,14 @@
         
   <% elsif @filter == :selection %>
     <div class="panel-heading">
-      Les événements de sélections des analyses
+      Les analyses qui ont prit la première place
+      (<%= current_user.notifications_selection %>)
     </div>
   <table id="notification-sel-comments" class="table table-striped table-hover">
     <thead>
     <tr>
       <th class="col-sm-1"> <input title="toggle all" type="checkbox" id="checkselcomments"> </th>
-      <th class="col-sm-4"> Les analyses qui ont prit la première place
-                (<%= current_user.notifications_selection %>) </th>
+      <th class="col-sm-4"> L'analyse </th>
       <th class="col-sm-4"> De la référence </th>
       <th class="col-sm-3"> Dans la controverse </th>
     </tr>
@@ -180,9 +195,9 @@
     <% if !@selections.any? %>
         <tr class="notification-sel-comment">
           <td></td>
+          <td> Pas de notifications</td>
           <td></td>
-          <td></td>
-          <td> Pas de notifications  </td>
+          <td> </td>
         </tr>
     <% else %>
         <% @selections.each do |com| %>
@@ -201,14 +216,14 @@
 
   <% elsif @filter == :summary_selection %>
     <div class="panel-heading">
-      Les événements de sélections des résumés
+      Les synthèses qui ont prit la première place
+      (<%= current_user.notifications_summary_selection %>)
     </div>
     <table id="notification-sel-summaries" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-sm-1"> <input title="toggle all" type="checkbox" id="checkselsummaries"> </th>
-        <th class="col-sm-4"> Les analyses qui ont prit la première place
-          (<%= current_user.notifications_summary_selection %>) </th>
+        <th class="col-sm-4"> Synthèse </th>
         <th class="col-sm-4"> De la controverse </th>
       </tr>
       </thead>
@@ -216,8 +231,8 @@
       <% if !@summary_selections.any? %>
           <tr class="notification-sel-summary">
             <td></td>
+            <td> Pas de notifications   </td>
             <td></td>
-            <td> Pas de notifications  </td>
           </tr>
       <% else %>
           <% @summary_selections.each do |com| %>
@@ -241,7 +256,7 @@
     <%= f.submit "Supprimer les notifications sélectionnées", class: "btn btn-danger btn-block"%>
  </br>
   <%= link_to image_tag("icons/myicon-#{@filter}.svg",height: "28px")+
-                      "&nbsp".html_safe+"Supprimer toute les notifications",
+                      "&nbsp".html_safe+"Supprimer toutes les notifications",
               notifications_delete_all_path(filter: @filter), class: "btn btn-danger btn-block" %>
 </div>
 

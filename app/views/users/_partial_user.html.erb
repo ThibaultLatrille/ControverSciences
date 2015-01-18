@@ -28,10 +28,11 @@
     <div class="panel-group" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
-          <h4 class="panel-title">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#collapseOne" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
               <%= @user.name %> a ajouté <%= pluralize(
-                                    @timelines.length, "timeline") %>
+                                    @timelines.length, "controverse") %>
             </a>
           </h4>
         </div>
@@ -70,10 +71,11 @@
       <br/>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
-          <h4 class="panel-title">
-            <a class="collapsed" data-toggle="collapse"href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#collapseTwo" class="pull-right glyphicon glyphicon-chevron-down"></a>
+            <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
               <%= @user.name %> a ajouté  <%= pluralize(
-                                    @references.length, "reference") %>
+                                    @references.length, "référence") %>
             </a>
           </h4>
         </div>
@@ -107,7 +109,8 @@
       <br/>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingThree">
-          <h4 class="panel-title">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#collapseFour" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
               <%= @user.name %> a écrit <%= pluralize(
                                                     @summaries.length, "résumé")%> de controverses
@@ -142,7 +145,8 @@
       <br/>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingThree">
-          <h4 class="panel-title">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#collapseThree" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
               <%= @user.name %> a écrit <%= pluralize(
                                     @comments.length, "analyse") %> de références
@@ -179,3 +183,13 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $('.collapse').on('show.bs.collapse', function () {
+        $(this).parent(".panel").find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+
+    });
+    $('.collapse').on('hide.bs.collapse', function () {
+        $(this).parent("div").parent("div").find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+    });
+</script>

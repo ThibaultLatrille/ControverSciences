@@ -11,7 +11,7 @@
       <div class="col-md-12 col-lg-6 col-lg-offset-1">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h2> Créer un résumé </h2>
+            <h2> Créer une synthèse </h2>
               De la controverse :
               <%= link_to Timeline.where(id: params[:timeline_id]).pluck(:name)[0],
                           timeline_url(params[:timeline_id]) %>
@@ -20,9 +20,9 @@
             <%= form_for(@summary, as: :summary,  url: summaries_path, method: :post) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
-                <%= f.label "résumé" %>
+                <%= f.label "Synthèse" %>
 
-                <%= f.text_area :content, {rows: 5, :placeholder => "résumé",
+                <%= f.text_area :content, {rows: 5, :placeholder => "synthèse",
                                                            :class => "form-control textarea",
                                                            "data-provide" => "markdown" }%>
 
@@ -35,7 +35,7 @@
                 <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
                 <br/>
                 <%= f.submit "Sauver comme brouillon", name: "draft", class: "btn btn-success"%>
-                <%= f.submit "Publier le résumé", class: "btn btn-primary"%>
+                <%= f.submit "Publier la synthèse", class: "btn btn-primary"%>
             <% end %>
           </div>
         </div>
@@ -45,7 +45,7 @@
             <div class="panel panel-default">
               <div class="panel-body">
                 <%= image_tag("icons/myicon-laurel.svg", alt: "laurel", height: "24px")%>
-                Le résumé que vous souhaitez améliorer :
+                La synthèse que vous souhaitez améliorer :
                 <%= render @parent, credit: true %>
               </div>
             </div>

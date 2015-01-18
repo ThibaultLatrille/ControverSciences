@@ -137,7 +137,7 @@ class SummariesController < ApplicationController
       summary.destroy_with_counters
       redirect_to my_items_summaries_path
     else
-      flash[:danger] = "Ce résumé est le meilleur est ne peux être supprimer"
+      flash[:danger] = "Cette synthèse est la meilleure et ne peut être supprimée."
       redirect_to summary_path(params[:id])
     end
   end

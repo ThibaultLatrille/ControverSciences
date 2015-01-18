@@ -1,80 +1,78 @@
 <% provide(:title, "Mes abonnements") %>
 <div class="row">
-  <div class="col-md-4 col-lg-2">
+  <div class="col-xs-12 col-lg-8 col-lg-offset-2">
     <div class="panel panel-default">
-      <div class="panel-body">
-        Suivre les nouvelles controverses
+      <div class="panel-heading">
+        <h3 class="panel-title clearfix">
+          <a data-toggle="collapse" href="#collapseOne" class="pull-right glyphicon glyphicon-chevron-up"></a>
+          <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+           Thèmes suivies
+          </a>
+        </h3>
       </div>
-    <table id="following-new-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-sm-11"> Thèmes </th>
-        <th class="col-sm-1"> Supprimer </th>
-      </tr>
-      </thead>
-
-      <tbody class="page">
-      <% if !@fo_new_timelines.any? %>
-          <tr class="following-new-timeline">
-            <td> Vous n'avez pas encore d'abonnements </td>
-            <td>  </td>
-          </tr>
-      <% else %>
-          <% @fo_new_timelines.each do |tag| %>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <table id="following-new-timelines" class="table table-striped table-hover">
+          <tbody class="page">
+          <% if !@fo_new_timelines.any? %>
               <tr class="following-new-timeline">
-                <td> <%= link_to( image_tag("icons/myicon-#{tag.name}.svg",
-                                            alt: tag.name,
-                                           title: tags_hash[tag.name],
-                                           height: "28px")+"&nbsp".html_safe,
-                                            timelines_path(:tag => tag.name))+
-                                            " "+tags_hash[tag.name] %>
-                </td>
-                <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
-                                                            </span>".html_safe,
-                                 following_new_timeline_path( tag.id ), method: :delete,
-                                 data: { confirm: " Vous êtes certains ?" } %>  </td>
+                <td> Vous n'avez pas encore d'abonnements </td>
+                <td>  </td>
               </tr>
+          <% else %>
+              <% @fo_new_timelines.each do |tag| %>
+                  <tr class="following-new-timeline">
+                    <td> <%= link_to( image_tag("icons/myicon-#{tag.name}.svg",
+                                                alt: tag.name,
+                                               title: tags_hash[tag.name],
+                                               height: "28px")+"&nbsp".html_safe,
+                                                timelines_path(:tag => tag.name))+
+                                                " "+tags_hash[tag.name] %>
+                    </td>
+                    <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
+                                                                </span>".html_safe,
+                                     following_new_timeline_path( tag.id ), method: :delete,
+                                     data: { confirm: " Vous êtes certains ?" } %>  </td>
+                  </tr>
+              <% end %>
           <% end %>
-      <% end %>
-      </tbody>
-    </table>
-    <div class="btn-group">
-      <button class="btn btn-default dropdown-toggle" type="button"
-              id="dropdownMenuTag" data-toggle="dropdown">
-        Ajouter un tag
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu" >
-        <li>
-          <%= link_to 'Tous ', following_new_timelines_path(redirect: true),
-                      method: :post %>
-        </li>
-        <% tags_hash.each do |key, value| %>
+          </tbody>
+        </table>
+        <div class="btn-group">
+          <button class="btn btn-default dropdown-toggle" type="button"
+                  id="dropdownMenuTag" data-toggle="dropdown">
+            Ajouter un tag
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" >
             <li>
-              <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
-                                    height: "28px")+"&nbsp".html_safe+value,
-                          following_new_timelines_path(tag: key, redirect: true),
+              <%= link_to 'Tous ', following_new_timelines_path(redirect: true),
                           method: :post %>
             </li>
-        <% end %>
-      </ul>
+            <% tags_hash.each do |key, value| %>
+                <li>
+                  <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
+                                        height: "28px")+"&nbsp".html_safe+value,
+                              following_new_timelines_path(tag: key, redirect: true),
+                              method: :post %>
+                </li>
+            <% end %>
+          </ul>
+        </div>
     </div>
     </div>
   </div>
-  <div class="col-md-8 col-lg-5">
+  <div class="col-xs-12 col-lg-8 col-lg-offset-2">
     <div class="panel panel-default">
-      <div class="panel-body">
-        Suivre les nouvelles références ajoutées aux controverses
+      <div class="panel-heading">
+        <h3 class="panel-title clearfix">
+          <a data-toggle="collapse" href="#collapseTwo" class="pull-right glyphicon glyphicon-chevron-up"></a>
+          <a data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">
+            Nouvelles références pour les controverses
+          </a>
+        </h3>
       </div>
+      <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
         <table id="following-timelines" class="table table-striped table-hover">
-          <thead>
-          <tr>
-            <th class="col-sm-7"> La contrverse </th>
-            <th class="col-sm-4"> Thèmes </th>
-            <th class="col-sm-1"> Supprimer </th>
-          </tr>
-          </thead>
-
           <tbody class="page">
           <% if !@fo_timelines.any? %>
               <tr class="following-timeline">
@@ -101,21 +99,21 @@
           <% end %>
           </tbody>
         </table>
+      </div>
     </div>
   </div>
-  <div class="col-md-8 col-lg-5">
+  <div class="col-xs-12 col-lg-8 col-lg-offset-2">
     <div class="panel panel-default">
-      <div class="panel-body">
-        Suivre les nouveaux résumés de controverses
+      <div class="panel-heading">
+        <h3 class="panel-title clearfix">
+          <a data-toggle="collapse" href="#collapseThree" class="pull-right glyphicon glyphicon-chevron-up"></a>
+          <a data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+            Nouvelles synthèses pour les controveres
+          </a>
+        </h3>
       </div>
+      <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
         <table id="following-summary" class="table table-striped table-hover">
-          <thead>
-          <tr>
-            <th class="col-sm-7"> La controverse </th>
-            <th class="col-sm-4"> Thèmes </th>
-            <th class="col-sm-1"> Supprimer </th>
-          </tr>
-          </thead>
           <tbody class="page">
           <% if !@fo_summaries.any? %>
               <tr class="following-summary">
@@ -142,41 +140,53 @@
           <% end %>
           </tbody>
         </table>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        Suivre les nouvelles analyses de références
       </div>
-    <table id="following-references" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-sm-7"> La référence </th>
-        <th class="col-sm-4"> Dans la controverse </th>
-        <th class="col-sm-1"> Supprimer </th>
-      </tr>
-      </thead>
-
-      <tbody class="page">
-      <% if !@fo_references.any? %>
-          <tr class="following-reference">
-            <td> Vous n'avez pas encore d'abonnements </td>
-            <td></td>
-            <td></td>
-          </tr>
-      <% else %>
-        <% @fo_references.each do |reference| %>
-          <tr class="following-reference">
-            <td> <%= link_to reference.title_fr, reference_path(reference.id) %>   </td>
-            <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>
-            <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
-                                                            </span>".html_safe,
-                             following_reference_path( reference.id ), method: :delete,
-                             data: { confirm: " Vous êtes certains ?" } %>  </td>
-          </tr>
-        <% end %>
-      <% end %>
-      </tbody>
-    </table>
+    </div>
+  </div>
+      <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title clearfix">
+              <a data-toggle="collapse" href="#collapseFour" class="pull-right glyphicon glyphicon-chevron-up"></a>
+              <a data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                Controverses suivies
+              </a>
+            </h3>
+          </div>
+      <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <table id="following-references" class="table table-striped table-hover">
+          <tbody class="page">
+          <% if !@fo_references.any? %>
+              <tr class="following-reference">
+                <td> Vous n'avez pas encore d'abonnements </td>
+                <td></td>
+                <td></td>
+              </tr>
+          <% else %>
+            <% @fo_references.each do |reference| %>
+              <tr class="following-reference">
+                <td> <%= link_to reference.title_fr, reference_path(reference.id) %>   </td>
+                <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>
+                <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
+                                                                </span>".html_safe,
+                                 following_reference_path( reference.id ), method: :delete,
+                                 data: { confirm: " Vous êtes certains ?" } %>  </td>
+              </tr>
+            <% end %>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $('.collapse').on('show.bs.collapse', function () {
+        $(this).parent(".panel").find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+
+    });
+    $('.collapse').on('hide.bs.collapse', function () {
+        $(this).parent("div").parent("div").find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+    });
+</script>

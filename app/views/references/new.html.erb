@@ -1,4 +1,4 @@
-<% provide(:title, "Nouvelle réfèrence") %>
+<% provide(:title, "Nouvelle référence") %>
 
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
@@ -6,6 +6,12 @@
                 timeline_path(params[:timeline_id]), class: "btn btn-block btn-primary" %>
   </div>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+          Astuce : Remplissez uniquement le DOI ou le titre de la référence et utilisez le boutton  <span class="glyphicon glyphicon-refresh"> </span>
+          pour auto-compléter les autres champs.
+        </div>
+    </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         Ajouter une référence à la controverse
