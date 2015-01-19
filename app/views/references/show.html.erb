@@ -88,7 +88,7 @@
           </div>
           <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Ecrire une analyse".html_safe,
-                      new_comment_path(reference_id: @reference.id ), class: "btn btn-primary" %>
+                      new_comment_path(reference_id: @reference.id ), class: "btn btn-danger" %>
       <% elsif params[:filter] == "my-vote" %>
           Vous n'avez pas encore voté
       <% elsif params[:filter] == "mine" %>

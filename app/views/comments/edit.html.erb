@@ -1,31 +1,31 @@
-<% provide(:title, "Nouvelle analyse") %>
+<% provide(:title, "Modifier analyse") %>
 
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-      <%= link_to "Revenir à la controverse",
-                  timeline_path(@comment.reference_id), class: "btn btn-primary", style: "white-space: normal" %>
-      <%= link_to "Revenir à la référence",
-                  reference_path(@comment.timeline_id), class: "btn btn-primary", style: "white-space: normal" %>
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+    <%= link_to "Revenir à la controverse",
+                timeline_path(@comment.reference_id), class: "btn btn-primary", style: "white-space: normal" %>
+    <%= link_to "Revenir à la référence",
+                reference_path(@comment.timeline_id), class: "btn btn-primary", style: "white-space: normal" %>
 
-    </div>
+  </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
-        <div class="row">
-          <div class="col-md-12 col-lg-6 col-lg-offset-1">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h2> Créer une analyse </h2>
-                <br/>
-                  Pour la référence :
+  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
+    <div class="row">
+      <div class="col-md-12 col-lg-6 col-lg-offset-1">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2> Modifier mon analyse </h2>
+            <br/>
+              Pour la référence :
 
-                  <%= link_to Reference.where(id: @comment.reference_id).pluck(:title)[0],
-                              reference_url(@comment.reference_id) %> <br>
+              <%= link_to Reference.where(id: @comment.reference_id).pluck(:title)[0],
+                          reference_url(@comment.reference_id) %> <br>
 
-                  Dans la timeline :
-                  <%= link_to Timeline.where(id: @comment.timeline_id).pluck(:name)[0],
-                              timeline_url(@comment.timeline_id) %>
-              </div>
-              <div class="panel-body">
+              Dans la timeline :
+              <%= link_to Timeline.where(id: @comment.timeline_id).pluck(:name)[0],
+                          timeline_url(@comment.timeline_id) %>
+          </div>
+          <div class="panel-body">
             <%= form_for(@comment, as: :comment,  url: comments_path, method: :post) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
@@ -33,39 +33,30 @@
                     <%= f.label fields_hash[fi] %>
 
                     <%= f.text_area "f_#{fi}_content".to_sym, {rows: 5, :placeholder => fields_hash[fi],
-                                               :class => "form-control textarea",
-                                               "data-provide" => "markdown" }%>
+                                                               :class => "form-control textarea",
+                                                               "data-provide" => "markdown" }%>
                 <% end %>
 
-
-                <% if @parent %>
-                  <%= f.hidden_field :parent_id, value: @parent.id %>
-                <% end %>
-                <% if params[:draft_id] %>
-                    <%= f.hidden_field :draft_id, value: params[:draft_id] %>
-                <% end %>
+                <%= f.hidden_field :parent_id, value: @comment.parent_id %>
                 <%= f.hidden_field :reference_id, value: @comment.reference_id %>
                 <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
-                    <br/>
-                <%= f.submit "Sauver comme brouillon", name: "draft", class: "btn btn-success"%>
-                <%= f.submit "Publier l'analyse", class: "btn btn-primary"%>
+                <br/>
+                <%= f.submit "Modifier l'analyse", class: "btn btn-primary"%>
             <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-4 col-lg-offset-1">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <%= image_tag("icons/myicon-laurel.svg", alt: "laurel", height: "24px")%>
+                Votre analyse :
+                <%= render @comment, vote: true %>
               </div>
             </div>
-          </div>
-          <div class="col-md-12 col-lg-4 col-lg-offset-1">
-            <% if @parent %>
-                <div class="panel panel-default">
-                  <div class="panel-body">
-                    <%= image_tag("icons/myicon-laurel.svg", alt: "laurel", height: "24px")%>
-                    L'analyse que vous souhaitez améliorer :
-                      <%= render @parent, vote: true %>
-                  </div>
-                </div>
-            <% end %>
-           </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" id="mylist" tabindex="-1">

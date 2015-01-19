@@ -31,7 +31,7 @@
                     <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
                                                                 </span>".html_safe,
                                      following_new_timeline_path( tag.id ), method: :delete,
-                                     data: { confirm: " Vous êtes certains ?" } %>  </td>
+                                     data: { confirm: "Etes vous certain ?" } %>  </td>
                   </tr>
               <% end %>
           <% end %>
@@ -93,7 +93,7 @@
                     <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
                                                         </span>".html_safe,
                                      following_timeline_path( timeline.id ), method: :delete,
-                                     data: { confirm: " Vous êtes certains ?" } %>  </td>
+                                     data: { confirm: "Etes vous certain ?" } %>  </td>
                   </tr>
               <% end %>
           <% end %>
@@ -170,7 +170,7 @@
                 <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
                                                                 </span>".html_safe,
                                  following_reference_path( reference.id ), method: :delete,
-                                 data: { confirm: " Vous êtes certains ?" } %>  </td>
+                                 data: { confirm: "Etes vous certain ?" } %>  </td>
               </tr>
             <% end %>
           <% end %>
