@@ -20,11 +20,17 @@ class Summary < ActiveRecord::Base
 
   has_one :summary_best, dependent: :destroy
 
+  has_many :notification_summaries, dependent: :destroy
+  has_many :notification_summary_selections, foreign_key: "new_summary_id", dependent: :destroy
+  has_many :notification_summary_selection_wins, dependent: :destroy
+  has_many :notification_summary_selection_losses, dependent: :destroy
+
   after_create :cascading_save_summary
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :content, presence: true, length: {maximum: 5000}
+  validates_uniqueness_of :user_id, :scope => :timeline_id
 
   def user_name
     User.select( :name ).find( self.user_id ).name

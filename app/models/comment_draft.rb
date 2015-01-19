@@ -5,6 +5,8 @@ class CommentDraft < ActiveRecord::Base
 
   attr_accessor :draft_id
 
+  validates_uniqueness_of :user_id, :scope => :reference_id
+
   def reference_title
     Reference.select( :title_fr ).find( self.reference_id ).title_fr
   end

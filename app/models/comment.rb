@@ -27,6 +27,7 @@ class Comment < ActiveRecord::Base
 
   after_create :cascading_save_comment
 
+
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
@@ -35,6 +36,7 @@ class Comment < ActiveRecord::Base
   validates :f_3_content, presence: true, length: {maximum: 1000}
   validates :f_4_content, presence: true, length: {maximum: 1000}
   validates :f_4_content, length: {maximum: 1000}
+  validates_uniqueness_of :user_id, :scope => :reference_id
 
   def user_name
     User.select( :name ).find( self.user_id ).name
