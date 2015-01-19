@@ -35,7 +35,7 @@
               <td> <%= link_to vote.timeline_name, timeline_path(vote.timeline_id ) %>   </td>
               <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                vote_path( vote.id ), method: :delete,
-                               data: { confirm: " Vous êtes certains ?" } %>  </td>
+                               data: { confirm: "Etes vous certain ?" } %>  </td>
             </tr>
         <% end %>
     <% end %>
