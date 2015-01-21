@@ -88,7 +88,7 @@
       <% end %>
       <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
                        </span> Ajouter une controverse".html_safe,
-                           new_timeline_path, class: "btn btn-block btn-danger" %>
+                           new_timeline_path, class: "btn btn-block btn-success" %>
   </div>
 <% end %>
 
@@ -97,8 +97,8 @@
 <%= javascript_tag do %>
 $('.timeline-name').responsiveEqualHeightGrid();
 $('.timeline-body').responsiveEqualHeightGrid();
+$('[data-toggle="tooltip"]').tooltip({container: 'body'});
   $('.collapse').on('shown.bs.collapse', function () {
-      $('.my-btn', this).responsiveEqualHeightGrid();
       $(".timeline-body").responsiveEqualHeightGrid();
   })
 <% end %>

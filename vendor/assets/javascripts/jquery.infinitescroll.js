@@ -171,8 +171,8 @@
             opts.loading.finished = opts.loading.finished || function() {
                 $('.timeline-name').responsiveEqualHeightGrid();
                 $('.timeline-body').responsiveEqualHeightGrid();
+                $('[data-toggle="tooltip"]').tooltip({container: 'body'});
                 $('.collapse').on('shown.bs.collapse', function () {
-                    $('.my-btn', this).responsiveEqualHeightGrid();
                     $(".timeline-body").responsiveEqualHeightGrid();
                 });
                 if (!opts.state.isBeyondMaxPage)

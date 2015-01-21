@@ -1,14 +1,50 @@
 <% provide(:title, @timeline.name) %>
 
 <div class="row">
-<div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
 
+<div class="col-lg-2">
+<div class="btn-group">
+  <button class="btn btn-default" data-placement="bottom"
+          data-toggle="tooltip" title="<%= @timeline.nb_contributors %> contributeurs" >
+    <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "32px") %>
+    <%= @timeline.nb_contributors %>
+  </button>
+  <button class="btn btn-default" data-placement="bottom"
+          data-toggle="tooltip" title="<%= @timeline.nb_references %> références scientifiques" >
+    <%= image_tag("icons/myicon-reference.svg", alt: "ref", height: "32px") %>
+    <%= @timeline.nb_references %>
+  </button>
+  <button class="btn btn-default" data-placement="right"
+          data-toggle="tooltip" title="<%= @timeline.nb_edits %> contributions" >
+    <%= image_tag("icons/myicon-comment.svg", alt: "ref", height: "32px") %>
+    <%= @timeline.nb_edits %>
+  </button>
+</div>
+  <br/>
+  <br/>
+  <br/>
+<strong>
+  Thèmes :
+  <br/>
+  <br/>
+</strong>
+    <% @timeline.get_tag_list.each do |name| %>
+        <button class="btn btn-default" data-placement="top"
+                data-toggle="tooltip" title="<%= tags_hash[name] %>" style="margin: -2px">
+          <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "32px")%>
+        </button>
+    <% end %>
+  <br/>
+  <br/>
+</div>
+
+<div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
 <div class="panel panel-default">
   <div class="panel-heading">
     <span class="pull-right">
         <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{@timeline.nb_likes} </span>".html_safe,
                     likes_path(id: @timeline.id ),
-                    method: :post, class: "btn btn-primary" %>
+                    method: :post, class: "btn btn-default" %>
     </span>
       <div class="panel-heading">
         <h3><%= @timeline.name %></h3> par <%= link_to @timeline.user_name, user_path( @timeline.user_id) %>
@@ -34,36 +70,6 @@
                     class: "btn btn-primary" %>
     <% end %>
   </div>
-  <div class="panel-footer">
-    <div class="btn-group">
-        <button class="btn btn-default btn-sm" data-trigger="focus"
-              data-toggle="popover" data-content="<%= @timeline.nb_contributors %> contributeurs" >
-            <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "32px") %>
-            <%= @timeline.nb_contributors %>
-        </button>
-        <button class="btn btn-default btn-sm" data-trigger="focus"
-                data-toggle="popover" data-content="<%= @timeline.nb_references %> références scientifiques" >
-            <%= image_tag("icons/myicon-reference.svg", alt: "ref", height: "32px") %>
-            <%= @timeline.nb_references %>
-        </button>
-        <button class="btn btn-default btn-sm" data-trigger="focus"
-              data-toggle="popover" data-content="<%= @timeline.nb_edits %> contributions" >
-            <%= image_tag("icons/myicon-comment.svg", alt: "ref", height: "32px") %>
-            <%= @timeline.nb_edits %>
-        </button>
-    </div>
-    <span class="pull-right">
-        <div class="btn-group">
-          <% @timeline.get_tag_list.each do |name| %>
-                <button class="btn btn-default btn-sm" data-trigger="focus"
-                        data-toggle="popover" data-content="<%= tags_hash[name] %>" >
-                  <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "32px")%>
-                </button>
-          <% end %>
-        </div>
-    </span>
-    <div class="clearfix"></div>
-  </div>
 </div>
 
 <div class="row" id="my-timeline">
@@ -82,11 +88,11 @@
 <%= link_to '<span class="glyphicon glyphicon-plus-sign" >
 </span> Ajouter une référence'.html_safe,
           new_reference_path( timeline_id: @timeline.id),
-          class: "btn btn-block btn-danger" %>
+          class: "btn btn-block btn-success" %>
 <%= link_to '<span class="glyphicon glyphicon-pencil" >
 </span> Ecrire une synthèse'.html_safe,
           new_summary_path( timeline_id: @timeline.id),
-          class: "btn btn-block btn-danger" %>
+          class: "btn btn-block btn-success" %>
 </div>
 
  <% end %>
@@ -100,7 +106,7 @@
       }
     }
     $(document).ready(function(){
-    $('[data-toggle="popover"]').popover({container: 'body'});
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     $('.timeline-jquery-controverse').verticalTimeline({
     data: <%= raw render(template: "timelines/show.json.rabl") -%>,
     handleResize: true,
