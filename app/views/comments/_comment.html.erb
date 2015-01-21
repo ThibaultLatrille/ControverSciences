@@ -7,6 +7,11 @@
         <%= comment["markdown_#{fi}".to_sym].html_safe %>
         </div>
     <% end %>
+    <% unless vote %>
+        <div class="pull-right">
+    Publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id) %>
+        </div>
+    <% end %>
   </span>
   </div>
   <div class="panel-footer">
@@ -38,7 +43,7 @@
             </div>
             <div class="pull-right">
                 <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                        new_comment_path(parent_id: comment.id), :class => "btn btn-default", "data-toggle" => "tooltip",
+                        new_comment_path(parent_id: comment.id, reference_id: comment.reference_id), :class => "btn btn-default", "data-toggle" => "tooltip",
                         title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
             </div>
         </div>
@@ -50,13 +55,10 @@
         </div>
         <div class="pull-right">
           <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                      new_comment_path(parent_id: comment.id), :class => "btn btn-default", "data-toggle" => "tooltip",
+                      new_comment_path(parent_id: comment.id, reference_id: comment.reference_id), :class => "btn btn-default", "data-toggle" => "tooltip",
                       title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
         </div>
     <% end %>
     </div>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(comment.created_at) %> ago by <%= link_to comment.user_name, user_path(comment.user_id) %>
-   </span>
   </div>
 </div>

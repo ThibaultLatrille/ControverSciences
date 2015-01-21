@@ -3,15 +3,15 @@
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
     <%= link_to "Revenir à la controverse",
-                timeline_path(@comment.reference_id), class: "btn btn-primary", style: "white-space: normal" %>
+                timeline_path(@comment.timeline_id ), class: "btn btn-block btn-primary", style: "white-space: normal" %>
+    <br/>
     <%= link_to "Revenir à la référence",
-                reference_path(@comment.timeline_id), class: "btn btn-primary", style: "white-space: normal" %>
-
+                reference_path(@comment.reference_id ), class: "btn btn-block  btn-primary", style: "white-space: normal" %>
   </div>
 
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
     <div class="row">
-      <div class="col-md-12 col-lg-6 col-lg-offset-1">
+      <div class="col-md-12 col-lg-7">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h2> Modifier mon analyse </h2>
@@ -26,38 +26,44 @@
                           timeline_url(@comment.timeline_id) %>
           </div>
           <div class="panel-body">
-            <%= form_for(@comment, as: :comment,  url: comments_path, method: :post) do |f| %>
+            <%= form_for(@comment) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <% for fi in 1..5 %>
                     <%= f.label fields_hash[fi] %>
-                    <% if fi == 5 %>
-                        <br> e.g.
-                        <i>Cette publication a été financée par une firme pharmaceutique,
-                          donc on peut douter de son objectivité" </i>
-                    <% end %>
-                    <%= f.text_area "f_#{fi}_content".to_sym, {rows: 5, :placeholder => fields_hash[fi],
+
+                    <%= f.text_area "f_#{fi}_content".to_sym, {rows: 5,
+                     :placeholder => fi == 5 ? "e.g. Cette publication a été financée par une firme pharmaceutique, donc on peut douter de son objectivité" : fields_hash[fi],
                                                                :class => "form-control textarea",
                                                                "data-provide" => "markdown" }%>
+                    <br/>
                 <% end %>
 
-                <%= f.hidden_field :parent_id, value: @comment.parent_id %>
+                <% if @parent %>
+                    <%= f.hidden_field :parent_id, value: @parent.id %>
+                <% end %>
                 <%= f.hidden_field :reference_id, value: @comment.reference_id %>
                 <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
                 <br/>
-                <%= f.submit "Modifier l'analyse", class: "btn btn-primary"%>
+                <%= f.submit "Modifier mon analyse", class: "pull-right btn btn-success btn-lg"%>
             <% end %>
           </div>
         </div>
       </div>
-      <div class="col-md-12 col-lg-4 col-lg-offset-1">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <%= image_tag("icons/myicon-laurel.svg", alt: "laurel", height: "24px")%>
-                Votre analyse :
-                <%= render @comment, vote: true %>
-              </div>
-            </div>
+      <div class="col-md-12 col-lg-5">
+        <strong style="font-size: 1.4em;"> &nbsp
+          Mon analyse : <br/>
+        </strong>
+
+        <%= render @my_comment, vote: false %>
+
+        <% if @parent %>
+            <strong style="font-size: 1.4em;"> &nbsp
+            L'analyse utilisée pour améliorer la mienne : <br/>
+            </strong>
+            <%= render @parent, vote: true %>
+        <% end %>
+
       </div>
     </div>
   </div>

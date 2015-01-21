@@ -128,6 +128,11 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def update_with_markdown( timeline_url )
+    Link.where( user_id: user_id, comment_id: id ).destroy_all
+    save_with_markdown( timeline_url )
+  end
+
 
   def selection_update( best_comment = nil )
     if best_comment

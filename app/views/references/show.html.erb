@@ -12,6 +12,8 @@
     <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%> Il vous reste
     <%=12 - Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value ) %>
     crédits à dispenser aux analyses de cette référence
+      <br/>
+      <br/>
     <%= link_to "Récupérer tous les crédits", vote_path( id: 'all', reference_id: @reference.id), method: :delete,
                 class: "btn btn-block btn-primary" %>
     </div>
@@ -29,7 +31,7 @@
   <% if logged_in? %>
     <div class="btn-group">
         <%= link_to " <span class=\"glyphicon glyphicon-search\" >
-            </span>Toute les analyses (sauf les miennes)".html_safe,
+            </span>Toute les analyses (sauf la mienne)".html_safe,
                     reference_path,
                     class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
     </div>
@@ -41,7 +43,7 @@
     </div>
     <div class="btn-group">
       <%= link_to "<span class=\"glyphicon glyphicon-search\" >
-            </span> Mes analyses".html_safe,
+            </span> Mon analyse".html_safe,
                   reference_path(:filter => 'mine'),
                   class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
     </div>
@@ -86,9 +88,15 @@
           <%= render @comments, vote: logged_in? && params[:filter] != 'mine' ? true : false %>
           <%= paginate @comments, :params => {:seed => @seed } %>
           </div>
-          <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+          <% if params[:filter] == "mine" %>
+              <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Modifier mon analyse".html_safe,
+                          edit_comment_path(id: @comments.first ), class: "btn btn-success" %>
+          <% else %>
+              <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Ecrire une analyse".html_safe,
-                      new_comment_path(reference_id: @reference.id ), class: "btn btn-success" %>
+                          new_comment_path(reference_id: @reference.id ), class: "btn btn-success" %>
+          <% end %>
       <% elsif params[:filter] == "my-vote" %>
           Vous n'avez pas encore voté
       <% elsif params[:filter] == "mine" %>

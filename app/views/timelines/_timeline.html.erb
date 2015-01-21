@@ -11,14 +11,13 @@
                   likes_path(id: timeline.id ),
                   method: :post, class: "btn btn-default" %>
       </div>
-      <div class="timeline-name">
-        <h4> <%= link_to timeline.name, timeline %>
-        </h4>
+      <div class="timeline-name center">
+        <br/>
+          <%= link_to timeline.name, timeline %>
         <% if timeline.nb_edits == 0  %>
-            <br/>
-            <div class="red center">
-            Controverse en construction
-            </div>
+              <div class="red center">
+                Controverse en construction
+              </div>
         <% end %>
       </div>
       <div class="collapse collapsed center" id="tags<%= timeline.id %>">

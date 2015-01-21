@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
-  resources :comments,          only: [:show, :new, :create, :destroy]
+  resources :comments,          only: [:show, :new, :create, :edit, :update, :destroy]
   resources :comment_drafts, only: [:destroy]
   resources :votes,          only: [:new ,:create, :destroy]
   resources :ratings,          only: [:create, :destroy]
@@ -59,7 +59,7 @@ Rails.application.routes.draw do
   resources :invitations, only: [:create]
   resources :new_accounts, only: [:create]
 
-  resources :summaries, only: [:show, :index, :new, :create, :destroy]
+  resources :summaries, only: [:show, :index, :new, :create, :edit, :update, :destroy]
   resources :summary_drafts, only: [:destroy]
   resources :credits, only: [:new ,:create, :destroy]
   resources :suggestions, only: [:index, :create]

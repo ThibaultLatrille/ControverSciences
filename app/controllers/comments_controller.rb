@@ -2,82 +2,77 @@ class CommentsController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def new
-    @comment = Comment.new
-    if params[:parent_id]
-      @parent = Comment.find(params[:parent_id])
-      @comment = @parent
-    elsif params[:draft_id]
-      @comment = CommentDraft.find(params[:draft_id])
-      if @comment.parent_id
-        @parent = Comment.find(@comment.parent_id)
+    comment = Comment.find_by( user_id: current_user.id, reference_id: params[:reference_id] )
+    if comment
+      redirect_to edit_comment_path( id: comment.id, parent_id: params[:parent_id] )
+    else
+      @comment = Comment.new
+      if params[:parent_id]
+        @parent = Comment.find(params[:parent_id])
+        @comment = @parent
+      else
+        reference = Reference.select(:id, :timeline_id).find( params[:reference_id] )
+        @comment.reference_id = reference.id
+        @comment.timeline_id = reference.timeline_id
       end
+      @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
     end
-    unless @comment.reference_id
-      reference = Reference.select(:id, :timeline_id).find( params[:reference_id] )
-      @comment.reference_id = reference.id
-      @comment.timeline_id = reference.timeline_id
-    end
-    @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
   end
 
   def create
-    if params[:draft]
-      if comment_params[:draft_id]
-        @comment = CommentDraft.find(comment_params[:draft_id])
-      else
-        @comment = CommentDraft.new({user_id: current_user.id,
-                                     reference_id: comment_params[:reference_id],
-                                     timeline_id: comment_params[:timeline_id],
-                                     parent_id: comment_params[:id]})
+    @comment = Comment.new( comment_params )
+    @comment.user_id = current_user.id
+    parent_id = params[:comment][:parent_id]
+    if @comment.save_with_markdown( timeline_url( comment_params[:timeline_id] ) )
+      if parent_id
+        CommentRelationship.create(parent_id: parent_id, child_id: @comment.id)
       end
-      for fi in 1..5
-        @comment["f_#{fi}_content".to_sym ] = comment_params[ "f_#{fi}_content".to_sym ]
-      end
-      if @comment.user_id == current_user.id
-        if @comment.save
-          flash.now[:success] = "Brouillon sauvé"
-        else
-          flash.now[:danger] = "Erreur"
-        end
-      end
-      @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
-      if comment_params[:parent_id]
-        @parent = Comment.find(comment_params[:parent_id])
-        params[:parent_id] = comment_params[:paren_id]
-      end
-      params[:draft_id] = @comment.id
-      params[:reference_id] = @comment.reference_id
-      render 'new'
+      flash[:success] = "Analyse enregistrée"
+      redirect_to comment_path( @comment.id )
     else
-      @comment = Comment.new({user_id: current_user.id,
-                              reference_id: comment_params[:reference_id],
-                              timeline_id: comment_params[:timeline_id]})
-      for fi in 1..5
-        @comment["f_#{fi}_content".to_sym ] = comment_params[ "f_#{fi}_content".to_sym ]
+      @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
+      if parent_id
+        @parent = Comment.find( parent_id )
       end
-      parent_id = comment_params[:parent_id]
-      if @comment.save_with_markdown( timeline_url( comment_params[:timeline_id] ) )
-        if parent_id
-          CommentRelationship.create(parent_id: parent_id, child_id: @comment.id)
+      render 'new'
+    end
+  end
+
+  def edit
+    @my_comment = Comment.find( params[:id] )
+    @comment = @my_comment
+    @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
+    if params[:parent_id]
+      @parent = Comment.find(params[:parent_id])
+      if @parent.user_id != current_user.id
+        for fi in 1..5 do
+          @comment["f_#{fi}_content".to_sym] += "\n" + @parent["f_#{fi}_content".to_sym]
         end
-        if comment_params[:draft_id]
-          comment = CommentDraft.find(comment_params[:draft_id])
-          if comment.user_id == current_user.id
-             comment.destroy
-          end
-        end
-        flash[:success] = "Edition enregistré"
-        redirect_to comment_path(@comment.id)
       else
-        @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
-        if comment_params[:parent_id]
-          @parent = Comment.find(comment_params[:parent_id])
-          params[:parent_id] = comment_params[:paren_id]
-        end
-        params[:draft_id] = comment_params[:draft_id]
-        params[:reference_id] = comment_params[:reference_id]
-        render 'new'
+        @parent = nil
       end
+    end
+  end
+
+  def update
+    @comment = Comment.find( params[:id] )
+    @my_comment = Comment.find( params[:id] )
+    if @comment.user_id == current_user.id
+      for fi in 1..5 do
+        @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
+      end
+      if @comment.update_with_markdown( timeline_url( @comment.timeline_id ) )
+        flash[:success] = "Analyse modifiée"
+        redirect_to @comment
+      else
+        @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
+        if params[:comment][:parent_id]
+          @parent = Comment.find(params[:comment][:parent_id])
+        end
+        render 'edit'
+      end
+    else
+      redirect_to @comment
     end
   end
 
@@ -95,7 +90,7 @@ class CommentsController < ApplicationController
       comment.destroy_with_counters
       redirect_to my_items_comments_path
     else
-      flash[:danger] = "Ce commentaire est le meilleur est ne peux être supprimer"
+      flash[:danger] = "Cette analyse est la meilleure et ne peux être supprimé"
       redirect_to comment_path(params[:id])
     end
   end
@@ -103,7 +98,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:reference_id, :timeline_id, :f_1_content, :f_2_content,
-                                    :f_3_content, :f_4_content, :f_5_content, :draft_id, :parent_id)
+    params.require(:comment).permit(:id, :reference_id, :timeline_id, :f_1_content, :f_2_content,
+                                    :f_3_content, :f_4_content, :f_5_content)
   end
 end

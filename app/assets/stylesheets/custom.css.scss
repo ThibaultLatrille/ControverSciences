@@ -171,12 +171,18 @@ h3 {
   text-align: left;
   font-weight: normal;
 }
-h4 {
-  font-size: 1.7em;
-  letter-spacing: -1px;
-  text-align: center;
-  margin-bottom: -5px;
+.timeline-name > a {
+  font-size: 1.3em;
+  font-weight: bold;
 }
+
+.red {
+  color: coral;
+  font-size: 0.8em;
+  margin-bottom: -10px;
+  margin-top: 5px;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -185,9 +191,7 @@ input {
   height: auto !important;
 }
 
-.red {
-  color: $red-error;
-}
+
 
 #error_explanation {
   color: $red-error;
