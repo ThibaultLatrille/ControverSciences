@@ -55,36 +55,32 @@
     },
     postTemplate: '<div id="ref-<%= data.id %>" class="item post <%= data.expansion %>" data-timestamp="<%= data.timestamp %>"> \
         <div class="inner <%= data.color %>"> \
-            <div class="title"> \
-              <h3> \
-              <%= data.title %> \
-                  <a href="<%= data.url %>" target="_blank" >\
-                  <% if (data.open) { %>  \
-                    <img alt="open-access" src="/images/lock.png" height="16px" \/> \
-                  <% } %> \
-                  <% if (!data.open) { %>  \
-                    <img alt="pay-wall" src="/images/locked.png" height="16px" \/> \
-                  <% } %> \
-                  </a> \
-              <\/h3> \
-            <\/div> \
             <div class="date"><%= data.display_date %><\/div> \
+            <a href="#" class="open-close" id="ref-btn-<%= data.id %>" > <%= data.title %> \
+            </a> \
               <div class="body"> \
                <div class="justify"> \
                 <% if (data.caption) { %> \
-                  <div class="caption"><%= data.caption %><\/div> \
+                  <div class="caption"> \
+                  <% if (data.open) { %>  \
+                    <a class="open-access" href="<%= data.url %>" target="_blank" >\
+                    <img alt="open-access" src="/images/lock.png" height="16px" \/> \
+                    </a>\
+                  <% } %> \
+                  <%= data.caption %>\
+                  <\/div> \
                 <% } %> \
                 <% if (data.field1) { %>  \
-                <div class="text"> <div class="bold"> L\'éxperience <\/div> <%= data.field1 %><\/div> \
+                <div class="text"> <div class="bold"> Expérience <\/div> <%= data.field1 %><\/div> \
                 <% } %> \
                 <% if (data.field2) { %>  \
-                <div class="text"> <div class="bold"> Les résultats <\/div> <%= data.field2 %><\/div> \
+                <div class="text"> <div class="bold"> Résultats <\/div> <%= data.field2 %><\/div> \
                 <% } %> \
                 <% if (data.field3) { %>  \
-                <div class="text"> <div class="bold"> Les limites <\/div> <%= data.field3 %><\/div> \
+                <div class="text"> <div class="bold"> Limites de l\'étude <\/div> <%= data.field3 %><\/div> \
                 <% } %> \
                 <% if (data.field4) { %>  \
-                <div class="text"> <div class="bold"> Quel rapport <\/div> <%= data.field4 %> <\/div> \
+                <div class="text"> <div class="bold"> Ce que cette étude apporte au débat <\/div> <%= data.field4 %> <\/div> \
                 <% } %> \
                 <% if (data.field5) { %>  \
                 <div class="text"> <div class="bold"> Remarques <\/div> <%= data.field5 %><\/div> \
@@ -98,7 +94,7 @@
                     <a class="more" href="<%= data.read_more_url %>"> En savoir plus sur cet article<\/a> \
                  <\/div> \
              <\/div> \
-              <a href="#" id="ref-btn-<%= data.id %>" class="open-close"></a> \
+              <a href="#" class="open-close arrow-open"></a> \
         <\/div> \
       <\/div> \
     ',
@@ -427,14 +423,17 @@
 
       // Handle click of open close buttons on post
       this.$el.find('.item a.open-close').on('click', _.bind(function(e) {
+
         e.preventDefault();
         var $thisButton = $(e.currentTarget);
         var $post = $thisButton.parents('.post');
+          console.log($post)
         var direction = ($post.hasClass('collapsed')) ? 'slideDown' : 'slideUp';
 
         // Slide body
         $thisButton.siblings('.body')[direction](_.bind(function() {
           // Mark post and poke isotope
+            console.log("kikou")
           $post.toggleClass('collapsed').toggleClass('expanded');
           this.$timeline.isotope('reLayout');
         }, this));
