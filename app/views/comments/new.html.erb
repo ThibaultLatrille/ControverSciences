@@ -32,7 +32,13 @@
                 <% for fi in 1..5 %>
                     <%= f.label fields_hash[fi] %>
 
-                    <%= f.text_area "f_#{fi}_content".to_sym, {rows: 5, :placeholder => fields_hash[fi],
+                        <% if fi == 5 %>
+                            <br> e.g.
+                            <i>Cette publication a été financée par une firme pharmaceutique,
+                              donc on peut douter de son objectivité" </i>
+                        <% end %>
+
+                    <%= f.text_area "f_#{fi}_content".to_sym, {rows: 5, :placeholder => "fields_hash[fi]",
                                                :class => "form-control textarea",
                                                "data-provide" => "markdown" }%>
                 <% end %>

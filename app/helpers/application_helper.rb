@@ -22,15 +22,15 @@ module ApplicationHelper
   end
 
   def fields_hash
-    {1 => "L'éxperience", 2 => "Les résultats", 3 => "Les limites",
-     4 => "Quel rapport", 5 => "Remarques" }
+    {1 => "Expérience", 2 => "Résultats", 3 => "Limites de l'étude",
+     4 => "Ce que cette étude apporte au débat", 5 => "Remarque(s)" }
   end
 
   def star_hash
-    { 1 => "Elle rape un peu les fesses quand on se torche avec",
-      2 => "Référence très interessante mais, aucun rapport avec la choucroute",
-      3 => "Ils se sont quand même pas foulés trois neurones pour le pondre",
-      4 => "Des bons petits gars et du bon boulot",
-      5 => "J'ai eu un orgasme cérébrale en le lisant"}
+    { 1 => "Cette référence n'a rien à faire là et est inintéressante.",
+      2 => "Cette référence est intéressante mais n'apporte rien.",
+      3 => "Cette référence est scientifiquement peu solide.",
+      4 => "Cette référence est intéressante et rigoureuse.",
+      5 => "A lire absolument !"}
   end
 end
