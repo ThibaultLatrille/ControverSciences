@@ -38,18 +38,10 @@
                 <li><%= link_to '<span class="glyphicon glyphicon-user"></span> Mon profil'.html_safe,
                                 edit_user_path(current_user) %> </li>
                 <li class="divider"></li>
-                <li><%= link_to "Mes controverses",
-                                my_items_timelines_path %> </li>
-                <li><%= link_to "Mes synthèses de controverses",
-                                my_items_summaries_path %> </li>
-                <li><%= link_to "Mes références",
-                                my_items_references_path %> </li>
-                <li><%= link_to "Mes analyses de références",
-                                my_items_comments_path %> </li>
+                <li><%= link_to "Mes contributions",
+                                my_items_items_path %> </li>
                 <li><%= link_to "Mes votes",
                                 my_items_votes_path %> </li>
-                <li><%= link_to "Mes brouillons",
-                                my_items_drafts_path %> </li>
                 <li class="divider"></li>
                 <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all_important}</span> Notifications ".html_safe,
                                 notifications_important_path %> </li>

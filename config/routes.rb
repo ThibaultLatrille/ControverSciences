@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   get 'my_items/references'
   get 'my_items/comments'
   get 'my_items/summaries'
+  get 'my_items/items'
   get 'my_items/votes'
   get 'my_items/drafts'
   resources :likes, only: [:create]
