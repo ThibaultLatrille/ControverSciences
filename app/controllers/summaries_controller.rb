@@ -1,73 +1,72 @@
 class SummariesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :destroy]
+  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
 
   def new
-    if params[:parent_id]
-      @parent = Summary.find(params[:parent_id])
-      @summary = @parent
-    elsif params[:draft_id]
-      @summary = SummaryDraft.find(params[:draft_id])
-      if @summary.parent_id
-        @parent = Summary.find(@summary.parent_id)
-      end
+    summary = Summary.find_by( user_id: current_user.id, timeline_id: params[:timeline_id] )
+    if summary
+      redirect_to edit_summary_path( id: summary.id, parent_id: params[:parent_id] )
     else
       @summary = Summary.new
+      if params[:parent_id]
+        @parent = Summary.find(params[:parent_id])
+        @summary = @parent
+      else
+        @summary.timeline_id = params[:timeline_id]
+      end
+      @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
     end
-    @list = Reference.where( timeline_id: params[:timeline_id] ).pluck( :title, :id )
   end
 
   def create
-    if params[:draft]
-      if summary_params[:draft_id]
-        @summary = SummaryDraft.find(summary_params[:draft_id])
-      else
-        @summary = SummaryDraft.new({user_id: current_user.id,
-                                     timeline_id: summary_params[:timeline_id],
-                                     parent_id: summary_params[:id]})
+    @summary = Summary.new( summary_params )
+    @summary.user_id = current_user.id
+    parent_id = params[:summary][:parent_id]
+    if @summary.save_with_markdown( timeline_url( summary_params[:timeline_id] ) )
+      if parent_id
+        SummaryRelationship.create(parent_id: parent_id, child_id: @summary.id)
       end
-      @summary.content = summary_params[:content]
-      if @summary.user_id == current_user.id
-        if @summary.save
-          flash.now[:success] = "Brouillon sauvé"
-        else
-          flash.now[:danger] = "Erreur"
-        end
-      end
-      @list = Reference.where( timeline_id: summary_params[:timeline_id] ).pluck( :title, :id )
-      if summary_params[:parent_id]
-        @parent = Summary.find(summary_params[:parent_id])
-        params[:parent_id] = summary_params[:paren_id]
-      end
-      params[:draft_id] = @summary.id
-      params[:timeline_id] = @summary.timeline_id
-      render 'new'
+      flash[:success] = "Synthèse enregistrée"
+      redirect_to summary_path( @summary.id )
     else
-      @summary = Summary.new({user_id: current_user.id,
-                              timeline_id: summary_params[:timeline_id]})
-      @summary.content = summary_params[:content]
-      parent_id = summary_params[:parent_id]
-      if @summary.save_with_markdown( timeline_url( summary_params[:timeline_id] ) )
-        if parent_id
-          SummaryRelationship.create(parent_id: parent_id, child_id: @summary.id)
-        end
-        if summary_params[:draft_id]
-          summary = SummaryDraft.find(summary_params[:draft_id])
-          if summary.user_id == current_user.id
-            summary.destroy
-          end
-        end
-        flash[:success] = "Edition enregistré"
-        redirect_to summary_path(@summary.id)
-      else
-        @list = Reference.where( timeline_id: summary_params[:timeline_id] ).pluck( :title, :id )
-        if summary_params[:parent_id]
-          @parent = Summary.find(summary_params[:parent_id])
-          params[:parent_id] = summary_params[:paren_id]
-        end
-        params[:draft_id] = summary_params[:draft_id]
-        params[:timeline_id] = summary_params[:timeline_id]
-        render 'new'
+      @list = Reference.where( timeline_id: summary_params[:timeline_id] ).pluck( :title, :id )
+      if parent_id
+        @parent = Summary.find( parent_id )
       end
+      render 'new'
+    end
+  end
+
+  def edit
+    @my_summary = Summary.find( params[:id] )
+    @summary = @my_summary
+    @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
+    if params[:parent_id]
+      @parent = Summary.find(params[:parent_id])
+      if @parent.user_id != current_user.id
+        @summary[:content] += "\n" + @parent[:content]
+      else
+        @parent = nil
+      end
+    end
+  end
+
+  def update
+    @summary = Summary.find( params[:id] )
+    @my_summary = Summary.find( params[:id] )
+    if @summary.user_id == current_user.id
+      @summary[:content] = summary_params[:content]
+      if @summary.update_with_markdown( timeline_url( @summary.timeline_id ) )
+        flash[:success] = "Synthèse modifiée"
+        redirect_to @summary
+      else
+        @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
+        if params[:summary][:parent_id]
+          @parent = Summary.find(params[:summary][:parent_id])
+        end
+        render 'edit'
+      end
+    else
+      redirect_to @summary
     end
   end
 
@@ -145,6 +144,6 @@ class SummariesController < ApplicationController
   private
 
   def summary_params
-    params.require(:summary).permit(:timeline_id, :content, :draft_id, :parent_id)
+    params.require(:summary).permit(:timeline_id, :content)
   end
 end

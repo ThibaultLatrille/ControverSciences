@@ -4,7 +4,7 @@
     <div class="text-justify">
         <%= summary.markdown.html_safe %>
     </div>
-    <% unless vote %>
+    <% unless credit %>
         <div class="pull-right">
           Publiée il y a <%= time_ago_in_words(summary.created_at) %> par <%= link_to summary.user_name, user_path(summary.user_id) %>
         </div>
@@ -56,8 +56,5 @@
           </div>
       <% end %>
     </div>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(summary.created_at) %> ago by <%= link_to summary.user_name, user_path(summary.user_id) %>
-   </span>
   </div>
 </div>

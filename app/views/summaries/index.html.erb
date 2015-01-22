@@ -23,19 +23,19 @@
   <% if logged_in? %>
       <div class="btn-group">
         <%= link_to " <span class=\"glyphicon glyphicon-search\" >
-            </span>Toute les analyses (sauf les miennes)".html_safe,
+            </span>Toute les synthèses (sauf la mienne)".html_safe,
                     summaries_path( timeline_id: params[:timeline_id] ),
                     class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
       </div>
       <div class="btn-group">
         <%= link_to " <span class=\"glyphicon glyphicon-search\" >
-            </span> Les analyses que j'ai crédité".html_safe,
+            </span> Les synthèses que j'ai crédité".html_safe,
                     summaries_path( timeline_id: params[:timeline_id], :filter => 'my-vote'),
                     class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
       </div>
       <div class="btn-group">
         <%= link_to "<span class=\"glyphicon glyphicon-search\" >
-            </span> Mes analyses".html_safe,
+            </span> Ma synthèse".html_safe,
                     summaries_path( timeline_id: params[:timeline_id], :filter => 'mine'),
                     class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
       </div>
@@ -92,11 +92,11 @@
         Vous n'avez pas donné de crédits
     <% elsif params[:filter] == "mine" %>
         <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Vous n'avez pas encore écrit d'analyse ".html_safe,
+        </span> Vous n'avez pas encore écrit de synthèse ".html_safe,
                     new_summary_path( timeline_id: params[:timeline_id]  ) %>
     <% else %>
         <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Il n'y a pas d'analyse, soyez le premier ! ".html_safe,
+        </span> Il n'y a pas de synthèse, soyez le premier ! ".html_safe,
                     new_summary_path( timeline_id: params[:timeline_id]  ) %>
     <% end %>
   </div>

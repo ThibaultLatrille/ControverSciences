@@ -11,10 +11,10 @@
       <div class="col-md-12 col-lg-7">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h2> Ecrire une synthèse </h2>
-              De la controverse :
-              <%= link_to Timeline.where(id: @summary.timeline_id ).pluck(:name)[0],
-                          timeline_url( @summary.timeline_id ) %>
+            <h2> Modifier ma synthèse </h2>
+            De la controverse :
+            <%= link_to Timeline.where(id: @summary.timeline_id ).pluck(:name)[0],
+                        timeline_url( @summary.timeline_id ) %>
           </div>
           <div class="panel-body">
             <%= form_for(@summary) do |f| %>
@@ -23,8 +23,8 @@
                 <%= f.label "Synthèse" %>
 
                 <%= f.text_area :content, {rows: 5, :placeholder => "synthèse",
-                                                           :class => "form-control textarea",
-                                                           "data-provide" => "markdown" }%>
+                                           :class => "form-control textarea",
+                                           "data-provide" => "markdown" }%>
                 <br/>
 
                 <% if @parent %>
@@ -32,18 +32,25 @@
                 <% end %>
 
                 <%= f.hidden_field :timeline_id, value: @summary.timeline_id %>
-                <%= f.submit "Publier la synthèse", class: "pull-right btn btn-lg btn-success"%>
+                <%= f.submit "Modifier ma synthèse", class: "pull-right btn btn-lg btn-success"%>
             <% end %>
           </div>
         </div>
       </div>
       <div class="col-md-12 col-lg-5">
+        <strong style="font-size: 1.4em;"> &nbsp
+          Ma synthèse : <br/>
+        </strong>
+
+        <%= render @my_summary, credit: false %>
+
         <% if @parent %>
             <strong style="font-size: 1.4em;"> &nbsp
-              Mon modèle d'analyse
+              La synthèse utilisée pour améliorer la mienne : <br/>
             </strong>
             <%= render @parent, credit: true %>
         <% end %>
+
       </div>
     </div>
   </div>

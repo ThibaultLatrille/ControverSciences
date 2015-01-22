@@ -116,6 +116,11 @@ class Summary < ActiveRecord::Base
     end
   end
 
+  def update_with_markdown( timeline_url )
+    SummaryLink.where( user_id: user_id, summary_id: id ).destroy_all
+    save_with_markdown( timeline_url )
+  end
+
   def selection_update( best_summary = nil )
     if best_summary
       old_summary_id = best_summary.summary_id

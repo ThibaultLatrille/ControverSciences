@@ -15,7 +15,7 @@
           <div class="col-md-12 col-lg-7">
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h2> Créer une analyse </h2>
+                <h2> Ecrire une analyse </h2>
                 <br/>
                   Pour la référence :
 
@@ -39,14 +39,12 @@
                                                "data-provide" => "markdown" }%>
                     <br/>
                 <% end %>
-
-
                 <% if @parent %>
                   <%= f.hidden_field :parent_id, value: @parent.id %>
                 <% end %>
                 <%= f.hidden_field :reference_id, value: @comment.reference_id %>
                 <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
-                    <br/>
+
                 <%= f.submit "Publier mon analyse", class: "pull-right btn btn-success btn-lg"%>
             <% end %>
               </div>
@@ -54,7 +52,9 @@
           </div>
           <div class="col-md-12 col-lg-5">
             <% if @parent %>
-                <strong> Mon modéle d'analyse </strong>
+                <strong style="font-size: 1.4em;"> &nbsp
+                  Mon modèle d'analyse
+                </strong>
                 <%= render @parent, vote: true %>
             <% end %>
           </div>
