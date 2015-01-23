@@ -7,6 +7,9 @@
   <meta name="description" content="<%= meta_description %>">
   <meta name="author" content="<%= meta_author %>">
   <meta name="Keywords" content="<%= meta_keywords %>">
+    <link rel="icon"
+          type="image/png"
+          href="<%= path_to_image "favicon.png" %>">
     <title><%= full_title(yield(:title)) %></title>
     <%= stylesheet_link_tag "application", 'https://fonts.googleapis.com/css?family=Droid+Sans', :media => "all" %>
     <%= javascript_include_tag 'application' %>
