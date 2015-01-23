@@ -61,7 +61,7 @@ end
 def seed_timelines(users, tags)
   timelines = []
   names = []
-  names << "Lorem Lipsum"
+  names << "Quel lien entre la prise de risque d'un individu et son statut hiérarchique dans la société?"
   names << "Quels sont les effets des OGMs sur la santé humaine ?"
   names << "Quels conséquences des quotas laitiers ?"
   names << "Quels dangers pour les pillules de 3eme génération ?"
@@ -70,13 +70,10 @@ def seed_timelines(users, tags)
   names << "La production de cacao peut-t-elle répondre à la demande de chocolat ?"
   names << "Sommes nous des descendants de Néanderthal ?"
   names << "Le THC entraîne-t-il des changements neurologiques irréversibles?"
-  names << "Le café est-il bénéfique pour la santé ?"
   names << "Viande rouge ou viande blanche, l'impact sur la santé ?"
   names << "L'homme peut-il habiter sur une autre planète ?"
   names << "L'homme a-t-il engendré des seismes ?"
-  names << "L'homéopathie est-elle efficace ?"
   names << "Les vaccins et leurs effets secondaires"
-  names << "Les abeilles vont-elles disparaitrent ?"
   names << "Replantons nous plus d'arbre que l'on en coupe ?"
   names << "Quotient intellectuel, quelle part de génétique ?"
   names << "Les vaches détectent-elles le champ magnétique terrestre ?"
@@ -89,7 +86,7 @@ def seed_timelines(users, tags)
       timeline = Timeline.new(
       user: users[rand(users.length)],
       name:  name,
-      score: 4.2)
+      score: 1)
       timeline.set_tag_list( tags.sample(rand(1..7)) )
       timelines << timeline
   end
@@ -99,7 +96,7 @@ def seed_timelines(users, tags)
   timelines
 end
 
-def seed_following_new_timelines(users, tags)
+def seed_following_new_timelines(users)
   following_new_timelines = []
   users = [users[0]]
   users.each do |user|
@@ -148,31 +145,37 @@ def seed_following_summaries(users, timelines)
   following_summaries
 end
 
-def seed_references(users, timelines)
-  references = []
-  bibtex = BibTeX.open('./db/seeds.bib')
-  timelines = [timelines[0]]
-  timelines.each do |timeline|
-    array = Array((0..bibtex.length-1)).sample(5)
-    array.each do |rand|
-      bib = bibtex[rand]
+def seed_references(user, timeline_name, file_name, tags)
+  timeline = Timeline.new(
+      user: user,
+      name:  timeline_name,
+      score: 1)
+  timeline.set_tag_list( tags.sample(rand(1..7)) )
+  timeline.save!
+  bibtex = BibTeX.open("./db/#{file_name}.bib")
+  bibtex.each do |bib|
       ref = Reference.new(
-          user: users[rand(users.length)],
+          user: user,
           timeline: timeline)
-      reference_attributes = [:title, :doi, :year, :url, :journal, :author, :abstract]
+      reference_attributes = [:title, :doi, :year, :url, :journal, :author, :abstract, :title_fr]
       reference_attributes.each do |attr|
         ref[attr] = bib.respond_to?(attr) ? bib[attr].value : ''
       end
       ref.year = ref.year.to_i
-      ref.title_fr = Faker::Lorem.sentence(4)
-      ref.open_access = rand(2) == 1 ? true : false
-      references << ref
-    end
+      ref.open_access = bib[:open_access].value == "true" ? true : false
+      ref.save!
+      comment = Comment.new(
+          user: user,
+          timeline:  timeline,
+          reference: ref,
+          f_1_content: bib[:f_1_content].value,
+          f_2_content: bib[:f_2_content].value,
+          f_3_content: bib[:f_3_content].value,
+          f_4_content: bib[:f_4_content].value,
+          f_5_content: bib[:f_5_content].value)
+      comment.save!
+
   end
-  references.map do |r|
-    r.save!
-  end
-  references
 end
 
 def seed_following_references(users, timelines)
@@ -380,16 +383,18 @@ end
 seed_domains
 tags = tags_hash.keys
 users = seed_users
-seed_following_new_timelines(users, tags)
-timelines = seed_timelines(users, tags)
-seed_following_timelines(users, timelines)
-seed_following_summaries(users, timelines)
-references = seed_references(users, timelines)
-seed_following_references(users, timelines)
-summaries = seed_summaries(users, timelines)
-seed_credits(users, summaries)
-comments = seed_comments(users, timelines)
-seed_votes(users, comments)
-seed_ratings(users, timelines)
-suggestions = seed_suggestions
-seed_suggestion_children( suggestions )
+# seed_following_new_timelines(users)
+seed_timelines(users, tags)
+# seed_following_timelines(users, timelines)
+# seed_following_summaries(users, timelines)
+seed_references(users[2], "La café est il bénéfique pour la santé", "cafe", tags)
+seed_references(users[2], "Les abeilles vont-elles disparaître ? ", "abeilles", tags)
+seed_references(users[2], "L'homéopathie est-elle efficace ?", "homeopathie", tags)
+# seed_following_references(users, timelines)
+# summaries = seed_summaries(users, timelines)
+# seed_credits(users, summaries)
+# comments = seed_comments(users, timelines)
+# seed_votes(users, comments)
+# seed_ratings(users, timelines)
+# suggestions = seed_suggestions
+# seed_suggestion_children( suggestions )
