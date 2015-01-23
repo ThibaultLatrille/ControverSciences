@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   end
 
   def checkemail
-    sleep 5
     mydomain = params[:user].partition("@")[2]
     Domain.all.pluck(:name).each do |domain|
       if mydomain.include? domain
