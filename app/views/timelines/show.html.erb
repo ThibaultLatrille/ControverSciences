@@ -3,6 +3,8 @@
 <div class="row">
 
 <div class="col-lg-2">
+  <div class="panel panel-default">
+  <div class="panel-body">
 <div class="btn-group">
   <button class="btn btn-default" data-placement="bottom"
           data-toggle="tooltip" title="<%= @timeline.nb_contributors %> contributeurs" >
@@ -34,8 +36,8 @@
           <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "32px")%>
         </button>
     <% end %>
-  <br/>
-  <br/>
+  </div>
+</div>
 </div>
 
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">

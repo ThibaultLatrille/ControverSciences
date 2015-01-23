@@ -2,7 +2,26 @@
 
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-
+<div class="btn-group">
+<button class="btn btn-default dropdown-toggle" type="button"
+        id="dropdownMenuTag" data-toggle="dropdown">
+  Thème sélectionné
+  <span class="caret"></span>
+</button>
+<ul class="dropdown-menu" role="menu" >
+  <li <%= params[:tag]=='all' || params[:tag].nil? ? "class=selected" : nil %> >
+    <%= link_to 'Tous (par défault)', timelines_path(:sort => params[:sort],
+                                                     :order => params[:order], :tag => 'all')%>
+  </li>
+  <% tags_hash.each do |key, value| %>
+      <li <%= params[:tag]==key ? "class=selected" : nil %> >
+        <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
+                              height: "28px")+"&nbsp".html_safe+value, timelines_path(:sort => params[:sort],
+                                                                                      :order => params[:order], :tag => key) %>
+      </li>
+  <% end %>
+</ul>
+</div>
 <div class="btn-group">
     <button class="btn btn-default dropdown-toggle" type="button"
             id="dropdownMenuTri" data-toggle="dropdown">
@@ -36,7 +55,7 @@
 <div class="btn-group">
   <button class="btn btn-default dropdown-toggle" type="button"
           id="dropdownMenuOrder" data-toggle="dropdown">
-    Ordre
+    Direction du tri
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu" >
@@ -47,26 +66,6 @@
       <%= link_to "Croissant",timelines_path(:sort => params[:sort],
                                          :order => 'asc', :tag => params[:tag]) %> </li>
   </ul>
-</div>
-<div class="btn-group">
-    <button class="btn btn-default dropdown-toggle" type="button"
-            id="dropdownMenuTag" data-toggle="dropdown">
-    Thème
-    <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" >
-      <li <%= params[:tag]=='all' || params[:tag].nil? ? "class=selected" : nil %> >
-        <%= link_to 'Tous (par défault)', timelines_path(:sort => params[:sort],
-                                                      :order => params[:order], :tag => 'all')%>
-      </li>
-      <% tags_hash.each do |key, value| %>
-          <li <%= params[:tag]==key ? "class=selected" : nil %> >
-            <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
-                 height: "28px")+"&nbsp".html_safe+value, timelines_path(:sort => params[:sort],
-                                          :order => params[:order], :tag => key) %>
-          </li>
-      <% end %>
-    </ul>
 </div>
 <div id="timelines">
   <div class="row page">

@@ -6,11 +6,14 @@
             timeline_path( params[:timeline_id]), class: "btn btn-block btn-primary" %>
 <% if logged_in? %>
     <br/>
+  <br/>
     <div class="panel panel-default">
       <div class="panel-body page">
     <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%> Il vous reste
   <%=12 - Credit.where( user_id: current_user.id, timeline_id: params[:timeline_id] ).sum( :value ) %>
   crédits à dispenser aux synthèses de cette controverse
+        <br/>
+        <br/>
   <%= link_to "Récupérer tous les crédits", credit_path( id: 'all', timeline_id: params[:timeline_id] ), method: :delete,
               class: "btn btn-block btn-primary" %>
   </div>

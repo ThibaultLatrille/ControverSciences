@@ -91,7 +91,7 @@
                         Par <%= data.user_name %> \
                     <\/div> \
                     <br\/> \
-                    <a class="more" href="<%= data.read_more_url %>"> En savoir plus sur cet article<\/a> \
+                    <a class="btn more" href="<%= data.read_more_url %>"> En savoir plus sur cet article<\/a> \
                  <\/div> \
              <\/div> \
               <a href="#" class="open-close arrow-open"></a> \
@@ -108,12 +108,12 @@
     ',
     buttonTemplate: '<div class="vertical-timeline-buttons clearfix"> \
         <div class="expand-collapse-buttons"> \
-          <a class="expand-all <% if (data.defaultExpansion == "expanded") { %>active<% } %>" href="#"><span> Développer <\/span><\/a> \
-          <a class="collapse-all <% if (data.defaultExpansion == "collapsed") { %>active<% } %>" href="#"><span> Réduire <\/span><\/a> \
+          <a class="btn expand-all <% if (data.defaultExpansion == "expanded") { %>active<% } %>" href="#"><span> Développer <\/span><\/a> \
+          <a class="btn collapse-all <% if (data.defaultExpansion == "collapsed") { %>active<% } %>" href="#"><span> Réduire <\/span><\/a> \
         <\/div> \
         <div class="sort-buttons"> \
-          <a class="sort-newest <% if (data.defaultDirection == "newest") { %>active<% } %>" href="#"><span> Ascendant <\/span><\/a> \
-          <a class="sort-oldest <% if (data.defaultDirection == "oldest") { %>active<% } %>" href="#"><span> Descendant <\/span><\/a> \
+          <a class="btn sort-newest <% if (data.defaultDirection == "newest") { %>active<% } %>" href="#"><span> Ascendant <\/span><\/a> \
+          <a class="btn sort-oldest <% if (data.defaultDirection == "oldest") { %>active<% } %>" href="#"><span> Descendant <\/span><\/a> \
         <\/div> \
       <\/div> \
     ',

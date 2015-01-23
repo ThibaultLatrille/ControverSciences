@@ -9,11 +9,12 @@
       <div class="pull-right">
       <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{timeline.nb_likes} </span>".html_safe,
                   likes_path(id: timeline.id ),
-                  method: :post, class: "btn btn-default" %>
+                  method: :post, class: "btn btn-default", "data-placement" => "left",
+           "data-toggle" => "tooltip",  title: timeline.nb_contributors.to_s + " personnes s'intéressent à cette controverse" %>
       </div>
       <div class="timeline-name center">
         <br/>
-          <%= link_to timeline.name, timeline %>
+          <%= link_to timeline.name, timeline, class: "hvr-grow" %>
         <% if timeline.nb_edits == 0  %>
               <div class="red center">
                 Controverse en construction
@@ -22,7 +23,7 @@
       </div>
       <div class="collapse collapsed center" id="tags<%= timeline.id %>">
           <% timeline.get_tag_list.each do |name| %>
-              <div class="btn btn-default" title="<%= tags_hash[name] %>"
+              <div class="btn btn-default hvr-shadow" title="<%= tags_hash[name] %>"
                    data-toggle="tooltip" style="margin: -2px">
                 <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "24px") %>
               </div>
