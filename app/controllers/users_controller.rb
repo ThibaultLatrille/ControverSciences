@@ -7,6 +7,18 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def checkemail
+    sleep 5
+    mydomain = params[:user].partition("@")[2]
+    Domain.all.pluck(:name).each do |domain|
+      if mydomain.include? domain
+        render :nothing => true, :status => 200
+        return true
+      end
+    end
+    render :nothing => true, :status => 409
+  end
+
   def index
     @users = User.order(score: :desc ).page(params[:page]).per(20)
   end

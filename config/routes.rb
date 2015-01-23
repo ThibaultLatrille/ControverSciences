@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new'
   get    'login'    => 'sessions#new'
   delete 'logout'   => 'sessions#destroy'
-  resources :users
+  resources :users do
+    collection do
+      get 'checkemail'
+    end
+  end
   resources :user_details, only: [:create]
   resources :sessions, only: [:new, :create, :destroy]
   resources :account_activations, only: [:edit]

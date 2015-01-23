@@ -13,12 +13,44 @@
         <%= f.text_field :name, class: 'form-control', placeholder: "p. ex.  C. Darwin" %>
             <br/>
         <%= f.label :email %>
-        <%= f.text_field :email, class: 'form-control', placeholder: "p. ex. Charles.darwin@univ-montp2.fr" %>
-        <% if f.object.errors[:email].any? %>
-             <br/>
-            <%= f.label :why, "Pourquoi souhaitez vous contribuer" %>
+        <%= f.text_field :email, class: 'form-control', placeholder: "p. ex. Charles.darwin@univ-montp2.fr",
+               :'data-validate' => '/users/checkemail' %>
+        <div id="fetch" style="display: none; margin-left: 30px; margin-top: 20px">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+              <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+              </rect>
+              <rect x="8" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+              </rect>
+              <rect x="16" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+              </rect>
+            </svg>
+        </div>
+        <div id="why" style="display:<%= f.object.errors[:email].any? ? "block" : "none" %>" >
+          <br/>
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+              Il semblerait que votre adresse email n'appartienne pas à une institution scientifique francophone.
+              <br/>
+              Cela peut tout à fait être une erreur de notre part, veuillez donc simplement indiquer de quelle institution il s'agit.
+              <br/>
+              Si vous n'avez pas d'adresse appartenant à une institution scientifique, veuillez renseigner des informations sur vous nous
+              permettant de déterminer que vous êtes ici pour enrichir le débat !
+            </div>
+            <div class="panel-body">
             <%= f.text_area :why, class: 'form-control textarea' %>
-        <% end %>
+            </div>
+          </div>
+        </div>
             <br/>
         <%= f.label :password %>
         <%= f.password_field :password, class: 'form-control' %>
@@ -39,3 +71,21 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $(function() {
+        $('[data-validate]').blur(function() {
+            $('#fetch').show();
+            $this = $(this);
+            $.get($this.data('validate'), {
+                user: $this.val()
+            }).success(function() {
+                $('#fetch').hide();
+                $('#why').hide();
+            }).error(function() {
+                $('#fetch').hide();
+                $('#why').show();
+            });
+        });
+    });
+</script>
