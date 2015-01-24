@@ -152,6 +152,7 @@ def seed_references(user, timeline_name, file_name, tags)
       score: 1)
   timeline.set_tag_list( tags.sample(rand(1..7)) )
   timeline.save!
+  timeline_url = "http://controversciences.org/timelines/"+timeline.id.to_s
   bibtex = BibTeX.open("./db/#{file_name}.bib")
   bibtex.each do |bib|
       ref = Reference.new(
@@ -173,8 +174,7 @@ def seed_references(user, timeline_name, file_name, tags)
           f_3_content: bib[:f_3_content].value,
           f_4_content: bib[:f_4_content].value,
           f_5_content: bib[:f_5_content].value)
-      comment.save!
-
+      comment.save_with_markdown( timeline_url )
   end
 end
 
@@ -197,7 +197,7 @@ end
 def seed_summaries(users, timelines)
   summaries = []
   timeline = timelines[0]
-  timeline_url = "0.0.0.0:3000/timelines/"+timeline.id.to_s
+  timeline_url = "http://controversciences.org/timelines/"+timeline.id.to_s
   contributors = [users[0]]
   contributors += users[1..-1].sample(1+rand(users.length))
   references = timeline.references
@@ -252,7 +252,7 @@ end
 def seed_comments(users, timelines)
   comments = []
   timeline = timelines[0]
-  timeline_url = "0.0.0.0:3000/timelines/"+timeline.id.to_s
+  timeline_url = "http://controversciences.org/timelines/"+timeline.id.to_s
   references = timeline.references
   reference_ids = references.map{ |ref| ref.id }
   references.each do |ref|
