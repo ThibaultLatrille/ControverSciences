@@ -145,9 +145,6 @@
             // Define loading.msg
             opts.loading.msg = opts.loading.msg || $('<div id="infscr-loading" style="margin-left: 30px;">' + opts.loading.img + '<div>' + opts.loading.msgText + '</div></div>');
 
-            // Preload loading.img
-            (new Image()).src = opts.loading.img;
-
             // distance from nav links to bottom
             // computed as: height of the document + top offset of container - top offset of nav link
             if(opts.pixelsFromNavToBottom === undefined) {
@@ -169,12 +166,6 @@
 
             // determine loading.finished actions
             opts.loading.finished = opts.loading.finished || function() {
-                $('.timeline-name').responsiveEqualHeightGrid();
-                $('.timeline-body').responsiveEqualHeightGrid();
-                $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-                $('.collapse').on('shown.bs.collapse', function () {
-                    $(".timeline-body").responsiveEqualHeightGrid();
-                });
                 if (!opts.state.isBeyondMaxPage)
                     opts.loading.msg.fadeOut(opts.loading.speed);
             };
