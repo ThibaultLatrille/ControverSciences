@@ -73,19 +73,19 @@
 </div>
 
 <script type="text/javascript">
-    $(function() {
-        $('[data-validate]').blur(function() {
-            $('#fetch').show();
-            $this = $(this);
-            $.get($this.data('validate'), {
-                user: $this.val()
-            }).success(function() {
-                $('#fetch').hide();
-                $('#why').hide();
-            }).error(function() {
-                $('#fetch').hide();
-                $('#why').show();
-            });
+$(function() {
+    $('[data-validate]').blur(function() {
+        $('#fetch').show();
+        $this = $(this);
+        $.get($this.data('validate'), {
+            user: $this.val()
+        }).success(function() {
+            $('#fetch').hide();
+            $('#why').hide();
+        }).error(function() {
+            $('#fetch').hide();
+            $('#why').show();
         });
     });
+});
 </script>

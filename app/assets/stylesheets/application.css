@@ -12,8 +12,8 @@
  *
  *= require bootstrap
  *= require hover.css
- *= require custom.css.scss
  *= require bootstrap-markdown.min.css
+ *= require custom.css.scss
  */
 @font-face{
     font-family: 'Glyphicons Halflings';

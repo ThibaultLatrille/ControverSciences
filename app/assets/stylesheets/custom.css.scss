@@ -54,6 +54,10 @@ body {
   color: white;
 }
 
+.stick{
+  margin-left: -2px;
+  margin-right: -2px;
+}
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: $nav_hover;
   color: white;
@@ -174,6 +178,7 @@ h3 {
 .timeline-name > a {
   font-size: 1.3em;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .red {

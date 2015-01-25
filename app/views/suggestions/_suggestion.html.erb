@@ -2,11 +2,11 @@
   <div class="clearfix pull-right">
 <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{suggestion.plus} </span>".html_safe,
             suggestion_votes_path(vote: {suggestion_id: suggestion.id, value: "true" } ),
-            method: :post, class: "btn btn-primary" %>
+            method: :post, class: "btn btn-success" %>
     <br/>
 <%= link_to "<span class=\"glyphicon glyphicon-thumbs-down\"> #{suggestion.minus} </span>".html_safe,
             suggestion_votes_path(vote: {suggestion_id: suggestion.id, value: "false" } ),
-            method: :post, class: "btn btn-primary" %>
+            method: :post, class: "btn btn-danger" %>
     <br/>
   </div>
 </div>
