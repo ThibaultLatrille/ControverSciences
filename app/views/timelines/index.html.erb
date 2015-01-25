@@ -93,11 +93,42 @@
 
 </div>
 
-<%= javascript_tag do %>
+<div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"> Votre intérêt pour cette controverse a déjà été prit en compte. </h4>
+      </div>
+      <div class="modal-body clearfix">
+        Votre adresse IP a déjà été utilisé pour cette action, si vous n'avez jamais effectué cette action,
+        c'est probablement que quelqu'un connecté au même réseau que vous l'a fait avant vous !
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
 $('.timeline-name').responsiveEqualHeightGrid();
 $('.timeline-body').responsiveEqualHeightGrid();
 $('[data-toggle="tooltip"]').tooltip({container: 'body'});
   $('.collapse').on('shown.bs.collapse', function () {
       $(".timeline-body").responsiveEqualHeightGrid();
-  })
-<% end %>
+  });
+$(function() {
+    $('[data-validate]').click(function() {
+        $this = $(this);
+        $.get($this.data('validate'), {
+            id: $this.val()
+        }).success(function() {
+            var $like = $('#like'+$this.val());
+            $like.text(' '+(parseInt($like.text())+1));
+        }).error(function() {
+            $('#iptaken').modal('show');
+        });
+    });
+});
+</script>

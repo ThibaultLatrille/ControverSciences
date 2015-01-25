@@ -60,7 +60,8 @@ Rails.application.routes.draw do
   get 'my_items/items'
   get 'my_items/votes'
   get 'my_items/drafts'
-  resources :likes, only: [:create]
+
+  get 'likes/add'
   resources :invitations, only: [:create]
   resources :new_accounts, only: [:create]
 

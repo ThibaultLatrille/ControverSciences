@@ -1,14 +1,13 @@
 class LikesController < ApplicationController
-  def create
+  def add
     like = Like.new(timeline_id: like_params,
                     ip: request.remote_ip )
     begin
       like.save
-      flash[:success] = "Vous aimez cette controverse"
+      render :nothing => true, :status => 200
     rescue
-      flash[:danger] = "Cette IP a déjà été utilisée pour aimer cette controverse"
+      render :nothing => true, :status => 409
     end
-    redirect_to timeline_path( like_params )
   end
 
   private

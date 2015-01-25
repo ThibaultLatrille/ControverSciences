@@ -7,10 +7,11 @@
         Thèmes
       </button>
       <div class="pull-right">
-      <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{timeline.nb_likes} </span>".html_safe,
-                  likes_path(id: timeline.id ),
-                  method: :post, class: "btn btn-default", "data-placement" => "left",
-           "data-toggle" => "tooltip",  title: timeline.nb_contributors.to_s + " personnes s'intéressent à cette controverse" %>
+        <button type="button" class="btn btn-default" data-placement="left"
+            data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes/add"
+            title="<%= timeline.nb_likes.to_s + " personnes s'intéressent à cette controverse" %>">
+        <span class="glyphicon glyphicon-thumbs-up" id="like<%= timeline.id %>"> <%= timeline.nb_likes %> </span>
+        </button>
       </div>
       <div class="timeline-name center">
         <br/>
@@ -23,24 +24,24 @@
       </div>
       <div class="collapse collapsed center" id="tags<%= timeline.id %>">
           <% timeline.get_tag_list.each do |name| %>
-              <div class="btn btn-default hvr-shadow" title="<%= tags_hash[name] %>"
-                   data-toggle="tooltip" style="margin: -2px">
+              <div class="btn btn-default stick hvr-shadow" title="<%= tags_hash[name] %>"
+                   data-toggle="tooltip">
                 <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "24px") %>
               </div>
           <% end %>
       </div>
       <div class="collapse in center" id="group<%= timeline.id %>">
-          <div class="btn btn-default" data-placement="left" style="margin: -2px"
+          <div class="btn btn-default stick" data-placement="left"
                title="<%= timeline.nb_contributors %> contributeur(s)" data-toggle="tooltip">
           <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "24px") %>
           <span class="badge"><%= timeline.nb_contributors %></span>
           </div>
-          <div class="btn btn-default" data-placement="top" style="margin: -2px"
+          <div class="btn btn-default stick" data-placement="top"
                title="<%= timeline.nb_references %> référence(s) scientifique(s)" data-toggle="tooltip">
           <%= image_tag("icons/myicon-reference.svg", alt: "ref", height: "24px") %>
           <span class="badge"><%= timeline.nb_references %></span>
           </div>
-          <div class="btn btn-default" data-placement="right" style="margin: -2px"
+          <div class="btn btn-default stick" data-placement="right"
                title="<%= timeline.nb_edits %> contribution(s)" data-toggle="tooltip">
           <%= image_tag("icons/myicon-comment.svg", alt: "ref", height: "24px") %>
           <span class="badge"><%= timeline.nb_edits %></span>
