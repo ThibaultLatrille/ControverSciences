@@ -142,7 +142,7 @@ class Comment < ActiveRecord::Base
       Comment.update( best_comment.comment_id, best: false )
       best_comment.update_attributes( user_id: self.user_id, comment_id: self.id )
       NotificationSelectionWin.create( user_id: self.user_id, comment_id: self.id)
-      self.selection_notifications( old_comment_id )
+      NewCommentSelection.create( old_comment_id: old_comment_id, new_comment_id: self.id )
     else
       BestComment.create( user_id: self.user_id, reference_id: self.reference_id,
                           comment_id: self.id)
@@ -153,25 +153,6 @@ class Comment < ActiveRecord::Base
                                          f_4_content: self.markdown_4,
                                          f_5_content: self.markdown_5})
     self.update_attributes( best: true)
-  end
-
-  def selection_notifications( old_comment_id )
-    user_ids = FollowingReference.where( reference_id: self.reference_id ).pluck(:user_id )
-    notifications = []
-    user_ids.each do |user_id|
-      notifications << NotificationSelection.new( user_id: user_id, old_comment_id: old_comment_id,
-                                                  new_comment_id: self.id)
-    end
-    NotificationSelection.import notifications
-  end
-
-  def create_notifications
-    user_ids = FollowingReference.where( reference_id: self.reference_id ).pluck( :user_id )
-    notifications = []
-    user_ids.each do |user_id|
-      notifications << NotificationComment.new( user_id: user_id, comment_id: self.id )
-    end
-    NotificationComment.import notifications
   end
 
 
@@ -186,7 +167,7 @@ class Comment < ActiveRecord::Base
   private
 
   def cascading_save_comment
-    self.create_notifications
+    NewComment.create( comment_id: self.id )
     best_comment = BestComment.find_by(reference_id: self.reference_id )
     unless best_comment
       self.selection_update

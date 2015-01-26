@@ -129,33 +129,13 @@ class Summary < ActiveRecord::Base
       Summary.update( best_summary.summary_id, best: false )
       best_summary.update_attributes( user_id: self.user_id, summary_id: self.id )
       NotificationSummarySelectionWin.create( user_id: self.user_id, summary_id: self.id )
-      self.selection_notifications( old_summary_id )
+      NewSummarySelection.create( old_summary_id: old_summary_id, new_summary_id: self.id )
     else
       SummaryBest.create( user_id: self.user_id,
                           summary_id: self.id, timeline_id: self.timeline_id)
     end
     self.update_attributes( best: true)
   end
-
-  def selection_notifications( old_summary_id )
-    user_ids = FollowingSummary.where( timeline_id: self.timeline_id ).pluck(:user_id )
-    notifications = []
-    user_ids.each do |user_id|
-      notifications << NotificationSummarySelection.new( user_id: user_id, old_summary_id: old_summary_id,
-                                                  new_summary_id: self.id)
-    end
-    NotificationSummarySelection.import notifications
-  end
-
-  def create_notifications
-    user_ids = FollowingSummary.where( timeline_id: self.timeline_id ).pluck( :user_id )
-    notifications = []
-    user_ids.each do |user_id|
-      notifications << NotificationSummary.new( user_id: user_id, summary_id: self.id )
-    end
-    NotificationSummary.import notifications
-  end
-
 
   def destroy_with_counters
     Timeline.decrement_counter( :nb_edits , self.timeline_id )
@@ -165,7 +145,7 @@ class Summary < ActiveRecord::Base
   private
 
   def cascading_save_summary
-    self.create_notifications
+    NewSummary.create( summary_id: self.id )
     best_summary = SummaryBest.find_by(timeline_id: self.timeline_id )
     unless best_summary
       self.selection_update

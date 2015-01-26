@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150111210149) do
+ActiveRecord::Schema.define(version: 20150125191246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,6 +185,52 @@ ActiveRecord::Schema.define(version: 20150111210149) do
   add_index "links", ["reference_id"], name: "index_links_on_reference_id", using: :btree
   add_index "links", ["timeline_id"], name: "index_links_on_timeline_id", using: :btree
   add_index "links", ["user_id"], name: "index_links_on_user_id", using: :btree
+
+  create_table "new_comment_selections", force: true do |t|
+    t.integer  "old_comment_id"
+    t.integer  "new_comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "new_comments", force: true do |t|
+    t.integer  "comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "new_comments", ["comment_id"], name: "index_new_comments_on_comment_id", using: :btree
+
+  create_table "new_references", force: true do |t|
+    t.integer  "reference_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "new_references", ["reference_id"], name: "index_new_references_on_reference_id", using: :btree
+
+  create_table "new_summaries", force: true do |t|
+    t.integer  "summary_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "new_summaries", ["summary_id"], name: "index_new_summaries_on_summary_id", using: :btree
+
+  create_table "new_summary_selections", force: true do |t|
+    t.integer  "old_summary_id"
+    t.integer  "new_summary_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "new_timelines", force: true do |t|
+    t.integer  "timeline_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "new_timelines", ["timeline_id"], name: "index_new_timelines_on_timeline_id", using: :btree
 
   create_table "notification_comments", force: true do |t|
     t.integer  "user_id"

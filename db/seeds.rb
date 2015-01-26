@@ -40,6 +40,12 @@ def seed_users
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
+  users << User.new(name:  "N. Clairis",
+                    email: "nicolas.clairis@ens-lyon.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
   30.times do |n|
     first_name  = Faker::Name.first_name
     last_name  = Faker::Name.last_name
@@ -100,24 +106,23 @@ def seed_following_new_timelines(users)
   following_new_timelines = []
   users = [users[0]]
   users.each do |user|
-    s = Tag.all.length
-    tag_ids = Array(1..s).sample(1+rand(s/3))
-    tag_ids.each do |tag_id|
-      following_new_timelines << FollowingNewTimeline.new( user_id: user.id, tag_id: tag_id )
+    tags = Tag.all
+    tags.each do |tag|
+      following_new_timelines << FollowingNewTimeline.new( user_id: user.id, tag_id: tag.id )
     end
   end
+  puts following_new_timelines
   following_new_timelines.map do |f|
     f.save!
   end
   following_new_timelines
 end
 
-def seed_following_timelines(users, timelines)
+def seed_following_timelines(users)
   following_timelines = []
   users = [users[0]]
   users.each do |user|
-    user_timelines = timelines.sample(1+rand(timelines.length/3))
-    user_timelines << timelines[0]
+    user_timelines = Timeline.all
     user_timelines.each do |timeline|
       following_timelines << FollowingTimeline.new( user_id: user.id, timeline_id: timeline.id )
     end
@@ -129,12 +134,11 @@ def seed_following_timelines(users, timelines)
 end
 
 
-def seed_following_summaries(users, timelines)
+def seed_following_summaries(users)
   following_summaries = []
   users = [users[0]]
   users.each do |user|
-    user_timelines = timelines[1..-1].sample(1+rand(timelines.length/3))
-    user_timelines << timelines[0]
+    user_timelines = Timeline.all
     user_timelines.each do |timeline|
       following_summaries << FollowingSummary.new( user_id: user.id, timeline_id: timeline.id )
     end
@@ -178,12 +182,11 @@ def seed_references(user, timeline_name, file_name, tags)
   end
 end
 
-def seed_following_references(users, timelines)
-  references = timelines[0].references
+def seed_following_references(users)
   following_references = []
   users = [users[0]]
   users.each do |user|
-    user_references = references.sample(1+rand(references.length))
+    user_references = Reference.all
     user_references.each do |reference|
       following_references << FollowingReference.new( user_id: user.id, reference_id: reference.id )
     end
@@ -383,14 +386,14 @@ end
 seed_domains
 tags = tags_hash.keys
 users = seed_users
-# seed_following_new_timelines(users)
 seed_timelines(users, tags)
-# seed_following_timelines(users, timelines)
-# seed_following_summaries(users, timelines)
+seed_following_new_timelines(users)
 seed_references(users[1], "La café est il bénéfique pour la santé", "cafe", tags)
 seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags)
 seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags)
-# seed_following_references(users, timelines)
+seed_following_timelines(users)
+seed_following_summaries(users)
+seed_following_references(users)
 # summaries = seed_summaries(users, timelines)
 # seed_credits(users, summaries)
 # comments = seed_comments(users, timelines)

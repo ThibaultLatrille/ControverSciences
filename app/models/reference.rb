@@ -30,15 +30,6 @@ class Reference < ActiveRecord::Base
     Timeline.select( :name ).find( self.timeline_id ).name
   end
 
-  def create_notifications
-    user_ids = FollowingTimeline.where( timeline_id: self.timeline_id ).pluck( :user_id )
-    notifications = []
-    user_ids.each do |user_id|
-      notifications << NotificationReference.new( user_id: user_id, reference_id: self.id )
-    end
-    NotificationReference.import notifications
-  end
-
   def destroy_with_counters
     nb_comments = self.comments.count
     Timeline.decrement_counter( :nb_references , self.timeline_id)
@@ -49,7 +40,7 @@ class Reference < ActiveRecord::Base
   private
 
   def cascading_save_ref
-    self.create_notifications
+    NewReference.create( reference_id: self.id )
     Timeline.increment_counter(:nb_references, self.timeline_id)
     refrelation = ReferenceContributor.new({user_id: self.user_id, reference_id: self.id, bool: true})
     refrelation.save()

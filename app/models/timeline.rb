@@ -72,22 +72,11 @@ class Timeline < ActiveRecord::Base
     3.0/(1.0/(1+Math.log(1+nb_contributors))+1.0/(1+Math.log(1+10*nb_references))+1.0/(1+Math.log(1+5*nb_edits)))
   end
 
-  def create_notifications
-    tag_ids = self.tags.pluck(:id)
-    user_ids = FollowingNewTimeline.where( tag_id: tag_ids ).pluck( :user_id )
-    user_ids.uniq!
-    notifications = []
-    user_ids.each do |user_id|
-      notifications << NotificationTimeline.new( user_id: user_id, timeline_id: self.id )
-    end
-    NotificationTimeline.import notifications
-  end
-
   private
 
   def cascading_save_timeline
-    self.create_notifications
-    timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.id, bool: true})
+    NewTimeline.create( timeline_id: self.id )
+    timrelation = TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
     timrelation.save()
     Timeline.increment_counter(:nb_contributors, self.id)
   end

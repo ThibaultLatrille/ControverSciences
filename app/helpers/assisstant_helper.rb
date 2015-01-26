@@ -85,4 +85,83 @@ module AssisstantHelper
       end
     end
   end
+
+  def generate_notifications
+    # JOIN NEEDED
+    new_timelines = NewTimeline.all.pluck( :timeline_id )
+    new_timelines.each do |timeline_id|
+      timeline = Timeline.find( timeline_id )
+      tag_ids = timeline.tags.pluck(:id)
+      user_ids = FollowingNewTimeline.where( tag_id: tag_ids ).pluck( :user_id )
+      user_ids.uniq!
+      notifications = []
+      user_ids.each do |user_id|
+        notifications << NotificationTimeline.new( user_id: user_id, timeline_id: timeline_id )
+      end
+      NotificationTimeline.import notifications
+    end
+    NewTimeline.where(timeline_id: new_timelines ).destroy_all
+
+    new_references = NewReference.all.pluck( :reference_id )
+    new_references.each do |reference_id|
+      reference = Reference.select(:id, :timeline_id).find( reference_id )
+      user_ids = FollowingTimeline.where( timeline_id: reference.timeline_id ).pluck( :user_id )
+      notifications = []
+      user_ids.each do |user_id|
+        notifications << NotificationReference.new( user_id: user_id, reference_id: reference.id )
+      end
+      NotificationReference.import notifications
+    end
+    NewReference.where(reference_id: new_references ).destroy_all
+
+    new_summaries = NewSummary.all.pluck( :summary_id )
+    new_summaries.each do |summary_id|
+      summary = Summary.select(:id, :timeline_id).find( summary_id )
+      user_ids = FollowingSummary.where( timeline_id: summary.timeline_id ).pluck( :user_id )
+      notifications = []
+      user_ids.each do |user_id|
+        notifications << NotificationSummary.new( user_id: user_id, summary_id: summary.id )
+      end
+      NotificationSummary.import notifications
+    end
+    NewSummary.where(summary_id: new_summaries ).destroy_all
+
+    new_summaries = NewSummarySelection.all
+    new_summaries.each do | summary_selection |
+      summary = Summary.select(:id, :timeline_id).find( summary_selection.new_summary_id )
+      user_ids = FollowingSummary.where( timeline_id: summary.timeline_id ).pluck(:user_id )
+      notifications = []
+      user_ids.each do |user_id|
+        notifications << NotificationSummarySelection.new( user_id: user_id, old_summary_id: summary_selection.old_summary_id,
+                                                           new_summary_id: summary_selection.new_summary_id )
+      end
+      NotificationSummarySelection.import notifications
+    end
+    NewSummarySelection.where( id: new_summaries.map{ |s| s.id } ).destroy_all
+
+    new_comments = NewComment.all.pluck( :comment_id )
+    new_comments.each do |comment_id|
+      comment = Comment.select(:id, :reference_id).find( comment_id )
+      user_ids = FollowingReference.where( reference_id: comment.reference_id ).pluck( :user_id )
+      notifications = []
+      user_ids.each do |user_id|
+        notifications << NotificationComment.new( user_id: user_id, comment_id: comment.id )
+      end
+      NotificationComment.import notifications
+    end
+    NewComment.where(comment_id: new_comments ).destroy_all
+
+    new_comments = NewCommentSelection.all
+    new_comments.each do | comment_selection |
+      comment = Comment.select(:id, :reference_id).find( comment_selection.new_summary_id )
+      user_ids = FollowingReference.where( reference_id: comment.reference_id ).pluck(:user_id )
+      notifications = []
+      user_ids.each do |user_id|
+        notifications << NotificationSelection.new( user_id: user_id, old_summary_id: comment_selection.old_summary_id,
+                                                           new_summary_id: comment_selection.new_summary_id )
+      end
+      NotificationSelection.import notifications
+    end
+    NewCommentSelection.where( id: new_comments.map{ |s| s.id } ).destroy_all
+  end
 end
