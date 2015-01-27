@@ -46,6 +46,12 @@ def seed_users
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
+  users << User.new(name:  "F. Figon",
+                    email: "florent.figon@ens-lyon.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
   30.times do |n|
     first_name  = Faker::Name.first_name
     last_name  = Faker::Name.last_name
@@ -111,7 +117,6 @@ def seed_following_new_timelines(users)
       following_new_timelines << FollowingNewTimeline.new( user_id: user.id, tag_id: tag.id )
     end
   end
-  puts following_new_timelines
   following_new_timelines.map do |f|
     f.save!
   end
@@ -391,6 +396,7 @@ seed_following_new_timelines(users)
 seed_references(users[1], "La café est il bénéfique pour la santé", "cafe", tags)
 seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags)
 seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags)
+seed_references(users[2], "Peut-on modifier le comportement avec la technologie? (focus sur l'optogénétique)", "opto", tags)
 seed_following_timelines(users)
 seed_following_summaries(users)
 seed_following_references(users)
