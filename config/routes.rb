@@ -21,10 +21,11 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
-  resources :comments,          only: [:show, :new, :create, :edit, :update, :destroy]
+  get "/from_timeline" => 'references#from_timeline', as: 'from_timeline'
+  resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :comment_drafts, only: [:destroy]
-  resources :votes,          only: [:new ,:create, :destroy]
-  resources :ratings,          only: [:create, :destroy]
+  resources :votes, only: [:new ,:create, :destroy]
+  resources :ratings, only: [:create, :destroy]
   get 'assistant' => 'assistant#view'
   get 'assistant/users' => 'assistant#users'
   get 'assistant/index' => 'assistant#index'

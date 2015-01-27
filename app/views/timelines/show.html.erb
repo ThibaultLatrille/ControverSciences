@@ -69,16 +69,23 @@
         <%= link_to '<span class="glyphicon glyphicon-pencil" >
     </span> Pas de synthèses, soyez le premier'.html_safe,
                     new_summary_path( timeline_id: @timeline.id ),
-                    class: "btn btn-primary" %>
+                    class: "btn btn-success" %>
     <% end %>
   </div>
 </div>
 
-<div class="row" id="my-timeline">
-    <div class="timeline-jquery-controverse">
-    </div>
-</div>
+<% if @references.any? %>
 
+<section id="cd-timeline" class="cd-container">
+<%= render @references %>
+</section>
+
+<% else %>
+  <%= link_to '<span class="glyphicon glyphicon-pencil" >
+    </span> Pas de références à cette controverse, soyez le premier'.html_safe,
+                  new_reference_path( timeline_id: @timeline.id ),
+                  class: "btn btn-success" %>
+<% end %>
 
 </div>
   <% if logged_in? %>
@@ -133,17 +140,28 @@
             });
         });
     });
-    function toRef( id ){
-        if ( jQuery.inArray( 'collapsed', $("#ref-"+id)[0].classList ) ){
-            $(".collapse-all").trigger({ type: "click" });
-            $("#ref-btn-"+id).trigger({ type: "click" });
-        }
-    }
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-        $('.timeline-jquery-controverse').verticalTimeline({
-            data: <%= raw render(template: "timelines/show.json.rabl") -%>,
-            handleResize: true,
+        var $timeline_block = $('.cd-timeline-block');
+
+        //hide timeline blocks which are outside the viewport
+        $timeline_block.each(function(){
+            $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
+        });
+
+        $timeline_block.each(function(){
+            if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.95 ) {
+                $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+            }
+        });
+
+        //on scolling, show/animate timeline blocks when enter the viewport
+        $(window).on('scroll', function(){
+            $timeline_block.each(function(){
+                if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.95 && $(this).find('.cd-timeline-img').hasClass('is-hidden') ) {
+                    $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+                }
+            });
         });
     });
 </script>

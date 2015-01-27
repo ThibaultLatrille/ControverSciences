@@ -58,7 +58,7 @@ class TimelinesController < ApplicationController
     else
       @summary = nil
     end
-    @references = @timeline.references
+    @references = Reference.select( :id, :title_fr, :year).order( year: :desc).where( timeline_id: @timeline.id )
   end
 
   def destroy

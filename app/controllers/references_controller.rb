@@ -1,6 +1,13 @@
 class ReferencesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
 
+  def from_timeline
+    @comment = BestComment.includes( :comment ).find_by_reference_id( params[:reference_id] ).comment
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def new
     @reference = Reference.new
   end

@@ -1,0 +1,14 @@
+<div class="cd-timeline-block">
+    <div class="cd-timeline-img cd-picture">
+      <%= image_tag("icons/myicon-ribbon.svg", alt: "ribbon" ) %>
+    </div>
+
+    <div class="cd-timeline-content">
+      <h2><%= reference.title_fr %>
+        <%= link_to "<span class=\"glyphicon glyphicon-eye-open hvr-grow\"> </span>".html_safe, from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}" %>
+      </h2>
+      <div id="reference<%= reference.id %>" class="clearfix">
+      </div>
+      <span class="cd-date"><%= reference.year %></span>
+    </div>
+</div>

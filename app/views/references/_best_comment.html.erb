@@ -1,0 +1,12 @@
+<br/>
+<% for fi in 1..5 %>
+  <b> <%= fields_hash[fi] %> </b>
+  <div class="text-justify">
+    <%= comment["markdown_#{fi}".to_sym].html_safe %>
+  </div>
+<% end %>
+<div class="pull-right">
+  Analyse publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id) %>
+</div>
+
+<%= link_to "En savoir plus sur la référence".html_safe, reference_path( comment.reference_id ), class: "btn btn-default hvr-grow" %>
