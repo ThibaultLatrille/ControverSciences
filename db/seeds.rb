@@ -52,6 +52,24 @@ def seed_users
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
+  users << User.new(name:  "Iago-lito",
+                    email: "iago.bonnici@ens.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
+  users << User.new(name:  "A. Danet",
+                    email: "Alain.Danet@univ-montp2.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
+  users << User.new(name:  "Y. Anciaux",
+                    email: "yoann.anciaux@univ-montp2.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
   30.times do |n|
     first_name  = Faker::Name.first_name
     last_name  = Faker::Name.last_name
