@@ -9,7 +9,11 @@ class CommentsController < ApplicationController
       @comment = Comment.new
       if params[:parent_id]
         @parent = Comment.find(params[:parent_id])
-        @comment = @parent
+        for fi in 1..5 do
+          @comment["f_#{fi}_content".to_sym] = @parent["f_#{fi}_content".to_sym]
+          @comment.reference_id = @parent.reference_id
+          @comment.timeline_id = @parent.timeline_id
+        end
       else
         reference = Reference.select(:id, :timeline_id).find( params[:reference_id] )
         @comment.reference_id = reference.id

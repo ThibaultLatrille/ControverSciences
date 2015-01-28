@@ -9,7 +9,8 @@ class SummariesController < ApplicationController
       @summary = Summary.new
       if params[:parent_id]
         @parent = Summary.find(params[:parent_id])
-        @summary = @parent
+        @summary.content = @parent.content
+        @summary.timeline_id = @parent.timeline_id
       else
         @summary.timeline_id = params[:timeline_id]
       end
