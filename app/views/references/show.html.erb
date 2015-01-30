@@ -257,6 +257,11 @@
                 <% end %>
                 </div>
             <% end %>
+            <% if @reference.user_id == current_user.id %>
+                </li>
+                <li class="list-group-item clearfix">
+                <%= link_to "Modifier la référence", edit_reference_path(@reference.id), class: "btn btn-primary" %>
+            <% end %>
         <% else %>
                 <span class="bold"> Comment les contributeurs jugent la qualité scientifique de cette référence :
                  </span></br>
