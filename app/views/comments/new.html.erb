@@ -31,11 +31,12 @@
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <% for fi in 1..5 %>
-                    <%= f.label fields_hash[fi] %>
+                    <%= f.label fields_hash[fi] %> <div id="characterLeft<%= fi %>"></div>
 
                     <%= f.text_area "f_#{fi}_content".to_sym, {rows: 5,
                                   :placeholder => fi == 5 ? "e.g. Cette publication a été financée par une firme pharmaceutique, donc on peut douter de son objectivité" : fields_hash[fi],
                                                :class => "form-control textarea",
+                                               id: "description#{fi}",
                                                "data-provide" => "markdown" }%>
                     <br/>
                 <% end %>
@@ -101,7 +102,7 @@
 
 
 
-<%= javascript_tag do %>
+<script type="text/javascript">
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
     mysavebtn.setAttribute("data-toggled",'yes');
@@ -110,4 +111,17 @@
     $('#save-btn-http').on('click', function (event) {
     myref.setAttribute("data-toggled",'yes');
     });
-<% end %>
+    $.each([ '1', '2', '3', '4', '5' ], function( index, value ) {
+        $('#characterLeft'+value).text(1000-$('#description'+value).val().length+' caractères restants');
+        $('#description'+value).keyup(function () {
+            var max = 1000;
+            var len = $(this).val().length;
+            if (len >= max) {
+                $('#characterLeft'+value).text('Vous avez atteint la limite');
+            } else {
+                var ch = max - len;
+                $('#characterLeft'+value).text(ch + ' caractères restants');
+            }
+        });
+    });
+</script>

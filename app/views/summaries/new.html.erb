@@ -20,10 +20,11 @@
             <%= form_for(@summary) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
-                <%= f.label "Synthèse" %>
+                <%= f.label "Synthèse" %> <div id="characterLeft"></div>
 
                 <%= f.text_area :content, {rows: 5, :placeholder => "synthèse",
                                                            :class => "form-control textarea",
+                                                           id: "description",
                                                            "data-provide" => "markdown" }%>
                 <br/>
 
@@ -95,5 +96,16 @@
     var myref = document.getElementById('save-btn-http');
     $('#save-btn-http').on('click', function (event) {
     myref.setAttribute("data-toggled",'yes');
+    });
+    $('#characterLeft').text('5000 caractères restants');
+    $('#description').keyup(function () {
+    var max = 5000;
+    var len = $(this).val().length;
+    if (len >= max) {
+    $('#characterLeft').text('Vous avez atteint la limite');
+    } else {
+    var ch = max - len;
+    $('#characterLeft').text(ch + ' caractères restants');
+    }
     });
 <% end %>
