@@ -22,14 +22,12 @@ class CreateReferences < ActiveRecord::Migration
       t.integer :star_4, default: 0
       t.integer :star_5, default: 0
       t.integer :star_most, default: 0
-      t.boolean :star_counted, default: false
       t.integer :binary_1, default: 0
       t.integer :binary_2, default: 0
       t.integer :binary_3, default: 0
       t.integer :binary_4, default: 0
       t.integer :binary_5, default: 0
       t.integer :binary_most, default: 0
-      t.boolean :binary_counted, default: false
 
       t.timestamps
     end

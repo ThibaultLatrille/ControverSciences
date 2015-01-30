@@ -16,7 +16,7 @@ def list_domains
     u-picardie.fr utc univ-larochelle.fr univ-poitiers.fr univ-provence.fr univmed.fr univ-cezanne.fr
     univ-avignon.fr unice.fr univ-tln.fr univ-savoie.fr ujf-grenoble.fr upmf-grenoble.fr u-grenoble3.fr
     univ-lyon1.fr univ-lyon2.fr univ-lyon3.fr univ-catholyon.fr univ-st-etienne.fr univ-ag.fr
-    univ-reunion ufp.pf unvi-nc.nc evobio)
+    univ-reunion ufp.pf unvi-nc.nc evobio epfl.ch)
 end
 
 def seed_domains

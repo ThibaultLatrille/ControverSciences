@@ -41,17 +41,7 @@ class Binary < ActiveRecord::Base
              3 => ref.binary_3, 4 => ref.binary_4,
              5 => ref.binary_5}
     most = dico.max_by{ |k,v| v }
-    if ref.binary_most != most[0] && most[1]>3
-      v_to_symbol = { 1 => :binary_1, 2 => :binary_2,
-                      3 => :binary_3, 4 => :binary_4,
-                      5 => :binary_5}
-      if ref.binary_counted
-        Timeline.increment_counter(v_to_symbol[most[0]], self.timeline_id)
-        Timeline.decrement_counter(v_to_symbol[ref.binary_most], self.timeline_id)
-      else
-        Timeline.increment_counter(v_to_symbol[most[0]], self.timeline_id)
-        ref.update({:binary_counted => true})
-      end
+    if ref.binary_most != most[0]
       ref.update({binary_most: most[0]})
     end
   end

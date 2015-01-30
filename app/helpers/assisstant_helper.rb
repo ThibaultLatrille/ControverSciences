@@ -5,7 +5,7 @@ module AssisstantHelper
     users.each do |user|
       score_comments = 10*Math.log(BestComment.where( user_id: user.id).count + 1)
       score_summaries = 10*Math.log(SummaryBest.where( user_id: user.id).count + 1)
-      score_references = 5*Math.log(Reference.where( user_id: user.id, star_most: [4,5], star_counted: true ).count + 1)
+      score_references = 5*Math.log(Reference.where( user_id: user.id, star_most: [4,5] ).count + 1)
       score_timeline = 0.5*Math.log(Timeline.where( user_id: user.id).pluck( :score ).reduce(0,:+) + 1)
       score = 4.0/(1.0/(1+score_comments)+1.0/(1+score_summaries)+1.0/(1+score_references)+1.0/(1+score_timeline))
       User.update( user.id , score: score)

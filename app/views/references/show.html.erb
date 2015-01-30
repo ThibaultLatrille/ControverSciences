@@ -157,8 +157,8 @@
         Controverse dans laquelle apparait cette référence : </div>
         <%= link_to @reference.timeline.name, @reference.timeline,
                     target: "_blank" %></li>
-      <li class="list-group-item clearfix">
         <% if @reference.binary != '' %>
+          <li class="list-group-item clearfix">
             <% if logged_in? %>
                 <div class="clearfix">
                 <%= form_for :binary, :url => binaries_path do |f| %>
@@ -166,10 +166,17 @@
                     <%= f.hidden_field :reference_id, value: @reference.id %>
                     <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                     <% if @user_binary.nil? %>
-                        <%= f.label "Que pensez vous de ce papier ?" %>
+                        <%= f.label "Cette référence répond à la controverse du coté : " %>
+                        <br/>
+                        <strong>  <%= @reference.binary.split('&&')[0] %> </strong>
+                        <strong class="pull-right">  <%= @reference.binary.split('&&')[1] %> </strong>
                     <% else %>
-                        <%= image_tag("icons/myicon-#{@user_binary}.svg", height: "28px") +
-                                    " : "+ binary_hash[@user_binary] %>
+                          <%= f.label "Vous avez déjà voté mais vous avez peut être changé d'avis ? " %>
+                          <br/>
+                          <strong>  Cette référence répond à la controverse du coté : </strong>
+                          <br/>
+                          <strong>  <%= @reference.binary.split('&&')[0] %> </strong>
+                          <strong class="pull-right">  <%= @reference.binary.split('&&')[1] %> </strong>
                     <% end %>
                     <div class="btn-group-justified" data-toggle="buttons">
                       <% unless @user_binary.nil? %>
@@ -185,7 +192,7 @@
                                  title="<%= value %>" data-toggle="tooltip">
                             <%= f.radio_button :value, checked_value = key,
                                                {id: key, autocomplete: "off"} %>
-                            <%= image_tag("icons/myicon-#{key}.svg", height: "28px")%>
+                            <%= image_tag("icons/myicon-s#{key}.svg", height: "28px")%>
                           </label>
                       <% end %>
                     </div>
@@ -207,17 +214,21 @@
                     <%= @reference["star_#{i}".to_sym] -%>
                 <% end %>
             <% end %>
+            <br/>
+          </li>
         <% end %>
+      <li class="list-group-item clearfix">
         <% if logged_in? %>
             <%= form_for :rating, :url => ratings_path do |f| %>
 
                 <%= f.hidden_field :reference_id, value: @reference.id %>
                 <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                 <% if @user_rating.nil? %>
-                    <%= f.label "Que pensez vous de ce papier ?" %>
+                    <%= f.label "Que pensez vous la qualité scientifique de ce papier ?" %>
                 <% else %>
-                    <%= image_tag("icons/myicon-#{@user_rating}.svg", height: "28px") +
-                                " : "+ star_hash[@user_rating] %>
+                    Vous pensez que <%= star_hash[@user_rating].downcase %>.
+                    <br/>
+                    Mais vous avez peut être changé d'avis ?
                 <% end %>
                 <div class="btn-group-justified" data-toggle="buttons">
                   <% unless @user_rating.nil? %>
@@ -247,7 +258,7 @@
                 </div>
             <% end %>
         <% else %>
-                <span class="bold"> Les avis sur cette référence :
+                <span class="bold"> Comment les contributeurs jugent la qualité scientifique de cette référence :
                  </span></br>
                 <% for i in 1..5 %>
                     <%= image_tag("icons/myicon-#{i}.svg", height: "28px")%>

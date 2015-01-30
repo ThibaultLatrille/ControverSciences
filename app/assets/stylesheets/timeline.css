@@ -64,11 +64,17 @@
     margin-top: -12px;
 }
 
-.cd-timeline-img.cd-picture { background: #75ce66; }
+.cd-timeline-img.cd-color1 { background: #BE28E6; }
 
-.cd-timeline-img.cd-movie { background: #c03b44; }
+.cd-timeline-img.cd-color2 { background: #4F1FDD; }
 
-.cd-timeline-img.cd-location { background: #f0ca45; }
+.cd-timeline-img.cd-color3 { background: #147BCF; }
+
+.cd-timeline-img.cd-color4 { background: #0DC6B6; }
+
+.cd-timeline-img.cd-color5 { background: #06BD4C; }
+
+.cd-timeline-img.cd-color0 { background: #405899; }
 
 .cssanimations .cd-timeline-img.is-hidden { visibility: hidden; }
 

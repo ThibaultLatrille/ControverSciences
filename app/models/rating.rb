@@ -41,17 +41,7 @@ class Rating < ActiveRecord::Base
             3 => ref.star_3, 4 => ref.star_4,
             5 => ref.star_5}
     most = dico.max_by{ |k,v| v }
-    if ref.star_most != most[0] && most[1]>3
-      v_to_symbol = { 1 => :star_1, 2 => :star_2,
-                      3 => :star_3, 4 => :star_4,
-                      5 => :star_5}
-      if ref.star_counted
-        Timeline.increment_counter(v_to_symbol[most[0]], self.timeline_id)
-        Timeline.decrement_counter(v_to_symbol[ref.star_most], self.timeline_id)
-      else
-        Timeline.increment_counter(v_to_symbol[most[0]], self.timeline_id)
-        ref.update({:star_counted => true})
-      end
+    if ref.star_most != most[0]
       ref.update({star_most: most[0]})
     end
   end

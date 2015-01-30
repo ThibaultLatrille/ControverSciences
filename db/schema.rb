@@ -400,14 +400,12 @@ ActiveRecord::Schema.define(version: 20150129232507) do
     t.integer  "star_4",          default: 0
     t.integer  "star_5",          default: 0
     t.integer  "star_most",       default: 0
-    t.boolean  "star_counted",    default: false
     t.integer  "binary_1",        default: 0
     t.integer  "binary_2",        default: 0
     t.integer  "binary_3",        default: 0
     t.integer  "binary_4",        default: 0
     t.integer  "binary_5",        default: 0
     t.integer  "binary_most",     default: 0
-    t.boolean  "binary_counted",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "binary",          default: ""
@@ -560,11 +558,6 @@ ActiveRecord::Schema.define(version: 20150129232507) do
     t.integer  "nb_contributors", default: 0
     t.integer  "nb_likes",        default: 0
     t.integer  "nb_edits",        default: 0
-    t.integer  "star_1",          default: 0
-    t.integer  "star_2",          default: 0
-    t.integer  "star_3",          default: 0
-    t.integer  "star_4",          default: 0
-    t.integer  "star_5",          default: 0
     t.float    "score",           default: 1.0
     t.float    "score_recent",    default: 1.0
     t.datetime "created_at"
