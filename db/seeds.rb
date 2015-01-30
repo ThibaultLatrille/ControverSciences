@@ -76,20 +76,32 @@ def seed_users
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  30.times do |n|
-    first_name  = Faker::Name.first_name
-    last_name  = Faker::Name.last_name
-    email = "#{first_name}.#{last_name}@ens-lyon.fr"
-    password = "password"
-    users << User.new(name: "#{first_name[0].upcase}. #{last_name}",
-                 email: email,
-                 password:              password,
-                 password_confirmation: password,
-                 activated: true,
-                 activated_at: Time.zone.now)
-  end
+  users << User.new(name:  "P. Guille Escuret",
+                    email: "paul.guilleescuret@ens-lyon.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
+  users << User.new(name:  "A. Zidane",
+                    email: "anthony.zidane@ens-lyon.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
+  users << User.new(name:  "F. Lamouche",
+                    email: "florian.lamouche@ens-lyon.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
+  users << User.new(name:  "N. Rivel",
+                    email: "nais.rivel@gmail.com",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
   users.map do |u|
-    u.save!
+    u.save( validate: false)
   end
   users
 end
@@ -203,12 +215,21 @@ def seed_references(user, timeline_name, file_name, tags, binary)
           user: user,
           timeline:  timeline,
           reference: ref,
-          f_1_content: bib[:f_1_content].value,
-          f_2_content: bib[:f_2_content].value,
-          f_3_content: bib[:f_3_content].value,
-          f_4_content: bib[:f_4_content].value,
-          f_5_content: bib[:f_5_content].value)
+          f_0_content: bib.respond_to?(:f_0_content) ? bib[:f_0_content].value : '',
+          f_1_content: bib.respond_to?(:f_1_content) ? bib[:f_1_content].value : '',
+          f_2_content: bib.respond_to?(:f_2_content) ? bib[:f_2_content].value : '',
+          f_3_content: bib.respond_to?(:f_3_content) ? bib[:f_3_content].value : '',
+          f_4_content: bib.respond_to?(:f_4_content) ? bib[:f_4_content].value : '',
+          f_5_content: bib.respond_to?(:f_5_content) ? bib[:f_5_content].value : '')
       comment.save_with_markdown( timeline_url )
+    if comment.new_record?
+      puts comment.valid?
+      puts comment.reference.title_fr
+      for i in 0..5 do
+        puts "f_#{i}_content"
+        puts comment["f_#{i}_content".to_sym].length
+      end
+    end
   end
 end
 
@@ -418,10 +439,10 @@ tags = tags_hash.keys
 users = seed_users
 seed_timelines(users, tags)
 seed_following_new_timelines(users)
-seed_references(users[1], "La café est il bénéfique pour la santé ?", "cafe", tags.sample(rand(1..7)), "OUI && NON")
-seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags.sample(rand(1..7)), "OUI && NON")
-seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags.sample(rand(1..7)), "OUI && NON")
-seed_references(users[2], "Peut-on modifier le comportement avec la technologie? (focus sur l'optogénétique)", "opto", tags.sample(rand(1..7)), '')
+seed_references(users[1], "La café est il bénéfique pour la santé ?", "cafe", tags.sample(rand(1..7)), "Non && Oui")
+seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags.sample(rand(1..7)), "Non && Oui")
+seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags.sample(rand(1..7)), "Non && Oui")
+seed_references(users[2], "Peut-on contrôler le comportement avec la technologie ?", "opto", tags.sample(rand(1..7)), "Non && Oui")
 seed_following_timelines(users)
 seed_following_summaries(users)
 seed_following_references(users)
