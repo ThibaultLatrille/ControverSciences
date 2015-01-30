@@ -29,6 +29,9 @@
         <div>
           </br>
         </div>
+        <%= f.label :binary, "Si cette controverse est une question fermé peut on y répondre" %>
+        <%= f.text_field :binary, class: 'form-control' %>
+        </br>
         <%= f.submit "Créer une timeline", class: "btn btn-primary" %>
     <% end %>
       </div>

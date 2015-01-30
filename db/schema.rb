@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125191246) do
+ActiveRecord::Schema.define(version: 20150129232507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(version: 20150125191246) do
   add_index "best_comments", ["comment_id"], name: "index_best_comments_on_comment_id", using: :btree
   add_index "best_comments", ["reference_id"], name: "index_best_comments_on_reference_id", using: :btree
   add_index "best_comments", ["user_id"], name: "index_best_comments_on_user_id", using: :btree
+
+  create_table "binaries", force: true do |t|
+    t.integer  "timeline_id"
+    t.integer  "reference_id"
+    t.integer  "user_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "binaries", ["reference_id"], name: "index_binaries_on_reference_id", using: :btree
+  add_index "binaries", ["timeline_id"], name: "index_binaries_on_timeline_id", using: :btree
+  add_index "binaries", ["user_id"], name: "index_binaries_on_user_id", using: :btree
 
   create_table "comment_drafts", force: true do |t|
     t.integer  "user_id"
@@ -388,13 +401,16 @@ ActiveRecord::Schema.define(version: 20150125191246) do
     t.integer  "star_5",          default: 0
     t.integer  "star_most",       default: 0
     t.boolean  "star_counted",    default: false
-    t.text     "f_1_content"
-    t.text     "f_2_content"
-    t.text     "f_3_content"
-    t.text     "f_4_content"
-    t.text     "f_5_content"
+    t.integer  "binary_1",        default: 0
+    t.integer  "binary_2",        default: 0
+    t.integer  "binary_3",        default: 0
+    t.integer  "binary_4",        default: 0
+    t.integer  "binary_5",        default: 0
+    t.integer  "binary_most",     default: 0
+    t.boolean  "binary_counted",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "binary",          default: ""
   end
 
   add_index "references", ["timeline_id"], name: "index_references_on_timeline_id", using: :btree
@@ -553,6 +569,7 @@ ActiveRecord::Schema.define(version: 20150125191246) do
     t.float    "score_recent",    default: 1.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "binary",          default: ""
   end
 
   add_index "timelines", ["created_at"], name: "index_timelines_on_created_at", using: :btree

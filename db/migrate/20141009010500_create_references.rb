@@ -23,11 +23,13 @@ class CreateReferences < ActiveRecord::Migration
       t.integer :star_5, default: 0
       t.integer :star_most, default: 0
       t.boolean :star_counted, default: false
-      t.text :f_1_content
-      t.text :f_2_content
-      t.text :f_3_content
-      t.text :f_4_content
-      t.text :f_5_content
+      t.integer :binary_1, default: 0
+      t.integer :binary_2, default: 0
+      t.integer :binary_3, default: 0
+      t.integer :binary_4, default: 0
+      t.integer :binary_5, default: 0
+      t.integer :binary_most, default: 0
+      t.boolean :binary_counted, default: false
 
       t.timestamps
     end

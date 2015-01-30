@@ -158,6 +158,56 @@
         <%= link_to @reference.timeline.name, @reference.timeline,
                     target: "_blank" %></li>
       <li class="list-group-item clearfix">
+        <% if @reference.binary != '' %>
+            <% if logged_in? %>
+                <div class="clearfix">
+                <%= form_for :binary, :url => binaries_path do |f| %>
+
+                    <%= f.hidden_field :reference_id, value: @reference.id %>
+                    <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
+                    <% if @user_binary.nil? %>
+                        <%= f.label "Que pensez vous de ce papier ?" %>
+                    <% else %>
+                        <%= image_tag("icons/myicon-#{@user_binary}.svg", height: "28px") +
+                                    " : "+ binary_hash[@user_binary] %>
+                    <% end %>
+                    <div class="btn-group-justified" data-toggle="buttons">
+                      <% unless @user_binary.nil? %>
+                          <label class="btn btn-default"
+                                 title="Retirer mon avis" data-toggle="tooltip">
+                            <%= f.radio_button :value, checked_value = "none",
+                                               {id: "none", autocomplete: "off"} %>
+                            <%= image_tag("icons/myicon-no.svg", height: "28px")%>
+                          </label>
+                      <% end %>
+                      <% binary_hash.each do |key, value| %>
+                          <label class="btn btn-default <%= @user_binary == key ? "active" : nil %>"
+                                 title="<%= value %>" data-toggle="tooltip">
+                            <%= f.radio_button :value, checked_value = key,
+                                               {id: key, autocomplete: "off"} %>
+                            <%= image_tag("icons/myicon-#{key}.svg", height: "28px")%>
+                          </label>
+                      <% end %>
+                    </div>
+                    <br/>
+                    <div class="pull-right">
+                      <% if @user_binary.nil? %>
+                          <%= f.submit "Enregistrer cet avis", class: "btn btn-primary" %>
+                      <% else %>
+                          <%= f.submit "Enregistrer la modification", class: "btn btn-primary", name: "update" %>
+                      <% end %>
+                    </div>
+                <% end %>
+                </div>
+            <% else %>
+                    <span class="bold"> Les avis sur cette référence :
+                     </span></br>
+                <% for i in 1..5 %>
+                    <%= image_tag("icons/myicon-#{i}.svg", height: "28px")%>
+                    <%= @reference["star_#{i}".to_sym] -%>
+                <% end %>
+            <% end %>
+        <% end %>
         <% if logged_in? %>
             <%= form_for :rating, :url => ratings_path do |f| %>
 

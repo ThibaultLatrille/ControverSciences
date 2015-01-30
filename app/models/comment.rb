@@ -147,11 +147,6 @@ class Comment < ActiveRecord::Base
       BestComment.create( user_id: self.user_id, reference_id: self.reference_id,
                           comment_id: self.id)
     end
-    Reference.update(self.reference_id , {f_1_content: self.markdown_1,
-                                         f_2_content: self.markdown_2,
-                                         f_3_content: self.markdown_3,
-                                         f_4_content: self.markdown_4,
-                                         f_5_content: self.markdown_5})
     self.update_attributes( best: true)
   end
 

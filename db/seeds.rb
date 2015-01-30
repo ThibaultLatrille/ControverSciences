@@ -16,7 +16,7 @@ def list_domains
     u-picardie.fr utc univ-larochelle.fr univ-poitiers.fr univ-provence.fr univmed.fr univ-cezanne.fr
     univ-avignon.fr unice.fr univ-tln.fr univ-savoie.fr ujf-grenoble.fr upmf-grenoble.fr u-grenoble3.fr
     univ-lyon1.fr univ-lyon2.fr univ-lyon3.fr univ-catholyon.fr univ-st-etienne.fr univ-ag.fr
-    univ-reunion ufp.pf unvi-nc.nc)
+    univ-reunion ufp.pf unvi-nc.nc evobio)
 end
 
 def seed_domains
@@ -48,6 +48,12 @@ def seed_users
                     activated_at: Time.zone.now)
   users << User.new(name:  "F. Figon",
                     email: "florent.figon@ens-lyon.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
+  users << User.new(name:  "R. Feron",
+                    email: "romain.feron@evobio.eu",
                     password:              "password",
                     password_confirmation: "password",
                     activated: true,
@@ -172,12 +178,13 @@ def seed_following_summaries(users)
   following_summaries
 end
 
-def seed_references(user, timeline_name, file_name, tags)
+def seed_references(user, timeline_name, file_name, tags, binary)
   timeline = Timeline.new(
       user: user,
+      binary: binary,
       name:  timeline_name,
       score: 1)
-  timeline.set_tag_list( tags.sample(rand(1..7)) )
+  timeline.set_tag_list( tags )
   timeline.save!
   timeline_url = "http://controversciences.org/timelines/"+timeline.id.to_s
   bibtex = BibTeX.open("./db/#{file_name}.bib")
@@ -411,10 +418,10 @@ tags = tags_hash.keys
 users = seed_users
 seed_timelines(users, tags)
 seed_following_new_timelines(users)
-seed_references(users[1], "La café est il bénéfique pour la santé", "cafe", tags)
-seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags)
-seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags)
-seed_references(users[2], "Peut-on modifier le comportement avec la technologie? (focus sur l'optogénétique)", "opto", tags)
+seed_references(users[1], "La café est il bénéfique pour la santé ?", "cafe", tags.sample(rand(1..7)), "OUI && NON")
+seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags.sample(rand(1..7)), "OUI && NON")
+seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags.sample(rand(1..7)), "OUI && NON")
+seed_references(users[2], "Peut-on modifier le comportement avec la technologie? (focus sur l'optogénétique)", "opto", tags.sample(rand(1..7)), '')
 seed_following_timelines(users)
 seed_following_summaries(users)
 seed_following_references(users)

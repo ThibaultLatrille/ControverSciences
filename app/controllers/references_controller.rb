@@ -72,6 +72,12 @@ class ReferencesController < ApplicationController
       unless @user_rating.nil?
         @user_rating = @user_rating.value
       end
+      if @reference.binary != ''
+        @user_binary = @reference.binaries.find_by(user_id: user_id)
+        unless @user_binary.nil?
+          @user_binary = @user_binary.value
+        end
+      end
       visit = VisiteReference.find_by( user_id: user_id, reference_id: params[:id] )
       if visit
         visit.update( updated_at: Time.zone.now )

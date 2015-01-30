@@ -5,6 +5,7 @@ class Reference < ActiveRecord::Base
   has_many :votes
   has_many :comments, dependent: :destroy
   has_many :ratings, dependent: :destroy
+  has_many :binaries, dependent: :destroy
   has_many :reference_contributors, dependent: :destroy
 
   has_many :following_references, dependent: :destroy
@@ -13,6 +14,7 @@ class Reference < ActiveRecord::Base
   has_one :best_comment, dependent: :destroy
 
   after_create  :cascading_save_ref
+  before_create  :binary_timeline
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
@@ -38,6 +40,10 @@ class Reference < ActiveRecord::Base
   end
 
   private
+
+  def binary_timeline
+    self.binary = Timeline.select( :binary ).find( self.timeline_id ).binary
+  end
 
   def cascading_save_ref
     NewReference.create( reference_id: self.id )

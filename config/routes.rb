@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :comment_drafts, only: [:destroy]
   resources :votes, only: [:new ,:create, :destroy]
   resources :ratings, only: [:create, :destroy]
+  resources :binaries, only: [:create, :destroy]
   get 'assistant' => 'assistant#view'
   get 'assistant/users' => 'assistant#users'
   get 'assistant/index' => 'assistant#index'

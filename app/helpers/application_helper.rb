@@ -33,4 +33,12 @@ module ApplicationHelper
       4 => "Cette référence est intéressante et rigoureuse.",
       5 => "A lire absolument !"}
   end
+
+  def binary_hash
+    { 1 => "Un peu.",
+      2 => "Beaucoup.",
+      3 => "Passionement.",
+      4 => "A la folie.",
+      5 => "Pas du tout" }
+  end
 end

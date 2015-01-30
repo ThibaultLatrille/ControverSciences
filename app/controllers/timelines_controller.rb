@@ -38,12 +38,12 @@ class TimelinesController < ApplicationController
   end
 
   def create
-    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name])
+    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name], binary: timeline_params[:binary])
     if params[:timeline][:tag_list]
-      @timeline.set_tag_list(params[:timeline][:tag_list][0..6])
+      @timeline.set_tag_list(params[:timeline][:tag_list])
     end
     if @timeline.save
-      flash[:success] = "Timeline créer"
+      flash[:success] = "Controverse Crée"
       redirect_to @timeline
     else
       render 'new'
@@ -72,6 +72,6 @@ class TimelinesController < ApplicationController
   private
 
   def timeline_params
-    params.require(:timeline).permit(:name, :timeline_edit_content)
+    params.require(:timeline).permit(:name, :binary)
   end
 end

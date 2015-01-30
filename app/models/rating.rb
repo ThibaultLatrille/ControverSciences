@@ -55,34 +55,4 @@ class Rating < ActiveRecord::Base
       ref.update({star_most: most[0]})
     end
   end
-
-  def increment_stars_counter(value)
-    case value
-      when 1
-        Reference.increment_counter(:star_1, self.reference_id)
-      when 2
-        Reference.increment_counter(:star_2, self.reference_id)
-      when 3
-        Reference.increment_counter(:star_3, self.reference_id)
-      when 4
-        Reference.increment_counter(:star_4, self.reference_id)
-      when 5
-        Reference.increment_counter(:star_5, self.reference_id)
-    end
-  end
-
-  def decrement_stars_counter(value)
-    case value
-      when 1
-        Reference.decrement_counter(:star_1, self.reference_id)
-      when 2
-        Reference.decrement_counter(:star_2, self.reference_id)
-      when 3
-        Reference.decrement_counter(:star_3, self.reference_id)
-      when 4
-        Reference.decrement_counter(:star_4, self.reference_id)
-      when 5
-        Reference.decrement_counter(:star_5, self.reference_id)
-    end
-  end
 end

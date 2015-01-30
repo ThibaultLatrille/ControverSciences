@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  timeline_id: 
+  reference_id: 
+  user_id: 
+  value: 1
+
+two:
+  timeline_id: 
+  reference_id: 
+  user_id: 
+  value: 1
