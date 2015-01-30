@@ -31,11 +31,12 @@ class Comment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
-  validates :f_1_content, presence: true, length: {maximum: 1111}
-  validates :f_2_content, presence: true, length: {maximum: 1111}
-  validates :f_3_content, presence: true, length: {maximum: 1111}
-  validates :f_4_content, presence: true, length: {maximum: 1111}
-  validates :f_5_content, length: {maximum: 1111}
+  validates :f_0_content, length: {maximum: 1001}
+  validates :f_1_content, length: {maximum: 1001}
+  validates :f_2_content, length: {maximum: 1001}
+  validates :f_3_content, length: {maximum: 1001}
+  validates :f_4_content, length: {maximum: 1001}
+  validates :f_5_content, length: {maximum: 1001}
   validates_uniqueness_of :user_id, :scope => :reference_id
 
   def user_name
@@ -104,7 +105,7 @@ class Comment < ActiveRecord::Base
         # will require a space after # in defining headers
         # space_after_headers: true
     }
-    for fi in 1..5
+    for fi in 0..5
       self["markdown_#{fi}".to_sym ] = Redcarpet::Markdown.new(renderer, extensions).render(self["f_#{fi}_content".to_sym ])
     end
     renderer.links

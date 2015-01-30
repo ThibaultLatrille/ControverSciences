@@ -29,7 +29,7 @@
             <%= form_for(@comment) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
-                <% for fi in 1..5 %>
+                <% for fi in 0..5 %>
                     <%= f.label fields_hash[fi] %> <div id="characterLeft<%= fi %>"></div>
 
                     <%= f.text_area "f_#{fi}_content".to_sym, {rows: 5,
@@ -117,7 +117,7 @@
     $('#save-btn-http').on('click', function (event) {
     myref.setAttribute("data-toggled",'yes');
     });
-    $.each([ '1', '2', '3', '4', '5' ], function( index, value ) {
+    $.each([ '0', '1', '2', '3', '4', '5' ], function( index, value ) {
         $('#characterLeft'+value).text(1000-$('#description'+value).val().length+' caractères restants');
         $('#description'+value).keyup(function () {
             var max = 1000;

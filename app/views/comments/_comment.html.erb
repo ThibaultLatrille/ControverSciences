@@ -1,11 +1,13 @@
 <div class="panel panel-default comment">
   <div class="panel-body">
   <span class="content">
-    <% for fi in 1..5 %>
+    <% for fi in 0..5 %>
+        <% if comment["markdown_#{fi}".to_sym] != "" %>
         <b> <%= fields_hash[fi] %> </b>
         <div class="text-justify">
         <%= comment["markdown_#{fi}".to_sym].html_safe %>
         </div>
+        <% end %>
     <% end %>
     <% unless vote %>
         <div class="pull-right">

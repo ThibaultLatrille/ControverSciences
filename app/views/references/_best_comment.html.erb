@@ -1,9 +1,11 @@
 <br/>
-<% for fi in 1..5 %>
+<% for fi in 0..5 %>
+    <% if comment["markdown_#{fi}".to_sym] != "" %>
   <b> <%= fields_hash[fi] %> </b>
   <div class="text-justify">
     <%= comment["markdown_#{fi}".to_sym].html_safe %>
   </div>
+    <% end %>
 <% end %>
 <div class="pull-right">
   Analyse publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id) %>

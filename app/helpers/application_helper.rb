@@ -22,7 +22,8 @@ module ApplicationHelper
   end
 
   def fields_hash
-    {1 => "Expérience", 2 => "Résultats", 3 => "Limites de l'étude",
+    {0 => "Introduction",
+     1 => "Expérience", 2 => "Résultats", 3 => "Limites de l'étude",
      4 => "Ce que cette étude apporte au débat", 5 => "Remarque(s)" }
   end
 

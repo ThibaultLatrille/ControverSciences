@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
       @comment = Comment.new
       if params[:parent_id]
         @parent = Comment.find(params[:parent_id])
-        for fi in 1..5 do
+        for fi in 0..5 do
           @comment["f_#{fi}_content".to_sym] = @parent["f_#{fi}_content".to_sym]
           @comment.reference_id = @parent.reference_id
           @comment.timeline_id = @parent.timeline_id
@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
     if params[:parent_id]
       @parent = Comment.find(params[:parent_id])
       if @parent.user_id != current_user.id
-        for fi in 1..5 do
+        for fi in 0..5 do
           @comment["f_#{fi}_content".to_sym] += "\n" + @parent["f_#{fi}_content".to_sym]
         end
       else
@@ -62,7 +62,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find( params[:id] )
     @my_comment = Comment.find( params[:id] )
     if @comment.user_id == current_user.id
-      for fi in 1..5 do
+      for fi in 0..5 do
         @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
       end
       if @comment.update_with_markdown( timeline_url( @comment.timeline_id ) )
