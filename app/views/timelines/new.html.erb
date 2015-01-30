@@ -10,7 +10,7 @@
     <%= form_for(@timeline) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :Nom %>
+        <%= f.label :Nom, "Titre de la controverse" %>
         <%= f.text_field :name, class: 'form-control' %>
             </br>
         <%= f.label :Tags, "Thèmes" %> </br>
@@ -26,13 +26,14 @@
           <% end %>
         </div>
         </div>
-        <div>
-          </br>
-        </div>
-        <%= f.label :binary, "Si cette controverse est une question fermé peut on y répondre" %>
-        <%= f.text_field :binary, class: 'form-control' %>
+            <br/>
+        <%= f.label :binary do %>
+        <%= f.check_box :binary %>
+            <span> Cette controverse est une question fermée, à laquelle on pourrait répondre par oui ou non </span>
+            <% end %>
+            <br/>
         </br>
-        <%= f.submit "Créer une timeline", class: "btn btn-primary" %>
+        <%= f.submit "Créer la controverse", class: "btn btn-primary pull-right" %>
     <% end %>
       </div>
     </div>

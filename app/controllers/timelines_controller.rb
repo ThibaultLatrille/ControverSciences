@@ -38,7 +38,10 @@ class TimelinesController < ApplicationController
   end
 
   def create
-    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name], binary: timeline_params[:binary])
+    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name])
+    if timeline_params[:binary]
+      @timeline.binary = "Non && Oui"
+    end
     if params[:timeline][:tag_list]
       @timeline.set_tag_list(params[:timeline][:tag_list])
     end
@@ -58,7 +61,7 @@ class TimelinesController < ApplicationController
     else
       @summary = nil
     end
-    @references = Reference.select( :id, :title_fr, :year, :binary_most).order( year: :desc).where( timeline_id: @timeline.id )
+    @references = Reference.select( :id, :title_fr, :year, :binary_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )
   end
 
   def destroy
