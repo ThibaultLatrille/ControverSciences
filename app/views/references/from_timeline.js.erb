@@ -1,4 +1,4 @@
-$("#reference<%= params[:reference_id] %>").html("<%= escape_javascript(render partial: 'best_comment', locals: { comment: @comment } ) %>");
+$("#reference<%= params[:reference_id] %>").html("<%= escape_javascript(render partial: 'best_comment', locals: { comment: @comment } ) %>").fadeIn(750);
 $("#button<%= params[:reference_id] %>").hide();
 $("#button<%= params[:reference_id] %>").parent().find('.detail').show();
 

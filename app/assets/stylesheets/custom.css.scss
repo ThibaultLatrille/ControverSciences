@@ -50,7 +50,7 @@ body {
   overflow-wrap: break-word;
 }
 
-.btn-default:hover, .btn-default.hover, .open > .btn-default.dropdown-toggle {
+.btn-default:hover, .btn-default.hover, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
   background-color: $nav_hover;
   color: white;
 }
