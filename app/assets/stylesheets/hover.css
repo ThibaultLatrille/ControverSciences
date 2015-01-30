@@ -29,7 +29,7 @@
     -webkit-transition-property: box-shadow;
     transition-property: box-shadow;
 }
-.btn:hover, .btn:focus, .btn:active {
+.btn:hover {
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
 }
 
@@ -51,6 +51,7 @@
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
+
 
 /* Shrink */
 .hvr-shrink {

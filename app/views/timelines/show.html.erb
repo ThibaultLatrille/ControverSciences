@@ -127,6 +127,16 @@
 
 
 <script type="text/javascript">
+    $('.detail').click(function() {
+        if ($(this).hasClass("glyphicon-chevron-down")) {
+            $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+            $(this).parent().parent().parent().find('.ref').show()
+        }
+        else {
+            $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+            $(this).parent().parent().parent().find('.ref').hide()
+        }
+    });
     $(function() {
         $('[data-validate]').click(function() {
             $this = $(this);

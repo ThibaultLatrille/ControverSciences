@@ -1,3 +1,7 @@
+.detail:hover{
+    cursor:pointer;
+}
+
 #cd-timeline {
     overflow-x:hidden;
     position: relative;
@@ -93,7 +97,7 @@
 
 .cd-timeline-content:after { clear: both; }
 
-.cd-timeline-content h2 {
+.cd-timeline-content h2 a {
     color: #303e49;
 }
 
@@ -251,6 +255,11 @@ cd-bounce-2-inverse {  0% {
         margin-top: 5px;
         text-align: left;
         letter-spacing: 0px;
+        font-size: 1em;
+    }
+
+    .cd-timeline-content h2 a {
+        text-decoration: none;
         font-size: 1.6em;
     }
 

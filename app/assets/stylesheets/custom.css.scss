@@ -38,10 +38,11 @@ body {
     border-color: $nav_hover;
 }
 
-.btn-default {
+.btn-default, .btn-default:focus, .btn-default.focus {
     background-color: white;
     border-color: gray-light;
     color: black;
+    outline: 0px;
 }
 
 .btn {
@@ -49,12 +50,13 @@ body {
   overflow-wrap: break-word;
 }
 
-.btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
+.btn-default:hover, .btn-default.hover, .open > .btn-default.dropdown-toggle {
   background-color: $nav_hover;
   color: white;
 }
 
 .stick{
+  cursor: default;
   margin-left: -2px;
   margin-right: -2px;
 }
@@ -72,7 +74,10 @@ body {
       padding-top: 0px;
       padding-bottom: 0px;
       line-height: 64px;
-      &:hover{
+      &:focus {
+        background-color: $nav_back;
+      }
+      &:hover {
       background-color: $nav_hover;
       color: white;
       text-decoration: none;

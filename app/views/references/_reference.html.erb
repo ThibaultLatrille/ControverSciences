@@ -4,10 +4,12 @@
     </div>
 
     <div class="cd-timeline-content">
-      <h2><%= reference.title_fr %>
-        <%= link_to "<span class=\"glyphicon glyphicon-eye-open hvr-grow\"> </span>".html_safe, from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}" %>
+      <h2> <%= link_to reference.title_fr, reference, class: "hvr-float" %>
+        <%= link_to "<span class=\"glyphicon glyphicon-chevron-down hvr-grow\"> </span>".html_safe,
+                    from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}" %>
+        <span class="detail glyphicon glyphicon-chevron-up hvr-grow" style="display: none"></span>
       </h2>
-      <div id="reference<%= reference.id %>" class="clearfix">
+      <div id="reference<%= reference.id %>" class="ref clearfix">
       </div>
       <span class="cd-date"><%= reference.year %></span>
     </div>
