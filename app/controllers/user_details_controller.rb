@@ -9,8 +9,7 @@ class UserDetailsController < ApplicationController
       @user_details = UserDetail.new(user_detail_params)
     end
     if @user_details.save
-      message = "Ca marche !"
-      flash[:info] = message
+      flash[:info] = "Modification de profil enregistrée."
       redirect_to user_path(id: user_detail_params[:user_id] )
     else
       redirect_to user_edit_path(id: user_detail_params[:user_id] )

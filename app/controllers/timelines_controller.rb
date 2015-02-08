@@ -46,7 +46,7 @@ class TimelinesController < ApplicationController
       @timeline.set_tag_list(params[:timeline][:tag_list])
     end
     if @timeline.save
-      flash[:success] = "Controverse Crée"
+      flash[:success] = "Controverse ajoutée."
       redirect_to @timeline
     else
       render 'new'

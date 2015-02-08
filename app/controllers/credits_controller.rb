@@ -7,12 +7,12 @@ class CreditsController < ApplicationController
     if my_credit
       if credit_params[:value] == "0"
         my_credit.destroy_with_counters
-        flash[:success] = "Credit nul prit en compte"
+        flash[:success] = "Le nombre de crédits accordés à cette synthèse a été modifié."
       else
         if my_credit.update( {value: credit_params[:value]})
-          flash[:success] = "Credit mis à jour"
+          flash[:success] = "Le nombre de crédits accordés à cette synthèse a été modifié."
         else
-          flash[:danger] = "Erreur"
+          flash[:danger] = "Impossible d'effectuer cette action."
         end
       end
     elsif credit_params[:value] != "0"
@@ -21,12 +21,12 @@ class CreditsController < ApplicationController
                        summary_id: credit_params[:summary_id],
                        value: credit_params[:value]})
       if credit.save
-        flash[:success] = "Credit enregistré"
+        flash[:success] = "Le nombre de crédits accordés à cette synthèse a été modifié."
       else
-        flash[:danger] = "Erreur"
+        flash[:danger] = "Impossible d'effectuer cette action."
       end
     else
-      flash[:danger] = "Credit nul non prit en compte"
+      flash[:danger] = "Impossible d'effectuer cette action."
     end
     redirect_to summaries_path( timeline_id: credit_params[:timeline_id] )
   end

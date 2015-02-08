@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
       end
     else
       if user
-        flash.now[:danger] = 'Mauvais mot de passe pour cette adresse email. TRY AGAIN.'
+        flash.now[:danger] = 'Mauvais mot de passe pour cette adresse email.'
       else
         flash.now[:danger] = 'Cette adresse email n\'est associée à aucun compte.'
       end 

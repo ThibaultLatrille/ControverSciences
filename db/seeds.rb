@@ -439,10 +439,10 @@ tags = tags_hash.keys
 users = seed_users
 seed_timelines(users, tags)
 seed_following_new_timelines(users)
-seed_references(users[1], "La café est il bénéfique pour la santé ?", "cafe", tags.sample(rand(1..7)), "Non && Oui")
+seed_references(users[1], "La café est-il bénéfique pour la santé ?", "cafe", tags.sample(rand(1..7)), "Non && Oui")
 seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags.sample(rand(1..7)), "Non && Oui")
 seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags.sample(rand(1..7)), "Non && Oui")
-seed_references(users[2], "Peut-on contrôler le comportement avec la technologie ?", "opto", tags.sample(rand(1..7)), "Non && Oui")
+seed_references(users[2], "Peut-on contrôler le comportement par la technologie ?", "opto", tags.sample(rand(1..7)), "Non && Oui")
 seed_following_timelines(users)
 seed_following_summaries(users)
 seed_following_references(users)

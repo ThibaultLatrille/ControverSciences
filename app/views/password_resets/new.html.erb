@@ -6,12 +6,12 @@
         <h3>Mot de passe oublié</h3>
       </div>
       <div class="panel-body">
-    <%= form_for(:password_reset, url: password_resets_path) do |f| %>
-        <%= f.label :email %>
-        <%= f.text_field :email, class:"form-control" %>
+        <%= form_for(:password_reset, url: password_resets_path) do |f| %>
+            <%= f.label :email %>
+            <%= f.text_field :email, class: "form-control" %>
 
-        <%= f.submit "Soumettre ", class: "btn btn-primary" %>
-    <% end %>
+            <%= f.submit "Soumettre ", class: "btn btn-primary" %>
+        <% end %>
       </div>
     </div>
   </div>

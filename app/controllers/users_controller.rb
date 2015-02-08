@@ -48,13 +48,13 @@ class UsersController < ApplicationController
     if @user.save
       if @user.invalid_email
         PendingUser.create( user_id: @user.id, why: user_params[:why])
-        message = "Votre incription est en cours de traitement"
+        message = "Votre incription est en cours de traitement."
         flash[:info] = message
         redirect_to root_url
       else
         @user.send_activation_email
-        message = "Le lien pour activer le compte doit être parvenu à votre boîte mail, "
-        message += "à moins qu'il se soit noyé dans vos spams ou perdu dans les méandres d'internet."
+        message = "Le lien pour activer votre compte doit être parvenu à votre boîte mail, "
+        message += "à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet."
         flash[:info] = message
         redirect_to root_url
       end
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = "Profil modifié"
+      flash[:success] = "Modification de profil enregistrée."
       redirect_to @user
     else
       @user_detail = UserDetail.find_by_user_id( params[:id] )
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "Utilisateur détruit"
+    flash[:success] = "Utilisateur destroyed"
     redirect_to users_url
   end
 

@@ -82,7 +82,7 @@
              </span> Suivre les nouvelles controverses".html_safe,
                       following_new_timelines_path, method: :post, class: "btn btn-block btn-primary" %>
       <% else %>
-          <%= link_to image_tag("icons/myicon-#{params[:tag]}.svg", height: "28px") + "Suivre les controverces tagées par : #{tags_hash[params[:tag]]}".html_safe,
+          <%= link_to image_tag("icons/myicon-#{params[:tag]}.svg", height: "28px") + "Suivre les controverses du thème : #{tags_hash[params[:tag]]}".html_safe,
                       following_new_timelines_path(tag: params[:tag] ), method: :post, class: "btn btn-block btn-primary" %>
       <% end %>
       <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
@@ -98,11 +98,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Votre intérêt pour cette controverse a déjà été prit en compte. </h4>
-      </div>
-      <div class="modal-body clearfix">
-        Votre adresse IP a déjà été utilisé pour cette action, si vous n'avez jamais effectué cette action,
-        c'est probablement que quelqu'un connecté au même réseau que vous l'a fait avant vous !
+        <h4 class="modal-title" id="myModalLabel"> Votre intérêt pour cette controverse a déjà été pris en compte. </h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"> Ok </button>

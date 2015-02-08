@@ -26,7 +26,7 @@ class SummariesController < ApplicationController
       if parent_id
         SummaryRelationship.create(parent_id: parent_id, child_id: @summary.id)
       end
-      flash[:success] = "Synthèse enregistrée"
+      flash[:success] = "Synthèse enregistrée."
       redirect_to summary_path( @summary.id )
     else
       @list = Reference.where( timeline_id: summary_params[:timeline_id] ).pluck( :title, :id )
@@ -57,7 +57,7 @@ class SummariesController < ApplicationController
     if @summary.user_id == current_user.id
       @summary[:content] = summary_params[:content]
       if @summary.update_with_markdown( timeline_url( @summary.timeline_id ) )
-        flash[:success] = "Synthèse modifiée"
+        flash[:success] = "Synthèse modifiée."
         redirect_to @summary
       else
         @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )

@@ -7,12 +7,12 @@ class VotesController < ApplicationController
     if my_vote
       if vote_params[:value] == "0"
         my_vote.destroy_with_counters
-        flash[:success] = "Vote nul prit en compte"
+        flash[:success] = "Le nombre de crédits accordés à cette analyse a été modifié."
       else
         if my_vote.update( {value: vote_params[:value]})
-          flash[:success] = "Vote mis à jour"
+          flash[:success] = "Le nombre de crédits accordés à cette analyse a été modifié."
         else
-          flash[:danger] = "Erreur"
+          flash[:danger] = "Impossible d'effectuer cette modification."
         end
       end
     elsif vote_params[:value] != "0"
@@ -22,12 +22,12 @@ class VotesController < ApplicationController
                      comment_id: vote_params[:comment_id],
                      value: vote_params[:value]})
         if vote.save
-          flash[:success] = "Vote enregistré"
+          flash[:success] = "Le nombre de crédits accordés à cette analyse a été modifié."
         else
-          flash[:danger] = "Erreur"
+          flash[:danger] = "Impossible d'effectuer cette modification."
         end
     else
-      flash[:danger] = "Vote nul non prit en compte"
+      flash[:danger] = "Impossible d'effectuer cette modification."
     end
     redirect_to reference_path( vote_params[:reference_id])
   end

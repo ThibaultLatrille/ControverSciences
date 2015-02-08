@@ -5,9 +5,9 @@ class FollowingReferencesController < ApplicationController
     follow = FollowingReference.new( user_id: current_user.id,
                       reference_id: params[:reference_id])
     if follow.save
-      flash[:success] = "Abonnement confirmé"
+      flash[:success] = "Vous serez notifié des nouvelles analyses de cette référence."
     else
-      flash[:danger] = "Vous suivez déjà cette référence avec attention"
+      flash[:danger] = "Vous suivez déjà cette référence."
     end
     redirect_to reference_path(params[:reference_id])
   end

@@ -31,7 +31,7 @@ class CommentsController < ApplicationController
       if parent_id
         CommentRelationship.create(parent_id: parent_id, child_id: @comment.id)
       end
-      flash[:success] = "Analyse enregistrée"
+      flash[:success] = "Analyse enregistrée."
       redirect_to comment_path( @comment.id )
     else
       @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
@@ -66,7 +66,7 @@ class CommentsController < ApplicationController
         @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
       end
       if @comment.update_with_markdown( timeline_url( @comment.timeline_id ) )
-        flash[:success] = "Analyse modifiée"
+        flash[:success] = "Analyse modifiée."
         redirect_to @comment
       else
         @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
@@ -94,7 +94,7 @@ class CommentsController < ApplicationController
       comment.destroy_with_counters
       redirect_to my_items_comments_path
     else
-      flash[:danger] = "Cette analyse est la meilleure et ne peux être supprimé"
+      flash[:danger] = "Cette analyse est la meilleure et ne peut être supprimée."
       redirect_to comment_path(params[:id])
     end
   end
@@ -102,7 +102,7 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:id, :reference_id, :timeline_id, :f_1_content, :f_2_content,
+    params.require(:comment).permit(:id, :reference_id, :timeline_id, :f_0_content, :f_1_content, :f_2_content,
                                     :f_3_content, :f_4_content, :f_5_content)
   end
 end

@@ -11,7 +11,7 @@
       <div class="panel-body page">
     <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%> Il vous reste
   <%=12 - Credit.where( user_id: current_user.id, timeline_id: params[:timeline_id] ).sum( :value ) %>
-  crédits à dispenser aux synthèses de cette controverse
+  crédits à distribuer aux synthèses de cette controverse
         <br/>
         <br/>
   <%= link_to "Récupérer tous les crédits", credit_path( id: 'all', timeline_id: params[:timeline_id] ), method: :delete,

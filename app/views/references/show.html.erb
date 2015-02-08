@@ -12,7 +12,7 @@
     <div class="panel-body page">
     <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%> Il vous reste
     <%=12 - Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value ) %>
-    crédits à dispenser aux analyses de cette référence
+    crédits à distribuer aux analyses de cette référence
       <br/>
       <br/>
     <%= link_to "Récupérer tous les crédits", vote_path( id: 'all', reference_id: @reference.id), method: :delete,
@@ -31,22 +31,19 @@
   <div class="clearfix">
   <% if logged_in? %>
     <div class="btn-group">
-        <%= link_to " <span class=\"glyphicon glyphicon-search\" >
-            </span>Toute les analyses (sauf la mienne)".html_safe,
-                    reference_path,
-                    class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
-    </div>
-    <div class="btn-group">
-        <%= link_to " <span class=\"glyphicon glyphicon-search\" >
-            </span> Les analyses que j'ai crédité".html_safe,
-                  reference_path(:filter => 'my-vote'),
-                  class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
-    </div>
-    <div class="btn-group">
-      <%= link_to "<span class=\"glyphicon glyphicon-search\" >
-            </span> Mon analyse".html_safe,
+      <%= link_to "Mon analyse".html_safe,
                   reference_path(:filter => 'mine'),
                   class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
+    </div>
+        <div class="btn-group">
+      <%= link_to "Les autres analyses".html_safe,
+        reference_path,
+        class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
+    </div>
+        <div class="btn-group">
+      <%= link_to "Mes analyses favorites".html_safe,
+        reference_path(:filter => 'my-vote'),
+        class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
     </div>
   <% else %>
         <div class="btn-group">

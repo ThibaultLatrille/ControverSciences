@@ -22,6 +22,8 @@ fr:
         email: "Adresse éléctronique"
         password: "Mot de passe"
         password_confirmation: "Confirmation de mot de passe"
+      timeline:
+        name: "Titre"
   date:
     abbr_day_names:
       - dim

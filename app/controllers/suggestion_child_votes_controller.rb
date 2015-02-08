@@ -9,9 +9,9 @@ class SuggestionChildVotesController < ApplicationController
     end
     begin
       vote.save
-      flash[:success] = "Votre vote a été prit en compte"
+      flash[:success] = "Votre vote a été pris en compte."
     rescue
-      flash[:danger] = "Cette IP a déjà été utilisée pour voter à cette suggestion"
+      flash[:danger] = "Vous avez déjà voté."
     end
     redirect_to suggestions_path
   end

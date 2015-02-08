@@ -25,9 +25,9 @@ class ReferencesController < ApplicationController
         begin
           @reference = fetch_reference( query )
         rescue ArgumentError
-          flash.now[:danger] = "Votre requête avec n'a rien donné de concluant, vous allez devoir tout rentrer à la main :-("
+          flash.now[:danger] = "Votre requête n'a rien donné de concluant, vous allez devoir tout rentrer à la main :-("
         rescue ConnectionError
-          flash.now[:danger] = "Impossible de se connecter aux serveurs qui délivrent les metadonnées"
+          flash.now[:danger] = "Impossible de se connecter aux serveurs qui délivrent les metadonnées."
         rescue StandardError
           flash.now[:danger] = "Une erreur que nous ne savons pas gérer est survenue inopinément !"
         end
@@ -36,7 +36,7 @@ class ReferencesController < ApplicationController
       render 'new'
     else
       if @reference.save
-        flash[:success] = "Référence créé"
+        flash[:success] = "Référence ajoutée."
         redirect_to @reference
       else
         params[:timeline_id] = reference_params[:timeline_id]
@@ -53,7 +53,7 @@ class ReferencesController < ApplicationController
     @reference = Reference.find( params[:id] )
     if @reference.user_id == current_user.id
       if @reference.update( reference_params )
-        flash[:success] = "Référence modifié"
+        flash[:success] = "Référence modifiée."
         redirect_to @reference
       else
         render 'edit'

@@ -9,10 +9,10 @@ class PasswordResetsController < ApplicationController
     if @user
       @user.create_reset_digest
       @user.send_password_reset_email
-      flash[:info] = "Email envoyé avec les instructions nécessaires"
+      flash[:info] = "Un email vous a été envoyé."
       redirect_to root_url
     else
-      flash.now[:danger] = "Aucun compte n'est lié à cette adresse mail"
+      flash.now[:danger] = "Aucun compte n'est lié à cette adresse mail."
       render 'new'
     end
   end
@@ -22,15 +22,15 @@ class PasswordResetsController < ApplicationController
 
   def update
     if @user.password_reset_expired?
-      flash[:danger] = "Réinitialisation de mot de passe expiré"
+      flash[:danger] = "Réinitialisation de mot de passe expirée."
       redirect_to new_password_reset_path
     elsif @user.update_attributes(user_params)
       if (params[:user][:password].blank? &&
           params[:user][:password_confirmation].blank?)
-        flash.now[:danger] = "Mot de passe/confirmation non conforme"
+        flash.now[:danger] = "Erreur de mot de passe ou de confirmation."
         render 'edit'
       else
-        flash[:success] = "Mot de passe modifié "
+        flash[:success] = "Mot de passe modifié."
         log_in @user
         redirect_to @user
       end

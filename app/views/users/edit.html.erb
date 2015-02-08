@@ -9,30 +9,30 @@
         <h3> Modifier vos informations </h3>
       </div>
       <div class="panel-body">
-    <%= form_for(@user_detail, html: { multipart: true },  url: user_details_path, method: :post) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
+        <%= form_for(@user_detail, html: {multipart: true}, url: user_details_path, method: :post) do |f| %>
+            <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :job, "Fonction/métier" %>
-        <%= f.text_field :job, placeholder: "Votre fonction/métier", class: 'form-control' %>
+            <%= f.label :job, "Fonction/métier" %>
+            <%= f.text_field :job, placeholder: "Votre fonction/métier", class: 'form-control' %>
             <br/>
-        <%= f.label :institution, "Institution" %>
-        <%= f.text_field :institution, placeholder: "Où vous travaillez", class: 'form-control' %>
+            <%= f.label :institution, "Institution" %>
+            <%= f.text_field :institution, placeholder: "Où vous travaillez", class: 'form-control' %>
             <br/>
-        <%= f.label :website, "Site personel" %>
-        <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
+            <%= f.label :website, "Site personel" %>
+            <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
             <br/>
-        <%= f.label :biography, "Biographie" %>
-        <%= f.text_area :biography, placeholder: "Votre biographie", class: 'form-control textarea' %>
+            <%= f.label :biography, "Biographie" %>
+            <%= f.text_area :biography, placeholder: "Votre biographie", class: 'form-control textarea' %>
             <br/>
-        <%= f.hidden_field :user_id, value: @user.id %>
-        <% unless Rails.env.production? %>
+            <%= f.hidden_field :user_id, value: @user.id %>
+            <% unless Rails.env.production? %>
             <span class="picture">
             <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png', class: 'form-control' %>
             </span>
                 <br/>
+            <% end %>
+            <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
         <% end %>
-        <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
-    <% end %>
       </div>
     </div>
   </div>
@@ -65,8 +65,8 @@
 </div>
 
 <script type="text/javascript">
-    $('#user_detail_picture').bind('change', function() {
-        size_in_megabytes = this.files[0].size/1024/1024;
+    $('#user_detail_picture').bind('change', function () {
+        size_in_megabytes = this.files[0].size / 1024 / 1024;
         if (size_in_megabytes > 5) {
             alert('Maximum file size is 5MB. Please choose a smaller file.');
         }
