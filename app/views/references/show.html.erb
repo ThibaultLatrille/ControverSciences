@@ -146,8 +146,10 @@
         Abstract (dans sa langue originale) :
         </div> <%= @reference.abstract %></li>
       <% end %>
+      <% unless @reference.abstract.empty? %>
       <li class="list-group-item"> <div class="bold">
-        DOI : </div> <%= @reference.doi %></li>
+        Identifiant unique : </div> <%= @reference.doi %></li>
+      <% end %>
       <li class="list-group-item"> <div class="bold"> Lien vers la référence :
         </div> <%= link_to @reference.url, @reference.url, target: "_blank" %></li>
       <li class="list-group-item"> <div class="bold">

@@ -22,13 +22,10 @@
         <%= render 'shared/error_messages', object: f.object %>
 
         <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
-        <%= f.label "DOI" %>
-        <div class="input-group">
-          <span class="input-group-btn">
-            <button class="btn btn-primary" name="doi" type="submit" onclick="freeze()"> <span class="glyphicon glyphicon-refresh"> </span> </button>
-          </span>
-            <%= f.text_field :doi, class: 'form-control myforms' %>
-        </div>
+
+        <%= f.label "Identifiant unique (DOI, PMID, ou autre)" %>
+        <%= f.text_field :doi, class: 'form-control myforms' %>
+
         <br/>
         <%= f.label "Lien vers la publication" %>
         <%= f.text_field :url, class: 'form-control myforms' %>

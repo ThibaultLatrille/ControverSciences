@@ -21,7 +21,7 @@ class Reference < ActiveRecord::Base
 
   attr_writer :current_step
 
-  validates_presence_of :title, :title_fr, :author, :year, :doi, :url, :journal
+  validates_presence_of :title, :title_fr, :author, :year, :url, :journal
   validates_uniqueness_of :timeline_id, :scope => [:doi]
 
   def user_name

@@ -16,8 +16,8 @@
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-                <%= f.label "DOI" %>
-                <%= f.text_field :doi, class: 'form-control' %>
+                  <%= f.label "Identifiant unique (DOI, PMID, ou autre)" %>
+                  <%= f.text_field :doi, class: 'form-control myforms' %>
                 <br/>
                 <%= f.label "Lien vers la publication" %>
                 <%= f.text_field :url, class: 'form-control' %>
