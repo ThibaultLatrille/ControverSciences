@@ -8,16 +8,16 @@
   <div class="panel-body">
     <div class="panel-group" role="tablist" aria-multiselectable="true">
       <%= render 'collapse', id: 34, title: "Quelle est la différence entre une analyse et une synthèse ?",
-                 content: "Une analyse est version vulgarisée en français d'une publication scientifique. Une synthèse est un bilan
+                 content: "Une analyse est la version vulgarisée en français d'une publication scientifique. Une synthèse est un bilan
                  de l'ensemble des analyses, pour une controverse donnée." %>
       <%= render 'collapse', id: 23, title: "Je ne suis pas d'accord avec un contributeur, comment puis-je lui répondre ?",
-                 content: "Vous ne pouvez tout simplement pas, et pas parce que les codeurs du site n'ont pas fini le travail !
+                 content: "Vous ne pouvez tout simplement pas, et pas parce que le site est encore en construction !
                  Ceci est absolument intentionnel, désolé pour la frustration.
                  Nous souhaitons favoriser les approches constructives et ne voulons absolument pas
                  que se déverse un torrent d'insultes (Youtube a de toute façon le quasi monopole dans ce domaine).
-                 Sur ControverScience, on répond à une analyse (ou synthèse) par une autre analyse (ou synthèse).
+                 Sur ControverSciences, on répond à une analyse (ou synthèse) par une autre analyse (ou synthèse).
                  Les autres contributeurs s'occuperont alors de déterminer laquelle des ces analyses (ou synthèses) est la meilleure. <br/>
-                 <strong> Si vous trouvez qu'une analyse ou une synthèse est mauvaise, faites mieux ;-) </strong>".html_safe %>
+                 <strong> Si vous trouvez qu'une analyse ou une synthèse est mauvaise, faites mieux </strong>".html_safe %>
       <%= render 'collapse', id: 42, title: "Comment distribuer mes crédits ?",
                  content: "De la façon qu'il vous convient, mais ils sont limités. Les critères qui doivent rentrer en ligne de compte pour
                   déterminer la qualité d'une analyse ou d'une synthèse sont : <br/>
@@ -25,64 +25,71 @@
                  • Clarté <br/>".html_safe %>
       <%= render 'collapse', id: 2, title: "A quoi servent les scores des contributeurs ?",
                  content: "Ils servent à calculer les scores des analyses et synthèses afin de déterminer les meilleures.
-                 Plus un contributeur a un score élevé plus les crédits qu'il a distribué ont du poids." %>
+                 Plus un contributeur a un score élevé plus les crédits qu'il a distribués ont du poids." %>
       <%= render 'collapse', id: 3, title: "Comment sont calculés les scores des contributeurs ?",
                  content: "Par un algorithme secret qui ne sera jamais révélé afin que les administrateur puissent favoriser
-                  en toute discrétion leurs contributeurs préférés. <br/>En réalité ces scores sont re-calculés toutes les nuits par nos serveurs.
+                  en toute discrétion leurs contributeurs préférés... <br/>En réalité ces scores sont re-calculés toutes les nuits par nos serveurs.
                   Il s'agit d'une moyenne harmonique de différents indices.
                   Ces indices prennent en compte la qualité des analyses et synthèses, ainsi que la qualité des références ajoutées par le contributeur.
                   Le score est un nombre réel compris entre 1 et 4.".html_safe %>
-      <%= render 'collapse', id: 4, title: "Qu'advient-il des contenus de mauvaises qualités ?",
-                 content: "Un algorithme s'occupe de nettoyer de temps en temps les contenus désués qui ne sont pas accrédités." %>
-      <%= render 'collapse', id: 1, title: "Comment sont évités les trolls ?",
+      <%= render 'collapse', id: 4, title: "Qu'advient-il des contenus de mauvaise qualité ?",
+                 content: "Un algorithme s'occupe de nettoyer de temps en temps les contenus désuets qui ne sont pas accrédités." %>
+      <%= render 'collapse', id: 1, title: "Comment sont évités les trolls sur le site ?",
                  content: "Deux homo erectus sont poursuivis par un lion dans la savane, l'un d'eux déclame au second : <br/>
                  \"Mais ça ne sert à rien de courir car de toute façon il finira par nous rattraper.\" <br/>
-                 Ce à quoi le second répond :<br/> \"Mais je ne cherche pas à courir plus vite que le lion, mais plus vite que toi.\" <br/>
-                 Pour ControverSciences, c'est un peu la même chose, les contraintes permettent de dissuader une grosse majorité des trolls
-                 qui vont préférer troller d'autres sites moins contraignant ou les gens s'énervent rapidement.
-                 Pour les trolls de compétitions, on supprime ce qui est nécessaire à la main.
-                 Pour finir de les dissuader, ça prend beaucoup moins de temps à nous de les supprimer qu'à eux d'écrire.
+                 Ce à quoi le second répond :<br/> \"Mais je ne cherche pas à courir plus vite que le lion, mais plus vite que toi !\" <br/>
+                 Pour ControverSciences, c'est un peu la même chose : les contraintes permettent de dissuader une grosse majorité des trolls
+                 qui vont préférer troller d'autres sites moins contraignants.
+                 Pour les trolls de compétition, on supprime ce qui est nécessaire à la main.
+                 Pour finir de les dissuader, ça nous prend beaucoup moins de temps de les supprimer qu'à eux d'écrire.
                  ".html_safe %>
-      <%= render 'collapse', id: 5, title: "Quand je suis connecté, les analyses ou synthèses semble arriver dans
-                    un ordre aléatoire, quand ce bug sera-t-il corrigé ?",
+      <%= render 'collapse', id: 5, title: "Quand je suis connecté, les analyses ou synthèses semblent arriver dans
+                    un ordre aléatoire... Quand ce bug sera-t-il corrigé ?",
                  content: "Ce comportement est tout à fait normal, il est même entièrement voulu. Les analyses et synthèses sont rangées dans
-                 un ordre pseudo-aléatoire afin de n'en favoriser aucune. La distribution uniforme donne toute ces chances à toutes les
+                 un ordre pseudo-aléatoire afin de n'en favoriser aucune. La distribution uniforme donne toutes leurs chances à toutes les
                  analyses/synthèses. Egalité et pas de traitement de faveur." %>
       <%= render 'collapse', id: 6, title: "Quand je suis connecté je n'arrive pas à voir les crédits donnés
                     aux analyses et synthèses, où est cette information ?",
                  content: "Cette information est volontairment invisible au contributeur afin qu'il ne soit pas biaisé
                  dans l'attribution des crédits.
-                 Sinon une analyse/synthèse qui aurait beaucoup crédits en recevrait encore plus par effet de consensus.
+                 Dans le cas contraire, une analyse/synthèse qui aurait beaucoup crédits en recevrait encore plus par effet de consensus.
                  Egalité et pas de traitement de faveur encore une fois." %>
-
       <%= render 'collapse', id: 7, title: "Qu'advient-il de mes contributions ?",
-                 content: "Les contributions que vous déposez sur controversciences n'ont en premier lieu aucun copyright.
-                   Elles sont ensuite mit aux enchères et revendues à l'entreprise/entité la plus offrantes qui
+                 content: "Les contributions que vous déposez sur ControverSciences n'ont en premier lieu aucun copyright.
+                   Elles sont ensuite mises aux enchères et revendues à l'entreprise/entité la plus offrante qui
                en disposera. Il se peut donc que celle-ci décide de mettre un copyright dessus afin que le texte ne puisse plus
-                être diffusé sans leur accord préalable. C'est sur ce business model novateur et très lucratif qu'est financé controversciences.
+                être diffusé sans leur accord préalable. C'est sur ce business model novateur et très lucratif qu'est financé ControverSciences.
                 <br/>
-                Non bien Evidement les contibutions sont dans le domaine publique. Plus précisement les contributions sont sous la license CC-BY-SA".html_safe %>
+                Non, bien évidemment, les contributions sont dans le domaine public. Plus précisement les contributions sont sous la license CC-BY-SA".html_safe %>
       <%= render 'collapse', id: 54, title: "Comment est financé ControverSciences ?",
                  content: "Pour l'instant le site ControverSciences est codé et maintenu par des bénévoles qui
-                 donc ne sont pas payés mais sont convaincus de la raison d'être de ce site. Les frais d'hébergements
+                 donc ne sont pas payés mais sont convaincus de la raison d'être de ce site. Les frais d'hébergement
                  du site sont actuellement maigres (~30E/mois) mais vont
-                 évidement changer dans le même sens que l'affluence du site. \n
+                 évidemment changer dans le même sens que l'affluence du site. \n
                 <strong> Ce site ne sera jamais financé par de la pub. </strong> \n
-                Si vous trouvez l'initative intéressante et que vous n'avez pas donné toute votre argent pour préserver
+                Si vous trouvez l'initative intéressante et que vous n'avez pas donné tout votre argent pour préserver
                 les lamantins du golfe de Guinée vous pouvez nous aider (les dons seront bientôt possibles).
-                Si vous avez l'âme d'un mécène on sera ravis bien évidemment !".html_safe %>
+                Si vous avez l'âme d'un mécène nous serons bien évidemment ravis !".html_safe %>
+
     </div>
+    <div class="clearfix">
     <div class="actions pull-right">
       <%= link_to "<span class=\"glyphicon glyphicon-question-sign\">
     </span> Poser une question".html_safe, '#newquestion',
                   'data-toggle' => 'modal', class: "btn btn-primary" %>
     </div>
+    </div>
+    <br/>
+    <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
+                class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
     <%= link_to "Qu’est-ce que ControverSciences ?", help_path,
                 class: "btn btn-block btn-primary" %>
     <%= link_to "Comment fonctionne ControverSciences ?", how_to_path,
                 class: "btn btn-block btn-primary" %>
     <%= link_to "Comment contribuer à ControverSciences ?", how_to_edit_path,
                 class: "btn btn-block btn-primary" %>
+    <%= link_to "Foire aux questions (FAQ)", faq_path,
+                class: "btn btn-block btn-info" %>
     <%= link_to "Proposer une amélioration pour le site", suggestions_path,
                 class: "btn btn-block btn-primary" %>
     </div>
