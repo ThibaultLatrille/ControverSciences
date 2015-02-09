@@ -41,12 +41,18 @@
         </div>
       </div>
       <div class="col-xs-12 col-lg-2">
+        <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
+                    class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
         <%= link_to "Qu’est-ce que ControverSciences ?", help_path,
                     class: "btn btn-block btn-primary" %>
         <%= link_to "Comment fonctionne ControverSciences ?", how_to_path,
                     class: "btn btn-block btn-primary" %>
         <%= link_to "Comment contribuer à ControverSciences ?", how_to_edit_path,
                     class: "btn btn-block btn-primary" %>
+        <%= link_to "Foire aux questions (FAQ)", faq_path,
+                    class: "btn btn-block btn-primary" %>
+        <%= link_to "Proposer une amélioration pour le site", suggestions_path,
+                    class: "btn btn-block btn-info" %>
       </div>
     </div>
   </div>

@@ -5,6 +5,11 @@
 <div class="col-lg-2">
   <div class="panel panel-default">
   <div class="panel-body">
+    <strong>
+      Information :
+      <br/>
+      <br/>
+    </strong>
   <button class="btn btn-default stick" data-placement="bottom"
           data-toggle="tooltip" title="<%= @timeline.nb_contributors %> contributeurs" >
     <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "32px") %>
@@ -22,7 +27,6 @@
   </button>
   <br/>
   <br/>
-  <br/>
 <strong>
   Thèmes :
   <br/>
@@ -33,6 +37,19 @@
                 data-toggle="tooltip" title="<%= tags_hash[name] %>">
           <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "32px")%>
         </button>
+    <% end %>
+    <% if @references.any? && @timeline.binary != '' %>
+        <br/>
+        <br/>
+        <strong>
+          Où se situe chaque référence par rapport à la controverse ?
+        </strong>
+        <br/>
+        <div>
+            <%= image_tag("icons/myicon-rating.svg", :class => "img-responsive")%>
+        <strong>  <%= @timeline.binary.split('&&')[0] %> </strong>
+        <strong class="pull-right">  <%= @timeline.binary.split('&&')[1] %> </strong>
+        </div>
     <% end %>
   </div>
 </div>
@@ -82,7 +99,7 @@
 
 <% else %>
   <%= link_to '<span class="glyphicon glyphicon-pencil" >
-    </span> Pas de références à cette controverse, soyez le premier'.html_safe,
+    </span> Pas de références à cette controverse, soyez le premier !'.html_safe,
                   new_reference_path( timeline_id: @timeline.id ),
                   class: "btn btn-success" %>
 <% end %>

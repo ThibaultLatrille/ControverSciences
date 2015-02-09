@@ -154,7 +154,7 @@
         </div> <%= link_to @reference.url, @reference.url, target: "_blank" %></li>
       <li class="list-group-item"> <div class="bold">
         Controverse dans laquelle apparait cette référence : </div>
-        <%= link_to @reference.timeline.name, @reference.timeline,
+        <%= link_to @reference.timeline_name, @reference.timeline,
                     target: "_blank" %></li>
         <% if @reference.binary != '' %>
           <li class="list-group-item clearfix">
@@ -165,14 +165,13 @@
                     <%= f.hidden_field :reference_id, value: @reference.id %>
                     <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                     <% if @user_binary.nil? %>
-                        <%= f.label "Cette référence répond à la controverse du coté : " %>
+                        <%= f.label "Comment cette référence répond à la question : " + @reference.timeline_name %>
                         <br/>
                         <strong>  <%= @reference.binary.split('&&')[0] %> </strong>
                         <strong class="pull-right">  <%= @reference.binary.split('&&')[1] %> </strong>
                     <% else %>
-                          <%= f.label "Vous avez déjà voté mais vous avez peut être changé d'avis ? " %>
-                          <br/>
-                          <strong>  Cette référence répond à la controverse du coté : </strong>
+                          <%= f.label "Vous avez déjà donné votre avis sur comment cette référence répond à la question : " + @reference.timeline_name
+                              + " Mais vous avez peut-être changé d'avis" %>
                           <br/>
                           <strong>  <%= @reference.binary.split('&&')[0] %> </strong>
                           <strong class="pull-right">  <%= @reference.binary.split('&&')[1] %> </strong>
@@ -191,7 +190,7 @@
                                  title="<%= value %>" data-toggle="tooltip">
                             <%= f.radio_button :value, checked_value = key,
                                                {id: key, autocomplete: "off"} %>
-                            <%= image_tag("icons/myicon-s#{key}.svg", height: "28px")%>
+                            <%= image_tag("icons/myicon-r#{key}.svg", height: "28px")%>
                           </label>
                       <% end %>
                     </div>
@@ -206,11 +205,11 @@
                 <% end %>
                 </div>
             <% else %>
-                    <span class="bold"> Les avis sur cette référence :
+                    <span class="bold"> Comment cette référence répond à la question : <%= @reference.timeline_name -%>
                      </span></br>
                 <% for i in 1..5 %>
                     <%= image_tag("icons/myicon-#{i}.svg", height: "28px")%>
-                    <%= @reference["star_#{i}".to_sym] -%>
+                    <%= @reference["star_r#{i}".to_sym] -%>
                 <% end %>
             <% end %>
             <br/>
