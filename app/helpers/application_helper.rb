@@ -11,14 +11,22 @@ module ApplicationHelper
 
   def tags_hash
     {"biology" => "Biologie",
-     "immunity" => "Virus et pathogènes", "medicine" => "Médecine et santé",
-     "pharmacy" => "Médicaments", "neuro" => "Neuro & psycho", "animal" => "Biologie animale",
-     "plant" => "Biologie Végétale",
-     "planet" => "environnement", "energy" => "Energies renouvellables",
-     "rig" => "Energies fossiles", "archeology" => "Archéologie",
-     "space" => "Espace", "physics" => "Physique", "chemistry" => "Chimie",
-     "social" => "Sciences sociales",
-     "pie" => "Mathématiques"}
+     "medicine" => "Médecine et santé",
+     "planet" => "Environnement",
+     "physics" => "Physique",
+     "geology" => "Géologie",
+     "chemistry" => "Chimie",
+     "pie" => "Mathématiques",
+     "informatics" => "Informatique",
+     "ethics" => "Ethique",
+     "techno" => "Technologie",
+     "psycho" => "Pychologie",
+     "socio" => "Sociologie",
+     "archeology" => "Archéologie",
+     "history" => "Histoire",
+     "linguistic" => "Linguistique",
+     "epistemology" => "Epistémologie"
+     }
   end
 
   def fields_hash
