@@ -142,11 +142,16 @@
         Journal :
         </div> <%= @reference.journal %></li>
       <% unless @reference.abstract.empty? %>
-      <li class="list-group-item"> <div class="bold">
-        Abstract (dans sa langue originale) :
-        </div> <%= @reference.abstract %></li>
+          <li class="list-group-item">
+            <div class="bold">
+              Abstract (dans sa langue originale) :
+            </div>
+            <div class="justify">
+              <%= @reference.abstract %>
+            </div>
+          </li>
       <% end %>
-      <% unless @reference.abstract.empty? %>
+      <% unless @reference.doi.empty? %>
       <li class="list-group-item"> <div class="bold">
         Identifiant unique : </div> <%= @reference.doi %></li>
       <% end %>
