@@ -111,22 +111,37 @@
 <script type="text/javascript">
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
-    mysavebtn.setAttribute("data-toggled",'yes');
+        mysavebtn.setAttribute("data-toggled", 'yes');
     });
     var myref = document.getElementById('save-btn-http');
     $('#save-btn-http').on('click', function (event) {
-    myref.setAttribute("data-toggled",'yes');
+        myref.setAttribute("data-toggled", 'yes');
     });
-    $.each([ '0', '1', '2', '3', '4', '5' ], function( index, value ) {
-        $('#characterLeft'+value).text(1000-$('#description'+value).val().length+' caractères restants');
-        $('#description'+value).keyup(function () {
+    $.each(['0', '1', '2', '3', '4', '5' ], function (index, value) {
+        $(document).ready(function() {
+            var max = 1000;
+            var len = $('#description' + value).val().length;
+            if (len >= max) {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
+            }
+        });
+        $('#description' + value).keyup(function () {
             var max = 1000;
             var len = $(this).val().length;
             if (len >= max) {
-                $('#characterLeft'+value).text('Vous avez atteint la limite');
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
             } else {
                 var ch = max - len;
-                $('#characterLeft'+value).text(ch + ' caractères restants');
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
             }
         });
     });

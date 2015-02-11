@@ -94,30 +94,40 @@
   </div>
 </div>
 
-<%= javascript_tag do %>
+<script type="text/javascript">
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
-    mysavebtn.setAttribute("data-toggled",'yes');
+        mysavebtn.setAttribute("data-toggled", 'yes');
     });
 
     var myref = document.getElementById('save-btn-http');
     $('#save-btn-http').on('click', function (event) {
-    myref.setAttribute("data-toggled",'yes');
+        myref.setAttribute("data-toggled", 'yes');
     });
-
-    var myref = document.getElementById('save-btn-http');
-    $('#save-btn-http').on('click', function (event) {
-    myref.setAttribute("data-toggled",'yes');
+    $(document).ready(function() {
+        var max = 10000;
+        var len = $('#description').val().length;
+        if (len >= max) {
+            var ch = max - len;
+            $('#characterLeft').css({"color": "#a94442"});
+            $('#characterLeft').text(ch + ' caractères en trop !');
+        } else {
+            var ch = max - len;
+            $('#characterLeft').css({"color": "#5cb85c"});
+            $('#characterLeft').text(ch + ' caractères restants.');
+        }
     });
-    $('#characterLeft').text('5000 caractères restants');
     $('#description').keyup(function () {
-    var max = 5000;
-    var len = $(this).val().length;
-    if (len >= max) {
-    $('#characterLeft').text('Vous avez atteint la limite');
-    } else {
-    var ch = max - len;
-    $('#characterLeft').text(ch + ' caractères restants');
-    }
+        var max = 10000;
+        var len = $(this).val().length;
+        if (len >= max) {
+            var ch = max - len;
+            $('#characterLeft').css({"color": "#a94442"});
+            $('#characterLeft').text(ch + ' caractères en trop !');
+        } else {
+            var ch = max - len;
+            $('#characterLeft').css({"color": "#5cb85c"});
+            $('#characterLeft').text(ch + ' caractères restants.');
+        }
     });
-<% end %>
+</script>
