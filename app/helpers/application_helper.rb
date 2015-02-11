@@ -40,14 +40,14 @@ module ApplicationHelper
       2 => "Cette référence est intéressante mais n'apporte rien.",
       3 => "Cette référence est scientifiquement peu solide.",
       4 => "Cette référence est intéressante et rigoureuse.",
-      5 => "A lire absolument !"}
+      5 => "Cette référence est à lire absolument !"}
   end
 
   def binary_hash
-    { 1 => "Un peu.",
-      2 => "Beaucoup.",
-      3 => "Passionement.",
-      4 => "A la folie.",
-      5 => "Pas du tout" }
+    { 1 => "très fermement",
+      2 => "modérément",
+      3 => "cette référence est neutre.",
+      4 => "modérément",
+      5 => "très fermement" }
   end
 end

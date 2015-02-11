@@ -3,37 +3,31 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3> S'identifier </h3>
+      <div class="panel-heading clearfix">
+        <div class="pull-right">
+          <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-success" %>
         </div>
+      </div>
       <div class="panel-body">
+        <h3> Identifiants de connexion : </h3>
         <%= form_for(:session, url: sessions_path) do |f| %>
-
-      <%= f.label :email %>
-      <%= f.text_field :email, class: "form-control" %>
+            <%= f.label :email %>
+            <%= f.text_field :email, class: "form-control" %>
             <br/>
-      <%= f.label :password, 'Mot de passe' %>
-      <%= link_to "(Trou de mémoire ?)", new_password_reset_path %>
-      <%= f.password_field :password, class: "form-control" %>
+            <%= f.label :password, 'Mot de passe' %>
+            <%= link_to "(Trou de mémoire ?)", new_password_reset_path %>
+            <%= f.password_field :password, class: "form-control" %>
             <br/>
-      <%= f.label :remember_me, class: "checkbox inline" do %>
-        <%= f.check_box :remember_me %>
-        <span>Se souvenir de moi lors des visites suivantes </span>
-      <% end %>
+            <%= f.label :remember_me, class: "checkbox inline" do %>
+                <%= f.check_box :remember_me %>
+                <span>Se souvenir de moi lors des visites suivantes </span>
+            <% end %>
 
             <div class="pull-right">
-      <%= f.submit "Se connecter", class: "btn btn-primary" %>
+              <%= f.submit "Renter dans l'arène", class: "btn btn-primary" %>
             </div>
-    <% end %>
-     <br/>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3> Je n'ai pas encore de compte mais j'ai une furieuse envie de montrer mes arguments !</h3>
-      </div>
-      <div class="panel-body">
-        <%= link_to "C\'est donc par ici", signup_path, class: "btn btn-block btn-primary" %>
+        <% end %>
+        <br/>
       </div>
     </div>
   </div>

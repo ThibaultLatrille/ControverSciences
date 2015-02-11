@@ -178,7 +178,7 @@
                     <% end %>
                     <div class="btn-group-justified" data-toggle="buttons">
                       <% unless @user_binary.nil? %>
-                          <label class="btn btn-default"
+                          <label class="btn btn-default btn-select"
                                  title="Retirer mon avis" data-toggle="tooltip">
                             <%= f.radio_button :value, checked_value = "none",
                                                {id: "none", autocomplete: "off"} %>
@@ -186,8 +186,16 @@
                           </label>
                       <% end %>
                       <% binary_hash.each do |key, value| %>
-                          <label class="btn btn-default <%= @user_binary == key ? "active" : nil %>"
-                                 title="<%= value %>" data-toggle="tooltip">
+                          <% if key < 3 %>
+                              <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> cd-color<%= key %>"
+                                     title="Je pense <%= value %> que <%= @reference.binary.split('&&')[0].downcase %>." data-toggle="tooltip">
+                          <% elsif key > 3 %>
+                              <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> cd-color<%= key %>"
+                                     title="Je pense <%= value %> que <%= @reference.binary.split('&&')[1].downcase %>." data-toggle="tooltip">
+                          <% else %>
+                              <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> cd-color<%= key %>"
+                                     title="Je pense que <%= value %>" data-toggle="tooltip">
+                          <% end %>
                             <%= f.radio_button :value, checked_value = key,
                                                {id: key, autocomplete: "off"} %>
                             <%= image_tag("icons/myicon-r#{key}.svg", height: "28px")%>
@@ -207,10 +215,26 @@
             <% else %>
                     <span class="bold"> Comment cette référence répond à la question : <%= @reference.timeline_name -%>
                      </span></br>
-                <% for i in 1..5 %>
-                    <%= image_tag("icons/myicon-#{i}.svg", height: "28px")%>
-                    <%= @reference["star_r#{i}".to_sym] -%>
+                <br/>
+                <strong>  <%= @reference.binary.split('&&')[0] %> </strong>
+                <strong class="pull-right">  <%= @reference.binary.split('&&')[1] %> </strong>
+                <div class="btn-group-justified" data-toggle="buttons">
+                <% binary_hash.each do |key, value| %>
+                      <% if key < 3 %>
+                          <label class="btn btn-default cd-color<%= key %>"
+                             title="<%= @reference["binary_#{key}".to_sym] -%> pensent <%= value %> que <%= @reference.binary.split('&&')[0].downcase %>." data-toggle="tooltip">
+                        <% elsif key > 3 %>
+                          <label class="btn btn-default cd-color<%= key %>"
+                                 title="<%= @reference["binary_#{key}".to_sym] -%> pensent <%= value %> que <%= @reference.binary.split('&&')[1].downcase %>." data-toggle="tooltip">
+                        <% else %>
+                          <label class="btn btn-default cd-color<%= key %>"
+                                 title="<%= @reference["binary_#{key}".to_sym] -%> pensent que <%= value %>" data-toggle="tooltip">
+                        <% end %>
+                      <%= image_tag("icons/myicon-r#{key}.svg", height: "28px")%>
+                        <%= @reference["binary_#{key}".to_sym] -%>
+                    </label>
                 <% end %>
+                </div>
             <% end %>
             <br/>
           </li>
@@ -231,14 +255,14 @@
                 <div class="btn-group-justified" data-toggle="buttons">
                   <% unless @user_rating.nil? %>
                       <label class="btn btn-default"
-                             title="Retirer mon avis" data-toggle="tooltip">
+                             title="Retirer mon avis btn-select" data-toggle="tooltip">
                         <%= f.radio_button :value, checked_value = "none",
                                            {id: "none", autocomplete: "off"} %>
                         <%= image_tag("icons/myicon-no.svg", height: "28px")%>
                       </label>
                   <% end %>
                   <% star_hash.each do |key, value| %>
-                      <label class="btn btn-default <%= @user_rating == key ? "active" : nil %>"
+                      <label class="btn btn-default btn-select <%= @user_rating == key ? "selected" : nil %>"
                              title="<%= value %>" data-toggle="tooltip">
                             <%= f.radio_button :value, checked_value = key,
                                                {id: key, autocomplete: "off"} %>
@@ -263,10 +287,15 @@
         <% else %>
                 <span class="bold"> Comment les contributeurs jugent la qualité scientifique de cette référence :
                  </span></br>
-                <% for i in 1..5 %>
-                    <%= image_tag("icons/myicon-#{i}.svg", height: "28px")%>
-                    <%= @reference["star_#{i}".to_sym] -%>
-                <% end %>
+            <div class="btn-group-justified" data-toggle="buttons">
+              <% star_hash.each do |key, value| %>
+                  <label class="btn btn-default"
+                         title="<%= @reference["star_#{key}".to_sym] -%> pensent que <%= value.downcase %>" data-toggle="tooltip">
+                    <%= image_tag("icons/myicon-#{key}.svg", height: "28px")%>
+                    <%= @reference["star_#{key}".to_sym] -%>
+                  </label>
+              <% end %>
+            </div>
         <% end %>
       </li>
     </ul>
