@@ -43,13 +43,16 @@ gem 'redcarpet'
 # Bulk insert
 gem 'activerecord-import'
 
+# Send transactional mail using MailGun
+gem 'mailgun-ruby', require: 'mailgun'
+
 # Postgresql
 gem 'pg'
 
 # Use octokit for GitHub API
 gem 'octokit'
 
-# Use octokit for GitHub API
+# Get info about the client browser
 gem 'browser'
 
 # Image upload, resize and storing

@@ -8,7 +8,14 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
       @user.create_reset_digest
-      @user.send_password_reset_email
+      mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+      message = {
+          :subject=> "Réinitialisation du mot de passe sur ControverSciences",
+          :from=>"reinitialisation@controversciences.org",
+          :to => @user.email,
+          :html => render_to_string( :file => 'user_mailer/password_reset', layout: nil ).to_str
+      }
+      mg_client.send_message "controversciences.org", message
       flash[:info] = "Un email vous a été envoyé."
       redirect_to root_url
     else

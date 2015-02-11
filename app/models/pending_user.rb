@@ -4,6 +4,13 @@ class PendingUser < ActiveRecord::Base
   after_create :send_new_account_email
 
   def send_new_account_email
-    UserMailer.new_account( self ).deliver
+    mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+    message = {
+        :subject=> "Pending #{self.user.email} sur ControverSciences",
+        :from=>"pending.user@controversciences.org",
+        :to => "thibault.latrille@ens-lyon.fr",
+        :html => self.why
+    }
+    mg_client.send_message "controversciences.org", message
   end
 end

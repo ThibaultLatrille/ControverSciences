@@ -90,6 +90,14 @@
                       <td class="w520" width="520" height="40">
                       </td>
                     </tr>
+                    <tr>
+                      <td class="w520" width="520" style="font-size:10px;line-height:15px;">
+                        Si le lien ne fonctionne pas, copier ce morceau de texte dans votre navigateur :
+                        <br/>
+                        <%= edit_account_activation_url(@user.activation_token,
+                        email: @user.email) %>
+                      </td>
+                    </tr>
                     </tbody>
                   </table>
                 </td>

@@ -52,10 +52,17 @@ class UsersController < ApplicationController
         flash[:info] = message
         redirect_to root_url
       else
-        @user.send_activation_email
-        message = "Le lien pour activer votre compte doit être parvenu à votre boîte mail, "
-        message += "à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet."
-        flash[:info] = message
+        mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+        message = {
+            :subject=> "Activation du compte sur ControverSciences",
+            :from=>"activation@controversciences.org",
+            :to => @user.email,
+            :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str
+        }
+        mg_client.send_message "controversciences.org", message
+        info = "Le lien pour activer votre compte doit être parvenu à votre boîte mail, "
+        info += "à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet."
+        flash[:info] = info
         redirect_to root_url
       end
     else
