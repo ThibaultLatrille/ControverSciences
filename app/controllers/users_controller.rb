@@ -48,9 +48,7 @@ class UsersController < ApplicationController
     if @user.save
       if @user.invalid_email
         PendingUser.create( user_id: @user.id, why: user_params[:why])
-        message = "Votre incription est en cours de traitement."
-        flash[:info] = message
-        redirect_to root_url
+        render 'users/invalid'
       else
         mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
         message = {
@@ -60,10 +58,7 @@ class UsersController < ApplicationController
             :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str
         }
         mg_client.send_message "controversciences.org", message
-        info = "Le lien pour activer votre compte doit être parvenu à votre boîte mail, "
-        info += "à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet."
-        flash[:info] = info
-        redirect_to root_url
+        render 'users/success'
       end
     else
       render 'new'
