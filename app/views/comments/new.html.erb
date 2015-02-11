@@ -5,6 +5,7 @@
       <%= link_to "Revenir à la controverse",
                   timeline_path(@comment.timeline_id ), class: "btn btn-block btn-primary", style: "white-space: normal" %>
       <br/>
+      <br/>
       <%= link_to "Revenir à la référence",
                   reference_path(@comment.reference_id ), class: "btn btn-block  btn-primary", style: "white-space: normal" %>
 
@@ -53,6 +54,8 @@
           </div>
           <div class="col-md-12 col-lg-5">
             <% if @parent %>
+                <br/>
+                <br/>
                 <strong style="font-size: 1.4em;"> &nbsp
                   Mon modèle d'analyse
                 </strong>
