@@ -29,7 +29,7 @@ class Summary < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
-  validates :content, presence: true, length: {maximum: 5000}
+  validates :content, presence: true, length: {maximum: 12500}
   validates_uniqueness_of :user_id, :scope => :timeline_id
 
   def user_name

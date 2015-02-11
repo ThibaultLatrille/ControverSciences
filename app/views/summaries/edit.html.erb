@@ -105,7 +105,7 @@
         myref.setAttribute("data-toggled", 'yes');
     });
     $(document).ready(function() {
-        var max = 10000;
+        var max = 12500;
         var len = $('#description').val().length;
         if (len >= max) {
             var ch = max - len;
@@ -118,7 +118,7 @@
         }
     });
     $('#description').keyup(function () {
-        var max = 10000;
+        var max = 12500;
         var len = $(this).val().length;
         if (len >= max) {
             var ch = max - len;
