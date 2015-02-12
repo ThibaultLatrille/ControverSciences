@@ -1,5 +1,5 @@
 class TimelinesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :destroy]
+  before_action :logged_in_user, only: [:new, :edit, :update, :create, :destroy]
 
   def index
     if params[:tag] != 'all' && !params[:tag].nil?
@@ -37,10 +37,35 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.new
   end
 
+  def edit
+    @timeline = Timeline.find( params[:id] )
+  end
+
+  def update
+    @timeline = Timeline.find( params[:id] )
+    if @timeline.user_id == current_user.id
+      @timeline.name = timeline_params[:name]
+      if timeline_params[:binary]
+        @timeline.binary = "Non&&Oui"
+      end
+      if params[:timeline][:tag_list]
+        @timeline.set_tag_list(params[:timeline][:tag_list])
+      end
+      if @timeline.save
+        flash[:success] = "Controverse modifiée."
+        redirect_to @timeline
+      else
+        render 'edit'
+      end
+    else
+      redirect_to @timeline
+    end
+  end
+
   def create
     @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name])
     if timeline_params[:binary]
-      @timeline.binary = "Non && Oui"
+      @timeline.binary = "Non&&Oui"
     end
     if params[:timeline][:tag_list]
       @timeline.set_tag_list(params[:timeline][:tag_list])

@@ -1,1 +1,47 @@
 <% provide(:title, "Modification") %>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Créer une nouvelle Controverse</h3>
+      </div>
+      <div class="panel-body">
+        <%= form_for(@timeline) do |f| %>
+            <%= render 'shared/error_messages', object: f.object %>
+
+            <%= f.label :Nom, "Titre de la controverse" %>
+            <%= f.text_field :name, class: 'form-control' %>
+            </br>
+            <%= f.label :Tags, "Thèmes" %> </br>
+            <div  class="container-fluid">
+              <div class="row"  data-toggle="buttons">
+                <% tags_hash.each do |key, value| %>
+                    <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+                      <div class="my-btn">
+                        <%= f.check_box :tag_list, { :multiple => true}, checked_value = key, unchecked_value = nil %>
+                        <%= image_tag("icons/myicon-#{key}.svg", alt: value, height: "28px")%> <%= value %>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
+            </div>
+            <br/>
+            <%= f.label :binary do %>
+                <%= f.check_box :binary %>
+                <span> Cette controverse est une question fermée, à laquelle on pourrait répondre par oui ou non </span>
+            <% end %>
+            <br/>
+            </br>
+            <%= f.submit "Modifier la controverse", class: "btn btn-primary pull-right" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= javascript_tag do %>
+    $(document).ready(function(){
+    $('.my-btn').responsiveEqualHeightGrid();
+    })
+<% end %>

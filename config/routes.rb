@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :timelines, only: [:new, :create, :index, :show, :destroy]
+  resources :timelines, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
   get "/from_timeline" => 'references#from_timeline', as: 'from_timeline'
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
