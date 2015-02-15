@@ -33,6 +33,15 @@
                 <% end %>
 
                 <%= f.hidden_field :timeline_id, value: @summary.timeline_id %>
+                <div class="switcher pull-left">
+                  <p class="fieldset">
+                    <%= f.radio_button :public, true %>
+                    <label for="summary_public_true">Public</label>
+                    <%= f.radio_button :public, false %>
+                    <label for="summary_public_false">Privée</label>
+                    <span class="switch"></span>
+                  </p>
+                </div>
                 <%= f.submit "Modifier ma synthèse", class: "pull-right btn btn-lg btn-success"%>
             <% end %>
           </div>

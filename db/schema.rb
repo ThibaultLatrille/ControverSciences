@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150129232507) do
+ActiveRecord::Schema.define(version: 20150215023109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,14 +79,15 @@ ActiveRecord::Schema.define(version: 20150129232507) do
     t.text     "f_3_content",  default: ""
     t.text     "f_4_content",  default: ""
     t.text     "f_5_content",  default: ""
-    t.text     "markdown_0"
-    t.text     "markdown_1"
-    t.text     "markdown_2"
-    t.text     "markdown_3"
-    t.text     "markdown_4"
-    t.text     "markdown_5"
+    t.text     "markdown_0",   default: ""
+    t.text     "markdown_1",   default: ""
+    t.text     "markdown_2",   default: ""
+    t.text     "markdown_3",   default: ""
+    t.text     "markdown_4",   default: ""
+    t.text     "markdown_5",   default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "public",       default: true
   end
 
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id", using: :btree
@@ -469,13 +470,14 @@ ActiveRecord::Schema.define(version: 20150129232507) do
   create_table "summaries", force: true do |t|
     t.integer  "user_id"
     t.integer  "timeline_id"
-    t.integer  "balance"
+    t.integer  "balance",     default: 0
     t.float    "score"
     t.boolean  "best",        default: false
-    t.text     "content"
-    t.text     "markdown"
+    t.text     "content",     default: ""
+    t.text     "markdown",    default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "public",      default: true
   end
 
   add_index "summaries", ["timeline_id"], name: "index_summaries_on_timeline_id", using: :btree

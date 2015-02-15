@@ -25,22 +25,19 @@
 <div class="clearfix">
   <% if logged_in? %>
       <div class="btn-group">
-        <%= link_to " <span class=\"glyphicon glyphicon-search\" >
-            </span>Toute les synthèses (sauf la mienne)".html_safe,
-                    summaries_path( timeline_id: params[:timeline_id] ),
-                    class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
-      </div>
-      <div class="btn-group">
-        <%= link_to " <span class=\"glyphicon glyphicon-search\" >
-            </span> Les synthèses que j'ai crédité".html_safe,
-                    summaries_path( timeline_id: params[:timeline_id], :filter => 'my-vote'),
-                    class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
-      </div>
-      <div class="btn-group">
-        <%= link_to "<span class=\"glyphicon glyphicon-search\" >
-            </span> Ma synthèse".html_safe,
+        <%= link_to "Ma synthèse".html_safe,
                     summaries_path( timeline_id: params[:timeline_id], :filter => 'mine'),
                     class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
+      </div>
+      <div class="btn-group">
+        <%= link_to "Les autres synthèses".html_safe,
+      summaries_path( timeline_id: params[:timeline_id] ),
+      class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
+      </div>
+      <div class="btn-group">
+        <%= link_to "Mes synthèses favorites".html_safe,
+                    summaries_path( timeline_id: params[:timeline_id], :filter => 'my-vote'),
+                    class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
       </div>
   <% else %>
       <div class="btn-group">
@@ -87,10 +84,15 @@
         <%= render @summaries, credit: logged_in? && params[:filter] != 'mine' ? true : false %>
         <%= paginate @summaries, :params => {:seed => @seed } %>
         </div>
+        <% if params[:filter] == "mine" %>
         <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Ecrire une synthèse".html_safe,
+        </span> Modifier ma synthèse".html_safe,
                     new_summary_path( timeline_id: params[:timeline_id]  ), class: "btn btn-success" %>
-
+        <% else %>
+            <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Ecrire une synthèse de cette controverse".html_safe,
+                        new_summary_path( timeline_id: params[:timeline_id]  ), class: "btn btn-success" %>
+        <% end %>
     <% elsif params[:filter] == "my-vote" %>
         Vous n'avez pas donné de crédits
     <% elsif params[:filter] == "mine" %>

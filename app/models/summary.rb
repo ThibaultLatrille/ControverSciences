@@ -27,6 +27,8 @@ class Summary < ActiveRecord::Base
 
   after_create :cascading_save_summary
 
+  around_update :updating_with_public
+
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :content, presence: true, length: {maximum: 12500}
@@ -143,6 +145,25 @@ class Summary < ActiveRecord::Base
   end
 
   private
+
+  def updating_with_public
+    public = self.public_was
+    yield
+    if public != self.public
+      if self.public
+        test =  SummaryBest.where( timeline_id: self.timeline_id).nil?
+        unless test
+          SummaryBest.create( user_id: self.user_id, timeline_id: self.timeline_id,
+                              summary_id: self.id)
+        end
+      else
+        Credit.where( summary_id: self.id).destroy_all
+        if self.best
+          SummaryBest.where( timeline_id: self.timeline_id).destroy_all
+        end
+      end
+    end
+  end
 
   def cascading_save_summary
     NewSummary.create( summary_id: self.id )

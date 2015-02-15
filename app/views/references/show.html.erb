@@ -15,7 +15,7 @@
     crédits à distribuer aux analyses de cette référence
       <br/>
       <br/>
-    <%= link_to "Récupérer tous les crédits", vote_path( id: 'all', reference_id: @reference.id), method: :delete,
+    <%= link_to "Récupérer tous mes crédits attribués aux analyses de cette référence", vote_path( id: 'all', reference_id: @reference.id), method: :delete,
                 class: "btn btn-block btn-primary" %>
     </div>
     </div>
@@ -92,18 +92,18 @@
                           edit_comment_path(id: @comments.first ), class: "btn btn-success" %>
           <% else %>
               <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Ecrire une analyse".html_safe,
+        </span> Ecrire une analyse de cette référence".html_safe,
                           new_comment_path(reference_id: @reference.id ), class: "btn btn-success" %>
           <% end %>
       <% elsif params[:filter] == "my-vote" %>
           Vous n'avez pas encore voté
       <% elsif params[:filter] == "mine" %>
           <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Vous n'avez pas encore écrit d'analyse ".html_safe,
+        </span> Vous n'avez pas encore écrit d'analyse de cette référence".html_safe,
                       new_comment_path(reference_id: @reference.id ) %>
       <% else %>
           <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Il n'y a pas d'analyse, soyez le premier ! ".html_safe,
+        </span> Il n'y a pas d'analyse à cette référence, soyez le premier ! ".html_safe,
                       new_comment_path(reference_id: @reference.id ) %>
       <% end %>
     </div>
@@ -111,20 +111,19 @@
 </div>
 <div class="col-sm-10 col-sm-offset-1 col-md-10  col-lg-4 col-lg-offset-0">
   <% if logged_in? %>
-      <div class="clearfix">
-      <div class="pull-right">
-        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-        </span> Suivre les nouvelles analyses".html_safe,
-                    following_references_path( reference_id: @reference.id ),
-                    method: :post, class: "btn btn-primary" %>
-          <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Ecrire une analyse".html_safe,
-                      new_comment_path(reference_id: @reference.id ), class: "btn btn-success" %>
-        <div>
-          </br>
-        </div>
-      </div>
-      </div>
+    <div class="clearfix">
+      <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Ecrire une analyse de cette référence".html_safe,
+                  new_comment_path(reference_id: @reference.id), class: "btn btn-success pull-right" %>
+      </br>
+      </br>
+      <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+        </span> Suivre les nouvelles analyses ajoutées à cette référence".html_safe,
+                  following_references_path(reference_id: @reference.id),
+                  method: :post, class: "btn btn-primary pull-right" %>
+      </br>
+      </br>
+    </div>
   <% end %>
 <div class="panel panel-default">
   <div class="panel-heading">

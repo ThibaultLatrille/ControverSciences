@@ -89,7 +89,7 @@ class ReferencesController < ApplicationController
     end
     if params[:filter] == "my-vote"
       comment_ids = Vote.where( user_id: user_id, reference_id: @reference.id).pluck( :comment_id )
-      @comments = Comment.where( id: comment_ids ).page(params[:page]).per(10)
+      @comments = Comment.where( id: comment_ids, public: true ).page(params[:page]).per(10)
     elsif params[:filter] == "mine"
       @comments = Comment.where( user_id: user_id, reference_id: @reference.id ).page(params[:page]).per(10)
     elsif logged_in?
@@ -100,27 +100,27 @@ class ReferencesController < ApplicationController
       end
       Comment.connection.execute("select setseed(#{@seed})")
       @comments = Comment.where(
-          reference_id: params[:id]).where.not(
+          reference_id: params[:id], public: true).where.not(
           user_id: user_id).order('random()').page(params[:page]).per(5)
     else
       if !params[:sort].nil?
         if !params[:order].nil?
           @comments = Comment.order(params[:sort].to_sym => params[:order].to_sym).where(
-              reference_id: params[:id]).where.not(
+              reference_id: params[:id], public: true).where.not(
               user_id: user_id).page(params[:page]).per(5)
         else
           @comments = Comment.order(params[:sort].to_sym => :desc).where(
-              reference_id: params[:id]).where.not(
+              reference_id: params[:id], public: true).where.not(
               user_id: user_id).page(params[:page]).per(5)
         end
       else
         if !params[:order].nil?
           @comments = Comment.order(:score => params[:order].to_sym).where(
-              reference_id: params[:id]).where.not(
+              reference_id: params[:id], public: true).where.not(
               user_id: user_id).page(params[:page]).per(5)
         else
           @comments = Comment.order(:score => :desc).page(params[:page]).where(
-              reference_id: params[:id]).where.not(
+              reference_id: params[:id], public: true).where.not(
               user_id: user_id).page(params[:page]).per(5)
         end
       end

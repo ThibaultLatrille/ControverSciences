@@ -4,7 +4,7 @@
 
     <div class="cd-timeline-content">
       <h2> <%= link_to reference.title_fr, reference, class: "hvr-grow1" %>
-        <% if reference.nb_edits != 0 %>
+        <% if BestComment.find_by_reference_id( reference.id ) %>
         <%= link_to "<span class=\"glyphicon glyphicon-chevron-down hvr-grow pull-right\"> </span>".html_safe,
                     from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}" %>
         <span class="detail glyphicon glyphicon-chevron-up hvr-grow pull-right" style="display: none"></span>

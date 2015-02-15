@@ -98,7 +98,7 @@
 </section>
 
 <% else %>
-  <%= link_to '<span class="glyphicon glyphicon-pencil" >
+  <%= link_to '<span class="glyphicon glyphicon-plus-sign" >
     </span> Pas de références à cette controverse, soyez le premier !'.html_safe,
                   new_reference_path( timeline_id: @timeline.id ),
                   class: "btn btn-success" %>
@@ -108,15 +108,15 @@
   <% if logged_in? %>
 <div class="col-xs-12 col-lg-2">
 <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-</span> S'abonner à cette controverse".html_safe,
+</span> Suivre les nouvelles références ajoutées à cette controverse".html_safe,
               following_timelines_path( timeline_id: @timeline.id ),
               method: :post, class: "btn btn-block btn-primary" %>
 <%= link_to '<span class="glyphicon glyphicon-plus-sign" >
-</span> Ajouter une référence'.html_safe,
+</span> Ajouter une référence à cette controverse'.html_safe,
           new_reference_path( timeline_id: @timeline.id),
           class: "btn btn-block btn-success" %>
 <%= link_to '<span class="glyphicon glyphicon-pencil" >
-</span> Ecrire une synthèse'.html_safe,
+</span> Ecrire une synthèse de cette controverse'.html_safe,
           new_summary_path( timeline_id: @timeline.id),
           class: "btn btn-block btn-success" %>
 </div>

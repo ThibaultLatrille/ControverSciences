@@ -27,6 +27,7 @@ class Comment < ActiveRecord::Base
 
   after_create :cascading_save_comment
 
+  around_update :updating_with_public
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
@@ -161,6 +162,25 @@ class Comment < ActiveRecord::Base
   end
 
   private
+
+  def updating_with_public
+    public = self.public_was
+    yield
+    if public != self.public
+      if self.public
+        test =  BestComment.where( reference_id: self.reference_id).nil?
+        unless test
+          BestComment.create( user_id: self.user_id, reference_id: self.reference_id,
+                              comment_id: self.id)
+        end
+      else
+        Vote.where( comment_id: self.id).destroy_all
+        if self.best
+          BestComment.where( reference_id: self.reference_id).destroy_all
+        end
+      end
+    end
+  end
 
   def cascading_save_comment
     NewComment.create( comment_id: self.id )

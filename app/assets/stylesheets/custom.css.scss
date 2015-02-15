@@ -7,7 +7,7 @@ $nav_back: #4E7DC9;
 $nav_back_bottom: #e9f0f5;
 $nav_hover: #405899;
 $red-error:#d9534f;
-$backgound:#f1f4f9;
+$background:#f1f4f9;
 
 /* universal */
 
@@ -22,7 +22,7 @@ body {
   padding-top: 80px;
   padding-bottom: 60px;
   font-family: 'Droid Sans';
-  background-color: $backgound;
+  background-color: $background;
 }
 
 .img-responsive {
@@ -304,15 +304,15 @@ input {
 
 .panel-default{
   .timeline-body{
-    background-color: $backgound;
+    background-color: $background;
     .btn-default{
-      background-color: $backgound;
+      background-color: $background;
     }
     .btn-default:hover, .btn-default:focus, .btn-default:active,{
       background-color: $nav_hover;
     }
     .list-group-item{
-      background-color: $backgound;
+      background-color: $background;
     }
   }
 }
@@ -357,3 +357,57 @@ input {
     text-align: justify;
   }
 }
+
+.switcher {
+  text-align: center;
+}
+.switcher .fieldset {
+  display: inline-block;
+  position: relative;
+  padding: 2px;
+  border-radius: 50em;
+  border: 1px solid #225b78;
+  background-color: $background;
+}
+.switcher input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+.switcher label {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding-top: 3px;
+  padding-left: 17px;
+  float: left;
+  width: 90px;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  font-size: 1.3em;
+  color: #DD4814;
+}
+.switcher .switch {
+  /* floating background */
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  padding-left: 2px;
+  height: 40px;
+  width: 90px;
+  background-color: $nav_hover;
+  border-radius: 50em;
+  -webkit-transition: -webkit-transform 0.5s;
+  -moz-transition: -moz-transform 0.5s;
+  transition: transform 0.5s;
+}
+.switcher input[type="radio"]:checked + label + .switch,
+.switcher input[type="radio"]:checked + label:nth-of-type(n) + .switch {
+  /* use label:nth-of-type(n) to fix a bug on safari with multiple adjacent-sibling selectors*/
+  -webkit-transform: translateX(86px);
+  -moz-transform: translateX(86px);
+  -ms-transform: translateX(86px);
+  -o-transform: translateX(86px);
+  transform: translateX(86px);
+}
+

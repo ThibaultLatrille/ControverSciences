@@ -62,6 +62,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find( params[:id] )
     @my_comment = Comment.find( params[:id] )
     if @comment.user_id == current_user.id
+      @comment.public = comment_params[:public]
       for fi in 0..5 do
         @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
       end
@@ -81,7 +82,7 @@ class CommentsController < ApplicationController
   end
 
   def show
-    @comment = Comment.select( :id, :user_id, :reference_id, :timeline_id,
+    @comment = Comment.select( :id, :user_id, :reference_id, :timeline_id, :markdown_0,
                                :markdown_1, :markdown_2, :markdown_3, :markdown_4,
                                :markdown_5, :balance, :best,
                                :created_at
@@ -94,7 +95,7 @@ class CommentsController < ApplicationController
       comment.destroy_with_counters
       redirect_to my_items_comments_path
     else
-      flash[:danger] = "Cette analyse est la meilleure et ne peut être supprimée."
+      flash[:danger] = "Cette analyse est la meilleure pour cette référence et ne peut être supprimée."
       redirect_to comment_path(params[:id])
     end
   end
@@ -103,6 +104,6 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:id, :reference_id, :timeline_id, :f_0_content, :f_1_content, :f_2_content,
-                                    :f_3_content, :f_4_content, :f_5_content)
+                                    :f_3_content, :f_4_content, :f_5_content, :public)
   end
 end

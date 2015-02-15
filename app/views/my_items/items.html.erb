@@ -16,6 +16,7 @@
       <tr>
         <th class="col-sm-8"> Nom </th>
         <th class="col-sm-3"> Thèmes </th>
+        <th class="col-xs-1 center"> Modifier </th>
         <th class="col-sm-1 center"> Supprimer </th>
       </tr>
       </thead>
@@ -25,6 +26,7 @@
           <tr class="notification-timeline">
             <td> <%= link_to "Vous n'avez pas encore créé de controverse",
                              new_timeline_path %> </td>
+            <td>  </td>
             <td>  </td>
             <td>  </td>
           </tr>
@@ -38,6 +40,8 @@
                                     title: tags_hash[name],  height: "24px")%>
                   <% end %>
                 </td>
+                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
+                                                edit_timeline_path( timeline.id ) %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                                 timeline_path( timeline.id ), method: :delete,
                                                 data: { confirm: "Etes vous certain ?" } %>  </td>
@@ -46,6 +50,7 @@
           <tr class="notification-timeline">
             <td> <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\"> </span> Créer une nouvelle controverse".html_safe,
                              new_timeline_path %> </td>
+            <td>  </td>
             <td>  </td>
             <td>  </td>
           </tr>
@@ -73,6 +78,7 @@
         <th class="col-xs-1 center"> Crédits </th>
         <th class="col-xs-5"> Synthèse </th>
         <th class="col-xs-5"> De la controverse </th>
+        <th class="col-xs-1 center"> Public </th>
         <th class="col-xs-1 center"> Modifier </th>
         <th class="col-xs-1 center"> Supprimer </th>
       </tr>
@@ -86,6 +92,7 @@
             <td> </td>
             <td> </td>
             <td> </td>
+            <td> </td>
           </tr>
       <% else %>
           <% @summaries.each do |com| %>
@@ -93,6 +100,8 @@
                 <td class="center"> <%= com.balance %> </td>
                 <td> <%= link_to com.content[0..70]+"...", summary_path(com.id ) %>   </td>
                 <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+                <td class="center"> <%= com.public ? "<span class=\"glyphicon glyphicon-ok\"> </span>".html_safe :
+                                                "<span class=\"glyphicon glyphicon-remove\"> </span>".html_safe %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
                                                 edit_summary_path( com.id ) %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
@@ -173,6 +182,7 @@
         <th class="col-xs-3"> L'analyse </th>
         <th class="col-xs-4"> De la référence </th>
         <th class="col-xs-3"> Dans la controverse </th>
+        <th class="col-xs-1 center"> Public </th>
         <th class="col-xs-1 center"> Modifier </th>
         <th class="col-xs-1 center"> Supprimer </th>
       </tr>
@@ -187,6 +197,7 @@
             <td> </td>
             <td> </td>
             <td> </td>
+            <td> </td>
           </tr>
       <% else %>
           <% @comments.each do |com| %>
@@ -195,6 +206,8 @@
                 <td> <%= link_to com.f_1_content[0..70]+"...", comment_path(com.id ) %>   </td>
                 <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
                 <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+                <td class="center"> <%= com.public ? "<span class=\"glyphicon glyphicon-ok\"> </span>".html_safe :
+                                                "<span class=\"glyphicon glyphicon-remove\"> </span>".html_safe %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
                                                 edit_comment_path( com.id ) %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,

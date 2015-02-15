@@ -22,8 +22,8 @@ class MyItemsController < ApplicationController
     @timelines = Timeline.select(:id, :name).where( user_id: current_user.id)
     @references = Reference.select(:id, :timeline_id, :title_fr).where( user_id: current_user.id)
     @comments = Comment.select(:id, :timeline_id, :reference_id,
-                               :f_1_content, :balance ).where( user_id: current_user.id)
-    @summaries = Summary.select(:id, :timeline_id, :content, :balance ).where( user_id: current_user.id)
+                               :f_1_content, :balance, :public ).where( user_id: current_user.id)
+    @summaries = Summary.select(:id, :timeline_id, :content, :balance, :public ).where( user_id: current_user.id)
   end
 
   def votes

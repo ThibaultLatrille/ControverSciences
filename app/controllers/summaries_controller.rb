@@ -56,6 +56,7 @@ class SummariesController < ApplicationController
     @my_summary = Summary.find( params[:id] )
     if @summary.user_id == current_user.id
       @summary[:content] = summary_params[:content]
+      @summary[:public] = summary_params[:public]
       if @summary.update_with_markdown( timeline_url( @summary.timeline_id ) )
         flash[:success] = "Synthèse modifiée."
         redirect_to @summary
@@ -93,7 +94,7 @@ class SummariesController < ApplicationController
     end
     if params[:filter] == "my-vote"
       summary_ids = Credit.where( user_id: user_id, timeline_id: params[:timeline_id] ).pluck( :summary_id )
-      @summaries = Summary.where( id: summary_ids ).page(params[:page]).per(10)
+      @summaries = Summary.where( id: summary_ids, public: true ).page(params[:page]).per(10)
     elsif params[:filter] == "mine"
       @summaries = Summary.where( user_id: user_id, timeline_id: params[:timeline_id] ).page(params[:page]).per(10)
     elsif logged_in?
@@ -104,27 +105,27 @@ class SummariesController < ApplicationController
       end
       Summary.connection.execute("select setseed(#{@seed})")
       @summaries = Summary.where(
-          timeline_id: params[:timeline_id] ).where.not(
+          timeline_id: params[:timeline_id], public: true ).where.not(
           user_id: user_id).order('random()').page(params[:page]).per(5)
     else
       if !params[:sort].nil?
         if !params[:order].nil?
           @summaries = Summary.order(params[:sort].to_sym => params[:order].to_sym).where(
-              timeline_id: params[:timeline_id]).where.not(
+              timeline_id: params[:timeline_id], public: true).where.not(
               user_id: user_id).page(params[:page]).per(5)
         else
           @summaries = Summary.order(params[:sort].to_sym => :desc).where(
-              timeline_id: params[:timeline_id]).where.not(
+              timeline_id: params[:timeline_id], public: true).where.not(
               user_id: user_id).page(params[:page]).per(5)
         end
       else
         if !params[:order].nil?
           @summaries = Summary.order(:score => params[:order].to_sym).where(
-              timeline_id: params[:timeline_id]).where.not(
+              timeline_id: params[:timeline_id], public: true).where.not(
               user_id: user_id).page(params[:page]).per(5)
         else
           @summaries = Summary.order(:score => :desc).page(params[:page]).where(
-              timeline_id: params[:timeline_id]).where.not(
+              timeline_id: params[:timeline_id], public: true).where.not(
               user_id: user_id).page(params[:page]).per(5)
         end
       end
@@ -145,6 +146,6 @@ class SummariesController < ApplicationController
   private
 
   def summary_params
-    params.require(:summary).permit(:timeline_id, :content)
+    params.require(:summary).permit(:timeline_id, :content, :public)
   end
 end
