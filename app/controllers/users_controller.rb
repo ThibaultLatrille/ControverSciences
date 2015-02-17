@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @user_detail = UserDetail.find_by_user_id( params[:id] )
+    puts @user_detail
     @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
     @references = Reference.select(:id, :timeline_id, :title_fr).where(user_id: params[:id])
     @comments = Comment.select(:id, :reference_id, :f_1_content ).where(user_id: params[:id])
@@ -37,6 +38,8 @@ class UsersController < ApplicationController
     unless @user_detail
       @user_detail = UserDetail.new( user_id: params[:id] )
     end
+    puts @user_detail
+    puts @user_detail.inspect
     @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
     @references = Reference.select(:id, :timeline_id, :title_fr).where(user_id: params[:id])
     @comments = Comment.select(:id, :reference_id, :f_1_content ).where(user_id: params[:id])
