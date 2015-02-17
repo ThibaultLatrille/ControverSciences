@@ -1,8 +1,20 @@
 <div class="panel panel-default comment">
   <div class="panel-body">
   <span class="content">
+    <div class="clearfix">
+         <% if summary.picture? %>
+          <div class="pull-right">
+            <div class="thumbnail">
+              <%= image_tag summary.picture.url, class: "img-rounded img-responsive" %>
+              <div class="caption">
+                <%= summary.caption_markdown.html_safe %>
+              </div>
+            </div>
+          </div>
+        <% end %>
     <div class="text-justify">
         <%= summary.markdown.html_safe %>
+    </div>
     </div>
     <% unless credit %>
         <div class="pull-right">

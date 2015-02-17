@@ -31,7 +31,13 @@
                 <% if @parent %>
                     <%= f.hidden_field :parent_id, value: @parent.id %>
                 <% end %>
-
+                <span class="picture">
+                         <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg' %>
+                 </span>
+                <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
+                                           :class => "form-control textarea", id: "description6",
+                                           "data-provide" => "markdown" }%>
+                <br/>
                 <%= f.hidden_field :timeline_id, value: @summary.timeline_id %>
                 <div class="switcher pull-left">
                   <p class="fieldset">
@@ -112,6 +118,12 @@
     var myref = document.getElementById('save-btn-http');
     $('#save-btn-http').on('click', function (event) {
         myref.setAttribute("data-toggled", 'yes');
+    });
+    $('#micropost_picture').bind('change', function() {
+        size_in_megabytes = this.files[0].size/1024/1024;
+        if (size_in_megabytes > 5) {
+            alert('Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.');
+        }
     });
     $(document).ready(function() {
         var max = 12500;

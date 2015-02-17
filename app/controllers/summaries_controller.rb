@@ -55,8 +55,10 @@ class SummariesController < ApplicationController
     @summary = Summary.find( params[:id] )
     @my_summary = Summary.find( params[:id] )
     if @summary.user_id == current_user.id
-      @summary[:content] = summary_params[:content]
-      @summary[:public] = summary_params[:public]
+      @summary.content = summary_params[:content]
+      @summary.public = summary_params[:public]
+      @summary.picture = summary_params[:picture]
+      @summary.caption = summary_params[:caption]
       if @summary.update_with_markdown( timeline_url( @summary.timeline_id ) )
         flash[:success] = "Synthèse modifiée."
         redirect_to @summary
@@ -74,7 +76,7 @@ class SummariesController < ApplicationController
 
   def show
     @summary = Summary.select( :id, :user_id, :timeline_id,
-                               :markdown, :balance, :best,
+                               :markdown, :balance, :best, :picture, :caption_markdown,
                                :created_at
     ).find(params[:id])
   end
@@ -146,6 +148,6 @@ class SummariesController < ApplicationController
   private
 
   def summary_params
-    params.require(:summary).permit(:timeline_id, :content, :public)
+    params.require(:summary).permit(:timeline_id, :content, :public, :picture, :caption)
   end
 end

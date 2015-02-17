@@ -29,9 +29,12 @@ class Summary < ActiveRecord::Base
 
   around_update :updating_with_public
 
+  mount_uploader :picture, PictureUploader
+
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :content, presence: true, length: {maximum: 12500}
+  validate  :picture_size
   validates_uniqueness_of :user_id, :scope => :timeline_id
 
   def user_name
@@ -40,6 +43,10 @@ class Summary < ActiveRecord::Base
 
   def timeline_name
     Timeline.select( :name ).find( self.timeline_id ).name
+  end
+
+  def file_name
+    User.select( :email ).find(self.user_id).email.partition("@")[0].gsub(".", "_" ) + "_time_#{self.timeline_id}"
   end
 
   def my_credit( user_id )
@@ -96,7 +103,9 @@ class Summary < ActiveRecord::Base
         # will require a space after # in defining headers
         # space_after_headers: true
     }
-    self.markdown = Redcarpet::Markdown.new(renderer, extensions).render(self.content)
+    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
+    self.markdown = redcarpet.render(self.content)
+    self.caption_markdown = redcarpet.render(self.caption)
     renderer.links
   end
 
@@ -145,6 +154,13 @@ class Summary < ActiveRecord::Base
   end
 
   private
+
+  # Validates the size of an uploaded picture.
+  def picture_size
+    if picture.size > 5.megabytes
+      errors.add(:picture, 'Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.')
+    end
+  end
 
   def updating_with_public
     public = self.public_was
