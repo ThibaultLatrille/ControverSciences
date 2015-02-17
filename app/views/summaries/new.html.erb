@@ -138,7 +138,7 @@
         var max = 12500;
         var len = $(this).val().length;
         if (len >= max) {
-            var ch = max - len;
+            var ch = len - max;
             $('#characterLeft').css({"color": "#a94442"});
             $('#characterLeft').text(ch + ' caractères en trop !');
         } else {

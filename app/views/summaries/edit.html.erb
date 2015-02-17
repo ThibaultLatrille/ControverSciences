@@ -38,6 +38,8 @@
                                            :class => "form-control textarea", id: "description6",
                                            "data-provide" => "markdown" }%>
                 <br/>
+                <p hidden id="best_summary"><%= @summary.best %></p>
+                <p hidden id="balance_summary"><%= @summary.balance %></p>
                 <%= f.hidden_field :timeline_id, value: @summary.timeline_id %>
                 <div class="switcher pull-left">
                   <p class="fieldset">
@@ -109,7 +111,34 @@
   </div>
 </div>
 
+<div class="modal fade" id="warning" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content panel-warning">
+      <div class="modal-header panel-heading">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"> Attention </h4>
+      </div>
+      <div class="modal-body">
+        Rendre une contribution privé vous fera perdre tous les crédits qui lui ont été attribués.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
+    $('input[type=radio]', '.switcher').change(function () {
+        if ($('input[type=radio]:checked', '.switcher').val() === 'false' ) {
+            if ($('#best_summary').text() === 'true') {
+                $('#warning').modal('show');
+            } else if (!($('#balance_summary').text() === '0')) {
+                $('#warning').modal('show');
+            }
+        }
+    });
+    console.log($('input[type=radio]:checked', '.switcher').val());
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
         mysavebtn.setAttribute("data-toggled", 'yes');
@@ -129,7 +158,7 @@
         var max = 12500;
         var len = $('#description').val().length;
         if (len >= max) {
-            var ch = max - len;
+            var ch = len - max;
             $('#characterLeft').css({"color": "#a94442"});
             $('#characterLeft').text(ch + ' caractères en trop !');
         } else {
@@ -142,7 +171,7 @@
         var max = 12500;
         var len = $(this).val().length;
         if (len >= max) {
-            var ch = max - len;
+            var ch = len - max;
             $('#characterLeft').css({"color": "#a94442"});
             $('#characterLeft').text(ch + ' caractères en trop !');
         } else {

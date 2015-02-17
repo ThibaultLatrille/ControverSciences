@@ -139,7 +139,7 @@
             var max = 1000;
             var len = $('#description' + value).val().length;
             if (len >= max) {
-                var ch = max - len;
+                var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
                 $('#characterLeft' + value).text(ch + ' caractères en trop !');
             } else {
@@ -152,7 +152,7 @@
             var max = 1000;
             var len = $(this).val().length;
             if (len >= max) {
-                var ch = max - len;
+                var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
                 $('#characterLeft' + value).text(ch + ' caractères en trop !');
             } else {
