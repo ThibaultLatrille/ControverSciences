@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150215023109) do
+ActiveRecord::Schema.define(version: 20150217110149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,24 +70,27 @@ ActiveRecord::Schema.define(version: 20150215023109) do
     t.integer  "user_id"
     t.integer  "timeline_id"
     t.integer  "reference_id"
-    t.integer  "balance",      default: 0
-    t.float    "score",        default: 0.0
-    t.boolean  "best",         default: false
-    t.text     "f_0_content",  default: ""
-    t.text     "f_1_content",  default: ""
-    t.text     "f_2_content",  default: ""
-    t.text     "f_3_content",  default: ""
-    t.text     "f_4_content",  default: ""
-    t.text     "f_5_content",  default: ""
-    t.text     "markdown_0",   default: ""
-    t.text     "markdown_1",   default: ""
-    t.text     "markdown_2",   default: ""
-    t.text     "markdown_3",   default: ""
-    t.text     "markdown_4",   default: ""
-    t.text     "markdown_5",   default: ""
+    t.integer  "balance",          default: 0
+    t.float    "score",            default: 0.0
+    t.boolean  "best",             default: false
+    t.text     "f_0_content",      default: ""
+    t.text     "f_1_content",      default: ""
+    t.text     "f_2_content",      default: ""
+    t.text     "f_3_content",      default: ""
+    t.text     "f_4_content",      default: ""
+    t.text     "f_5_content",      default: ""
+    t.text     "markdown_0",       default: ""
+    t.text     "markdown_1",       default: ""
+    t.text     "markdown_2",       default: ""
+    t.text     "markdown_3",       default: ""
+    t.text     "markdown_4",       default: ""
+    t.text     "markdown_5",       default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "public",       default: true
+    t.boolean  "public",           default: true
+    t.string   "picture"
+    t.text     "caption"
+    t.text     "caption_markdown"
   end
 
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id", using: :btree

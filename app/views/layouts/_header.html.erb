@@ -37,7 +37,7 @@
                  <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to '<span class="glyphicon glyphicon-user"></span> Mon profil'.html_safe,
+                <li><%= link_to "<span class=\"glyphicon glyphicon-user\"></span> &nbsp #{current_user.name}".html_safe,
                                 edit_user_path(current_user) %> </li>
                 <li class="divider"></li>
                 <li><%= link_to "Mes contributions",

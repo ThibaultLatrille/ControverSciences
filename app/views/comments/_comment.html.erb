@@ -1,5 +1,15 @@
 <div class="panel panel-default comment">
-  <div class="panel-body">
+  <div class="panel-body clearfix">
+      <% if comment.picture? %>
+        <div class="pull-right">
+          <div class="thumbnail">
+            <%= image_tag comment.picture.url, class: "img-rounded img-responsive" %>
+            <div class="caption">
+              <%= comment.caption_markdown.html_safe %>
+            </div>
+          </div>
+        </div>
+      <% end %>
   <span class="content">
     <% for fi in 0..5 %>
         <% if comment["markdown_#{fi}".to_sym] != "" %>

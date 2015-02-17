@@ -66,6 +66,8 @@ class CommentsController < ApplicationController
       for fi in 0..5 do
         @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
       end
+      @comment.picture = comment_params[:picture]
+      @comment.caption = comment_params[:caption]
       if @comment.update_with_markdown( timeline_url( @comment.timeline_id ) )
         flash[:success] = "Analyse modifiée."
         redirect_to @comment
@@ -84,9 +86,17 @@ class CommentsController < ApplicationController
   def show
     @comment = Comment.select( :id, :user_id, :reference_id, :timeline_id, :markdown_0,
                                :markdown_1, :markdown_2, :markdown_3, :markdown_4,
-                               :markdown_5, :balance, :best,
-                               :created_at
+                               :markdown_5, :balance, :best, :public,
+                               :created_at, :picture, :caption_markdown
                               ).find(params[:id])
+    unless @comment.public
+      if current_user && current_user.id == @comment.user_id
+        flash.now[:info] = "Cette analyse est privée."
+      else
+        flash[:danger] = "Vous n'avez pas l'autorisation d'accéder à cette page, le contenu à été rendu privé par son auteur."
+        redirect_to reference_path(@comment.reference_id)
+      end
+    end
   end
 
   def destroy
@@ -104,6 +114,6 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:id, :reference_id, :timeline_id, :f_0_content, :f_1_content, :f_2_content,
-                                    :f_3_content, :f_4_content, :f_5_content, :public)
+                                    :f_3_content, :f_4_content, :f_5_content, :public, :picture, :caption)
   end
 end

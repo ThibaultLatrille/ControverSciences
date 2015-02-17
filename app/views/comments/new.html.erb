@@ -28,7 +28,7 @@
                               timeline_url(@comment.timeline_id) %>
               </div>
               <div class="panel-body">
-            <%= form_for(@comment) do |f| %>
+            <%= form_for(@comment, html: { multipart: true }) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <% for fi in 0..5 %>
@@ -44,17 +44,24 @@
                 <% if @parent %>
                   <%= f.hidden_field :parent_id, value: @parent.id %>
                 <% end %>
+                 <span class="picture">
+                         <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg' %>
+                 </span>
+                    <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
+                                                :class => "form-control textarea", id: "description6",
+                                                   "data-provide" => "markdown" }%>
                 <%= f.hidden_field :reference_id, value: @comment.reference_id %>
                 <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
-                    <div class="switcher pull-left">
-                      <p class="fieldset">
-                        <%= f.radio_button :public, true %>
-                        <label for="comment_public_true">Public</label>
-                        <%= f.radio_button :public, false %>
-                        <label for="comment_public_false">Privée</label>
-                        <span class="switch"></span>
-                      </p>
-                    </div>
+                <br/>
+                <div class="switcher pull-left">
+                  <p class="fieldset">
+                    <%= f.radio_button :public, true %>
+                    <label for="comment_public_true">Public</label>
+                    <%= f.radio_button :public, false %>
+                    <label for="comment_public_false">Privée</label>
+                    <span class="switch"></span>
+                  </p>
+                </div>
                 <%= f.submit "Publier mon analyse", class: "pull-right btn btn-success btn-lg"%>
             <% end %>
               </div>
@@ -120,6 +127,12 @@
     var myref = document.getElementById('save-btn-http');
     $('#save-btn-http').on('click', function (event) {
         myref.setAttribute("data-toggled", 'yes');
+    });
+    $('#micropost_picture').bind('change', function() {
+        size_in_megabytes = this.files[0].size/1024/1024;
+        if (size_in_megabytes > 5) {
+            alert('Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.');
+        }
     });
     $.each(['0', '1', '2', '3', '4', '5' ], function (index, value) {
         $(document).ready(function() {

@@ -411,3 +411,14 @@ input {
   transform: translateX(86px);
 }
 
+
+.thumbnail {
+  img {
+    max-width: 400px;
+  }
+  margin-left: 15px;
+}
+.thumbnail .caption{
+  text-align: justify;
+  max-width: 400px;
+}

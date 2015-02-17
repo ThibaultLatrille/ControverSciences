@@ -4,7 +4,7 @@ class UserDetail < ActiveRecord::Base
   validate  :picture_size
 
   def file_name
-    User.find(self.user_id).email.partition("@")[0].gsub(".", "_" )
+    User.select( :email ).find(self.user_id).email.partition("@")[0].gsub(".", "_" )
   end
 
   private

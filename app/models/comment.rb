@@ -29,6 +29,8 @@ class Comment < ActiveRecord::Base
 
   around_update :updating_with_public
 
+  mount_uploader :picture, PictureUploader
+
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
@@ -38,6 +40,7 @@ class Comment < ActiveRecord::Base
   validates :f_3_content, length: {maximum: 1001}
   validates :f_4_content, length: {maximum: 1001}
   validates :f_5_content, length: {maximum: 1001}
+  validate  :picture_size
   validates_uniqueness_of :user_id, :scope => :reference_id
 
   def user_name
@@ -50,6 +53,10 @@ class Comment < ActiveRecord::Base
 
   def timeline_name
     Timeline.select( :name ).find( self.timeline_id ).name
+  end
+
+  def file_name
+    User.select( :email ).find(self.user_id).email.partition("@")[0].gsub(".", "_" ) + "_ref_#{self.reference_id}"
   end
 
   def my_vote( user_id )
@@ -106,9 +113,11 @@ class Comment < ActiveRecord::Base
         # will require a space after # in defining headers
         # space_after_headers: true
     }
+    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     for fi in 0..5
-      self["markdown_#{fi}".to_sym ] = Redcarpet::Markdown.new(renderer, extensions).render(self["f_#{fi}_content".to_sym ])
+      self["markdown_#{fi}".to_sym ] = redcarpet.render(self["f_#{fi}_content".to_sym ])
     end
+    self.caption_markdown = redcarpet.render(self.caption)
     renderer.links
   end
 
@@ -162,6 +171,13 @@ class Comment < ActiveRecord::Base
   end
 
   private
+
+  # Validates the size of an uploaded picture.
+  def picture_size
+    if picture.size > 5.megabytes
+      errors.add(:picture, 'Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.')
+    end
+  end
 
   def updating_with_public
     public = self.public_was
