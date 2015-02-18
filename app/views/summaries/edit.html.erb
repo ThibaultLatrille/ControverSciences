@@ -17,7 +17,7 @@
                         timeline_url( @summary.timeline_id ) %>
           </div>
           <div class="panel-body">
-            <%= form_for(@summary) do |f| %>
+            <%= form_for(@summary, html: { multipart: true }) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <%= f.label "Synthèse" %> <div id="characterLeft"></div>
@@ -31,15 +31,29 @@
                 <% if @parent %>
                     <%= f.hidden_field :parent_id, value: @parent.id %>
                 <% end %>
-                <span class="picture">
-                         <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg' %>
-                 </span>
-                <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
-                                           :class => "form-control textarea", id: "description6",
-                                           "data-provide" => "markdown" }%>
+                <span class="btn btn-default btn-file">
+                  <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                     &nbsp <span id="ajouter">Changer de figure</span> <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg' %>
+                </span>
+                <span id="delete" class="btn btn-danger">
+                  <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                    Supprimer la figure
+                </span>
+                <div id="caption">
+                  <br/>
+                 <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
+                  <br/>
+                  <br/>
+                    <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
+                                               :class => "form-control textarea", id: "description6",
+                                               "data-provide" => "markdown" }%>
+                </div>
+                <br/>
                 <br/>
                 <p hidden id="best_summary"><%= @summary.best %></p>
+                <p hidden id="has_picture"><%= @summary.picture %></p>
                 <p hidden id="balance_summary"><%= @summary.balance %></p>
+                <%= f.hidden_field :delete_picture, value: false %>
                 <%= f.hidden_field :timeline_id, value: @summary.timeline_id %>
                 <div class="switcher pull-left">
                   <p class="fieldset">
@@ -129,6 +143,23 @@
 </div>
 
 <script type="text/javascript">
+    $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+    $('#delete').click(function(){
+        $('#caption').fadeOut(500);
+        $('#delete').fadeOut(500);
+        $('#ajouter').text("Ajouter une figure à cette synthèse");
+        $('#summary_delete_picture').val('true');
+    });
+    if ($('#has_picture').text() === '') {
+        $('#caption').hide();
+        $('#delete').hide();
+        $('#ajouter').text("Ajouter une figure à cette synthèse");
+    }
     $('input[type=radio]', '.switcher').change(function () {
         if ($('input[type=radio]:checked', '.switcher').val() === 'false' ) {
             if ($('#best_summary').text() === 'true') {
@@ -138,7 +169,6 @@
             }
         }
     });
-    console.log($('input[type=radio]:checked', '.switcher').val());
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
         mysavebtn.setAttribute("data-toggled", 'yes');
@@ -155,6 +185,13 @@
         }
     });
     $(document).ready(function() {
+        $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+            $('#caption').fadeIn(500);
+            $('#delete').fadeIn(500);
+            $('#ajouter').text("Changer de figure");
+            $('#caption-name').text(label);
+            $('#summary_delete_picture').val('false');
+        });
         var max = 12500;
         var len = $('#description').val().length;
         if (len >= max) {

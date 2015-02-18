@@ -44,15 +44,28 @@
                 <% if @parent %>
                   <%= f.hidden_field :parent_id, value: @parent.id %>
                 <% end %>
-                 <span class="picture">
-                         <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg' %>
-                 </span>
-                    <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
-                                                :class => "form-control textarea", id: "description6",
-                                                   "data-provide" => "markdown" }%>
-                <%= f.hidden_field :reference_id, value: @comment.reference_id %>
-                <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
-                <br/>
+                    <%= f.hidden_field :delete_picture, value: false %>
+                    <%= f.hidden_field :reference_id, value: @comment.reference_id %>
+                    <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
+                    <span class="btn btn-default btn-file">
+                  <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                     &nbsp <span id="ajouter">Changer de figure</span> <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg' %>
+                </span>
+                <span id="delete" class="btn btn-danger">
+                  <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                    Supprimer la figure
+                </span>
+                    <div id="caption">
+                      <br/>
+                      <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
+                      <br/>
+                      <br/>
+                      <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
+                                                 :class => "form-control textarea", id: "description6",
+                                                 "data-provide" => "markdown" }%>
+                    </div>
+                    <br/>
+                    <br/>
                 <div class="switcher pull-left">
                   <p class="fieldset">
                     <%= f.radio_button :public, true %>
@@ -120,6 +133,18 @@
 
 
 <script type="text/javascript">
+    $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+    $('#delete').click(function(){
+        $('#caption').fadeOut(500);
+        $('#delete').fadeOut(500);
+        $('#ajouter').text("Ajouter une figure à cette analyse");
+        $('#comment_delete_picture').val('true');
+    });
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
         mysavebtn.setAttribute("data-toggled", 'yes');
@@ -133,6 +158,15 @@
         if (size_in_megabytes > 5) {
             alert('Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.');
         }
+    });
+    $(document).ready(function() {
+        $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+            $('#caption').fadeIn(500);
+            $('#delete').fadeIn(500);
+            $('#ajouter').text("Changer de figure");
+            $('#caption-name').text(label);
+            $('#comment_delete_picture').val('false');
+        });
     });
     $.each(['0', '1', '2', '3', '4', '5' ], function (index, value) {
         $(document).ready(function() {

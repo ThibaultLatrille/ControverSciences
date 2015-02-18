@@ -19,7 +19,16 @@ class SummariesController < ApplicationController
   end
 
   def create
-    @summary = Summary.new( summary_params )
+    @summary = Summary.new( timeline_id: summary_params[:timeline_id],
+                            content: summary_params[:content],
+                            public: summary_params[:public])
+    if summary_params[:picture] && summary_params[:delete_picture] == 'false'
+      @summary.picture = summary_params[:picture]
+      @summary.caption = summary_params[:caption]
+    else
+      @summary.caption = ''
+      @summary.remove_picture!
+    end
     @summary.user_id = current_user.id
     parent_id = params[:summary][:parent_id]
     if @summary.save_with_markdown( timeline_url( summary_params[:timeline_id] ) )
@@ -57,8 +66,13 @@ class SummariesController < ApplicationController
     if @summary.user_id == current_user.id
       @summary.content = summary_params[:content]
       @summary.public = summary_params[:public]
-      @summary.picture = summary_params[:picture]
-      @summary.caption = summary_params[:caption]
+      if summary_params[:delete_picture] == 'true'
+        @summary.caption = ''
+        @summary.remove_picture!
+      elsif summary_params[:picture]
+        @summary.picture = summary_params[:picture]
+        @summary.caption = summary_params[:caption]
+      end
       if @summary.update_with_markdown( timeline_url( @summary.timeline_id ) )
         flash[:success] = "Synthèse modifiée."
         redirect_to @summary
@@ -148,6 +162,6 @@ class SummariesController < ApplicationController
   private
 
   def summary_params
-    params.require(:summary).permit(:timeline_id, :content, :public, :picture, :caption)
+    params.require(:summary).permit(:timeline_id, :content, :public, :picture, :caption, :delete_picture)
   end
 end

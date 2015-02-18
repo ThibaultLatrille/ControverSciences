@@ -25,6 +25,13 @@ class CommentsController < ApplicationController
 
   def create
     @comment = Comment.new( comment_params )
+    if comment_params[:picture] && comment_params[:delete_picture] == 'false'
+      @comment.picture = comment_params[:picture]
+      @comment.caption = comment_params[:caption]
+    else
+      @comment.caption = ''
+      @comment.remove_picture!
+    end
     @comment.user_id = current_user.id
     parent_id = params[:comment][:parent_id]
     if @comment.save_with_markdown( timeline_url( comment_params[:timeline_id] ) )
@@ -66,8 +73,13 @@ class CommentsController < ApplicationController
       for fi in 0..5 do
         @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
       end
-      @comment.picture = comment_params[:picture]
-      @comment.caption = comment_params[:caption]
+      if comment_params[:delete_picture] == 'true'
+        @comment.caption = ''
+        @comment.remove_picture!
+      elsif comment_params[:picture]
+        @comment.picture = comment_params[:picture]
+        @comment.caption = comment_params[:caption]
+      end
       if @comment.update_with_markdown( timeline_url( @comment.timeline_id ) )
         flash[:success] = "Analyse modifiée."
         redirect_to @comment
@@ -114,6 +126,6 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:id, :reference_id, :timeline_id, :f_0_content, :f_1_content, :f_2_content,
-                                    :f_3_content, :f_4_content, :f_5_content, :public, :picture, :caption)
+                                    :f_3_content, :f_4_content, :f_5_content, :public, :picture, :caption, :delete_picture)
   end
 end
