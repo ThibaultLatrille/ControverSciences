@@ -145,6 +145,10 @@
         $('#ajouter').text("Ajouter une figure à cette analyse");
         $('#comment_delete_picture').val('true');
     });
+    $('#caption').hide();
+    $('#delete').hide();
+    $('#ajouter').text("Ajouter une figure à cette analyse");
+
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
         mysavebtn.setAttribute("data-toggled", 'yes');

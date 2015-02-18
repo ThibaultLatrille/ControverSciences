@@ -130,6 +130,10 @@
         $('#summary_delete_picture').val('true');
         $('.btn-file :file').text('');
     });
+    $('#caption').hide();
+    $('#delete').hide();
+    $('#ajouter').text("Ajouter une figure à cette synthèse");
+
     var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
         mysavebtn.setAttribute("data-toggled", 'yes');
