@@ -1,17 +1,34 @@
+<% if BestComment.find_by_reference_id( reference.id ) %>
 <div class="cd-timeline-block">
     <div class="cd-timeline-img cd-color<%= reference.binary_most %>">
     </div>
 
     <div class="cd-timeline-content">
-      <h2> <%= link_to reference.title_fr, reference, class: "hvr-grow1" %>
-        <% if BestComment.find_by_reference_id( reference.id ) %>
+      <h2>
+      <% if reference.title_fr == '' %>
+        <%= link_to reference.title, reference, class: "hvr-grow1" %>
+      <% else %>
+         <%= link_to reference.title_fr.html_safe, reference, class: "hvr-grow1" %>
+      <% end %>
         <%= link_to "<span class=\"glyphicon glyphicon-chevron-down hvr-grow pull-right\"> </span>".html_safe,
                     from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}" %>
         <span class="detail glyphicon glyphicon-chevron-up hvr-grow pull-right" style="display: none"></span>
-        <% end %>
       </h2>
       <div id="reference<%= reference.id %>" class="ref clearfix" style="display: none">
       </div>
       <span class="cd-date"><%= reference.year %></span>
     </div>
 </div>
+<% else %>
+    <% if logged_in? %>
+        <div class="cd-timeline-block">
+          <div class="cd-timeline-img cd-color<%= reference.binary_most %>">
+          </div>
+          <div class="cd-timeline-content">
+            <h2> <%= link_to "La référence #{reference.title} n'a pas encore été analysée.", new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
+            </h2>
+            <span class="cd-date"><%= reference.year %></span>
+          </div>
+        </div>
+    <% end %>
+<% end %>

@@ -1,5 +1,9 @@
 <div class="panel panel-default comment">
   <div class="panel-body clearfix">
+    <% if comment.title_markdown != "" %>
+        <b> <%= comment.title_markdown.html_safe %> </b>
+        <br/>
+    <% end %>
       <% if comment.picture? %>
         <div class="pull-right">
           <div class="thumbnail">

@@ -138,7 +138,7 @@ class ReferencesController < ApplicationController
   private
 
   def reference_params
-    params.require(:reference).permit(:title, :title_fr, :timeline_id,
+    params.require(:reference).permit(:title, :timeline_id,
                                       :open_access, :url, :author, :year, :doi, :journal, :abstract)
   end
 

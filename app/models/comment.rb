@@ -40,6 +40,8 @@ class Comment < ActiveRecord::Base
   validates :f_3_content, length: {maximum: 1001}
   validates :f_4_content, length: {maximum: 1001}
   validates :f_5_content, length: {maximum: 1001}
+  validates :caption, length: {maximum: 1001}
+  validates :title, length: {maximum: 180}
   validate  :picture_size
   validates_uniqueness_of :user_id, :scope => :reference_id
 
@@ -118,6 +120,7 @@ class Comment < ActiveRecord::Base
       self["markdown_#{fi}".to_sym ] = redcarpet.render(self["f_#{fi}_content".to_sym ])
     end
     self.caption_markdown = redcarpet.render(self.caption)
+    self.title_markdown = redcarpet.render(self.title)
     renderer.links
   end
 
@@ -158,6 +161,7 @@ class Comment < ActiveRecord::Base
       BestComment.create( user_id: self.user_id, reference_id: self.reference_id,
                           comment_id: self.id)
     end
+    Reference.update( self.reference_id, title_fr: self.title_markdown )
     self.update_attributes( best: true)
   end
 
@@ -195,6 +199,9 @@ class Comment < ActiveRecord::Base
           BestComment.where( reference_id: self.reference_id).destroy_all
         end
       end
+    end
+    if self.best
+      Reference.update( self.reference_id, title_fr: self.title_markdown )
     end
   end
 

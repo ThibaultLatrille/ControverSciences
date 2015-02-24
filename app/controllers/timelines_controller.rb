@@ -86,7 +86,7 @@ class TimelinesController < ApplicationController
     else
       @summary = nil
     end
-    @references = Reference.select( :id, :title_fr, :year, :binary_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )
+    @references = Reference.select( :id, :title_fr, :title, :year, :binary_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )
   end
 
   def destroy

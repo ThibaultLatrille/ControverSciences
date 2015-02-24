@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       else
         message  = "Ce compte n'est pas encore actif, "
         message += "le lien pour l'activer est probablement dans votre boîte mail."
-        message += "Ou noyé parmis les spams qui inondent votre messagerie."
+        message += " Ou noyé parmis les spams qui inondent votre messagerie."
         flash[:warning] = message
         redirect_to root_url
       end

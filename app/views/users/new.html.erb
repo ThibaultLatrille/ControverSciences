@@ -40,14 +40,15 @@
         </div>
         <div id="why" style="display:<%= f.object.errors[:email].any? ? "block" : "none" %>" >
           <br/>
-          <div class="panel panel-danger">
+          <div class="panel panel-info">
             <div class="panel-heading">
               Il semblerait que votre adresse email n'appartienne pas à une institution scientifique.
               <br/>
-              Cela peut tout à fait être une erreur de notre part, dans ce cas veuillez simplement indiquer de quelle institution il s'agit.
+              Si vous disposez d'une telle adresse, en la renseignant votre validation sera automatique.
+              Sinon tout n'est pas perdu, il suffit d'expliquer en 3 lignes les raisons pour lesquelles vous
+              souhaitez créer un compte.
               <br/>
-              Si vous n'avez pas d'adresse appartenant à une institution scientifique, veuillez renseigner des informations sur vous nous
-              permettant de déterminer que vous êtes ici pour enrichir le débat !
+              Nos administrateurs valideront l'adresse manuellement dans les plus brefs délais !
             </div>
             <div class="panel-body">
             <%= f.text_area :why, class: 'form-control textarea' %>

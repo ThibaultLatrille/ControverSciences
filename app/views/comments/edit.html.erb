@@ -29,7 +29,12 @@
           <div class="panel-body">
             <%= form_for(@comment, html: { multipart: true }) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
+                <%= f.label "Phrase d'accroche" %> <div id="characterLeft7"></div>
 
+                <%= f.text_area :title, {rows: 4, :class => "form-control textarea",
+                                          id: "description7",
+                                          "data-provide" => "markdown" }%>
+                <br/>
                 <% for fi in 0..5 %>
                     <%= f.label fields_hash[fi] %> <div id="characterLeft<%= fi %>"></div>
 
@@ -61,6 +66,8 @@
                 <div id="caption">
                   <br/>
                   <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
+                  <br/>
+                  <div id="characterLeft6"></div>
                   <br/>
                   <br/>
                   <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
@@ -206,9 +213,13 @@
             $('#comment_delete_picture').val('false');
         });
     });
-    $.each(['0', '1', '2', '3', '4', '5' ], function (index, value) {
+    $.each(['0', '1', '2', '3', '4', '5', '6', '7' ], function (index, value) {
         $(document).ready(function() {
-            var max = 1000;
+            if (value === '7') {
+                var max = 180;
+            } else {
+                var max = 1000;
+            }
             var len = $('#description' + value).val().length;
             if (len >= max) {
                 var ch = len - max;
@@ -221,7 +232,11 @@
             }
         });
         $('#description' + value).keyup(function () {
-            var max = 1000;
+            if (value === '7') {
+                var max = 180;
+            } else {
+                var max = 1000;
+            }
             var len = $(this).val().length;
             if (len >= max) {
                 var ch = len - max;

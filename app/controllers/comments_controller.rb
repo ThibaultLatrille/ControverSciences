@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
         @parent = Comment.find(params[:parent_id])
         for fi in 0..5 do
           @comment["f_#{fi}_content".to_sym] = @parent["f_#{fi}_content".to_sym]
+          @comment.title = @parent.title
           @comment.reference_id = @parent.reference_id
           @comment.timeline_id = @parent.timeline_id
         end
@@ -58,6 +59,7 @@ class CommentsController < ApplicationController
       if @parent.user_id != current_user.id
         for fi in 0..5 do
           @comment["f_#{fi}_content".to_sym] += "\n" + @parent["f_#{fi}_content".to_sym]
+          @comment.title += "\n" + @parent.title
         end
       else
         @parent = nil
@@ -69,10 +71,12 @@ class CommentsController < ApplicationController
     @comment = Comment.find( params[:id] )
     @my_comment = Comment.find( params[:id] )
     if @comment.user_id == current_user.id
+      puts comment_params[:picture]
       @comment.public = comment_params[:public]
       for fi in 0..5 do
         @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
       end
+      @comment.title = comment_params[:title]
       if comment_params[:delete_picture] == 'true'
         @comment.caption = ''
         @comment.remove_picture!
@@ -99,7 +103,7 @@ class CommentsController < ApplicationController
     @comment = Comment.select( :id, :user_id, :reference_id, :timeline_id, :markdown_0,
                                :markdown_1, :markdown_2, :markdown_3, :markdown_4,
                                :markdown_5, :balance, :best, :public,
-                               :created_at, :picture, :caption_markdown
+                               :created_at, :picture, :caption_markdown, :title_markdown
                               ).find(params[:id])
     unless @comment.public
       if current_user && current_user.id == @comment.user_id
@@ -126,6 +130,6 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:id, :reference_id, :timeline_id, :f_0_content, :f_1_content, :f_2_content,
-                                    :f_3_content, :f_4_content, :f_5_content, :public, :picture, :caption, :delete_picture)
+                                    :f_3_content, :f_4_content, :f_5_content, :public, :picture, :caption, :delete_picture, :title)
   end
 end

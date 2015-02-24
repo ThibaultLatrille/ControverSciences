@@ -133,7 +133,7 @@
             <% else %>
                 <% @references.each do |reference| %>
                     <tr class="notification-reference">
-                      <td> <%= link_to reference.title_fr, reference_path(reference.id) %>   </td>
+                      <td> <%= link_to reference.title_fr.html_safe, reference_path(reference.id) %>   </td>
                       <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>   </td>
                     </tr>
                 <% end %>

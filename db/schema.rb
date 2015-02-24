@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217134740) do
+ActiveRecord::Schema.define(version: 20150224161134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,8 +89,10 @@ ActiveRecord::Schema.define(version: 20150217134740) do
     t.datetime "updated_at"
     t.boolean  "public",           default: true
     t.string   "picture"
-    t.text     "caption"
-    t.text     "caption_markdown"
+    t.text     "caption",          default: ""
+    t.text     "caption_markdown", default: ""
+    t.text     "title",            default: ""
+    t.text     "title_markdown",   default: ""
   end
 
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id", using: :btree
@@ -482,8 +484,8 @@ ActiveRecord::Schema.define(version: 20150217134740) do
     t.datetime "updated_at"
     t.boolean  "public",           default: true
     t.string   "picture"
-    t.text     "caption"
-    t.text     "caption_markdown"
+    t.text     "caption",          default: ""
+    t.text     "caption_markdown", default: ""
   end
 
   add_index "summaries", ["timeline_id"], name: "index_summaries_on_timeline_id", using: :btree
