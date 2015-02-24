@@ -119,6 +119,12 @@
     line-height: 1.6;
 }
 
+
+.cd-timeline-content a p {
+    margin: 0;
+    line-height: 1;
+}
+
 .cd-timeline-content .cd-date {
     float: left;
     padding: .8em 0;
