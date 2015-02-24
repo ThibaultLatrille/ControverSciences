@@ -8,7 +8,9 @@ class PictureUploader < CarrierWave::Uploader::Base
   process resize_to_limit: [1024, 1024], :if => :is_picture?
 
   def filename
+    if model.picture.file
     "#{model.file_name}.#{model.picture.file.extension}"
+    end
   end
 
   # Choose what kind of storage to use for this uploader:
