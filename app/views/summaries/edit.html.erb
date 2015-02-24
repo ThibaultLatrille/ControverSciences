@@ -20,11 +20,11 @@
             <%= form_for(@summary, html: { multipart: true }) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
-                <%= f.label "Synthèse" %> <div id="characterLeft"></div>
+                <%= f.label "Synthèse" %> <div id="characterLeft0"></div>
 
                 <%= f.text_area :content, {rows: 5, :placeholder => "synthèse",
                                            :class => "form-control textarea",
-                                           id: "description",
+                                           id: "description0",
                                            "data-provide" => "markdown" }%>
                 <br/>
 
@@ -43,12 +43,14 @@
                   <br/>
                  <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
                   <br/>
+                  <div id="characterLeft1"></div>
                   <br/>
                     <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
-                                               :class => "form-control textarea", id: "description6",
+                                               :class => "form-control textarea", id: "description1",
                                                "data-provide" => "markdown" }%>
                 </div>
                 <br/>
+                <div id="characterLeft1"></div>
                 <br/>
                 <p hidden id="best_summary"><%= @summary.best %></p>
                 <p hidden id="has_picture"><%= @summary.picture %></p>
@@ -192,29 +194,41 @@
             $('#caption-name').text(label);
             $('#summary_delete_picture').val('false');
         });
-        var max = 12500;
-        var len = $('#description').val().length;
-        if (len >= max) {
-            var ch = len - max;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' caractères en trop !');
-        } else {
-            var ch = max - len;
-            $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' caractères restants.');
-        }
     });
-    $('#description').keyup(function () {
-        var max = 12500;
-        var len = $(this).val().length;
-        if (len >= max) {
-            var ch = len - max;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' caractères en trop !');
-        } else {
-            var ch = max - len;
-            $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' caractères restants.');
-        }
+    $.each(['0', '1'], function (index, value) {
+        $(document).ready(function() {
+            if (value === '0') {
+                var max = 12500;
+            } else {
+                var max = 1000;
+            }
+            var len = $('#description' + value).val().length;
+            if (len >= max) {
+                var ch = len - max;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
+            }
+        });
+        $('#description' + value).keyup(function () {
+            if (value === '0') {
+                var max = 12500;
+            } else {
+                var max = 1000;
+            }
+            var len = $(this).val().length;
+            if (len >= max) {
+                var ch = len - max;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
+            }
+        });
     });
 </script>
