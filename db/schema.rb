@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224161134) do
+ActiveRecord::Schema.define(version: 20150226103100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,24 +40,6 @@ ActiveRecord::Schema.define(version: 20150224161134) do
   add_index "binaries", ["reference_id"], name: "index_binaries_on_reference_id", using: :btree
   add_index "binaries", ["timeline_id"], name: "index_binaries_on_timeline_id", using: :btree
   add_index "binaries", ["user_id"], name: "index_binaries_on_user_id", using: :btree
-
-  create_table "comment_drafts", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "timeline_id"
-    t.integer  "reference_id"
-    t.integer  "parent_id"
-    t.text     "f_1_content"
-    t.text     "f_2_content"
-    t.text     "f_3_content"
-    t.text     "f_4_content"
-    t.text     "f_5_content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "comment_drafts", ["reference_id"], name: "index_comment_drafts_on_reference_id", using: :btree
-  add_index "comment_drafts", ["timeline_id"], name: "index_comment_drafts_on_timeline_id", using: :btree
-  add_index "comment_drafts", ["user_id"], name: "index_comment_drafts_on_user_id", using: :btree
 
   create_table "comment_relationships", force: true do |t|
     t.integer  "parent_id"
@@ -502,18 +484,6 @@ ActiveRecord::Schema.define(version: 20150224161134) do
   add_index "summary_bests", ["summary_id"], name: "index_summary_bests_on_summary_id", using: :btree
   add_index "summary_bests", ["timeline_id"], name: "index_summary_bests_on_timeline_id", using: :btree
   add_index "summary_bests", ["user_id"], name: "index_summary_bests_on_user_id", using: :btree
-
-  create_table "summary_drafts", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "timeline_id"
-    t.integer  "parent_id"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "summary_drafts", ["timeline_id"], name: "index_summary_drafts_on_timeline_id", using: :btree
-  add_index "summary_drafts", ["user_id"], name: "index_summary_drafts_on_user_id", using: :btree
 
   create_table "summary_links", force: true do |t|
     t.integer  "user_id"
