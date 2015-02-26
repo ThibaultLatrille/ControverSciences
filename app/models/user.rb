@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
   has_many :notification_summary_selection_wins, dependent: :destroy
   has_many :visite_references, dependent: :destroy
   has_many :visite_timelines, dependent: :destroy
+  has_many :comment_types, dependent: :destroy
+  has_many :comment_mistakes, class_name: "CommentType", foreign_key: "target_user_id"
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
   before_save   :downcase_email
