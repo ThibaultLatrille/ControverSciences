@@ -7,7 +7,7 @@ class FollowingsController < ApplicationController
     timeline_ids = FollowingTimeline.where( user_id: current_user.id ).pluck( :timeline_id )
     @fo_timelines = Timeline.select(:id, :name ).where( id: timeline_ids )
     reference_ids = FollowingReference.where( user_id: current_user.id ).pluck( :reference_id )
-    @fo_references = Reference.select( :id, :title_fr, :timeline_id ).where( id: reference_ids )
+    @fo_references = Reference.select( :id, :title_fr, :title, :timeline_id ).where( id: reference_ids )
     timeline_summary_ids = FollowingSummary.where( user_id: current_user.id ).pluck( :timeline_id )
     @fo_summaries = Timeline.select(:id, :name ).where( id: timeline_summary_ids )
   end

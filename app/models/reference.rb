@@ -48,7 +48,7 @@ class Reference < ActiveRecord::Base
   end
 
   def title_display
-    if self.title_fr && self.title_fr != ""
+    if self.title_fr && !self.title_fr.empty?
       puts self.title_fr
       self.title_fr.html_safe
     else

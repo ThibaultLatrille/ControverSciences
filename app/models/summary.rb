@@ -1,7 +1,7 @@
 class Summary < ActiveRecord::Base
   require 'HTMLlinks'
 
-  attr_accessor :parent_id, :draft_id, :delete_picture
+  attr_accessor :parent_id, :delete_picture
 
   belongs_to :user
   belongs_to :timeline

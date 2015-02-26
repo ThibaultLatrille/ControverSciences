@@ -21,11 +21,11 @@ class Vote < ActiveRecord::Base
   end
 
   def comment_short
-    Comment.select( :id, :f_1_content, :user_id ).find( self.comment_id )
+    Comment.select( :id, :title, :user_id ).find( self.comment_id )
   end
 
   def reference_title
-    Reference.select( :title_fr, :title ).find( self.reference_id ).title_display
+    Reference.select( :title ).find( self.reference_id ).title
   end
 
   def timeline_name

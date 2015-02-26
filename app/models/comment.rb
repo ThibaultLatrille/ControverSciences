@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   require 'HTMLlinks'
 
-  attr_accessor :parent_id, :draft_id, :delete_picture
+  attr_accessor :parent_id, :delete_picture
 
   belongs_to :user
   belongs_to :timeline
@@ -41,7 +41,7 @@ class Comment < ActiveRecord::Base
   validates :f_4_content, length: {maximum: 1001}
   validates :f_5_content, length: {maximum: 1001}
   validates :caption, length: {maximum: 1001}
-  validates :title, length: {maximum: 180}
+  validates :title, length: {maximum: 180}, presence: true
   validate  :picture_size
   validates_uniqueness_of :user_id, :scope => :reference_id
 
@@ -50,7 +50,7 @@ class Comment < ActiveRecord::Base
   end
 
   def reference_title
-    Reference.select( :title_fr, :title ).find( self.reference_id ).title_display
+    Reference.select( :title ).find( self.reference_id ).title
   end
 
   def timeline_name

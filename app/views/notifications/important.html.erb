@@ -27,14 +27,14 @@
             <% end %>
             <% @wins.each do |com| %>
                 <tr>
-                  <td> Votre analyse <%= link_to com.f_1_content[0..70]+"...", notifications_selection_win_path(id: com.id ) %>
+                  <td> Votre analyse <%= link_to com.title_markdown.html_safe, notifications_selection_win_path(id: com.id ) %>
                     de la référence <%= link_to com.reference_title, reference_path(com.reference_id) %>, dans la controverse
                     <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a pris la première place. </td>
                 </tr>
             <% end %>
             <% @losses.each do |com| %>
                 <tr>
-                  <td> Votre analyse <%= link_to com.f_1_content[0..70]+"...", notifications_selection_win_path(id: com.id ) %>
+                  <td> Votre analyse <%= link_to com.title_markdown.html_safe, notifications_selection_win_path(id: com.id ) %>
                     de la référence <%= link_to com.reference_title, reference_path(com.reference_id) %>, dans la controverse
                     <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a perdu la première place. </td>
                 </tr>

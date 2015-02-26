@@ -131,7 +131,7 @@
               <tr class="notification-reference">
                 <td> <%= f.check_box :reference_ids, { :multiple => true},
                                      checked_value = reference.id, unchecked_value = nil %> </td>
-                <td> <%= link_to reference.title_display,
+                <td> <%= link_to reference.title,
                             notifications_reference_path( id: reference.id ) %>   </td>
                 <td> <%= link_to reference.timeline_name, timeline_path( reference.timeline_id ) %>   </td>
               </tr>
@@ -167,7 +167,7 @@
               <tr class="notification-comment">
                 <td> <%= f.check_box :comment_ids, { :multiple => true},
                                      checked_value = com.id, unchecked_value = nil %> </td>
-                <td> <%= link_to com.f_1_content[0..70]+"...", notifications_comment_path(id: com.id ) %>   </td>
+                <td> <%= link_to com.title_markdown.html_safe, notifications_comment_path(id: com.id ) %>   </td>
                 <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
                 <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
               </tr>

@@ -26,8 +26,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user_detail = UserDetail.find_by_user_id( params[:id] )
     @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
-    @references = Reference.select(:id, :timeline_id, :title_fr).where(user_id: params[:id])
-    @comments = Comment.select(:id, :reference_id, :f_1_content ).where(user_id: params[:id])
+    @references = Reference.select(:id, :timeline_id, :title).where(user_id: params[:id])
+    @comments = Comment.select(:id, :reference_id, :title_markdown ).where(user_id: params[:id])
     @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: params[:id])
   end
 
@@ -38,8 +38,8 @@ class UsersController < ApplicationController
       @user_detail = UserDetail.new( user_id: params[:id] )
     end
     @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
-    @references = Reference.select(:id, :timeline_id, :title_fr).where(user_id: params[:id])
-    @comments = Comment.select(:id, :reference_id, :f_1_content ).where(user_id: params[:id])
+    @references = Reference.select(:id, :timeline_id, :title).where(user_id: params[:id])
+    @comments = Comment.select(:id, :reference_id, :title_markdown ).where(user_id: params[:id])
     @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: params[:id])
   end
 
@@ -76,8 +76,8 @@ class UsersController < ApplicationController
         @user_detail = UserDetail.new( user_id: params[:id] )
       end
       @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
-      @references = Reference.select(:id, :timeline_id, :title_fr).where(user_id: params[:id])
-      @comments = Comment.select(:id, :reference_id, :f_1_content ).where(user_id: params[:id])
+      @references = Reference.select(:id, :timeline_id, :title).where(user_id: params[:id])
+      @comments = Comment.select(:id, :reference_id, :title_markdown ).where(user_id: params[:id])
       @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: params[:id])
       render 'edit'
     end

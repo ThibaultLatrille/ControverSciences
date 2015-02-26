@@ -133,7 +133,7 @@
             <% else %>
                 <% @references.each do |reference| %>
                     <tr class="notification-reference">
-                      <td> <%= link_to reference.title_display, reference_path(reference.id) %>   </td>
+                      <td> <%= link_to reference.title, reference_path(reference.id) %>   </td>
                       <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>   </td>
                     </tr>
                 <% end %>
@@ -171,7 +171,7 @@
             <% else %>
                 <% @comments.each do |com| %>
                     <tr class="notification-comment">
-                      <td> <%= link_to com.f_1_content[0..70]+"...", comment_path(com.id ) %>   </td>
+                      <td> <%= link_to com.title_markdown.html_safe, comment_path(com.id ) %>   </td>
                       <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
                     </tr>
                 <% end %>

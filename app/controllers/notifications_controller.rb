@@ -36,15 +36,15 @@ class NotificationsController < ApplicationController
                                     :content).where( id: summary_ids ).page(params[:page]).per(20)
       when :reference
         reference_ids = NotificationReference.where( user_id: current_user.id).pluck( :reference_id )
-        @references = Reference.select(:id, :timeline_id, :title_fr).where( id: reference_ids ).page(params[:page]).per(20)
+        @references = Reference.select(:id, :timeline_id, :title).where( id: reference_ids ).page(params[:page]).per(20)
       when :comment
         comment_ids = NotificationComment.where( user_id: current_user.id ).pluck( :comment_id )
         @comments = Comment.select(:id, :timeline_id, :reference_id,
-                               :f_1_content).where( id: comment_ids ).page(params[:page]).per(20)
+                               :title_markdown).where( id: comment_ids ).page(params[:page]).per(20)
       when :selection
         comment_sel_ids = NotificationSelection.where( user_id: current_user.id).pluck( :new_comment_id )
         @selections = Comment.select(:id, :timeline_id, :reference_id,
-                                     :f_1_content).where( id: comment_sel_ids ).page(params[:page]).per(20)
+                                     :title_markdown).where( id: comment_sel_ids ).page(params[:page]).per(20)
       when :summary_selection
         summary_sel_ids = NotificationSummarySelection.where( user_id: current_user.id).pluck( :new_summary_id )
         @summary_selections = Summary.select(:id, :timeline_id,
@@ -55,10 +55,10 @@ class NotificationsController < ApplicationController
   def important
     win_ids = NotificationSelectionWin.where( user_id: current_user.id ).pluck( :comment_id )
     @wins = Comment.select(:id, :timeline_id, :reference_id,
-                           :f_1_content).where( id: win_ids )
+                           :title_markdown).where( id: win_ids )
     loss_ids = NotificationSelectionLoss.where( user_id: current_user.id ).pluck( :comment_id )
     @losses = Comment.select(:id, :timeline_id, :reference_id,
-                             :f_1_content).where( id: loss_ids )
+                             :title_markdown).where( id: loss_ids )
     summary_win_ids = NotificationSummarySelectionWin.where( user_id: current_user.id ).pluck( :summary_id )
     @summary_wins = Summary.select(:id, :timeline_id,
                            :content).where( id: summary_win_ids )
