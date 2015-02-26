@@ -20,7 +20,7 @@ module ApplicationHelper
      "informatics" => "Informatique",
      "ethics" => "Ethique",
      "techno" => "Technologie",
-     "psycho" => "Pychologie",
+     "psycho" => "Psychologie",
      "socio" => "Sociologie",
      "archeology" => "Archéologie",
      "history" => "Histoire",
