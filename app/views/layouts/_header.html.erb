@@ -16,42 +16,48 @@
             <li><%= link_to "<strong>Les controverses</strong>".html_safe,   timelines_path %></li>
              <li class="dropdown">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                 <span class="glyphicon glyphicon-th"></span>
+                 <span class="glyphicon glyphicon-question-sign"></span>
                  <span class="caret"></span>
                </a>
                <ul class="dropdown-menu">
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> Qu’est-ce que ControverSciences ?'.html_safe, help_path %></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> Comment fonctionne ControverSciences ?'.html_safe, how_to_path %></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> Comment contribuer à ControverSciences ?'.html_safe, how_to_edit_path %></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-question-sign" ></span> FAQ'.html_safe, faq_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> &nbsp Qu’est-ce que ControverSciences ?'.html_safe, help_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> &nbsp Comment fonctionne ControverSciences ?'.html_safe, how_to_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> &nbsp Comment contribuer à ControverSciences ?'.html_safe, how_to_edit_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-question-sign" ></span> &nbsp FAQ'.html_safe, faq_path %></li>
                  <li class="divider"></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-user"></span> Qui sont les contributeurs'.html_safe, users_path %> </li>
+                 <li><%= link_to (image_tag "icons/myicon-users.svg", height: "20px")+" Qui sont les contibuteurs", users_path %> </li>
                  <li class="divider"></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-pencil" ></span> Proposer une amélioration'.html_safe, suggestions_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-pencil" ></span> &nbsp Proposer une amélioration'.html_safe, suggestions_path %></li>
                </ul>
              </li>
          <% if logged_in? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-		         <span class="glyphicon glyphicon-user"></span>
+		         <%= image_tag "icons/myicon-frog.svg", height: "28px"%>
                  <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "<span class=\"glyphicon glyphicon-user\"></span> &nbsp #{current_user.name}".html_safe,
+                <li><%= link_to (image_tag "icons/myicon-timeline.svg", height: "20px")+" #{current_user.name}",
                                 edit_user_path(current_user) %> </li>
                 <li class="divider"></li>
-                <li><%= link_to "Mes contributions",
+                <li> <%= link_to "<span class=\"badge\">#{current_user.notifications_all_important}</span> Notifications ".html_safe,
+                            notifications_important_path %>
+                </li>
+                <li><%= link_to (image_tag "icons/myicon-comment.svg", height: "20px")+ " Mes contributions",
                                 my_items_items_path %> </li>
-                <li><%= link_to "Mes votes",
+                <li><%= link_to (image_tag "icons/myicon-ribbon.svg", height: "20px")+ " Mes votes",
                                 my_items_votes_path %> </li>
                 <li class="divider"></li>
-                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all_important}</span> Notifications ".html_safe,
-                                notifications_important_path %> </li>
                 <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all }</span> Nouveautés ".html_safe,
                                 notifications_index_path %> </li>
-                <li class="divider"></li>
                 <li><%= link_to '<span class="glyphicon glyphicon-eye-open"></span> Gérer mes abonnements'.html_safe,
                                 followings_index_path %> </li>
+                <li class="divider"></li>
+                <li>
+                  <%= link_to "<span class=\"glyphicon glyphicon-envelope\" >
+                            </span> Inviter".html_safe, '#newinvitation',
+                                      'data-toggle' => 'modal' %>
+                </li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to '<span class="glyphicon glyphicon-off"></span> Se déconnecter'.html_safe,
@@ -59,11 +65,6 @@
                 </li>
               </ul>
             </li>
-             <li>
-               <%= link_to link_to "<span class=\"glyphicon glyphicon-envelope\" >
-</span>".html_safe, '#newinvitation',
-                                   'data-toggle' => 'modal' %>
-             </li>
             <% else %>
             <li><%= link_to "S'identifier", login_path, id: "link-navbar" %></li>
             <% end %>
