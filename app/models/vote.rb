@@ -25,7 +25,7 @@ class Vote < ActiveRecord::Base
   end
 
   def reference_title
-    Reference.select( :title_fr ).find( self.reference_id ).title_fr
+    Reference.select( :title_fr, :title ).find( self.reference_id ).title_display
   end
 
   def timeline_name

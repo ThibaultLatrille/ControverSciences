@@ -39,6 +39,23 @@ class Reference < ActiveRecord::Base
     self.destroy
   end
 
+  def display_year
+    if self.year > 1958
+      self.year
+    else
+      "Avant 1858"
+    end
+  end
+
+  def title_display
+    if self.title_fr && self.title_fr != ""
+      puts self.title_fr
+      self.title_fr.html_safe
+    else
+      self.title
+    end
+  end
+
   private
 
   def binary_timeline
