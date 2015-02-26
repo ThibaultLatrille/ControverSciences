@@ -6,7 +6,7 @@ class MyItemsController < ApplicationController
   end
 
   def references
-    @references = Reference.select(:id, :timeline_id, :title_fr).where( user_id: current_user.id)
+    @references = Reference.select(:id, :timeline_id, :title_fr, :title).where( user_id: current_user.id)
   end
 
   def comments
@@ -20,7 +20,7 @@ class MyItemsController < ApplicationController
 
   def items
     @timelines = Timeline.select(:id, :name).where( user_id: current_user.id)
-    @references = Reference.select(:id, :timeline_id, :title_fr).where( user_id: current_user.id)
+    @references = Reference.select(:id, :timeline_id, :title_fr, :title).where( user_id: current_user.id)
     @comments = Comment.select(:id, :timeline_id, :reference_id,
                                :f_1_content, :balance, :public ).where( user_id: current_user.id)
     @summaries = Summary.select(:id, :timeline_id, :content, :balance, :public ).where( user_id: current_user.id)

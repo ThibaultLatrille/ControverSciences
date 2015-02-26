@@ -55,13 +55,13 @@
         <%= f.label "Journal" %>
         <%= f.text_field :journal, class: 'form-control myforms' %>
             <br/>
-        <%= f.label "Date de publication" %>
-        <%= f.select :year, (1870..Date.current.year), {:include_blank => true}, { class: 'form-control myforms'} %>
+        <%= f.label "Année de publication" %>
+        <%= f.select :year, (1859..Date.current.year).to_a.reverse.push(["Avant 1859",0]), {}, { class: 'form-control myforms'} %>
             <br/>
         <%= f.label "Les auteurs de l'étude" %>
         <%= f.text_field :author, class: 'form-control myforms' %>
             <br/>
-        <%= f.label "Abstract (Facultatif)" %>
+        <%= f.label "Abstract en langue original (Facultatif)" %>
         <%= f.text_area :abstract, {:rows => 2,
                                     :class => "form-control myforms textarea"} %>
             <br/>

@@ -165,7 +165,7 @@
           <% else %>
             <% @fo_references.each do |reference| %>
               <tr class="following-reference">
-                <td> <%= link_to reference.title_fr, reference_path(reference.id) %>   </td>
+                <td> <%= link_to reference.title_display, reference_path(reference.id) %>   </td>
                 <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>
                 <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
                                                                 </span>".html_safe,

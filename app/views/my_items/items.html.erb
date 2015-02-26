@@ -148,7 +148,7 @@
       <% else %>
           <% @references.each do |reference| %>
               <tr class="notification-reference">
-                <td> <%= link_to reference.title_fr.html_safe, reference_path(reference.id) %>   </td>
+                <td> <%= link_to reference.title_display, reference_path(reference.id) %>   </td>
                 <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>   </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
                                                 edit_reference_path( reference.id ) %>  </td>

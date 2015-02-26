@@ -5,18 +5,14 @@
 
     <div class="cd-timeline-content">
       <h2>
-      <% if reference.title_fr == '' %>
-        <%= link_to reference.title, reference, class: "hvr-grow1" %>
-      <% else %>
-         <%= link_to reference.title_fr.html_safe, reference, class: "hvr-grow1" %>
-      <% end %>
+         <%= link_to reference.title_display, reference, class: "hvr-grow1" %>
         <%= link_to "<span class=\"glyphicon glyphicon-chevron-down hvr-grow pull-right\"> </span>".html_safe,
                     from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}" %>
         <span class="detail glyphicon glyphicon-chevron-up hvr-grow pull-right" style="display: none"></span>
       </h2>
       <div id="reference<%= reference.id %>" class="ref clearfix" style="display: none">
       </div>
-      <span class="cd-date"><%= reference.year %></span>
+      <span class="cd-date"><%= reference.display_year %></span>
     </div>
 </div>
 <% else %>
@@ -27,7 +23,7 @@
           <div class="cd-timeline-content">
             <h2> <%= link_to "La référence #{reference.title} n'a pas encore été analysée.", new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
             </h2>
-            <span class="cd-date"><%= reference.year %></span>
+            <span class="cd-date"><%= reference.display_year %></span>
           </div>
         </div>
     <% end %>
