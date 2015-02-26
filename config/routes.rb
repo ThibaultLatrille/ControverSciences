@@ -23,7 +23,6 @@ Rails.application.routes.draw do
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
   get "/from_timeline" => 'references#from_timeline', as: 'from_timeline'
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
-  resources :comment_drafts, only: [:destroy]
   resources :votes, only: [:new ,:create, :destroy]
   resources :ratings, only: [:create, :destroy]
   resources :binaries, only: [:create, :destroy]
@@ -55,20 +54,14 @@ Rails.application.routes.draw do
   get 'notifications/selection_loss'
   get 'notifications/summary_selection_loss'
 
-  get 'my_items/timelines'
-  get 'my_items/references'
-  get 'my_items/comments'
-  get 'my_items/summaries'
   get 'my_items/items'
   get 'my_items/votes'
-  get 'my_items/drafts'
 
   get 'likes/add'
   resources :invitations, only: [:create]
   resources :new_accounts, only: [:create]
 
   resources :summaries, only: [:show, :index, :new, :create, :edit, :update, :destroy]
-  resources :summary_drafts, only: [:destroy]
   resources :credits, only: [:new ,:create, :destroy]
   resources :suggestions, only: [:index, :create]
   resources :suggestion_votes, only: [:create]
