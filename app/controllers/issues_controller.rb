@@ -4,7 +4,9 @@ class IssuesController < ApplicationController
     issue.labels = params[:issue][:labels] << params[:issue][:importance]
     issue.body += "\n Sur la page " + issue.url + "\n Par : " + issue.author + "\n Navigateur : " + browser.to_s
     if issue.save
-      render 'issue/success'
+      respond_to do |format|
+        format.js { render 'issue/success', :content_type => 'text/javascript', :layout => false}
+      end
     else
       redirect_to root_path
     end
