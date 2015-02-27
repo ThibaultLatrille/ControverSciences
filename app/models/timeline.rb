@@ -18,6 +18,8 @@ class Timeline < ActiveRecord::Base
 
   after_create :cascading_save_timeline
 
+  around_update :updating_with_binary
+
   validates :user_id, presence: true
   validates :name, presence: true, length: { maximum: 180 }
 
@@ -80,4 +82,13 @@ class Timeline < ActiveRecord::Base
     timrelation.save()
     Timeline.increment_counter(:nb_contributors, self.id)
   end
+
+  def updating_with_binary
+    binary = self.binary_was
+    yield
+    if binary != self.binary
+      Reference.where( timeline_id: self.id ).update_all(:binary => self.binary )
+    end
+  end
+
 end

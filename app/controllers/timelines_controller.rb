@@ -39,14 +39,20 @@ class TimelinesController < ApplicationController
 
   def edit
     @timeline = Timeline.find( params[:id] )
+    @tag_list = @timeline.get_tag_list
+    if @timeline.binary != ""
+      @timeline.binary = true
+    end
   end
 
   def update
     @timeline = Timeline.find( params[:id] )
     if @timeline.user_id == current_user.id
       @timeline.name = timeline_params[:name]
-      if timeline_params[:binary]
+      if timeline_params[:binary] != "0"
         @timeline.binary = "Non&&Oui"
+      else
+        @timeline.binary = ""
       end
       if params[:timeline][:tag_list]
         @timeline.set_tag_list(params[:timeline][:tag_list])
