@@ -10,22 +10,22 @@ module ApplicationHelper
   end
 
   def tags_hash
-    {"biology" => "Biologie",
-     "medicine" => "Médecine et santé",
-     "planet" => "Environnement",
-     "physics" => "Physique",
-     "geology" => "Géologie",
+    {"archeology" => "Archéologie",
+     "biology" => "Biologie",
      "chemistry" => "Chimie",
-     "pie" => "Mathématiques",
-     "informatics" => "Informatique",
+     "planet" => "Ecologie",
+     "epistemology" => "Epistémologie",
      "ethics" => "Ethique",
-     "techno" => "Technologie",
+     "geology" => "Géologie",
+     "history" => "Histoire",
+     "informatics" => "Informatique",
+     "linguistic" => "Linguistique",
+     "pie" => "Mathématiques",
+     "medicine" => "Médecine et santé",
+     "physics" => "Physique",
      "psycho" => "Psychologie",
      "socio" => "Sociologie",
-     "archeology" => "Archéologie",
-     "history" => "Histoire",
-     "linguistic" => "Linguistique",
-     "epistemology" => "Epistémologie"
+     "techno" => "Technologie"
      }
   end
 
