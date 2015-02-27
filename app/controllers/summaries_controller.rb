@@ -152,7 +152,7 @@ class SummariesController < ApplicationController
     summary = Summary.find(params[:id])
     if summary.user_id == current_user.id && !summary.best
       summary.destroy_with_counters
-      redirect_to my_items_summaries_path
+      redirect_to my_items_items_path
     else
       flash[:danger] = "Cette synthèse est la meilleure et ne peut être supprimée."
       redirect_to summary_path(params[:id])

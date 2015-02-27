@@ -71,7 +71,6 @@ class CommentsController < ApplicationController
     @comment = Comment.find( params[:id] )
     @my_comment = Comment.find( params[:id] )
     if @comment.user_id == current_user.id
-      puts comment_params[:picture]
       @comment.public = comment_params[:public]
       for fi in 0..5 do
         @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
@@ -119,7 +118,7 @@ class CommentsController < ApplicationController
     comment = Comment.find(params[:id])
     if comment.user_id == current_user.id && !comment.best
       comment.destroy_with_counters
-      redirect_to my_items_comments_path
+      redirect_to my_items_items_path
     else
       flash[:danger] = "Cette analyse est la meilleure pour cette référence et ne peut être supprimée."
       redirect_to comment_path(params[:id])
