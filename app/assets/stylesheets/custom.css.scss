@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 $gray-medium-light: #eaeaea;
@@ -19,15 +19,34 @@ $background:#f1f4f9;
 }
 
 body {
-  padding-top: 80px;
-  padding-bottom: 60px;
-  font-family: 'Droid Sans';
+  padding-top: 65px;
+  font-family: 'Ubuntu';
   background-color: $background;
 }
 
 .img-responsive {
   margin-left: auto;
   margin-right: auto;
+}
+
+.vcenter {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
+
+.container-vertical{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.home-carrousel{
+background-color: #ffffff;
+}
+
+.home-item .row{
+  padding-top: 30px;
+  padding-bottom: 145px;
 }
 .navbar-toggle .icon-bar {
     background-color: black;
@@ -114,29 +133,6 @@ body {
 
 @media screen and (min-width: 1025px) {
   #footer-screen { display: block; }
-}
-
-.footer {
-  z-index:150;
-  background-color:white;
-  position:fixed;
-  bottom:0px;
-  left:0px;
-  right:0px;
-  padding-left:5px;
-  padding-right:5px;
-  padding-top:5px;
-  border-top: 1px solid #eaeaea;
-  color: gray-light;
-  a {
-  color: gray;
-  &:hover {
-    color: gray-light;
-    }
-  }
-  small {
-    float: left;
-  }
 }
 
 @mixin box_sizing {
