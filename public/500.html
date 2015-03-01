@@ -1,22 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8">
   <title>Le serveur ne répond pas</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-  body {
-    text-align: center;
-    background-color: #ffffff;
-  }
+      body {
+          text-align: center;
+          background-color: #ffffff;
+      }
 
-  img {
-      max-width: 80%;
-      height: auto;
-  }
+      img {
+          max-width: 80%;
+          height: auto;
+      }
+      a	{
+          font-size: 3em;
+          display: block;
+          padding: 16px;
+          background: #134a62;
+          text-decoration: none;
+          color: #ffffff;
+          border-radius: 10px;
+          transition-duration: 0.25s;
+          transition-property: transform;
+          transform: scale(0.5) rotate(0);
+      }
+      a:hover {
+          background: #134a62;
+          text-decoration: none;
+          color: #ffffff;
+          border-radius: 18px;
+          transform: scale(0.75);
+      }
   </style>
 </head>
 
 <body>
 <img src="/assets/images/500.png" alt="Erreur 500">
+<a href="http://controversciences.org">
+    Retour à la page d'accueil
+</a>
 </body>
 </html>
