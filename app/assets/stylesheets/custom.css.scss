@@ -176,7 +176,7 @@ hr {
   font-weight: bold;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h5, h6 {
   line-height: 1;
 }
 
@@ -197,6 +197,10 @@ h3 {
   letter-spacing: -1px;
   text-align: left;
   font-weight: normal;
+}
+h4 {
+  font-size: 1.3em;
+  line-height: 1.3;
 }
 .timeline-name > a {
   font-size: 1.3em;
