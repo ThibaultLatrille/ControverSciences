@@ -5869,27 +5869,14 @@ button.close {
     opacity: 0.5;
     filter: alpha(opacity=50);
     font-size: 20px;
+    background-color: transparent;
     color: #ffffff;
     text-align: center;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
-.carousel-control.left {
-    background-image: -webkit-linear-gradient(left, rgba(78, 125, 201, 1) 0%, rgba(0, 0, 0, 0.0001) 100%);
-    background-image: -o-linear-gradient(left, rgba(78, 125, 201, 1) 0%, rgba(0, 0, 0, 0.0001) 100%);
-    background-image: -webkit-gradient(linear, left top, right top, from(rgba(78, 125, 201, 1)), to(rgba(0, 0, 0, 0.0001)));
-    background-image: linear-gradient(to right, rgba(78, 125, 201, 1) 0%, rgba(0, 0, 0, 0.0001) 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
-}
 .carousel-control.right {
     left: auto;
     right: 0;
-    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(78, 125, 201, 1) 100%);
-    background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(78, 125, 201, 1) 100%);
-    background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.0001)), to(rgba(78, 125, 201, 1)));
-    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(78, 125, 201, 1) 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
 }
 .carousel-control:focus {
     color: #ffffff;
