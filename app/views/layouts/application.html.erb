@@ -28,14 +28,13 @@
   </head>
   <body>
   <%= render 'layouts/header' %>
-  <div class="container-fluid">
+  <div id="error-container" class="container-fluid">
       <% flash.each do |message_type, message| %>
         <%= content_tag(:div, message,
                         class: "alert alert-#{message_type}") %>
       <% end %>
   </div>
   <%= yield %>
-  <div id="Bottom"></div>
   </body>
   <%= render 'layouts/footer' %>
 </html>

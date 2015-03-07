@@ -1,5 +1,5 @@
 <% provide(:title, @timeline.name) %>
-
+<div id="my-container" class="container-fluid">
 <div class="row">
 
 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2  col-lg-offset-0">
@@ -105,9 +105,9 @@
 
 <% if @references.any? %>
 
-<section id="cd-timeline" class="cd-container">
+<div id="cd-timeline" class="cd-container">
 <%= render @references %>
-</section>
+</div>
 
 <% else %>
   <%= link_to '<span class="glyphicon glyphicon-plus-sign" >
@@ -135,7 +135,7 @@
 
  <% end %>
 </div>
-
+</div>
 <div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">

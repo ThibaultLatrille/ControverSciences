@@ -1,3 +1,18 @@
+<footer>
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <div class="pull-left">
+        <%= image_tag "logo_squarred.png", alt: "hvr-grow", height: "42px" %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <%= link_to "A propos", about_path, class: "hvr-grow" %>
+    </div>
+    <div class="col-xs-12 col-md-3">
+      <%= link_to "Nous contacter", contact_path, class: "hvr-grow" %>
+    </div>
+  </div>
+</footer>
 <% if logged_in? %>
 <div class="modal fade" id="newinvitation" tabindex="-1" role="dialog">
   <div class="modal-dialog">

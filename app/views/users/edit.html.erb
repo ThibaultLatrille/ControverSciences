@@ -1,4 +1,5 @@
 <% provide(:title, "Edition du profil") %>
+<div id="my-container" class="container-fluid">
 <div class="row">
   <div class="col-md-4">
     <%= render 'users/partial_user' %>
@@ -61,7 +62,7 @@
     </div>
   </div>
 </div>
-
+</div>
 <script type="text/javascript">
     $('#user_detail_picture').bind('change', function () {
         size_in_megabytes = this.files[0].size / 1024 / 1024;
