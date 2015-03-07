@@ -46,6 +46,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      @timelines = Timeline.order(:score => :desc).first(8)
       if @user.invalid_email
         PendingUser.create( user_id: @user.id, why: user_params[:why])
         render 'users/invalid'
