@@ -1,159 +1,146 @@
-<div class="carousel-container">
-  <div id="mycarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#mycarousel" data-slide-to="1"></li>
-      <li data-target="#mycarousel" data-slide-to="2"></li>
-      <li data-target="#mycarousel" data-slide-to="3"></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner home-carrousel" role="listbox">
-      <div class="item active home-item">
-        <div class="row">
-          <div class="col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-4 vcenter">
-            <%= image_tag("logo.png", alt: "Logo", :class => "img-responsive") %>
-          </div>
-          <div class="col-xs-offset-1 col-xs-10 col-md-offset-0  col-md-4 vcenter">
-            <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
-                        class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
-            <%= link_to "Fonctionnement", how_to_path,
-                        class: "btn btn-block btn-primary" %>
-            <%= link_to "Contribuer", how_to_edit_path,
-                        class: "btn btn-block btn-primary" %>
-            <%= link_to "Foire aux questions (FAQ)", faq_path,
-                        class: "btn btn-block btn-primary" %>
-            <%= link_to "Améliorer", suggestions_path,
-                        class: "btn btn-block btn-primary" %>
-          </div>
-        </div>
-        <div class="carousel-caption">
-          Et si on s'intéressait aux résultats scientifiques ?
-        </div>
-      </div>
-      <div class="item home-item">
-        <br/>
-        <h2>
-          ControverSciences est une passerelle entre la société et les scientifiques autour de sujets controversés.
-        </h2>
-
-        <div class="row">
-          <div class="col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-4 vcenter">
-            <%= image_tag("help-mission.png", alt: "Logo", :class => "img-responsive") %>
-          </div>
-          <div class="col-xs-offset-1 col-xs-10 col-md-offset-0  col-md-4 vcenter">
-            <h4 class="text-justify">
-              Les résultats d'expériences scientifiques permettent d'éclairer de nombreux débats et controverses.
-              Et pourtant se procurer ces informations et une autre paire de manche.
+<section id="welcome">
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-4 vcenter">
+      <%= image_tag("logo.png", alt: "Logo", :class => "img-responsive") %>
+    </div>
+    <div class="col-xs-offset-1 col-xs-10 col-md-offset-0  col-md-4 vcenter">
+      <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
+                  class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
+      <%= link_to "Fonctionnement", how_to_path,
+                  class: "btn btn-block btn-primary" %>
+      <%= link_to "Contribuer", how_to_edit_path,
+                  class: "btn btn-block btn-primary" %>
+      <%= link_to "Foire aux questions (FAQ)", faq_path,
+                  class: "btn btn-block btn-primary" %>
+      <%= link_to "Améliorer", suggestions_path,
+                  class: "btn btn-block btn-primary" %>
+    </div>
+    <div class="col-xs-12 col-md-offset-3 col-md-6 center">
+      <div class="carousel-container">
+        <div id="mycarousel" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner home-carrousel" role="listbox">
+            <div class="item active center">
               <br/>
-              <br/>
-              <ul>
-                <li>
-                  Les publications scientifiques sont opaques, le vocabulaire est technique et de plus les accès sont
-                  malheureusement souvent payants.
-                </li>
-                <li>
-                  Les scientifiques, alors qu'ils adorent partager leur passion, sont difficile à dénicher et ne sont pas
-                  forcement au courant des avancées dans l'ensemble des domaines scientifiques.
-                </li>
-              </ul>
-              <br/>
-              ControverSciences est un lieu de partage et de la vulgarisation à disposition des scientifiques,
-              centré autour des résultats d’expériences scientifiques vérifiés et publiés.
-              Les scientifiques écrivent leurs interprétations de ces résultats et les meilleurs contributions sont sélectionnés.
-              <br/>
-              <br/>
-              Pour les visiteurs, curieux ou journaliste, ControverSciences permet d'avoir accès à de l'information sélectionnée et organisée par
-              des scientifiques connaissant leur domaine.
-            </h4>
-          </div>
-        </div>
-        <div class="carousel-caption">
-          Où accéder à de l'information scientifique sur des sujets controversés ?
-        </div>
-      </div>
-      <div class="item home-item">
-        <div class="row">
-          <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
-            <br/>
-            <br/>
-            <br/>
-
-            <div class="panel panel-danger">
-              <div class="panel-heading">
-                <h4>
-                  Le site est fonctionnel mais va continuer à être améliorer avant le lancement officiel. <br/>
-                  Vous pouvez donc créer un compte, des controverses, ajouter des références, des analyses de références
-                  et des synthèses ! <br/>
-                  Si vous avez des remarques sur le site, faites le nous savoir en utilisant le bug-tracker en haut à
-                  droite : "signaler un
-                  bug" <br/>
-                  Pour toute question, n'hésitez pas à spammer thibault.latrille@controversciences.org !
-                </h4>
-              </div>
+              Et si on s'intéressait aux résultats scientifiques ?
             </div>
-            <br/>
-            <br/>
-            <br/>
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                <h4>
-                  Les dernières mises à jour importantes : <br/>
-                  - Les titres des références ne sont plus traduis littéralement en francais par celui qui ajoute la
-                  référence. <br/>
-                  &nbsp &nbsp La traduction en francais a donc été remplacé par un titre accrocheur, associé aux
-                  analyses
-                  de cette référence. <br/>
-                  &nbsp &nbsp Ainsi chacun peut proposer un titre à la référence et plus uniquement celui qui a ajouté
-                  la
-                  référence. <br/>
-                  - La possbilité d'uploader des figures (bitmap ou vectorielles) pour les synthèses et les analyses, et
-                  d'ajouter une légende <br/>
-                  - Les contributions peuvent être privées afin de les travailler avant de les montrer à tous (un mode
-                  brouillon en sorte). <br/>
-                  - Des compteurs qui donnent le nombre de caractères restants (ou en trop) dans chaque champs lors de
-                  l'écriture d'analyses ou de synthèses <br/>
-                  - Pour les questions fermées, un code couleur permet de situer chaque référence par rapport à la
-                  question posée. <br/>
-                </h4>
-              </div>
+            <div class="item center">
+              <br/>
+              Où accéder à de l'information scientifique sur des sujets controversés ?
             </div>
-            <br/>
+            <div class="item center">
+              <br/>
+              Un espace pour partager et comprendre ce que font les scientifiques.
+            </div>
+            <div class="item center">
+              <br/>
+              ControverSciences combat le déni depuis 2015.
+            </div>
+            <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
             <br/>
           </div>
-        </div>
-        <div class="carousel-caption">
-          ControverSciences combat le déni depuis 2015.
-        </div>
-      </div>
-      <div class="item home-item timelines">
-        <br/>
-        <br/>
-        <div class="row">
-          <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
-              <div class="row">
-                <%= render @timelines %>
-              </div>
-          </div>
-        </div>
-        <div class="carousel-caption">
-          Un espace pour partager et comprendre ce que font les scientifiques.
         </div>
       </div>
     </div>
-
-    <!-- Controls -->
-    <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
   </div>
-</div>
+</section>
+<section id="mission">
+  <h1>
+    Une passerelle entre la société et les scientifiques autour de sujets controversés.
+  </h1>
+  <div class="row">
+    <div class="col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-4 vcenter">
+      <%= image_tag("help-mission.png", alt: "Logo", :class => "img-responsive") %>
+    </div>
+    <div class="col-xs-offset-1 col-xs-10 col-md-offset-0  col-md-4 vcenter">
+      <h4 class="text-justify">
+        Les résultats d'expériences scientifiques permettent d'éclairer de nombreux débats et controverses.
+        Et pourtant se procurer ces informations est une autre paire de manches...
+        <br/>
+        <br/>
+        <ul>
+          <li>
+            Les publications scientifiques sont opaques,
+            le vocabulaire est technique et de plus les accès sont malheureusement souvent payants.
+          </li>
+          <li>
+            Les scientifiques, alors qu'ils adorent partager leur passion,
+            sont difficiles à dénicher et ne sont pas forcément au courant des avancées dans d'autres domaines que le
+            leur.
+          </li>
+        </ul>
+        <br/>
+        ControverSciences est un lieu de partage et de vulgarisation à disposition des scientifiques,
+        centré autour des résultats d’expériences scientifiques vérifiées et publiées. Les scientifiques qui contribuent
+        écrivent leurs interprétations de ces résultats et les meilleures contributions sont sélectionnées.
+        <br/>
+        <br/>
+        Vous êtes un visiteur, simple curieux ou journaliste ? ControverSciences
+        vous permet d'avoir accès à de l'information sélectionnée et triée par des scientifiques connaissant leur
+        domaine !
+      </h4>
+    </div>
+  </div>
+</section>
+<section id="development">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h4>
+            Le site est fonctionnel mais va continuer à être amélioré avant le lancement officiel.
+            <br/>
+            Vous pouvez donc créer un compte, des controverses, ajouter des références, des analyses de références et
+            des synthèses ! <br/>
+            Si vous avez des remarques sur le site, faites le nous savoir en utilisant le bug-tracker en haut à droite :
+            "signaler un bug" " <br/>
+            Pour toute question, n'hésitez pas à <a href="mailto:contact@controversciences.org">nous contacter</a>
+            ou a spammer directement <a href="mailto:thibault.latrille@controversciences.org">l'admin</a> !
+          </h4>
+        </div>
+      </div>
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h4>
+            Les dernières mises à jour importantes :
+            <br/>
+            -Les titres des références ne sont plus traduits littéralement en français par celui qui ajoute la
+            référence.
+            La traduction en français a donc été remplacée par un titre accrocheur, associé aux analyses de cette
+            référence.
+            Ainsi chacun peut proposer un titre à la référence et plus uniquement celui qui a ajouté la référence. <br/>
+            - La possibilité d'uploader des figures (bitmap ou vectorielles) pour les synthèses et les analyses, et
+            d'ajouter une légende.<br/>
+            - Les contributions peuvent être privées afin de les travailler avant de les montrer à tous (un "mode
+            brouillon" en sorte). <br/>
+            - Des compteurs qui donnent le nombre de caractères restants (ou en trop) dans chaque champ lors de
+            l'écriture d'analyses ou de synthèses. <br/>
+            - Pour les questions fermées, un code couleur permet de situer chaque référence par rapport à la question
+            posée. <br/>
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="featured">
+  <h1>
+    Les controverses du moment
+  </h1>
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
+      <div class="row">
+        <%= render @timelines %>
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
   <div class="modal-dialog">
@@ -163,32 +150,28 @@
         <h4 class="modal-title" id="myModalLabel"> Votre intérêt pour cette controverse a déjà été pris en compte. </h4>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
       </div>
     </div>
   </div>
 </div>
 
 <script type="text/javascript">
-    $('#mycarousel').on('slid.bs.carousel', function (e) {
-       if ($(e.relatedTarget).hasClass("timelines")){
-           $('.timeline-name').responsiveEqualHeightGrid();
-           $('.timeline-body').responsiveEqualHeightGrid();
-           $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-           $('.collapse').on('shown.bs.collapse', function () {
-               $(".timeline-body").responsiveEqualHeightGrid();
-           });
-       }
+    $('.timeline-name').responsiveEqualHeightGrid();
+    $('.timeline-body').responsiveEqualHeightGrid();
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    $('.collapse').on('shown.bs.collapse', function () {
+        $(".timeline-body").responsiveEqualHeightGrid();
     });
-    $(function() {
-        $('[data-validate]').click(function() {
+    $(function () {
+        $('[data-validate]').click(function () {
             $this = $(this);
             $.get($this.data('validate'), {
                 id: $this.val()
-            }).success(function() {
-                var $like = $('#like'+$this.val());
-                $like.text(' '+(parseInt($like.text())+1));
-            }).error(function() {
+            }).success(function () {
+                var $like = $('#like' + $this.val());
+                $like.text(' ' + (parseInt($like.text()) + 1));
+            }).error(function () {
                 $('#iptaken').modal('show');
             });
         });

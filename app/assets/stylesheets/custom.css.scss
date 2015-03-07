@@ -18,10 +18,48 @@ $background:#f1f4f9;
   transition: height 0.5s;
 }
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   padding-top: 65px;
   font-family: 'Ubuntu';
   background-color: $background;
+  color: #07212B;
+}
+
+section{
+  padding-bottom: 20px;
+  padding-top: 40px;
+  width: 100%;
+}
+
+section h1{
+  font-size: 2em;
+  padding-bottom: 1em;
+}
+
+#welcome{
+  background-color: #ffffff;
+}
+
+#mission{
+  background-color: #3686BE;
+  color: #ffffff;
+
+}
+
+#development{
+  background-color: #ffffff;
+}
+
+#featured{
+  background-color: #eef1f2;
+}
+
+#mycarousel{
+  font-size: 1.4em;
 }
 
 .img-responsive {
@@ -40,15 +78,6 @@ body {
   margin-bottom: 10px;
 }
 
-.home-carrousel{
-background-color: #ffffff;
-}
-
-.home-item .row{
-  padding-top: 45px;
-  padding-bottom: 135px;
-}
-
 .navbar-toggle .icon-bar {
     background-color: black;
 }
@@ -61,13 +90,12 @@ background-color: #ffffff;
 .btn-default, .btn-default:focus, .btn-default.focus {
     background-color: white;
     border-color: gray-light;
-    color: black;
+    color: #07212B;
     outline: 0px;
 }
 
 .btn {
   white-space: normal;
-  overflow-wrap: break-word;
 }
 
 .btn-default:hover, .btn-default.hover, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
@@ -95,7 +123,7 @@ background-color: #ffffff;
 .nav{
   li{
     li > a {
-      color: black;
+      color: #07212B;
     }
     a{color: white;
       padding-top: 0px;
@@ -140,14 +168,6 @@ background-color: #ffffff;
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
   box-sizing:         border-box;
-}
-
-html {
-  overflow-y: scroll;
-}
-
-section {
-  overflow: auto;
 }
 
 hr {
@@ -223,8 +243,6 @@ input {
   height: auto !important;
 }
 
-
-
 #error_explanation {
   color: $red-error;
   ul {
@@ -251,6 +269,7 @@ input {
   width: auto;
   margin-left: 0;
 }
+
 .pagination a, .pagination span.current, .pagination span.gap {
   float: left;
   padding: 0 14px;
@@ -292,7 +311,6 @@ input {
 
 .timeline-name{
   padding-bottom: 10px;
-  overflow-wrap: break-word;
 }
 
 .page{
@@ -300,7 +318,7 @@ input {
 }
 
 .new-reference {
-  color: black;
+  color: #07212B;
   padding-left: 20px;
 }
 
@@ -328,7 +346,6 @@ input {
     border-top: 2px solid #e8e8e8;
   }
   .comment {
-    overflow-wrap: break-word;
     margin-left: 0px;
     li {
       padding: 0px;

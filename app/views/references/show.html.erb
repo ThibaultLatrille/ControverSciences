@@ -302,17 +302,26 @@
       </li>
     </ul>
   </div>
-  <div class="panel-footer">
-    <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "24px") %>
-    <span class="badge"><%= @reference.nb_contributors %></span>
-    <%= image_tag("icons/myicon-comment.svg", alt: "ref", height: "24px") %>
-    <span class="badge"><%= @reference.nb_edits %></span>
-    <%= image_tag("icons/myicon-ribbon.svg", alt: "ref", height: "24px") %>
-    <span class="badge"><%= @reference.nb_votes %></span>
+  <div class="panel-footer clearfix">
     <span class="pull-right">
+      <br/>
       Référence ajoutée par <%= link_to @reference.user_name, user_path(@reference.user_id) %>
     </span>
-    <div class="clearfix"></div>
+    <button class="btn btn-default stick" data-placement="left"
+            data-toggle="tooltip" title="<%= @reference.nb_contributors %> contributeurs" >
+      <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "32px") %>
+      <%= @reference.nb_contributors %>
+    </button>
+    <button class="btn btn-default stick" data-placement="top"
+            data-toggle="tooltip" title="<%= @reference.nb_edits %> analyses" >
+      <%= image_tag("icons/myicon-comment.svg", alt: "ref", height: "32px") %>
+      <%= @reference.nb_edits %>
+    </button>
+    <button class="btn btn-default stick" data-placement="right"
+            data-toggle="tooltip" title="<%= @reference.nb_votes %> crédits accordés au total" >
+      <%= image_tag("icons/myicon-ribbon.svg", alt: "ref", height: "32px") %>
+      <%= @reference.nb_votes %>
+    </button>
   </div>
 </div>
 </div>
