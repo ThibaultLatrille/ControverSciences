@@ -111,8 +111,8 @@ def seed_timelines(users, tags)
   names = []
   names << "Quel lien entre la prise de risque d'un individu et son statut hiérarchique dans la société?"
   names << "Quels sont les effets des OGMs sur la santé humaine ?"
-  names << "Quels conséquences des quotas laitiers ?"
-  names << "Quels dangers pour les pillules de 3eme génération ?"
+  names << "Quelles conséquences des quotas laitiers ?"
+  names << "Quels dangers pour les pilules de 3eme génération ?"
   names << "Les ondes des portables, quels dangers pour notre corps ?"
   names << "L'homosexualité chez les animaux."
   names << "La production de cacao peut-t-elle répondre à la demande de chocolat ?"
