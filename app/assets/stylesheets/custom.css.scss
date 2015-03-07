@@ -336,9 +336,20 @@ section h1{
 }
 
 .timeline-name > a {
+  color: #3686BE;
   font-size: 1.3em;
   font-weight: bold;
   text-decoration: none;
+}
+
+.timeline-name > a:hover {
+  color: #07212B;
+}
+
+.timeline{
+  .panel-primary{
+    border-color: #3686BE;
+  }
 }
 
 .page{
