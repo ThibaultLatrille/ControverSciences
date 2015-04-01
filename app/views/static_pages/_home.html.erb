@@ -1,21 +1,21 @@
 <section id="welcome">
   <div class="row">
-    <div class="col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-4 vcenter">
+    <div class="col-xs-offset-2 col-xs-8 col-md-offset-3 col-md-3 vcenter">
       <%= image_tag("logo.png", alt: "Logo", :class => "img-responsive") %>
     </div>
-    <div class="col-xs-offset-1 col-xs-10 col-md-offset-0  col-md-4 vcenter">
-      <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
-                  class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
-      <%= link_to "Fonctionnement", how_to_path,
+    <div class="col-xs-offset-1 col-xs-10 col-md-offset-0  col-md-3 vcenter">
+      <%= link_to "<b>Les controverses</b>".html_safe, timelines_path,
+                  class: "btn btn-block btn-primary", style: "font-size: 1.4em;" %>
+      <%= link_to "<b>Découvrir</b>".html_safe, how_to_path,
                   class: "btn btn-block btn-primary" %>
-      <%= link_to "Contribuer", how_to_edit_path,
+      <%= link_to "<b>Contribuer</b>".html_safe, how_to_edit_path,
                   class: "btn btn-block btn-primary" %>
-      <%= link_to "Foire aux questions (FAQ)", faq_path,
+      <%= link_to "<b>Discuter</b>".html_safe, suggestions_path,
                   class: "btn btn-block btn-primary" %>
-      <%= link_to "Améliorer", suggestions_path,
+      <%= link_to "<b>Foire aux questions (FAQ)</b>".html_safe, faq_path,
                   class: "btn btn-block btn-primary" %>
     </div>
-    <div class="col-xs-12 col-md-offset-3 col-md-6 center">
+    <div class="col-xs-12 col-md-offset-1 col-md-10 center">
       <div class="carousel-container">
         <div id="mycarousel" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner home-carrousel" role="listbox">
@@ -51,12 +51,13 @@
   </div>
 </section>
 <section id="mission">
-  <h1>
+  <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
     Une passerelle entre la société et les scientifiques autour de sujets controversés.
   </h1>
   <div class="row">
     <div class="col-xs-offset-1 col-xs-10 col-md-offset-2 col-md-4 vcenter">
-      <%= image_tag("help-mission.png", alt: "Logo", :class => "img-responsive") %>
+      <object class="img-responsive" data=<%= path_to_image 'help-mission.svg' %> width="1080px">
+      </object>
     </div>
     <div class="col-xs-offset-1 col-xs-10 col-md-offset-0  col-md-4 vcenter">
       <h4 class="text-justify">
@@ -88,50 +89,37 @@
     </div>
   </div>
 </section>
-<section id="development">
-  <div class="row">
-    <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3">
-      <div class="panel panel-danger">
-        <div class="panel-heading">
+<section id="newsletter">
+  <%= form_for( :newsletter, url: newsletters_path, remote: true,
+                html: {role: :form, 'data-model' => 'newsletter'}) do |f| %>
+      <div class="row">
+        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
           <h4>
-            Le site est fonctionnel mais va continuer à être amélioré avant le lancement officiel.
-            <br/>
-            Vous pouvez donc créer un compte, des controverses, ajouter des références, des analyses de références et
-            des synthèses ! <br/>
-            Si vous avez des remarques sur le site, faites le nous savoir en utilisant le bug-tracker en haut à droite :
-            "signaler un bug" " <br/>
-            Pour toute question, n'hésitez pas à <a href="mailto:contact@controversciences.org">nous contacter</a>
-            ou a spammer directement <a href="mailto:thibault.latrille@controversciences.org">l'admin</a> !
+            Recevez une fois par mois les informations essentielles de ControverSciences
           </h4>
         </div>
-      </div>
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h4>
-            Les dernières mises à jour importantes :
-            <br/>
-            -Les titres des références ne sont plus traduits littéralement en français par celui qui ajoute la
-            référence.
-            La traduction en français a donc été remplacée par un titre accrocheur, associé aux analyses de cette
-            référence.
-            Ainsi chacun peut proposer un titre à la référence et plus uniquement celui qui a ajouté la référence. <br/>
-            - La possibilité d'uploader des figures (bitmap ou vectorielles) pour les synthèses et les analyses, et
-            d'ajouter une légende.<br/>
-            - Les contributions peuvent être privées afin de les travailler avant de les montrer à tous (un "mode
-            brouillon" en sorte). <br/>
-            - Des compteurs qui donnent le nombre de caractères restants (ou en trop) dans chaque champ lors de
-            l'écriture d'analyses ou de synthèses. <br/>
-            - Pour les questions fermées, un code couleur permet de situer chaque référence par rapport à la question
-            posée. <br/>
-          </h4>
         </div>
       </div>
-    </div>
-  </div>
+      <div class="row">
+        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
+          <div class="form-group">
+            <%= f.text_field :email, class: 'form-control', placeholder: "Votre adresse email" %>
+            <span class="help-block"></span>
+          </div>
+        </div>
+        <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-3">
+          <div id="invit" class="actions">
+            <%= f.button "S\'inscrire &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                         class: 'btn btn-block btn-success', data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Inscription "}%>
+          </div>
+        </div>
+      </div>
+  <% end %>
 </section>
+
 <section id="featured">
-  <h1>
-    Les controverses du moment
+  <h1 style="font-size: 3em">
+    Controverses à l'affiche
   </h1>
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
@@ -150,11 +138,40 @@
         <h4 class="modal-title" id="myModalLabel"> Votre intérêt pour cette controverse a déjà été pris en compte. </h4>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
       </div>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="success" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"> Inscription à la newsletter ControverSciences réussi </h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="fail" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"> Echec de l'inscription à la newsletter ControverSciences </h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <script type="text/javascript">
     $('.timeline-name').responsiveEqualHeightGrid();
@@ -165,13 +182,19 @@
     });
     $(function () {
         $('[data-validate]').click(function () {
-            $this = $(this);
-            $.get($this.data('validate'), {
-                id: $this.val()
+            var self = $(this);
+            self.hide();
+            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
+            $.get(self.data('validate'), {
+                id: self.val()
             }).success(function () {
-                var $like = $('#like' + $this.val());
-                $like.text(' ' + (parseInt($like.text()) + 1));
+                $('.loader-like').remove();
+                self.show();
+                var like = $('#like' + self.val());
+                like.text(' ' + (parseInt(like.text()) + 1));
             }).error(function () {
+                $('.loader-like').remove();
+                self.show();
                 $('#iptaken').modal('show');
             });
         });

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :timelines, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
   get "/from_timeline" => 'references#from_timeline', as: 'from_timeline'
+  get "/from_reference" => 'references#from_reference', as: 'from_reference'
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :votes, only: [:new ,:create, :destroy]
   resources :ratings, only: [:create, :destroy]
@@ -57,12 +58,12 @@ Rails.application.routes.draw do
   get 'my_items/votes'
 
   get 'likes/add'
-  resources :invitations, only: [:create]
+  resources :newsletters, only: [:create]
   resources :new_accounts, only: [:create]
 
   resources :summaries, only: [:show, :index, :new, :create, :edit, :update, :destroy]
   resources :credits, only: [:new ,:create, :destroy]
-  resources :suggestions, only: [:index, :create]
+  resources :suggestions, only: [:index, :create, :show]
   resources :suggestion_votes, only: [:create]
   resources :suggestion_children, only: [:index, :create]
   resources :suggestion_child_votes, only: [:create]

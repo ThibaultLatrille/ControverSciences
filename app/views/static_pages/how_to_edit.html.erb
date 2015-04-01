@@ -101,7 +101,7 @@
                   <p>
                     Vous pouvez proposer de nouvelles analyses et synthèses (dans la langue de Molière).
                     Pour cela vous pouvez en écrire une <i>ex nihilo</i>, ou bien repartir d'une préexistante et
-                    l'améliorer (<%= image_tag "icons/myicon-fork.svg", alt: "fork", height: "20px" %>).
+                    l'améliorer (<span class="icon-fork big"></span>).
                   </p>
                 </div>
               </div>
@@ -126,8 +126,8 @@
                     contraintes
                     avant d'être ajoutées. Il vous faudra préciser les champs suivants : <br/>
                     • <a href="http://fr.wikipedia.org/wiki/Digital_Object_Identifier"
-                         target="_blank"> Le DOI (Digital Object Identifier) </a> <br/>
-                    • Le titre (original et en français) <br/>
+                         target="_blank"> Le DOI (Digital Object Identifier) est optionnel </a> <br/>
+                    • Le titre original <br/>
                     • Le journal dans lequel la référence a été publiée <br/>
                     • Le(s) auteur(s) de l'étude <br/>
                     • La date de Publication <br/>
@@ -152,7 +152,7 @@
                   <p>
 
                   <div class="pull-right">
-                    <%= link_to "Ajouter une controverse", new_timeline_path, class: "btn btn-success" %>
+                    <%= link_to "Ajouter une controverse", new_timeline_path, class: "btn btn-primary" %>
                   </div>
                   </p>
                 </div>
@@ -186,16 +186,17 @@
         <hr>
       </div>
       <div class="col-xs-12">
-      <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
-                  class: "btn btn-block btn-info", style: "font-size: 1.3em;" %>
-      <%= link_to "Comment fonctionne ControverSciences ?", how_to_path,
-                  class: "btn btn-block btn-info" %>
-      <%= link_to "Comment contribuer à ControverSciences ?", how_to_edit_path,
-                  class: "btn btn-block btn-primary" %>
-      <%= link_to "Foire aux questions (FAQ)", faq_path,
-                  class: "btn btn-block btn-info" %>
-      <%= link_to "Proposer une amélioration pour le site", suggestions_path,
-                  class: "btn btn-block btn-info" %>
+        <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
+                    class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
+        <%= link_to "Découvrir ControverSciences", how_to_path,
+                    class: "btn btn-block btn-primary" %>
+        <div class="btn btn-block btn-info cursor-not-allowed">
+          Contribuer à ControverSciences
+        </div>
+        <%= link_to "Foire aux questions (FAQ)", faq_path,
+                    class: "btn btn-block btn-primary" %>
+        <%= link_to "Venez discuter", suggestions_path,
+                    class: "btn btn-block btn-primary" %>
       </div>
     </div>
   </div>

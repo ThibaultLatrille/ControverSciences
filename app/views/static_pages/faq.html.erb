@@ -24,6 +24,7 @@
                  content: "De la façon qu'il vous convient, mais ils sont limités. Les critères qui doivent rentrer en ligne de compte pour
                   déterminer la qualité d'une analyse ou d'une synthèse sont : <br/>
                  • Objectivité <br/>
+                 • Pertinence <br/>
                  • Clarté <br/>".html_safe %>
       <%= render 'collapse', id: 2, title: "A quoi servent les scores des contributeurs ?",
                  content: "Ils servent à calculer les scores des analyses et synthèses afin de déterminer les meilleures.
@@ -60,9 +61,10 @@
                  content: "Les contributions que vous déposez sur ControverSciences n'ont en premier lieu aucun copyright.
                    Elles sont ensuite mises aux enchères et revendues à l'entreprise/entité la plus offrante qui
                en disposera. Il se peut donc que celle-ci décide de mettre un copyright dessus afin que le texte ne puisse plus
-                être diffusé sans leur accord préalable. C'est sur ce <i>business model<i/> novateur et très lucratif qu'est financé ControverSciences.
+                être diffusé sans leur accord préalable. C'est sur ce <i>business model</i> novateur et très lucratif qu'est financé ControverSciences.
                 <br/>
-                Non, bien évidemment, les contributions sont dans le domaine public. Plus précisement les contributions sont sous la license CC-BY-SA".html_safe %>
+                Non, bien évidemment, les contributions sont dans le domaine public.
+                Plus précisement les contributions sont sous la license CC-BY-SA".html_safe %>
       <%= render 'collapse', id: 54, title: "Comment est financé ControverSciences ?",
                  content: "Pour l'instant le site ControverSciences est codé et maintenu par des bénévoles qui
                  donc ne sont pas payés mais sont convaincus de la raison d'être de ce site. Les frais d'hébergement
@@ -78,7 +80,7 @@
     <div class="actions pull-right">
       <%= link_to "<span class=\"glyphicon glyphicon-question-sign\">
     </span> Poser une question".html_safe, '#newquestion',
-                  'data-toggle' => 'modal', class: "btn btn-primary" %>
+                  'data-toggle' => 'modal', class: "btn btn-info" %>
     </div>
     </div>
     <div class="col-xs-12">
@@ -86,15 +88,16 @@
     </div>
     <div class="col-xs-12">
       <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
-                  class: "btn btn-block btn-info", style: "font-size: 1.3em;" %>
-      <%= link_to "Comment fonctionne ControverSciences ?", how_to_path,
-                  class: "btn btn-block btn-info" %>
-      <%= link_to "Comment contribuer à ControverSciences ?", how_to_edit_path,
-                  class: "btn btn-block btn-info" %>
-      <%= link_to "Foire aux questions (FAQ)", faq_path,
+                  class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
+      <%= link_to "Découvrir ControverSciences", how_to_path,
                   class: "btn btn-block btn-primary" %>
-      <%= link_to "Proposer une amélioration pour le site", suggestions_path,
-                  class: "btn btn-block btn-info" %>
+      <%= link_to "Contribuer à ControverSciences", how_to_edit_path,
+                  class: "btn btn-block btn-primary" %>
+      <div class="btn btn-block btn-info cursor-not-allowed">
+        Foire aux questions (FAQ)
+      </div>
+      <%= link_to "Venez discuter", suggestions_path,
+                  class: "btn btn-block btn-primary" %>
     </div>
     </div>
   </div>
@@ -145,12 +148,14 @@
               <span class="help-block"></span>
             </div>
             <div class="actions pull-right">
-              <%= f.submit 'Envoyer'.html_safe, class: 'btn btn-primary'%>
+              <%= f.button "Envoyer &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "}%>
             </div>
         <% end %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
       </div>
     </div>
   </div>
