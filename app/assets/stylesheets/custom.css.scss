@@ -70,6 +70,12 @@ footer a:hover {
   text-decoration: none;
 }
 
+@media (max-width: 767px) {
+  footer a {
+    font-size: 12px;
+  }
+}
+
 .img-responsive {
   margin-left: auto;
   margin-right: auto;
@@ -109,13 +115,6 @@ footer a:hover {
 .btn-default:hover, .btn-default.hover, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
   background-color: $nav_hover;
   color: white;
-}
-
-.btn-default.btn-select:hover, .btn-default.btn-select.active{
-  background-color: #FFCC59;
-}
-.btn-default.selected{
-  background-color: #CC9D33;
 }
 
 .stick{
@@ -182,7 +181,6 @@ hr {
 
 .justify {
   text-align: justify;
-  word-break: break-all;
 }
 
 /* typography */
@@ -195,11 +193,17 @@ h1, h2, h3, h5, h6 {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 2.5em;
   letter-spacing: -2px;
   margin-bottom: 15px;
   text-align: center;
+  text-shadow: 2px 2px lightgray;
 }
+
+.fatter{
+  font-size: 3em;
+}
+
 h2 {
   font-size: 1.8em;
   letter-spacing: -2px;
@@ -217,8 +221,20 @@ h4 {
   line-height: 1.3;
 }
 
+h5 {
+  font-size: 1.8em;
+  letter-spacing: -1px;
+  font-weight: bold;
+  line-height: 0.8;
+}
+
+h6 {
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 1;
+}
 .red {
-  color: coral;
+  color: darkseagreen;
   font-size: 0.8em;
   margin-bottom: -10px;
   margin-top: 5px;
@@ -324,7 +340,7 @@ section h1{
 }
 
 #featured{
-  background-color: #eef1f2;
+  background-color: #ffffff;
 }
 
 #mycarousel{
@@ -343,17 +359,22 @@ section h1{
 }
 
 .timeline-name > a:hover {
-  color: #07212B;
+  color: #24597E;
+}
+
+#timelines{
+  padding-top: 20px;
 }
 
 .timeline{
   .panel-primary{
     border-color: #3686BE;
+    -moz-box-shadow: 0px 2px 5px 0px #85A8BE;
+    -webkit-box-shadow: 0px 2px 5px 0px #85A8BE;
+    -o-box-shadow: 0px 2px 5px 0px #85A8BE;
+    box-shadow: 0px 2px 5px 0px #85A8BE;
+    filter:progid:DXImageTransform.Microsoft.Shadow(color=#85A8BE, Direction=180, Strength=5);
   }
-}
-
-.page{
-  padding-top: 20px;
 }
 
 .new-reference {
@@ -503,4 +524,28 @@ section h1{
 #session_remember_me {
   width: auto;
   margin-left: 0;
+}
+
+body.modal-open {
+  height: auto;
+}
+
+.cursor-default{
+  cursor: default;
+}
+
+.cursor-not-allowed, .cursor-not-allowed:hover, .cursor-not-allowed:active{
+  color: #0B0F19;
+  background-color: lightgray;
+  border-color: lightgray;
+  cursor: not-allowed;
+}
+
+#following-new-timelines{
+  a{
+    color: #07212B;
+  }
+  a:hover{
+    text-decoration: none;
+  }
 }

@@ -64,17 +64,32 @@
     margin-top: -12px;
 }
 
-.cd-color1 { background: #702BD9; }
+.btn-frog1 { color: #702BD9; }
 
-.cd-color2 { background: #322DE3; }
+.btn-frog2 { color: #322DE3; }
 
-.cd-color3 { background: #3366CC; }
+.btn-frog3 { color: #3366CC; }
 
-.cd-color4 { background: #2DABE3; }
+.btn-frog4 { color: #2DABE3; }
 
-.cd-color5 { background: #2BD9CF; }
+.btn-frog5 { color: #2BD9CF; }
 
-.cd-color0 { background: #3366CC; }
+.btn-frog0 { color: #3366CC; }
+
+.btn-select{
+    background-color: #ffffff;
+}
+
+.binary1 .cd-color, .btn-frog1:hover, .btn-frog1.active { background: #702BD9; color: #f1f4f9;}
+.binary2 .cd-color, .btn-frog2:hover, .btn-frog2.active { background: #322DE3; color: #f1f4f9;}
+.binary3 .cd-color, .btn-frog3:hover, .btn-frog3.active { background: #3366CC; color: #f1f4f9;}
+.binary4 .cd-color, .btn-frog4:hover, .btn-frog4.active { background: #2DABE3; color: #f1f4f9;}
+.binary5 .cd-color, .btn-frog5:hover, .btn-frog5.active { background: #2BD9CF; color: #f1f4f9;}
+.binary0 .cd-color, .btn-frog0:hover, .btn-frog0.active { background: #3366CC; color: #f1f4f9;}
+
+.cd-frog { color: inherit }
+
+.selected { background: #3366CC; color: #f1f4f9; }
 
 .cssanimations .cd-timeline-img.is-hidden { visibility: hidden; }
 
