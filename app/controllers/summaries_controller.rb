@@ -98,6 +98,7 @@ class SummariesController < ApplicationController
       else
         VisiteTimeline.create( user_id: user_id, timeline_id: params[:timeline_id] )
       end
+      @favorites = Credit.where( user_id: user_id, timeline_id: params[:timeline_id] ).count
       @improve = Summary.where(user_id: user_id, timeline_id: params[:timeline_id] ).count == 1 ? false : true
     else
       user_id = nil

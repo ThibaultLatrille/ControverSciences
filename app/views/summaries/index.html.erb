@@ -30,17 +30,18 @@
     <div>
     <% if logged_in? %>
         <div class="btn-group">
-          <%= link_to "Ma synthèse".html_safe,
+          <%= link_to "Ma synthèse (".html_safe + (@improve ? "0" : "1") + ")",
                       summaries_path( timeline_id: params[:timeline_id], :filter => 'mine'),
                       class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
         </div>
         <div class="btn-group">
-          <%= link_to "L'ensemble des synthèses".html_safe,
+          <%= link_to "Les autres synthèses (".html_safe +
+                              (@improve ? @timeline.nb_summaries.to_s : (@timeline.nb_summaries-1).to_s ) + ")",
                       summaries_path( timeline_id: params[:timeline_id] ),
                       class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
         </div>
         <div class="btn-group">
-          <%= link_to "Mes synthèses favorites".html_safe,
+          <%= link_to "Mes synthèses favorites (#{@favorites})".html_safe,
                       summaries_path( timeline_id: params[:timeline_id], :filter => 'my-vote'),
                       class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
         </div>
