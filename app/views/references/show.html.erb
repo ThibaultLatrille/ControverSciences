@@ -304,7 +304,13 @@
 </div>
 
 <script type="text/javascript">
+    $(function () {
+        $('.ajax-btn').click(function () {
+            $(this).hide(500);
+            console.log("fsqdfqdsfsdf")
+        });
+    });
     $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip({container: 'body'})
+        $('[data-toggle="tooltip"]').tooltip({container: 'body'})
     });
 </script>

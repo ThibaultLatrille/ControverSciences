@@ -6,7 +6,7 @@
     <% if best_comment.comment_count(6) > 1 %>
         <%= link_to "Voir tous les titres",
                     from_reference_path(:reference_id => @reference.id, field: 6),
-                    class: "btn btn-info",
+                    class: "btn btn-info ajax-btn",
                     :remote => true, id: "button6" %>
         <div id="show6" class="btn btn-info" style="display: none">
           Voir <%= fields_plural_hash[6] %>
@@ -29,7 +29,7 @@
             <% if best_comment.comment_count(fi) > 1 %>
                 <%= link_to "Voir #{fields_plural_hash[fi]}",
                             from_reference_path(:reference_id => @reference.id, field: fi),
-                            class: "btn btn-info",
+                            class: "btn btn-info ajax-btn",
                             :remote => true, id: "button#{fi}" %>
                 <div id="show<%= fi %>" class="btn btn-info" style="display: none">
                   Voir <%= fields_plural_hash[fi] %>
@@ -58,7 +58,7 @@
           <% if best_comment.comment_count(7) > 1 %>
               <%= link_to "Voir #{fields_plural_hash[7]}",
                           from_reference_path(:reference_id => @reference.id, field: 7),
-                          class: "btn btn-info",
+                          class: "btn btn-info ajax-btn",
                           :remote => true, id: "button7" %>
           <span id="show7" class="btn btn-info" style="display: none">
             Voir <%= fields_plural_hash[7] %>
