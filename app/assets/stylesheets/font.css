@@ -1,0 +1,256 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('/assets/icomoon.eot?-1sguz2');
+	src:url('/assets/icomoon.eot?#iefix-1sguz2') format('embedded-opentype'),
+		url('/assets/icomoon.woff?-1sguz2') format('woff'),
+		url('/assets/icomoon.ttf?-1sguz2') format('truetype'),
+		url('/assets/icomoon.svg?-1sguz2#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+    font-size: 1.8em;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+    vertical-align: middle;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.bigger{
+    font-size: 1.4em;
+}
+
+.fat{
+    font-size: 2em;
+}
+
+.big{
+    font-size: 2.5em;
+}
+
+.normal{
+    font-size: 1em;
+}
+
+.font-icon{
+    font-weight: bold;
+    font-size: 1.4em;
+    line-height: 180%;
+}
+
+
+.icon-ethics:before {
+	content: "\e600";
+}
+
+.icon-epistemology:before {
+	content: "\e601";
+}
+
+.icon-energy:before {
+	content: "\e602";
+}
+
+.icon-summary:before,
+.icon-comment:before {
+	content: "\e603";
+}
+
+.icon-chromosome:before {
+	content: "\e604";
+}
+
+.icon-children:before {
+	content: "\e605";
+}
+
+.icon-chemistry:before {
+	content: "\e606";
+}
+
+.icon-biology:before {
+	content: "\e607";
+}
+
+.icon-archeology:before {
+	content: "\e608";
+}
+
+.icon-animal:before {
+	content: "\e609";
+}
+
+.icon-5:before {
+	content: "\e60a";
+}
+
+.icon-4:before {
+	content: "\e60b";
+}
+
+.icon-3:before {
+	content: "\e60c";
+}
+
+.icon-2:before {
+	content: "\e60d";
+}
+
+.icon-1:before {
+	content: "\e60e";
+}
+
+.icon-users:before {
+	content: "\e60f";
+}
+
+.icon-techno:before {
+	content: "\e610";
+}
+
+.icon-space:before {
+	content: "\e611";
+}
+
+.icon-socio:before {
+	content: "\e612";
+}
+
+.icon-social:before {
+	content: "\e613";
+}
+
+.icon-summary_selection:before,
+.icon-selection:before {
+	content: "\e614";
+}
+
+.icon-search:before {
+	content: "\e615";
+}
+
+.icon-rig:before {
+	content: "\e616";
+}
+
+.icon-ribbon:before {
+	content: "\e617";
+}
+
+.icon-reference:before {
+	content: "\e618";
+}
+
+.icon-psycho:before {
+	content: "\e619";
+}
+
+.icon-plus:before {
+	content: "\e61a";
+}
+
+.icon-plant:before {
+	content: "\e61b";
+}
+
+.icon-planet:before {
+	content: "\e61c";
+}
+
+.icon-pie:before {
+	content: "\e61d";
+}
+
+.icon-physics:before {
+	content: "\e61e";
+}
+
+.icon-pharmacy:before {
+	content: "\e61f";
+}
+
+.icon-parent:before {
+	content: "\e620";
+}
+
+.icon-no-parent:before {
+	content: "\e621";
+}
+
+.icon-neuro:before {
+	content: "\e622";
+}
+
+.icon-minus:before {
+	content: "\e623";
+}
+
+.icon-medicine:before {
+	content: "\e624";
+}
+
+.icon-locked:before {
+	content: "\e625";
+}
+
+.icon-lock:before {
+	content: "\e626";
+}
+
+.icon-linguistic:before {
+	content: "\e627";
+}
+
+.icon-like:before {
+	content: "\e628";
+}
+
+.icon-laurel-2:before {
+	content: "\e629";
+}
+
+.icon-laurel:before {
+	content: "\e62a";
+}
+
+.icon-informatics:before {
+	content: "\e62b";
+}
+
+.icon-immunity:before {
+	content: "\e62c";
+}
+
+.icon-history:before {
+	content: "\e62d";
+}
+
+.icon-geology:before {
+	content: "\e62e";
+}
+
+.icon-gear:before {
+	content: "\e62f";
+}
+
+.icon-timeline:before,
+.icon-frog:before {
+	content: "\e630";
+}
+
+.icon-fork:before {
+	content: "\e631";
+}
+
+.icon-no:before {
+    content: "\e602";
+}
