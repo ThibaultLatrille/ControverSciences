@@ -8,8 +8,8 @@
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3> Editer une référence appartenant à la controverse <%= link_to Timeline.find(@reference.timeline_id).name,
-                    Timeline.find(@reference.timeline_id) %></h3>
+                <h4> Editer une référence appartenant à la controverse <%= link_to Timeline.find(@reference.timeline_id).name,
+                    Timeline.find(@reference.timeline_id) %></h4>
             </div>
             <div class="panel-body">
                 <%= form_for(@reference) do |f| %>
@@ -26,12 +26,12 @@
                     <label class="btn btn-default active" title="Journal en Open-Access">
                         <%= f.radio_button :open_access, checked_value = true,
                         {id: "0", autocomplete: "off"} %>
-                        <%= image_tag("icons/myicon-lock.svg", height: "24px")%>
+                      <span class="fat icon-lock"></span>
                     </label>
                     <label class="btn btn-default" title="Journal sous Pay-Wall">
                         <%= f.radio_button :open_access, checked_value = false,
                         {id: "1", autocomplete: "off"} %>
-                        <%= image_tag("icons/myicon-locked.svg", height: "24px")%>
+                      <span class="fat icon-locked"></span>
                     </label>
                 </div>
                 <br/>
@@ -52,7 +52,9 @@
                 <%= f.text_area :abstract, {:rows => 2,
                 :class => "form-control textarea"} %>
                 <br/>
-                <%= f.submit "Modifier la référence", class: "btn btn-primary" %>
+                  <%= f.button "Modifier la référence &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                               class: 'btn btn-success btn-lg pull-right',
+                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
                 <% end %>
             </div>
         </div>

@@ -6,16 +6,12 @@
                 timeline_path(params[:timeline_id]), class: "btn btn-block btn-primary" %>
   </div>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-          Astuce : Remplissez uniquement le DOI ou le titre de la référence et utilisez le boutton  <span class="glyphicon glyphicon-refresh"> </span>
-          pour auto-compléter les autres champs.
-        </div>
-    </div>
     <div class="panel panel-default">
       <div class="panel-heading">
+        <h4>
         Ajouter une référence à la controverse
-        <%= link_to Timeline.find(params[:timeline_id]).name, timeline_path(Timeline.find(params[:timeline_id])) %></h3>
+        <%= link_to Timeline.find(params[:timeline_id]).name, timeline_path(Timeline.find(params[:timeline_id])) %>
+          </h4>
       </div>
       <div class="panel-body">
     <%= form_for(@reference) do |f| %>
@@ -27,45 +23,56 @@
         <%= f.text_field :doi, class: 'form-control myforms' %>
 
         <br/>
-        <%= f.label "Lien vers la publication" %>
+        <%= f.label "Lien vers la publication*" %>
         <%= f.text_field :url, class: 'form-control myforms' %>
             <br/>
-        <%= f.label "Journal en Open-Access" %>
+        <%= f.label "Journal en Open-Access*" %>
         <div class="btn-group-justified" data-toggle="buttons">
           <label class="btn btn-default active" title="Journal en Open-Access">
             <%= f.radio_button :open_access, checked_value = true,
                                {id: "0", autocomplete: "off"} %>
-            <%= image_tag("icons/myicon-lock.svg", height: "24px")%>
+            <span class="icon-lock"></span>
           </label>
           <label class="btn btn-default" title="Journal sous Pay-Wall">
             <%= f.radio_button :open_access, checked_value = false,
                                {id: "1", autocomplete: "off"} %>
-            <%= image_tag("icons/myicon-locked.svg", height: "24px")%>
+            <span class="icon-locked"></span>
           </label>
         </div>
         <br/>
-        <%= f.label "Titre original" %>
+
+        <%= f.label "Titre original*" %>
+
         <div class="input-group">
           <span class="input-group-btn">
-            <button class="btn btn-primary" name="title" type="submit" onclick="freeze()"> <span class="glyphicon glyphicon-refresh"></span> </button>
+            <button class="btn btn-info" name="title" type="submit" onclick="freeze()"> <span class="glyphicon glyphicon-refresh"></span> </button>
           </span>
               <%= f.text_field :title, class: 'form-control myforms' %>
         </div>
+
         <br/>
-        <%= f.label "Journal" %>
+            <div class="panel panel-info">
+              <div class="panel-heading">
+                Astuce : Remplissez uniquement le titre de la référence et utilisez le boutton  <span class="glyphicon glyphicon-refresh"> </span>
+                pour auto-compléter les autres champs.
+              </div>
+            </div>
+        <%= f.label "Journal*" %>
         <%= f.text_field :journal, class: 'form-control myforms' %>
             <br/>
-        <%= f.label "Année de publication" %>
+        <%= f.label "Année de publication*" %>
         <%= f.select :year, (1859..Date.current.year).to_a.reverse.push(["Avant 1859",0]), {}, { class: 'form-control myforms'} %>
             <br/>
-        <%= f.label "Les auteurs de l'étude" %>
+        <%= f.label "Les auteurs de l'étude*" %>
         <%= f.text_field :author, class: 'form-control myforms' %>
             <br/>
         <%= f.label "Abstract en langue original (Facultatif)" %>
         <%= f.text_area :abstract, {:rows => 2,
                                     :class => "form-control myforms textarea"} %>
             <br/>
-        <%= f.submit "Ajouter la référence", class: "btn btn-primary" %>
+            <%= f.button "Ajouter la référence &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                         class: 'btn btn-success btn-lg pull-right',
+                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
     <% end %>
       </div>
     </div>

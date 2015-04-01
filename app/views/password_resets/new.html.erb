@@ -11,7 +11,9 @@
             <%= f.label :email %>
             <%= f.text_field :email, class: "form-control" %>
 
-            <%= f.submit "Soumettre ", class: "btn btn-primary" %>
+            <%= f.button "Soumettre &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                         class: 'pull-right btn btn-success',
+                         data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi en cours "}%>
         <% end %>
       </div>
     </div>

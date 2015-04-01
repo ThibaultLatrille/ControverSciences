@@ -1,7 +1,11 @@
 class SuggestionsController < ApplicationController
 
+  def show
+    @suggestion = Suggestion.find_by( timeline_id: params[:timeline_id] )
+  end
+
   def index
-    @suggestions = Suggestion.order( created_at: :desc).all.page(params[:page]).per(10)
+    @suggestions = Suggestion.order( created_at: :desc).all.page(params[:page]).per(5)
     @suggestion = Suggestion.new
     if logged_in? && !@suggestion.name
       @suggestion.name = current_user.name

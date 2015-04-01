@@ -5,11 +5,11 @@
   <div class="clearfix pull-right">
     <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{@suggestion.plus} </span>".html_safe,
                 suggestion_votes_path(vote: {suggestion_id: @suggestion.id, value: "true" } ),
-                method: :post, class: "btn btn-primary" %>
+                method: :post, class: "btn btn-success" %>
     <br/>
     <%= link_to "<span class=\"glyphicon glyphicon-thumbs-down\"> #{@suggestion.minus} </span>".html_safe,
                 suggestion_votes_path(vote: {suggestion_id: @suggestion.id, value: "false" } ),
-                method: :post, class: "btn btn-primary" %>
+                method: :post, class: "btn btn-danger" %>
     <br/>
   </div>
 </div>
@@ -55,7 +55,9 @@
                 </div>
                 <div class="col-xs-12 col-md-6">
                   <div class="pull-right">
-                    <%= f.submit 'Publier', class: 'btn btn-primary'%>
+                    <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                                 class: 'btn btn-success',
+                                 data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Publication en cours "}%>
                   </div>
                 </div>
               </div>

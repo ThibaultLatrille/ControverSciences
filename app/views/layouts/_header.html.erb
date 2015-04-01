@@ -20,46 +20,40 @@
                  <span class="caret"></span>
                </a>
                <ul class="dropdown-menu">
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> &nbsp Comment fonctionne ControverSciences ?'.html_safe, how_to_path %></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> &nbsp Comment contribuer à ControverSciences ?'.html_safe, how_to_edit_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> &nbsp Découvrir ControverSciences'.html_safe, how_to_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign" ></span> &nbsp Contribuer à ControverSciences'.html_safe, how_to_edit_path %></li>
                  <li><%= link_to '<span class="glyphicon glyphicon-question-sign" ></span> &nbsp FAQ'.html_safe, faq_path %></li>
                  <li class="divider"></li>
-                 <li><%= link_to (image_tag "icons/myicon-users.svg", height: "20px")+" Qui sont les contibuteurs", users_path %> </li>
+                 <li><%= link_to "<span class=\"icon-users\"></span>".html_safe+" Qui sont les contibuteurs", users_path %> </li>
                  <li class="divider"></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-pencil" ></span> &nbsp Proposer une amélioration'.html_safe, suggestions_path %></li>
+                 <li><%= link_to '<span class="glyphicon glyphicon-comment" ></span> &nbsp Venez discuter'.html_safe, suggestions_path %></li>
                </ul>
              </li>
          <% if logged_in? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-		         <%= image_tag "icons/myicon-frog.svg", height: "28px"%>
+                <span class="fat icon-frog"></span>
                  <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to (image_tag "icons/myicon-timeline.svg", height: "20px")+" #{current_user.name}",
+                <li><%= link_to '<span class="glyphicon glyphicon-user"></span>'.html_safe+" #{current_user.name}",
                                 edit_user_path(current_user) %> </li>
                 <li class="divider"></li>
                 <li> <%= link_to "<span class=\"badge\">#{current_user.notifications_all_important}</span> Notifications ".html_safe,
                             notifications_important_path %>
                 </li>
-                <li><%= link_to (image_tag "icons/myicon-comment.svg", height: "20px")+ " Mes contributions",
+                <li><%= link_to "<span class=\"icon-comment\"></span>".html_safe+ " Mes contributions",
                                 my_items_items_path %> </li>
-                <li><%= link_to (image_tag "icons/myicon-ribbon.svg", height: "20px")+ " Mes votes",
+                <li><%= link_to "<span class=\"icon-ribbon\"></span>".html_safe+ " Mes votes",
                                 my_items_votes_path %> </li>
                 <li class="divider"></li>
                 <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all }</span> Nouveautés ".html_safe,
                                 notifications_index_path %> </li>
-                <li><%= link_to '<span class="glyphicon glyphicon-eye-open"></span> Gérer mes abonnements'.html_safe,
+                <li><%= link_to '<span class="glyphicon glyphicon-eye-open"></span>&nbsp Gérer mes abonnements'.html_safe,
                                 followings_index_path %> </li>
                 <li class="divider"></li>
                 <li>
-                  <%= link_to "<span class=\"glyphicon glyphicon-envelope\" >
-                            </span> Inviter".html_safe, '#newinvitation',
-                                      'data-toggle' => 'modal' %>
-                </li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to '<span class="glyphicon glyphicon-off"></span> Se déconnecter'.html_safe,
+                  <%= link_to '<span class="glyphicon glyphicon-off"></span>&nbsp Se déconnecter'.html_safe,
 				logout_path, method: "delete" %>
                 </li>
               </ul>

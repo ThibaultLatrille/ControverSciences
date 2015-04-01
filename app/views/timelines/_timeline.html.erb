@@ -7,7 +7,7 @@
         Thèmes
       </button>
       <div class="pull-right">
-        <button type="button" class="btn btn-default" data-placement="left"
+        <button type="button" class="btn btn-success" data-placement="left"
             data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes/add"
             title="<%= timeline.nb_likes.to_s + " personnes s'intéressent à cette controverse" %>">
         <span class="glyphicon glyphicon-thumbs-up" id="like<%= timeline.id %>"> <%= timeline.nb_likes %> </span>
@@ -16,7 +16,7 @@
       <div class="timeline-name center">
         <br/>
           <%= link_to timeline.name, timeline, class: "hvr-grow" %>
-        <% if timeline.nb_edits == 0  %>
+        <% if timeline.nb_edits == 0 %>
               <div class="red center">
                 Controverse en construction
               </div>
@@ -26,24 +26,27 @@
           <% timeline.get_tag_list.each do |name| %>
               <div class="btn btn-default stick hvr-shadow" title="<%= tags_hash[name] %>"
                    data-toggle="tooltip">
-                <%= image_tag("icons/myicon-#{name}.svg", alt: name, height: "24px") %>
+                <span class="fat icon-<%= name %>"></span>
               </div>
           <% end %>
       </div>
       <div class="collapse in center" id="group<%= timeline.id %>">
           <div class="btn btn-default stick" data-placement="left"
-               title="<%= timeline.nb_contributors %> contributeur(s)" data-toggle="tooltip">
-          <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "24px") %>
+               title="<%= timeline.nb_contributors.to_s + (timeline.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
+               data-toggle="tooltip">
+            <span class="fat icon-users"></span>
           <span class="badge"><%= timeline.nb_contributors %></span>
           </div>
           <div class="btn btn-default stick" data-placement="top"
-               title="<%= timeline.nb_references %> référence(s) scientifique(s)" data-toggle="tooltip">
-          <%= image_tag("icons/myicon-reference.svg", alt: "ref", height: "24px") %>
+               title="<%= timeline.nb_references.to_s + (timeline.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
+               data-toggle="tooltip">
+            <span class="fat icon-reference"></span>
           <span class="badge"><%= timeline.nb_references %></span>
           </div>
           <div class="btn btn-default stick" data-placement="right"
-               title="<%= timeline.nb_edits %> contribution(s)" data-toggle="tooltip">
-          <%= image_tag("icons/myicon-comment.svg", alt: "ref", height: "24px") %>
+               title="<%= timeline.nb_edits.to_s + (timeline.nb_edits > 1 ? " contributions" : " contributions") %>"
+               data-toggle="tooltip">
+            <span class="fat icon-comment"></span>
           <span class="badge"><%= timeline.nb_edits %></span>
           </div>
       </div>

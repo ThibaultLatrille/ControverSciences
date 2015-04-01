@@ -3,7 +3,11 @@ module AssisstantHelper
   def update_score_users
     users = User.select(:id, :score).all
     users.each do |user|
-      score_comments = 10*Math.log(BestComment.where( user_id: user.id).count + 1)
+      count = 1
+      for field in 0..7 do
+        count += BestComment.where( "f_#{field}_user_id".to_sym => user.id).count
+      end
+      score_comments = 2*Math.log( count )
       score_summaries = 10*Math.log(SummaryBest.where( user_id: user.id).count + 1)
       score_references = 5*Math.log(Reference.where( user_id: user.id, star_most: [4,5] ).count + 1)
       score_timeline = 0.5*Math.log(Timeline.where( user_id: user.id).pluck( :score ).reduce(0,:+) + 1)
@@ -13,7 +17,7 @@ module AssisstantHelper
   end
 
   def update_score_timelines
-    timelines = Timeline.select( :id, :nb_contributors, :nb_references, :nb_edits ).all
+    timelines = Timeline.select( :id, :nb_contributors, :nb_references, :nb_summaries, :nb_comments ).all
     timelines.each do |timeline|
       ago = Time.now - 7.days
       nb_references = Reference.where( timeline_id: timeline.id, created_at: ago..Time.now).count
@@ -27,24 +31,27 @@ module AssisstantHelper
   end
 
   def compute_fitness
-    comments = Comment.all.pluck( :id )
+    comments = Comment.where( public: true).pluck( :id )
     comments.each do |comment_id|
-      votes = Vote.select( :user_id, :value, :reference_id ).where( comment_id: comment_id)
-      score = 0.0
-      votes.each do |vote|
-        time = Time.now-VisiteReference.select( :updated_at ).find_by( user_id: vote.user_id,
-                                                                       reference_id: vote.reference_id ).updated_at
-        scale = 1
-        if time > 2592000
-          # Using the log-logistic cumulative distribution function for it's nice properties
-          # 7776000 is 3 months and 2592000 is a month. So in 4 month after the visit the scale is 0.5 and 1 after a month
-          scale = 1-1/( 1 + (7776000/(time - 2592000))**5 )
+      score = {}
+      Vote.select( :user_id, :value, :reference_id, :field ).where( comment_id: comment_id ).group_by{ |vote| vote.field }.map do | field, votes_by_field|
+        score[field] = 0.0
+        votes_by_field.each do |vote|
+          time = Time.now-VisiteReference.select( :updated_at ).find_by( user_id: vote.user_id,
+                                                                         reference_id: vote.reference_id ).updated_at
+          scale = 1
+          if time > 2592000
+            # Using the log-logistic cumulative distribution function for it's nice properties
+            # 7776000 is 3 months and 2592000 is a month. So in 4 month after the visit the scale is 0.5 and 1 after a month
+            scale = 1-1/( 1 + (7776000/(time - 2592000))**5 )
+          end
+          score[field] += scale*User.select( :score ).find( vote.user_id ).score*vote.value
         end
-        score += scale*User.select( :score ).find( vote.user_id ).score*vote.value
       end
-      Comment.update( comment_id, score: score)
+      Comment.update( comment_id, f_0_score: score[0], f_1_score: score[1], f_2_score: score[2], f_3_score: score[3], f_4_score: score[4],
+                      f_5_score: score[5], f_6_score: score[6], f_7_score: score[7])
     end
-    summaries = Summary.all.pluck( :id )
+    summaries = Summary.where( public: true ).pluck( :id )
     summaries.each do |summary_id|
       credits = Credit.select( :user_id, :value, :timeline_id ).where( summary_id: summary_id)
       score = 0.0
@@ -66,17 +73,40 @@ module AssisstantHelper
   def selection_events
     references = Reference.all.pluck( :id )
     references.each do |reference_id|
-      most = Comment.where( reference_id: reference_id ).order(score: :desc).first
       best_comment = BestComment.find_by(reference_id: reference_id )
-      if most
-        if most.id != best_comment.comment_id
-          most.selection_update( best_comment )
+      for field in 0..7 do
+        case field
+          when 6
+            most = Comment.select(:id, :user_id, :title, :title_markdown, :reference_id ).where( reference_id: reference_id,
+                                                                      public: true).order(:f_6_score => :desc).first
+            if most && most.title != ""
+              if most.id != best_comment.f_6_comment_id
+                most.selection_update( best_comment.f_6_comment_id, best_comment.f_6_user_id, 6 )
+              end
+            end
+            Reference.update( most.reference_id, title_fr: most.title_markdown )
+          when 7
+            most = Comment.select(:id, :user_id, :caption ).where( reference_id: reference_id,
+                                                                   public: true ).order(:f_7_score => :desc).first
+            if most && most.caption != ""
+              if most.id != best_comment.f_7_comment_id
+                most.selection_update( best_comment.f_7_comment_id, best_comment.f_7_user_id, 7 )
+              end
+            end
+          else
+            most = Comment.select(:id, :user_id, "f_#{field}_content".to_sym ).where( reference_id: reference_id,
+                                                        public: true ).order("f_#{field}_score" => :desc).first
+            if most && most["f_#{field}_content".to_sym] != ""
+              if most.id != best_comment["f_#{field}_comment_id".to_sym]
+                most.selection_update( best_comment["f_#{field}_comment_id".to_sym], best_comment["f_#{field}_user_id".to_sym], field )
+              end
+            end
         end
       end
     end
     timelines = Timeline.all.pluck( :id )
     timelines.each do |timeline_id|
-      most = Summary.where( timeline_id: timeline_id ).order(score: :desc).first
+      most = Summary.where( timeline_id: timeline_id, public: true ).order(score: :desc).first
       best_summary = SummaryBest.find_by(timeline_id: timeline_id )
       if most
         if most.id != best_summary.summary_id
@@ -153,12 +183,12 @@ module AssisstantHelper
 
     new_comments = NewCommentSelection.all
     new_comments.each do | comment_selection |
-      comment = Comment.select(:id, :reference_id).find( comment_selection.new_summary_id )
+      comment = Comment.select(:id, :reference_id).find( comment_selection.new_comment_id )
       user_ids = FollowingReference.where( reference_id: comment.reference_id ).pluck(:user_id )
       notifications = []
       user_ids.each do |user_id|
         notifications << NotificationSelection.new( user_id: user_id, old_summary_id: comment_selection.old_summary_id,
-                                                           new_summary_id: comment_selection.new_summary_id )
+                                                           new_summary_id: comment_selection.new_summary_id, field: comment_selection.field )
       end
       NotificationSelection.import notifications
     end

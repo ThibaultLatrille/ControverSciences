@@ -49,6 +49,7 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find( params[:id] )
     if @timeline.user_id == current_user.id
       @timeline.name = timeline_params[:name]
+      @timeline.debate = timeline_params[:debate]
       if timeline_params[:binary] != "0"
         @timeline.binary = "Non&&Oui"
       else
@@ -69,7 +70,7 @@ class TimelinesController < ApplicationController
   end
 
   def create
-    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name])
+    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name], debate: timeline_params[:debate])
     if timeline_params[:binary]
       @timeline.binary = "Non&&Oui"
     end
@@ -92,6 +93,9 @@ class TimelinesController < ApplicationController
     else
       @summary = nil
     end
+    if logged_in?
+      @improve = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
+    end
     @references = Reference.select( :id, :title_fr, :title, :year, :binary_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )
   end
 
@@ -106,6 +110,6 @@ class TimelinesController < ApplicationController
   private
 
   def timeline_params
-    params.require(:timeline).permit(:name, :binary)
+    params.require(:timeline).permit(:name, :binary, :debate)
   end
 end

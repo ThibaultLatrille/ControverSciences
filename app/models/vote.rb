@@ -11,8 +11,9 @@ class Vote < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validates :comment_id, presence: true
+  validates :field, presence: true, inclusion: { in: 0..7 }
   validates :value, presence: true, inclusion: { in: 1..12 }
-  validates_uniqueness_of :user_id, :scope => :comment_id
+  validates_uniqueness_of :user_id, :scope => [:comment_id, :value]
   validate :not_user_comment
   validate :not_excede_value
 
@@ -21,7 +22,7 @@ class Vote < ActiveRecord::Base
   end
 
   def comment_short
-    Comment.select( :id, :title, :user_id ).find( self.comment_id )
+    Comment.select( :id, :user_id ).find( self.comment_id )
   end
 
   def reference_title
@@ -45,7 +46,7 @@ class Vote < ActiveRecord::Base
 
   def not_excede_value
     sum = Vote.where( user_id: self.user_id,
-                reference_id: self.reference_id ).where.not( id: self.id ).sum( :value )
+                reference_id: self.reference_id, field: self.field ).where.not( id: self.id ).sum( :value )
     sum += self.value
     if sum > 12
       errors.add(:value, "The value exceded the permitted amount")
@@ -53,7 +54,7 @@ class Vote < ActiveRecord::Base
   end
 
   def destroy_with_counters
-    Comment.update_counters(self.comment_id, balance: -self.value )
+    Comment.update_counters(self.comment_id, "f_#{self.field}_balance" => -self.value )
     Reference.update_counters(self.reference_id, nb_votes: -self.value )
     self.destroy
   end
@@ -61,7 +62,7 @@ class Vote < ActiveRecord::Base
   private
 
   def cascading_save_vote
-    Comment.update_counters(self.comment_id, balance: self.value )
+    Comment.update_counters(self.comment_id, "f_#{self.field}_balance".to_sym => self.value )
     Reference.update_counters(self.reference_id, nb_votes: self.value )
   end
 
@@ -70,7 +71,7 @@ class Vote < ActiveRecord::Base
     yield
     if value != self.value
       diff = self.value - value
-      Comment.update_counters(self.comment_id, balance: diff )
+      Comment.update_counters(self.comment_id, "f_#{self.field}_balance".to_sym => diff )
       Reference.update_counters(self.reference_id, nb_votes: diff )
     end
   end

@@ -4,7 +4,7 @@ class SummariesController < ApplicationController
   def new
     summary = Summary.find_by( user_id: current_user.id, timeline_id: params[:timeline_id] )
     if summary
-      redirect_to edit_summary_path( id: summary.id, parent_id: params[:parent_id] )
+      redirect_to edit_summary_path( id: summary.id )
     else
       @summary = Summary.new
       if params[:parent_id]
@@ -36,7 +36,7 @@ class SummariesController < ApplicationController
         SummaryRelationship.create(parent_id: parent_id, child_id: @summary.id)
       end
       flash[:success] = "Synthèse enregistrée."
-      redirect_to summary_path( @summary.id )
+      redirect_to summaries_path( filter: "mine", timeline_id: @summary.timeline_id )
     else
       @list = Reference.where( timeline_id: summary_params[:timeline_id] ).pluck( :title, :id )
       if parent_id
@@ -47,17 +47,8 @@ class SummariesController < ApplicationController
   end
 
   def edit
-    @my_summary = Summary.find( params[:id] )
-    @summary = @my_summary
+    @summary = Summary.find( params[:id] )
     @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
-    if params[:parent_id]
-      @parent = Summary.find(params[:parent_id])
-      if @parent.user_id != current_user.id
-        @summary[:content] += "\n" + @parent[:content]
-      else
-        @parent = nil
-      end
-    end
   end
 
   def update
@@ -78,9 +69,6 @@ class SummariesController < ApplicationController
         redirect_to @summary
       else
         @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
-        if params[:summary][:parent_id]
-          @parent = Summary.find(params[:summary][:parent_id])
-        end
         render 'edit'
       end
     else
@@ -93,9 +81,14 @@ class SummariesController < ApplicationController
                                :markdown, :balance, :best, :picture, :caption_markdown,
                                :created_at
     ).find(params[:id])
+    if logged_in?
+      @improve = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id ).count == 1 ? false : true
+    end
+    @timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
   end
   
   def index
+    @timeline = Timeline.select(:id, :nb_summaries, :name ).find( params[:timeline_id] )
     if logged_in?
       user_id = current_user.id
       @my_credits = Credit.where( user_id: user_id, timeline_id: params[:timeline_id] ).sum( :value )
@@ -105,6 +98,7 @@ class SummariesController < ApplicationController
       else
         VisiteTimeline.create( user_id: user_id, timeline_id: params[:timeline_id] )
       end
+      @improve = Summary.where(user_id: user_id, timeline_id: params[:timeline_id] ).count == 1 ? false : true
     else
       user_id = nil
     end

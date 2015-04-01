@@ -25,12 +25,22 @@
             <%= f.label :biography, "Biographie" %>
             <%= f.text_area :biography, placeholder: "Votre biographie", class: 'form-control textarea' %>
             <br/>
+            <p hidden id="has_picture"><%= @user_detail.picture %></p>
+            <%= f.hidden_field :delete_picture, value: false %>
             <%= f.hidden_field :user_id, value: @user.id %>
-            <span class="picture">
-            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg', class: 'form-control' %>
+            <span class="btn btn-default btn-file">
+                  <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                     &nbsp <span id="ajouter">Changer de figure</span> <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg' %>
+                </span>
+            <span id="delete" class="btn btn-danger">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                Ne pas ajouter de figure
             </span>
-                <br/>
-            <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
+            <br/>
+            <br/>
+            <%= f.button "Enregistrer les changements &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                         class: 'btn btn-success pull-right',
+                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
         <% end %>
       </div>
     </div>
@@ -56,7 +66,9 @@
             <%= f.label :password_confirmation, "Confirmation de mot de passe" %>
             <%= f.password_field :password_confirmation, class: 'form-control' %>
             <br/>
-            <%= f.submit "Enregistrer les changements", class: "btn btn-primary" %>
+            <%= f.button "Enregistrer les changements &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                         class: 'btn btn-success pull-right',
+                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
         <% end %>
       </div>
     </div>
@@ -64,6 +76,28 @@
 </div>
 </div>
 <script type="text/javascript">
+    $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+    $('#delete').click(function(){
+        $('#delete').fadeOut(500);
+        $('#ajouter').text("Ajouter une figure à cette analyse");
+        $('#user_detail_delete_picture').val('true');
+    });
+    if ($('#has_picture').text() === '') {
+        $('#delete').hide();
+        $('#ajouter').text("Ajouter une figure à cette analyse");
+    }
+    $(document).ready(function() {
+        $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+            $('#delete').fadeIn(500);
+            $('#ajouter').text("Changer de figure");
+            $('#user_detail_delete_picture').val('false');
+        });
+    });
     $('#user_detail_picture').bind('change', function () {
         size_in_megabytes = this.files[0].size / 1024 / 1024;
         if (size_in_megabytes > 5) {

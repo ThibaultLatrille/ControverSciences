@@ -1,14 +1,24 @@
 <div class="panel panel-default comment">
   <div class="panel-body clearfix">
     <% if comment.title_markdown != "" %>
-        <b> <%= comment.title_markdown.html_safe %> </b>
+        <b> <%= fields_hash[6] %>
+          <% if display %>
+              (<%= comment[:f_6_balance] %> crédits)
+          <% end %>
+        </b> :
+        <b> <%= comment.title_markdown.html_safe %>   </b>
         <br/>
     <% end %>
       <% if comment.picture? %>
         <div class="pull-right">
           <div class="thumbnail">
-            <%= image_tag comment.picture.url, class: "img-rounded img-responsive" %>
+            <%= image_tag comment.picture_url, class: "img-rounded img-responsive" %>
             <div class="caption">
+              <b> <%= fields_hash[7] %>
+              <% if display %>
+                   (<%= comment[:f_7_balance] %> crédits)
+              <% end %> :
+              </b>
               <%= comment.caption_markdown.html_safe %>
             </div>
           </div>
@@ -17,64 +27,33 @@
   <span class="content">
     <% for fi in 0..5 %>
         <% if comment["markdown_#{fi}".to_sym] != "" %>
-        <b> <%= fields_hash[fi] %> </b>
-        <div class="text-justify">
-        <%= comment["markdown_#{fi}".to_sym].html_safe %>
-        </div>
-        <% end %>
+            <b> <%= fields_hash[fi] %>
+            <% if display %>
+                (<%= comment["f_#{fi}_balance".to_sym] %> crédits)
+            <% end %> :
+            </b>
+            <div class="text-justify">
+            <%= comment["markdown_#{fi}".to_sym].html_safe %>
+            </div>
+       <% end %>
     <% end %>
-    <% unless vote %>
-        <div class="pull-right">
-    Publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id) %>
-        </div>
-    <% end %>
+    <div class="pull-right">
+      Publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id ) %>
+    </div>
   </span>
   </div>
   <div class="panel-footer">
     <div class="clearfix">
-    <% if vote %>
-        <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
-        <div class="row">
-          <%= f.hidden_field :comment_id, value: comment.id %>
-          <%= f.hidden_field :reference_id, value: comment.reference_id %>
-          <%= f.hidden_field :timeline_id, value: comment.timeline_id %>
-            <div class="col-md-9">
-              <div class="input-group input-small">
-                <span class="input-group-btn">
-                <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%>
-                </span>
-              <%= f.select :value, (0..(12 + comment.my_vote( current_user.id ) -
-                      (@my_votes ? @my_votes : Vote.where( user_id: current_user.id, reference_id: comment.reference_id ).sum( :value ) ) )),
-                           {selected: comment.my_vote( current_user.id )}, { class: "form-control selectwidthauto" } %>
-              <div>
-                  <% if comment.my_vote( current_user.id ) == 0 %>
-                    <%= f.submit "Accréditer cette analyse", class: "btn btn-primary selectwidthauto"%>
-                  <% else %>
-                    <%= f.submit "Changer mes crédits (#{comment.my_vote( current_user.id)} actuellement)", class: "btn btn-primary selectwidthauto"%>
-                    <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                vote_path(id: "none", parent_id: comment.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
-                  <% end %>
-              </div>
-              </div>
-            </div>
-            <div class="pull-right">
-                <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                        new_comment_path(parent_id: comment.id, reference_id: comment.reference_id), :class => "btn btn-default", "data-toggle" => "tooltip",
-                        title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
-            </div>
-        </div>
-        <% end %>
-    <% else %>
-        <div class="btn btn-default">
-          <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%>
-          <%= comment.balance %> crédits ont été donné à cette analyse.
-        </div>
+      <% if delete %>
+          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer mon analyse".html_safe,
+                      comment_path( comment.id ), method: :delete,
+                      data: { confirm: "Etes vous certain ?" }, class: "btn btn-danger", :style => "padding: 14px; margin-right: 10px" %>
+      <% end %>
         <div class="pull-right">
-          <%= link_to image_tag("icons/myicon-fork.svg", alt: "fork", height: "28px"),
-                      new_comment_path(parent_id: comment.id, reference_id: comment.reference_id), :class => "btn btn-default", "data-toggle" => "tooltip",
-                      title: "Améliorer cette analyse", :style => "padding: 2px; margin-right: 10px"%>
+          <%= link_to "<span class=\"icon-fork big\"></span>".html_safe,
+                      new_comment_path(reference_id: comment.reference_id), :class => "btn btn-primary", "data-toggle" => "tooltip",
+                      title: "Améliorer cette analyse", :style => "padding: 8px; margin-right: 10px"%>
         </div>
-    <% end %>
     </div>
   </div>
 </div>

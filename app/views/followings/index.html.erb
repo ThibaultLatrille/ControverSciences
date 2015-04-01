@@ -22,12 +22,9 @@
           <% else %>
               <% @fo_new_timelines.each do |tag| %>
                   <tr class="following-new-timeline">
-                    <td> <%= link_to( image_tag("icons/myicon-#{tag.name}.svg",
-                                                alt: tag.name,
-                                               title: tags_hash[tag.name],
-                                               height: "28px")+"&nbsp".html_safe,
-                                                timelines_path(:tag => tag.name))+
-                                                " "+tags_hash[tag.name] %>
+                    <td> <%= link_to( "<span class=\"icon-#{tag.name}\"></span> ".html_safe+tags_hash[tag.name],
+                                                timelines_path(:tag => tag.name),
+                                                class: "hvr-grow" )%>
                     </td>
                     <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
                                                                 </span>".html_safe,
@@ -41,7 +38,7 @@
         <div class="btn-group">
           <button class="btn btn-default dropdown-toggle" type="button"
                   id="dropdownMenuTag" data-toggle="dropdown">
-            Ajouter un tag
+            Ajouter un thème
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu" >
@@ -51,8 +48,7 @@
             </li>
             <% tags_hash.each do |key, value| %>
                 <li>
-                  <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
-                                        height: "28px")+"&nbsp".html_safe+value,
+                  <%= link_to "<span class=\"icon-#{key} hvr-grow\"></span> ".html_safe+value,
                               following_new_timelines_path(tag: key, redirect: true),
                               method: :post %>
                 </li>
@@ -87,8 +83,7 @@
                     <td> <%= link_to timeline.name, timeline_path(timeline.id) %> </td>
                     <td>
                       <% timeline.get_tag_list.each do |name| %>
-                          <%= image_tag("icons/myicon-#{name}.svg", alt: name,
-                                        title: tags_hash[name],  height: "24px")%>
+                           <span class="icon-<%= name %>"></span>
                       <% end %>
                     </td>
                     <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">
@@ -128,8 +123,7 @@
                     <td> <%= link_to timeline.name, timeline_path(timeline.id) %> </td>
                     <td>
                       <% timeline.get_tag_list.each do |name| %>
-                          <%= image_tag("icons/myicon-#{name}.svg", alt: name,
-                                        title: tags_hash[name],  height: "24px")%>
+                          <span class="icon-<%= name %>"></span>
                       <% end %>
                     </td>
                     <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\">

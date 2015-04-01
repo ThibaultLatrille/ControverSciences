@@ -1,0 +1,156 @@
+<% if field == 6 %>
+    <% if comment.title_markdown != "" %>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="text-left">
+              <%= comment.title_markdown.html_safe %>
+            </div>
+            <% if logged_in? && comment.user_id != current_user.id %>
+                <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
+                    <div class="row">
+                      <%= f.hidden_field :comment_id, value: comment.id %>
+                      <%= f.hidden_field :reference_id, value: params[:reference_id] %>
+                      <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+                      <%= f.hidden_field :field, value: field %>
+                      <div class="col-md-9">
+                        <div class="input-group input-small">
+                            <span class="input-group-btn">
+                              <button class="btn btn-default cursor-default">
+                                <span class="glyphicon glyphicon-question-sign"></span>
+                              </button>
+                            </span>
+                          <%= f.select :value, (0..(12 + comment.my_vote(current_user.id, field) - @my_votes)),
+                                       {selected: comment.my_vote(current_user.id, field)}, {class: "form-control selectwidthauto"} %>
+                          <div>
+                            <% if comment.my_vote(current_user.id, field) == 0 %>
+                                <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer #{explains_hash[field]}".html_safe,
+                                             class: "btn btn-success selectwidthauto",
+                                             data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
+                            <% else %>
+                                <%= f.button "<span class=\"icon-ribbon normal\"></span> Changer mes crédits (#{comment.my_vote(current_user.id, field)} actuellement)".html_safe,
+                                             class: "btn btn-success selectwidthauto",
+                                             data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
+                                <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                            vote_path(id: "none", comment_id: comment.id, field: field), method: :delete, class: "btn btn-danger selectwidthauto" %>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                <% end %>
+            <% else %>
+                <div class="pull-right">
+                  Publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id) %>
+                </div>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+<% elsif field == 7 %>
+    <% if comment.caption_markdown != "" %>
+    <div class="panel panel-default">
+      <div class="panel-body clearfix">
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <%= image_tag comment.picture_url, class: "img-rounded img-responsive" %>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="caption">
+              <b> <%= fields_hash[7] %> </b> :
+              <%= comment.caption_markdown.html_safe %>
+            </div>
+          </div>
+        </div>
+        <% if logged_in? && comment.user_id != current_user.id %>
+            <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
+                <div class="row">
+                  <%= f.hidden_field :comment_id, value: comment.id %>
+                  <%= f.hidden_field :reference_id, value: params[:reference_id] %>
+                  <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+                  <%= f.hidden_field :field, value: field %>
+                  <div class="col-md-9">
+                    <div class="input-group input-small">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default cursor-default">
+                        <span class="icon-ribbon normal">
+                        </span>
+                      </button>
+                    </span>
+                      <%= f.select :value, (0..(12 + comment.my_vote(current_user.id, field) - @my_votes)),
+                                   {selected: comment.my_vote(current_user.id, field)}, {class: "form-control selectwidthauto"} %>
+                      <div>
+                        <% if comment.my_vote(current_user.id, field) == 0 %>
+                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer #{explains_hash[field]}".html_safe,
+                                         class: "btn btn-success selectwidthauto",
+                                         data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
+                        <% else %>
+                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Changer mes crédits (#{comment.my_vote(current_user.id, field)} actuellement)".html_safe,
+                                         class: "btn btn-success selectwidthauto",
+                                         data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
+                            <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                        vote_path(id: "none", comment_id: comment.id, field: field), method: :delete, class: "btn btn-danger selectwidthauto" %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+        <% else %>
+            <div class="pull-right">
+              Publiée il y a <%= time_ago_in_words(comment.created_at) %>
+              par <%= link_to comment.user_name, user_path(comment.user_id) %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+<% else %>
+    <% if comment["markdown_#{field}".to_sym] != "" %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="text-justify">
+          <%= comment["markdown_#{field}".to_sym].html_safe %>
+        </div>
+        <% if logged_in? && comment.user_id != current_user.id%>
+            <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
+                <div class="row">
+                  <%= f.hidden_field :comment_id, value: comment.id %>
+                  <%= f.hidden_field :reference_id, value: params[:reference_id] %>
+                  <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+                  <%= f.hidden_field :field, value: field %>
+                  <div class="col-md-9">
+                    <div class="input-group input-small">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default cursor-default">
+                        <span class="icon-ribbon normal">
+                        </span>
+                      </button>
+                    </span>
+                      <%= f.select :value, (0..(12 + comment.my_vote(current_user.id, field) - @my_votes)),
+                                   {selected: comment.my_vote(current_user.id, field)}, {class: "form-control selectwidthauto"} %>
+                      <div>
+                        <% if comment.my_vote(current_user.id, field) == 0 %>
+                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer #{explains_hash[field]}".html_safe,
+                                         class: "btn btn-success selectwidthauto",
+                                         data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
+                        <% else %>
+                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Changer mes crédits (#{comment.my_vote(current_user.id, field)} actuellement)".html_safe,
+                                         class: "btn btn-success selectwidthauto",
+                                         data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
+                            <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                        vote_path(id: "none", comment_id: comment.id, field: field), method: :delete, class: "btn btn-danger selectwidthauto" %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+        <% else %>
+            <div class="pull-right">
+              Publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id) %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+<% end %>

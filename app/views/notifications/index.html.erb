@@ -12,8 +12,7 @@
            summary: "Synthèses",
            reference: "Références",
            comment: "Analyses"}.each do |key, value| %>
-          <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
-                                height: "28px")+"&nbsp".html_safe+value+
+          <%= link_to "<span class=\"icon-#{key}\"></span> &nbsp ".html_safe+value+
                               " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
                       notifications_index_path(filter: key), class: "btn btn-primary btn-block" %>
       <% end %>
@@ -26,8 +25,7 @@
     <% { summary_selection: "Synthèses",
          selection: "Analyses"
          }.each do |key, value| %>
-        <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
-                              height: "28px")+"&nbsp".html_safe+value+
+        <%= link_to "<span class=\"icon-#{key}\"></span> &nbsp ".html_safe+value+
                             " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
                     notifications_index_path(filter: key), class: "btn btn-primary btn-block" %>
     <% end %>
@@ -63,8 +61,7 @@
                 <td> <%= link_to timeline.name, notifications_timeline_url( id: timeline.id) %> </td>
                 <td>
                   <% timeline.get_tag_list.each do |name| %>
-                      <%= image_tag("icons/myicon-#{name}.svg", alt: name,
-                                    title: tags_hash[name],  height: "24px")%>
+                      <span class="icon-<%= name %>"></span>
                   <% end %>
                 </td>
               </tr>
@@ -253,10 +250,12 @@
 </div>
 
 <div class="col-md-2">
-    <%= f.submit "Supprimer les notifications sélectionnées", class: "btn btn-danger btn-block"%>
+  <%= f.button "Supprimer les notifications sélectionnées &nbsp <span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>".html_safe,
+               class: 'btn btn-danger btn-block',
+               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Suppression en cours "}%>
  </br>
-  <%= link_to image_tag("icons/myicon-#{@filter}.svg",height: "28px")+
-                      "&nbsp".html_safe+"Supprimer toutes les notifications",
+  </br>
+  <%= link_to "<span class=\"icon-#{@filter}\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications",
               notifications_delete_all_path(filter: @filter), class: "btn btn-danger btn-block" %>
 </div>
 

@@ -11,22 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226222928) do
+ActiveRecord::Schema.define(version: 20150328131720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "best_comments", force: true do |t|
-    t.integer  "user_id"
     t.integer  "reference_id"
-    t.integer  "comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "f_0_comment_id"
+    t.integer  "f_1_comment_id"
+    t.integer  "f_2_comment_id"
+    t.integer  "f_3_comment_id"
+    t.integer  "f_4_comment_id"
+    t.integer  "f_5_comment_id"
+    t.integer  "f_6_comment_id"
+    t.integer  "f_7_comment_id"
+    t.integer  "f_0_user_id"
+    t.integer  "f_1_user_id"
+    t.integer  "f_2_user_id"
+    t.integer  "f_3_user_id"
+    t.integer  "f_4_user_id"
+    t.integer  "f_5_user_id"
+    t.integer  "f_6_user_id"
+    t.integer  "f_7_user_id"
   end
 
-  add_index "best_comments", ["comment_id"], name: "index_best_comments_on_comment_id", using: :btree
   add_index "best_comments", ["reference_id"], name: "index_best_comments_on_reference_id", using: :btree
-  add_index "best_comments", ["user_id"], name: "index_best_comments_on_user_id", using: :btree
 
   create_table "binaries", force: true do |t|
     t.integer  "timeline_id"
@@ -40,6 +52,17 @@ ActiveRecord::Schema.define(version: 20150226222928) do
   add_index "binaries", ["reference_id"], name: "index_binaries_on_reference_id", using: :btree
   add_index "binaries", ["timeline_id"], name: "index_binaries_on_timeline_id", using: :btree
   add_index "binaries", ["user_id"], name: "index_binaries_on_user_id", using: :btree
+
+  create_table "comment_joins", force: true do |t|
+    t.integer  "reference_id"
+    t.integer  "comment_id"
+    t.integer  "field"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comment_joins", ["comment_id"], name: "index_comment_joins_on_comment_id", using: :btree
+  add_index "comment_joins", ["reference_id"], name: "index_comment_joins_on_reference_id", using: :btree
 
   create_table "comment_relationships", force: true do |t|
     t.integer  "parent_id"
@@ -64,9 +87,6 @@ ActiveRecord::Schema.define(version: 20150226222928) do
     t.integer  "user_id"
     t.integer  "timeline_id"
     t.integer  "reference_id"
-    t.integer  "balance",          default: 0
-    t.float    "score",            default: 0.0
-    t.boolean  "best",             default: false
     t.text     "f_0_content",      default: ""
     t.text     "f_1_content",      default: ""
     t.text     "f_2_content",      default: ""
@@ -87,6 +107,30 @@ ActiveRecord::Schema.define(version: 20150226222928) do
     t.text     "caption_markdown", default: ""
     t.text     "title",            default: ""
     t.text     "title_markdown",   default: ""
+    t.integer  "f_0_balance",      default: 0
+    t.integer  "f_1_balance",      default: 0
+    t.integer  "f_2_balance",      default: 0
+    t.integer  "f_3_balance",      default: 0
+    t.integer  "f_4_balance",      default: 0
+    t.integer  "f_5_balance",      default: 0
+    t.integer  "f_6_balance",      default: 0
+    t.integer  "f_7_balance",      default: 0
+    t.float    "f_0_score",        default: 0.0
+    t.float    "f_1_score",        default: 0.0
+    t.float    "f_2_score",        default: 0.0
+    t.float    "f_3_score",        default: 0.0
+    t.float    "f_4_score",        default: 0.0
+    t.float    "f_5_score",        default: 0.0
+    t.float    "f_6_score",        default: 0.0
+    t.float    "f_7_score",        default: 0.0
+    t.boolean  "f_0_best",         default: false
+    t.boolean  "f_1_best",         default: false
+    t.boolean  "f_2_best",         default: false
+    t.boolean  "f_3_best",         default: false
+    t.boolean  "f_4_best",         default: false
+    t.boolean  "f_5_best",         default: false
+    t.boolean  "f_6_best",         default: false
+    t.boolean  "f_7_best",         default: false
   end
 
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id", using: :btree
@@ -206,6 +250,7 @@ ActiveRecord::Schema.define(version: 20150226222928) do
     t.integer  "new_comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "field"
   end
 
   create_table "new_comments", force: true do |t|
@@ -247,6 +292,12 @@ ActiveRecord::Schema.define(version: 20150226222928) do
 
   add_index "new_timelines", ["timeline_id"], name: "index_new_timelines_on_timeline_id", using: :btree
 
+  create_table "newsletters", force: true do |t|
+    t.text     "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "notification_comments", force: true do |t|
     t.integer  "user_id"
     t.integer  "comment_id"
@@ -272,6 +323,7 @@ ActiveRecord::Schema.define(version: 20150226222928) do
     t.integer  "comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "field"
   end
 
   add_index "notification_selection_losses", ["comment_id"], name: "index_notification_selection_losses_on_comment_id", using: :btree
@@ -282,6 +334,7 @@ ActiveRecord::Schema.define(version: 20150226222928) do
     t.integer  "comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "field"
   end
 
   add_index "notification_selection_wins", ["comment_id"], name: "index_notification_selection_wins_on_comment_id", using: :btree
@@ -293,6 +346,7 @@ ActiveRecord::Schema.define(version: 20150226222928) do
     t.integer  "old_comment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "field"
   end
 
   add_index "notification_selections", ["user_id"], name: "index_notification_selections_on_user_id", using: :btree
@@ -457,9 +511,10 @@ ActiveRecord::Schema.define(version: 20150226222928) do
     t.text     "comment"
     t.string   "email"
     t.string   "name"
-    t.integer  "balance",    default: 0
-    t.integer  "plus",       default: 0
-    t.integer  "minus",      default: 0
+    t.integer  "timeline_id"
+    t.integer  "balance",     default: 0
+    t.integer  "plus",        default: 0
+    t.integer  "minus",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -551,12 +606,20 @@ ActiveRecord::Schema.define(version: 20150226222928) do
     t.integer  "nb_references",   default: 0
     t.integer  "nb_contributors", default: 0
     t.integer  "nb_likes",        default: 0
-    t.integer  "nb_edits",        default: 0
+    t.integer  "nb_comments",     default: 0
+    t.integer  "nb_summaries",    default: 0
     t.float    "score",           default: 1.0
     t.float    "score_recent",    default: 1.0
+    t.boolean  "debate",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "binary",          default: ""
+    t.integer  "binary_0",        default: 0
+    t.integer  "binary_1",        default: 0
+    t.integer  "binary_2",        default: 0
+    t.integer  "binary_3",        default: 0
+    t.integer  "binary_4",        default: 0
+    t.integer  "binary_5",        default: 0
   end
 
   add_index "timelines", ["created_at"], name: "index_timelines_on_created_at", using: :btree
@@ -624,6 +687,7 @@ ActiveRecord::Schema.define(version: 20150226222928) do
     t.integer  "value",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "field"
   end
 
   add_index "votes", ["comment_id"], name: "index_votes_on_comment_id", using: :btree

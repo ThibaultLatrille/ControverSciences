@@ -57,7 +57,9 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="pull-right">
-                  <%= f.submit 'Publier', class: 'btn btn-primary'%>
+                  <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                               class: 'btn btn-success',
+                               data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Publication en cours "}%>
                 </div>
               </div>
             </div>

@@ -149,7 +149,7 @@ class Summary < ActiveRecord::Base
   end
 
   def destroy_with_counters
-    Timeline.decrement_counter( :nb_edits , self.timeline_id )
+    Timeline.decrement_counter( :nb_summaries , self.timeline_id )
     self.destroy
   end
 
@@ -187,7 +187,7 @@ class Summary < ActiveRecord::Base
     unless best_summary
       self.selection_update
     end
-    Timeline.increment_counter(:nb_edits, self.timeline_id)
+    Timeline.increment_counter(:nb_summaries, self.timeline_id)
     unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
       timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
       timrelation.save

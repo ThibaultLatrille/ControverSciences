@@ -23,7 +23,8 @@ class RatingsController < ApplicationController
         flash[:info] = "Votre vote a été pris en compte."
         redirect_to reference_url( rating_params[:reference_id] )
       else
-        redirect_to root_url
+        flash[:info] = "Vous n'avez pas sélectionné de vote."
+        redirect_to reference_url( rating_params[:reference_id] )
       end
     end
   end

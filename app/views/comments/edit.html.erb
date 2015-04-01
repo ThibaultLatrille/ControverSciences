@@ -12,7 +12,7 @@
 
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
     <div class="row">
-      <div class="col-md-12 col-lg-7">
+      <div class="col-md-12 col-lg-8">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h2> Modifier mon analyse </h2>
@@ -46,11 +46,6 @@
                     <br/>
                 <% end %>
 
-                <% if @parent %>
-                    <%= f.hidden_field :parent_id, value: @parent.id %>
-                <% end %>
-                <p hidden id="best_comment"><%= @comment.best %></p>
-                <p hidden id="balance_comment"><%= @comment.balance %></p>
                 <p hidden id="has_picture"><%= @comment.picture %></p>
                 <%= f.hidden_field :delete_picture, value: false %>
                 <%= f.hidden_field :reference_id, value: @comment.reference_id %>
@@ -85,25 +80,12 @@
                     <span class="switch"></span>
                   </p>
                 </div>
-                <%= f.submit "Modifier mon analyse", class: "pull-right btn btn-success btn-lg"%>
+                <%= f.button "Modifier mon analyse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                             class: 'pull-right btn btn-success btn-lg',
+                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
             <% end %>
           </div>
         </div>
-      </div>
-      <div class="col-md-12 col-lg-5">
-        <strong style="font-size: 1.4em;"> &nbsp
-          Mon analyse : <br/>
-        </strong>
-
-        <%= render @my_comment, vote: false %>
-
-        <% if @parent %>
-            <strong style="font-size: 1.4em;"> &nbsp
-            L'analyse utilisée pour améliorer la mienne : <br/>
-            </strong>
-            <%= render @parent, vote: true %>
-        <% end %>
-
       </div>
     </div>
   </div>
@@ -198,7 +180,7 @@
     $('#save-btn-http').on('click', function (event) {
         myref.setAttribute("data-toggled", 'yes');
     });
-    $('#micropost_picture').bind('change', function() {
+    $('#comment_picture').bind('change', function() {
         size_in_megabytes = this.files[0].size/1024/1024;
         if (size_in_megabytes > 5) {
             alert('Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.');

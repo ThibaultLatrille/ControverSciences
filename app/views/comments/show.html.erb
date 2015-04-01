@@ -17,15 +17,13 @@
 <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-1">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Cette analyse appartient à la référence
+      <h4>
+      Analyse de la référence
       <%= link_to( @comment.reference_title , reference_path(@comment.reference_id) ) %>
+      </h4>
     </div>
     <div class="panel-body">
-       <% if current_user.id == @comment.user_id %>
-        <%= render @comment, vote: false %>
-      <% else %>
-        <%= render @comment, vote: true %>
-      <% end %>
+        <%= render @comment, display: true, delete: false %>
     </div>
   </div>
 </div>

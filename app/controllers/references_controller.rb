@@ -2,7 +2,33 @@ class ReferencesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def from_timeline
-    @comment = BestComment.includes( :comment ).find_by_reference_id( params[:reference_id] ).comment
+    @best_comment = BestComment.find_by_reference_id( params[:reference_id] )
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def from_reference
+    if logged_in?
+      @my_votes = Vote.where(user_id: current_user.id, reference_id: params[:reference_id], field: params[:field] ).sum(:value)
+    end
+    Comment.connection.execute("select setseed(#{rand})")
+    params[:timeline_id] = Reference.select( :timeline_id ).find( params[:reference_id] ).timeline_id
+    case params[:field].to_i
+      when 6
+        ids = CommentJoin.where( reference_id: params[:reference_id], field: 6 ).pluck( :comment_id )
+        @best_fields = Comment.select( :created_at, :id, :title_markdown, :user_id,
+                          :f_6_balance ).where( id: ids ).order('random()')
+      when 7
+        ids = CommentJoin.where( reference_id: params[:reference_id], field: 7 ).pluck( :comment_id )
+        @best_fields = Comment.select( :created_at, :id, :caption_markdown, :user_id,
+                                       :picture, :f_7_balance ).where( id: ids ).order('random()')
+      else
+        ids = CommentJoin.where( reference_id: params[:reference_id], field: params[:field].to_i ).pluck( :comment_id )
+        puts ids
+        @best_fields = Comment.select(:created_at, :id, "markdown_#{params[:field]}", :user_id,
+                              "f_#{params[:field]}_balance" ).where( id: ids ).order('random()')
+    end
     respond_to do |format|
       format.js
     end
@@ -25,7 +51,7 @@ class ReferencesController < ApplicationController
         begin
           @reference = fetch_reference( query )
         rescue ArgumentError
-          flash.now[:danger] = "Votre requête n'a rien donné de concluant, vous allez devoir tout rentrer à la main :-("
+          flash.now[:danger] = "Votre requête n'a rien donné de concluant."
         rescue ConnectionError
           flash.now[:danger] = "Impossible de se connecter aux serveurs qui délivrent les metadonnées."
         rescue StandardError
@@ -67,7 +93,6 @@ class ReferencesController < ApplicationController
     @reference = Reference.find(params[:id])
     if logged_in?
       user_id = current_user.id
-      @my_votes = Vote.where( user_id: user_id, reference_id: @reference.id).sum( :value )
       @user_rating = @reference.ratings.find_by(user_id: user_id)
       unless @user_rating.nil?
         @user_rating = @user_rating.value
@@ -84,46 +109,13 @@ class ReferencesController < ApplicationController
       else
         VisiteReference.create( user_id: user_id, reference_id: params[:id] )
       end
-    else
-      user_id = nil
-    end
-    if params[:filter] == "my-vote"
-      comment_ids = Vote.where( user_id: user_id, reference_id: @reference.id).pluck( :comment_id )
-      @comments = Comment.where( id: comment_ids, public: true ).page(params[:page]).per(10)
-    elsif params[:filter] == "mine"
-      @comments = Comment.where( user_id: user_id, reference_id: @reference.id ).page(params[:page]).per(10)
-    elsif logged_in?
-      if params[:seed]
-        @seed = params[:seed]
+      if params[:filter] == "mine"
+        @comment = Comment.find_by( user_id: user_id, reference_id: @reference.id )
       else
-        @seed = rand
+        @best_comment = BestComment.find_by_reference_id( @reference.id )
       end
-      Comment.connection.execute("select setseed(#{@seed})")
-      @comments = Comment.where(
-          reference_id: params[:id], public: true).where.not(
-          user_id: user_id).order('random()').page(params[:page]).per(5)
     else
-      if !params[:sort].nil?
-        if !params[:order].nil?
-          @comments = Comment.order(params[:sort].to_sym => params[:order].to_sym).where(
-              reference_id: params[:id], public: true).where.not(
-              user_id: user_id).page(params[:page]).per(5)
-        else
-          @comments = Comment.order(params[:sort].to_sym => :desc).where(
-              reference_id: params[:id], public: true).where.not(
-              user_id: user_id).page(params[:page]).per(5)
-        end
-      else
-        if !params[:order].nil?
-          @comments = Comment.order(:score => params[:order].to_sym).where(
-              reference_id: params[:id], public: true).where.not(
-              user_id: user_id).page(params[:page]).per(5)
-        else
-          @comments = Comment.order(:score => :desc).page(params[:page]).where(
-              reference_id: params[:id], public: true).where.not(
-              user_id: user_id).page(params[:page]).per(5)
-        end
-      end
+      @best_comment = BestComment.find_by_reference_id( @reference.id )
     end
   end
 

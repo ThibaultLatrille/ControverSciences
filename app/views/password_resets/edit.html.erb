@@ -19,7 +19,9 @@
         <%= f.label :password_confirmation, "Confirmation de mot de passe" %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-        <%= f.submit "Enregistrer le nouveau mot de passe", class: "btn btn-primary" %>
+        <%= f.button "Enregistrer le nouveau mot de passe &nbsp <span class=\"glyphicon glyphicon-lock\" aria-hidden=\"true\"></span>".html_safe,
+                     class: 'pull-right btn btn-success',
+                     data: {disable_with: "<span class=\"glyphicon glyphicon-transfer\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
     <% end %>
       </div>
     </div>

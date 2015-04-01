@@ -12,14 +12,23 @@
       <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-1">
         <div class="panel panel-default">
           <div class="panel-heading">
+            <h3>
           Cette synthèse appartient à la controverse
           <%= link_to( @summary.timeline_name , timeline_path(@summary.timeline_id) ) %>
+            </h3>
           </div>
           <div class="panel-body">
-            <% if current_user.id == @summary.user_id %>
-                <%= render @summary, credit: false %>
+            <% if logged_in? && current_user.id == @summary.user_id %>
+                <%= render @summary, credit: false, improve: true, delete: true %>
+            <% elsif logged_in? %>
+                <%= render @summary, credit: @timeline.nb_summaries > 1 ? true : false , improve: @improve, delete: false %>
             <% else %>
-                <%= render @summary, credit: true %>
+                <%= render @summary, credit: false, delete: false, improve: false %>
+            <% end %>
+            <% if @timeline.nb_summaries > 1 %>
+                <%= link_to "Voir l'ensemble des synthèses".html_safe,
+                            summaries_path( timeline_id: @summary.timeline_id ),
+                            class: "btn btn-primary pull-right"  %>
             <% end %>
           </div>
         </div>
@@ -28,3 +37,4 @@
   </div>
 </div>
 </div>
+

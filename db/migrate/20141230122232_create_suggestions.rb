@@ -5,6 +5,7 @@ class CreateSuggestions < ActiveRecord::Migration
       t.text :comment
       t.string :email
       t.string :name
+      t.integer :timeline_id
       t.integer :balance, default: 0
       t.integer :plus, default: 0
       t.integer :minus, default: 0

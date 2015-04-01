@@ -1,75 +1,13 @@
 <footer>
-  <div class="row">
-    <div class="col-xs-12 col-md-3">
-      <div class="pull-left">
-        <%= image_tag "logo_squarred.png", alt: "hvr-grow", height: "42px" %>
-      </div>
+  <div class="row center">
+    <div class="col-xs-3 col-xs-offset-3 center">
+      <%= link_to "<span class=\"icon-frog normal\"></span>".html_safe + " A propos", about_path, class: "hvr-grow" %>
     </div>
-    <div class="col-xs-12 col-md-3">
-      <%= link_to "A propos", about_path, class: "hvr-grow" %>
-    </div>
-    <div class="col-xs-12 col-md-3">
-      <%= link_to "Nous contacter", contact_path, class: "hvr-grow" %>
+    <div class="col-xs-3 center">
+      <%= link_to "<span class=\"icon-users normal\"></span>".html_safe + " Nous contacter", contact_path, class: "hvr-grow" %>
     </div>
   </div>
 </footer>
-<% if logged_in? %>
-<div class="modal fade" id="newinvitation" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Inviter un ami </h4>
-      </div>
-      <div class="modal-body clearfix">
-        <%= form_for( :invitation, url: invitations_path, remote: true,
-                      html: {role: :form, 'data-model' => 'invitation'}) do |f| %>
-            <div class="form-group">
-              <%= f.label :email, class: 'control-label' %><br>
-              <%= f.text_field :email, class: 'form-control' %>
-              <span class="help-block"></span>
-            </div>
-            <div class="form-group">
-              <%= f.label :message, class: 'control-label' %><br>
-              <%= f.text_area :message, class: 'form-control textarea' %>
-              <span class="help-block"></span>
-            </div>
-            <%= f.hidden_field :url, value: request.original_url %>
-            <div id="invit" class="actions pull-right">
-              <%= f.submit 'Envoyer', class: 'btn btn-primary'%>
-            </div>
-            <div id="fetching" class="pull-right" style="display: none; margin-right: 30px; margin-top: 20px">
-              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                   width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                <rect x="0" y="0" width="4" height="10" fill="#FF6700">
-                  <animateTransform attributeType="xml"
-                                    attributeName="transform" type="translate"
-                                    values="0 0; 0 20; 0 0"
-                                    begin="0" dur="0.6s" repeatCount="indefinite" />
-                </rect>
-                <rect x="10" y="0" width="4" height="10" fill="#FF6700">
-                  <animateTransform attributeType="xml"
-                                    attributeName="transform" type="translate"
-                                    values="0 0; 0 20; 0 0"
-                                    begin="0.2s" dur="0.6s" repeatCount="indefinite" />
-                </rect>
-                <rect x="20" y="0" width="4" height="10" fill="#FF6700">
-                  <animateTransform attributeType="xml"
-                                    attributeName="transform" type="translate"
-                                    values="0 0; 0 20; 0 0"
-                                    begin="0.4s" dur="0.6s" repeatCount="indefinite" />
-                </rect>
-              </svg>
-            </div>
-        <% end %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-<% end %>
 
 <div class="modal fade" id="newissue" tabindex="-1" role="dialog">
   <div class="modal-dialog">
@@ -132,7 +70,9 @@
               <span class="help-block"></span>
             </div>
             <div class="actions pull-right">
-              <%= f.submit 'Envoyer', class: 'btn btn-primary'%>
+              <%= f.button "Envoyer &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "}%>
             </div>
         <% end %>
       </div>
@@ -150,8 +90,4 @@
     $('#newissue').on('shown.bs.modal', function () {
         $('.my-btn', this).responsiveEqualHeightGrid();
     });
-    $('#invit').on('click', function () {
-        $(this).hide();
-        $('#fetching').show();
-    })
 </script>

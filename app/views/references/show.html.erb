@@ -8,17 +8,19 @@
                 timeline_path(@reference.timeline_id), class: "btn btn-block btn-primary" %>
     <br/>
     <br/>
+    <% if @reference.nb_edits > 1 && Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value ) > 0 %>
     <div class="panel panel-default">
     <div class="panel-body page">
-    <%= image_tag("icons/myicon-ribbon.svg", height: "24px")%> Il vous reste
-    <%=12 - Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value ) %>
-    crédits à distribuer aux analyses de cette référence
+      <span class="icon-ribbon"></span> Il vous reste
+    <%=96 - Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value ) %>
+    crédits à distribuer.
       <br/>
       <br/>
-    <%= link_to "Récupérer tous mes crédits attribués aux analyses de cette référence", vote_path( id: 'all', reference_id: @reference.id), method: :delete,
-                class: "btn btn-block btn-primary" %>
+    <%= link_to "Récupérer mes crédits (#{Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value )}) attribués aux analyses de cette référence", vote_path( id: 'all', reference_id: @reference.id), method: :delete,
+                class: "btn btn-block btn-danger" %>
     </div>
     </div>
+    <% end %>
   </div>
   <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-0">
 <% else %>
@@ -28,103 +30,61 @@
   </div>
   <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-5 col-lg-offset-0">
 <% end %>
-  <div class="clearfix">
-  <% if logged_in? %>
-    <div class="btn-group">
-      <%= link_to "Mon analyse".html_safe,
-                  reference_path(:filter => 'mine'),
-                  class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
-    </div>
-        <div class="btn-group">
-      <%= link_to "Les autres analyses".html_safe,
-        reference_path,
-        class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
-    </div>
-        <div class="btn-group">
-      <%= link_to "Mes analyses favorites".html_safe,
-        reference_path(:filter => 'my-vote'),
-        class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
-    </div>
-  <% else %>
-        <div class="btn-group">
-          <button class="btn btn-default dropdown-toggle" type="button"
-                  id="dropdownMenuTri" data-toggle="dropdown">
-            Trier par
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" >
-            <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-              <%= link_to "Les meilleurs compétiteurs (par défault)", reference_path(:sort=> 'score',
-                                                                                     :order => params[:order]) %> </li>
-            <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-              <%= link_to "Date de création", reference_path(:sort=> 'created_at',
-                                                             :order => params[:order]) %> </li>
-          </ul>
-        </div>
-        <div class="btn-group">
-          <button class="btn btn-default dropdown-toggle" type="button"
-                  id="dropdownMenuOrder" data-toggle="dropdown">
-            Ordre
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" >
-            <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-              <%= link_to "Décroissant (par défault)", reference_path(:sort=> params[:sort], :order => 'desc') %> </li>
-            <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-              <%= link_to "Croissant", reference_path(:sort => params[:sort], :order => 'asc') %> </li>
-          </ul>
-        </div>
-  <% end %>
-  </div>
-  <div>
-    </br>
-  </div>
-  <div id="comments" class="panel panel-default">
+<% if logged_in? %>
+  <div class="panel panel-default">
     <div class="panel-body">
-      <% if @comments.any? %>
-          <div class="page">
-          <%= render @comments, vote: logged_in? && params[:filter] != 'mine' ? true : false %>
-          <%= paginate @comments, :params => {:seed => @seed } %>
-          </div>
-          <% if params[:filter] == "mine" %>
-              <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Modifier mon analyse".html_safe,
-                          edit_comment_path(id: @comments.first ), class: "btn btn-success" %>
+      <div class="clearfix">
+            <div class="btn-group">
+              <%= link_to "Mon analyse".html_safe,
+                          reference_path(:filter => 'mine'),
+                          class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
+            </div>
+            <div class="btn-group">
+              <%= link_to "La meilleure analyse".html_safe,
+                          reference_path,
+                          class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
+            </div>
+        <div>
+          </br>
+        </div>
+      </div>
+       <% if params[:filter] == "mine" %>
+          <% if @comment %>
+              <%= render @comment, display: @reference.nb_edits > 1 ? true : false, delete: true %>
           <% else %>
               <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Ecrire une analyse de cette référence".html_safe,
-                          new_comment_path(reference_id: @reference.id ), class: "btn btn-success" %>
+                 </span> Vous n'avez pas encore écrit d'analyse de cette référence".html_safe,
+                          new_comment_path(reference_id: @reference.id ), class: "btn btn-primary" %>
           <% end %>
-      <% elsif params[:filter] == "my-vote" %>
-          Vous n'avez pas encore voté
-      <% elsif params[:filter] == "mine" %>
-          <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Vous n'avez pas encore écrit d'analyse de cette référence".html_safe,
-                      new_comment_path(reference_id: @reference.id ) %>
       <% else %>
-          <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Il n'y a pas d'analyse à cette référence, soyez le premier ! ".html_safe,
-                      new_comment_path(reference_id: @reference.id ) %>
+          <% if @best_comment && @best_comment.not_empty %>
+              <%= render @best_comment %>
+                  <div class="clearfix">
+                    <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
+        </span> Suivre les nouvelles analyses qui seront <br/> ajoutées à cette référence".html_safe,
+                                following_references_path(reference_id: @reference.id),
+                                method: :post, class: "btn btn-success pull-right" %>
+                    </br>
+                  </div>
+          <% else %>
+              <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+            </span> Il n'y a pas d'analyse à cette référence, soyez le premier ! ".html_safe,
+                          new_comment_path(reference_id: @reference.id ), class: "btn btn-primary" %>
+          <% end %>
       <% end %>
     </div>
   </div>
+<% else %>
+    <% if @best_comment && @best_comment.not_empty %>
+        <%= render @best_comment %>
+    <% else %>
+        <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+            </span> Il n'y a pas d'analyse à cette référence, soyez le premier ! ".html_safe,
+                    new_comment_path(reference_id: @reference.id ), class: "btn btn-primary" %>
+    <% end %>
+<% end %>
 </div>
 <div class="col-sm-10 col-sm-offset-1 col-md-10  col-lg-4 col-lg-offset-0">
-  <% if logged_in? %>
-    <div class="clearfix">
-      <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Ecrire une analyse de cette référence".html_safe,
-                  new_comment_path(reference_id: @reference.id), class: "btn btn-success pull-right" %>
-      </br>
-      </br>
-      <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-        </span> Suivre les nouvelles analyses ajoutées à cette référence".html_safe,
-                  following_references_path(reference_id: @reference.id),
-                  method: :post, class: "btn btn-primary pull-right" %>
-      </br>
-      </br>
-    </div>
-  <% end %>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h3 class="panel-title"> <%= @reference.title %> </h3>
@@ -180,36 +140,38 @@
                     <% end %>
                     <div class="btn-group-justified" data-toggle="buttons">
                       <% unless @user_binary.nil? %>
-                          <label class="btn btn-default btn-select"
+                          <label class="btn btn-default"
                                  title="Retirer mon avis" data-toggle="tooltip">
                             <%= f.radio_button :value, checked_value = "none",
                                                {id: "none", autocomplete: "off"} %>
-                            <%= image_tag("icons/myicon-no.svg", height: "28px")%>
+                            <span class="icon-no"></span>
                           </label>
                       <% end %>
                       <% binary_hash.each do |key, value| %>
                           <% if key < 3 %>
-                              <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> cd-color<%= key %>"
-                                     title="Je pense <%= value %> que <%= @reference.binary.split('&&')[0].downcase %>." data-toggle="tooltip">
+                              <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> btn-frog<%= key %>"
+                                     title="Je pense <%= value %> que <%= @reference.binary.split('&&')[0].downcase -%>." data-toggle="tooltip">
                           <% elsif key > 3 %>
-                              <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> cd-color<%= key %>"
-                                     title="Je pense <%= value %> que <%= @reference.binary.split('&&')[1].downcase %>." data-toggle="tooltip">
+                              <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> btn-frog<%= key %>"
+                                     title="Je pense <%= value %> que <%= @reference.binary.split('&&')[1].downcase -%>." data-toggle="tooltip">
                           <% else %>
-                              <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> cd-color<%= key %>"
-                                     title="Je pense que <%= value %>" data-toggle="tooltip">
+                              <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> btn-frog<%= key %>"
+                                     title="Je pense que <%= value -%>" data-toggle="tooltip">
                           <% end %>
                             <%= f.radio_button :value, checked_value = key,
                                                {id: key, autocomplete: "off"} %>
-                            <%= image_tag("icons/myicon-r#{key}.svg", height: "28px")%>
+                          <span class="icon-frog cd-frog"></span>
                           </label>
                       <% end %>
                     </div>
                     <br/>
                     <div class="pull-right">
                       <% if @user_binary.nil? %>
-                          <%= f.submit "Enregistrer cet avis", class: "btn btn-primary" %>
+                          <%= f.button "Enregistrer cet avis", class: "btn btn-success",
+                                   data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
                       <% else %>
-                          <%= f.submit "Enregistrer la modification", class: "btn btn-primary", name: "update" %>
+                          <%= f.button "Enregistrer la modification", class: "btn btn-success", name: "update",
+                                       data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
                       <% end %>
                     </div>
                 <% end %>
@@ -223,17 +185,20 @@
                 <div class="btn-group-justified" data-toggle="buttons">
                 <% binary_hash.each do |key, value| %>
                       <% if key < 3 %>
-                          <label class="btn btn-default cd-color<%= key %>"
-                             title="<%= @reference["binary_#{key}".to_sym] -%> pensent <%= value %> que <%= @reference.binary.split('&&')[0].downcase %>." data-toggle="tooltip">
+                          <label class="btn btn-default cursor-default btn-frog<%= key %>"
+                             title="<%= @reference["binary_#{key}".to_sym] -%> contributeurs pensent <%= value %> que
+                             <%= @reference.binary.split('&&')[0].downcase -%>." data-toggle="tooltip">
                         <% elsif key > 3 %>
-                          <label class="btn btn-default cd-color<%= key %>"
-                                 title="<%= @reference["binary_#{key}".to_sym] -%> pensent <%= value %> que <%= @reference.binary.split('&&')[1].downcase %>." data-toggle="tooltip">
+                          <label class="btn btn-default cursor-default btn-frog<%= key %>"
+                                 title="<%= @reference["binary_#{key}".to_sym] -%> contributeurs pensent <%= value %> que
+                                 <%= @reference.binary.split('&&')[1].downcase %>." data-toggle="tooltip">
                         <% else %>
-                          <label class="btn btn-default cd-color<%= key %>"
-                                 title="<%= @reference["binary_#{key}".to_sym] -%> pensent que <%= value %>" data-toggle="tooltip">
+                          <label class="btn btn-default cursor-default btn-frog<%= key %>"
+                                 title="<%= @reference["binary_#{key}".to_sym] -%> contributeurs pensent que <%= value %>" data-toggle="tooltip">
                         <% end %>
-                      <%= image_tag("icons/myicon-r#{key}.svg", height: "28px")%>
-                        <%= @reference["binary_#{key}".to_sym] -%>
+                        <span class="icon-frog cd-frog" style="font-size: <%= @reference.binary_font_size( key ) -%>em;">
+                            <%= @reference["binary_#{key}".to_sym] -%>
+                        </span>
                     </label>
                 <% end %>
                 </div>
@@ -260,7 +225,7 @@
                              title="Retirer mon avis btn-select" data-toggle="tooltip">
                         <%= f.radio_button :value, checked_value = "none",
                                            {id: "none", autocomplete: "off"} %>
-                        <%= image_tag("icons/myicon-no.svg", height: "28px")%>
+                        <span class="icon-no"></span>
                       </label>
                   <% end %>
                   <% star_hash.each do |key, value| %>
@@ -268,33 +233,39 @@
                              title="<%= value %>" data-toggle="tooltip">
                             <%= f.radio_button :value, checked_value = key,
                                                {id: key, autocomplete: "off"} %>
-                        <%= image_tag("icons/myicon-#{key}.svg", height: "28px")%>
+                        <span class="icon-<%= key %>"></span>
                       </label>
                   <% end %>
                 </div>
                 <br/>
                 <div class="pull-right">
                 <% if @user_rating.nil? %>
-                    <%= f.submit "Enregistrer cet avis", class: "btn btn-primary" %>
-                <% else %>
-                    <%= f.submit "Enregistrer la modification", class: "btn btn-primary", name: "update" %>
+                      <%= f.button "Enregistrer cet avis", class: "btn btn-success",
+                                   data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
+                  <% else %>
+                      <%= f.button "Enregistrer la modification", class: "btn btn-success", name: "update",
+                                   data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
                 <% end %>
                 </div>
             <% end %>
             <% if @reference.user_id == current_user.id %>
                 </li>
                 <li class="list-group-item clearfix">
-                <%= link_to "Modifier la référence", edit_reference_path(@reference.id), class: "btn btn-primary" %>
+                  <%= link_to "Modifier cette référence", edit_reference_path(@reference.id), class: "btn btn-primary pull-right" %>
+                  <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette référence".html_safe,
+                              reference_path( @reference.id ), method: :delete,
+                              data: { confirm: "Etes vous certain ?" }, class: "btn btn-danger" %>
             <% end %>
         <% else %>
                 <span class="bold"> Comment les contributeurs jugent la qualité scientifique de cette référence :
                  </span></br>
             <div class="btn-group-justified" data-toggle="buttons">
               <% star_hash.each do |key, value| %>
-                  <label class="btn btn-default"
-                         title="<%= @reference["star_#{key}".to_sym] -%> pensent que <%= value.downcase %>" data-toggle="tooltip">
-                    <%= image_tag("icons/myicon-#{key}.svg", height: "28px")%>
-                    <%= @reference["star_#{key}".to_sym] -%>
+                  <label class="btn cursor-default btn-default"
+                         title="<%= @reference["star_#{key}".to_sym] -%> contributeurs pensent que <%= value.downcase %>" data-toggle="tooltip">
+                    <span class="icon-<%= key %>" style="font-size: <%= @reference.star_font_size( key ) -%>em;">
+                        <%= @reference["star_#{key}".to_sym] -%>
+                    </span>
                   </label>
               <% end %>
             </div>
@@ -308,18 +279,21 @@
       Référence ajoutée par <%= link_to @reference.user_name, user_path(@reference.user_id) %>
     </span>
     <button class="btn btn-default stick" data-placement="left"
-            data-toggle="tooltip" title="<%= @reference.nb_contributors %> contributeurs" >
-      <%= image_tag("icons/myicon-users.svg", alt: "ref", height: "32px") %>
+            data-toggle="tooltip"
+            title="<%= @reference.nb_contributors.to_s + (@reference.nb_contributors > 1 ? " contributeurs" : " contributeur") %>">
+      <span class="big icon-users"></span>
       <%= @reference.nb_contributors %>
     </button>
     <button class="btn btn-default stick" data-placement="top"
-            data-toggle="tooltip" title="<%= @reference.nb_edits %> analyses" >
-      <%= image_tag("icons/myicon-comment.svg", alt: "ref", height: "32px") %>
+            data-toggle="tooltip"
+            title="<%= @reference.nb_edits.to_s + (@reference.nb_edits > 1 ? " analyses" : " analyse") %>">
+      <span class="big icon-comment"></span>
       <%= @reference.nb_edits %>
     </button>
     <button class="btn btn-default stick" data-placement="right"
-            data-toggle="tooltip" title="<%= @reference.nb_votes %> crédits accordés au total" >
-      <%= image_tag("icons/myicon-ribbon.svg", alt: "ref", height: "32px") %>
+            data-toggle="tooltip"
+            title="<%= @reference.nb_votes.to_s + (@reference.nb_votes > 1 ? " crédits accordés" : " crédit accordé") %> ">
+      <span class="big icon-ribbon"></span>
       <%= @reference.nb_votes %>
     </button>
   </div>
@@ -329,8 +303,8 @@
 </div>
 </div>
 
-<%= javascript_tag do %>
+<script type="text/javascript">
     $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip({container: 'body'})
-    })
-<% end %>
+    });
+</script>

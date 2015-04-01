@@ -5,6 +5,9 @@ class UserDetailsController < ApplicationController
     @user_details = UserDetail.find_by_user_id( user_detail_params[:user_id] )
     if @user_details
       @user_details.update(user_detail_params)
+      if user_detail_params[:delete_picture] == 'true'
+        @user_details.remove_picture!
+      end
     else
       @user_details = UserDetail.new(user_detail_params)
     end
@@ -19,6 +22,6 @@ class UserDetailsController < ApplicationController
   private
 
   def user_detail_params
-    params.require(:user_detail).permit(:user_id, :job, :institution, :website, :biography, :picture)
+    params.require(:user_detail).permit(:user_id, :job, :institution, :website, :biography, :picture, :delete_picture)
   end
 end

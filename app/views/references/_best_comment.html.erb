@@ -1,26 +1,23 @@
 <br/>
-<% if comment.picture? %>
+<% if best_comment.f_7_comment_id %>
     <div class="pull-right">
       <br/><br/>
 
       <div class="thumbnail">
-        <%= image_tag comment.picture.url, class: "img-rounded img-responsive" %>
+        <%= image_tag best_comment.picture_url, class: "img-rounded img-responsive" %>
         <div class="caption">
-          <%= comment.caption_markdown.html_safe %>
+          <%= best_comment.markdown( 7 ).html_safe %>
         </div>
       </div>
     </div>
 <% end %>
 <% for fi in 0..5 %>
-    <% if comment["markdown_#{fi}".to_sym] != "" %>
-  <b> <%= fields_hash[fi] %> </b>
-  <div class="text-justify">
-    <%= comment["markdown_#{fi}".to_sym].html_safe %>
-  </div>
+    <% if best_comment["f_#{fi}_comment_id".to_sym] %>
+        <b> <%= fields_hash[fi] %> </b>
+        <div class="text-justify">
+          <%= best_comment.markdown( fi ).html_safe %>
+        </div>
     <% end %>
 <% end %>
-<div class="pull-right">
-  Analyse publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id) %>
-</div>
 
-<%= link_to "En savoir plus sur la référence".html_safe, reference_path( comment.reference_id ), class: "btn btn-default hvr-grow" %>
+<%= link_to "En savoir plus sur la référence".html_safe, reference_path( best_comment.reference_id ), class: "btn btn-primary" %>

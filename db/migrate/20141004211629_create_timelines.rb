@@ -6,9 +6,11 @@ class CreateTimelines < ActiveRecord::Migration
       t.integer :nb_references, default: 0
       t.integer :nb_contributors, default: 0
       t.integer :nb_likes, default: 0
-      t.integer :nb_edits, default: 0
+      t.integer :nb_comments, default: 0
+      t.integer :nb_summaries, default: 0
       t.float :score, index: true, default: 1.0
       t.float :score_recent, index: true, default: 1.0
+      t.boolean :debate, default: false
       t.timestamps
     end
     add_index :timelines, [:created_at]

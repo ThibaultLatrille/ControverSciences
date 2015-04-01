@@ -8,8 +8,7 @@
   <% if params[:tag]==nil || params[:tag]=='all'  %>
         Tous les thèmes
   <% else  %>
-      <%= image_tag("icons/myicon-#{params[:tag]}.svg", height: "18px") %>
-      <%= tags_hash[params[:tag]] %>
+      <%= "<span class=\"normal icon-#{params[:tag]}\"></span> ".html_safe+ tags_hash[params[:tag]] %>
   <% end  %>
   <span class="caret"></span>
 </button>
@@ -19,10 +18,10 @@
                                                      :order => params[:order], :tag => 'all')%>
   </li>
   <% tags_hash.each do |key, value| %>
+
       <li <%= params[:tag]==key ? "class=selected" : nil %> >
-        <%= link_to image_tag("icons/myicon-#{key}.svg", alt: value,
-                              height: "28px")+"&nbsp".html_safe+value, timelines_path(:sort => params[:sort],
-                                                                                      :order => params[:order], :tag => key) %>
+        <%= link_to "<span class=\"icon-#{key} hvr-grow\"></span> ".html_safe+value,
+                    timelines_path(:sort => params[:sort], :order => params[:order], :tag => key) %>
       </li>
   <% end %>
 </ul>
@@ -85,9 +84,18 @@
 <div id="timelines">
   <div class="row page">
   <%= render @timelines %>
+    <%= paginate @timelines %>
   </div>
 </div>
-  <%= paginate @timelines %>
+
+  <% if logged_in? %>
+    <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+                   </span> Ajouter une controverse".html_safe,
+                new_timeline_path, class: "btn btn-block btn-primary" %>
+  <br/>
+  <br/>
+
+  <% end %>
 </div>
 
 <% if logged_in? %>
@@ -95,14 +103,14 @@
       <% if params[:tag].nil? || params[:tag]=='all' %>
           <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
              </span> Suivre les nouvelles controverses".html_safe,
-                      following_new_timelines_path, method: :post, class: "btn btn-block btn-primary" %>
+                      following_new_timelines_path, method: :post, class: "btn btn-block btn-success" %>
       <% else %>
-          <%= link_to image_tag("icons/myicon-#{params[:tag]}.svg", height: "28px") + "Suivre les controverses du thème : #{tags_hash[params[:tag]]}".html_safe,
-                      following_new_timelines_path(tag: params[:tag] ), method: :post, class: "btn btn-block btn-primary" %>
+          <%= link_to "<span class=\"icon-#{params[:tag]}\"></span> ".html_safe + "Suivre les controverses du thème : #{tags_hash[params[:tag]]}".html_safe,
+                      following_new_timelines_path(tag: params[:tag] ), method: :post, class: "btn btn-block btn-success" %>
       <% end %>
       <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
                        </span> Ajouter une controverse".html_safe,
-                           new_timeline_path, class: "btn btn-block btn-success" %>
+                           new_timeline_path, class: "btn btn-block btn-primary" %>
   </div>
 <% end %>
 
@@ -116,7 +124,7 @@
         <h4 class="modal-title" id="myModalLabel"> Votre intérêt pour cette controverse a déjà été pris en compte. </h4>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok </button>
+        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok </button>
       </div>
     </div>
   </div>
@@ -129,15 +137,21 @@ $('[data-toggle="tooltip"]').tooltip({container: 'body'});
   $('.collapse').on('shown.bs.collapse', function () {
       $(".timeline-body").responsiveEqualHeightGrid();
   });
-$(function() {
-    $('[data-validate]').click(function() {
-        $this = $(this);
-        $.get($this.data('validate'), {
-            id: $this.val()
-        }).success(function() {
-            var $like = $('#like'+$this.val());
-            $like.text(' '+(parseInt($like.text())+1));
-        }).error(function() {
+$(function () {
+    $('[data-validate]').click(function () {
+        var self = $(this);
+        self.hide();
+        self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
+        $.get(self.data('validate'), {
+            id: self.val()
+        }).success(function () {
+            $('.loader-like').remove();
+            self.show();
+            var like = $('#like' + self.val());
+            like.text(' ' + (parseInt(like.text()) + 1));
+        }).error(function () {
+            $('.loader-like').remove();
+            self.show();
             $('#iptaken').modal('show');
         });
     });

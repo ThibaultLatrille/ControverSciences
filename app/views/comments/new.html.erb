@@ -46,9 +46,6 @@
                                                "data-provide" => "markdown" }%>
                     <br/>
                 <% end %>
-                <% if @parent %>
-                  <%= f.hidden_field :parent_id, value: @parent.id %>
-                <% end %>
                     <%= f.hidden_field :delete_picture, value: false %>
                     <%= f.hidden_field :reference_id, value: @comment.reference_id %>
                     <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
@@ -82,20 +79,12 @@
                     <span class="switch"></span>
                   </p>
                 </div>
-                <%= f.submit "Publier mon analyse", class: "pull-right btn btn-success btn-lg"%>
+                    <%= f.button "Publier mon analyse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                                 class: 'pull-right btn btn-success btn-lg',
+                                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "}%>
             <% end %>
               </div>
             </div>
-          </div>
-          <div class="col-md-12 col-lg-5">
-            <% if @parent %>
-                <br/>
-                <br/>
-                <strong style="font-size: 1.4em;"> &nbsp
-                  Mon modèle d'analyse
-                </strong>
-                <%= render @parent, vote: true %>
-            <% end %>
           </div>
         </div>
     </div>
@@ -112,7 +101,7 @@
         <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn"> Ajouter </button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn"> Ajouter </button>
       </div>
     </div>
   </div>
@@ -132,7 +121,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn-http"> Ajouter </button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-http"> Ajouter </button>
       </div>
     </div>
   </div>
@@ -164,7 +153,7 @@
     $('#save-btn-http').on('click', function (event) {
         myref.setAttribute("data-toggled", 'yes');
     });
-    $('#micropost_picture').bind('change', function() {
+    $('#comment_picture').bind('change', function() {
         size_in_megabytes = this.files[0].size/1024/1024;
         if (size_in_megabytes > 5) {
             alert('Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.');

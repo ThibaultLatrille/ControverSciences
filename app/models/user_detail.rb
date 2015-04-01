@@ -1,5 +1,7 @@
 class UserDetail < ActiveRecord::Base
   belongs_to :user
+  attr_accessor :delete_picture
+
   mount_uploader :picture, PictureUploader
   validate  :picture_size
 

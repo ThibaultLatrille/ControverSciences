@@ -1,6 +1,6 @@
-<% if BestComment.find_by_reference_id( reference.id ) %>
-<div class="cd-timeline-block">
-    <div class="cd-timeline-img cd-color<%= reference.binary_most %>">
+<% if not reference.title_fr.blank? %>
+<div class="cd-timeline-block binary<%= reference.binary_most %>">
+    <div class="cd-timeline-img cd-color">
     </div>
 
     <div class="cd-timeline-content">

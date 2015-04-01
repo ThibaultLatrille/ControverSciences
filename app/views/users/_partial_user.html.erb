@@ -57,8 +57,7 @@
                       <td> <%= link_to timeline.name, timeline_path(timeline.id) %> </td>
                       <td>
                         <% timeline.get_tag_list.each do |name| %>
-                            <%= image_tag("icons/myicon-#{name}.svg", alt: name,
-                                          title: tags_hash[name],  height: "24px")%>
+                            <span class="icon-<%= name %>"></span>
                         <% end %>
                       </td>
                     </tr>
@@ -95,7 +94,7 @@
                 </tr>
             <% else %>
                 <% @summaries.each do |com| %>
-                    <td> <%= link_to com.content[0..70]+"...", summary_path(com.id ) %>   </td>
+                    <td> <%= link_to "Voir la synthèse", summary_path(com.id ), class: "btn btn-primary" %>   </td>
                     <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
                     </tr>
                 <% end %>
@@ -171,7 +170,7 @@
             <% else %>
                 <% @comments.each do |com| %>
                     <tr class="notification-comment">
-                      <td> <%= link_to com.title_markdown.html_safe, comment_path(com.id ) %>   </td>
+                      <td> <%= link_to "Voir l'analayse", comment_path(com.id ), class: "btn btn-primary" %>   </td>
                       <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
                     </tr>
                 <% end %>

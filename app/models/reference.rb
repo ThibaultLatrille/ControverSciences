@@ -35,7 +35,7 @@ class Reference < ActiveRecord::Base
   def destroy_with_counters
     nb_comments = self.comments.count
     Timeline.decrement_counter( :nb_references , self.timeline_id)
-    Timeline.update_counters( self.timeline_id, nb_edits: -nb_comments )
+    Timeline.update_counters( self.timeline_id, nb_comments: -nb_comments )
     self.destroy
   end
 
@@ -49,10 +49,49 @@ class Reference < ActiveRecord::Base
 
   def title_display
     if self.title_fr && !self.title_fr.empty?
-      puts self.title_fr
       self.title_fr.html_safe
     else
       self.title
+    end
+  end
+
+  def binary_font_size( value )
+    sum = self.binary_1+self.binary_2+self.binary_3+self.binary_4+self.binary_5
+    if sum > 0
+      case value
+        when 1
+          1+1.0*self.binary_1/sum
+        when 2
+          1+1.0*self.binary_2/sum
+        when 3
+          1+1.0*self.binary_3/sum
+        when 4
+          1+1.0*self.binary_4/sum
+        when 5
+          1+1.0*self.binary_5/sum
+      end
+    else
+      1.5
+    end
+  end
+
+  def star_font_size( value )
+    sum = self.star_1+self.star_2+self.star_3+self.star_4+self.star_5
+    if sum > 0
+      case value
+        when 1
+          1+1.0*self.star_1/sum
+        when 2
+          1+1.0*self.star_2/sum
+        when 3
+          1+1.0*self.star_3/sum
+        when 4
+          1+1.0*self.star_4/sum
+        when 5
+          1+1.0*self.star_5/sum
+      end
+    else
+      1.5
     end
   end
 
@@ -65,6 +104,7 @@ class Reference < ActiveRecord::Base
   def cascading_save_ref
     NewReference.create( reference_id: self.id )
     Timeline.increment_counter(:nb_references, self.timeline_id)
+    Timeline.increment_counter(:binary_0, self.timeline_id)
     refrelation = ReferenceContributor.new({user_id: self.user_id, reference_id: self.id, bool: true})
     refrelation.save()
     Reference.increment_counter(:nb_contributors, self.id)

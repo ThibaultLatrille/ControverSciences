@@ -5,7 +5,10 @@ class MyItemsController < ApplicationController
     @timelines = Timeline.select(:id, :name).where( user_id: current_user.id)
     @references = Reference.select(:id, :timeline_id, :title).where( user_id: current_user.id)
     @comments = Comment.select(:id, :timeline_id, :reference_id,
-                               :title_markdown, :balance, :public ).where( user_id: current_user.id)
+                               :title_markdown, :public, :f_0_balance,
+                               :f_1_balance, :f_2_balance, :f_3_balance,
+                               :f_4_balance, :f_5_balance, :f_6_balance ,
+                               :f_7_balance ).where( user_id: current_user.id)
     @summaries = Summary.select(:id, :timeline_id, :content, :balance, :public ).where( user_id: current_user.id)
   end
 
