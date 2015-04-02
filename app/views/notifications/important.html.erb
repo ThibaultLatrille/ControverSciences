@@ -10,33 +10,49 @@
         <tbody class="page">
         <% if current_user.notifications_all_important == 0  %>
             <tr>
+              <td></td>
               <td>Pas de notifications</td>
+              <td class="center"></td>
             </tr>
         <% else %>
             <% @summary_wins.each do |com| %>
                 <tr>
-                  <td>  <%= link_to "Votre synthèse", notifications_summary_selection_win_path(id: com.id ), class: "btn btn-primary" %>
+                  <td><span class="icon-4" style="font-size: 2em;"></span></td>
+                  <td>  <%= link_to "Votre synthèse", notifications_summary_selection_win_path(id: com.id ) %>
                     de la controverse <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a pris la première place. </td>
+                  <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
+                                  notifications_summary_selection_win_path(id: com.id ) %></td>
                 </tr>
             <% end %>
             <% @summary_losses.each do |com| %>
                 <tr>
-                  <td> <%= link_to "Votre synthèse", notifications_summary_selection_win_path(id: com.id ), class: "btn btn-primary" %>
+                  <td><span class="icon-3" style="font-size: 2em;"></span></td>
+                  <td> <%= link_to "Votre synthèse", notifications_summary_selection_loss_path(id: com.id ) %>
                     de la controverse <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a perdu la première place. </td>
+                  <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
+                                  notifications_summary_selection_loss_path(id: com.id ) %></td>
                 </tr>
             <% end %>
-            <% @wins.each do |com| %>
+            <% @wins.each do |notif| %>
                 <tr>
-                  <td> <%= link_to "Votre analyse", notifications_selection_win_path(id: com.id ), class: "btn btn-primary" %>
-                    de la référence <%= link_to com.reference_title, reference_path(com.reference_id) %>, dans la controverse
-                    <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a pris la première place. </td>
+                  <td><span class="icon-4" style="font-size: 2em;"></span></td>
+                  <td> <%= link_to fields_singular_hash[notif.field].humanize, notifications_selection_win_path(id: notif.comment_id,
+                                                                                   field: notif.field ) %>
+                    de la référence <%= link_to notif.reference.title, reference_path(notif.reference.id) %>, dans la controverse
+                    <%= link_to notif.timeline.name, timeline_path(notif.timeline.id ) %> a pris la première place. </td>
+                  <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
+                                  notifications_selection_win_path(id: notif.comment_id, field: notif.field ) %></td>
                 </tr>
             <% end %>
-            <% @losses.each do |com| %>
+            <% @losses.each do |notif| %>
                 <tr>
-                  <td> <%= link_to "Votre analyse", notifications_selection_win_path(id: com.id ), class: "btn btn-primary" %>
-                    de la référence <%= link_to com.reference_title, reference_path(com.reference_id) %>, dans la controverse
-                    <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a perdu la première place. </td>
+                  <td><span class="icon-3" style="font-size: 2em;"></span></td>
+                  <td> <%= link_to fields_singular_hash[notif.field].humanize, notifications_selection_loss_path(id: notif.comment_id,
+                                                                                   field: notif.field ) %>
+                    de la référence <%= link_to notif.reference.title, reference_path(notif.reference.id) %>, dans la controverse
+                    <%= link_to notif.timeline.name, timeline_path(notif.timeline.id ) %> a perdu la première place. </td>
+                  <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
+                                  notifications_selection_loss_path(id: notif.comment_id, field: notif.field ) %></td>
                 </tr>
             <% end %>
         <% end %>

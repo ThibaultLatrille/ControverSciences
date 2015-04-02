@@ -130,7 +130,7 @@ class Summary < ActiveRecord::Base
         end
       end
       FollowingSummary.create( user_id: self.user_id,
-                                 timeline_id: self.id)
+                                 timeline_id: self.timeline_id)
       true
     else
       false
