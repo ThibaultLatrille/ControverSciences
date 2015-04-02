@@ -1,5 +1,5 @@
 <% if not reference.title_fr.blank? %>
-<div class="cd-timeline-block binary<%= reference.binary_most %>">
+<div id="block-<%= reference.id %>" class="cd-timeline-block binary<%= reference.binary_most %>">
     <div class="cd-timeline-img cd-color">
     </div>
 
@@ -8,7 +8,7 @@
          <%= link_to reference.title_display, reference, class: "hvr-grow1" %>
         <%= link_to "<span class=\"glyphicon glyphicon-chevron-down hvr-grow pull-right\"> </span>".html_safe,
                     from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}" %>
-        <span class="detail glyphicon glyphicon-chevron-up hvr-grow pull-right" style="display: none"></span>
+        <span  id="ref-<%= reference.id %>" class="detail glyphicon glyphicon-chevron-up hvr-grow pull-right" style="display: none"></span>
       </h2>
       <div id="reference<%= reference.id %>" class="ref clearfix" style="display: none">
       </div>

@@ -15,26 +15,26 @@
         <% else %>
             <% @summary_wins.each do |com| %>
                 <tr>
-                  <td> Votre synthèse <%= link_to com.content[0..70]+"...", notifications_summary_selection_win_path(id: com.id ) %>
+                  <td>  <%= link_to "Votre synthèse", notifications_summary_selection_win_path(id: com.id ), class: "btn btn-primary" %>
                     de la controverse <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a pris la première place. </td>
                 </tr>
             <% end %>
             <% @summary_losses.each do |com| %>
                 <tr>
-                  <td> Votre synthèse <%= link_to com.content[0..70]+"...", notifications_summary_selection_win_path(id: com.id ) %>
+                  <td> <%= link_to "Votre synthèse", notifications_summary_selection_win_path(id: com.id ), class: "btn btn-primary" %>
                     de la controverse <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a perdu la première place. </td>
                 </tr>
             <% end %>
             <% @wins.each do |com| %>
                 <tr>
-                  <td> Votre analyse <%= link_to com.title_markdown.html_safe, notifications_selection_win_path(id: com.id ) %>
+                  <td> <%= link_to "Votre analyse", notifications_selection_win_path(id: com.id ), class: "btn btn-primary" %>
                     de la référence <%= link_to com.reference_title, reference_path(com.reference_id) %>, dans la controverse
                     <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a pris la première place. </td>
                 </tr>
             <% end %>
             <% @losses.each do |com| %>
                 <tr>
-                  <td> Votre analyse <%= link_to com.title_markdown.html_safe, notifications_selection_win_path(id: com.id ) %>
+                  <td> <%= link_to "Votre analyse", notifications_selection_win_path(id: com.id ), class: "btn btn-primary" %>
                     de la référence <%= link_to com.reference_title, reference_path(com.reference_id) %>, dans la controverse
                     <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a perdu la première place. </td>
                 </tr>

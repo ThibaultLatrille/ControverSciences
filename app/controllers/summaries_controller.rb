@@ -22,12 +22,10 @@ class SummariesController < ApplicationController
     @summary = Summary.new( timeline_id: summary_params[:timeline_id],
                             content: summary_params[:content],
                             public: summary_params[:public])
-    if summary_params[:picture] && summary_params[:delete_picture] == 'false'
-      @summary.picture = summary_params[:picture]
+    if summary_params[:has_picture] == 'true' && summary_params[:delete_picture] == 'false'
+      @summary.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
+                                                              timeline_id: @summary.timeline_id ).last.id
       @summary.caption = summary_params[:caption]
-    else
-      @summary.caption = ''
-      @summary.remove_picture!
     end
     @summary.user_id = current_user.id
     parent_id = params[:summary][:parent_id]
@@ -57,12 +55,12 @@ class SummariesController < ApplicationController
     if @summary.user_id == current_user.id
       @summary.content = summary_params[:content]
       @summary.public = summary_params[:public]
+      @summary.caption = summary_params[:caption]
       if summary_params[:delete_picture] == 'true'
-        @summary.caption = ''
-        @summary.remove_picture!
-      elsif summary_params[:picture]
-        @summary.picture = summary_params[:picture]
-        @summary.caption = summary_params[:caption]
+        @summary.figure_id = nil
+      elsif summary_params[:has_picture] == 'true'
+        @summary.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
+                                                                timeline_id: @summary.timeline_id ).last.id
       end
       if @summary.update_with_markdown( timeline_url( @summary.timeline_id ) )
         flash[:success] = "Synthèse modifiée."
@@ -78,7 +76,7 @@ class SummariesController < ApplicationController
 
   def show
     @summary = Summary.select( :id, :user_id, :timeline_id,
-                               :markdown, :balance, :best, :picture, :caption_markdown,
+                               :markdown, :balance, :best, :figure_id, :caption_markdown,
                                :created_at
     ).find(params[:id])
     if logged_in?
@@ -145,7 +143,7 @@ class SummariesController < ApplicationController
 
   def destroy
     summary = Summary.find(params[:id])
-    if summary.user_id == current_user.id && !summary.best
+    if summary.user_id == current_user.id
       summary.destroy_with_counters
       redirect_to my_items_items_path
     else
@@ -157,6 +155,6 @@ class SummariesController < ApplicationController
   private
 
   def summary_params
-    params.require(:summary).permit(:timeline_id, :content, :public, :picture, :caption, :delete_picture)
+    params.require(:summary).permit(:timeline_id, :content, :public, :picture, :caption, :delete_picture, :has_picture )
   end
 end

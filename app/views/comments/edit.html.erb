@@ -29,6 +29,17 @@
           <div class="panel-body">
             <%= form_for(@comment, html: { multipart: true }) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
+                <div class="switcher pull-right">
+                  <p class="fieldset">
+                    <%= f.radio_button :public, true %>
+                    <label for="comment_public_true">Public</label>
+                    <%= f.radio_button :public, false %>
+                    <label for="comment_public_false">Privée</label>
+                    <span class="switch"></span>
+                  </p>
+                </div>
+                <br/>
+                <br/>
                 <%= f.label "Phrase d'accroche" %> <div id="characterLeft7"></div>
 
                 <%= f.text_area :title, {rows: 4, :class => "form-control textarea",
@@ -46,49 +57,59 @@
                     <br/>
                 <% end %>
 
-                <p hidden id="has_picture"><%= @comment.picture %></p>
+                <%= f.hidden_field :has_picture, value: @comment.picture? %>
                 <%= f.hidden_field :delete_picture, value: false %>
                 <%= f.hidden_field :reference_id, value: @comment.reference_id %>
                 <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
-                <span class="btn btn-default btn-file">
-                  <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-                     &nbsp <span id="ajouter">Changer de figure</span> <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg' %>
-                </span>
-                <span id="delete" class="btn btn-danger">
-                  <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-                    Supprimer la figure
-                </span>
-                <div id="caption">
-                  <br/>
-                  <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
-                  <br/>
-                  <div id="characterLeft6"></div>
-                  <br/>
-                  <br/>
-                  <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
-                                             :class => "form-control textarea", id: "description6",
-                                             "data-provide" => "markdown" }%>
+                <div id="caption" style="display: none">
+                  <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                      <div id="original">
+                        <%= image_tag @comment.picture_url, class: "img-rounded img-responsive" %>
+                      </div>
+                      <div id="uploaded" style="display: none">
+                        <%= image_tag '', class: "img-rounded img-responsive" %>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                      <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
+                      <br/>
+                      <div id="characterLeft6"></div>
+                      <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
+                                                 :class => "form-control textarea", id: "description6",
+                                                 "data-provide" => "markdown" }%>
+                    </div>
+                  </div>
                 </div>
                 <br/>
                 <br/>
-                <div class="switcher pull-left">
-                  <p class="fieldset">
-                    <%= f.radio_button :public, true %>
-                    <label for="comment_public_true">Public</label>
-                    <%= f.radio_button :public, false %>
-                    <label for="comment_public_false">Privée</label>
-                    <span class="switch"></span>
-                  </p>
-                </div>
                 <%= f.button "Modifier mon analyse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                              class: 'pull-right btn btn-success btn-lg',
                              data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
             <% end %>
-          </div>
+            <div>
+            <div id="upload-btn" class="btn btn-info btn-lg fileinput-button">
+                <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+                <span id="ajouter"> Ajouter une figure </span>
+                <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
+            </div>
+              <div id="progress" style="display: none">
+                <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                  <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                    <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                  </path>
+                </svg>
+              </div>
+             <div id="delete" class="btn btn-danger btn-lg" style="display: none">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                Supprimer la figure
+            </div>
+            </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 </div>
 <div class="modal fade" id="mylist" tabindex="-1">
@@ -144,25 +165,43 @@
     </div>
   </div>
 </div>
-
 <script type="text/javascript">
-    $(document).on('change', '.btn-file :file', function() {
-        var input = $(this),
-                numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
+    $(document).ready(function() {
+        if ($('#comment_has_picture').val() === 'true') {
+            $('#caption').show();
+            $('#delete').show();
+            $('#ajouter').text("Modifier la figure");
+        }
+    });
+    $(function () {
+        'use strict';
+        // Change this to the location of your server-side upload handler:
+        $('#fileupload').fileupload({
+            url: "<%= figures_url + "?reference_id=" + @comment.reference_id.to_s %>",
+            type: 'POST',
+            dataType: 'json',
+            done: function (e, data) {
+                $('#upload-btn').show(300);
+                $('#comment_delete_picture').val('false');
+                $('#comment_has_picture').val('true');
+                $('#caption').show(300);
+                $('#progress').hide(300);
+                $('#original').hide(300);
+                $('#uploaded').show(300);
+                $('#uploaded img').attr("src", data.result.picture.url);
+            },
+            start: function (e, data) {
+                $('#upload-btn').hide();
+                $('#progress').show();
+            }
+        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
     });
     $('#delete').click(function(){
-        $('#caption').fadeOut(500);
-        $('#delete').fadeOut(500);
+        $('#caption').hide(300);
+        $('#delete').hide(300);
         $('#ajouter').text("Ajouter une figure à cette analyse");
         $('#comment_delete_picture').val('true');
     });
-    if ($('#has_picture').text() === '') {
-        $('#caption').hide();
-        $('#delete').hide();
-        $('#ajouter').text("Ajouter une figure à cette analyse");
-    }
     $('input[type=radio]', '.switcher').change(function () {
         if ($('input[type=radio]:checked', '.switcher').val() === 'false' ) {
             if ($('#best_comment').text() === 'true') {
@@ -179,21 +218,6 @@
     var myref = document.getElementById('save-btn-http');
     $('#save-btn-http').on('click', function (event) {
         myref.setAttribute("data-toggled", 'yes');
-    });
-    $('#comment_picture').bind('change', function() {
-        size_in_megabytes = this.files[0].size/1024/1024;
-        if (size_in_megabytes > 5) {
-            alert('Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.');
-        }
-    });
-    $(document).ready(function() {
-        $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
-            $('#caption').fadeIn(500);
-            $('#delete').fadeIn(500);
-            $('#ajouter').text("Changer de figure");
-            $('#caption-name').text(label);
-            $('#comment_delete_picture').val('false');
-        });
     });
     $.each(['0', '1', '2', '3', '4', '5', '6', '7' ], function (index, value) {
         $(document).ready(function() {

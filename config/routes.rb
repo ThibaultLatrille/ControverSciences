@@ -70,6 +70,7 @@ Rails.application.routes.draw do
   get "/fetch_children" => 'suggestion_children#from_suggestion', as: 'fetch_children'
 
   resources :issues, only: [:create]
+  resources :figures, only: [:create]
 
   resources :comment_types, only: [:create]
 

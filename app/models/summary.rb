@@ -1,7 +1,7 @@
 class Summary < ActiveRecord::Base
   require 'HTMLlinks'
 
-  attr_accessor :parent_id, :delete_picture
+  attr_accessor :parent_id, :delete_picture, :has_picture
 
   belongs_to :user
   belongs_to :timeline
@@ -29,12 +29,10 @@ class Summary < ActiveRecord::Base
 
   around_update :updating_with_public
 
-  mount_uploader :picture, PictureUploader
-
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :content, presence: true, length: {maximum: 12500}
-  validate  :picture_size
+
   validates_uniqueness_of :user_id, :scope => :timeline_id
 
   def user_name
@@ -45,8 +43,16 @@ class Summary < ActiveRecord::Base
     Timeline.select( :name ).find( self.timeline_id ).name
   end
 
-  def file_name
-    User.select( :email ).find(self.user_id).email.partition("@")[0].gsub(".", "_" ) + "_time_#{self.timeline_id}"
+  def picture?
+    self.figure_id ? true : false
+  end
+
+  def picture_url
+    if self.figure_id
+      Figure.select( :id, :picture, :user_id ).find( self.figure_id ).picture_url
+    else
+      nil
+    end
   end
 
   def my_credit( user_id )
@@ -81,7 +87,11 @@ class Summary < ActiveRecord::Base
 
     renderer = HTMLlinks.new(render_options)
     renderer.links = []
-    renderer.ref_url = '#ref-'
+    if Rails.env.production?
+      renderer.ref_url = "http://www.controversciences.org/references/"
+    else
+      renderer.ref_url = "http://127.0.0.1:3000/references/"
+    end
 
     extensions = {
         #will parse links without need of enclosing them
@@ -154,13 +164,6 @@ class Summary < ActiveRecord::Base
   end
 
   private
-
-  # Validates the size of an uploaded picture.
-  def picture_size
-    if picture.size > 5.megabytes
-      errors.add(:picture, 'Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.')
-    end
-  end
 
   def updating_with_public
     public = self.public_was

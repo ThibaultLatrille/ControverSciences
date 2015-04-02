@@ -11,6 +11,9 @@
 // about supported directives.
 //
 //= require jquery-1.11.1
+//= require jquery.ui.widget.js
+//= require jquery.iframe-transport.js
+//= require jquery.fileupload.js
 //= require rails
 //= require bootstrap
 //= require markdown

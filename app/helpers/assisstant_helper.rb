@@ -33,9 +33,8 @@ module AssisstantHelper
   def compute_fitness
     comments = Comment.where( public: true).pluck( :id )
     comments.each do |comment_id|
-      score = {}
+      score = {0 => 0.0, 1 => 0.0, 2 => 0.0, 3 => 0.0, 4 => 0.0, 5 => 0.0, 6 => 0.0, 7 => 0.0}
       Vote.select( :user_id, :value, :reference_id, :field ).where( comment_id: comment_id ).group_by{ |vote| vote.field }.map do | field, votes_by_field|
-        score[field] = 0.0
         votes_by_field.each do |vote|
           time = Time.now-VisiteReference.select( :updated_at ).find_by( user_id: vote.user_id,
                                                                          reference_id: vote.reference_id ).updated_at
@@ -70,38 +69,36 @@ module AssisstantHelper
     end
   end
 
+  def get_best_comment(reference_id, field)
+    ids = CommentJoin.where( reference_id: reference_id, field: field ).pluck( :comment_id )
+    if field == 6
+      most = Comment.select( :id, :reference_id, :title_markdown, :user_id ).where( id: ids ).order(:f_6_score => :desc).first
+    else
+      most = Comment.select( :id, :reference_id, :user_id, "f_#{field}_score".to_sym ).where( id: ids ).order( "f_#{field}_score".to_sym => :desc).first
+    end
+    most
+  end
+
+  def update_best_comment(reference_id, field)
+    best_comment = BestComment.find_by(reference_id: reference_id )
+    unless best_comment
+      best_comment = BestComment.new(reference_id: reference_id)
+    end
+    most = get_best_comment(reference_id, field)
+    if most
+      if most.id != best_comment["f_#{field}_comment_id".to_sym]
+        most.selection_update( best_comment,
+                               best_comment["f_#{field}_comment_id".to_sym],
+                               best_comment["f_#{field}_user_id".to_sym], field ).save
+      end
+    end
+  end
+
   def selection_events
     references = Reference.all.pluck( :id )
     references.each do |reference_id|
-      best_comment = BestComment.find_by(reference_id: reference_id )
       for field in 0..7 do
-        case field
-          when 6
-            most = Comment.select(:id, :user_id, :title, :title_markdown, :reference_id ).where( reference_id: reference_id,
-                                                                      public: true).order(:f_6_score => :desc).first
-            if most && most.title != ""
-              if most.id != best_comment.f_6_comment_id
-                most.selection_update( best_comment.f_6_comment_id, best_comment.f_6_user_id, 6 )
-              end
-            end
-            Reference.update( most.reference_id, title_fr: most.title_markdown )
-          when 7
-            most = Comment.select(:id, :user_id, :caption ).where( reference_id: reference_id,
-                                                                   public: true ).order(:f_7_score => :desc).first
-            if most && most.caption != ""
-              if most.id != best_comment.f_7_comment_id
-                most.selection_update( best_comment.f_7_comment_id, best_comment.f_7_user_id, 7 )
-              end
-            end
-          else
-            most = Comment.select(:id, :user_id, "f_#{field}_content".to_sym ).where( reference_id: reference_id,
-                                                        public: true ).order("f_#{field}_score" => :desc).first
-            if most && most["f_#{field}_content".to_sym] != ""
-              if most.id != best_comment["f_#{field}_comment_id".to_sym]
-                most.selection_update( best_comment["f_#{field}_comment_id".to_sym], best_comment["f_#{field}_user_id".to_sym], field )
-              end
-            end
-        end
+        update_best_comment(reference_id, field )
       end
     end
     timelines = Timeline.all.pluck( :id )
@@ -120,7 +117,7 @@ module AssisstantHelper
     # JOIN NEEDED
     new_timelines = NewTimeline.all.pluck( :timeline_id )
     new_timelines.each do |timeline_id|
-      timeline = Timeline.find( timeline_id )
+      timeline = Timeline.find_by( id: timeline_id )
       tag_ids = timeline.tags.pluck(:id)
       user_ids = FollowingNewTimeline.where( tag_id: tag_ids ).pluck( :user_id )
       user_ids.uniq!
@@ -134,63 +131,73 @@ module AssisstantHelper
 
     new_references = NewReference.all.pluck( :reference_id )
     new_references.each do |reference_id|
-      reference = Reference.select(:id, :timeline_id).find( reference_id )
-      user_ids = FollowingTimeline.where( timeline_id: reference.timeline_id ).pluck( :user_id )
-      notifications = []
-      user_ids.each do |user_id|
-        notifications << NotificationReference.new( user_id: user_id, reference_id: reference.id )
+      reference = Reference.select(:id, :timeline_id).find_by( id: reference_id )
+      if reference
+        user_ids = FollowingTimeline.where( timeline_id: reference.timeline_id ).pluck( :user_id )
+        notifications = []
+        user_ids.each do |user_id|
+          notifications << NotificationReference.new( user_id: user_id, reference_id: reference.id )
+        end
+        NotificationReference.import notifications
       end
-      NotificationReference.import notifications
     end
     NewReference.where(reference_id: new_references ).destroy_all
 
     new_summaries = NewSummary.all.pluck( :summary_id )
     new_summaries.each do |summary_id|
-      summary = Summary.select(:id, :timeline_id).find( summary_id )
-      user_ids = FollowingSummary.where( timeline_id: summary.timeline_id ).pluck( :user_id )
-      notifications = []
-      user_ids.each do |user_id|
-        notifications << NotificationSummary.new( user_id: user_id, summary_id: summary.id )
+      summary = Summary.select(:id, :timeline_id).find_by( id: summary_id )
+      if summary
+        user_ids = FollowingSummary.where( timeline_id: summary.timeline_id ).pluck( :user_id )
+        notifications = []
+        user_ids.each do |user_id|
+          notifications << NotificationSummary.new( user_id: user_id, summary_id: summary.id )
+        end
+        NotificationSummary.import notifications
       end
-      NotificationSummary.import notifications
     end
     NewSummary.where(summary_id: new_summaries ).destroy_all
 
     new_summaries = NewSummarySelection.all
     new_summaries.each do | summary_selection |
-      summary = Summary.select(:id, :timeline_id).find( summary_selection.new_summary_id )
-      user_ids = FollowingSummary.where( timeline_id: summary.timeline_id ).pluck(:user_id )
-      notifications = []
-      user_ids.each do |user_id|
-        notifications << NotificationSummarySelection.new( user_id: user_id, old_summary_id: summary_selection.old_summary_id,
-                                                           new_summary_id: summary_selection.new_summary_id )
+      summary = Summary.select(:id, :timeline_id).find_by( id: summary_selection.new_summary_id )
+      if summary
+        user_ids = FollowingSummary.where( timeline_id: summary.timeline_id ).pluck(:user_id )
+        notifications = []
+        user_ids.each do |user_id|
+          notifications << NotificationSummarySelection.new( user_id: user_id, old_summary_id: summary_selection.old_summary_id,
+                                                             new_summary_id: summary_selection.new_summary_id )
+        end
+        NotificationSummarySelection.import notifications
       end
-      NotificationSummarySelection.import notifications
     end
     NewSummarySelection.where( id: new_summaries.map{ |s| s.id } ).destroy_all
 
     new_comments = NewComment.all.pluck( :comment_id )
     new_comments.each do |comment_id|
-      comment = Comment.select(:id, :reference_id).find( comment_id )
-      user_ids = FollowingReference.where( reference_id: comment.reference_id ).pluck( :user_id )
-      notifications = []
-      user_ids.each do |user_id|
-        notifications << NotificationComment.new( user_id: user_id, comment_id: comment.id )
+      comment = Comment.select(:id, :reference_id).find_by( id: comment_id )
+      if comment
+        user_ids = FollowingReference.where( reference_id: comment.reference_id ).pluck( :user_id )
+        notifications = []
+        user_ids.each do |user_id|
+          notifications << NotificationComment.new( user_id: user_id, comment_id: comment.id )
+        end
+        NotificationComment.import notifications
       end
-      NotificationComment.import notifications
     end
     NewComment.where(comment_id: new_comments ).destroy_all
 
     new_comments = NewCommentSelection.all
     new_comments.each do | comment_selection |
-      comment = Comment.select(:id, :reference_id).find( comment_selection.new_comment_id )
-      user_ids = FollowingReference.where( reference_id: comment.reference_id ).pluck(:user_id )
-      notifications = []
-      user_ids.each do |user_id|
-        notifications << NotificationSelection.new( user_id: user_id, old_summary_id: comment_selection.old_summary_id,
-                                                           new_summary_id: comment_selection.new_summary_id, field: comment_selection.field )
+      comment = Comment.select(:id, :reference_id).find_by( id: comment_selection.new_comment_id )
+      if comment
+        user_ids = FollowingReference.where( reference_id: comment.reference_id ).pluck(:user_id )
+        notifications = []
+        user_ids.each do |user_id|
+          notifications << NotificationSelection.new( user_id: user_id, old_comment_id: comment_selection.old_comment_id,
+                                                      new_comment_id: comment_selection.new_comment_id, field: comment_selection.field )
+        end
+        NotificationSelection.import notifications
       end
-      NotificationSelection.import notifications
     end
     NewCommentSelection.where( id: new_comments.map{ |s| s.id } ).destroy_all
   end

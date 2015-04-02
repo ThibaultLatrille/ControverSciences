@@ -2,26 +2,41 @@ class UserDetailsController < ApplicationController
   before_action :logged_in_user, only: [:create]
 
   def create
-    @user_details = UserDetail.find_by_user_id( user_detail_params[:user_id] )
-    if @user_details
-      @user_details.update(user_detail_params)
+    user_id = current_user.id
+    @user_detail = UserDetail.find_by_user_id( user_id )
+    if @user_detail
+      @user_detail.update(user_detail_params)
       if user_detail_params[:delete_picture] == 'true'
-        @user_details.remove_picture!
+        @user_detail.figure_id = nil
+      elsif user_detail_params[:has_picture] == 'true'
+        @user_detail.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
+                                                                profil: true ).last.id
       end
     else
-      @user_details = UserDetail.new(user_detail_params)
+      @user_detail = UserDetail.new(user_detail_params)
+      @user_detail.user_id = user_id
+      if user_detail_params[:has_picture] == 'true' && user_detail_params[:delete_picture] == 'false'
+        @user_detail.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
+                                                                reference_id: @user_detail.reference_id ).last.id
+        @user_detail.caption = user_detail_params[:caption]
+      end
     end
-    if @user_details.save
+    if @user_detail.save
       flash[:info] = "Modification de profil enregistrée."
-      redirect_to user_path(id: user_detail_params[:user_id] )
+      redirect_to user_path(id: user_id )
     else
-      redirect_to user_edit_path(id: user_detail_params[:user_id] )
+      @user = User.find( user_id )
+      @timelines = Timeline.select(:id, :name).where(user_id: user_id )
+      @references = Reference.select(:id, :timeline_id, :title).where(user_id: user_id )
+      @user_detail = user_detail.select(:id, :reference_id, :title_markdown ).where(user_id: user_id )
+      @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: user_id )
+      render 'users/edit'
     end
   end
 
   private
 
   def user_detail_params
-    params.require(:user_detail).permit(:user_id, :job, :institution, :website, :biography, :picture, :delete_picture)
+    params.require(:user_detail).permit( :job, :institution, :website, :biography, :has_picture, :delete_picture)
   end
 end

@@ -1,22 +1,14 @@
 class Comment < ActiveRecord::Base
   require 'HTMLlinks'
 
-  attr_accessor :parent_id, :delete_picture
+  attr_accessor :parent_id, :delete_picture, :has_picture
 
   belongs_to :user
   belongs_to :timeline
   belongs_to :reference
+
   has_many :votes, dependent: :destroy
   has_many :links, dependent: :destroy
-
-  has_many :child_relationships, class_name: "CommentRelationship",
-           foreign_key: "parent_id",
-           dependent: :destroy
-  has_one :parent_relationship, class_name: "CommentRelationship",
-             foreign_key: "child_id",
-             dependent: :destroy
-  has_many :children, class_name: "Comment", through: :child_relationships, source: :child
-  has_one :parent, class_name: "Comment", through: :parent_relationship, source: :parent
 
   has_many :notification_comments, dependent: :destroy
   has_many :notification_selection_losses, dependent: :destroy
@@ -29,8 +21,6 @@ class Comment < ActiveRecord::Base
 
   around_update :updating_with_public
 
-  mount_uploader :picture, PictureUploader
-
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
@@ -42,7 +32,6 @@ class Comment < ActiveRecord::Base
   validates :f_5_content, length: {maximum: 1001}
   validates :caption, length: {maximum: 1001}
   validates :title, length: {maximum: 180}
-  validate  :picture_size
   validates_uniqueness_of :user_id, :scope => :reference_id
 
   def user_name
@@ -57,8 +46,27 @@ class Comment < ActiveRecord::Base
     Timeline.select( :name ).find( self.timeline_id ).name
   end
 
-  def file_name
-    User.select( :email ).find(self.user_id).email.partition("@")[0].gsub(".", "_" ) + "_ref_#{self.reference_id}"
+  def picture?
+    self.figure_id ? true : false
+  end
+
+  def empty_field?( field )
+    case field
+      when 6
+        self.title.blank?
+      when 7
+        !self.figure_id
+      else
+        self["f_#{field}_content"].blank?
+    end
+  end
+
+  def picture_url
+    if self.figure_id
+      Figure.select( :id, :picture, :user_id ).find( self.figure_id ).picture_url
+    else
+      nil
+    end
   end
 
   def balance
@@ -73,6 +81,16 @@ class Comment < ActiveRecord::Base
     else
       0
     end
+  end
+
+  def get_best_comment( field )
+    ids = CommentJoin.where( reference_id: self.reference_id, field: field ).pluck( :comment_id )
+    if field == 6
+      most = Comment.select( :id, :reference_id, :title_markdown, :user_id ).where( id: ids ).order(:f_6_score => :desc).first
+    else
+      most = Comment.select( :id, :reference_id, :user_id ).where( id: ids ).order( "f_#{field}_score".to_sym => :desc).first
+    end
+    most
   end
 
   def markdown( timeline_url)
@@ -98,7 +116,11 @@ class Comment < ActiveRecord::Base
 
     renderer = HTMLlinks.new(render_options)
     renderer.links = []
-    renderer.ref_url = '#ref-'
+    if Rails.env.production?
+      renderer.ref_url = "http://www.controversciences.org/references/"
+    else
+      renderer.ref_url = "http://127.0.0.1:3000/references/"
+    end
 
     extensions = {
         #will parse links without need of enclosing them
@@ -122,14 +144,14 @@ class Comment < ActiveRecord::Base
     }
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     for fi in 0..5
-      unless self["f_#{fi}_content".to_sym ].blank?
+      unless self.empty_field?( fi )
         self["markdown_#{fi}".to_sym ] = redcarpet.render(self["f_#{fi}_content".to_sym ])
       end
     end
-    unless self.caption.blank?
+    unless self.empty_field?( 7 )
       self.caption_markdown = redcarpet.render(self.caption)
     end
-    unless self.title.blank?
+    unless self.empty_field?( 6 )
       self.title_markdown = redcarpet.render(self.title)
     end
     renderer.links
@@ -159,26 +181,21 @@ class Comment < ActiveRecord::Base
   end
 
 
-  def selection_update( best_comment = nil, best_user = nil, field = nil )
-    NotificationSelectionLoss.create( user_id: best_user,
-                                      comment_id: best_comment, field: field )
-    Comment.update( best_comment, "f_#{field}_best".to_sym => false )
-    best_comment.update_attributes( "f_#{field}_user_id".to_sym => self.user_id,
-                    "f_#{field}_comment_id".to_sym => self.id)
-    NotificationSelectionWin.create( user_id: self.user_id, comment_id: self.id, field: field)
-    NewCommentSelection.create( old_comment_id: best_comment, new_comment_id: self.id, field: field)
-    self.update_attributes( "f_#{field}_best".to_sym => true )
-  end
-
-
-  def destroy_with_counters
-    empty_best_comment
-    nb_votes = self.votes.sum( :value )
-    Timeline.decrement_counter( :nb_comments , self.timeline_id )
-    Reference.update_counters( self.reference_id, nb_edits: -1 )
-    Reference.update_counters( self.reference_id, nb_votes: -nb_votes )
-    self.destroy
-    refill_best_comment
+  def selection_update( best_comment = nil , comment_id = nil, user_id = nil, field = nil, only_win = false )
+    if user_id
+      unless only_win
+        NotificationSelectionLoss.create( user_id: user_id,
+                                          comment_id: comment_id, field: field )
+      end
+      NotificationSelectionWin.create( user_id: self.user_id, comment_id: self.id, field: field)
+      NewCommentSelection.create( old_comment_id: comment_id, new_comment_id: self.id, field: field)
+    end
+    if field == 6
+      Reference.update( self.reference_id, title_fr: self.title_markdown )
+    end
+    best_comment["f_#{field}_user_id".to_sym] = self.user_id
+    best_comment["f_#{field}_comment_id".to_sym] = self.id
+    best_comment
   end
 
   def empty_best_comment
@@ -200,29 +217,25 @@ class Comment < ActiveRecord::Base
       best_comment = BestComment.new(reference_id: self.reference_id)
     end
     for field in 0..7 do
-      unless best_comment["f_#{field}_user_id"]
-        case field
-          when 6
-            unless self.title.blank?
-              best_comment["f_#{field}_user_id"] = self.user_id
-              best_comment["f_#{field}_comment_id"] = self.id
-              Reference.update( self.reference_id, title_fr: self.title_markdown )
-            end
-          when 7
-            unless self.caption.blank?
-              best_comment["f_#{field}_user_id"] = self.user_id
-              best_comment["f_#{field}_comment_id"] = self.id
-            end
+      if not best_comment["f_#{field}_user_id"]
+        unless self.empty_field?( field )
+          best_comment["f_#{field}_user_id"] = self.user_id
+          best_comment["f_#{field}_comment_id"] = self.id
+          if field == 6
+            Reference.update( self.reference_id, title_fr: self.title_markdown )
+          end
+        end
+      elsif best_comment["f_#{field}_user_id"] == self.user_id
+        if self.empty_field?( field )
+          most = get_best_comment( field )
+          if most
+            most.selection_update( best_comment, self.id, self.user_id, field )
           else
-            unless self["f_#{field}_content"].blank?
-              best_comment["f_#{field}_user_id"] = self.user_id
-              best_comment["f_#{field}_comment_id"] = self.id
-            end
+            best_comment["f_#{field}_user_id"] = nil
+            best_comment["f_#{field}_comment_id"] = nil
+          end
         end
       end
-    end
-    if best_comment.f_6_comment_id == self.id
-      Reference.update( self.reference_id, title_fr: self.title_markdown )
     end
     best_comment.save
   end
@@ -231,30 +244,9 @@ class Comment < ActiveRecord::Base
     best_comment = BestComment.find_by(reference_id: self.reference_id )
     for field in 0..7 do
       unless best_comment["f_#{field}_user_id"]
-        case field
-          when 6
-            most = Comment.select(:id, :user_id, :title,
-                :title_markdown, :reference_id ).where( reference_id: self.reference_id,
-                public: true).order(:f_6_score => :desc).first
-            if most && !most.title.blank?
-              best_comment["f_#{field}_user_id"] = most.user_id
-              best_comment["f_#{field}_comment_id"] = most.id
-              Reference.update( self.reference_id, title_fr: most.title_markdown )
-            end
-          when 7
-            most = Comment.select(:id, :user_id, :caption ).where( reference_id: self.reference_id,
-                                                                   public: true ).order(:f_7_score => :desc).first
-            if most && !most.caption.blank?
-              best_comment["f_#{field}_user_id"] = most.user_id
-              best_comment["f_#{field}_comment_id"] = most.id
-            end
-          else
-            most = Comment.select(:id, :user_id, "f_#{field}_content".to_sym ).where( reference_id: reference_id,
-                                                                                      public: true ).order("f_#{field}_score" => :desc).first
-            if most && !most["f_#{field}_content"].blank?
-              best_comment["f_#{field}_user_id"] = most.user_id
-              best_comment["f_#{field}_comment_id"] = most.id
-            end
+        most = get_best_comment( field )
+        if most
+          best_comment = most.selection_update( best_comment, self.id, self.user_id, field, true )
         end
       end
     end
@@ -265,44 +257,35 @@ class Comment < ActiveRecord::Base
     CommentJoin.where(comment_id: self.id).destroy_all
     joins = []
     for fi in 0..7 do
-      case fi
-        when 6
-          unless self.title.blank?
-            joins << CommentJoin.new( comment_id: self.id,
-                                      reference_id: self.reference_id, field: fi)
-          end
-        when 7
-          unless self.caption.blank?
-            joins << CommentJoin.new( comment_id: self.id,
-                                      reference_id: self.reference_id, field: fi)
-          end
-        else
-          unless self["f_#{fi}_content".to_sym ].blank?
-            joins << CommentJoin.new( comment_id: self.id,
-                                      reference_id: self.reference_id, field: fi)
-          end
+      unless self.empty_field?( fi )
+        joins << CommentJoin.new( comment_id: self.id,
+                                  reference_id: self.reference_id, field: fi)
       end
     end
     CommentJoin.import joins
   end
 
-  private
-
-  # Validates the size of an uploaded picture.
-  def picture_size
-    if picture.size > 5.megabytes
-      errors.add(:picture, 'Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.')
-    end
+  def destroy_with_counters
+    empty_best_comment
+    nb_votes = self.votes.sum( :value )
+    Timeline.decrement_counter( :nb_comments , self.timeline_id )
+    Reference.update_counters( self.reference_id, nb_edits: -1 )
+    Reference.update_counters( self.reference_id, nb_votes: -nb_votes )
+    self.destroy
+    refill_best_comment
   end
+
+  private
 
   def updating_with_public
     public = self.public_was
     yield
     if self.public
-      fill_best_comment
       update_comment_join
+      fill_best_comment
     else
       if public != self.public
+        CommentJoin.where(comment_id: self.id).destroy_all
         Vote.where( comment_id: self.id).destroy_all
         empty_best_comment
         refill_best_comment
@@ -313,8 +296,8 @@ class Comment < ActiveRecord::Base
   def cascading_create_comment
     if self.public
       NewComment.create( comment_id: self.id )
-      fill_best_comment
       update_comment_join
+      fill_best_comment
     end
     Reference.increment_counter(:nb_edits, self.reference_id)
     Timeline.increment_counter(:nb_comments, self.timeline_id)

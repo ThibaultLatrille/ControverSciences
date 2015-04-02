@@ -212,7 +212,7 @@ class NotificationsController < ApplicationController
   private
 
   def notification_params
-    params.require( :id )
+    params.permit( :id, :field )
   end
 
 end

@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
         <% if @user_detail && @user_detail.id && @user_detail.picture? %>
-            <%= image_tag @user_detail.picture.url, class: "img-rounded", height: "80px" %>
+            <%= image_tag @user_detail.picture_url, class: "img-rounded", height: "80px" %>
         <% else %>
             <%= image_tag "favicon.svg", class: "img-rounded", height: "80px" %>
         <% end %>

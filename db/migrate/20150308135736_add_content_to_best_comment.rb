@@ -35,14 +35,6 @@ class AddContentToBestComment < ActiveRecord::Migration
     add_column :comments, :f_5_score, :float, default: 0.0
     add_column :comments, :f_6_score, :float, default: 0.0
     add_column :comments, :f_7_score, :float, default: 0.0
-    add_column :comments, :f_0_best, :boolean, default: false
-    add_column :comments, :f_1_best, :boolean, default: false
-    add_column :comments, :f_2_best, :boolean, default: false
-    add_column :comments, :f_3_best, :boolean, default: false
-    add_column :comments, :f_4_best, :boolean, default: false
-    add_column :comments, :f_5_best, :boolean, default: false
-    add_column :comments, :f_6_best, :boolean, default: false
-    add_column :comments, :f_7_best, :boolean, default: false
     remove_column :comments, :balance
     remove_column :comments, :score
     remove_column :comments, :best

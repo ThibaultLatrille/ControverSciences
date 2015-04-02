@@ -50,7 +50,7 @@ class BestComment < ActiveRecord::Base
   end
 
   def picture_url
-    Comment.select( :id, :picture ).find( self.f_7_comment_id ).picture_url
+    Comment.select( :id, :figure_id ).find( self.f_7_comment_id ).picture_url
   end
 
 end

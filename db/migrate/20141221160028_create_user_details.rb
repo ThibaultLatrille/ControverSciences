@@ -2,7 +2,6 @@ class CreateUserDetails < ActiveRecord::Migration
   def change
     create_table :user_details do |t|
       t.references :user, index: true
-      t.string :picture
       t.string :institution
       t.string :job
       t.string :website

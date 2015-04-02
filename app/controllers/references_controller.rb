@@ -22,7 +22,7 @@ class ReferencesController < ApplicationController
       when 7
         ids = CommentJoin.where( reference_id: params[:reference_id], field: 7 ).pluck( :comment_id )
         @best_fields = Comment.select( :created_at, :id, :caption_markdown, :user_id,
-                                       :picture, :f_7_balance ).where( id: ids ).order('random()')
+                                       :figure_id, :f_7_balance ).where( id: ids ).order('random()')
       else
         ids = CommentJoin.where( reference_id: params[:reference_id], field: params[:field].to_i ).pluck( :comment_id )
         puts ids

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150328131720) do
+ActiveRecord::Schema.define(version: 20150401204856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(version: 20150328131720) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "public",           default: true
-    t.string   "picture"
     t.text     "caption",          default: ""
     t.text     "caption_markdown", default: ""
     t.text     "title",            default: ""
@@ -123,16 +122,10 @@ ActiveRecord::Schema.define(version: 20150328131720) do
     t.float    "f_5_score",        default: 0.0
     t.float    "f_6_score",        default: 0.0
     t.float    "f_7_score",        default: 0.0
-    t.boolean  "f_0_best",         default: false
-    t.boolean  "f_1_best",         default: false
-    t.boolean  "f_2_best",         default: false
-    t.boolean  "f_3_best",         default: false
-    t.boolean  "f_4_best",         default: false
-    t.boolean  "f_5_best",         default: false
-    t.boolean  "f_6_best",         default: false
-    t.boolean  "f_7_best",         default: false
+    t.integer  "figure_id"
   end
 
+  add_index "comments", ["figure_id"], name: "index_comments_on_figure_id", using: :btree
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id", using: :btree
   add_index "comments", ["timeline_id"], name: "index_comments_on_timeline_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
@@ -171,6 +164,21 @@ ActiveRecord::Schema.define(version: 20150328131720) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "figures", force: true do |t|
+    t.integer  "reference_id"
+    t.integer  "timeline_id"
+    t.integer  "user_id"
+    t.boolean  "profil"
+    t.string   "picture"
+    t.string   "file_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "figures", ["reference_id"], name: "index_figures_on_reference_id", using: :btree
+  add_index "figures", ["timeline_id"], name: "index_figures_on_timeline_id", using: :btree
+  add_index "figures", ["user_id"], name: "index_figures_on_user_id", using: :btree
 
   create_table "following_new_timelines", force: true do |t|
     t.integer  "user_id"
@@ -532,11 +540,12 @@ ActiveRecord::Schema.define(version: 20150328131720) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "public",           default: true
-    t.string   "picture"
     t.text     "caption",          default: ""
     t.text     "caption_markdown", default: ""
+    t.integer  "figure_id"
   end
 
+  add_index "summaries", ["figure_id"], name: "index_summaries_on_figure_id", using: :btree
   add_index "summaries", ["timeline_id"], name: "index_summaries_on_timeline_id", using: :btree
   add_index "summaries", ["user_id"], name: "index_summaries_on_user_id", using: :btree
 
@@ -627,15 +636,16 @@ ActiveRecord::Schema.define(version: 20150328131720) do
 
   create_table "user_details", force: true do |t|
     t.integer  "user_id"
-    t.string   "picture"
     t.string   "institution"
     t.string   "job"
     t.string   "website"
     t.text     "biography"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "figure_id"
   end
 
+  add_index "user_details", ["figure_id"], name: "index_user_details_on_figure_id", using: :btree
   add_index "user_details", ["user_id"], name: "index_user_details_on_user_id", using: :btree
 
   create_table "users", force: true do |t|

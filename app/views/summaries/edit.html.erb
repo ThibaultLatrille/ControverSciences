@@ -18,41 +18,7 @@
             <%= form_for(@summary, html: { multipart: true }) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
-                <%= f.label "Synthèse" %> <div id="characterLeft0"></div>
-
-                <%= f.text_area :content, {rows: 5, :placeholder => "synthèse",
-                                           :class => "form-control textarea",
-                                           id: "description0",
-                                           "data-provide" => "markdown" }%>
-                <br/>
-
-                <span class="btn btn-default btn-file">
-                  <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
-                     &nbsp <span id="ajouter">Changer de figure</span> <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png,image/svg' %>
-                </span>
-                <span id="delete" class="btn btn-danger">
-                  <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-                    Supprimer la figure
-                </span>
-                <div id="caption">
-                  <br/>
-                 <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
-                  <br/>
-                  <div id="characterLeft1"></div>
-                  <br/>
-                    <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
-                                               :class => "form-control textarea", id: "description1",
-                                               "data-provide" => "markdown" }%>
-                </div>
-                <br/>
-                <div id="characterLeft1"></div>
-                <br/>
-                <p hidden id="best_summary"><%= @summary.best %></p>
-                <p hidden id="has_picture"><%= @summary.picture %></p>
-                <p hidden id="balance_summary"><%= @summary.balance %></p>
-                <%= f.hidden_field :delete_picture, value: false %>
-                <%= f.hidden_field :timeline_id, value: @summary.timeline_id %>
-                <div class="switcher pull-left">
+                <div class="switcher pull-right">
                   <p class="fieldset">
                     <%= f.radio_button :public, true %>
                     <label for="summary_public_true">Public</label>
@@ -61,10 +27,66 @@
                     <span class="switch"></span>
                   </p>
                 </div>
+                <br/>
+                <br/>
+
+                <%= f.label "Synthèse" %> <div id="characterLeft0"></div>
+
+                <%= f.text_area :content, {rows: 5, :placeholder => "synthèse",
+                                           :class => "form-control textarea",
+                                           id: "description0",
+                                           "data-provide" => "markdown" }%>
+                <br/>
+                <p hidden id="best_summary"><%= @summary.best %></p>
+                <p hidden id="balance_summary"><%= @summary.balance %></p>
+                <%= f.hidden_field :has_picture, value: @summary.picture? %>
+                <%= f.hidden_field :delete_picture, value: false %>
+                <%= f.hidden_field :timeline_id, value: @summary.timeline_id %>
+                <div id="caption" style="display: none">
+                  <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                      <div id="original">
+                        <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
+                      </div>
+                      <div id="uploaded" style="display: none">
+                        <%= image_tag '', class: "img-rounded img-responsive" %>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                      <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
+                      <br/>
+
+                      <div id="characterLeft1"></div>
+                      <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
+                                                 :class => "form-control textarea", id: "description1",
+                                                 "data-provide" => "markdown"} %>
+                    </div>
+                  </div>
+                </div>
+                <br/>
+                <br/>
                 <%= f.button "Modifier ma synthèse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                              class: 'btn btn-success btn-lg pull-right',
                              data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
             <% end %>
+            <div>
+              <div id="upload-btn" class="btn btn-info btn-lg fileinput-button">
+                <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+                <span id="ajouter"> Ajouter une figure </span>
+                <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
+              </div>
+              <div id="progress" style="display: none">
+                <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                  <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                    <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                  </path>
+                </svg>
+              </div>
+              <div id="delete" class="btn btn-danger btn-lg" style="display: none">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                Supprimer la figure
+              </div>
+            </div>
           </div>
         </div>
   </div>
@@ -126,23 +148,42 @@
 </div>
 
 <script type="text/javascript">
-    $(document).on('change', '.btn-file :file', function() {
-        var input = $(this),
-                numFiles = input.get(0).files ? input.get(0).files.length : 1,
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
+    $(document).ready(function() {
+        if ($('#summary_has_picture').val() === 'true') {
+            $('#caption').show();
+            $('#delete').show();
+            $('#ajouter').text("Modifier la figure");
+        }
     });
-    $('#delete').click(function(){
-        $('#caption').fadeOut(500);
-        $('#delete').fadeOut(500);
+    $(function () {
+        'use strict';
+        // Change this to the location of your server-side upload handler:
+        $('#fileupload').fileupload({
+            url: "<%= figures_url + "?timeline_id=" + @summary.timeline_id.to_s %>",
+            type: 'POST',
+            dataType: 'json',
+            done: function (e, data) {
+                $('#upload-btn').show(300);
+                $('#summary_has_picture').val('true');
+                $('#summary_delete_picture').val('false');
+                $('#caption').show(300);
+                $('#progress').hide(300);
+                $('#original').hide(300);
+                $('#uploaded').show(300);
+                $('#uploaded img').attr("src", data.result.picture.url);
+            },
+            start: function (e, data) {
+                $('#upload-btn').hide();
+                $('#progress').show();
+            }
+        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+    $('#delete').click(function () {
+        $('#caption').hide(300);
+        $('#delete').hide(300);
         $('#ajouter').text("Ajouter une figure à cette synthèse");
         $('#summary_delete_picture').val('true');
     });
-    if ($('#has_picture').text() === '') {
-        $('#caption').hide();
-        $('#delete').hide();
-        $('#ajouter').text("Ajouter une figure à cette synthèse");
-    }
     $('input[type=radio]', '.switcher').change(function () {
         if ($('input[type=radio]:checked', '.switcher').val() === 'false' ) {
             if ($('#best_summary').text() === 'true') {
@@ -160,21 +201,6 @@
     var myref = document.getElementById('save-btn-http');
     $('#save-btn-http').on('click', function (event) {
         myref.setAttribute("data-toggled", 'yes');
-    });
-    $('#summary_picture').bind('change', function() {
-        size_in_megabytes = this.files[0].size/1024/1024;
-        if (size_in_megabytes > 5) {
-            alert('Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.');
-        }
-    });
-    $(document).ready(function() {
-        $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
-            $('#caption').fadeIn(500);
-            $('#delete').fadeIn(500);
-            $('#ajouter').text("Changer de figure");
-            $('#caption-name').text(label);
-            $('#summary_delete_picture').val('false');
-        });
     });
     $.each(['0', '1'], function (index, value) {
         $(document).ready(function() {

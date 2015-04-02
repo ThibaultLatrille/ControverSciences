@@ -100,7 +100,7 @@
         <% if @summary.picture? %>
             <div class="pull-right">
               <div class="thumbnail">
-                <%= image_tag @summary.picture.url, class: "img-rounded img-responsive" %>
+                <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
                 <div class="caption">
                   <%= @summary.caption_markdown.html_safe %>
                 </div>
@@ -118,7 +118,7 @@
         <br/>
         <br/>
         <% if @timeline.nb_summaries > 1 %>
-            <%= link_to 'Voir les synthèses de cette controverse'.html_safe,
+            <%= link_to "Voir les synthèses de cette controverse (#{@timeline.nb_summaries})".html_safe,
                         summaries_path( timeline_id: @timeline.id ),
                         class: "btn btn-primary" %>
         <% end %>
@@ -186,14 +186,28 @@
 
 
 <script type="text/javascript">
+    $('.linked-ref').click(function(e) {
+        var id = $(this).data("ref");
+        $("#button"+id).trigger('click');
+        if ($("#ref-"+id).hasClass("glyphicon-chevron-down")) {
+            $("#ref-"+id).trigger('click');
+        }
+        $("#block-"+id).show(500);
+        e.stopPropagation();
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $('#block-'+id).offset().top-100
+        }, 500);
+        return false
+    });
     $('.detail').click(function() {
         if ($(this).hasClass("glyphicon-chevron-down")) {
             $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-            $(this).parent().parent().parent().find('.ref').fadeIn(750)
+            $(this).parent().parent().parent().find('.ref').show(500)
         }
         else {
             $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-            $(this).parent().parent().parent().find('.ref').fadeOut(750)
+            $(this).parent().parent().parent().find('.ref').hide(500)
         }
     });
     $(function () {
