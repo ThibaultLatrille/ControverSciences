@@ -149,7 +149,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Inscription à la newsletter ControverSciences réussi </h4>
+        <h4 class="modal-title" id="myModalLabel"> Un grand merci de votre interêt à ControverSciences, nous vous tiendrons au courant des avancées du projet avec plaisi ;-) </h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
@@ -163,7 +163,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Echec de l'inscription à la newsletter ControverSciences </h4>
+        <h4 class="modal-title" id="myModalLabel"> Vous êtes déjà inscrit à ce bulletion d'information, ou votre adresse est invalide. </h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
@@ -190,7 +190,7 @@
             }).success(function () {
                 $('.loader-like').remove();
                 self.show();
-                var like = $('#like' + self.val());
+                var like = $('.glyphicon', self);
                 like.text(' ' + (parseInt(like.text()) + 1));
             }).error(function () {
                 $('.loader-like').remove();

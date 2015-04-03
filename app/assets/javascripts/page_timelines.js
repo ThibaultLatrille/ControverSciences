@@ -21,7 +21,7 @@ $(document).ready(function() {
                 }).success(function () {
                     $('.loader-like').remove();
                     self.show();
-                    var like = $('#like' + self.val());
+                    var like = $('.glyphicon', self);
                     like.text(' ' + (parseInt(like.text()) + 1));
                 }).error(function () {
                     $('.loader-like').remove();

@@ -4,13 +4,13 @@
     <div class="panel-body">
       <button type="button" class="btn btn-default" data-toggle="collapse"
               data-target="#tags<%= timeline.id %>,#group<%= timeline.id %>">
-        Thèmes
+        <span class="icon-frog" style="font-size: 1.4em"></span> Thèmes
       </button>
       <div class="pull-right">
         <button type="button" class="btn btn-success" data-placement="left"
             data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes/add"
             title="<%= timeline.nb_likes.to_s + " personnes s'intéressent à cette controverse" %>">
-        <span class="glyphicon glyphicon-thumbs-up" id="like<%= timeline.id %>"> <%= timeline.nb_likes %> </span>
+        <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %> </span>
         </button>
       </div>
       <div class="timeline-name center">
