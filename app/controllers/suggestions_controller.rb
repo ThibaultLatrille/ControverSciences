@@ -1,11 +1,32 @@
 class SuggestionsController < ApplicationController
 
   def show
-    @suggestion = Suggestion.find_by( timeline_id: params[:timeline_id] )
+    if params[:timeline_id]
+      @suggestion = Suggestion.find_by( timeline_id: params[:timeline_id] )
+    else
+      @suggestion = Suggestion.find( params[:id] )
+    end
+  end
+
+  def edit
+    @suggestion = Suggestion.find( params[:id] )
+  end
+
+  def update
+    @suggestion = Suggestion.find( params[:id] )
+    if current_user.id = @suggestion.user_id
+      if @suggestion.update( suggestion_params )
+        render 'suggestions/show'
+      else
+        render 'suggestions/edit'
+      end
+    else
+      render 'suggestions/show'
+    end
   end
 
   def index
-    @suggestions = Suggestion.order( created_at: :desc).all.page(params[:page]).per(5)
+    @suggestions = Suggestion.order( created_at: :desc).all.page(params[:page]).per(50)
     @suggestion = Suggestion.new
     if logged_in? && !@suggestion.name
       @suggestion.name = current_user.name
@@ -23,7 +44,7 @@ class SuggestionsController < ApplicationController
       flash[:success] = "Commentaire ajouté."
       redirect_to suggestions_path
     else
-      @suggestions = Suggestion.order( :created_at).all.page(params[:page]).per(10)
+      @suggestions = Suggestion.order( :created_at).all.page(params[:page]).per(50)
       render 'index'
     end
   end
@@ -31,6 +52,6 @@ class SuggestionsController < ApplicationController
   private
 
   def suggestion_params
-    params.require(:suggestion).permit(:comment, :name, :email)
+    params.require(:suggestion).permit(:id, :comment, :name, :email)
   end
 end

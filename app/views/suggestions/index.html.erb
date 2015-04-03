@@ -2,10 +2,10 @@
 <div id="my-container" class="container-fluid">
 <div class="row">
 <div class="col-xs-12">
-      <h3> Discuter des controverses et des améliorations du site <br/> <br/> </h3>
+    <h1> Discutez des controverses ! Apportez vos idées ! </h1>
     <div class="row">
       <div class="col-xs-12 col-lg-3">
-        <div class="panel panel-default">
+        <div class="panel panel-info">
           <div class="panel-heading">
             Vous avez une idée, faites le savoir !
           </div>
@@ -14,7 +14,7 @@
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <div class="form-group">
-                  <%= f.label :comment, class: 'control-label' %><br>
+                  <%= f.label :comment, "Votre commentaire", class: 'control-label' %><br>
                   <%= f.text_area :comment, class: 'form-control textarea' %>
                   <span class="help-block"></span>
                 </div>
@@ -34,8 +34,8 @@
           </div>
         </div>
       </div>
-      <div id="comments" class="col-xs-12 col-lg-7">
-        <div class="row page">
+      <div class="col-xs-12 col-lg-7">
+        <div class="row">
                 <%= render @suggestions %>
                 <%= paginate @suggestions %>
         </div>
@@ -57,3 +57,41 @@
   </div>
 </div>
 </div>
+
+<div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"> Votre vote déjà été pris en compte. </h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('[data-validate]').click(function () {
+            var self = $(this);
+            self.hide();
+            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
+            $.get(self.data('validate'), {
+                id: self.val(),
+                value: self.data('value')
+            }).success(function () {
+                $('.loader-like').remove();
+                self.show();
+                var like = $('.glyphicon', self);
+                like.text(' ' + (parseInt(like.text()) + 1));
+            }).error(function () {
+                $('.loader-like').remove();
+                self.show();
+                $('#iptaken').modal('show');
+            });
+        });
+    });
+</script>

@@ -6,17 +6,38 @@ class SuggestionChildrenController < ApplicationController
     end
   end
 
-  def new
+  def show
+    @suggestion_child = SuggestionChild.find( params[:id] )
+    @suggestion = Suggestion.find( @suggestion_child.suggestion_id )
+  end
+
+  def edit
+    @suggestion_child = SuggestionChild.find( params[:id] )
+    @suggestion = Suggestion.find( @suggestion_child.suggestion_id )
+  end
+
+  def update
+    @suggestion_child = SuggestionChild.find( params[:id] )
+    @suggestion = Suggestion.find( @suggestion_child.suggestion_id )
+    if current_user.id = @suggestion_child.user_id
+      if @suggestion_child.update( suggestion_child_params )
+        render 'suggestion_children/show'
+      else
+        render 'suggestion_children/edit'
+      end
+    else
+      render 'suggestion_children/show'
+    end
   end
 
   def create
-    @suggestion_child = SuggestionChild.new(suggestion_child_params)
+    @suggestion_child = SuggestionChild.new( suggestion_child_params )
     if logged_in?
       @suggestion_child.user_id = current_user.id
     end
     if @suggestion_child.save
       flash[:success] = "Commentaire ajouté."
-      redirect_to suggestions_path
+      redirect_to suggestion_child_path( @suggestion_child.id )
     else
       @suggestion = Suggestion.find(suggestion_child_params[:suggestion_id])
       render 'new'
@@ -26,7 +47,7 @@ class SuggestionChildrenController < ApplicationController
   private
 
   def suggestion_child_params
-    params.require(:suggestion_child).permit(:comment, :name, :suggestion_id, :email)
+    params.require(:suggestion_child).permit(:id, :comment, :name, :suggestion_id, :email)
   end
 
 end

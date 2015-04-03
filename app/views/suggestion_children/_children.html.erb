@@ -3,13 +3,16 @@
   <% suggestion_children.each do |suggestion_child| %>
   <div class="col-md-3">
     <div class="clearfix pull-right">
-        <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"> #{suggestion_child.plus} </span>".html_safe,
-                    suggestion_child_votes_path(vote: {suggestion_child_id: suggestion_child.id, value: "true" } ),
-                    method: :post, class: "btn btn-success" %>
-        <br/>
-        <%= link_to "<span class=\"glyphicon glyphicon-thumbs-down\"> #{suggestion_child.minus} </span>".html_safe,
-                    suggestion_child_votes_path(vote: {suggestion_child_id: suggestion_child.id, value: "false" } ),
-                    method: :post, class: "btn btn-danger" %>
+      <button type="button" class="btn btn-success" data-placement="left" data-value="true"
+              data-toggle="tooltip" value="<%= suggestion_child.id %>" data-validate="/suggestion_child_votes/add"
+              title="<%= suggestion_child.plus.to_s + " personnes sont d'accords" %>">
+        <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion_child.plus %> </span>
+      </button>
+      <button type="button" class="btn btn-danger" data-placement="left" data-value="false"
+              data-toggle="tooltip" value="<%= suggestion_child.id %>" data-validate="/suggestion_child_votes/add"
+              title="<%= suggestion_child.minus.to_s + " personnes ne sont pas d'accords" %>">
+        <span class="glyphicon glyphicon-thumbs-down"> <%= suggestion_child.minus %> </span>
+      </button>
       </div>
   </div>
   <div class="col-md-9">
@@ -19,9 +22,13 @@
             <div class="text-justify">
               <%= suggestion_child.comment %>
             </div>
+            <% if logged_in? && suggestion_child.user_id == current_user.id %>
+                <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier ma réponse".html_safe, edit_suggestion_child_path(suggestion_child.id),
+                            class: "btn btn-primary" %>
+            <% end %>
           </span>
           </div>
-          <div class="panel-footer">
+          <div class="panel-footer clearfix">
               <span class="timestamp">
                 Publié il y a <%= time_ago_in_words(suggestion_child.created_at) %> par
                 <% if suggestion_child.user_id %>
@@ -35,7 +42,7 @@
      </div>
   <% end %>
   <div class="col-md-9 col-md-offset-3">
-    <div class="panel panel-default">
+    <div class="panel panel-info">
       <div class="panel-heading">
         Une furieuse envie de répondre, c'est ici !
       </div>
@@ -43,7 +50,7 @@
         <%= form_for( :suggestion_child, url: suggestion_children_path, method: :post) do |f| %>
             <%= f.hidden_field :suggestion_id, value: suggestion_id %>
             <div class="form-group">
-              <%= f.label :comment, class: 'control-label' %><br>
+              <%= f.label :comment, "Votre réponse", class: 'control-label' %><br>
               <%= f.text_area :comment, class: 'form-control textarea' %>
               <span class="help-block"></span>
             </div>
@@ -57,9 +64,9 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="pull-right">
-                  <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                  <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                                class: 'btn btn-success',
-                               data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Publication en cours "}%>
+                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "}%>
                 </div>
               </div>
             </div>

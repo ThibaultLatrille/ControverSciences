@@ -84,7 +84,7 @@ class Timeline < ActiveRecord::Base
 
   def cascading_save_timeline
     if self.debate
-      text = "Le nom de la controverse #{self.name} peut être amélioré, des idées ?"
+      text = "Des idées pour améliorer le titre de la controverse : <b>#{self.name}</b> ?"
       Suggestion.create( user_id: self.user_id, name: self.user_name, timeline_id: self.id, comment: text )
     end
     NewTimeline.create( timeline_id: self.id )
@@ -102,7 +102,7 @@ class Timeline < ActiveRecord::Base
     end
     if debate != self.debate
       if self.debate
-        text = "Le nom de la controverse #{self.name} peut être amélioré, des idées ?"
+        text = "Des idées pour améliorer le titre de la controverse : <b>#{self.name}</b> ?"
         Suggestion.create( user_id: self.user_id, name: self.user_name, timeline_id: self.id, comment: text )
       else
         Suggestion.find_by( timeline_id: self.id ).destroy

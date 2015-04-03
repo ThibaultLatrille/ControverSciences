@@ -1,19 +1,18 @@
 class SuggestionChildVotesController < ApplicationController
-  def create
-    if suggestion_child_vote_params[:value] == "true"
-      vote = SuggestionChildVote.new(suggestion_child_id: suggestion_child_vote_params[:suggestion_child_id],
+  def add
+    if params[:value] == "true"
+      vote = SuggestionChildVote.new(suggestion_child_id: params[:id],
                     ip: request.remote_ip, value: true )
     else
-      vote = SuggestionChildVote.new(suggestion_child_id: suggestion_child_vote_params[:suggestion_child_id],
+      vote = SuggestionChildVote.new(suggestion_child_id: params[:id],
                     ip: request.remote_ip, value: false )
     end
     begin
       vote.save
-      flash[:success] = "Votre vote a été pris en compte."
+      render :nothing => true, :status => 200
     rescue
-      flash[:danger] = "Vous avez déjà voté."
+      render :nothing => true, :status => 409
     end
-    redirect_to suggestions_path
   end
 
   private

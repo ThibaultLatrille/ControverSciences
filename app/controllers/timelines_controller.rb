@@ -59,8 +59,14 @@ class TimelinesController < ApplicationController
         @timeline.set_tag_list(params[:timeline][:tag_list])
       end
       if @timeline.save
-        flash[:success] = "Controverse modifiée."
-        redirect_to @timeline
+        if timeline_params[:debate] == '1'
+          flash[:success] = "Controverse modifiée. Vous pouvez également modifier le fil de discussion portant sur le titre."
+          sug = Suggestion.find_by_timeline_id( @timeline.id )
+          redirect_to edit_suggestion_path ( sug.id )
+        else
+          flash[:success] = "Controverse modifiée."
+          redirect_to @timeline
+        end
       else
         render 'edit'
       end
@@ -78,8 +84,14 @@ class TimelinesController < ApplicationController
       @timeline.set_tag_list(params[:timeline][:tag_list])
     end
     if @timeline.save
-      flash[:success] = "Controverse ajoutée."
-      redirect_to @timeline
+      if timeline_params[:debate] == '1'
+        flash[:success] = "Controverse crée ! Vous pouvez également modifier le fil de discussion portant sur le titre."
+        sug = Suggestion.find_by_timeline_id( @timeline.id )
+        redirect_to edit_suggestion_path ( sug.id )
+      else
+        flash[:success] = "Controverse ajoutée !"
+        redirect_to @timeline
+      end
     else
       render 'new'
     end

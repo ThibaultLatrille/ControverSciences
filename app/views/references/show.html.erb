@@ -251,7 +251,7 @@
             <% if @reference.user_id == current_user.id %>
                 </li>
                 <li class="list-group-item clearfix">
-                  <%= link_to "Modifier cette référence", edit_reference_path(@reference.id), class: "btn btn-primary pull-right" %>
+                  <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette référence".html_safe, edit_reference_path(@reference.id), class: "btn btn-primary pull-right" %>
                   <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette référence".html_safe,
                               reference_path( @reference.id ), method: :delete,
                               data: { confirm: "Etes vous certain ?" }, class: "btn btn-danger" %>

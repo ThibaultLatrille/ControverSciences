@@ -1,0 +1,39 @@
+<div id="my-container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+      <%= link_to "Revenir aux discussions", suggestions_path,
+                  class: "btn btn-primary" %>
+      <br/>
+      <br/>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3> Modifier un commentaire </h3>
+        </div>
+        <div class="panel-body">
+          <%= form_for(@suggestion) do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
+
+              <div class="form-group">
+                <%= f.label :comment, "Votre commentaire", class: 'control-label' %>
+                <br>
+                <%= f.text_area :comment, class: 'form-control textarea' %>
+                <span class="help-block"></span>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <%= f.text_field :name, class: 'form-control selectwidthauto' %>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <div class="pull-right">
+                    <%= f.button "Modifier &nbsp <span class=\"glyphicon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                                 class: 'btn btn-success',
+                                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
+                  </div>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
