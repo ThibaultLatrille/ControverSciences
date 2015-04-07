@@ -129,7 +129,7 @@ def seed_timelines(users)
   names << "Le point G, mythe ou réalité ?"
   names.each do |name|
       timeline = Timeline.new(
-      user: users[rand(users.length)],
+      user: users[0],
       name:  name,
       score: 1)
       timelines << timeline
