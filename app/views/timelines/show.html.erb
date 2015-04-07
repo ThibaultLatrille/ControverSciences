@@ -62,7 +62,7 @@
     </span>
       <div>
         <h1><%= @timeline.name %></h1>
-        <% if @references.any? && @timeline.binary != '' %>
+        <% if @references.any? && @timeline.binary != '' && @timeline.total_binary > 0 %>
             <strong class="bigger">  <%= @timeline.binary.split('&&')[0] %> </strong>
             <strong class="bigger pull-right">  <%= @timeline.binary.split('&&')[1] %> </strong>
             <div>
@@ -78,7 +78,7 @@
                          <%= @timeline.binary.split('&&')[1].downcase -%>." data-toggle="tooltip">
                     <% else %>
                         <label class="btn btn-default active btn-frog<%= key %>"
-                               title="<%= @timeline.binary_0 + @timeline.binary_3 -%> références sont neutres" data-toggle="tooltip">
+                               title="<%= @timeline.binary_0 + @timeline.binary_3 -%> références sont neutres ou non assignées" data-toggle="tooltip">
                     <% end %>
                     <span class="icon-frog cd-frog" style="font-size: <%= @timeline.binary_font_size( key ) -%>em;">
                     <% if key == 3 %>
@@ -205,14 +205,17 @@
         e.stopPropagation();
         e.preventDefault();
         $('html, body').animate({
-            scrollTop: $('#block-'+id).offset().top-100
+            scrollTop: $('#block-'+id).offset().top-80
         }, 500);
         return false
     });
     $('.detail').click(function() {
         if ($(this).hasClass("glyphicon-chevron-down")) {
             $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-            $(this).parent().parent().parent().find('.ref').show(500)
+            $(this).parent().parent().parent().find('.ref').show(500);
+            $('html, body').animate({
+                scrollTop: $(this).parent().parent().parent().offset().top-80
+            }, 500)
         }
         else {
             $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");

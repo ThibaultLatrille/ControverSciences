@@ -33,6 +33,10 @@ class Timeline < ActiveRecord::Base
     self.nb_summaries + self.nb_comments
   end
 
+  def total_binary
+    self.binary_1+self.binary_2+self.binary_3+self.binary_4+self.binary_5
+  end
+
   def binary_font_size( value )
     if self.nb_references > 0
       case value

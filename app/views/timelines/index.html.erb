@@ -105,7 +105,7 @@
              </span> Suivre les nouvelles controverses".html_safe,
                       following_new_timelines_path, method: :post, class: "btn btn-block btn-success" %>
       <% else %>
-          <%= link_to "<span class=\"icon-#{params[:tag]}\"></span> ".html_safe + "Suivre les controverses du thème : #{tags_hash[params[:tag]]}".html_safe,
+          <%= link_to "<span class=\"icon-#{params[:tag]}\"></span> ".html_safe + "Suivre les controverses concernant le thème : #{tags_hash[params[:tag]]}".html_safe,
                       following_new_timelines_path(tag: params[:tag] ), method: :post, class: "btn btn-block btn-success" %>
       <% end %>
       <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >

@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.order(score: :desc ).page(params[:page]).per(20)
+    @users = User.where( activated: true ).order(score: :desc ).page(params[:page]).per(20)
   end
 
   def show

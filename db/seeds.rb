@@ -76,7 +76,7 @@ def seed_users
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "Anciaux Yoann",
+  users << User.new(name:  "Y. Anciaux",
                     email: "yoann.anciaux@univ-montp2.fr",
                     password:              "password",
                     password_confirmation: "password",
@@ -94,6 +94,12 @@ def seed_users
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
+  users << User.new(name:  "S. Knipping",
+                    email: "solene.knipping@ens-lyon.fr",
+                    password:              "password",
+                    password_confirmation: "password",
+                    activated: true,
+                    activated_at: Time.zone.now)
   users << User.new(name:  "N. Rivel",
                     email: "nais.rivel@gmail.com",
                     password:              "password",
@@ -106,36 +112,26 @@ def seed_users
   users
 end
 
-def seed_timelines(users, tags)
+def seed_timelines(users)
   timelines = []
   names = []
-  names << "Quel lien entre la prise de risque d'un individu et son statut hiérarchique dans la société?"
-  names << "Quels sont les effets des OGMs sur la santé humaine ?"
-  names << "Quelles conséquences des quotas laitiers ?"
+  names << "Les OGMs sont-ils nocifs pour la santé humaine ?"
   names << "Quels dangers pour les pilules de 3eme génération ?"
   names << "Les ondes des portables, quels dangers pour notre corps ?"
   names << "L'homosexualité chez les animaux."
-  names << "La production de cacao peut-t-elle répondre à la demande de chocolat ?"
   names << "Sommes nous des descendants de Néanderthal ?"
-  names << "Le THC entraîne-t-il des changements neurologiques irréversibles?"
-  names << "Viande rouge ou viande blanche, l'impact sur la santé ?"
-  names << "L'homme peut-il habiter sur une autre planète ?"
+  names << "Le THC entraîne-t-il des changements neurologiques irréversibles ?"
   names << "L'homme a-t-il engendré des seismes ?"
   names << "Les vaccins et leurs effets secondaires"
-  names << "Replantons nous plus d'arbre que l'on en coupe ?"
   names << "Quotient intellectuel, quelle part de génétique ?"
-  names << "Les vaches détectent-elles le champ magnétique terrestre ?"
   names << "Le vaccin de l'hépatite B, un lien avec la sclérose en plaque ?"
-  names << "Les liens entre jeux vidéo et violence chez les enfants ?"
-  names << "La théorie du genre"
-  names << "Quelles conséquences a eu l'accident Tchernobyl ?"
+  names << "Les jeux vidéo rendent-ils violents ?"
   names << "Le point G, mythe ou réalité ?"
   names.each do |name|
       timeline = Timeline.new(
       user: users[rand(users.length)],
       name:  name,
       score: 1)
-      timeline.set_tag_list( tags.sample(rand(1..7)) )
       timelines << timeline
   end
   timelines.map do |t|
@@ -267,12 +263,13 @@ end
 seed_domains
 tags = tags_hash.keys
 users = seed_users
-seed_timelines(users, tags)
-seed_following_new_timelines(users)
-seed_references(users[1], "La café est-il bénéfique pour la santé ?", "cafe", tags.sample(rand(1..7)), "Non&&Oui", true)
-seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags.sample(rand(1..7)), "Non&&Oui", true)
-seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags.sample(rand(1..7)), "Non&&Oui", true)
-seed_references(users[2], "Peut-on contrôler le comportement par la technologie ?", "opto", tags.sample(rand(1..7)), "Non&&Oui", true)
-seed_following_timelines(users)
-seed_following_summaries(users)
-seed_following_references(users)
+seed_timelines(users)
+# seed_following_new_timelines(users)
+# seed_references(users[1], "La café est-il bénéfique pour la santé ?", "cafe", tags.sample(rand(1..7)), "Non&&Oui", true)
+# seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags.sample(rand(1..7)), "Non&&Oui", true)
+# seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags.sample(rand(1..7)), "Non&&Oui", true)
+# seed_references(users[2], "Peut-on contrôler le comportement par la technologie ?", "opto", tags.sample(rand(1..7)), "Non&&Oui", true)
+# seed_references(users[3], "Viande rouge ou viande blanche, l'impact sur la santé ?", "meat", tags.sample(rand(1..7)), "", true)
+# seed_following_timelines(users)
+# seed_following_summaries(users)
+# seed_following_references(users)
