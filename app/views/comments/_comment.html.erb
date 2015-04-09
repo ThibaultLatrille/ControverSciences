@@ -1,6 +1,6 @@
 <div class="panel panel-default comment">
   <div class="panel-body clearfix">
-    <% if comment.title_markdown != "" %>
+    <% unless comment.empty_field?( 6 ) %>
         <b> <%= fields_hash[6] %>
           <% if display %>
               (<%= comment[:f_6_balance] %> crédits)
@@ -26,7 +26,7 @@
       <% end %>
   <span class="content">
     <% for fi in 0..5 %>
-        <% if comment["markdown_#{fi}".to_sym] != "" %>
+        <% unless comment.empty_field?( fi ) %>
             <b> <%= fields_hash[fi] %>
             <% if display %>
                 (<%= comment["f_#{fi}_balance".to_sym] %> crédits)

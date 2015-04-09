@@ -233,7 +233,12 @@ class Comment < ActiveRecord::Base
           else
             best_comment["f_#{field}_user_id"] = nil
             best_comment["f_#{field}_comment_id"] = nil
+            if field == 6
+              Reference.update( self.reference_id, title_fr: "" )
+            end
           end
+        elsif field == 6
+          Reference.update( self.reference_id, title_fr: self.title_markdown )
         end
       end
     end
