@@ -19,8 +19,6 @@ class Reference < ActiveRecord::Base
   validates :user_id, presence: true
   validates :timeline_id, presence: true
 
-  attr_writer :current_step
-
   validates_presence_of :title, :author, :year, :url, :journal
   validates_uniqueness_of :timeline_id, :scope => [:doi]
 
