@@ -85,7 +85,7 @@
 .binary3 .cd-color, .btn-frog3:hover, .btn-frog3.active { background: #3366CC; color: #f1f4f9;}
 .binary4 .cd-color, .btn-frog4:hover, .btn-frog4.active { background: #2DABE3; color: #f1f4f9;}
 .binary5 .cd-color, .btn-frog5:hover, .btn-frog5.active { background: #2BD9CF; color: #f1f4f9;}
-.binary0 .cd-color, .btn-frog0:hover, .btn-frog0.active { background: #3366CC; color: #f1f4f9;}
+.binary .cd-color, .binary0 .cd-color, .btn-frog0:hover, .btn-frog0.active { background: #3366CC; color: #f1f4f9;}
 
 .cd-frog { color: inherit }
 
