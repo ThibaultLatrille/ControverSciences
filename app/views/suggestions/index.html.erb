@@ -5,16 +5,22 @@
     <h1> Discutez des controverses ! Apportez vos idées ! </h1>
     <div class="row">
       <div class="col-xs-12 col-lg-3">
-        <div class="panel panel-info">
+        <div class="panel panel-default">
           <div class="panel-heading">
-            Vous avez une idée, faites le savoir !
+            <span class="glyphicon glyphicon-bullhorn"></span> Vous souhaitez vous exprimer ? C'est ici !
           </div>
           <div class="panel-body">
             <%= form_for( @suggestion) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <div class="form-group">
-                  <%= f.label :comment, "Votre commentaire", class: 'control-label' %><br>
+                  <% if params[:filter] == "debate" %>
+                    <%= f.hidden_field :debate, value: 'true' %>
+                    <%= f.label :comment, "Suggèrer une controverse", class: 'control-label' %>
+                  <% else %>
+                    <%= f.label :comment, "Apporter une idée", class: 'control-label' %>
+                  <% end %>
+                      <br>
                   <%= f.text_area :comment, class: 'form-control textarea' %>
                   <span class="help-block"></span>
                 </div>
@@ -36,6 +42,21 @@
       </div>
       <div class="col-xs-12 col-lg-7">
         <div class="row">
+          <div class="clearfix">
+            <div class="btn-group">
+              <%= link_to "<span class=\"icon-frog bigger\"></span> Discuter des controverses".html_safe,
+                          suggestions_path(:filter => 'debate'),
+                          class: "btn btn-default #{ params[:filter] == "debate" ? "active" : nil }" %>
+            </div>
+            <div class="btn-group">
+              <%= link_to "<span class=\"glyphicon glyphicon-star-empty\"></span> Boite à idée".html_safe,
+                          suggestions_path,
+                          class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
+            </div>
+            <div>
+              </br>
+            </div>
+          </div>
                 <%= render @suggestions %>
                 <%= paginate @suggestions %>
         </div>

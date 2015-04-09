@@ -1,5 +1,8 @@
 class Suggestion < ActiveRecord::Base
   belongs_to :user
+
+  attr_accessor :debate
+
   has_many :suggestion_children, dependent: :destroy
   has_many :suggestion_votes, dependent: :destroy
 

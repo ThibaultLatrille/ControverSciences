@@ -13,7 +13,7 @@
         <div class="col-md-offset-3 col-md-6">
           <div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-danger">
-              <div class="panel-heading" role="tab" id="heading1">
+              <div class="panel-success" role="tab" id="heading1">
                 <h4 class="panel-title clearfix">
                   <a data-toggle="collapse" href="#Collapse1" class="pull-right glyphicon glyphicon-chevron-down"></a>
                   <a data-toggle="collapse" href="#Collapse1" aria-expanded="true" aria-controls="Collapse1">
@@ -24,13 +24,12 @@
               <div id="Collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body clearfix">
                   <p>
-                    Il est nécessaire de disposer d'une adresse éléctronique universitaire
+                    Il est recommandé de disposer d'une adresse éléctronique universitaire
                     ou d'un organisme scientifique reconnu pour s'inscrire. Si tel n'est pas le cas mais que vous
                     souhaitez
                     tout de même contribuer, tout n'est pas perdu !
                     Il vous faut préciser vos motivations lors de l'inscription.
                   </p>
-
                   <div class="pull-right">
                     <%= link_to "Prêt à rentrer dans l'arène !", new_user_path, class: "btn btn-primary" %>
                   </div>
@@ -73,7 +72,7 @@
                 <h4 class="panel-title clearfix">
                   <a data-toggle="collapse" href="#Collapse3" class="pull-right glyphicon glyphicon-chevron-down"></a>
                   <a data-toggle="collapse" href="#Collapse3" aria-expanded="true" aria-controls="Collapse3">
-                    Vous disposez de 12 crédits par référence à distribuer entre différentes analyses.
+                    Vous disposez de crédits limités à distribuer entre les différentes contributions.
                   </a>
                 </h4>
               </div>
@@ -82,6 +81,7 @@
                   <p>
                     Ces crédits peuvent être redistribués à tout moment, en particulier lors de la publication
                     d'une nouvelle analyse.
+                    Vous disposez de 92 credits par reference, a distribué entre 7 champs, soit 12 crédits par champs.
                     De la même manière vous disposez de 12 crédits à répartir entre les différentes synthèses.
                   </p>
                 </div>
@@ -133,7 +133,7 @@
                     • La date de Publication <br/>
                     • Un lien vers la référence <br/>
                     <i>Nota Bene : </i>L'autocomplétion de ces données est possible en
-                    renseignant uniquement le titre ou le DOI de l'étude.
+                    renseignant uniquement le titre de l'étude.
                   </p>
                 </div>
               </div>
@@ -173,7 +173,7 @@
                     Une salle de discussion pour les améliorations a été ouverte.
 
                   <div class="pull-right">
-                    <%= link_to "Entrer dans la salle de discussion", new_user_path, class: "btn btn-primary" %>
+                    <%= link_to "Entrer dans la salle de discussion", suggestions_path, class: "btn btn-primary" %>
                   </div>
                   </p>
                 </div>

@@ -26,7 +26,11 @@ class SuggestionsController < ApplicationController
   end
 
   def index
-    @suggestions = Suggestion.order( created_at: :desc).all.page(params[:page]).per(50)
+    if params[:filter] == "debate"
+      @suggestions = Suggestion.order( created_at: :desc).where.not( timeline_id: nil ).page(params[:page]).per(50)
+    else
+      @suggestions = Suggestion.order( created_at: :desc).where( timeline_id: nil ).page(params[:page]).per(50)
+    end
     @suggestion = Suggestion.new
     if logged_in? && !@suggestion.name
       @suggestion.name = current_user.name
@@ -40,6 +44,9 @@ class SuggestionsController < ApplicationController
     if logged_in?
       @suggestion.user_id = current_user.id
     end
+    if suggestion_params[:debate] == "true"
+      @suggestion.timeline_id = 0
+    end
     if @suggestion.save
       flash[:success] = "Commentaire ajouté."
       redirect_to suggestions_path
@@ -52,6 +59,6 @@ class SuggestionsController < ApplicationController
   private
 
   def suggestion_params
-    params.require(:suggestion).permit(:id, :comment, :name, :email)
+    params.require(:suggestion).permit(:id, :comment, :name, :email, :debate)
   end
 end
