@@ -1008,7 +1008,7 @@
           href: true,
           title: 'Lien vers une référence de cette controverse',
           hotkey: 'Ctrl+G',
-          icon: { glyph: 'glyphicon glyphicon-pushpin', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
+          icon: { glyph: 'icon-reference bigger', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
             callback: function(e){
                 $('#mylist').one('hidden.bs.modal', function ( event ) {
                     var monelement = document.getElementById('save-btn');
