@@ -13,21 +13,34 @@
 
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
       <div class="row">
-        <div class="col-md-12 col-lg-7">
+        <div class="col-xs-12 col-lg-7">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h2> Ecrire une analyse </h2>
               <br/>
               Pour la référence :
 
-              <%= link_to Reference.where(id: @comment.reference_id).pluck(:title)[0],
+              <%= link_to @myreference.title,
                           reference_url(@comment.reference_id) %> <br>
 
-              Dans la timeline :
-              <%= link_to Timeline.where(id: @comment.timeline_id).pluck(:name)[0],
+              Dans la controverse :
+              <%= link_to @comment.timeline_name,
                           timeline_url(@comment.timeline_id) %>
             </div>
             <div class="panel-body">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  Il n'est pas nécessaire de remplir tous les champs pour publier l'analyse,
+                  écrivez là en ne remplissant que les champs qui vous sont pertinents.
+                  Vous pourrez de toute façon modifier cette analyse ultérieurement si nécessaire.
+                  Plus votre analyse est concise est précise, mieux cela est pour les lecteurs.
+                  <br/>
+                  Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
+                  De plus vous pouvez insèrer des liens internes vers les références de cette controverse
+                  (boutton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
+                  au lecteur une meilleure navigation entre les références de la controverse.
+                </div>
+              </div>
               <%= form_for(@comment, html: {multipart: true}) do |f| %>
                   <%= render 'shared/error_messages', object: f.object %>
                   <div class="switcher pull-right">
@@ -41,22 +54,50 @@
                   </div>
                   <br/>
                   <br/>
-                  <%= f.label "Phrase d'accroche" %>
+                  <%= f.label "Accroche" %>
                   <div id="characterLeft7"></div>
 
                   <%= f.text_area :title, {rows: 4, :class => "form-control textarea",
                                            id: "description7",
                                            "data-provide" => "markdown"} %>
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                        L'accroche permet de situer en une phrase la référence dans la controverse.
+                    </div>
+                  </div>
                   <br/>
                   <% for fi in 0..5 %>
                       <%= f.label fields_hash[fi] %>
                       <div id="characterLeft<%= fi %>"></div>
 
-                      <%= f.text_area "f_#{fi}_content".to_sym, {rows: 5,
-                                                                 :placeholder => fi == 5 ? "e.g. Cette publication a été financée par une firme pharmaceutique, donc on peut douter de son objectivité" : fields_hash[fi],
+                      <%= f.text_area "f_#{fi}_content".to_sym, {rows: 3,
                                                                  :class => "form-control textarea",
                                                                  id: "description#{fi}",
                                                                  "data-provide" => "markdown"} %>
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          <% case fi  %>
+                          <% when 0 %>
+                              L'introduction permet au lecteur de situer cette référence dans
+                              la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
+                          <% when 1 %>
+                              Résumé de l'expérience (ou des expériences) réalisé dans cette étude
+                          <% when 2 %>
+                              Résumé du résultat (ou des résultats) de l’expérience (ou des expériences)
+                        <% when 3 %>
+                              Un résumé des limites de l’étude, que ce soit méthodologique, conceptuelle ou
+                              philosophique. Toute étude à ses limites.
+                          <% when 4 %>
+                              Ce que cette étude apporte de plus et comment elle permet d'éclairer
+                              la controverse.
+                          <% when 5 %>
+                              Toutes les remarques qui ne rentrent pas dans les champs précédents.
+                              Cela peut être sur les affiliations ou les financements douteux de l'étude.
+                              Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
+                              subjective.
+                          <% end %>
+                        </div>
+                      </div>
                       <br/>
                   <% end %>
                   <%= f.hidden_field :has_picture, value: @comment.picture? %>
@@ -78,9 +119,14 @@
                         <br/>
 
                         <div id="characterLeft6"></div>
-                        <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
+                        <%= f.text_area :caption, {rows: 3, :placeholder => "Légende de la figure",
                                                    :class => "form-control textarea", id: "description6",
                                                    "data-provide" => "markdown"} %>
+                        <div class="panel panel-info">
+                          <div class="panel-heading">
+                            La légende de votre figure, facultatif mais vivement recommandée.
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -112,10 +158,85 @@
             </div>
           </div>
         </div>
+        <div class="col-xs-12 col-lg-5">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title"> <%= @myreference.title %> </h3>
+            </div>
+            <div class="panel-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <div class="bold">
+                    Les auteurs de l'étude :
+                  </div> <%= @myreference.author %> </li>
+                <li class="list-group-item">
+                  <div class="bold">
+                    Année de publication :
+                  </div> <%= @myreference.display_year %> </li>
+                <li class="list-group-item">
+                  <div class="bold">
+                    Journal :
+                  </div> <%= @myreference.journal %></li>
+                <% unless @myreference.abstract.empty? %>
+                    <li class="list-group-item">
+                      <div class="bold">
+                        Abstract (dans sa langue originale) :
+                      </div>
+                      <div class="justify">
+                        <%= @myreference.abstract %>
+                      </div>
+                    </li>
+                <% end %>
+                <% unless @myreference.doi.empty? %>
+                    <li class="list-group-item">
+                      <div class="bold">
+                        Identifiant unique :
+                      </div> <%= @myreference.doi %></li>
+                <% end %>
+                <li class="list-group-item">
+                  <div class="bold"> Lien vers la référence :
+                  </div> <%= link_to @myreference.url, @myreference.url, target: "_blank" %></li>
+                <% if @myreference.user_id == current_user.id %>
+                    <li class="list-group-item clearfix">
+                      <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette référence".html_safe, edit_reference_path(@myreference.id), class: "btn btn-primary pull-right" %>
+                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette référence".html_safe,
+                                  reference_path(@myreference.id), method: :delete,
+                                  data: {confirm: "Etes vous certain ?"}, class: "btn btn-danger" %>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
+            <div class="panel-footer clearfix">
+                <span class="pull-right">
+                  <br/>
+                  Référence ajoutée par <%= link_to @myreference.user_name, user_path(@myreference.user_id) %>
+                </span>
+              <button class="btn btn-default stick" data-placement="left"
+                      data-toggle="tooltip"
+                      title="<%= @myreference.nb_contributors.to_s + (@myreference.nb_contributors > 1 ? " contributeurs" : " contributeur") %>">
+                <span class="big icon-users"></span>
+                <%= @myreference.nb_contributors %>
+              </button>
+              <button class="btn btn-default stick" data-placement="top"
+                      data-toggle="tooltip"
+                      title="<%= @myreference.nb_edits.to_s + (@myreference.nb_edits > 1 ? " analyses" : " analyse") %>">
+                <span class="big icon-comment"></span>
+                <%= @myreference.nb_edits %>
+              </button>
+              <button class="btn btn-default stick" data-placement="right"
+                      data-toggle="tooltip"
+                      title="<%= @myreference.nb_votes.to_s + (@myreference.nb_votes > 1 ? " crédits accordés" : " crédit accordé") %> ">
+                <span class="big icon-ribbon"></span>
+                <%= @myreference.nb_votes %>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+Z
 <div class="modal fade" id="mylist" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -158,7 +279,7 @@
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         if ($('#comment_has_picture').val() === 'true') {
             $('#caption').show();
             $('#delete').show();

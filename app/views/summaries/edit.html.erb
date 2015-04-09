@@ -32,10 +32,21 @@
 
                 <%= f.label "Synthèse" %> <div id="characterLeft0"></div>
 
-                <%= f.text_area :content, {rows: 5, :placeholder => "synthèse",
+                <%= f.text_area :content, {rows: 3, :placeholder => "synthèse",
                                            :class => "form-control textarea",
                                            id: "description0",
                                            "data-provide" => "markdown" }%>
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    La synthèse est un résumé général de la controverse. Son objectif
+                    est d'intégrer l'ensemble des références analysées, et donc de donner un bilan de la controverse basé sur des résultats scientifiques.
+                    <br/>
+                    Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
+                    De plus vous pouvez insèrer des liens internes vers les références de cette controverse
+                    (boutton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
+                    au lecteur une meilleure navigation dans la controverse.
+                  </div>
+                </div>
                 <br/>
                 <p hidden id="best_summary"><%= @summary.best %></p>
                 <p hidden id="balance_summary"><%= @summary.balance %></p>
@@ -57,9 +68,14 @@
                       <br/>
 
                       <div id="characterLeft1"></div>
-                      <%= f.text_area :caption, {rows: 5, :placeholder => "Légende de la figure",
+                      <%= f.text_area :caption, {rows: 3, :placeholder => "Légende de la figure",
                                                  :class => "form-control textarea", id: "description1",
                                                  "data-provide" => "markdown"} %>
+                      <div class="panel panel-info">
+                        <div class="panel-heading">
+                          La légende de votre figure, facultatif mais vivement recommandée.
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -71,6 +71,7 @@
                                     :class => "form-control myforms textarea"} %>
             <br/>
             <%= f.button "Ajouter la référence &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                         id: "submit-button",
                          class: 'btn btn-success btn-lg pull-right',
                          data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
     <% end %>
@@ -81,6 +82,7 @@
 </div>
 <script type="text/javascript">
     function freeze(){
+        $("#submit-button").hide();
         $(".myforms").attr('readonly', true)
     }
 </script>

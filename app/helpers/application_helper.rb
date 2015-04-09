@@ -31,7 +31,7 @@ module ApplicationHelper
 
   def fields_hash
     {0 => "Introduction",
-     1 => "Expérience", 2 => "Résultats", 3 => "Limites de l'étude",
+     1 => "Expériences", 2 => "Résultats", 3 => "Limites de l'étude",
      4 => "Ce que cette étude apporte au débat", 5 => "Remarque(s)",
      6 => "Titre", 7 => "Figure"}
   end
@@ -39,7 +39,7 @@ module ApplicationHelper
   def fields_plural_hash
     {0 => "les introductions",
      1 => "les résumés de l'expérience", 2 => "les résumés des résultats", 3 => "les résumés des limites de l'étude",
-     4 => "Ce que cette étude apporte au débat", 5 => "les remarques",
+     4 => "ce que cette étude apporte au débat", 5 => "les remarques",
      6 => "les titres", 7 => "les figures"}
   end
 

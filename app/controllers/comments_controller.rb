@@ -22,6 +22,7 @@ class CommentsController < ApplicationController
         end
       end
       @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
+      @myreference = Reference.find( @comment.reference_id )
     end
   end
 
@@ -37,6 +38,7 @@ class CommentsController < ApplicationController
       flash[:success] = "Analyse enregistrée."
       redirect_to reference_path( @comment.reference_id, filter: :mine )
     else
+      @myreference = Reference.find( @comment.reference_id )
       @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
       render 'new'
     end
@@ -44,6 +46,7 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find( params[:id] )
+    @myreference = Reference.find( @comment.reference_id )
     @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
   end
 
@@ -66,6 +69,7 @@ class CommentsController < ApplicationController
         flash[:success] = "Analyse modifiée."
         redirect_to reference_path( @comment.reference_id, filter: :mine )
       else
+        @myreference = Reference.find( @comment.reference_id )
         @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
         render 'edit'
       end
