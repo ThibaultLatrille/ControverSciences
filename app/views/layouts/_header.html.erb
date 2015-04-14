@@ -13,11 +13,6 @@
     <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;">
        <ul class="nav navbar-nav navbar-right">
             <li><%= link_to '<span class="glyphicon glyphicon-home"></span>'.html_safe,   root_path %></li>
-             <li>
-               <%= link_to "<span class=\"glyphicon glyphicon-gift\">
-                </span> News".html_safe, '#news',
-                           'data-toggle' => 'modal' %>
-             </li>
             <li><%= link_to "<strong>Les controverses</strong>".html_safe,   timelines_path %></li>
              <li class="dropdown">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
