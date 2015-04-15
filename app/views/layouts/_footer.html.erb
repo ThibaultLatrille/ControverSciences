@@ -15,24 +15,20 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <br/>
+      </div>
+      <div class="modal-body clearfix">
         <div class="panel panel-default">
           <div class="panel-heading">
             <p>
-              Si vous avez déniché un bug ou une faute, ou si vous avez des remarques sur le site,
-              ne soyez pas égoïste, faites le nous savoir, cette page est faite pour ça ;-)
-              <br/>
-              Si vous avez des questions, si vous souhaitez nous aider, ou si vous voulez nous inviter à prendre un verre,
-              <a href="mailto:contact@controversciences.org">contacter nous sans attendre</a>
-              ou spammez directement <a href="mailto:thibault.latrille@controversciences.org">l'admin !</a>
+              Si vous avez déniché un bug, une faute, ou si vous avez des remarques sur le site,
+              ne soyez pas égoïste, faites le nous savoir, cette page est là pour ça ;-)
             </p>
           </div>
         </div>
-      </div>
-      <div class="modal-body clearfix">
         <%= form_for( :issue, url: issues_path, remote: true,
                       html: {role: :form, 'data-model' => 'issue'}) do |f| %>
             <div class="form-group">
-              <%= f.label :title, "Titre", class: 'control-label' %><br>
+              <%= f.label :title, "Objet du bug", class: 'control-label' %><br>
               <%= f.text_field :title, class: 'form-control' %>
               <span class="help-block"></span>
             </div>
@@ -89,6 +85,15 @@
         <% end %>
       </div>
       <div class="modal-footer">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <p>
+              Si vous avez des questions, si vous souhaitez nous aider, ou si vous voulez nous inviter à prendre un verre,
+              <a href="mailto:contact@controversciences.org">contacter nous sans attendre</a>
+              ou spammez directement <a href="mailto:thibault.latrille@controversciences.org">l'admin !</a>
+            </p>
+          </div>
+        </div>
         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
       </div>
     </div>
