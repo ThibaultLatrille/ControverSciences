@@ -69,12 +69,14 @@ module AssisstantHelper
     end
   end
 
-  def get_best_comment(reference_id, field)
+  def get_most_comment(reference_id, field)
     ids = CommentJoin.where( reference_id: reference_id, field: field ).pluck( :comment_id )
     if field == 6
-      most = Comment.select( :id, :reference_id, :title_markdown, :user_id ).where( id: ids ).order(:f_6_score => :desc).first
+      most = Comment.select( :id, :reference_id, :title_markdown, :user_id, "f_#{field}_score",
+                             "f_#{field}_balance" ).where( id: ids ).order(:f_6_score => :desc).first
     else
-      most = Comment.select( :id, :reference_id, :user_id, "f_#{field}_score".to_sym ).where( id: ids ).order( "f_#{field}_score".to_sym => :desc).first
+      most = Comment.select( :id, :reference_id, :user_id, "f_#{field}_score",
+                             "f_#{field}_balance" ).where( id: ids ).order( "f_#{field}_score".to_sym => :desc).first
     end
     most
   end
@@ -84,9 +86,9 @@ module AssisstantHelper
     unless best_comment
       best_comment = BestComment.new(reference_id: reference_id)
     end
-    most = get_best_comment(reference_id, field)
+    most = get_most_comment(reference_id, field)
     if most
-      if most.id != best_comment["f_#{field}_comment_id".to_sym]
+      if (most.id != best_comment["f_#{field}_comment_id".to_sym]) && (most["f_#{field}_balance"] != 0)
         most.selection_update( best_comment,
                                best_comment["f_#{field}_comment_id".to_sym],
                                best_comment["f_#{field}_user_id".to_sym], field ).save
@@ -106,7 +108,7 @@ module AssisstantHelper
       most = Summary.where( timeline_id: timeline_id, public: true ).order(score: :desc).first
       best_summary = SummaryBest.find_by(timeline_id: timeline_id )
       if most
-        if most.id != best_summary.summary_id
+        if (most.id != best_summary.summary_id) && (most.balance != 0)
           most.selection_update( best_summary )
         end
       end
