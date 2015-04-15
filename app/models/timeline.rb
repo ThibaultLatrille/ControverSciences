@@ -92,9 +92,7 @@ class Timeline < ActiveRecord::Base
       Suggestion.create( user_id: self.user_id, name: self.user_name, timeline_id: self.id, comment: text )
     end
     NewTimeline.create( timeline_id: self.id )
-    timrelation = TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
-    timrelation.save()
-    Timeline.increment_counter(:nb_contributors, self.id)
+    TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
   end
 
   def updating_with_params

@@ -83,7 +83,7 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  def get_best_comment( field )
+  def get_most_comment( field )
     ids = CommentJoin.where( reference_id: self.reference_id, field: field ).pluck( :comment_id )
     if field == 6
       most = Comment.select( :id, :reference_id, :title_markdown, :user_id ).where( id: ids ).order(:f_6_score => :desc).first
@@ -91,6 +91,37 @@ class Comment < ActiveRecord::Base
       most = Comment.select( :id, :reference_id, :user_id ).where( id: ids ).order( "f_#{field}_score".to_sym => :desc).first
     end
     most
+  end
+
+  def is_same_as_best
+    flag = false
+    best_comment = BestComment.find_by(reference_id: self.reference_id )
+    if best_comment
+      for field in 0..7 do
+        if best_comment["f_#{field}_comment_id"] && !self.empty_field?( field )
+          if field == 6
+            com = Comment.select( :id, :title ).find( best_comment["f_#{field}_comment_id"] )
+            if com.title == self.title
+              self.title = ""
+              flag = true
+            end
+          elsif field == 7
+            com = Comment.select( :id, :caption).find( best_comment["f_#{field}_comment_id"] )
+            if com.caption == self.title
+              self.title = ""
+              flag = true
+            end
+          else
+            com = Comment.select( :id, "f_#{field}_content" ).find( best_comment["f_#{field}_comment_id"] )
+            if com["f_#{field}_content" ] == self["f_#{field}_content" ]
+              self["f_#{field}_content" ] = ""
+              flag = true
+            end
+          end
+        end
+      end
+    end
+    flag
   end
 
   def markdown( timeline_url)
@@ -227,7 +258,7 @@ class Comment < ActiveRecord::Base
         end
       elsif best_comment["f_#{field}_user_id"] == self.user_id
         if self.empty_field?( field )
-          most = get_best_comment( field )
+          most = get_most_comment( field )
           if most
             most.selection_update( best_comment, self.id, self.user_id, field )
           else
@@ -249,7 +280,7 @@ class Comment < ActiveRecord::Base
     best_comment = BestComment.find_by(reference_id: self.reference_id )
     for field in 0..7 do
       unless best_comment["f_#{field}_user_id"]
-        most = get_best_comment( field )
+        most = get_most_comment( field )
         if most
           best_comment = most.selection_update( best_comment, self.id, self.user_id, field, true )
         end
@@ -307,14 +338,10 @@ class Comment < ActiveRecord::Base
     Reference.increment_counter(:nb_edits, self.reference_id)
     Timeline.increment_counter(:nb_comments, self.timeline_id)
     unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
-      timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
-      timrelation.save
-      Timeline.increment_counter(:nb_contributors, self.timeline_id)
+      TimelineContributor.create({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
     end
     unless ReferenceContributor.find_by({user_id: self.user_id, reference_id: self.reference_id})
-      refrelation=ReferenceContributor.new({user_id: self.user_id, reference_id: self.reference_id, bool: true})
-      refrelation.save
-      Reference.increment_counter(:nb_contributors, self.reference_id)
+      ReferenceContributor.create({user_id: self.user_id, reference_id: self.reference_id, bool: true})
     end
   end
 

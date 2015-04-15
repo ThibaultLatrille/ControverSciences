@@ -103,13 +103,9 @@ class Reference < ActiveRecord::Base
     NewReference.create( reference_id: self.id )
     Timeline.increment_counter(:nb_references, self.timeline_id)
     Timeline.increment_counter(:binary_0, self.timeline_id)
-    refrelation = ReferenceContributor.new({user_id: self.user_id, reference_id: self.id, bool: true})
-    refrelation.save()
-    Reference.increment_counter(:nb_contributors, self.id)
-    if not TimelineContributor.where({user_id: self.user_id, timeline_id: self.timeline_id}).any?
-      timrelation = TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
-      timrelation.save()
-      Timeline.increment_counter(:nb_contributors, self.timeline_id)
+    ReferenceContributor.create({user_id: self.user_id, reference_id: self.id, bool: true})
+    unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
+      TimelineContributor.create({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
     end
   end
 

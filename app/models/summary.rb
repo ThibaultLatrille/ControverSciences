@@ -192,9 +192,7 @@ class Summary < ActiveRecord::Base
     end
     Timeline.increment_counter(:nb_summaries, self.timeline_id)
     unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
-      timrelation=TimelineContributor.new({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
-      timrelation.save
-      Timeline.increment_counter(:nb_contributors, self.id)
+      TimelineContributor.create({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
     end
   end
 end
