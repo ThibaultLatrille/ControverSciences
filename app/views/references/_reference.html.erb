@@ -16,15 +16,13 @@
     </div>
 </div>
 <% else %>
-    <% if logged_in? %>
-        <div class="cd-timeline-block">
-          <div class="cd-timeline-img cd-color<%= reference.binary_most %>">
-          </div>
-          <div class="cd-timeline-content">
-            <h2> <%= link_to "La référence #{reference.title} n'a pas encore été analysée.", new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
-            </h2>
-            <span class="cd-date"><%= reference.display_year %></span>
-          </div>
-        </div>
-    <% end %>
+    <div class="cd-timeline-block binary<%= reference.binary_most %>">
+      <div class="cd-timeline-img cd-color-orange">
+      </div>
+      <div class="cd-timeline-content">
+        <h2> <%= link_to "#{reference.title}", new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
+        </h2>
+        <span class="cd-date"><%= reference.display_year %></span>
+      </div>
+    </div>
 <% end %>

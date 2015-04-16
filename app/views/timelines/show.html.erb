@@ -62,36 +62,6 @@
     </span>
       <div>
         <h1><%= @timeline.name %></h1>
-        <% if @references.any? && @timeline.binary != '' && @timeline.total_binary > 0 %>
-            <strong class="bigger">  <%= @timeline.binary.split('&&')[0] %> </strong>
-            <strong class="bigger pull-right">  <%= @timeline.binary.split('&&')[1] %> </strong>
-            <div>
-              <div class="btn-group-justified" data-toggle="buttons">
-                <% binary_hash.each do |key, value| %>
-                    <% if key < 3 %>
-                        <label class="btn btn-default active btn-frog<%= key %>"
-                               title="<%= @timeline["binary_#{key}".to_sym] -%> références montrent <%= value %> que
-                     <%= @timeline.binary.split('&&')[0].downcase -%>." data-toggle="tooltip">
-                    <% elsif key > 3 %>
-                        <label class="btn btn-default active btn-frog<%= key %>"
-                               title="<%= @timeline["binary_#{key}".to_sym] -%> références montrent <%= value %> que
-                         <%= @timeline.binary.split('&&')[1].downcase -%>." data-toggle="tooltip">
-                    <% else %>
-                        <label class="btn btn-default active btn-frog<%= key %>"
-                               title="<%= @timeline.binary_0 + @timeline.binary_3 -%> références sont neutres ou non assignées" data-toggle="tooltip">
-                    <% end %>
-                    <span class="icon-frog cd-frog" style="font-size: <%= @timeline.binary_font_size( key ) -%>em;">
-                    <% if key == 3 %>
-                        <%=  @timeline.binary_0 + @timeline.binary_3 -%>
-                    <% else %>
-                        <%= @timeline["binary_#{key}".to_sym] -%>
-                    <% end %>
-                    </span>
-                    </label>
-                <% end %>
-              </div>
-            </div>
-        <% end %>
         <% if logged_in? && @timeline.user_id == current_user.id %>
             <br/>
             <br/>
@@ -122,7 +92,7 @@
         <br/>
       </div>
         <span class="pull-right">
-            Ecrite par <%= link_to @summary.user_name, user_path(@summary.user_id) %>
+            <%= link_to @summary.user_name, user_path(@summary.user_id) %>
         </span>
         <br/>
         <br/>
@@ -147,6 +117,41 @@
     <% end %>
   </div>
 </div>
+
+<% if @references.any? && @timeline.binary != '' && @timeline.total_binary > 0 %>
+  <div id="show-sort" class="btn btn-info">
+    Organiser les références
+  </div>
+  <div id="sort" style="display: none">
+    <div class="btn-group-justified" data-toggle="buttons">
+      <% binary_hash.each do |key, value| %>
+          <% if key < 3 %>
+              <label class="btn btn-default active btn-frog<%= key %>"
+                     title="<%= @timeline["binary_#{key}".to_sym] -%>
+                     <%= @timeline["binary_#{key}".to_sym] > 1 ? "références montrent" : "référence montre" -%>  <%= value %> que
+                 <%= @timeline.binary.split('&&')[0].downcase -%>." data-toggle="tooltip">
+          <% elsif key > 3 %>
+              <label class="btn btn-default active btn-frog<%= key %>"
+                     title="<%= @timeline["binary_#{key}".to_sym] -%>
+                      <%= @timeline["binary_#{key}".to_sym] > 1 ? "références montrent" : "référence montre" -%><%= value %> que
+                     <%= @timeline.binary.split('&&')[1].downcase -%>." data-toggle="tooltip">
+          <% else %>
+              <label class="btn btn-default active btn-frog<%= key %>"
+                     title="<%= @timeline.binary_0 + @timeline.binary_3 -%>
+                     <%= (@timeline.binary_0 + @timeline.binary_3) > 1 ? "références sont neutres ou non assignées" : "référence est neutre ou non assignée" -%> " data-toggle="tooltip">
+          <% end %>
+          <span class="icon-frog cd-frog" style="font-size: <%= @timeline.binary_font_size( key ) -%>em;">
+                <% if key == 3 %>
+                    <%=  @timeline.binary_0 + @timeline.binary_3 -%>
+                <% else %>
+                    <%= @timeline["binary_#{key}".to_sym] -%>
+                <% end %>
+                </span>
+          </label>
+      <% end %>
+    </div>
+  </div>
+<% end %>
 
 <% if @references.any? %>
     <div id="cd-timeline" class="cd-container">
@@ -240,6 +245,9 @@
                 $('#iptaken').modal('show');
             });
         });
+    });
+    $(function () {
+        $('#show-sort').click(function(){$(this).hide(500);$('#sort').show(500)});
     });
     $(function () {
         $('.btn-frog1').click(function(){if($(this).hasClass("active")){$('.binary1').hide(500);}else{$('.binary1').show(500);}});
