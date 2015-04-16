@@ -72,11 +72,13 @@
     </span>
 
     <div class="pull-right">
-      Ecrite par
-      <% for user_id in best_comment.authors[0..-2] %>
-          <%= link_to user_name(user_id), user_path(user_id) %>
+      <% for user_id in best_comment.authors[0..-3] %>
+          <%= link_to user_name(user_id), user_path(user_id) %>,
       <% end %>
-      et <%= link_to user_name(best_comment.authors.last), user_path(best_comment.authors.last) %>
+      <% if best_comment.authors[-1] %>
+          <%= link_to user_name(best_comment.authors[-2]), user_path(best_comment.authors[-2]) %> et
+      <% end %>
+      <%= link_to user_name(best_comment.authors.last), user_path(best_comment.authors.last) %>
     </div>
   </div>
   <div class="panel-footer">

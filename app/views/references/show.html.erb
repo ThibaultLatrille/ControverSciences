@@ -11,11 +11,6 @@
     <% if @reference.nb_edits > 1 && Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value ) > 0 %>
     <div class="panel panel-default">
     <div class="panel-body page">
-      <span class="icon-ribbon"></span> Il vous reste
-    <%=96 - Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value ) %>
-    crédits à distribuer.
-      <br/>
-      <br/>
     <%= link_to "Récupérer mes crédits (#{Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value )}) attribués aux analyses de cette référence", vote_path( id: 'all', reference_id: @reference.id), method: :delete,
                 class: "btn btn-block btn-danger" %>
     </div>
