@@ -37,6 +37,14 @@ class Reference < ActiveRecord::Base
     self.destroy
   end
 
+  def same_doi
+    if not self.doi.empty?
+      Reference.find_by( doi: self.doi, timeline_id: self.timeline_id )
+    else
+      false
+    end
+  end
+
   def display_year
     if self.year > 1958
       self.year

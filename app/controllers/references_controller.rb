@@ -61,12 +61,18 @@ class ReferencesController < ApplicationController
       params[:timeline_id] = reference_params[:timeline_id]
       render 'new'
     else
-      if @reference.save
-        flash[:success] = "Référence ajoutée."
-        redirect_to @reference
+      same = @reference.same_doi
+      if same
+        flash[:danger] = "Cette référence a déjà été ajouté à cette controverse !"
+        redirect_to same
       else
-        params[:timeline_id] = reference_params[:timeline_id]
-        render 'new'
+        if @reference.save
+          flash[:success] = "Référence ajoutée."
+          redirect_to @reference
+        else
+          params[:timeline_id] = reference_params[:timeline_id]
+          render 'new'
+        end
       end
     end
   end
