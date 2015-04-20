@@ -44,7 +44,7 @@ class Binary < ActiveRecord::Base
     if ref.binary_most != most[0]
       Timeline.update_counters( self.timeline_id, "binary_#{most[0]}".to_sym => 1 )
       Timeline.update_counters( self.timeline_id, "binary_#{ref.binary_most}".to_sym => -1 )
-      ref.update({binary_most: most[0]})
+      ref.update_columns({binary_most: most[0]})
     end
   end
 end

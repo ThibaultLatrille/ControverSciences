@@ -47,7 +47,7 @@ module AssisstantHelper
           score[field] += scale*User.select( :score ).find( vote.user_id ).score*vote.value
         end
       end
-      Comment.update( comment_id, f_0_score: score[0], f_1_score: score[1], f_2_score: score[2], f_3_score: score[3], f_4_score: score[4],
+      Comment.where(id: comment_id).update_all(  f_0_score: score[0], f_1_score: score[1], f_2_score: score[2], f_3_score: score[3], f_4_score: score[4],
                       f_5_score: score[5], f_6_score: score[6], f_7_score: score[7])
     end
     summaries = Summary.where( public: true ).pluck( :id )
@@ -65,7 +65,7 @@ module AssisstantHelper
         end
         score += scale*User.select( :score ).find( credit.user_id ).score*credit.value
       end
-      Summary.update( summary_id, score: score)
+      Summary.where(id: summary_id).update_all( score: score)
     end
   end
 

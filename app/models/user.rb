@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :references, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :summaries, dependent: :destroy
-  has_many :links
+  has_many :links, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :credits, dependent: :destroy
   has_many :timeline_contributors, dependent: :destroy
@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :notification_summary_selections, dependent: :destroy
   has_many :notification_summary_selection_losses, dependent: :destroy
   has_many :notification_summary_selection_wins, dependent: :destroy
+  has_many :notification_suggestions, dependent: :destroy
   has_many :visite_references, dependent: :destroy
   has_many :visite_timelines, dependent: :destroy
   has_many :comment_types, dependent: :destroy
@@ -144,9 +145,13 @@ class User < ActiveRecord::Base
     NotificationSummarySelectionLoss.where( user_id: self.id ).count
   end
 
+  def notifications_suggestion
+    NotificationSuggestion.where( user_id: self.id ).count
+  end
+
   def notifications_all_important
-    notifications_win+notifications_loss+notifications_summary_win+
-        notifications_summary_loss
+    notifications_win + notifications_loss + notifications_summary_win +
+        notifications_summary_loss + notifications_suggestion
   end
 
   # Creates and assigns the activation token and digest.

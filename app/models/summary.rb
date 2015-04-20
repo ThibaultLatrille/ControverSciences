@@ -147,7 +147,7 @@ class Summary < ActiveRecord::Base
       old_summary_id = best_summary.summary_id
       NotificationSummarySelectionLoss.create( user_id: best_summary.user_id,
                                         summary_id: best_summary.summary_id)
-      Summary.update( best_summary.summary_id, best: false )
+      Summary.where(id: best_summary.summary_id).update_all( best: false )
       best_summary.update_attributes( user_id: self.user_id, summary_id: self.id )
       NotificationSummarySelectionWin.create( user_id: self.user_id, summary_id: self.id )
       NewSummarySelection.create( old_summary_id: old_summary_id, new_summary_id: self.id )
@@ -155,7 +155,7 @@ class Summary < ActiveRecord::Base
       SummaryBest.create( user_id: self.user_id,
                           summary_id: self.id, timeline_id: self.timeline_id)
     end
-    self.update_attributes( best: true)
+    self.update_columns( best: true)
   end
 
   def destroy_with_counters

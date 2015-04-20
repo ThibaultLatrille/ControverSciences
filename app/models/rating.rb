@@ -42,7 +42,7 @@ class Rating < ActiveRecord::Base
             5 => ref.star_5}
     most = dico.max_by{ |k,v| v }
     if ref.star_most != most[0]
-      ref.update({star_most: most[0]})
+      ref.update_columns({star_most: most[0]})
     end
   end
 end
