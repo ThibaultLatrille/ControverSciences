@@ -2,13 +2,13 @@
 <div id="my-container" class="container-fluid">
   <div class="col-xs-12 col-lg-offset-1 col-lg-10">
     <div class="row">
-      <%= link_to "Revenir aux discussions", suggestions_path,
+      <%= link_to "<span class=\"glyphicon glyphicon-bullhorn\" aria-hidden=\"true\"></span> Revenir aux discussions".html_safe, suggestions_path,
                   class: "btn btn-primary" %>
       <h5> Le commentaire </h5>
       <%= render @suggestion %>
       <div class="panel panel-info">
         <div class="panel-heading">
-          <h5> Votre réponse </h5>
+          <h5> La réponse </h5>
         </div>
         <div class="panel-body">
           <div class="col-xs-12 col-md-2">

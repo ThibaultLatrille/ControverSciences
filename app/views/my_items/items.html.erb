@@ -222,6 +222,51 @@
     </div>
   </div>
 </div>
+
+<div class="col-md-10 col-md-offset-1">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingThree">
+      <h4 class="panel-title clearfix">
+        <a data-toggle="collapse" href="#collapseSix" class="pull-right glyphicon <%= @suggestions.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
+        <a class="collapsed" data-toggle="collapse" href="#collapseSix">
+          Mes commentaires (<%= @suggestions.length %>)
+        </a>
+      </h4>
+    </div>
+    <div id="collapseSix" class="panel-collapse collapse <%= @comments.any? ? "in" : nil %>" role="tabpanel">
+      <table id="notification-comments" class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th class="col-xs-8 center"> Commentaire </th>
+          <th class="col-xs-2 center"> Modifier </th>
+          <th class="col-xs-2 center"> Supprimer </th>
+        </tr>
+        </thead>
+
+        <tbody class="page">
+        <% if !@suggestions.any? %>
+            <tr class="notification-comment">
+              <td> <%= link_to "Aucun commentaire", suggestions_path %> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+        <% else %>
+            <% @suggestions.each do |com| %>
+                <tr class="notification-comment">
+                  <td> <%= link_to com.comment.html_safe, suggestion_path(com.id ) %>   </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
+                                                  edit_suggestion_path( com.id ) %>  </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                  suggestion_path( com.id ), method: :delete,
+                                                  data: { confirm: "Etes vous certain ?" } %>  </td>
+                </tr>
+            <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 </div>
 
 <script type="text/javascript">

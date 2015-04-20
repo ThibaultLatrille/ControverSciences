@@ -1,7 +1,7 @@
 class NotificationsController < ApplicationController
   before_action :logged_in_user, only: [:index, :important, :delete, :delete_all, :summary,
                        :summary_selection, :selection, :timeline, :reference, :comment,
-                       :selection_win, :summary_selection_win, :selection_loss, :summary_selection_loss]
+                       :selection_win, :summary_selection_win, :selection_loss, :summary_selection_loss, :suggesion]
 
   def index
     if params[:filter]
@@ -59,6 +59,7 @@ class NotificationsController < ApplicationController
     summary_loss_ids = NotificationSummarySelectionLoss.where( user_id: current_user.id ).pluck( :summary_id )
     @summary_losses = Summary.select(:id, :timeline_id,
                            :user_id).where( id: summary_loss_ids )
+    @suggestions = NotificationSuggestion.where( user_id: current_user.id )
   end
 
   def delete
@@ -204,6 +205,13 @@ class NotificationsController < ApplicationController
                                                      summary_id: notification_params )
     notif.destroy
     redirect_to summary_path( notification_params )
+  end
+
+  def suggestion
+    notif = NotificationSuggestion.find_by( user_id: current_user.id,
+                                                      suggestion_child_id: notification_params )
+    notif.destroy
+    redirect_to suggestion_child_path( notification_params )
   end
 
   private

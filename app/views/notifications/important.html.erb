@@ -17,7 +17,7 @@
         <% else %>
             <% @summary_wins.each do |com| %>
                 <tr>
-                  <td><span class="icon-4" style="font-size: 2em;"></span></td>
+                  <td><span class="icon-5" style="font-size: 2em;"></span></td>
                   <td>  <%= link_to "Votre synthèse", notifications_summary_selection_win_path(id: com.id ) %>
                     de la controverse <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a pris la première place. </td>
                   <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
@@ -35,7 +35,7 @@
             <% end %>
             <% @wins.each do |notif| %>
                 <tr>
-                  <td><span class="icon-4" style="font-size: 2em;"></span></td>
+                  <td><span class="icon-5" style="font-size: 2em;"></span></td>
                   <td> <%= link_to fields_singular_hash[notif.field].humanize, notifications_selection_win_path(id: notif.comment_id,
                                                                                    field: notif.field ) %>
                     de la référence <%= link_to notif.reference.title, reference_path(notif.reference.id) %>, dans la controverse
@@ -53,6 +53,15 @@
                     <%= link_to notif.timeline.name, timeline_path(notif.timeline.id ) %> a perdu la première place. </td>
                   <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
                                   notifications_selection_loss_path(id: notif.comment_id, field: notif.field ) %></td>
+                </tr>
+            <% end %>
+            <% @suggestions.each do |notif| %>
+                <tr>
+                  <td><span class="icon-4" style="font-size: 2em;"></span></td>
+                  <td> <%= link_to "#{notif.suggestion_child.name.blank? ? "Un illustre anonyme" : notif.suggestion_child.name } a repondu à votre commentaire",
+                                   notifications_suggestion_path(id: notif.suggestion_child_id ), class: "btn btn-primary" %> </td>
+                  <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
+                                  notifications_suggestion_path(id: notif.suggestion_child_id ) %></td>
                 </tr>
             <% end %>
         <% end %>

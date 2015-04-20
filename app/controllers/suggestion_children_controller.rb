@@ -1,4 +1,6 @@
 class SuggestionChildrenController < ApplicationController
+  before_action :logged_in_user, only: [:edit, :update, :destroy]
+
   def from_suggestion
     @suggestion_children = SuggestionChild.order( :created_at ).where( suggestion_id: params[:suggestion_id])
     respond_to do |format|
@@ -41,6 +43,14 @@ class SuggestionChildrenController < ApplicationController
     else
       @suggestion = Suggestion.find(suggestion_child_params[:suggestion_id])
       render 'new'
+    end
+  end
+
+  def destroy
+    sug = SuggestionChild.find(params[:id])
+    if sug.user_id == current_user.id
+      sug.destroy
+      redirect_to suggestions_path
     end
   end
 

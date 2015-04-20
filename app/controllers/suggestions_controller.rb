@@ -1,4 +1,5 @@
 class SuggestionsController < ApplicationController
+  before_action :logged_in_user, only: [:edit, :update, :destroy]
 
   def show
     if params[:timeline_id]
@@ -53,6 +54,14 @@ class SuggestionsController < ApplicationController
     else
       @suggestions = Suggestion.order( :created_at).all.page(params[:page]).per(50)
       render 'index'
+    end
+  end
+
+  def destroy
+    sug = Suggestion.find(params[:id])
+    if sug.user_id == current_user.id
+      sug.destroy
+      redirect_to suggestions_path
     end
   end
 

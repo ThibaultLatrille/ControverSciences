@@ -27,7 +27,10 @@
               <%= link_to "<span class=\"icon-frog\"></span> Voir la controverse".html_safe, timeline_path(suggestion.timeline_id), class: "btn btn-primary pull-right" %>
           <% end %>
           <% if logged_in? && suggestion.user_id == current_user.id %>
-              <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier mon commentaire".html_safe, edit_suggestion_path(suggestion.id),
+              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_path(suggestion.id), method: :delete,
+                          data: { confirm: "Etes vous certain ?" },
+                          class: "btn btn-danger" %>
+              <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe, edit_suggestion_path(suggestion.id),
                           class: "btn btn-primary" %>
           <% end %>
         </div>

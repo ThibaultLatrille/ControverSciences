@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   get 'notifications/summary_selection_win'
   get 'notifications/selection_loss'
   get 'notifications/summary_selection_loss'
+  get 'notifications/suggestion'
 
   get 'my_items/items'
   get 'my_items/votes'
@@ -63,8 +64,8 @@ Rails.application.routes.draw do
 
   resources :summaries, only: [:show, :index, :new, :create, :edit, :update, :destroy]
   resources :credits, only: [:new ,:create, :destroy]
-  resources :suggestions, only: [:index, :create, :show, :edit, :update]
-  resources :suggestion_children, only: [:create, :show, :edit, :update]
+  resources :suggestions, only: [:index, :create, :show, :edit, :update, :destroy]
+  resources :suggestion_children, only: [:create, :show, :edit, :update, :destroy]
   get "/fetch_children" => 'suggestion_children#from_suggestion', as: 'fetch_children'
 
   get 'suggestion_votes/add'
