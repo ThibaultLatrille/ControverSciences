@@ -120,7 +120,7 @@
 
 <% if @references.any? && @timeline.binary != '' && @timeline.total_binary > 0 %>
   <div id="show-sort" class="btn btn-info">
-    Organiser les références
+    <%=  "#{@timeline.name} #{@timeline.binary.split('&&')[1].humanize} ou #{@timeline.binary.split('&&')[0].downcase} " -%>
   </div>
   <div id="sort" style="display: none">
     <div class="btn-group-justified" data-toggle="buttons">
