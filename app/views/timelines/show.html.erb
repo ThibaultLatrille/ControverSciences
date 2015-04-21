@@ -50,7 +50,7 @@
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
     <% if @timeline.debate %>
-        <%= link_to "<span class=\"glyphicon glyphicon-bullhorn\"></span> Discuter du titre".html_safe , suggestion_path( timeline_id: @timeline.id),
+        <%= link_to "<span class=\"glyphicon glyphicon-bullhorn\"></span> Discuter du titre #{@timeline.nb_suggestions}".html_safe , suggestion_path( timeline_id: @timeline.id),
                     class: "btn btn-primary" %>
     <% end %>
     <span class="pull-right">

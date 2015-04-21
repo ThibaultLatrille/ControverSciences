@@ -37,6 +37,17 @@ class Timeline < ActiveRecord::Base
     self.binary_1+self.binary_2+self.binary_3+self.binary_4+self.binary_5
   end
 
+  def nb_suggestions
+    nb = self.suggestion.children
+    if nb == 0
+      ""
+    elsif nb == 1
+      " (#{nb} réponse)"
+    else
+      " (#{nb} réponses)"
+    end
+  end
+
   def binary_font_size( value )
     if self.nb_references > 0
       case value
