@@ -47,7 +47,7 @@ class ReferencesController < ApplicationController
       else
         query = params[:reference][:doi]
       end
-      unless query.empty?
+      unless query.blank?
         begin
           @reference = fetch_reference( query )
         rescue ArgumentError

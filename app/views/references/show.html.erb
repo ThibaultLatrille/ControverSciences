@@ -4,7 +4,7 @@
 <div class="row">
 <% if logged_in? %>
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-    <%= link_to "Revenir à la controverse",
+    <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
                 timeline_path(@reference.timeline_id), class: "btn btn-block btn-primary" %>
     <br/>
     <br/>
@@ -20,8 +20,8 @@
   <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-0">
 <% else %>
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-    <%= link_to "Revenir à la controverse",
-                timeline_path(@reference.timeline_id), class: "btn btn-primary", style: "white-space: normal" %>
+    <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
+                timeline_path(@reference.timeline_id), class: "btn btn-block btn-primary" %>
   </div>
   <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-5 col-lg-offset-0">
 <% end %>
@@ -93,7 +93,7 @@
       <li class="list-group-item"> <div class="bold">
         Journal :
         </div> <%= @reference.journal %></li>
-      <% unless @reference.abstract.empty? %>
+      <% unless @reference.abstract.blank? %>
           <li class="list-group-item">
             <div class="bold">
               Abstract (dans sa langue originale) :
@@ -103,7 +103,7 @@
             </div>
           </li>
       <% end %>
-      <% unless @reference.doi.empty? %>
+      <% unless @reference.doi.blank? %>
       <li class="list-group-item"> <div class="bold">
         Identifiant unique : </div> <%= @reference.doi %></li>
       <% end %>

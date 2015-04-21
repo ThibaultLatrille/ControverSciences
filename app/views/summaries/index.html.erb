@@ -3,8 +3,8 @@
 <div class="row">
 
 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-<%= link_to "Revenir à la controverse",
-            timeline_path( params[:timeline_id]), class: "btn btn-block btn-primary" %>
+  <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
+              timeline_path(params[:timeline_id]), class: "btn btn-block btn-primary" %>
 <% if logged_in? %>
     <br/>
   <br/>

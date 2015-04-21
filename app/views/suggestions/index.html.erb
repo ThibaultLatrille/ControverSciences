@@ -16,9 +16,9 @@
                 <div class="form-group">
                   <% if params[:filter] == "debate" %>
                     <%= f.hidden_field :debate, value: 'true' %>
-                    <%= f.label :comment, "Suggèrer une controverse", class: 'control-label' %>
+                    <%= f.label :comment, "<span class=\"icon-frog bigger\"></span> Suggèrer une controverse".html_safe, class: 'control-label' %>
                   <% else %>
-                    <%= f.label :comment, "Apporter une idée", class: 'control-label' %>
+                    <%= f.label :comment, "<span class=\"icon-idea bigger\"></span> Apporter une idée".html_safe, class: 'control-label' %>
                   <% end %>
                       <br>
                   <%= f.text_area :comment, class: 'form-control textarea' %>
@@ -44,12 +44,12 @@
         <div class="row">
           <div class="clearfix">
             <div class="btn-group">
-              <%= link_to "<span class=\"icon-frog bigger\"></span> Discuter des controverses".html_safe,
+              <%= link_to "<span class=\"icon-frog fat\"></span> Discuter des controverses".html_safe,
                           suggestions_path(:filter => 'debate'),
                           class: "btn btn-default #{ params[:filter] == "debate" ? "active" : nil }" %>
             </div>
             <div class="btn-group">
-              <%= link_to "<span class=\"glyphicon glyphicon-star-empty\"></span> Boite à idée".html_safe,
+              <%= link_to "<span class=\"icon-idea fat\"></span> Boite à idées".html_safe,
                           suggestions_path,
                           class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
             </div>
