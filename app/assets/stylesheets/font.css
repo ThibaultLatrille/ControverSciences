@@ -25,6 +25,14 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
+.font12{
+    font-size: 1.2em;
+}
+
+.font16{
+    font-size: 1.2em;
+}
+
 .bigger{
     font-size: 1.4em;
 }
@@ -138,10 +146,6 @@
 	content: "\e615";
 }
 
-.icon-rig:before {
-	content: "\e616";
-}
-
 .icon-ribbon:before {
 	content: "\e617";
 }
@@ -251,6 +255,75 @@
 	content: "\e631";
 }
 
+.icon-discuss:before {
+    content: "\e63a";
+}
+.icon-idea:before {
+    content: "\e63b";
+}
+
 .icon-no:before {
     content: "\e602";
+}
+
+.icon-user:before {
+    content: "\e604";
+}
+.icon-bug-0:before {
+    content: "\e61b";
+}
+.icon-bug-1:before {
+    content: "\e637";
+}
+.icon-bug-2:before {
+    content: "\e609";
+}
+.icon-bug-3:before {
+    content: "\e611";
+}
+.icon-bug-4:before {
+    content: "\e638";
+}
+.icon-bug-5:before {
+    content: "\e613";
+}
+.icon-bug-6:before {
+    content: "\e616";
+}
+.icon-bug-7:before {
+    content: "\e605";
+}
+.icon-bug-8:before {
+    content: "\e620";
+}
+.icon-bug-9:before {
+    content: "\e621";
+}
+.icon-bug-10:before {
+    content: "\e639";
+}
+.icon-bug-11:before {
+    content: "\e62c";
+}
+.icon-bug-12:before {
+    content: "\e62f";
+}
+.icon-bug-13:before {
+    content: "\e632";
+}
+.icon-bug-14:before {
+    content: "\e633";
+}
+.icon-bug-15:before {
+    content: "\e634";
+}
+.icon-bug-16:before {
+    content: "\e635";
+}
+.icon-bug-17:before {
+    content: "\e636";
+}
+
+.icon-arrow-left:before {
+    content: "\e63c";
 }
