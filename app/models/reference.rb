@@ -38,7 +38,7 @@ class Reference < ActiveRecord::Base
   end
 
   def same_doi
-    if not self.doi.empty?
+    if not self.doi.blank?
       Reference.find_by( doi: self.doi, timeline_id: self.timeline_id )
     else
       false
@@ -54,7 +54,7 @@ class Reference < ActiveRecord::Base
   end
 
   def title_display
-    if self.title_fr && !self.title_fr.empty?
+    if self.title_fr && !self.title_fr.blank?
       self.title_fr.html_safe
     else
       self.title
