@@ -1,0 +1,41 @@
+<div id="my-container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+      <br/>
+      <br/>
+      <% if @timelines.any? %>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h3>
+                <span class="icon-2"></span>
+                Les controverses qui ont besoin d'une synthèse :
+              </h3>
+            </div>
+          </div>
+          <div id="cd-timeline" class="cd-container">
+            <% @timelines.each do |timeline| %>
+                <div class="cd-timeline-block binary">
+                  <div class="cd-timeline-img cd-color-orange">
+                  </div>
+                  <div class="cd-timeline-content">
+                    <h2> <%= link_to "#{timeline.name}", new_summary_path(timeline_id: timeline.id), class: "hvr-grow1" %>
+                    </h2>
+                    <span class="cd-date">Controverse ajoutée il y a <%= time_ago_in_words(timeline.created_at) %></span>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+      <% else %>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h3>
+                <span class="icon-4"></span>
+                Toutes les controverses ont actuellement au moins une synthèse.
+              </h3>
+              <%= link_to "<span class=\"icon-frog fat\"></span> Créer une controverse".html_safe, new_timeline_path, class: "btn btn-primary btn-lg pull-right" %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>

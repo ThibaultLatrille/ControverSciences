@@ -1,0 +1,46 @@
+<div id="my-container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+      <br/>
+      <br/>
+      <% if @references.any? %>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h3>
+                <span class="icon-2"></span>
+                Les références qui ont besoin d'une analyse :
+              </h3>
+            </div>
+          </div>
+          <div id="cd-timeline" class="cd-container">
+            <% @references.each do |reference| %>
+                <div class="cd-timeline-block binary3">
+                  <div class="cd-timeline-img cd-color-orange">
+                  </div>
+                  <div class="cd-timeline-content">
+                    <h2> <%= link_to "#{reference.title}", new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
+                    </h2>
+                    <h2>
+                    dans la controverse
+                    </h2>
+                    <h2> <%= link_to "#{reference.timeline_name}", timeline_path( reference.timeline_id ), class: "hvr-grow1" %>
+                    </h2>
+                    <span class="cd-date">Référence ajoutée il y a <%= time_ago_in_words(reference.created_at) %></span>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+      <% else %>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h3>
+                <span class="icon-4"></span>
+                Toutes les références ont actuellement au moins une analyse.
+              </h3>
+              <%= link_to "<span class=\"icon-frog fat\"></span> Voir les controverses".html_safe, timelines_path, class: "btn btn-primary btn-lg pull-right" %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
