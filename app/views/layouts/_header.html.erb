@@ -20,14 +20,15 @@
                  <span class="caret"></span>
                </a>
                <ul class="dropdown-menu">
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign font12" ></span> &nbsp Découvrir ControverSciences'.html_safe, how_to_path %></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-info-sign font12" ></span> &nbsp Contribuer à ControverSciences'.html_safe, how_to_edit_path %></li>
-                 <li><%= link_to '<span class="glyphicon glyphicon-question-sign font12" ></span> &nbsp FAQ'.html_safe, faq_path %></li>
+                 <li><%= link_to '<b><span class="glyphicon glyphicon-info-sign font12" ></span> &nbsp Découvrir ControverSciences</b>'.html_safe, how_to_path %></li>
+                 <li><%= link_to '<b><span class="glyphicon glyphicon-info-sign font12" ></span> &nbsp Contribuer à ControverSciences</b>'.html_safe, how_to_edit_path %></li>
+                 <li><%= link_to '<b><span class="glyphicon glyphicon-question-sign font12" ></span> &nbsp FAQ</b>'.html_safe, faq_path %></li>
                  <li class="divider"></li>
-                 <li><%= link_to '<span class="icon-users bigger" ></span> Qui sont les contributeurs'.html_safe, users_path %> </li>
-                 <li><%= link_to '<span class="icon-2 bigger" ></span> Les controverses sans références'.html_safe, empty_references_path %></li>
-                 <li><%= link_to '<span class="icon-2 bigger" ></span> Les controverses sans synthèses'.html_safe, empty_summaries_path %></li>
-                 <li><%= link_to '<span class="icon-2 bigger" ></span> Les références sans analyses'.html_safe, empty_comments_path %></li>
+                 <li><%= link_to '<b><span class="icon-users bigger" ></span> Qui sont les contributeurs</b>'.html_safe, users_path %> </li>
+                 <li class="divider"></li>
+                 <li><%= link_to '<b><span class="icon-5 bigger" ></span> Enrichir</b>'.html_safe, empty_references_path %></li>
+                 <li><%= link_to '<b><span class="icon-5 bigger" ></span> Analyser</b>'.html_safe, empty_comments_path %></li>
+                 <li><%= link_to '<b><span class="icon-5 bigger" ></span> Synthétiser</b>'.html_safe, empty_summaries_path %></li>
                  <li class="divider"></li>
                  <li><%= link_to '<b><span class="icon-discuss" ></span> &nbsp Venez discuter</b>'.html_safe, suggestions_path %></li>
                </ul>
@@ -39,24 +40,24 @@
                  <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to '<span class="icon-techno"></span>'.html_safe+" #{current_user.name}",
+                <li><%= link_to "<b><span class='icon-techno'></span> #{current_user.name}</b>".html_safe,
                                 edit_user_path(current_user) %> </li>
                 <li class="divider"></li>
-                <li> <%= link_to "<span class=\"badge\">#{current_user.notifications_all_important}</span> Notifications ".html_safe,
+                <li> <%= link_to "<b><span class=\"badge\">#{current_user.notifications_all_important}</span> Notifications </b>".html_safe,
                             notifications_important_path %>
                 </li>
-                <li><%= link_to "<span class=\"icon-comment\"></span>".html_safe+ " Mes contributions",
+                <li><%= link_to "<b><span class='icon-comment'></span> Mes contributions</b>".html_safe,
                                 my_items_items_path %> </li>
-                <li><%= link_to "<span class=\"icon-ribbon\"></span>".html_safe+ " Mes votes",
+                <li><%= link_to "<b><span class='icon-ribbon'></span> Mes votes</b>".html_safe,
                                 my_items_votes_path %> </li>
                 <li class="divider"></li>
-                <li><%= link_to "<span class=\"badge\">#{current_user.notifications_all }</span> Nouveautés ".html_safe,
+                <li><%= link_to "<b><span class=\"badge\">#{current_user.notifications_all }</span> Nouveautés </b>".html_safe,
                                 notifications_index_path %> </li>
-                <li><%= link_to '<span class="glyphicon glyphicon-eye-open"></span>&nbsp Gérer mes abonnements'.html_safe,
+                <li><%= link_to '<b><span class="glyphicon glyphicon-eye-open"></span>&nbsp Gérer mes abonnements</b>'.html_safe,
                                 followings_index_path %> </li>
                 <li class="divider"></li>
                 <li>
-                  <%= link_to '<span class="glyphicon glyphicon-off"></span>&nbsp Se déconnecter'.html_safe,
+                  <%= link_to '<b><span class="glyphicon glyphicon-off"></span>&nbsp Se déconnecter</b>'.html_safe,
 				logout_path, method: "delete" %>
                 </li>
               </ul>

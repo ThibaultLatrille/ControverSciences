@@ -1,4 +1,4 @@
-<% provide(:title, "Suggèrer une amélioration") %>
+<% provide(:title, "Suggérer une amélioration") %>
 <div id="my-container" class="container-fluid">
 <div class="row">
 <div class="col-xs-12">
@@ -16,7 +16,7 @@
                 <div class="form-group">
                   <% if params[:filter] == "debate" %>
                     <%= f.hidden_field :debate, value: 'true' %>
-                    <%= f.label :comment, "<span class=\"icon-frog bigger\"></span> Suggèrer une controverse".html_safe, class: 'control-label' %>
+                    <%= f.label :comment, "<span class=\"icon-frog bigger\"></span> Suggérer une controverse".html_safe, class: 'control-label' %>
                   <% else %>
                     <%= f.label :comment, "<span class=\"icon-idea bigger\"></span> Apporter une idée".html_safe, class: 'control-label' %>
                   <% end %>
