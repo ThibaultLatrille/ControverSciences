@@ -13,7 +13,11 @@
 <% end %>
 <% for fi in 0..5 %>
     <% if best_comment["f_#{fi}_comment_id".to_sym] %>
-        <b> <%= fields_hash[fi] %> </b>
+        <b> <% if @article %>
+              <%= article_hash[fi] %>
+          <% else %>
+              <%= review_hash[fi] %>
+          <% end %> </b>
         <div class="text-justify">
           <%= best_comment.markdown( fi ).html_safe %>
         </div>

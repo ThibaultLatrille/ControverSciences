@@ -6,7 +6,7 @@ class NotificationSelection < ActiveRecord::Base
   end
 
   def reference
-    Reference.select( :id, :title ).find( Comment.select( :reference_id ).find( self.new_comment_id ).reference_id )
+    Reference.select( :id, :title, :article ).find( Comment.select( :reference_id ).find( self.new_comment_id ).reference_id )
   end
 
   def timeline

@@ -3,6 +3,7 @@ class ReferencesController < ApplicationController
 
   def from_timeline
     @best_comment = BestComment.find_by_reference_id( params[:reference_id] )
+    @article = Reference.select( :article ).find( params[:reference_id] ).article
     respond_to do |format|
       format.js
     end

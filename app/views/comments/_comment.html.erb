@@ -1,7 +1,11 @@
 <div class="panel panel-default comment">
   <div class="panel-body clearfix">
     <% unless comment.empty_field?( 6 ) %>
-        <b> <%= fields_hash[6] %>
+        <b> <% if comment.article %>
+               <%= article_hash[6] %>
+          <% else %>
+               <%= review_hash[6] %>
+          <% end %>
           <% if display %>
               (<%= comment[:f_6_balance] %> crédits)
           <% end %>
@@ -14,7 +18,11 @@
           <div class="thumbnail">
             <%= image_tag comment.picture_url, class: "img-rounded img-responsive" %>
             <div class="caption">
-              <b> <%= fields_hash[7] %>
+              <b> <% if comment.article %>
+                    <%= article_hash[7] %>
+                <% else %>
+                    <%= review_hash[7] %>
+                <% end %>
               <% if display %>
                    (<%= comment[:f_7_balance] %> crédits)
               <% end %> :
@@ -27,7 +35,11 @@
   <span class="content">
     <% for fi in 0..5 %>
         <% unless comment.empty_field?( fi ) %>
-            <b> <%= fields_hash[fi] %>
+            <b> <% if comment.article %>
+                   <%= article_hash[fi] %>
+              <% else %>
+                   <%= review_hash[fi] %>
+              <% end %>
             <% if display %>
                 (<%= comment["f_#{fi}_balance".to_sym] %> crédits)
             <% end %> :

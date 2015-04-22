@@ -29,32 +29,18 @@ module ApplicationHelper
      }
   end
 
-  def fields_hash
-    {0 => "Introduction",
-     1 => "Expériences", 2 => "Résultats", 3 => "Limites de l'étude",
-     4 => "Ce que cette étude apporte au débat", 5 => "Remarque(s)",
-     6 => "Titre", 7 => "Figure"}
+  def article_hash
+    {0 => "Introduction à l'article",
+     1 => "Expériences de l'article", 2 => "Résultats de l'article", 3 => "Limites de l'article",
+     4 => "Ce que cet article apporte au débat", 5 => "Remarque(s) sur l'article",
+     6 => "Titre de l'article", 7 => "Figure"}
   end
 
-  def fields_plural_hash
-    {0 => "les introductions",
-     1 => "les résumés de l'expérience", 2 => "les résumés des résultats", 3 => "les résumés des limites de l'étude",
-     4 => "ce que cette étude apporte au débat", 5 => "les remarques",
-     6 => "les titres", 7 => "les figures"}
-  end
-
-  def fields_singular_hash
-    {0 => "l'introduction",
-     1 => "le résumé de l'expérience", 2 => "le résumé des résultats", 3 => "le résumé des limites de l'étude",
-     4 => "ce que cette étude apporte au débat", 5 => "les remarques",
-     6 => "le titre", 7 => "la figure"}
-  end
-
-  def explains_hash
-    {0 => "cette introduction",
-     1 => "ce résumé de l'expérience", 2 => "ce résumé des résultats", 3 => "à ce résumé des limites de l'étude",
-     4 => "cette contribution", 5 => "cette remarque",
-     6 => "ce titre", 7 => "cette figure"}
+  def review_hash
+    {0 => "Résumé de la review",
+     3 => "Limites de la review",
+     4 => "Ce que cette review apporte au débat", 5 => "Remarque(s) sur la review",
+     6 => "Titre de la review", 7 => "Figure"}
   end
 
   def star_hash

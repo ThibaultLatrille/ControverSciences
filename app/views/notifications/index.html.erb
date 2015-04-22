@@ -214,7 +214,8 @@
             <tr class="notification-sel-comment">
               <td> <%= f.check_box :sel_comment_ids, { :multiple => true},
                                    checked_value = notif.id, unchecked_value = nil %> </td>
-              <td> <%= link_to fields_singular_hash[notif.field].humanize, notifications_selection_path(id: notif.new_comment_id,
+              <td> <%= link_to notif.reference.article ? article_hash[notif.field] : review_hash[notif.field],
+                               notifications_selection_path(id: notif.new_comment_id,
                                                                         field: notif.field ), class: "btn btn-primary" %> </td>
               <td> <%= link_to notif.author.name, user_path( notif.author.id ), class: "btn btn-primary" %> </td>
               <td> <%= link_to notif.reference.title, reference_path(notif.reference.id), class: "btn btn-primary" %> </td>

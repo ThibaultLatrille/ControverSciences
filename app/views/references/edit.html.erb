@@ -1,77 +1,77 @@
 <% provide(:title, "Editer référence") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
+  <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
       <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
                   timeline_path(@reference.timeline_id), class: "btn btn-block btn-primary" %>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4> Editer une référence appartenant à la controverse <%= link_to Timeline.find(@reference.timeline_id).name,
-                    Timeline.find(@reference.timeline_id) %></h4>
-            </div>
-            <div class="panel-body">
-                <%= form_for(@reference) do |f| %>
-                <%= render 'shared/error_messages', object: f.object %>
-                <%= f.label "Titre original" %>
-                <%= f.text_area :title, {:rows => 2,
-                :class => "form-control textarea"} %>
-                  <br/>
-                  <%= f.label "Article ou Review" %>
-                  <div class="switcher">
-                    <p class="fieldset pull-left">
-                      <%= f.radio_button :article, true %>
-                      <label for="reference_article_true">article</label>
-                      <%= f.radio_button :article, false %>
-                      <label for="reference_article_false">review</label>
-                      <span class="switch"></span>
-                    </p>
-                  </div>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-                  <br/>
-                  <%= f.label "Référence en Open-Access" %>
-                  <div class="switcher">
-                    <p class="fieldset pull-left">
-                      <%= f.radio_button :open_access, true %>
-                      <label for="reference_open_access_true"><span class="icon-lock font16"></span>Oui</label>
-                      <%= f.radio_button :open_access, false %>
-                      <label for="reference_open_access_false"><span class="icon-locked font16"></span>Non</label>
-                      <span class="switch"></span>
-                    </p>
-                  </div>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <br/>
-                  <%= f.label "Lien vers la publication" %>
-                  <%= f.text_field :url, class: 'form-control myforms' %>
-                  <br/>
-                  <%= f.label "Journal" %>
-                  <%= f.text_field :journal, class: 'form-control myforms' %>
-                  <br/>
-                <%= f.label "Année de publication" %>
-                <%= f.select :year, (1870..Date.current.year), {:include_blank => true}, { class: 'form-control'} %>
-                <br/>
-                <%= f.label "Les auteurs de l'étude" %>
-                <%= f.text_field :author, class: 'form-control' %>
-                <br/>
-                <%= f.label "Abstract en langue originale (Facultatif)" %>
-                <%= f.text_area :abstract, {:rows => 2,
-                :class => "form-control textarea"} %>
-                <br/>
-                  <b> Identifiant unique : DOI, PMID, ou autre (facultatif) </b> <br/>
-                  <%= f.text_field :doi, class: 'form-control myforms' %>
-                  <br/>
-                  <%= f.button "Modifier la référence &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                               class: 'btn btn-success btn-lg pull-right',
-                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
-                <% end %>
-            </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4> Editer une référence appartenant à la controverse <%= link_to Timeline.find(@reference.timeline_id).name,
+                                                                             Timeline.find(@reference.timeline_id) %></h4>
         </div>
+        <div class="panel-body">
+          <%= form_for(@reference) do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
+              <%= f.label "Titre original" %>
+              <%= f.text_area :title, {:rows => 2,
+                                       :class => "form-control textarea"} %>
+              <br/>
+              <%= f.label "Article ou Review" %>
+              <div class="switcher">
+                <p class="fieldset pull-left">
+                  <%= f.radio_button :article, true %>
+                  <label for="reference_article_true">article</label>
+                  <%= f.radio_button :article, false %>
+                  <label for="reference_article_false">review</label>
+                  <span class="switch"></span>
+                </p>
+              </div>
+              <br/>
+              <br/>
+              <br/>
+              <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
+              <br/>
+              <%= f.label "Référence en Open-Access" %>
+              <div class="switcher">
+                <p class="fieldset pull-left">
+                  <%= f.radio_button :open_access, true %>
+                  <label for="reference_open_access_true"><span class="icon-lock font16"></span>Oui</label>
+                  <%= f.radio_button :open_access, false %>
+                  <label for="reference_open_access_false"><span class="icon-locked font16"></span>Non</label>
+                  <span class="switch"></span>
+                </p>
+              </div>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <%= f.label "Lien vers la publication" %>
+              <%= f.text_field :url, class: 'form-control myforms' %>
+              <br/>
+              <%= f.label "Journal" %>
+              <%= f.text_field :journal, class: 'form-control myforms' %>
+              <br/>
+              <%= f.label "Année de publication" %>
+              <%= f.select :year, (1870..Date.current.year), {:include_blank => true}, {class: 'form-control'} %>
+              <br/>
+              <%= f.label "Les auteurs de l'étude" %>
+              <%= f.text_field :author, class: 'form-control' %>
+              <br/>
+              <%= f.label "Abstract en langue originale (Facultatif)" %>
+              <%= f.text_area :abstract, {:rows => 2,
+                                          :class => "form-control textarea"} %>
+              <br/>
+              <b> Identifiant unique : DOI, PMID, ou autre (facultatif) </b> <br/>
+              <%= f.text_field :doi, class: 'form-control myforms' %>
+              <br/>
+              <%= f.button "Modifier la référence &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success btn-lg pull-right',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
+          <% end %>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>

@@ -66,7 +66,12 @@
                   </div>
                   <br/>
                   <% for fi in 0..5 %>
-                      <%= f.label fields_hash[fi] %>
+                      <% if @myreference.article || [0,3,4,5].include?(fi) %>
+                          <% if @myreference.article %>
+                            <%= f.label article_hash[fi] %>
+                          <% else %>
+                            <%= f.label review_hash[fi] %>
+                          <% end %>
                       <div id="characterLeft<%= fi %>"></div>
 
                       <%= f.text_area "f_#{fi}_content".to_sym, {rows: 3,
@@ -77,8 +82,13 @@
                         <div class="panel-heading">
                           <% case fi  %>
                           <% when 0 %>
-                              L'introduction permet au lecteur de situer cette référence dans
-                              la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
+                              <% if @myreference.article %>
+                                  L'introduction permet au lecteur de situer cette article dans
+                                  la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
+                              <% else %>
+                                  Le résumé de la review permet au lecteur de
+                                  comprendre cette étude dans le cadre de cette controverse .
+                              <% end %>
                           <% when 1 %>
                               Résumé de l'expérience (ou des expériences) réalisé dans cette étude
                           <% when 2 %>
@@ -98,6 +108,7 @@
                         </div>
                       </div>
                       <br/>
+                      <% end %>
                   <% end %>
                   <%= f.hidden_field :has_picture, value: @comment.picture? %>
                   <%= f.hidden_field :delete_picture, value: false %>
@@ -118,7 +129,7 @@
                         <br/>
 
                         <div id="characterLeft6"></div>
-                        <%= f.text_area :caption, {rows: 3, :placeholder => "Légende de la figure",
+                        <%= f.text_area :caption, {rows: 3,
                                                    :class => "form-control textarea", id: "description6",
                                                    "data-provide" => "markdown"} %>
                         <div class="panel panel-info">
@@ -160,7 +171,7 @@
         <div class="col-xs-12 col-lg-5">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"> <%= @myreference.title %> </h3>
+              <h6 class="panel-title"> <%= @myreference.article ? "Article" : "Review" %> : <%= @myreference.title %> </h6>
             </div>
             <div class="panel-body">
               <ul class="list-group">
@@ -322,6 +333,10 @@ Z
     $('#save-btn-http').on('click', function (event) {
         myref.setAttribute("data-toggled", 'yes');
     });
+</script>
+
+<% if @myreference.article  %>
+<script type="text/javascript">
     $.each(['0', '1', '2', '3', '4', '5', '6', '7' ], function (index, value) {
         $(document).ready(function () {
             if (value === '7') {
@@ -359,3 +374,51 @@ Z
         });
     });
 </script>
+<% else  %>
+<script type="text/javascript">
+    $.each(['0', '3', '4', '5', '6', '7' ], function (index, value) {
+        $(document).ready(function () {
+            if (value === '7') {
+                var max = 180;
+            } else {
+                if (value === '0') {
+                    var max = 4000;
+                } else {
+                    var max = 1000;
+                }
+            }
+            var len = $('#description' + value).val().length;
+            if (len >= max) {
+                var ch = len - max;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
+            }
+        });
+        $('#description' + value).keyup(function () {
+            if (value === '7') {
+                var max = 180;
+            } else {
+                if (value === '0') {
+                    var max = 4000;
+                } else {
+                    var max = 1000;
+                }
+            }
+            var len = $(this).val().length;
+            if (len >= max) {
+                var ch = len - max;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
+            }
+        });
+    });
+</script>
+<% end  %>

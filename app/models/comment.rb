@@ -24,7 +24,7 @@ class Comment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
-  validates :f_0_content, length: {maximum: 1001}
+  validate :f_0_validation
   validates :f_1_content, length: {maximum: 1001}
   validates :f_2_content, length: {maximum: 1001}
   validates :f_3_content, length: {maximum: 1001}
@@ -316,6 +316,18 @@ class Comment < ActiveRecord::Base
   end
 
   private
+
+  def f_0_validation
+    if self.reference.article
+      if self.f_0_content.length > 1001
+        errors.add(:f_0_content, 'est trop long (pas plus de 1000 caractères)')
+      end
+    else
+      if self.f_0_content.length > 4001
+        errors.add(:f_0_content, 'est trop long (pas plus de 4000 caractères)')
+      end
+    end
+  end
 
   def updating_with_public
     public = self.public_was

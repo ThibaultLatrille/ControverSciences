@@ -12,7 +12,7 @@
       </h2>
       <div id="reference<%= reference.id %>" class="ref clearfix" style="display: none">
       </div>
-      <span class="cd-date"><%= reference.display_year %></span>
+      <span class="cd-date"><%= reference.display_year %> - <b><%= reference.article ? "Article" : "Review" %></b></span>
     </div>
 </div>
 <% else %>
@@ -22,7 +22,7 @@
       <div class="cd-timeline-content">
         <h2> <%= link_to "#{reference.title}", new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
         </h2>
-        <span class="cd-date"><%= reference.display_year %></span>
+        <span class="cd-date"><%= reference.display_year %> - <b><%= reference.article ? "Article" : "Review" %></b></span>
       </div>
     </div>
 <% end %>

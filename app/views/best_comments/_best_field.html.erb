@@ -23,7 +23,7 @@
                                        {selected: comment.my_vote(current_user.id, field)}, {class: "form-control selectwidthauto"} %>
                           <div>
                             <% if comment.my_vote(current_user.id, field) == 0 %>
-                                <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer #{explains_hash[field]}".html_safe,
+                                <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer cette contribution".html_safe,
                                              class: "btn btn-success selectwidthauto",
                                              data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
                             <% else %>
@@ -56,7 +56,7 @@
           </div>
           <div class="col-xs-12 col-md-6">
             <div class="caption">
-              <b> <%= fields_hash[7] %> </b> :
+              <b> Figure </b> :
               <%= comment.caption_markdown.html_safe %>
             </div>
           </div>
@@ -80,7 +80,7 @@
                                    {selected: comment.my_vote(current_user.id, field)}, {class: "form-control selectwidthauto"} %>
                       <div>
                         <% if comment.my_vote(current_user.id, field) == 0 %>
-                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer #{explains_hash[field]}".html_safe,
+                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer cette figure".html_safe,
                                          class: "btn btn-success selectwidthauto",
                                          data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
                         <% else %>
@@ -130,7 +130,7 @@
                                    {selected: comment.my_vote(current_user.id, field)}, {class: "form-control selectwidthauto"} %>
                       <div>
                         <% if comment.my_vote(current_user.id, field) == 0 %>
-                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer #{explains_hash[field]}".html_safe,
+                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer cette contribution".html_safe,
                                          class: "btn btn-success selectwidthauto",
                                          data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
                         <% else %>
