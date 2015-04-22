@@ -13,6 +13,8 @@ class Reference < ActiveRecord::Base
 
   has_one :best_comment, dependent: :destroy
 
+  around_update :delete_if_review
+
   after_create  :cascading_save_ref
   before_create  :binary_timeline
 
@@ -102,6 +104,21 @@ class Reference < ActiveRecord::Base
   end
 
   private
+
+  def delete_if_review
+    article = self.article_was
+    yield
+    if article != self.article && !self.article
+      Comment.where( reference_id: self.id ).update_all( f_1_content: "", f_2_content: "",
+                                                         markdown_1: "", markdown_2: "",
+                                                         f_1_balance: 0, f_2_balance: 0,
+                                                         f_1_score: 0.0, f_2_score: 0.0)
+      CommentJoin.where( reference_id: self.id, field: 1..2 ).destroy_all
+      Vote.where( reference_id: self.id, field: 1..2 ).destroy_all
+      BestComment.where( reference_id: self.id ).update_all( f_1_comment_id: nil, f_2_comment_id: nil,
+                                                             f_1_user_id: nil, f_2_user_id: nil)
+    end
+  end
 
   def binary_timeline
     self.binary = Timeline.select( :binary ).find( self.timeline_id ).binary
