@@ -36,6 +36,7 @@ class ReferencesController < ApplicationController
 
   def new
     @reference = Reference.new
+    @reference.open_access = false
   end
 
   def create
@@ -50,6 +51,8 @@ class ReferencesController < ApplicationController
       unless query.blank?
         begin
           @reference = fetch_reference( query )
+          @reference.article = reference_params[:article]
+          @reference.open_access = reference_params[:article]
         rescue ArgumentError
           flash.now[:danger] = "Votre requête n'a rien donné de concluant."
         rescue ConnectionError
@@ -137,7 +140,7 @@ class ReferencesController < ApplicationController
 
   def reference_params
     params.require(:reference).permit(:title, :timeline_id,
-                                      :open_access, :url, :author, :year, :doi, :journal, :abstract)
+                                      :open_access, :url, :author, :year, :doi, :journal, :abstract, :article)
   end
 
 end

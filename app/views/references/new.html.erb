@@ -16,47 +16,54 @@
       <div class="panel-body">
     <%= form_for(@reference) do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
+            <%= f.label "Titre original*" %>
 
-        <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
-
-        <%= f.label "Identifiant unique (DOI, PMID, ou autre)" %>
-        <%= f.text_field :doi, class: 'form-control myforms' %>
-
-        <br/>
-        <%= f.label "Lien vers la publication*" %>
-        <%= f.text_field :url, class: 'form-control myforms' %>
-            <br/>
-        <%= f.label "Journal en Open-Access*" %>
-        <div class="btn-group-justified" data-toggle="buttons">
-          <label class="btn btn-default active" title="Journal en Open-Access">
-            <%= f.radio_button :open_access, checked_value = true,
-                               {id: "0", autocomplete: "off"} %>
-            <span class="icon-lock"></span>
-          </label>
-          <label class="btn btn-default" title="Journal sous Pay-Wall">
-            <%= f.radio_button :open_access, checked_value = false,
-                               {id: "1", autocomplete: "off"} %>
-            <span class="icon-locked"></span>
-          </label>
-        </div>
-        <br/>
-
-        <%= f.label "Titre original*" %>
-
-        <div class="input-group">
+            <div class="input-group">
           <span class="input-group-btn">
             <button class="btn btn-info" name="title" type="submit" onclick="freeze()"> <span class="glyphicon glyphicon-refresh"></span> </button>
           </span>
               <%= f.text_field :title, class: 'form-control myforms' %>
-        </div>
+            </div>
 
-        <br/>
+            <br/>
             <div class="panel panel-info">
               <div class="panel-heading">
                 Astuce : Remplissez uniquement le titre de la référence et utilisez le boutton  <span class="glyphicon glyphicon-refresh"> </span>
                 pour auto-compléter les autres champs.
               </div>
             </div>
+            <%= f.label "Article ou Review*" %>
+        <div class="switcher">
+          <p class="fieldset pull-left">
+            <%= f.radio_button :article, true %>
+            <label for="reference_article_true">article</label>
+            <%= f.radio_button :article, false %>
+            <label for="reference_article_false">review</label>
+            <span class="switch"></span>
+          </p>
+        </div>
+            <br/>
+            <br/>
+            <br/>
+        <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+        <br/>
+        <%= f.label "Référence en Open-Access*" %>
+            <div class="switcher">
+              <p class="fieldset pull-left">
+                <%= f.radio_button :open_access, true %>
+                <label for="reference_open_access_true"><span class="icon-lock font16"></span>Oui</label>
+                <%= f.radio_button :open_access, false %>
+                <label for="reference_open_access_false"><span class="icon-locked font16"></span>Non</label>
+                <span class="switch"></span>
+              </p>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <%= f.label "Lien vers la publication*" %>
+            <%= f.text_field :url, class: 'form-control myforms' %>
+            <br/>
         <%= f.label "Journal*" %>
         <%= f.text_field :journal, class: 'form-control myforms' %>
             <br/>
@@ -66,14 +73,18 @@
         <%= f.label "Les auteurs de l'étude*" %>
         <%= f.text_field :author, class: 'form-control myforms' %>
             <br/>
-        <%= f.label "Abstract en langue original (Facultatif)" %>
+        <%= f.label "Abstract en langue originale (Facultatif)" %>
         <%= f.text_area :abstract, {:rows => 2,
                                     :class => "form-control myforms textarea"} %>
+            <br/>
+            <b> Identifiant unique : DOI, PMID, ou autre (facultatif) </b> <br/>
+            <%= f.text_field :doi, class: 'form-control myforms' %>
             <br/>
             <%= f.button "Ajouter la référence &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                          id: "submit-button",
                          class: 'btn btn-success btn-lg pull-right',
                          data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
+
     <% end %>
       </div>
     </div>

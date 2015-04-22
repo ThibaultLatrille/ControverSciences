@@ -69,6 +69,10 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def article
+    self.reference.article
+  end
+
   def balance
     self.f_0_balance + self.f_1_balance + self.f_2_balance +
         self.f_3_balance + self.f_4_balance + self.f_5_balance + self.f_6_balance + self.f_7_balance
