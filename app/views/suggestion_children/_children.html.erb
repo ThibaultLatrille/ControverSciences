@@ -23,10 +23,10 @@
               <%= suggestion_child.comment %>
             </div>
             <% if logged_in? && suggestion_child.user_id == current_user.id %>
-              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_path(suggestion_child.id), method: :delete,
+              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_child_path(suggestion_child.id), method: :delete,
                           data: { confirm: "Etes vous certain ?" },
                           class: "btn btn-danger" %>
-                <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe, edit_suggestion_path(suggestion_child.id),
+                <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe, edit_suggestion_child_path(suggestion_child.id),
                             class: "btn btn-primary" %>
             <% end %>
           </span>
