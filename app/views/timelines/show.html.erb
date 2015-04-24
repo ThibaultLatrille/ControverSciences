@@ -73,7 +73,7 @@
         <% end %>
       </div>
   </div>
-  <% if @timeline.nb_references > 3  %>
+  <% if @timeline.nb_references > 3 || @summary %>
       <div class="panel-body">
         <% if @summary %>
             <div class="clearfix">
@@ -176,6 +176,17 @@
     </span> Suivre les nouvelles références qui seront <br/> ajoutées à cette controverse".html_safe,
                         following_timelines_path( timeline_id: @timeline.id ),
                         method: :post, class: "btn btn-success" %>
+          </div>
+        </div>
+      </div>
+  <% else %>
+      <div class="row">
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+          <div class="pull-right">
+            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+    </span> Ajouter une référence à cette controverse. <br/> Diablement rapide si vous connaissez son titre".html_safe,
+                        new_reference_path( timeline_id: @timeline.id),
+                        class: "btn btn-primary" %>
           </div>
         </div>
       </div>
