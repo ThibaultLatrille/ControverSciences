@@ -73,49 +73,51 @@
         <% end %>
       </div>
   </div>
-  <div class="panel-body">
-    <% if @summary %>
-        <div class="clearfix">
-        <% if @summary.picture? %>
-            <div class="pull-right">
-              <div class="thumbnail">
-                <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
-                <div class="caption">
-                  <%= @summary.caption_markdown.html_safe %>
+  <% if @timeline.nb_references > 3  %>
+      <div class="panel-body">
+        <% if @summary %>
+            <div class="clearfix">
+            <% if @summary.picture? %>
+                <div class="pull-right">
+                  <div class="thumbnail">
+                    <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
+                    <div class="caption">
+                      <%= @summary.caption_markdown.html_safe %>
+                    </div>
+                  </div>
                 </div>
-              </div>
+            <% end %>
+            <div class="justify">
+            <%= @summary.markdown.html_safe %>
             </div>
-        <% end %>
-        <div class="justify">
-        <%= @summary.markdown.html_safe %>
-        </div>
-        <br/>
-      </div>
-        <span class="pull-right">
-            <%= link_to @summary.user_name, user_path(@summary.user_id) %>
-        </span>
-        <br/>
-        <br/>
-        <% if @timeline.nb_summaries > 1 %>
-            <%= link_to "Voir les synthèses de cette controverse (#{@timeline.nb_summaries})".html_safe,
-                        summaries_path( timeline_id: @timeline.id ),
+            <br/>
+          </div>
+            <span class="pull-right">
+                <%= link_to @summary.user_name, user_path(@summary.user_id) %>
+            </span>
+            <br/>
+            <br/>
+            <% if @timeline.nb_summaries > 1 %>
+                <%= link_to "Voir les synthèses de cette controverse (#{@timeline.nb_summaries})".html_safe,
+                            summaries_path( timeline_id: @timeline.id ),
+                            class: "btn btn-primary" %>
+            <% end %>
+            <% if logged_in? && @improve %>
+                <%= link_to "<span class=\"icon-fork\"></span>".html_safe,
+                            new_summary_path(parent_id: @summary.id ), :class => "btn btn-primary pull-right", "data-toggle" => "tooltip",
+                            title: "Améliorer cette synthèse", :style => "padding: 6px; margin-right: 10px"%>
+            <% elsif logged_in? %>
+                <%= link_to "Voir ma synthèse".html_safe,
+                            summaries_path(timeline_id: @timeline.id, filter: "mine"), :class => "btn btn-primary pull-right" %>
+            <% end %>
+        <% else %>
+            <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Aucune synthèse n'a été écrite pour cette controverse, soyez le premier".html_safe,
+                        new_summary_path( timeline_id: @timeline.id ),
                         class: "btn btn-primary" %>
         <% end %>
-        <% if logged_in? && @improve %>
-            <%= link_to "<span class=\"icon-fork\"></span>".html_safe,
-                        new_summary_path(parent_id: @summary.id ), :class => "btn btn-primary pull-right", "data-toggle" => "tooltip",
-                        title: "Améliorer cette synthèse", :style => "padding: 6px; margin-right: 10px"%>
-        <% elsif logged_in? %>
-            <%= link_to "Voir ma synthèse".html_safe,
-                        summaries_path(timeline_id: @timeline.id, filter: "mine"), :class => "btn btn-primary pull-right" %>
-        <% end %>
-    <% else %>
-        <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-    </span> Aucune synthèse n'a été écrite pour cette controverse, soyez le premier".html_safe,
-                    new_summary_path( timeline_id: @timeline.id ),
-                    class: "btn btn-primary" %>
-    <% end %>
-  </div>
+      </div>
+  <% end %>
 </div>
 
 <% if @references.any? && @timeline.binary != '' && @timeline.total_binary > 0 %>
