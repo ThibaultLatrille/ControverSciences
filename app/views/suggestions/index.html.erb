@@ -16,12 +16,13 @@
                 <div class="form-group">
                   <% if params[:filter] == "debate" %>
                     <%= f.hidden_field :debate, value: 'true' %>
-                    <%= f.label :comment, "<span class=\"icon-frog bigger\"></span> Suggérer une controverse".html_safe, class: 'control-label' %>
+                    <%= f.label :comment, "<span class=\"icon-frog bigger\"></span> Suggérer une controverse (1200 caractères max)".html_safe, class: 'control-label' %>
                   <% else %>
-                    <%= f.label :comment, "<span class=\"icon-idea bigger\"></span> Apporter une idée".html_safe, class: 'control-label' %>
+                    <%= f.label :comment, "<span class=\"icon-idea bigger\"></span> Apporter une idée (1200 caractères max)".html_safe, class: 'control-label' %>
                   <% end %>
                       <br>
-                  <%= f.text_area :comment, class: 'form-control textarea' %>
+                  <%= f.text_area :comment, {rows: 3,
+                                             :class => "form-control textarea"} %>
                   <span class="help-block"></span>
                 </div>
                 <div class="row">
