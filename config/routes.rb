@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'empty_references'    => 'static_pages#empty_references'
   get 'empty_summaries'   => 'static_pages#empty_summaries'
   get 'empty_comments' => 'static_pages#empty_comments'
+  get 'newsletter' => 'static_pages#newsletter'
   get 'signup' => 'users#new'
   get    'login'    => 'sessions#new'
   delete 'logout'   => 'sessions#destroy'

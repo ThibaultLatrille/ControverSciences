@@ -14,4 +14,7 @@ class StaticPagesController < ApplicationController
   def empty_references
     @timelines = Timeline.select(:id, :name, :created_at).order(:created_at => :desc).where( nb_references: 0..3 )
   end
+
+  def newsletter
+  end
 end
