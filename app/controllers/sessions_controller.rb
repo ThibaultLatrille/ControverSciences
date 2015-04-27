@@ -22,6 +22,8 @@ class SessionsController < ApplicationController
           render 'users/invalid'
         else
           @user = user
+          @user.create_activation_digest
+          @user.update_columns( activation_digest: @user.activation_digest )
           mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
           message = {
               :subject=> "Activation du compte sur ControverSciences",
