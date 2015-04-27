@@ -37,8 +37,28 @@ class SessionsController < ApplicationController
       end
     else
       if user
-        @email = user.email
-        flash.now[:danger] = 'Mauvais mot de passe pour cette adresse email.'
+        if user.activated?
+          @email = user.email
+          flash.now[:danger] = 'Mauvais mot de passe pour cette adresse email.'
+        else
+          @timelines = Timeline.order(:score => :desc).first(8)
+          if PendingUser.find_by_user_id( user.id )
+            render 'users/invalid'
+          else
+            @user = user
+            @user.create_activation_digest
+            @user.update_columns( activation_digest: @user.activation_digest )
+            mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+            message = {
+                :subject=> "Activation du compte sur ControverSciences",
+                :from=>"activation@controversciences.org",
+                :to => @user.email,
+                :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str
+            }
+            mg_client.send_message "controversciences.org", message
+            render 'users/success'
+          end
+        end
       else
         flash.now[:danger] = 'Cette adresse email n\'est associée à aucun compte.'
       end 
