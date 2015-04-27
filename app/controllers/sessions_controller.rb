@@ -21,6 +21,15 @@ class SessionsController < ApplicationController
         if PendingUser.find_by_user_id( user.id )
           render 'users/invalid'
         else
+          @user = user
+          mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+          message = {
+              :subject=> "Activation du compte sur ControverSciences",
+              :from=>"activation@controversciences.org",
+              :to => @user.email,
+              :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str
+          }
+          mg_client.send_message "controversciences.org", message
           render 'users/success'
         end
       end
