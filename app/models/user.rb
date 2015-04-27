@@ -40,6 +40,9 @@ class User < ActiveRecord::Base
 
   def email_domain
     mydomain = self.email.partition("@")[2]
+    if self.activated?
+      return true
+    end
     Domain.all.pluck(:name).each do |domain|
       if mydomain.include? domain
         return true
