@@ -19,7 +19,7 @@ fr:
     attributes:
       user:
         name: "Nom"
-        email: "Adresse éléctronique"
+        email: "Adresse électronique"
         password: "Mot de passe"
         password_confirmation: "Confirmation de mot de passe"
       timeline:
