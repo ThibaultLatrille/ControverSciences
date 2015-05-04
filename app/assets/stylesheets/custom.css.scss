@@ -77,8 +77,9 @@ footer a:hover {
 }
 
 .img-responsive {
-  margin-left: auto;
-  margin-right: auto;
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 .vcenter {
@@ -492,6 +493,7 @@ section h1{
 
 .thumbnail {
   img {
+    width: 100%;
     max-width: 400px;
   }
   margin-left: 15px;
@@ -626,5 +628,11 @@ body.modal-open {
   .files img,
   .files canvas {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  #pillars{
+    display: none;
   }
 }
