@@ -61,26 +61,86 @@
     </div>
     <div class="col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-5 col-lg-offset-0 col-lg-4 vcenter">
       <h4 class="text-justify">
-        Qui n’a jamais été dans un débat où les arguments tiennent plus de la foi que des faits ?
+        Qui n’a jamais été dans un <b>débat</b> où les arguments tiennent plus de la foi que des <b>faits</b> ?
         <br/>
         <br/>
-        Quelques connaissances des résultats scientifiques auraient pourtant sauvé de cette situation inextricable.
+        Quelques connaissances des résultats scientifiques vous auraient pourtant sauvé de cette situation inextricable.
         <br/>
         <br/>
-        Malheureusement, ces connaissances sont cachées dans des publications scientifiques : des documents techniques et souvent payants !
+        Malheureusement, ces connaissances sont cachées dans des <b>publications scientifiques</b> : des documents techniques et souvent payants !
         <br/>
         <br/>
-        ControverSciences permet d'accéder à ces connaissances scientifiques, c’est une plateforme de partage et de vulgarisation de la science !
+        ControverSciences permet d'accéder à ces connaissances scientifiques; c’est une plateforme de partage et de <b>vulgarisation</b> de la science !
         <br/>
         <br/>
-        Sur ControverSciences, il n’y a pas de discrimination intellectuelle ! Tout un chacun a accès au savoir.
+        Sur ControverSciences, il n’y a pas de discrimination intellectuelle ! Tout un chacun a accès au <b>savoir</b>.
         <br/>
         <br/>
-        Les scientifiques partagent leur passion en résumant et expliquant les résultats d’expériences, sur des sujets qui font – ou ont fait – débat.
+        Les <b>scientifiques partagent</b> leur passion en résumant et expliquant les résultats d’expériences, sur des sujets qui font – ou ont fait – débat.
         <br/>
         <br/>
-         <b>Enfin des débats où les arguments sont des preuves, et des preuves scientifiques !</b>
       </h4>
+      <h1 style="font-size: 1.8em; text-shadow: 3px 3px #1C75BC;">
+      Enfin des débats où les arguments sont des preuves, et des preuves scientifiques !</h1>
+    </div>
+  </div>
+</section>
+<section id="featured">
+  <h1 style="font-size: 2.8em">
+    Les 3 piliers de ControverSciences
+  </h1>
+  <div class="row">
+    <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+      <div class="row text-center vcenter">
+        <div class="col-xs-12 col-md-4">
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            Preuve
+          </h1>
+          <div class="center-block">
+            <div class="row">
+              <div class="col-md-offset-3 col-md-6">
+                <%= image_tag("pillar.png", alt: "Logo", :class => "img-responsive") %>
+              </div>
+            </div>
+          </div>
+          <div class="text-center vcenter">
+            <h4><br/>Si tu as des arguments à apporter, ajoute d’abord une référence
+            scientifique qui justifie ton argument, et après tu pourra t’exprimer !</h4>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            Amèlioration
+          </h1>
+          <div class="center-block">
+            <div class="row">
+              <div class="col-md-offset-3 col-md-6">
+                <%= image_tag("pillar.png", alt: "Logo", :class => "img-responsive") %>
+              </div>
+            </div>
+          </div>
+          <div class="text-center vcenter">
+            <h4><br/>Si tu n’es pas d’accord avec une contribution,
+            c’est donc que tu peux faire mieux! alors fait le ! <br/>
+            Les contributeurs voteront pour décider de laquelle des contributions est la plus objective.</h4>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            Sélection
+          </h1>          <div class="center-block">
+          <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+              <%= image_tag("pillar.png", alt: "Logo", :class => "img-responsive") %>
+            </div>
+          </div>
+        </div>
+          <div class="text-center vcenter">
+            <h4><br/>Les contenus de bonnes qualités survivront, ceux qui sont
+            de mauvaises qualités seront supprimé par un algorithme.</h4>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -92,7 +152,6 @@
           <h4>
             Recevez une fois par mois les informations essentielles de ControverSciences
           </h4>
-        </div>
         </div>
       </div>
       <div class="row">
@@ -120,6 +179,61 @@
     <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
       <div class="row">
         <%= render @timelines %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mission">
+  <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
+    Par où commencer ?
+  </h1>
+
+  <div class="row">
+    <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+      <div class="row">
+        <a href="<%= empty_references_path %>" style="color: white">
+          <div class="col-xs-12 col-md-4 hvr-grow">
+            <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
+              Enrichir
+            </h1>
+
+            <div class="center-block">
+              <%= image_tag("3rules-1.png", alt: "Logo", :class => "img-responsive") %>
+            </div>
+            <div class="text-center vcenter">
+              <h4>Venez ajouter des références aux controverses qui ont en besoin.</h4>
+            </div>
+          </div>
+        </a>
+        <a href="<%= empty_references_path %>" style="color: white">
+          <div class="col-xs-12 col-md-4 hvr-grow">
+            <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
+              Analyser
+            </h1>
+
+            <div class="center-block">
+              <%= image_tag("3rules-3.png", alt: "Logo", :class => "img-responsive") %>
+            </div>
+            <div class="text-center vcenter">
+              <h4>Ecrivez un analyse pour les références qui ont en besoin.</h4>
+            </div>
+          </div>
+        </a>
+        <a href="<%= empty_references_path %>" style="color: white">
+          <div class="col-xs-12 col-md-4 hvr-grow">
+            <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
+              Synthètiser
+            </h1>
+
+            <div class="center-block">
+              <%= image_tag("3rules-2.png", alt: "Logo", :class => "img-responsive") %>
+            </div>
+            <div class="text-center vcenter">
+              <h4>Ecrivez une synthèse pour les controverses qui ont en besoin.</h4>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
