@@ -35,6 +35,7 @@ class TimelinesController < ApplicationController
 
   def new
     @timeline = Timeline.new
+    @tag_list = []
   end
 
   def edit
@@ -42,6 +43,8 @@ class TimelinesController < ApplicationController
     @tag_list = @timeline.get_tag_list
     if @timeline.binary != ""
       @timeline.binary = true
+    else
+      @timeline.binary = false
     end
   end
 
@@ -77,8 +80,10 @@ class TimelinesController < ApplicationController
 
   def create
     @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name], debate: timeline_params[:debate])
-    if timeline_params[:binary]
+    if timeline_params[:binary] == "1"
       @timeline.binary = "Non&&Oui"
+    else
+      @timeline.binary = ""
     end
     if params[:timeline][:tag_list]
       @timeline.set_tag_list(params[:timeline][:tag_list])
@@ -93,6 +98,13 @@ class TimelinesController < ApplicationController
         redirect_to @timeline
       end
     else
+      @tag_list = @timeline.get_tag_list
+      puts @timeline.binary
+      if @timeline.binary != ""
+        @timeline.binary = true
+      else
+        @timeline.binary = false
+      end
       render 'new'
     end
   end
