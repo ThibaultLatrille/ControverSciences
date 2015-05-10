@@ -42,7 +42,7 @@
                   <%= link_to "<span class=\"glyphicon glyphicon-list\"></span> Voir les réactions (#{suggestion.children})".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
                               :remote => true, id:"fetch", class: "btn btn-info" %>
               <% else %>
-                  <%= link_to "<span class=\"glyphicon glyphicon-bullhorn\"></span> Repondre à ce commentaire".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
+                  <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Repondre à ce commentaire".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
                               :remote => true, id:"fetch", class: "btn btn-info" %>
               <% end %>
             </div>
