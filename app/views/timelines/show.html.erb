@@ -73,10 +73,10 @@
         <% end %>
       </div>
   </div>
-  <% if @timeline.nb_references > 3 || @summary %>
+  <% if @timeline.nb_references > 2 || @summary %>
       <div class="panel-body">
         <% if @summary %>
-            <div class="clearfix">
+            <div id="summary" class="clearfix">
             <% if @summary.picture? %>
                 <div class="pull-right">
                   <div class="thumbnail">
@@ -213,6 +213,13 @@
 
 
 <script type="text/javascript">
+    $("#summary").readmore({
+        speed: 750,
+        embedCSS: false,
+        collapsedHeight: 450,
+        moreLink: '<a href="#" class="btn btn-info">Continuer la lecture</a>',
+        lessLink: '<a href="#" class="btn btn-info">Réduire le texte</a>'
+    });
     $('.linked-ref').click(function(e) {
         var id = $(this).data("ref");
         $("#button"+id).trigger('click');
