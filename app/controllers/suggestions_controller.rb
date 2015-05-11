@@ -15,8 +15,10 @@ class SuggestionsController < ApplicationController
 
   def update
     @suggestion = Suggestion.find( params[:id] )
-    if current_user.id = @suggestion.user_id
-      if @suggestion.update( suggestion_params )
+    if current_user.id == @suggestion.user_id
+      @suggestion.comment = suggestion_params[:comment]
+      @suggestion.name = suggestion_params[:name]
+      if @suggestion.save
         render 'suggestions/show'
       else
         render 'suggestions/edit'

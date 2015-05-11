@@ -21,8 +21,10 @@ class SuggestionChildrenController < ApplicationController
   def update
     @suggestion_child = SuggestionChild.find( params[:id] )
     @suggestion = Suggestion.find( @suggestion_child.suggestion_id )
-    if current_user.id = @suggestion_child.user_id
-      if @suggestion_child.update( suggestion_child_params )
+    if current_user.id == @suggestion_child.user_id
+      @suggestion_child.comment = suggestion_child_params[:comment]
+      @suggestion_child.name = suggestion_child_params[:name]
+      if @suggestion_child.save
         render 'suggestion_children/show'
       else
         render 'suggestion_children/edit'

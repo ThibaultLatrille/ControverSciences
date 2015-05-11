@@ -11,8 +11,32 @@ class Suggestion < ActiveRecord::Base
   validates :comment, presence: true, length: {maximum: 1200 }
 
   after_destroy :cascading_destroy
+  before_save :save_with_markdown
 
   private
+
+  def save_with_markdown
+    render_options = {
+        filter_html:     true,
+        hard_wrap:       true,
+        link_attributes: { rel: 'nofollow' },
+        no_images: true,
+        no_styles: true,
+        safe_links_only: true
+    }
+    renderer = Redcarpet::Render::HTML.new( render_options )
+    extensions = {
+        autolink:           true,
+        lax_spacing:        true,
+        no_intra_emphasis:  true,
+        strikethrough:      true,
+        superscript:        true
+    }
+    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
+    unless self.comment.empty?
+      self.content_markdown = redcarpet.render(self.comment)
+    end
+  end
 
   def cascading_destroy
     if self.timeline_id
