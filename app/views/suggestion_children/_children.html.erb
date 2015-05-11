@@ -20,7 +20,7 @@
           <div class="panel-body">
           <span class="content">
             <div class="text-justify">
-              <%= suggestion_child.comment %>
+              <%= suggestion_child.content_markdown %>
             </div>
             <% if logged_in? && suggestion_child.user_id == current_user.id %>
               <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_child_path(suggestion_child.id), method: :delete,
@@ -55,6 +55,7 @@
             <%= f.hidden_field :suggestion_id, value: suggestion_id %>
             <div class="form-group">
               <%= f.label :comment, "Votre réponse", class: 'control-label' %><br>
+              <div id="characterLeft"></div>
               <%= f.text_area :comment,  {rows: 3,
                                           :class => "form-control textarea"} %>
               <span class="help-block"></span>

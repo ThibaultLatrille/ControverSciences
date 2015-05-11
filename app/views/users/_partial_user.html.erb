@@ -19,7 +19,7 @@
             <%= @user.name %> travaille dans un lieu que l'on nomme <%= @user_detail.institution %>. <br/>
     <% end %>
     <% if  @user_detail && @user_detail.id && @user_detail.biography != "" %>
-        <b> Biographie : </b> <%= @user_detail.biography %> <br/>
+        <b> Biographie : </b> <%= @user_detail.content_markdown.html_safe %> <br/>
     <% end %>
     <% if  @user_detail && @user_detail.id && @user_detail.website != "" %>
         <%= @user.name %> a même un site personnel : <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %> <br/>

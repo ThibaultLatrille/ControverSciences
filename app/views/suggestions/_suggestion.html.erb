@@ -20,7 +20,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="text-justify">
-            <%= suggestion.comment.html_safe %>
+            <%= suggestion.content_markdown.html_safe %>
           </div>
           <% if suggestion.timeline_id && suggestion.timeline_id > 0 %>
               <br/>

@@ -16,7 +16,8 @@
               <div class="form-group">
                 <%= f.label :comment, "Votre commentaire", class: 'control-label' %>
                 <br>
-                <%= f.text_area :comment, class: 'form-control textarea' %>
+                <div id="characterLeft"></div>
+                <%= f.text_area :comment, class: 'form-control textarea', id: "markdown-textarea", %>
                 <span class="help-block"></span>
               </div>
               <div class="row">
@@ -37,3 +38,33 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl']});
+        var max = 1200;
+        var len = $('#markdown-textarea').val().length;
+        if (len >= max) {
+            var ch = len - max;
+            $('#characterLeft').css({"color": "#a94442"});
+            $('#characterLeft').text(ch + ' caractères en trop !');
+        } else {
+            var ch = max - len;
+            $('#characterLeft').css({"color": "#5cb85c"});
+            $('#characterLeft').text(ch + ' caractères restants.');
+        }
+    });
+    $('#markdown-textarea' ).keyup(function () {
+        var max = 1200;
+        var len = $(this).val().length;
+        if (len >= max) {
+            var ch = len - max;
+            $('#characterLeft').css({"color": "#a94442"});
+            $('#characterLeft').text(ch + ' caractères en trop !');
+        } else {
+            var ch = max - len;
+            $('#characterLeft').css({"color": "#5cb85c"});
+            $('#characterLeft').text(ch + ' caractères restants.');
+        }
+    });
+</script>

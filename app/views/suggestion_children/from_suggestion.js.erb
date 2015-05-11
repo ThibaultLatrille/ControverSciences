@@ -1,7 +1,21 @@
 $("#children<%= params[:suggestion_id] %>").html("<%= escape_javascript(render partial: 'children', locals: { suggestion_children: @suggestion_children, suggestion_id: params[:suggestion_id]} ) %>");
 $("#button<%= params[:suggestion_id] %>").hide();
 $(document).ready(function() {
-    $('textarea', "#children<%= params[:suggestion_id] %>").autosize();
+    var textarea = $('textarea', "#children<%= params[:suggestion_id] %>");
+    textarea.markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl']});
+    var charleft = $('#characterLeft', "#children<%= params[:suggestion_id] %>");
+    var max = 1200;
+    var len = textarea.val().length;
+    if (len >= max) {
+        var ch = len - max;
+        charleft.css({"color": "#a94442"});
+        charleft.text(ch + ' caractères en trop !');
+    } else {
+        var ch = max - len;
+        charleft.css({"color": "#5cb85c"});
+        charleft.text(ch + ' caractères restants.');
+    }
+    textarea.autosize();
 });
 $(function () {
     $('[data-validate]', "#children<%= params[:suggestion_id] %>").click(function () {
@@ -22,4 +36,18 @@ $(function () {
             $('#iptaken').modal('show');
         });
     });
+});
+$('textarea', "#children<%= params[:suggestion_id] %>").keyup(function () {
+    var charleft = $('#characterLeft', "#children<%= params[:suggestion_id] %>");
+    var max = 1200;
+    var len = $(this).val().length;
+    if (len >= max) {
+        var ch = len - max;
+        charleft.css({"color": "#a94442"});
+        charleft.text(ch + ' caractères en trop !');
+    } else {
+        var ch = max - len;
+        charleft.css({"color": "#5cb85c"});
+        charleft.text(ch + ' caractères restants.');
+    }
 });

@@ -31,7 +31,7 @@
             <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
             <br/>
             <%= f.label :biography, "Biographie" %>
-            <%= f.text_area :biography, placeholder: "Votre biographie", class: 'form-control textarea' %>
+            <%= f.text_area :biography, placeholder: "Votre biographie", :id => "markdown-textarea", class: 'form-control textarea' %>
             <br/>
             <%= f.hidden_field :has_picture, value: @user_detail.picture? %>
             <%= f.hidden_field :delete_picture, value: false %>
@@ -90,8 +90,10 @@
   </div>
 </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl']});
         if ($('#user_detail_has_picture').val() === 'true') {
             $('#caption').show();
             $('#delete').show();
