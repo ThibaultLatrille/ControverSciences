@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422123340) do
+ActiveRecord::Schema.define(version: 20150510225613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -507,11 +507,12 @@ ActiveRecord::Schema.define(version: 20150422123340) do
     t.text     "comment"
     t.string   "email"
     t.string   "name"
-    t.integer  "balance",       default: 0
-    t.integer  "plus",          default: 0
-    t.integer  "minus",         default: 0
+    t.integer  "balance",          default: 0
+    t.integer  "plus",             default: 0
+    t.integer  "minus",            default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "content_markdown", default: ""
   end
 
   add_index "suggestion_children", ["suggestion_id"], name: "index_suggestion_children_on_suggestion_id", using: :btree
@@ -533,12 +534,13 @@ ActiveRecord::Schema.define(version: 20150422123340) do
     t.string   "email"
     t.string   "name"
     t.integer  "timeline_id"
-    t.integer  "balance",     default: 0
-    t.integer  "plus",        default: 0
-    t.integer  "minus",       default: 0
+    t.integer  "balance",          default: 0
+    t.integer  "plus",             default: 0
+    t.integer  "minus",            default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "children",    default: 0
+    t.integer  "children",         default: 0
+    t.text     "content_markdown", default: ""
   end
 
   add_index "suggestions", ["user_id"], name: "index_suggestions_on_user_id", using: :btree
@@ -657,6 +659,7 @@ ActiveRecord::Schema.define(version: 20150422123340) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "figure_id"
+    t.text     "content_markdown", default: ""
   end
 
   add_index "user_details", ["figure_id"], name: "index_user_details_on_figure_id", using: :btree
