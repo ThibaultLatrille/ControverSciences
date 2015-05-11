@@ -20,7 +20,7 @@
           <div class="panel-body">
           <span class="content">
             <div class="text-justify">
-              <%= suggestion_child.content_markdown %>
+              <%= suggestion_child.content_markdown.html_safe %>
             </div>
             <% if logged_in? && suggestion_child.user_id == current_user.id %>
               <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_child_path(suggestion_child.id), method: :delete,
