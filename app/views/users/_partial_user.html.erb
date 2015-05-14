@@ -11,12 +11,16 @@
   <div class="panel-body">
     <% if @user_detail && @user_detail.id && @user_detail.job != "" %>
         <% if @user_detail.institution != "" %>
-            <%= @user.name %> est <%= @user_detail.job  %> et travaille dans un lieu que l'on nomme <%= @user_detail.institution %>. <br/>
+            <%= @user.name %> est <%= @user_detail.job  %>
+            <br/>
+            <b> Institution : <%= @user_detail.institution %></b>
         <% else %>
-            <%= @user.name %> est <%= @user_detail.job  %> dans une lieu qu'il ne souhaite pas communiquer sur ce site. <br/>
+            <%= @user.name %> est <%= @user_detail.job  %><br/>
         <% end %>
     <% elsif @user_detail && @user_detail.id && @user_detail.institution != "" %>
-            <%= @user.name %> travaille dans un lieu que l'on nomme <%= @user_detail.institution %>. <br/>
+            <%= @user.name %>
+        <br/>
+        <b> Institution : <%= @user_detail.institution %></b>
     <% end %>
     <% if  @user_detail && @user_detail.id && @user_detail.biography != "" %>
         <b> Biographie : </b> <%= @user_detail.content_markdown.html_safe %> <br/>

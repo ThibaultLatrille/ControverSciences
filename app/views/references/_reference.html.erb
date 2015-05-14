@@ -20,7 +20,8 @@
       <div class="cd-timeline-img cd-color-orange">
       </div>
       <div class="cd-timeline-content">
-        <h2> <%= link_to "#{reference.title}", new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
+
+        <h2 style="font-size: 1.3em"> <%= link_to "#{reference.title}<br/><br/><span class=\"icon icon-comment bigger\"></span> Cette référence n'a pas encore été analysée".html_safe, new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
         </h2>
         <span class="cd-date"><%= reference.display_year %> - <b><%= reference.article ? "Article" : "Review" %></b></span>
       </div>
