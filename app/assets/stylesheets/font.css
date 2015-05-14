@@ -242,6 +242,10 @@
 	content: "\e62e";
 }
 
+.icon-geography:before {
+    content: "\e63d";
+}
+
 .icon-gear:before {
 	content: "\e62f";
 }
