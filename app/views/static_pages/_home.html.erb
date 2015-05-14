@@ -54,9 +54,10 @@
   <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
     Une passerelle entre la société et les scientifiques autour de sujets controversés.
   </h1>
+
   <div class="row">
     <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-6 col-lg-offset-2 col-lg-4 vcenter">
-      <object class="img-responsive" data=<%= path_to_image 'help-mission.svg' %> >
+      <object class="img-responsive" data=<%= path_to_image 'help-mission.svg' %>>
       </object>
     </div>
     <div class="col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-5 col-lg-offset-0 col-lg-4 vcenter">
@@ -67,10 +68,12 @@
         Quelques notions <b>scientifiques</b> vous auraient sauvé d’une situation embarrassante !
         <br/>
         <br/>
-        Les publications scientifiques sont souvent <b>opaques et compliquées</b>. Leur accès est souvent payant et incompréhensible !
+        Les publications scientifiques sont souvent <b>opaques et compliquées</b>. Leur accès est souvent payant et
+        incompréhensible !
         <br/>
         <br/>
-        <b>ControverSciences</b> a pour <b>mission</b> d’être une plateforme de <b>vulgarisation</b> ! C’est un lieu de <b>partage</b> de la science <b>accessible à tous</b> !
+        <b>ControverSciences</b> a pour <b>mission</b> d’être une plateforme de <b>vulgarisation</b> ! C’est un lieu de
+        <b>partage</b> de la science <b>accessible à tous</b> !
         <br/>
         <br/>
         Sur ControverSciences, il n’y a pas de discriminations intellectuelles ! Tout un chacun a accès au <b>savoir</b>.
@@ -80,6 +83,7 @@
         <br/>
         <br/>
       </h4>
+
       <div class="panel panel-default">
         <div class="panel-body">
           <h1 style="font-size: 2em; color: #07212B; font-weight: bold; margin-bottom: 20px; padding-bottom: 0">
@@ -93,6 +97,7 @@
   <h1 style="font-size: 2.8em">
     Les 3 piliers de ControverSciences
   </h1>
+
   <div class="row">
     <div class="col-xs-12 col-lg-offset-3 col-lg-6">
       <div class="row text-center vcenter">
@@ -100,27 +105,29 @@
           <h1 style="font-size: 2.6em; padding-bottom: 0">
             Prouver
           </h1>
+
           <div class="center-block">
             <div class="row">
-              <div class="col-md-offset-3 col-md-6">
+              <div class="col-xs-offset-3 col-xs-6">
                 <div class="center-block">
-                <%= image_tag("pillar-blue.png", alt: "Logo", :class => "img-responsive") %>
+                  <%= image_tag("pillar-blue.png", alt: "Logo", :class => "img-responsive") %>
                 </div>
               </div>
             </div>
           </div>
           <div class="text-center vcenter">
             <h4><br/>Si vous avez des arguments à apporter, une référence
-             scientifique est nécessaire pour les justifier !</h4>
+              scientifique est nécessaire pour les justifier !</h4>
           </div>
         </div>
         <div class="col-xs-12 col-md-4">
           <h1 style="font-size: 2.6em; padding-bottom: 0">
             Améliorer
           </h1>
+
           <div class="center-block">
             <div class="row">
-              <div class="col-md-offset-3 col-md-6">
+              <div class="col-xs-offset-3 col-xs-6">
                 <div class="center-block">
                   <%= image_tag("pillar-yellow.png", alt: "Logo", :class => "img-responsive") %>
                 </div>
@@ -135,17 +142,20 @@
         <div class="col-xs-12 col-md-4">
           <h1 style="font-size: 2.6em; padding-bottom: 0">
             Sélectionner
-          </h1>          <div class="center-block">
-          <div class="row">
-            <div class="col-md-offset-3 col-md-6">
-              <div class="center-block">
-                <%= image_tag("pillar-red.png", alt: "Logo", :class => "img-responsive") %>
+          </h1>
+
+          <div class="center-block">
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-6">
+                <div class="center-block">
+                  <%= image_tag("pillar-red.png", alt: "Logo", :class => "img-responsive") %>
+                </div>
               </div>
             </div>
           </div>
-        </div>
           <div class="text-center vcenter">
-            <h4><br/>Les contenus de bonne qualité survivront, ceux de moindre qualité seront supprimés par un algorithme.</h4>
+            <h4><br/>Les contenus de bonne qualité survivront, ceux de moindre qualité seront supprimés par un
+              algorithme.</h4>
           </div>
         </div>
       </div>
@@ -153,8 +163,8 @@
   </div>
 </section>
 <section id="newsletter">
-  <%= form_for( :newsletter, url: newsletters_path, remote: true,
-                html: {role: :form, 'data-model' => 'newsletter'}) do |f| %>
+  <%= form_for(:newsletter, url: newsletters_path, remote: true,
+               html: {role: :form, 'data-model' => 'newsletter'}) do |f| %>
       <div class="row">
         <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
           <h4>
@@ -172,7 +182,7 @@
         <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-3">
           <div id="invit" class="actions">
             <%= f.button "S\'inscrire &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
-                         class: 'btn btn-block btn-success', data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Inscription "}%>
+                         class: 'btn btn-block btn-success', data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Inscription "} %>
           </div>
         </div>
       </div>
@@ -183,6 +193,7 @@
   <h1 style="font-size: 3em">
     Controverses à l'affiche
   </h1>
+
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
       <div class="row">
@@ -198,10 +209,10 @@
   </h1>
 
   <div class="row">
-    <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+    <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-3 col-lg-6">
       <div class="row">
         <a href="<%= empty_references_path %>" style="color: white">
-          <div class="col-xs-12 col-md-4 hvr-grow">
+          <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-4 hvr-grow">
             <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
               Enrichir
             </h1>
@@ -215,7 +226,7 @@
           </div>
         </a>
         <a href="<%= empty_comments_path %>" style="color: white">
-          <div class="col-xs-12 col-md-4 hvr-grow">
+          <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-4 hvr-grow">
             <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
               Analyser
             </h1>
@@ -229,7 +240,7 @@
           </div>
         </a>
         <a href="<%= empty_summaries_path %>" style="color: white">
-          <div class="col-xs-12 col-md-4 hvr-grow">
+          <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-4 hvr-grow">
             <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
               Synthétiser
             </h1>
@@ -266,7 +277,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Un grand merci de votre interêt à ControverSciences, nous vous tiendrons au courant des avancées du projet avec plaisir ;-) </h4>
+        <h4 class="modal-title" id="myModalLabel"> Un grand merci de votre interêt à ControverSciences, nous vous
+          tiendrons au courant des avancées du projet avec plaisir ;-) </h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
@@ -280,7 +292,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Vous êtes déjà inscrit à ce bulletion d'information, ou votre adresse est invalide. </h4>
+        <h4 class="modal-title" id="myModalLabel"> Vous êtes déjà inscrit à ce bulletion d'information, ou votre adresse
+          est invalide. </h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
