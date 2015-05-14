@@ -1,8 +1,5 @@
 <tr class="user">
   <td> <%= link_to user.name, user %>
-    <% if current_user && current_user.admin?  %>
-        <%= user.email %>
-    <% end %>
   </td>
   <td> <%= number_with_precision(user.score, precision: 2) %> </td>
   <td>
