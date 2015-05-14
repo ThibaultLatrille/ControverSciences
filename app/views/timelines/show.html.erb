@@ -122,7 +122,7 @@
 
 <% if @references.any? && @timeline.binary != '' && @timeline.total_binary > 0 %>
   <div id="show-sort" class="btn btn-info">
-    <%=  "#{@timeline.name} #{@timeline.binary.split('&&')[1].humanize} ou #{@timeline.binary.split('&&')[0].downcase} " -%>
+    <%=  "#{@timeline.name} #{@timeline.binary.split('&&')[1].humanize} ou #{@timeline.binary.split('&&')[0].downcase}, cliquer ici pour le savoir. " -%>
   </div>
   <div id="sort" style="display: none">
     <div class="btn-group-justified" data-toggle="buttons">
@@ -135,7 +135,7 @@
           <% elsif key > 3 %>
               <label class="btn btn-default active btn-frog<%= key %>"
                      title="<%= @timeline["binary_#{key}".to_sym] -%>
-                      <%= @timeline["binary_#{key}".to_sym] > 1 ? "références montrent" : "référence montre" -%><%= value %> que
+                      <%= @timeline["binary_#{key}".to_sym] > 1 ? "références montrent" : "référence montre" -%>   <%= value %> que
                      <%= @timeline.binary.split('&&')[1].downcase -%>." data-toggle="tooltip">
           <% else %>
               <label class="btn btn-default active btn-frog<%= key %>"
