@@ -54,7 +54,7 @@
           </button>
           <ul class="dropdown-menu" role="menu" >
             <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-              <%= link_to "Magique (par défault)", summaries_path( timeline_id: params[:timeline_id],
+              <%= link_to "Magique (par défaut)", summaries_path( timeline_id: params[:timeline_id],
                                                                                       :sort=> 'score',
                                                                                       :order => params[:order]) %> </li>
             <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
@@ -71,7 +71,7 @@
           </button>
           <ul class="dropdown-menu" role="menu" >
             <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-              <%= link_to "Décroissant (par défault)", summaries_path( timeline_id: params[:timeline_id],
+              <%= link_to "Décroissant (par défaut)", summaries_path( timeline_id: params[:timeline_id],
                                                                        :sort=> params[:sort], :order => 'desc') %> </li>
             <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
               <%= link_to "Croissant", summaries_path( timeline_id: params[:timeline_id],

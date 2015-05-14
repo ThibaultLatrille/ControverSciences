@@ -30,11 +30,12 @@
                  content: "Ils servent à calculer les scores des analyses et synthèses afin de déterminer les meilleures.
                  Plus un contributeur a un score élevé plus les crédits qu'il a distribués ont du poids." %>
       <%= render 'collapse', id: 3, title: "Comment sont calculés les scores des contributeurs ?",
-                 content: "Par un algorithme secret qui ne sera jamais révélé afin que les administrateurs puissent favoriser
-                  en toute discrétion leurs contributeurs préférés... <br/>En réalité ces scores sont re-calculés toutes les nuits par nos serveurs.
-                  Il s'agit d'une moyenne harmonique de différents indices.
+                 content: 'Par un algorithme secret qui ne sera jamais révélé afin que les administrateurs puissent favoriser
+                  en toute discrétion leurs contributeurs préférés... <br/>
+                  E réalité ces scores sont re-calculés toutes les nuits.
+                  Il s\'agit d\'une moyenne harmonique de différents indices.
                   Ces indices prennent en compte la qualité des analyses et synthèses, ainsi que la qualité des références ajoutées par le contributeur.
-                  Le score est un nombre réel compris entre 1 et 4.".html_safe %>
+                  Le score est un nombre réel supérieur à 1.'.html_safe %>
       <%= render 'collapse', id: 4, title: "Qu'advient-il des contenus de mauvaise qualité ?",
                  content: "Un algorithme s'occupe de nettoyer de temps en temps les contenus désuets qui ne sont pas accrédités." %>
       <%= render 'collapse', id: 1, title: "Comment sont évités les trolls sur le site ?",
