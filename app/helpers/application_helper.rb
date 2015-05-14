@@ -16,6 +16,7 @@ module ApplicationHelper
      "planet" => "Ecologie",
      "epistemology" => "Epistémologie",
      "ethics" => "Ethique",
+     "geography" => "Géographie",
      "geology" => "Géologie",
      "history" => "Histoire",
      "informatics" => "Informatique",

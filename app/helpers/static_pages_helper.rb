@@ -17,7 +17,7 @@ module StaticPagesHelper
   end
 
   def meta_description
-    "Portail de vulgarisation scientique déstiné à éclairer débats et controverses.
+    "Portail de vulgarisation scientique destiné à éclairer débats et controverses.
       Animé par des scientifiques, pour tout public"
   end
 
