@@ -72,7 +72,7 @@ class ReferencesController < ApplicationController
       else
         if @reference.save
           flash[:success] = "Référence ajoutée."
-          redirect_to @reference
+          redirect_to new_comment_path( reference_id: @reference.id )
         else
           params[:timeline_id] = reference_params[:timeline_id]
           render 'new'
