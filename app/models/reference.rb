@@ -22,7 +22,7 @@ class Reference < ActiveRecord::Base
   validates :timeline_id, presence: true
 
   validates_presence_of :title, :author, :year, :url, :journal
-  validates_uniqueness_of :timeline_id, :scope => [:doi]
+  validates_uniqueness_of :timeline_id, :if => Proc.new {|c| not c.doi.blank?}, :scope => [:doi]
 
   def user_name
     User.select( :name ).find( self.user_id ).name
