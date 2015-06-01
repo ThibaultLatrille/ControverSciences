@@ -45,11 +45,11 @@ module ApplicationHelper
   end
 
   def star_hash
-    { 1 => "Cette référence n'a rien à faire là et est inintéressante.",
-      2 => "Cette référence est intéressante mais n'apporte rien.",
-      3 => "Cette référence est scientifiquement peu solide.",
-      4 => "Cette référence est intéressante et rigoureuse.",
-      5 => "Cette référence est à lire absolument !"}
+    { 1 => "Cette référence n'est pas du tout rigoureuse et n'apporte rien à la controverse.",
+      2 => "Cette référence est rigoureuse mais n'apporte rien à la controverse.",
+      3 => "Cette référence est peu rigoureuse mais est importante pour comprendre la controverse.",
+      4 => "Cette référence est rigoureuse et est importante pour comprendre la controverse.",
+      5 => "Cette référence est à lire absolument dans le cadre de cette controverse !"}
   end
 
   def binary_hash
