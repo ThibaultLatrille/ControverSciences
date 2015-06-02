@@ -18,7 +18,7 @@
             <% @summary_wins.each do |com| %>
                 <tr>
                   <td><span class="icon-5" style="font-size: 2em;"></span></td>
-                  <td>  <%= link_to "Votre synthèse", notifications_summary_selection_win_path(id: com.id ) %>
+                  <td> Votre <%= link_to "synthèse", notifications_summary_selection_win_path(id: com.id ) %>
                     de la controverse <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a pris la première place. </td>
                   <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
                                   notifications_summary_selection_win_path(id: com.id ) %></td>
@@ -27,7 +27,7 @@
             <% @summary_losses.each do |com| %>
                 <tr>
                   <td><span class="icon-3" style="font-size: 2em;"></span></td>
-                  <td> <%= link_to "Votre synthèse", notifications_summary_selection_loss_path(id: com.id ) %>
+                  <td> Votre <%= link_to "synthèse", notifications_summary_selection_loss_path(id: com.id ) %>
                     de la controverse <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %> a perdu la première place. </td>
                   <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
                                   notifications_summary_selection_loss_path(id: com.id ) %></td>
@@ -36,7 +36,7 @@
             <% @wins.each do |notif| %>
                 <tr>
                   <td><span class="icon-5" style="font-size: 2em;"></span></td>
-                  <td> <%= link_to notif.reference.article ? article_hash[notif.field] : review_hash[notif.field],
+                  <td> Votre <%= link_to notif.reference.article ? article_hash[notif.field] : review_hash[notif.field],
                                    notifications_selection_win_path(id: notif.comment_id,
                                                                    field: notif.field ) %>
                     de la référence <%= link_to notif.reference.title, reference_path(notif.reference.id) %>, dans la controverse
@@ -48,7 +48,7 @@
             <% @losses.each do |notif| %>
                 <tr>
                   <td><span class="icon-3" style="font-size: 2em;"></span></td>
-                  <td> <%= link_to notif.reference.article ? article_hash[notif.field] : review_hash[notif.field],
+                  <td> Votre <%= link_to notif.reference.article ? article_hash[notif.field] : review_hash[notif.field],
                                                 notifications_selection_loss_path(id: notif.comment_id,
                                                                                    field: notif.field ) %>
                     de la référence <%= link_to notif.reference.title, reference_path(notif.reference.id) %>, dans la controverse

@@ -55,8 +55,8 @@
     <% end %>
     <span class="pull-right">
         <button type="button" class="btn btn-success" data-placement="left"
-                data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes/add"
-                title="<%= @timeline.nb_likes.to_s + " personnes s'intéressent à cette controverse" %>">
+                data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
+                title="<%= @timeline.nb_likes.to_s + " contributeurs s'intéressent à cette controverse" %>">
           <span class="glyphicon glyphicon-thumbs-up" id="like<%= @timeline.id %>"> <%= @timeline.nb_likes %> </span>
         </button>
     </span>
@@ -160,29 +160,9 @@
     <%= render @references %>
     </div>
 <% end %>
-  <% if logged_in? %>
-      <div class="row">
-        <div class="col-xs-12 col-md-6">
-          <div class="pull-right">
-            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
-    </span> Ajouter une référence à cette controverse. <br/> Diablement rapide si vous connaissez son titre".html_safe,
-                        new_reference_path( timeline_id: @timeline.id),
-                        class: "btn btn-primary" %>
-          </div>
-        </div>
-        <div class="col-xs-12 col-md-6">
-          <div>
-            <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-    </span> Suivre les nouvelles références qui seront <br/> ajoutées à cette controverse".html_safe,
-                        following_timelines_path( timeline_id: @timeline.id ),
-                        method: :post, class: "btn btn-success" %>
-          </div>
-        </div>
-      </div>
-  <% else %>
       <div class="row">
         <div class="col-xs-12 col-md-6 col-md-offset-3">
-          <div class="pull-right">
+          <div class="center">
             <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
     </span> Ajouter une référence à cette controverse. <br/> Diablement rapide si vous connaissez son titre".html_safe,
                         new_reference_path( timeline_id: @timeline.id),
@@ -190,7 +170,6 @@
           </div>
         </div>
       </div>
-  <% end %>
   <div>
     <br/>
   </div>
@@ -202,7 +181,19 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Votre intérêt pour cette controverse a déjà été pris en compte. </h4>
+        <% if logged_in? %>
+            <br/>
+            <h2 class="modal-title" id="myModalLabel"> Votre intérêt pour cette controverse a déjà été pris en compte. </h2>
+        <% else %>
+            <br/>
+            <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette action</h2>
+            <br/>
+            <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
+            <div class="pull-right">
+              <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
+            </div>
+        <% end %>
+        <br/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-info" data-dismiss="modal"> Ok </button>
@@ -252,7 +243,7 @@
             var self = $(this);
             self.hide();
             self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-            $.get(self.data('validate'), {
+            $.post(self.data('validate'), {
                 id: self.val()
             }).success(function () {
                 $('.loader-like').remove();

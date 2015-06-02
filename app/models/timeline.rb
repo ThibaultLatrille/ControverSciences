@@ -6,16 +6,17 @@ class Timeline < ActiveRecord::Base
   has_many :timeline_contributors, dependent: :destroy
   has_many :references, dependent: :destroy
   has_many :summaries, dependent: :destroy
-  has_many :ratings
-  has_many :comments
-  has_many :links
-  has_many :votes
+  has_many :ratings, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_many :links, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
-  has_many :following_timelines, dependent: :destroy
-  has_many :notification_timelines, dependent: :destroy
+  has_many :notifications, dependent: :destroy
   has_one :suggestion, dependent: :destroy
 
   after_create :cascading_save_timeline
@@ -102,7 +103,11 @@ class Timeline < ActiveRecord::Base
       text = "Des idées pour améliorer le titre de la controverse : **#{self.name}** ?"
       Suggestion.create( user_id: self.user_id, name: self.user_name, timeline_id: self.id, comment: text )
     end
-    NewTimeline.create( timeline_id: self.id )
+    notifications = []
+    User.all.pluck(:id).each do |user_id|
+      notifications << Notification.new( user_id: user_id, timeline_id: self.id, category: 1 )
+    end
+    Notification.import notifications
     TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
   end
 

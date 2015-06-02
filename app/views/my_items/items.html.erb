@@ -32,8 +32,8 @@
           </tr>
       <% else %>
           <% @timelines.each do |timeline| %>
-              <tr class="following-timeline">
-                <td> <%= link_to timeline.name, edit_timeline_path(timeline.id) %> </td>
+              <tr class="notification-timeline">
+                <td> <%= link_to timeline.name, timeline_path(timeline.id) %> </td>
                 <td>
                   <% timeline.get_tag_list.each do |name| %>
                       <span class="icon-<%= name %>"></span>
