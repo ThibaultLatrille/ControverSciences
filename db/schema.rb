@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510225613) do
+ActiveRecord::Schema.define(version: 20150601124951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20150510225613) do
     t.float    "f_6_score",        default: 0.0
     t.float    "f_7_score",        default: 0.0
     t.integer  "figure_id"
+    t.boolean  "notif_generated",  default: false
   end
 
   add_index "comments", ["figure_id"], name: "index_comments_on_figure_id", using: :btree
@@ -180,45 +181,6 @@ ActiveRecord::Schema.define(version: 20150510225613) do
   add_index "figures", ["timeline_id"], name: "index_figures_on_timeline_id", using: :btree
   add_index "figures", ["user_id"], name: "index_figures_on_user_id", using: :btree
 
-  create_table "following_new_timelines", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "tag_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "following_new_timelines", ["user_id"], name: "index_following_new_timelines_on_user_id", using: :btree
-
-  create_table "following_references", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "reference_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "following_references", ["reference_id"], name: "index_following_references_on_reference_id", using: :btree
-  add_index "following_references", ["user_id"], name: "index_following_references_on_user_id", using: :btree
-
-  create_table "following_summaries", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "timeline_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "following_summaries", ["timeline_id"], name: "index_following_summaries_on_timeline_id", using: :btree
-  add_index "following_summaries", ["user_id"], name: "index_following_summaries_on_user_id", using: :btree
-
-  create_table "following_timelines", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "timeline_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "following_timelines", ["timeline_id"], name: "index_following_timelines_on_timeline_id", using: :btree
-  add_index "following_timelines", ["user_id"], name: "index_following_timelines_on_user_id", using: :btree
-
   create_table "issues", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -232,12 +194,12 @@ ActiveRecord::Schema.define(version: 20150510225613) do
 
   create_table "likes", force: true do |t|
     t.integer  "timeline_id"
-    t.inet     "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
-  add_index "likes", ["ip", "timeline_id"], name: "index_likes_on_ip_and_timeline_id", unique: true, using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "links", force: true do |t|
     t.integer  "user_id"
@@ -306,26 +268,6 @@ ActiveRecord::Schema.define(version: 20150510225613) do
     t.datetime "updated_at"
   end
 
-  create_table "notification_comments", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "comment_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notification_comments", ["comment_id"], name: "index_notification_comments_on_comment_id", using: :btree
-  add_index "notification_comments", ["user_id"], name: "index_notification_comments_on_user_id", using: :btree
-
-  create_table "notification_references", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "reference_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notification_references", ["reference_id"], name: "index_notification_references_on_reference_id", using: :btree
-  add_index "notification_references", ["user_id"], name: "index_notification_references_on_user_id", using: :btree
-
   create_table "notification_selection_losses", force: true do |t|
     t.integer  "user_id"
     t.integer  "comment_id"
@@ -348,17 +290,6 @@ ActiveRecord::Schema.define(version: 20150510225613) do
   add_index "notification_selection_wins", ["comment_id"], name: "index_notification_selection_wins_on_comment_id", using: :btree
   add_index "notification_selection_wins", ["user_id"], name: "index_notification_selection_wins_on_user_id", using: :btree
 
-  create_table "notification_selections", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "new_comment_id"
-    t.integer  "old_comment_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "field"
-  end
-
-  add_index "notification_selections", ["user_id"], name: "index_notification_selections_on_user_id", using: :btree
-
   create_table "notification_suggestions", force: true do |t|
     t.integer  "user_id"
     t.integer  "suggestion_child_id"
@@ -370,16 +301,6 @@ ActiveRecord::Schema.define(version: 20150510225613) do
   add_index "notification_suggestions", ["suggestion_child_id"], name: "index_notification_suggestions_on_suggestion_child_id", using: :btree
   add_index "notification_suggestions", ["suggestion_id"], name: "index_notification_suggestions_on_suggestion_id", using: :btree
   add_index "notification_suggestions", ["user_id"], name: "index_notification_suggestions_on_user_id", using: :btree
-
-  create_table "notification_summaries", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "summary_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notification_summaries", ["summary_id"], name: "index_notification_summaries_on_summary_id", using: :btree
-  add_index "notification_summaries", ["user_id"], name: "index_notification_summaries_on_user_id", using: :btree
 
   create_table "notification_summary_selection_losses", force: true do |t|
     t.integer  "user_id"
@@ -401,25 +322,25 @@ ActiveRecord::Schema.define(version: 20150510225613) do
   add_index "notification_summary_selection_wins", ["summary_id"], name: "index_notification_summary_selection_wins_on_summary_id", using: :btree
   add_index "notification_summary_selection_wins", ["user_id"], name: "index_notification_summary_selection_wins_on_user_id", using: :btree
 
-  create_table "notification_summary_selections", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "old_summary_id"
-    t.integer  "new_summary_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notification_summary_selections", ["user_id"], name: "index_notification_summary_selections_on_user_id", using: :btree
-
-  create_table "notification_timelines", force: true do |t|
+  create_table "notifications", force: true do |t|
     t.integer  "user_id"
     t.integer  "timeline_id"
+    t.integer  "reference_id"
+    t.integer  "summary_id"
+    t.integer  "comment_id"
+    t.integer  "like_id"
+    t.integer  "category"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "field"
   end
 
-  add_index "notification_timelines", ["timeline_id"], name: "index_notification_timelines_on_timeline_id", using: :btree
-  add_index "notification_timelines", ["user_id"], name: "index_notification_timelines_on_user_id", using: :btree
+  add_index "notifications", ["comment_id"], name: "index_notifications_on_comment_id", using: :btree
+  add_index "notifications", ["like_id"], name: "index_notifications_on_like_id", using: :btree
+  add_index "notifications", ["reference_id"], name: "index_notifications_on_reference_id", using: :btree
+  add_index "notifications", ["summary_id"], name: "index_notifications_on_summary_id", using: :btree
+  add_index "notifications", ["timeline_id"], name: "index_notifications_on_timeline_id", using: :btree
+  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "pending_users", force: true do |t|
     t.integer  "user_id"
@@ -559,6 +480,7 @@ ActiveRecord::Schema.define(version: 20150510225613) do
     t.text     "caption",          default: ""
     t.text     "caption_markdown", default: ""
     t.integer  "figure_id"
+    t.boolean  "notif_generated",  default: false
   end
 
   add_index "summaries", ["figure_id"], name: "index_summaries_on_figure_id", using: :btree
