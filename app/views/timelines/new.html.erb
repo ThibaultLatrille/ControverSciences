@@ -47,18 +47,7 @@
                 Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
               </div>
             </div>
-        </br>
-        <%= f.label :debate do %>
-            <%= f.check_box :debate %>
-            <span> Ouvrir un fil de discussion pour améliorer le titre de la controverse </span>
-        <% end %>
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            En cochant cette case, vous permettez aux utilisateurs de proposer une autre formulation pour le titre de la controverse.
-            Quoi qu'il en soit, vous êtes le seul à être autorisé à modifier le titre de la controverse.
-          </div>
-        </div>
-        </br>
+    </br>
             <%= f.button "Créer la controverse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                          class: 'btn btn-success btn-lg pull-right',
                          data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Création en cours "}%>
