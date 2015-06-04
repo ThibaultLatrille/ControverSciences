@@ -1,65 +1,93 @@
 <% provide(:title, "Nouvelle controverse") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-      <h3>Créer une nouvelle Controverse</h3>
-      </div>
-      <div class="panel-body">
-    <%= form_for(@timeline) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Créer une nouvelle Controverse</h3>
+        </div>
+        <div class="panel-body">
+          <%= form_for(@timeline) do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
 
-        <%= f.label :Nom, "Titre de la controverse" %>
-        <%= f.text_field :name, class: 'form-control' %>
-            </br>
-        <%= f.label :Tags, "Thèmes" %> </br>
-            <div  class="container-fluid">
-              <div class="row"  data-toggle="buttons">
-                <% tags_hash.each do |key, value| %>
-                    <% if @tag_list.include? key %>
-                        <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
-                          <div class="my-btn">
-                            <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
-                            <span class="fat icon-<%= key %>"></span> <%= value %>
+              <%= f.label :Nom, "Titre de la controverse" %>
+              <%= f.text_field :name, class: 'form-control' %>
+              </br>
+              <%= f.label :Tags, "Thèmes" %> </br>
+              <div class="container-fluid">
+                <div class="row" data-toggle="buttons">
+                  <% tags_hash.each do |key, value| %>
+                      <% if @tag_list.include? key %>
+                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
+                            <div class="my-btn">
+                              <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
+                              <span class="fat icon-<%= key %>"></span> <%= value %>
+                            </div>
                           </div>
-                        </div>
-                    <% else %>
-                        <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
-                          <div class="my-btn">
-                            <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
-                            <span class="fat icon-<%= key %>"></span> <%= value %>
+                      <% else %>
+                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+                            <div class="my-btn">
+                              <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
+                              <span class="fat icon-<%= key %>"></span> <%= value %>
+                            </div>
                           </div>
-                        </div>
-                    <% end %>
-                <% end %>
+                      <% end %>
+                  <% end %>
+                </div>
               </div>
-            </div>
-            <br/>
-        <%= f.label :binary do %>
-        <%= f.check_box :binary %>
-            <span> Cette controverse est une question fermée, à laquelle on pourrait répondre par oui ou non </span>
-            <% end %>
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                En cochant cette case, vous permettez aux contributeurs de voter pour situer chaque référence par rapport à question posée.
-                De plus vous permettez aux visiteurs d'avoir plus d'informations, et qui plus est synthétisé.
-                Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
+              <br/>
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <%= f.label :binary do %>
+                      <%= f.check_box :binary, id: "check-box", value: true %>
+                      <span> Pour cette controverse, il existe deux réponses antagonistes </span>
+                  <% end %>
+                  <div id="binary-box">
+                    <br/>
+                    <div class="row">
+                      <div class="col-xs-4">
+                        <br/>
+                        <%= f.text_field :binary_left, class: 'form-control', value: "", placeholder: "Oui/Blanc/Inné/..." %>
+                        <br/>
+                      </div>
+                      <div class="col-xs-4 center">
+                          <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
+                      </div>
+                      <div class="col-xs-4">
+                        <br/>
+                        <%= f.text_field :binary_right, class: 'form-control', value: "", placeholder:  "Non/Noir/Acquis/..." %>
+                        <br/>
+                      </div>
+                    </div>
+                    <br/>
+                  </div>
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                      En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les références.
+                      Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-    </br>
-            <%= f.button "Créer la controverse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                         class: 'btn btn-success btn-lg pull-right',
-                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Création en cours "}%>
-    <% end %>
+              <%= f.button "Créer la controverse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success btn-lg pull-right',
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Création en cours "} %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
 </div>
-</div>
 
-<%= javascript_tag do %>
-    $(document).ready(function(){
-    $('.my-btn').responsiveEqualHeightGrid();
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.my-btn').responsiveEqualHeightGrid();
+        $('#check-box').click(function(){
+            if ($(this).is(':checked')){
+                $('#binary-box').show(500)
+            }else{
+                $('#binary-box').hide(500)
+            }
+        });
     })
-<% end %>
+</script>

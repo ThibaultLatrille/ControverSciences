@@ -1,7 +1,7 @@
 class Timeline < ActiveRecord::Base
   include ApplicationHelper
 
-  attr_accessor :tag_list
+  attr_accessor :tag_list, :binary_left, :binary_right
   belongs_to :user
   has_many :timeline_contributors, dependent: :destroy
   has_many :references, dependent: :destroy
@@ -25,6 +25,7 @@ class Timeline < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :name, presence: true, length: { maximum: 180 }
+  validate :binary_valid
 
   def user_name
     User.select( :name ).find( self.user_id ).name
@@ -97,6 +98,21 @@ class Timeline < ActiveRecord::Base
   end
 
   private
+
+  def binary_valid
+    if self.binary != ""
+      if self.binary.split('&&')[0].blank?
+        errors.add(:base, "Un des antagoniste est vide")
+      elsif self.binary.split('&&')[0].length > 20
+        errors.add(:base, "Un des antagoniste est trop long (>20 caractères)")
+      end
+      if self.binary.split('&&')[1].blank?
+        errors.add(:base, "Un des antagoniste est vide")
+      elsif self.binary.split('&&')[1].length > 20
+        errors.add(:base, "Un des antagoniste est trop long (>20 caractères)")
+      end
+    end
+  end
 
   def cascading_save_timeline
     text = "Discussion libre autour de la controverse : **#{self.name.strip}**"

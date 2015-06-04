@@ -35,6 +35,7 @@ class TimelinesController < ApplicationController
 
   def new
     @timeline = Timeline.new
+    @timeline.binary = true
     @tag_list = []
   end
 
@@ -42,6 +43,8 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find( params[:id] )
     @tag_list = @timeline.get_tag_list
     if @timeline.binary != ""
+      @timeline.binary_left = @timeline.binary.split('&&')[0]
+      @timeline.binary_right = @timeline.binary.split('&&')[1]
       @timeline.binary = true
     else
       @timeline.binary = false
@@ -53,7 +56,7 @@ class TimelinesController < ApplicationController
     if @timeline.user_id == current_user.id
       @timeline.name = timeline_params[:name]
       if timeline_params[:binary] != "0"
-        @timeline.binary = "Non&&Oui"
+        @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
       else
         @timeline.binary = ""
       end
@@ -64,6 +67,10 @@ class TimelinesController < ApplicationController
           flash[:success] = "Controverse modifiée."
           redirect_to @timeline
       else
+        @tag_list = @timeline.get_tag_list
+        @timeline.binary_left = @timeline.binary.split('&&')[0]
+        @timeline.binary_right = @timeline.binary.split('&&')[1]
+        @timeline.binary = true
         render 'edit'
       end
     else
@@ -74,7 +81,7 @@ class TimelinesController < ApplicationController
   def create
     @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name], debate: true)
     if timeline_params[:binary] == "1"
-      @timeline.binary = "Non&&Oui"
+      @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
     else
       @timeline.binary = ""
     end
@@ -87,6 +94,8 @@ class TimelinesController < ApplicationController
     else
       @tag_list = @timeline.get_tag_list
       if @timeline.binary != ""
+        @timeline.binary_left = @timeline.binary.split('&&')[0]
+        @timeline.binary_right = @timeline.binary.split('&&')[1]
         @timeline.binary = true
       else
         @timeline.binary = false
@@ -120,6 +129,6 @@ class TimelinesController < ApplicationController
   private
 
   def timeline_params
-    params.require(:timeline).permit(:name, :binary)
+    params.require(:timeline).permit(:name, :binary, :binary_left, :binary_right)
   end
 end

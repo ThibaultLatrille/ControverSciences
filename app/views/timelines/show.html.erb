@@ -118,11 +118,15 @@
   <% end %>
 </div>
 
-<% if @references.any? && @timeline.binary != '' && @timeline.total_binary > 0 %>
-  <div id="show-sort" class="btn btn-info">
-    <%=  "#{@timeline.name} #{@timeline.binary.split('&&')[1].humanize} ou #{@timeline.binary.split('&&')[0].downcase}, cliquer ici pour le savoir. " -%>
+  <% if @references.any? && @timeline.binary != '' && @timeline.total_binary > 0 %>
+  <div class="center">
+    <br/>
+    <b style="font-size: 2.2em"><%=  @timeline.binary.split('&&')[0].humanize  -%></b>
+    &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
+    <b style="font-size: 2.2em"><%=  @timeline.binary.split('&&')[1].humanize  -%></b>
   </div>
-  <div id="sort" style="display: none">
+      <br/><br/>
+  <div id="sort">
     <div class="btn-group-justified" data-toggle="buttons">
       <% binary_hash.each do |key, value| %>
           <% if key < 3 %>
@@ -256,16 +260,13 @@
         });
     });
     $(function () {
-        $('#show-sort').click(function(){$(this).hide(500);$('#sort').show(500)});
-    });
-    $(function () {
         $('.btn-frog1').click(function(){if($(this).hasClass("active")){$('.binary1').hide(500);}else{$('.binary1').show(500);}});
     });
     $(function () {
         $('.btn-frog2').click(function(){if($(this).hasClass("active")){$('.binary2').hide(500);}else{$('.binary2').show(500);}});
     });
     $(function () {
-        $('.btn-frog3').click(function(){if($(this).hasClass("active")){$(".binary0, .binary3").hide(500);}else{$(".binary0, .binary3").show(500);}});
+        $('.btn-frog3').click(function(){if($(this).hasClass("active")){$(".binary3").hide(500);}else{$(".binary3").show(500);}});
     });
     $(function () {
         $('.btn-frog4').click(function(){if($(this).hasClass("active")){$('.binary4').hide(500);}else{$('.binary4').show(500);}});
