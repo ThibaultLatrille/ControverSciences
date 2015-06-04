@@ -66,8 +66,8 @@ Rails.application.routes.draw do
   resources :suggestion_children, only: [:create, :show, :edit, :update, :destroy]
   get "/fetch_children" => 'suggestion_children#from_suggestion', as: 'fetch_children'
 
-  get 'suggestion_votes/add'
-  get 'suggestion_child_votes/add'
+  resources :suggestion_votes, only: [:create]
+  resources :suggestion_child_votes, only: [:create]
 
   resources :issues, only: [:create]
   resources :figures, only: [:create]

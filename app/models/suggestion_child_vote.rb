@@ -1,8 +1,10 @@
 class SuggestionChildVote < ActiveRecord::Base
   belongs_to :suggestion_child
+  belongs_to :user
 
-  validates :ip, presence: true
+  validates :user_id, presence: true
   validates :suggestion_child_id, presence: true
+  validates_uniqueness_of :user_id, :scope => [:suggestion_child_id, :value]
 
   after_create  :cascading_save_vote
 

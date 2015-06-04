@@ -60,7 +60,7 @@
             <% @suggestions.each do |notif| %>
                 <tr>
                   <td><span class="icon-4" style="font-size: 2em;"></span></td>
-                  <td> <%= link_to "#{notif.suggestion_child.name.blank? ? "Un illustre anonyme" : notif.suggestion_child.name } a repondu à votre commentaire",
+                  <td> <%= link_to "#{notif.suggestion_child.user_name} a repondu à votre commentaire",
                                    notifications_suggestion_path(id: notif.suggestion_child_id ), class: "btn btn-primary" %> </td>
                   <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
                                   notifications_suggestion_path(id: notif.suggestion_child_id ) %></td>

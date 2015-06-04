@@ -52,7 +52,6 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find( params[:id] )
     if @timeline.user_id == current_user.id
       @timeline.name = timeline_params[:name]
-      @timeline.debate = timeline_params[:debate]
       if timeline_params[:binary] != "0"
         @timeline.binary = "Non&&Oui"
       else
@@ -64,7 +63,6 @@ class TimelinesController < ApplicationController
       if @timeline.save
           flash[:success] = "Controverse modifiée."
           redirect_to @timeline
-        end
       else
         render 'edit'
       end
@@ -74,7 +72,7 @@ class TimelinesController < ApplicationController
   end
 
   def create
-    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name], debate: timeline_params[:debate])
+    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name], debate: true)
     if timeline_params[:binary] == "1"
       @timeline.binary = "Non&&Oui"
     else
@@ -86,7 +84,6 @@ class TimelinesController < ApplicationController
     if @timeline.save
         flash[:success] = "Controverse ajoutée !"
         redirect_to @timeline
-      end
     else
       @tag_list = @timeline.get_tag_list
       if @timeline.binary != ""
@@ -123,6 +120,6 @@ class TimelinesController < ApplicationController
   private
 
   def timeline_params
-    params.require(:timeline).permit(:name, :binary, :debate)
+    params.require(:timeline).permit(:name, :binary)
   end
 end

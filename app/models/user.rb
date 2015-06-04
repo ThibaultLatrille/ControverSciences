@@ -17,6 +17,10 @@ class User < ActiveRecord::Base
   has_many :notification_suggestions, dependent: :destroy
   has_many :visite_references, dependent: :destroy
   has_many :visite_timelines, dependent: :destroy
+  has_many :suggestions, dependent: :destroy
+  has_many :suggestion_children, dependent: :destroy
+  has_many :suggestion_votes, dependent: :destroy
+  has_many :suggestion_child_votes, dependent: :destroy
   has_many :comment_types, dependent: :destroy
   has_many :comment_mistakes, class_name: "CommentType", foreign_key: "target_user_id"
 

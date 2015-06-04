@@ -100,7 +100,7 @@ class Timeline < ActiveRecord::Base
 
   def cascading_save_timeline
     text = "Discussion libre autour de la controverse : **#{self.name.strip}**"
-    Suggestion.create( user_id: self.user_id, name: self.user_name, timeline_id: self.id, comment: text )
+    Suggestion.create( user_id: self.user_id, timeline_id: self.id, comment: text )
     notifications = []
     User.all.pluck(:id).each do |user_id|
       notifications << Notification.new( user_id: user_id, timeline_id: self.id, category: 1 )
@@ -110,6 +110,9 @@ class Timeline < ActiveRecord::Base
   end
 
   def updating_with_params
+    sug = Suggestion.find_by( timeline_id: self.id )
+    sug.comment = "Discussion libre autour de la controverse : **#{self.name.strip}**"
+    sug.save
     binary = self.binary_was
     yield
     if binary != self.binary

@@ -1,5 +1,5 @@
 class SuggestionChildrenController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update, :destroy]
+  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
 
   def from_suggestion
     @suggestion_children = SuggestionChild.order( :created_at ).where( suggestion_id: params[:suggestion_id])
@@ -23,7 +23,6 @@ class SuggestionChildrenController < ApplicationController
     @suggestion = Suggestion.find( @suggestion_child.suggestion_id )
     if current_user.id == @suggestion_child.user_id
       @suggestion_child.comment = suggestion_child_params[:comment]
-      @suggestion_child.name = suggestion_child_params[:name]
       if @suggestion_child.save
         render 'suggestion_children/show'
       else
@@ -35,10 +34,8 @@ class SuggestionChildrenController < ApplicationController
   end
 
   def create
-    @suggestion_child = SuggestionChild.new( suggestion_child_params )
-    if logged_in?
-      @suggestion_child.user_id = current_user.id
-    end
+    @suggestion_child = SuggestionChild.new( suggestion_child_params)
+    @suggestion_child.user_id = current_user.id
     if @suggestion_child.save
       flash[:success] = "Commentaire ajouté."
       redirect_to suggestion_child_path( @suggestion_child.id )
@@ -59,7 +56,7 @@ class SuggestionChildrenController < ApplicationController
   private
 
   def suggestion_child_params
-    params.require(:suggestion_child).permit(:id, :comment, :name, :suggestion_id, :email)
+    params.require(:suggestion_child).permit(:id, :comment, :suggestion_id)
   end
 
 end

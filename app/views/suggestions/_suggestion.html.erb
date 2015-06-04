@@ -3,13 +3,13 @@
     <div class="col-xs-12 col-lg-2">
       <div class="clearfix pull-right">
         <button type="button" class="btn btn-success" data-placement="left" data-value="true"
-                data-toggle="tooltip" value="<%= suggestion.id %>" data-validate="/suggestion_votes/add"
-                title="<%= suggestion.plus.to_s + " personnes sont d'accords" %>">
+                data-toggle="tooltip" value="<%= suggestion.id %>" data-validate="/suggestion_votes"
+                title="<%= suggestion.plus.to_s + " contributeurs sont d'accords" %>">
           <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion.plus %> </span>
         </button>
         <button type="button" class="btn btn-danger" data-placement="left" data-value="false"
-                data-toggle="tooltip" value="<%= suggestion.id %>" data-validate="/suggestion_votes/add"
-                title="<%= suggestion.minus.to_s + " personnes ne sont pas d'accords" %>">
+                data-toggle="tooltip" value="<%= suggestion.id %>" data-validate="/suggestion_votes"
+                title="<%= suggestion.minus.to_s + " contributeurs ne sont pas d'accords" %>">
           <span class="glyphicon glyphicon-thumbs-down"> <%= suggestion.minus %> </span>
         </button>
         <br/>
@@ -24,9 +24,8 @@
           </div>
           <% if suggestion.timeline_id && suggestion.timeline_id > 0 %>
               <br/>
-              <%= link_to "<span class=\"icon-frog\"></span> Voir la controverse".html_safe, timeline_path(suggestion.timeline_id), class: "btn btn-primary pull-right" %>
-          <% end %>
-          <% if logged_in? && suggestion.user_id == current_user.id %>
+              <%= link_to "<span class=\"icon-frog\"></span> Revenir à la controverse".html_safe, timeline_path(suggestion.timeline_id), class: "btn btn-primary pull-right" %>
+          <% elsif logged_in? && suggestion.user_id == current_user.id %>
               <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_path(suggestion.id), method: :delete,
                           data: { confirm: "Etes vous certain ?" },
                           class: "btn btn-danger" %>
@@ -42,17 +41,13 @@
                   <%= link_to "<span class=\"glyphicon glyphicon-list\"></span> Voir les réactions (#{suggestion.children})".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
                               :remote => true, id:"fetch", class: "btn btn-info" %>
               <% else %>
-                  <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Repondre à ce commentaire".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
+                  <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Répondre".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
                               :remote => true, id:"fetch", class: "btn btn-info" %>
               <% end %>
             </div>
           <span class="timestamp">
             Publié il y a <%= time_ago_in_words(suggestion.created_at) %> par
-            <% if suggestion.user_id %>
-                <%= link_to suggestion.name, user_path(suggestion.user_id) %>
-            <% else %>
-                <%= suggestion.name %>
-            <% end %>
+            <%= link_to suggestion.user_name, user_path(suggestion.user_id) %>
            </span>
           </div>
           <div id="children<%= suggestion.id %>">

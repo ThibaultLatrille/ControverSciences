@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150601124951) do
+ActiveRecord::Schema.define(version: 20150604091125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -415,19 +415,17 @@ ActiveRecord::Schema.define(version: 20150601124951) do
   create_table "suggestion_child_votes", force: true do |t|
     t.integer  "suggestion_child_id"
     t.boolean  "value"
-    t.inet     "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
-  add_index "suggestion_child_votes", ["ip", "suggestion_child_id"], name: "index_suggestion_child_votes_on_ip_and_suggestion_child_id", unique: true, using: :btree
+  add_index "suggestion_child_votes", ["user_id"], name: "index_suggestion_child_votes_on_user_id", using: :btree
 
   create_table "suggestion_children", force: true do |t|
     t.integer  "user_id"
     t.integer  "suggestion_id"
     t.text     "comment"
-    t.string   "email"
-    t.string   "name"
     t.integer  "balance",          default: 0
     t.integer  "plus",             default: 0
     t.integer  "minus",            default: 0
@@ -442,18 +440,16 @@ ActiveRecord::Schema.define(version: 20150601124951) do
   create_table "suggestion_votes", force: true do |t|
     t.integer  "suggestion_id"
     t.boolean  "value"
-    t.inet     "ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
-  add_index "suggestion_votes", ["ip", "suggestion_id"], name: "index_suggestion_votes_on_ip_and_suggestion_id", unique: true, using: :btree
+  add_index "suggestion_votes", ["user_id"], name: "index_suggestion_votes_on_user_id", using: :btree
 
   create_table "suggestions", force: true do |t|
     t.integer  "user_id"
     t.text     "comment"
-    t.string   "email"
-    t.string   "name"
     t.integer  "timeline_id"
     t.integer  "balance",          default: 0
     t.integer  "plus",             default: 0

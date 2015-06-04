@@ -1,5 +1,5 @@
 class SuggestionsController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update, :destroy]
+  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
 
   def show
     if params[:timeline_id]
@@ -17,7 +17,6 @@ class SuggestionsController < ApplicationController
     @suggestion = Suggestion.find( params[:id] )
     if current_user.id == @suggestion.user_id
       @suggestion.comment = suggestion_params[:comment]
-      @suggestion.name = suggestion_params[:name]
       if @suggestion.save
         render 'suggestions/show'
       else
@@ -35,21 +34,12 @@ class SuggestionsController < ApplicationController
       @suggestions = Suggestion.order( created_at: :desc).where( timeline_id: nil ).page(params[:page]).per(50)
     end
     @suggestion = Suggestion.new
-    if logged_in? && !@suggestion.name
-      @suggestion.name = current_user.name
-    elsif !@suggestion.name
-      @suggestion.name = "Un illustre Anonyme"
-    end
   end
 
   def create
     @suggestion = Suggestion.new(suggestion_params)
-    if logged_in?
-      @suggestion.user_id = current_user.id
-    end
-    if suggestion_params[:debate] == "true"
-      @suggestion.timeline_id = 0
-    end
+    @suggestion.user_id = current_user.id
+    @suggestion.timeline_id = nil
     if @suggestion.save
       flash[:success] = "Commentaire ajouté."
       redirect_to suggestions_path
@@ -61,7 +51,7 @@ class SuggestionsController < ApplicationController
 
   def destroy
     sug = Suggestion.find(params[:id])
-    if sug.user_id == current_user.id
+    if sug.user_id == current_user.id && sug.timeline_id != 0
       sug.destroy
       redirect_to suggestions_path
     end
@@ -70,6 +60,6 @@ class SuggestionsController < ApplicationController
   private
 
   def suggestion_params
-    params.require(:suggestion).permit(:id, :comment, :name, :email, :debate)
+    params.require(:suggestion).permit(:id, :comment)
   end
 end
