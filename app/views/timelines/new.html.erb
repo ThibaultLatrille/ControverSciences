@@ -36,6 +36,7 @@
                 </div>
               </div>
               <br/>
+
               <div class="panel panel-default">
                 <div class="panel-body">
                   <%= f.label :binary do %>
@@ -44,6 +45,7 @@
                   <% end %>
                   <div id="binary-box">
                     <br/>
+
                     <div class="row">
                       <div class="col-xs-4">
                         <br/>
@@ -51,11 +53,11 @@
                         <br/>
                       </div>
                       <div class="col-xs-4 center">
-                          <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
+                        <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
                       </div>
                       <div class="col-xs-4">
                         <br/>
-                        <%= f.text_field :binary_right, class: 'form-control', value: "", placeholder:  "Non/Noir/Acquis/..." %>
+                        <%= f.text_field :binary_right, class: 'form-control', value: "", placeholder: "Non/Noir/Acquis/..." %>
                         <br/>
                       </div>
                     </div>
@@ -63,7 +65,8 @@
                   </div>
                   <div class="panel panel-info">
                     <div class="panel-heading">
-                      En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les références.
+                      En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les
+                      références.
                       Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
                     </div>
                   </div>
@@ -82,10 +85,10 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('.my-btn').responsiveEqualHeightGrid();
-        $('#check-box').click(function(){
-            if ($(this).is(':checked')){
+        $('#check-box').click(function () {
+            if ($(this).is(':checked')) {
                 $('#binary-box').show(500)
-            }else{
+            } else {
                 $('#binary-box').hide(500)
             }
         });
