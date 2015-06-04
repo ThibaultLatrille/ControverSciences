@@ -8,8 +8,6 @@ class PictureUploader < CarrierWave::Uploader::Base
   process resize_to_limit: [1024, 1024], :if => :is_picture?
 
   def filename
-    puts model.picture.file.inspect
-    puts model.file_name
     if model.picture.file
       "#{model.file_name}.#{model.picture.file.extension}"
     end

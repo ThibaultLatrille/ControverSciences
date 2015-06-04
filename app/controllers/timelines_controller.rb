@@ -99,7 +99,6 @@ class TimelinesController < ApplicationController
       end
     else
       @tag_list = @timeline.get_tag_list
-      puts @timeline.binary
       if @timeline.binary != ""
         @timeline.binary = true
       else
