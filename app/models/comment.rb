@@ -244,6 +244,9 @@ class Comment < ActiveRecord::Base
           best_comment["f_#{field}_user_id"]    = nil
           best_comment["f_#{field}_comment_id"] = nil
         end
+        if field == 6
+          Reference.update(self.reference_id, title_fr: nil)
+        end
       end
       best_comment.save
     end
