@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
 
   # Returns true if a password reset has expired.
   def password_reset_expired?
-    reset_sent_at < 2.days.ago
+    reset_sent_at < 15.days.ago
   end
 
   def notifications_timeline

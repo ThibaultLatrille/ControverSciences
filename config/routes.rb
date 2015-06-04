@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   get 'notifications/index'
   get 'notifications/important'
   get 'notifications/delete_all'
-  get 'notifications/delete_selection_all'
+  get 'notifications/delete_all_important'
   post 'notifications/delete'
   get 'notifications/timeline'
   get 'notifications/reference'
