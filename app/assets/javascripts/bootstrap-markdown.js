@@ -998,7 +998,7 @@
                       // Set the cursor
                       e.$textarea.focus( )
                       e.setSelection(cursor,cursor+chunk.length)
-                      throw new Error("Everythin is alright")
+                      throw new Error("Everything is alright")
                     }
                 }
             });
@@ -1014,10 +1014,15 @@
                     var monelement = document.getElementById('save-btn');
                     if(  monelement.dataset.toggled === 'yes') {
                         monelement.setAttribute("data-toggled", 'no');
-                        var cursor,
+                        var chunk, cursor,
                             selected = e.getSelection(), content = e.getContent()
                         var elt = document.getElementById("list-ref")
-                        var chunk = elt.options[elt.selectedIndex].text
+                        if (selected.length == 0) {
+                            // Give extra word
+                            chunk = elt.options[elt.selectedIndex].text
+                        } else {
+                            chunk = selected.text
+                        }
                         var link = elt.options[elt.selectedIndex].value
                         // transform selection and set the cursor into chunked text
                         e.replaceSelection('[' + chunk + '](' + link + ')')
@@ -1027,7 +1032,7 @@
 
                         e.$textarea.focus( )
                         e.setSelection(cursor, cursor + chunk.length);
-                        throw new Error("Everythin is alright")
+                        throw new Error("Everything is alright")
                     }
                 })
             }
