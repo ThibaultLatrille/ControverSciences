@@ -1,5 +1,61 @@
 module AssisstantHelper
 
+  def maj_v_1
+    ActiveRecord::Base.transaction do
+      Like.all.delete_all
+      SuggestionVote.all.delete_all
+      SuggestionChildVote.all.delete_all
+      Timeline.all.update_all(nb_likes: 0)
+      Suggestion.all.update_all(plus: 0, minus: 0, balance: 0)
+      SuggestionChild.all.update_all(plus: 0, minus: 0, balance: 0)
+      Timeline.where(debate: false).each do |tim|
+        text = "Discussion libre autour de la controverse : **#{tim.name.strip}**"
+        Suggestion.create!(user_id: tim.user_id, timeline_id: tim.id, comment: text)
+      end
+      Timeline.all.update_all(debate: true)
+      Reference.all.each do |ref|
+        ref.binary_1 = Binary.where( reference_id: ref.id, value: 1).count
+        ref.binary_2 = Binary.where( reference_id: ref.id, value: 2).count
+        ref.binary_3 = Binary.where( reference_id: ref.id, value: 3).count
+        ref.binary_3 = Binary.where( reference_id: ref.id, value: 3).count
+        ref.binary_5 = Binary.where( reference_id: ref.id, value: 5).count
+        dico = { 1 => ref.binary_1, 2 => ref.binary_2,
+                 3 => ref.binary_3, 4 => ref.binary_4,
+                 5 => ref.binary_5}
+        most = dico.max_by{ |k,v| v }
+        if most[1] > 0
+          ref.binary_most = most[0]
+        else
+          ref.binary_most = 0
+        end
+        ref.star_1 = Rating.where( reference_id: ref.id, value: 1).count
+        ref.star_2 = Rating.where( reference_id: ref.id, value: 2).count
+        ref.star_3 = Rating.where( reference_id: ref.id, value: 3).count
+        ref.star_3 = Rating.where( reference_id: ref.id, value: 3).count
+        ref.star_5 = Rating.where( reference_id: ref.id, value: 5).count
+        dico = { 1 => ref.star_1, 2 => ref.star_2,
+                 3 => ref.star_3, 4 => ref.star_4,
+                 5 => ref.star_5}
+        most = dico.max_by{ |k,v| v }
+        if most[1] > 0
+          ref.star_most = most[0]
+        else
+          ref.star_most = 0
+        end
+        ref.save!
+      end
+      Timeline.all.each do |tim|
+        tim.binary_0 = Reference.where( timeline_id: tim.id, binary_most: 0).count
+        tim.binary_1 = Reference.where( timeline_id: tim.id, binary_most: 1).count
+        tim.binary_2 = Reference.where( timeline_id: tim.id, binary_most: 2).count
+        tim.binary_3 = Reference.where( timeline_id: tim.id, binary_most: 3).count
+        tim.binary_3 = Reference.where( timeline_id: tim.id, binary_most: 3).count
+        tim.binary_5 = Reference.where( timeline_id: tim.id, binary_most: 5).count
+        tim.save!
+      end
+    end
+  end
+
   def update_score_users
     User.select(:id, :score).all.each do |user|
       count = 1
