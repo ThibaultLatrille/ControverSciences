@@ -25,6 +25,7 @@ class Rating < ActiveRecord::Base
     reference_id = self.reference_id
     yield
     Reference.update_counters( reference_id, "star_#{old_value}".to_sym => -1 )
+    update_most_stared
   end
 
   def cascading_update_rating
@@ -41,8 +42,12 @@ class Rating < ActiveRecord::Base
             3 => ref.star_3, 4 => ref.star_4,
             5 => ref.star_5}
     most = dico.max_by{ |k,v| v }
-    if ref.star_most != most[0]
-      ref.update_columns({star_most: most[0]})
+    if most[1] > 0
+      if ref.star_most != most[0]
+        ref.update_columns({star_most: most[0]})
+      end
+    else
+      ref.update_columns({star_most: 0})
     end
   end
 end

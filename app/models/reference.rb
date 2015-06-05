@@ -46,6 +46,24 @@ class Reference < ActiveRecord::Base
     end
   end
 
+  def binary_most_explanation( binary )
+    text = "Cette référence est "
+    case self.binary_most
+      when 1
+        return text + "très fermement du coté " + binary.split('&&')[0].downcase + "."
+      when 2
+        return text + "du coté " + binary.split('&&')[0].downcase + "."
+      when 3
+        return text + "neutre."
+      when 4
+        return text + "du coté " + binary.split('&&')[1].downcase + "."
+      when 5
+        return text + "très fermement du coté " + binary.split('&&')[1].downcase + "."
+      else
+        return ""
+    end
+  end
+
   def display_year
     if self.year > 1958
       self.year

@@ -115,7 +115,7 @@ class TimelinesController < ApplicationController
     if logged_in?
       @improve = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
     end
-    @references = Reference.select( :article, :id, :title_fr, :title, :year, :binary_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )
+    @references = Reference.select( :article, :id, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )
   end
 
   def destroy

@@ -52,20 +52,26 @@ class Timeline < ActiveRecord::Base
 
   def binary_font_size( value )
     if self.nb_references > 0
-      case value
-        when 1
-          1+1.5*self.binary_1/self.nb_references
-        when 2
-          1+1.5*self.binary_2/self.nb_references
-        when 3
-          1+1.5*(self.binary_0+self.binary_3)/self.nb_references
-        when 4
-          1+1.5*self.binary_4/self.nb_references
-        when 5
-          1+1.5*self.binary_5/self.nb_references
-      end
+      12+30.0*self["binary_#{value}"]/self.nb_references
     else
-      1.5
+      25.0
+    end
+  end
+
+  def binary_explanation( value )
+    nb = self["binary_#{value}"]
+    text = (nb == 1 ? "#{nb} reference est " : "#{nb} references sont ")
+    case value
+      when 1
+        return text + "très fermement du coté " + self.binary.split('&&')[0].downcase
+      when 2
+        return text + "du coté " + self.binary.split('&&')[0].downcase
+      when 3
+        return text + (nb == 1 ? "neutre" : "neutres")
+      when 4
+        return text + "du coté " + self.binary.split('&&')[1].downcase
+      when 5
+        return text + "très fermement du coté " + self.binary.split('&&')[1].downcase
     end
   end
 
@@ -133,6 +139,15 @@ class Timeline < ActiveRecord::Base
     yield
     if binary != self.binary
       Reference.where( timeline_id: self.id ).update_all(:binary => self.binary )
+      if self.binary == ""
+        Reference.where( timeline_id: self.id ).update_all(binary_most: 0,
+                                                           binary_1: 0, binary_2: 0,
+                                                           binary_3: 0, binary_4: 0, binary_5: 0)
+        Timeline.where( id: self.id ).update_all(binary_0: self.nb_references,
+                                                           binary_1: 0, binary_2: 0,
+                                                           binary_3: 0, binary_4: 0, binary_5: 0)
+        Binary.where( timeline_id: self.id ).delete_all
+      end
     end
   end
 
