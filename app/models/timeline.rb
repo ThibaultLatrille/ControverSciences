@@ -1,21 +1,22 @@
 class Timeline < ActiveRecord::Base
   include ApplicationHelper
 
-  attr_accessor :tag_list
+  attr_accessor :tag_list, :binary_left, :binary_right
   belongs_to :user
   has_many :timeline_contributors, dependent: :destroy
   has_many :references, dependent: :destroy
   has_many :summaries, dependent: :destroy
-  has_many :ratings
-  has_many :comments
-  has_many :links
-  has_many :votes
+  has_many :ratings, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_many :links, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
-  has_many :following_timelines, dependent: :destroy
-  has_many :notification_timelines, dependent: :destroy
+  has_many :notifications, dependent: :destroy
   has_one :suggestion, dependent: :destroy
 
   after_create :cascading_save_timeline
@@ -24,6 +25,7 @@ class Timeline < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :name, presence: true, length: { maximum: 180 }
+  validate :binary_valid
 
   def user_name
     User.select( :name ).find( self.user_id ).name
@@ -50,20 +52,26 @@ class Timeline < ActiveRecord::Base
 
   def binary_font_size( value )
     if self.nb_references > 0
-      case value
-        when 1
-          1+1.5*self.binary_1/self.nb_references
-        when 2
-          1+1.5*self.binary_2/self.nb_references
-        when 3
-          1+1.5*(self.binary_0+self.binary_3)/self.nb_references
-        when 4
-          1+1.5*self.binary_4/self.nb_references
-        when 5
-          1+1.5*self.binary_5/self.nb_references
-      end
+      12+30.0*self["binary_#{value}"]/self.nb_references
     else
-      1.5
+      25.0
+    end
+  end
+
+  def binary_explanation( value )
+    nb = self["binary_#{value}"]
+    text = (nb == 1 ? "#{nb} reference est " : "#{nb} references sont ")
+    case value
+      when 1
+        return text + "très fermement du coté " + self.binary.split('&&')[0].downcase
+      when 2
+        return text + "du coté " + self.binary.split('&&')[0].downcase
+      when 3
+        return text + (nb == 1 ? "neutre" : "neutres")
+      when 4
+        return text + "du coté " + self.binary.split('&&')[1].downcase
+      when 5
+        return text + "très fermement du coté " + self.binary.split('&&')[1].downcase
     end
   end
 
@@ -97,28 +105,48 @@ class Timeline < ActiveRecord::Base
 
   private
 
-  def cascading_save_timeline
-    if self.debate
-      text = "Des idées pour améliorer le titre de la controverse : **#{self.name}** ?"
-      Suggestion.create( user_id: self.user_id, name: self.user_name, timeline_id: self.id, comment: text )
+  def binary_valid
+    if self.binary != ""
+      if self.binary.split('&&')[0].blank?
+        errors.add(:base, "Un des antagoniste est vide")
+      elsif self.binary.split('&&')[0].length > 20
+        errors.add(:base, "Un des antagoniste est trop long (>20 caractères)")
+      end
+      if self.binary.split('&&')[1].blank?
+        errors.add(:base, "Un des antagoniste est vide")
+      elsif self.binary.split('&&')[1].length > 20
+        errors.add(:base, "Un des antagoniste est trop long (>20 caractères)")
+      end
     end
-    NewTimeline.create( timeline_id: self.id )
+  end
+
+  def cascading_save_timeline
+    text = "Discussion libre autour de la controverse : **#{self.name.strip}**"
+    Suggestion.create( user_id: self.user_id, timeline_id: self.id, comment: text )
+    notifications = []
+    User.all.pluck(:id).each do |user_id|
+      notifications << Notification.new( user_id: user_id, timeline_id: self.id, category: 1 )
+    end
+    Notification.import notifications
     TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
   end
 
   def updating_with_params
+    sug = Suggestion.find_by( timeline_id: self.id )
+    sug.comment = "Discussion libre autour de la controverse : **#{self.name.strip}**"
+    sug.save
     binary = self.binary_was
-    debate = self.debate_was
     yield
     if binary != self.binary
       Reference.where( timeline_id: self.id ).update_all(:binary => self.binary )
-    end
-    if debate != self.debate
-      if self.debate
-        text = "Des idées pour améliorer le titre de la controverse : **#{self.name}** ?"
-        Suggestion.create( user_id: self.user_id, name: self.user_name, timeline_id: self.id, comment: text )
-      else
-        Suggestion.find_by( timeline_id: self.id ).destroy
+      if self.binary == ""
+        Reference.where( timeline_id: self.id ).update_all(binary_most: 0,
+                                                           binary_1: 0, binary_2: 0,
+                                                           binary_3: 0, binary_4: 0, binary_5: 0)
+        Timeline.where( id: self.id ).update_all(binary_0: self.nb_references,
+                                                           binary_1: 0, binary_2: 0,
+                                                           binary_3: 0, binary_4: 0, binary_5: 0)
+        Binary.where( timeline_id: self.id ).delete_all
       end
     end
   end

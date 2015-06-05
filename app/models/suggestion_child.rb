@@ -5,12 +5,16 @@ class SuggestionChild < ActiveRecord::Base
   has_one :notification_suggestion, dependent: :destroy
 
   validates :suggestion_id, presence: true
-  validates :name, presence: true, length: { maximum: 120 }
+  validates :user_id, presence: true
   validates :comment, presence: true, length: {maximum: 1200 }
 
   before_save :save_with_markdown
   after_create  :cascading_save
   after_destroy :cascading_destroy
+
+  def user_name
+    User.select(:name).find(self.user_id).name
+  end
 
   private
 
@@ -38,11 +42,11 @@ class SuggestionChild < ActiveRecord::Base
   end
 
   def cascading_save
+    puts 'qsfdqsdgf'
     Suggestion.update_counters(self.suggestion_id, children: 1 )
-    suggestion = self.suggestion
-    NotificationSuggestion.create(user_id: suggestion.user_id,
-                                  suggestion_id: suggestion.id,
-                                  suggestion_child_id: self.id) if suggestion.user_id
+    NotificationSuggestion.create(user_id: Suggestion.select(:user_id).find(self.suggestion_id).user_id,
+                                  suggestion_id: self.suggestion_id,
+                                  suggestion_child_id: self.id)
   end
 
   def cascading_destroy

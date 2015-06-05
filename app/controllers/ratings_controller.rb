@@ -1,5 +1,5 @@
 class RatingsController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :logged_in_user, only: [:create]
 
   def create
     if params[:update]

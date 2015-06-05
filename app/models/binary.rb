@@ -25,6 +25,7 @@ class Binary < ActiveRecord::Base
     reference_id = self.reference_id
     yield
     Reference.update_counters( reference_id, "binary_#{old_value}".to_sym => -1 )
+    update_most_binary
   end
 
   def cascading_update_binary
@@ -41,10 +42,16 @@ class Binary < ActiveRecord::Base
              3 => ref.binary_3, 4 => ref.binary_4,
              5 => ref.binary_5}
     most = dico.max_by{ |k,v| v }
-    if ref.binary_most != most[0]
-      Timeline.update_counters( self.timeline_id, "binary_#{most[0]}".to_sym => 1 )
+    if most[1] > 0
+      if ref.binary_most != most[0]
+        Timeline.update_counters( self.timeline_id, "binary_#{most[0]}".to_sym => 1 )
+        Timeline.update_counters( self.timeline_id, "binary_#{ref.binary_most}".to_sym => -1 )
+        ref.update_columns({binary_most: most[0]})
+      end
+    else
+      Timeline.update_counters( self.timeline_id, "binary_0".to_sym => 1 )
       Timeline.update_counters( self.timeline_id, "binary_#{ref.binary_most}".to_sym => -1 )
-      ref.update_columns({binary_most: most[0]})
+      ref.update_columns({binary_most: 0})
     end
   end
 end

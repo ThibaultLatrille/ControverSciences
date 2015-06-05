@@ -53,8 +53,8 @@
                 <li class="divider"></li>
                 <li><%= link_to "<b><span class=\"badge\">#{current_user.notifications_all }</span> Nouveautés </b>".html_safe,
                                 notifications_index_path %> </li>
-                <li><%= link_to '<b><span class="glyphicon glyphicon-eye-open"></span>&nbsp Gérer mes abonnements</b>'.html_safe,
-                                followings_index_path %> </li>
+                <li><%= link_to '<b><span class="glyphicon glyphicon-eye-open"></span>&nbsp Mes intérêts</b>'.html_safe,
+                                likes_path %> </li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to '<b><span class="glyphicon glyphicon-off"></span>&nbsp Se déconnecter</b>'.html_safe,

@@ -35,6 +35,7 @@ class TimelinesController < ApplicationController
 
   def new
     @timeline = Timeline.new
+    @timeline.binary = true
     @tag_list = []
   end
 
@@ -42,6 +43,8 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find( params[:id] )
     @tag_list = @timeline.get_tag_list
     if @timeline.binary != ""
+      @timeline.binary_left = @timeline.binary.split('&&')[0]
+      @timeline.binary_right = @timeline.binary.split('&&')[1]
       @timeline.binary = true
     else
       @timeline.binary = false
@@ -52,9 +55,8 @@ class TimelinesController < ApplicationController
     @timeline = Timeline.find( params[:id] )
     if @timeline.user_id == current_user.id
       @timeline.name = timeline_params[:name]
-      @timeline.debate = timeline_params[:debate]
       if timeline_params[:binary] != "0"
-        @timeline.binary = "Non&&Oui"
+        @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
       else
         @timeline.binary = ""
       end
@@ -62,15 +64,13 @@ class TimelinesController < ApplicationController
         @timeline.set_tag_list(params[:timeline][:tag_list])
       end
       if @timeline.save
-        if timeline_params[:debate] == '1'
-          flash[:success] = "Controverse modifiée. Vous pouvez également modifier le fil de discussion portant sur le titre."
-          sug = Suggestion.find_by_timeline_id( @timeline.id )
-          redirect_to edit_suggestion_path ( sug.id )
-        else
           flash[:success] = "Controverse modifiée."
           redirect_to @timeline
-        end
       else
+        @tag_list = @timeline.get_tag_list
+        @timeline.binary_left = @timeline.binary.split('&&')[0]
+        @timeline.binary_right = @timeline.binary.split('&&')[1]
+        @timeline.binary = true
         render 'edit'
       end
     else
@@ -79,9 +79,9 @@ class TimelinesController < ApplicationController
   end
 
   def create
-    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name], debate: timeline_params[:debate])
+    @timeline = Timeline.new( user_id: current_user.id, name: timeline_params[:name], debate: true)
     if timeline_params[:binary] == "1"
-      @timeline.binary = "Non&&Oui"
+      @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
     else
       @timeline.binary = ""
     end
@@ -89,18 +89,13 @@ class TimelinesController < ApplicationController
       @timeline.set_tag_list(params[:timeline][:tag_list])
     end
     if @timeline.save
-      if timeline_params[:debate] == '1'
-        flash[:success] = "Controverse crée ! Vous pouvez également modifier le fil de discussion portant sur le titre."
-        sug = Suggestion.find_by_timeline_id( @timeline.id )
-        redirect_to edit_suggestion_path ( sug.id )
-      else
         flash[:success] = "Controverse ajoutée !"
         redirect_to @timeline
-      end
     else
       @tag_list = @timeline.get_tag_list
-      puts @timeline.binary
       if @timeline.binary != ""
+        @timeline.binary_left = @timeline.binary.split('&&')[0]
+        @timeline.binary_right = @timeline.binary.split('&&')[1]
         @timeline.binary = true
       else
         @timeline.binary = false
@@ -120,7 +115,7 @@ class TimelinesController < ApplicationController
     if logged_in?
       @improve = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
     end
-    @references = Reference.select( :article, :id, :title_fr, :title, :year, :binary_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )
+    @references = Reference.select( :article, :id, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )
   end
 
   def destroy
@@ -134,6 +129,6 @@ class TimelinesController < ApplicationController
   private
 
   def timeline_params
-    params.require(:timeline).permit(:name, :binary, :debate)
+    params.require(:timeline).permit(:name, :binary, :binary_left, :binary_right)
   end
 end

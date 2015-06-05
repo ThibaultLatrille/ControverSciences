@@ -53,15 +53,10 @@
     box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
 }
 
-.cd-timeline-img img {
-    display: block;
-    width: 24px;
-    height: 24px;
-    position: relative;
-    left: 50%;
-    top: 50%;
-    margin-left: -12px;
-    margin-top: -12px;
+.cd-timeline-img .frog {
+    position: absolute;
+    top: 8px;
+    left: 8px;
 }
 
 .btn-frog1 { color: #702BD9; }

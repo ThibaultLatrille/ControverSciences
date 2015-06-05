@@ -8,8 +8,8 @@
       </button>
       <div class="pull-right">
         <button type="button" class="btn btn-success" data-placement="left"
-            data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes/add"
-            title="<%= timeline.nb_likes.to_s + " personnes s'intéressent à cette controverse" %>">
+            data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
+            title="<%= timeline.nb_likes.to_s + " contributeurs s'intéressent à cette controverse" %>">
         <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %> </span>
         </button>
       </div>
@@ -17,7 +17,7 @@
         <br/>
           <%= link_to timeline.name, timeline, class: "hvr-grow" %>
         <% if timeline.nb_edits == 0 %>
-              <div class="red center">
+              <div class="construct center">
                 Controverse en construction
               </div>
         <% end %>

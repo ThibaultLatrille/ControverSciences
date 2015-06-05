@@ -26,7 +26,6 @@ class ReferencesController < ApplicationController
                                        :figure_id, :f_7_balance ).where( id: ids ).order('random()')
       else
         ids = CommentJoin.where( reference_id: params[:reference_id], field: params[:field].to_i ).pluck( :comment_id )
-        puts ids
         @best_fields = Comment.select(:created_at, :id, "markdown_#{params[:field]}", :user_id,
                               "f_#{params[:field]}_balance" ).where( id: ids ).order('random()')
     end

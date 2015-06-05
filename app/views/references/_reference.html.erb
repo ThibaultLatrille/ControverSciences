@@ -1,6 +1,8 @@
 <% if not reference.title_fr.blank? %>
 <div id="block-<%= reference.id %>" class="cd-timeline-block binary<%= reference.binary_most %>">
-    <div class="cd-timeline-img cd-color">
+    <div class="cd-timeline-img cd-color"
+         title="<%= binary_value_explanation( binary, reference.binary_most ) -%> <%= star_hash[reference.star_most] -%>" data-toggle="tooltip">
+      <span class="frog icon-<%= reference.star_most %>"></span>
     </div>
 
     <div class="cd-timeline-content">
@@ -17,11 +19,14 @@
 </div>
 <% else %>
     <div class="cd-timeline-block binary<%= reference.binary_most %>">
-      <div class="cd-timeline-img cd-color-orange">
+      <div class="cd-timeline-img <%= reference.binary_most == 0 ? "cd-color-orange" : "cd-color" %>"
+           title="<%= binary_value_explanation( binary, reference.binary_most ) -%> <%= star_hash[reference.star_most] -%>" data-toggle="tooltip">
+        <span class="frog icon-<%= reference.star_most %>"></span>
       </div>
       <div class="cd-timeline-content">
 
-        <h2 style="font-size: 1.3em"> <%= link_to "#{reference.title}<br/><br/><span class=\"icon icon-comment bigger\"></span> Cette référence n'a pas encore été analysée".html_safe, new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
+        <h2 style="font-size: 1.3em"> <%= link_to "#{reference.title}<br/><br/><span class=\"icon icon-comment bigger\"></span>
+        Cette référence n'a pas encore été analysée".html_safe, new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
         </h2>
         <span class="cd-date"><%= reference.display_year %> - <b><%= reference.article ? "Article" : "Review" %></b></span>
       </div>

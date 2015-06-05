@@ -18,10 +18,10 @@ class Summary < ActiveRecord::Base
   has_many :children, class_name: "Summary", through: :child_relationships, source: :child
   has_one :parent, class_name: "Summary", through: :parent_relationship, source: :parent
 
+  # WTF is that dependent: :destroy doing here
   has_one :summary_best, dependent: :destroy
 
-  has_many :notification_summaries, dependent: :destroy
-  has_many :notification_summary_selections, foreign_key: "new_summary_id", dependent: :destroy
+  has_many :notifications, dependent: :destroy
   has_many :notification_summary_selection_wins, dependent: :destroy
   has_many :notification_summary_selection_losses, dependent: :destroy
 
@@ -36,11 +36,11 @@ class Summary < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => :timeline_id
 
   def user_name
-    User.select( :name ).find( self.user_id ).name
+    User.select(:name).find(self.user_id).name
   end
 
   def timeline_name
-    Timeline.select( :name ).find( self.timeline_id ).name
+    Timeline.select(:name).find(self.timeline_id).name
   end
 
   def picture?
@@ -49,14 +49,14 @@ class Summary < ActiveRecord::Base
 
   def picture_url
     if self.figure_id
-      Figure.select( :id, :picture, :user_id ).find( self.figure_id ).picture_url
+      Figure.select(:id, :picture, :user_id).find(self.figure_id).picture_url
     else
       nil
     end
   end
 
-  def my_credit( user_id )
-    credit = Credit.select( :value ).find_by( user_id: user_id, summary_id: self.id )
+  def my_credit(user_id)
+    credit = Credit.select(:value).find_by(user_id: user_id, summary_id: self.id)
     if credit
       credit.value
     else
@@ -64,15 +64,15 @@ class Summary < ActiveRecord::Base
     end
   end
 
-  def to_markdown( timeline_url)
+  def to_markdown(timeline_url)
     render_options = {
         # will remove from the output HTML tags inputted by user
-        filter_html:     true,
+        filter_html: true,
         # will insert <br /> tags in paragraphs where are newlines
         # (ignored by default)
-        hard_wrap:       true,
+        hard_wrap: true,
         # hash for extra link options, for example 'nofollow'
-        link_attributes: { rel: 'nofollow' },
+        link_attributes: {rel: 'nofollow'},
         # more
         # will remove <img> tags from output
         no_images: true,
@@ -95,7 +95,7 @@ class Summary < ActiveRecord::Base
 
     extensions = {
         #will parse links without need of enclosing them
-        autolink:           true,
+        autolink: true,
         # blocks delimited with 3 ` or ~ will be considered as code block.
         # No need to indent.  You can provide language name too.
         # ```ruby
@@ -103,13 +103,13 @@ class Summary < ActiveRecord::Base
         # ```
         #fenced_code_blocks: true,
         # will ignore standard require for empty lines surrounding HTML blocks
-        lax_spacing:        true,
+        lax_spacing: true,
         # will not generate emphasis inside of words, for example no_emph_no
-        no_intra_emphasis:  true,
+        no_intra_emphasis: true,
         # will parse strikethrough from ~~, for example: ~~bad~~
-        strikethrough:      true,
+        strikethrough: true,
         # will parse superscript after ^, you can wrap superscript in ()
-        superscript:        true
+        superscript: true
         # will require a space after # in defining headers
         # space_after_headers: true
     }
@@ -119,47 +119,49 @@ class Summary < ActiveRecord::Base
     renderer.links
   end
 
-  def save_with_markdown( timeline_url )
-    links = self.to_markdown( timeline_url )
+  def save_with_markdown(timeline_url)
+    links = self.to_markdown(timeline_url)
     if self.save
       reference_ids = Reference.where(timeline_id: self.id).pluck(:id)
       links.each do |link|
         if reference_ids.include? link
           SummaryLink.create({summary_id: self.id, user_id: self.user_id,
-                       reference_id: link, timeline_id: self.id})
+                              reference_id: link, timeline_id: self.id})
         end
       end
-      FollowingSummary.create( user_id: self.user_id,
-                                 timeline_id: self.timeline_id)
       true
     else
       false
     end
   end
 
-  def update_with_markdown( timeline_url )
-    SummaryLink.where( user_id: user_id, summary_id: id ).destroy_all
-    save_with_markdown( timeline_url )
+  def update_with_markdown(timeline_url)
+    SummaryLink.where(user_id: user_id, summary_id: id).destroy_all
+    save_with_markdown(timeline_url)
   end
 
-  def selection_update( best_summary = nil )
+  def selection_update(best_summary = nil)
     if best_summary
-      old_summary_id = best_summary.summary_id
-      NotificationSummarySelectionLoss.create( user_id: best_summary.user_id,
-                                        summary_id: best_summary.summary_id)
-      Summary.where(id: best_summary.summary_id).update_all( best: false )
-      best_summary.update_attributes( user_id: self.user_id, summary_id: self.id )
-      NotificationSummarySelectionWin.create( user_id: self.user_id, summary_id: self.id )
-      NewSummarySelection.create( old_summary_id: old_summary_id, new_summary_id: self.id )
+      NotificationSummarySelectionLoss.create(user_id: best_summary.user_id,
+                                              summary_id: best_summary.summary_id)
+      Summary.where(id: best_summary.summary_id).update_all(best: false)
+      best_summary.update_attributes(user_id: self.user_id, summary_id: self.id)
+      NotificationSummarySelectionWin.create(user_id: self.user_id, summary_id: self.id)
+      notifications = []
+      Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
+        notifications << Notification.new(user_id:    user_id, timeline_id: self.timeline_id,
+                                          summary_id: self.id, category: 4)
+      end
+      Notification.import notifications
     else
-      SummaryBest.create( user_id: self.user_id,
-                          summary_id: self.id, timeline_id: self.timeline_id)
+      SummaryBest.create(user_id: self.user_id,
+                         summary_id: self.id, timeline_id: self.timeline_id)
     end
-    self.update_columns( best: true)
+    self.update_columns(best: true)
   end
 
   def destroy_with_counters
-    Timeline.decrement_counter( :nb_summaries , self.timeline_id )
+    Timeline.decrement_counter(:nb_summaries, self.timeline_id)
     self.destroy
   end
 
@@ -170,25 +172,41 @@ class Summary < ActiveRecord::Base
     yield
     if public != self.public
       if self.public
-        test =  SummaryBest.where( timeline_id: self.timeline_id).nil?
+        test = SummaryBest.where(timeline_id: self.timeline_id).nil?
         unless test
-          SummaryBest.create( user_id: self.user_id, timeline_id: self.timeline_id,
-                              summary_id: self.id)
+          self.selection_update
+        end
+        unless self.notif_generated
+          notifications = []
+          Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
+            notifications << Notification.new(user_id: user_id, timeline_id: self.timeline_id,
+                                              summary_id: self.id, category: 3)
+          end
+          Notification.import notifications
+          self.update_columns( notif_generated: true)
         end
       else
-        Credit.where( summary_id: self.id).destroy_all
+        Credit.where(summary_id: self.id).destroy_all
         if self.best
-          SummaryBest.where( timeline_id: self.timeline_id).destroy_all
+          SummaryBest.where(timeline_id: self.timeline_id).destroy_all
         end
       end
     end
   end
 
   def cascading_save_summary
-    NewSummary.create( summary_id: self.id )
-    best_summary = SummaryBest.find_by(timeline_id: self.timeline_id )
-    unless best_summary
-      self.selection_update
+    if self.public
+      best_summary = SummaryBest.find_by(timeline_id: self.timeline_id)
+      unless best_summary
+        self.selection_update
+      end
+      notifications = []
+      Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
+        notifications << Notification.new(user_id: user_id, timeline_id: self.timeline_id,
+                                          summary_id: self.id, category: 3)
+      end
+      Notification.import notifications
+      self.update_columns( notif_generated: true)
     end
     Timeline.increment_counter(:nb_summaries, self.timeline_id)
     unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})

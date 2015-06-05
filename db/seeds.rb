@@ -27,87 +27,87 @@ end
 
 def seed_users
   users = []
-  users << User.new(name:  "T. Latrille",
-               email: "thibault.latrille@controversciences.org",
-               password:              "password",
-               password_confirmation: "password",
-               admin: true,
-               activated: true,
-               activated_at: Time.zone.now)
-  users << User.new(name:  "T. Lorin",
+  users << User.new(name: "T. Latrille",
+                    email: "thibault.latrille@controversciences.org",
+                    password: "password",
+                    password_confirmation: "password",
+                    admin: true,
+                    activated: true,
+                    activated_at: Time.zone.now)
+  users << User.new(name: "T. Lorin",
                     email: "thibault.lorin@ens-lyon.fr",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "N. Clairis",
+  users << User.new(name: "N. Clairis",
                     email: "nicolas.clairis@ens-lyon.fr",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "M. Melix",
+  users << User.new(name: "M. Melix",
                     email: "marion.melix@ens-lyon.fr",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "H. Pitsch",
+  users << User.new(name: "H. Pitsch",
                     email: "helmut.pitsch@irsn.fr",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "A. Danet",
+  users << User.new(name: "A. Danet",
                     email: "Alain.Danet@univ-montp2.fr",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "R. Feron",
+  users << User.new(name: "R. Feron",
                     email: "romain.feron@evobio.eu",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "Iago-lito",
+  users << User.new(name: "Iago-lito",
                     email: "iago.bonnici@ens.fr",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "Y. Anciaux",
+  users << User.new(name: "Y. Anciaux",
                     email: "yoann.anciaux@univ-montp2.fr",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "P. Guille Escuret",
+  users << User.new(name: "P. Guille Escuret",
                     email: "sombrenard@gmail.com",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "F. Lamouche",
+  users << User.new(name: "F. Lamouche",
                     email: "florian.lamouche@ens-lyon.fr",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "S. Knipping",
+  users << User.new(name: "S. Knipping",
                     email: "solene.knipping@ens-lyon.fr",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
-  users << User.new(name:  "N. Rivel",
+  users << User.new(name: "N. Rivel",
                     email: "nais.rivel@gmail.com",
-                    password:              "password",
+                    password: "password",
                     password_confirmation: "password",
                     activated: true,
                     activated_at: Time.zone.now)
   users.map do |u|
-    u.save( validate: false)
+    u.save(validate: false)
   end
   users
 end
@@ -128,11 +128,11 @@ def seed_timelines(users)
   names << "Les jeux vidéo rendent-ils violents ?"
   names << "Le point G, mythe ou réalité ?"
   names.each do |name|
-      timeline = Timeline.new(
-      user: users[0],
-      name:  name,
-      score: 1)
-      timelines << timeline
+    timeline = Timeline.new(
+        user: users[0],
+        name: name,
+        score: 1)
+    timelines << timeline
   end
   timelines.map do |t|
     t.save!
@@ -144,10 +144,10 @@ def seed_references(user, timeline_name, file_name, tags, binary, debate)
   timeline = Timeline.new(
       user: user,
       binary: binary,
-      name:  timeline_name,
+      name: timeline_name,
       debate: debate,
       score: 1)
-  timeline.set_tag_list( tags )
+  timeline.set_tag_list(tags)
   timeline.save!
   timeline_url = "http://controversciences.org/timelines/"+timeline.id.to_s
   bibtex = BibTeX.open("./db/#{file_name}.bib")
@@ -167,7 +167,7 @@ def seed_references(user, timeline_name, file_name, tags, binary, debate)
       ref.save!
       comment = Comment.new(
           user: user,
-          timeline:  timeline,
+          timeline: timeline,
           reference: ref,
           title: bib.respond_to?(:f_6_content) ? bib[:f_6_content].value : '',
           f_0_content: bib.respond_to?(:f_0_content) ? bib[:f_0_content].value : '',
@@ -176,7 +176,7 @@ def seed_references(user, timeline_name, file_name, tags, binary, debate)
           f_3_content: bib.respond_to?(:f_3_content) ? bib[:f_3_content].value : '',
           f_4_content: bib.respond_to?(:f_4_content) ? bib[:f_4_content].value : '',
           f_5_content: bib.respond_to?(:f_5_content) ? bib[:f_5_content].value : '')
-      comment.save_with_markdown( timeline_url )
+      comment.save_with_markdown(timeline_url)
       if comment.new_record?
         puts comment.valid?
         puts comment.title
@@ -188,9 +188,9 @@ def seed_references(user, timeline_name, file_name, tags, binary, debate)
     elsif bib[:content]
       summary = Summary.new(
           user: user,
-          timeline:  timeline,
+          timeline: timeline,
           content: bib.respond_to?(:content) ? bib[:content].value.to_s : '')
-      summary.save_with_markdown( timeline_url )
+      summary.save_with_markdown(timeline_url)
       if summary.new_record?
         puts summary.valid?
         puts summary.content
@@ -199,77 +199,12 @@ def seed_references(user, timeline_name, file_name, tags, binary, debate)
   end
 end
 
-def seed_following_new_timelines(users)
-  following_new_timelines = []
-  users = [users[0]]
-  users.each do |user|
-    tags = Tag.all
-    tags.each do |tag|
-      following_new_timelines << FollowingNewTimeline.new( user_id: user.id, tag_id: tag.id )
-    end
-  end
-  following_new_timelines.map do |f|
-    f.save!
-  end
-  following_new_timelines
-end
-
-def seed_following_timelines(users)
-  following_timelines = []
-  users = [users[0]]
-  users.each do |user|
-    user_timelines = Timeline.all
-    user_timelines.each do |timeline|
-      following_timelines << FollowingTimeline.new( user_id: user.id, timeline_id: timeline.id )
-    end
-  end
-  following_timelines.map do |f|
-    f.save!
-  end
-  following_timelines
-end
-
-
-def seed_following_summaries(users)
-  following_summaries = []
-  users = [users[0]]
-  users.each do |user|
-    user_timelines = Timeline.all
-    user_timelines.each do |timeline|
-      following_summaries << FollowingSummary.new( user_id: user.id, timeline_id: timeline.id )
-    end
-  end
-  following_summaries.map do |f|
-    f.save!
-  end
-  following_summaries
-end
-
-def seed_following_references(users)
-  following_references = []
-  users = [users[0]]
-  users.each do |user|
-    user_references = Reference.all
-    user_references.each do |reference|
-      following_references << FollowingReference.new( user_id: user.id, reference_id: reference.id )
-    end
-  end
-  following_references.map do |f|
-    f.save!
-  end
-  following_references
-end
-
 seed_domains
 tags = tags_hash.keys
 users = seed_users
 seed_timelines(users)
- seed_following_new_timelines(users)
- seed_references(users[1], "La café est-il bénéfique pour la santé ?", "cafe", tags.sample(rand(1..7)), "Non&&Oui", true)
- seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags.sample(rand(1..7)), "Non&&Oui", true)
- seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags.sample(rand(1..7)), "Non&&Oui", true)
+seed_references(users[1], "La café est-il bénéfique pour la santé ?", "cafe", tags.sample(rand(1..7)), "Non&&Oui", true)
+seed_references(users[1], "Les abeilles vont-elles disparaître ? ", "abeilles", tags.sample(rand(1..7)), "Non&&Oui", true)
+seed_references(users[1], "L'homéopathie est-elle efficace ?", "homeopathie", tags.sample(rand(1..7)), "Non&&Oui", true)
 # seed_references(users[2], "Peut-on contrôler le comportement par la technologie ?", "opto", tags.sample(rand(1..7)), "Non&&Oui", true)
 # seed_references(users[3], "Viande rouge ou viande blanche, l'impact sur la santé ?", "meat", tags.sample(rand(1..7)), "", true)
- seed_following_timelines(users)
- seed_following_summaries(users)
- seed_following_references(users)

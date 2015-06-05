@@ -56,7 +56,7 @@
           </tr>
       <% else %>
           <% @timelines.each do |timeline| %>
-              <tr class="following-timeline">
+              <tr class="notification-timeline">
                 <td> <%= f.check_box :timeline_ids, { :multiple => true},
                              checked_value = timeline.id, unchecked_value = nil %> </td>
                 <td> <%= link_to timeline.name, notifications_timeline_url( id: timeline.id), class: "btn btn-primary" %> </td>
@@ -213,13 +213,13 @@
         <% @selections.each do |notif| %>
             <tr class="notification-sel-comment">
               <td> <%= f.check_box :sel_comment_ids, { :multiple => true},
-                                   checked_value = notif.id, unchecked_value = nil %> </td>
+                                   checked_value = notif.comment_id, unchecked_value = nil %> </td>
               <td> <%= link_to notif.reference.article ? article_hash[notif.field] : review_hash[notif.field],
-                               notifications_selection_path(id: notif.new_comment_id,
+                               notifications_selection_path(id: notif.comment_id,
                                                                         field: notif.field ), class: "btn btn-primary" %> </td>
-              <td> <%= link_to notif.author.name, user_path( notif.author.id ), class: "btn btn-primary" %> </td>
-              <td> <%= link_to notif.reference.title, reference_path(notif.reference.id), class: "btn btn-primary" %> </td>
-              <td>  <%= link_to notif.timeline.name, timeline_path(notif.timeline.id ), class: "btn btn-primary" %> </td>
+              <td> <%= link_to notif.comment.user_name, user_path( notif.comment.user_id ), class: "btn btn-primary" %> </td>
+              <td> <%= link_to notif.reference.title, reference_path(notif.reference_id), class: "btn btn-primary" %> </td>
+              <td>  <%= link_to notif.comment.timeline_name, timeline_path(notif.timeline_id ), class: "btn btn-primary" %> </td>
             </tr>
         <% end %>
     <% end %>

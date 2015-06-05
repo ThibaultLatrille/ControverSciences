@@ -1,11 +1,15 @@
 class Like < ActiveRecord::Base
   belongs_to :timeline
+  belongs_to :user
+  has_many :notifications
 
-  validates :ip, presence: true
+  validates :user_id, presence: true
   validates :timeline_id, presence: true
+  validates_uniqueness_of :user_id, :scope => [:timeline_id]
 
   after_create  :cascading_save_like
   after_destroy :cascading_destroy_like
+
   private
 
   def cascading_save_like

@@ -37,15 +37,10 @@ Rails.application.routes.draw do
   get 'assistant/timelines' => 'assistant#timelines'
   get 'assistant/fitness' => 'assistant#fitness'
   get 'assistant/selection' => 'assistant#selection'
-  resources :following_references, only: [:create, :destroy]
-  resources :following_timelines, only: [:create, :destroy]
-  resources :following_summaries, only: [:create, :destroy]
-  resources :following_new_timelines, only: [:create, :destroy]
-  get 'followings/index'
   get 'notifications/index'
   get 'notifications/important'
   get 'notifications/delete_all'
-  get 'notifications/delete_selection_all'
+  get 'notifications/delete_all_important'
   post 'notifications/delete'
   get 'notifications/timeline'
   get 'notifications/reference'
@@ -62,9 +57,8 @@ Rails.application.routes.draw do
   get 'my_items/items'
   get 'my_items/votes'
 
-  get 'likes/add'
+  resources :likes, only: [:create, :destroy, :index]
   resources :newsletters, only: [:create]
-  resources :new_accounts, only: [:create]
 
   resources :summaries, only: [:show, :index, :new, :create, :edit, :update, :destroy]
   resources :credits, only: [:new ,:create, :destroy]
@@ -72,8 +66,8 @@ Rails.application.routes.draw do
   resources :suggestion_children, only: [:create, :show, :edit, :update, :destroy]
   get "/fetch_children" => 'suggestion_children#from_suggestion', as: 'fetch_children'
 
-  get 'suggestion_votes/add'
-  get 'suggestion_child_votes/add'
+  resources :suggestion_votes, only: [:create]
+  resources :suggestion_child_votes, only: [:create]
 
   resources :issues, only: [:create]
   resources :figures, only: [:create]

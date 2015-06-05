@@ -103,11 +103,6 @@
         <% else %>
             Il n'y a pas de synthèse autre que la votre
         <% end %>
-        <% if logged_in? %>
-              <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-            </span> Suivre les nouvelles synthèses qui seront <br/> ajoutées à cette controverse".html_safe,
-                          following_summaries_path( timeline_id: params[:timeline_id] ), method: :post, class: "btn btn-success pull-right" %>
-        <% end %>
     <% end %>
   </div>
 </div>
