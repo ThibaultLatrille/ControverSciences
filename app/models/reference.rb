@@ -46,24 +46,6 @@ class Reference < ActiveRecord::Base
     end
   end
 
-  def binary_most_explanation( binary )
-    text = "Cette référence est "
-    case self.binary_most
-      when 1
-        return text + "très fermement du coté " + binary.split('&&')[0].downcase + "."
-      when 2
-        return text + "du coté " + binary.split('&&')[0].downcase + "."
-      when 3
-        return text + "neutre."
-      when 4
-        return text + "du coté " + binary.split('&&')[1].downcase + "."
-      when 5
-        return text + "très fermement du coté " + binary.split('&&')[1].downcase + "."
-      else
-        return ""
-    end
-  end
-
   def display_year
     if self.year > 1958
       self.year
@@ -83,18 +65,7 @@ class Reference < ActiveRecord::Base
   def binary_font_size(value)
     sum = self.binary_1+self.binary_2+self.binary_3+self.binary_4+self.binary_5
     if sum > 0
-      case value
-        when 1
-          1+1.0*self.binary_1/sum
-        when 2
-          1+1.0*self.binary_2/sum
-        when 3
-          1+1.0*self.binary_3/sum
-        when 4
-          1+1.0*self.binary_4/sum
-        when 5
-          1+1.0*self.binary_5/sum
-      end
+      1+1.0*self["binary_#{value}"]/sum
     else
       1.5
     end

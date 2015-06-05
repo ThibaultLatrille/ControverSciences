@@ -60,6 +60,25 @@ module ApplicationHelper
       5 => "très fermement" }
   end
 
+
+  def binary_value_explanation( binary, value )
+    text = "Cette référence est "
+    case value
+      when 1
+        return text + "très fermement du coté " + binary.split('&&')[0].downcase + "."
+      when 2
+        return text + "du coté " + binary.split('&&')[0].downcase + "."
+      when 3
+        return text + "neutre."
+      when 4
+        return text + "du coté " + binary.split('&&')[1].downcase + "."
+      when 5
+        return text + "très fermement du coté " + binary.split('&&')[1].downcase + "."
+      else
+        return ""
+    end
+  end
+
   def user_name( user_id )
     User.select( :name ).find( user_id ).name
   end
