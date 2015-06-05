@@ -1,81 +1,88 @@
 <% provide(:title, "Suggérer une amélioration") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
-<div class="col-xs-12">
-    <h1> Discutez des controverses ! Apportez vos idées ! </h1>
-    <div class="row">
-      <div class="col-xs-12 col-lg-3">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <span class="glyphicon glyphicon-comment"></span> Vous souhaitez vous exprimer ? C'est ici !
-          </div>
-          <div class="panel-body">
-            <%= form_for( @suggestion) do |f| %>
-                <%= render 'shared/error_messages', object: f.object %>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1> Discutez des controverses ! Apportez vos idées ! </h1>
 
-                <div class="form-group">
-                  <% if params[:filter] == "debate" %>
-                    <%= f.hidden_field :debate, value: 'true' %>
-                    <%= f.label :comment, "<span class=\"icon-frog bigger\"></span> Suggérer une controverse (1200 caractères max)".html_safe, class: 'control-label' %>
-                  <% else %>
-                    <%= f.label :comment, "<span class=\"icon-idea bigger\"></span> Apporter une idée (1200 caractères max)".html_safe, class: 'control-label' %>
+      <div class="row">
+        <div class="col-xs-12 col-lg-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="glyphicon glyphicon-comment"></span> Vous souhaitez vous exprimer ? C'est ici !
+            </div>
+            <div class="panel-body">
+              <% if logged_in? %>
+                  <%= form_for(@suggestion) do |f| %>
+                      <%= render 'shared/error_messages', object: f.object %>
+
+                      <div class="form-group">
+                        <% if params[:filter] == "debate" %>
+                            <%= f.hidden_field :debate, value: 'true' %>
+                            <%= f.label :comment, "<span class=\"icon-frog bigger\"></span> Suggérer une controverse (1200 caractères max)".html_safe, class: 'control-label' %>
+                        <% else %>
+                            <%= f.label :comment, "<span class=\"icon-idea bigger\"></span> Apporter une idée (1200 caractères max)".html_safe, class: 'control-label' %>
+                        <% end %>
+                        <br>
+
+                        <div id="characterLeft"></div>
+                        <%= f.text_area :comment, {rows:  3, id: "markdown-textarea",
+                                                   :class => "form-control textarea"} %>
+                        <span class="help-block"></span>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="pull-right">
+                            <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                                         class: 'btn btn-success',
+                                         data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
+                          </div>
+                        </div>
+                      </div>
                   <% end %>
-                      <br>
-                  <div id="characterLeft"></div>
-                  <%= f.text_area :comment, {rows: 3, id: "markdown-textarea",
-                                             :class => "form-control textarea"} %>
-                  <span class="help-block"></span>
-                </div>
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="pull-right">
-                      <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
-                                   class: 'btn btn-success',
-                                   data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "}%>
-                    </div>
-                  </div>
-                </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-lg-7">
-        <div class="row">
-          <div class="clearfix">
-            <div class="btn-group">
-              <%= link_to "<span class=\"icon-frog fat\"></span> Discuter des controverses".html_safe,
-                          suggestions_path(:filter => 'debate'),
-                          class: "btn btn-default #{ params[:filter] == "debate" ? "active" : nil }" %>
-            </div>
-            <div class="btn-group">
-              <%= link_to "<span class=\"icon-idea fat\"></span> Boite à idées".html_safe,
-                          suggestions_path,
-                          class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
-            </div>
-            <div>
-              </br>
+              <% else %>
+                  <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Créer un compte pour commenter".html_safe, new_user_path,
+                              class: "btn btn-primary pull-right" %>
+              <% end %>
             </div>
           </div>
-                <%= render @suggestions %>
-                <%= paginate @suggestions %>
         </div>
-      </div>
-      <div class="col-xs-12 col-lg-2">
-        <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
-                    class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
-        <%= link_to "Découvrir ControverSciences", how_to_path,
-                    class: "btn btn-block btn-primary" %>
-        <%= link_to "Contribuer à ControverSciences", how_to_edit_path,
-                    class: "btn btn-block btn-primary" %>
-        <%= link_to "Foire aux questions (FAQ)", faq_path,
-                    class: "btn btn-block btn-primary" %>
-        <div class="btn btn-block btn-info cursor-not-allowed">
-          Venez discuter
+        <div class="col-xs-12 col-lg-7">
+          <div class="row">
+            <div class="clearfix">
+              <div class="btn-group">
+                <%= link_to "<span class=\"icon-frog fat\"></span> Discuter des controverses".html_safe,
+                            suggestions_path(:filter => 'debate'),
+                            class: "btn btn-default #{ params[:filter] == "debate" ? "active" : nil }" %>
+              </div>
+              <div class="btn-group">
+                <%= link_to "<span class=\"icon-idea fat\"></span> Boite à idées".html_safe,
+                            suggestions_path,
+                            class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }" %>
+              </div>
+              <div>
+                </br>
+              </div>
+            </div>
+            <%= render @suggestions %>
+            <%= paginate @suggestions %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-lg-2">
+          <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
+                      class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
+          <%= link_to "Découvrir ControverSciences", how_to_path,
+                      class: "btn btn-block btn-primary" %>
+          <%= link_to "Contribuer à ControverSciences", how_to_edit_path,
+                      class: "btn btn-block btn-primary" %>
+          <%= link_to "Foire aux questions (FAQ)", faq_path,
+                      class: "btn btn-block btn-primary" %>
+          <div class="btn btn-block btn-info cursor-not-allowed">
+            Venez discuter
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
@@ -85,9 +92,11 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <% if logged_in? %>
             <br/>
+
             <h2 class="modal-title" id="myModalLabel"> Votre vote a déjà été pris en compte. </h2>
         <% else %>
             <br/>
+
             <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette action</h2>
             <br/>
             <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
@@ -98,15 +107,15 @@
         <br/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok </button>
+        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
       </div>
     </div>
   </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl']});
+    $(document).ready(function () {
+        $("#markdown-textarea").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl']});
         var max = 1200;
         var len = $('#markdown-textarea').val().length;
         if (len >= max) {
@@ -119,7 +128,7 @@
             $('#characterLeft').text(ch + ' caractères restants.');
         }
     });
-    $('#markdown-textarea' ).keyup(function () {
+    $('#markdown-textarea').keyup(function () {
         var max = 1200;
         var len = $(this).val().length;
         if (len >= max) {

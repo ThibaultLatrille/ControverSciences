@@ -244,7 +244,7 @@
         </thead>
 
         <tbody class="page">
-        <% if !@suggestions.any? %>
+        <% if not (@suggestions.any? || @suggestions_children.any?) %>
             <tr class="notification-comment">
               <td> <%= link_to "Aucun commentaire", suggestions_path %> </td>
               <td> </td>
@@ -258,6 +258,16 @@
                                                   edit_suggestion_path( com.id ) %>  </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                                   suggestion_path( com.id ), method: :delete,
+                                                  data: { confirm: "Etes vous certain ?" } %>  </td>
+                </tr>
+            <% end %>
+            <% @suggestions_children.each do |com| %>
+                <tr class="notification-comment">
+                  <td> <%= link_to com.comment.html_safe, suggestion_child_path(com.id ) %>   </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
+                                                  edit_suggestion_child_path( com.id ) %>  </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                  suggestion_child_path( com.id ), method: :delete,
                                                   data: { confirm: "Etes vous certain ?" } %>  </td>
                 </tr>
             <% end %>

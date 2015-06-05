@@ -1,21 +1,21 @@
 <br/>
 <div class="row">
   <% suggestion_children.each do |suggestion_child| %>
-  <div class="col-md-3">
-    <div class="clearfix pull-right">
-      <button type="button" class="btn btn-success" data-placement="left" data-value="true"
-              data-toggle="tooltip" value="<%= suggestion_child.id %>" data-validate="/suggestion_child_votes"
-              title="<%= suggestion_child.plus.to_s + " contributeurs sont d'accords" %>">
-        <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion_child.plus %> </span>
-      </button>
-      <button type="button" class="btn btn-danger" data-placement="left" data-value="false"
-              data-toggle="tooltip" value="<%= suggestion_child.id %>" data-validate="/suggestion_child_votes"
-              title="<%= suggestion_child.minus.to_s + " contributeurs ne sont pas d'accords" %>">
-        <span class="glyphicon glyphicon-thumbs-down"> <%= suggestion_child.minus %> </span>
-      </button>
+      <div class="col-md-3">
+        <div class="clearfix pull-right">
+          <button type="button" class="btn btn-success" data-placement="left" data-value="true"
+                  data-toggle="tooltip" value="<%= suggestion_child.id %>" data-validate="/suggestion_child_votes"
+                  title="<%= suggestion_child.plus.to_s + " contributeurs sont d'accords" %>">
+            <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion_child.plus %> </span>
+          </button>
+          <button type="button" class="btn btn-danger" data-placement="left" data-value="false"
+                  data-toggle="tooltip" value="<%= suggestion_child.id %>" data-validate="/suggestion_child_votes"
+                  title="<%= suggestion_child.minus.to_s + " contributeurs ne sont pas d'accords" %>">
+            <span class="glyphicon glyphicon-thumbs-down"> <%= suggestion_child.minus %> </span>
+          </button>
+        </div>
       </div>
-  </div>
-  <div class="col-md-9">
+      <div class="col-md-9">
         <div class="panel panel-default suggestion">
           <div class="panel-body">
           <span class="content">
@@ -24,8 +24,8 @@
             </div>
             <% if logged_in? && suggestion_child.user_id == current_user.id %>
               <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_child_path(suggestion_child.id), method: :delete,
-                          data: { confirm: "Etes vous certain ?" },
-                          class: "btn btn-danger" %>
+                          data:                                                                                                                        {confirm: "Etes vous certain ?"},
+                          class:                                                                                                                       "btn btn-danger" %>
                 <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe, edit_suggestion_child_path(suggestion_child.id),
                             class: "btn btn-primary" %>
             <% end %>
@@ -38,35 +38,41 @@
                </span>
           </div>
         </div>
-     </div>
+      </div>
   <% end %>
   <div class="col-md-9 col-md-offset-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <span class="glyphicon glyphicon-comment"></span>
-        Une furieuse envie de répondre, c'est ici !
-      </div>
-      <div class="panel-body">
-        <%= form_for( :suggestion_child, url: suggestion_children_path, method: :post) do |f| %>
-            <%= f.hidden_field :suggestion_id, value: suggestion_id %>
-            <div class="form-group">
-              <%= f.label :comment, "Votre réponse", class: 'control-label' %><br>
-              <div id="characterLeft"></div>
-              <%= f.text_area :comment,  {rows: 3,
-                                          :class => "form-control textarea"} %>
-              <span class="help-block"></span>
-            </div>
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="pull-right">
-                  <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
-                               class: 'btn btn-success',
-                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "}%>
+    <% if logged_in? %>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span class="glyphicon glyphicon-comment"></span>
+            Une furieuse envie de répondre, c'est ici !
+          </div>
+          <div class="panel-body">
+            <%= form_for(:suggestion_child, url: suggestion_children_path, method: :post) do |f| %>
+                <%= f.hidden_field :suggestion_id, value: suggestion_id %>
+                <div class="form-group">
+                  <div id="characterLeft"></div>
+                  <%= f.text_area :comment, {rows:  3,
+                                             :class => "form-control textarea"} %>
+                  <span class="help-block"></span>
                 </div>
-              </div>
-            </div>
-        <% end %>
-      </div>
-    </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="pull-right">
+                      <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                                   class: 'btn btn-success',
+                                   data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+          </div>
+        </div>
+    <% else %>
+        <div class="clearfix">
+          <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Créer un compte pour répondre".html_safe, new_user_path,
+                      class: "btn btn-primary pull-right" %>
+        </div>
+    <% end %>
   </div>
 </div>

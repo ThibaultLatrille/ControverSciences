@@ -41,8 +41,15 @@
                   <%= link_to "<span class=\"glyphicon glyphicon-list\"></span> Voir les réactions (#{suggestion.children})".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
                               :remote => true, id:"fetch", class: "btn btn-info" %>
               <% else %>
-                  <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Répondre".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
-                              :remote => true, id:"fetch", class: "btn btn-info" %>
+                  <% if logged_in? %>
+                      <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Répondre".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
+                                  :remote => true, id:"fetch", class: "btn btn-info" %>
+                  <% else %>
+                      <div class="clearfix">
+                        <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Créer un compte pour répondre".html_safe, new_user_path,
+                                    class: "btn btn-primary pull-right" %>
+                      </div>
+                  <% end %>
               <% end %>
             </div>
           <span class="timestamp">
