@@ -13,14 +13,14 @@
         <% if @user_detail.institution != "" %>
             <%= @user.name %> est <%= @user_detail.job  %>
             <br/>
-            <b> Institution : <%= @user_detail.institution %></b>
+            <b> Institution : <%= @user_detail.institution %></b><br/>
         <% else %>
             <%= @user.name %> est <%= @user_detail.job  %><br/>
         <% end %>
     <% elsif @user_detail && @user_detail.id && @user_detail.institution != "" %>
             <%= @user.name %>
         <br/>
-        <b> Institution : <%= @user_detail.institution %></b>
+        <b> Institution : <%= @user_detail.institution %></b><br/>
     <% end %>
     <% if  @user_detail && @user_detail.id && @user_detail.biography != "" %>
         <b> Biographie : </b> <%= @user_detail.content_markdown.html_safe %> <br/>
