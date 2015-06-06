@@ -17,6 +17,9 @@ class SessionsController < ApplicationController
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_back_or user
       else
+        if logged_in?
+          @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
+        end
         @timelines = Timeline.order(:score => :desc).first(8)
         if PendingUser.find_by_user_id(user.id)
           render 'users/invalid'
@@ -41,6 +44,9 @@ class SessionsController < ApplicationController
         flash.now[:danger] = 'Mauvais mot de passe pour cette adresse email.'
         render 'new'
       else
+        if logged_in?
+          @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
+        end
         @timelines = Timeline.order(:score => :desc).first(8)
         if PendingUser.find_by_user_id(user.id)
           render 'users/invalid'

@@ -20,6 +20,9 @@ class PasswordResetsController < ApplicationController
         flash[:info] = "Un email vous a été envoyé."
         redirect_to root_url
       else
+        if logged_in?
+          @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
+        end
         @timelines = Timeline.order(:score => :desc).first(8)
         if PendingUser.find_by_user_id( @user.id )
           render 'users/invalid'

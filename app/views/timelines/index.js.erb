@@ -1,2 +1,1 @@
-# app/views/timelines/index.js.erb
-$("#timelines").append(<%= escape_javascript(render(@timelines)) %>);
+$("#timelines").append(<%= escape_javascript(render :partial => 'timelines/timeline', :collection => @timelines, :locals => { :my_likes => logged_in? ? @my_likes : nil }) %>);

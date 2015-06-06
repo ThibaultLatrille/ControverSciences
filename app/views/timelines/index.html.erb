@@ -1,112 +1,116 @@
 <% provide(:title, "Controverses") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-<div class="btn-group">
-<button class="btn btn-default dropdown-toggle" type="button"
-        id="dropdownMenuTag" data-toggle="dropdown">
-  <% if params[:tag]==nil || params[:tag]=='all'  %>
-        Tous les thèmes
-  <% else  %>
-      <%= "<span class=\"normal icon-#{params[:tag]}\"></span> ".html_safe+ tags_hash[params[:tag]] %>
-  <% end  %>
-  <span class="caret"></span>
-</button>
-<ul class="dropdown-menu" role="menu" >
-  <li <%= params[:tag]=='all' || params[:tag].nil? ? "class=selected" : nil %> >
-    <%= link_to 'Tous (par défaut)', timelines_path(:sort => params[:sort],
-                                                     :order => params[:order], :tag => 'all')%>
-  </li>
-  <% tags_hash.each do |key, value| %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+      <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" type="button"
+                id="dropdownMenuTag" data-toggle="dropdown">
+          <% if params[:tag]==nil || params[:tag]=='all' %>
+              Tous les thèmes
+          <% else %>
+              <%= "<span class=\"normal icon-#{params[:tag]}\"></span> ".html_safe+ tags_hash[params[:tag]] %>
+          <% end %>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li <%= params[:tag]=='all' || params[:tag].nil? ? "class=selected" : nil %> >
+            <%= link_to 'Tous (par défaut)', timelines_path(:sort  => params[:sort],
+                                                            :order => params[:order], :tag => 'all') %>
+          </li>
+          <% tags_hash.each do |key, value| %>
 
-      <li <%= params[:tag]==key ? "class=selected" : nil %> >
-        <%= link_to "<span class=\"icon-#{key} hvr-grow\"></span> ".html_safe+value,
-                    timelines_path(:sort => params[:sort], :order => params[:order], :tag => key) %>
-      </li>
-  <% end %>
-</ul>
-</div>
-<div class="btn-group">
-    <button class="btn btn-default dropdown-toggle" type="button"
-            id="dropdownMenuTri" data-toggle="dropdown">
-      <% if params[:sort] == nil || params[:sort]=='score'  %>
-          Tri magique
-      <% else  %>
-          Tri par
-          <%= params[:sort]=='score_recent' ? "activité récente" : nil %>
-          <%= params[:sort]=='created_at' ? "date de création" : nil %>
-          <%= params[:sort]=='nb_contributors' ? "Nombre de contributeurs" : nil %>
-          <%= params[:sort]=='nb_references' ? "nombre de références" : nil %>
-          <%= params[:sort]=='nb_edits' ? "Nombre de contributions" : nil %>
-      <% end  %>
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" >
-      <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-        <%= link_to "Magique (par défaut)",timelines_path(:sort=> 'score',
-                               :order => params[:order], :tag => params[:tag]) %> </li>
-      <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
-        <%= link_to "Les controverses du moment",timelines_path(:sort=> 'score_recent',
-                               :order => params[:order], :tag => params[:tag]) %> </li>
-      <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-        <%= link_to "Date de création",timelines_path(:sort => 'created_at',
-                               :order => params[:order], :tag => params[:tag]) %> </li>
-      <li <%= params[:sort]=='nb_contributors' ? "class=selected" : nil %> >
-        <%= link_to "Nombre de contributeurs",timelines_path(:sort => 'nb_contributors',
-                                                             :order => params[:order], :tag => params[:tag]) %> </li>
-      <li <%= params[:sort]=='nb_references' ? "class=selected" : nil %> >
-        <%= link_to "Nombre de références",timelines_path(:sort => 'nb_references',
-                               :order => params[:order], :tag => params[:tag]) %> </li>
-      <li <%= params[:sort]=='nb_edits' ? "class=selected" : nil %> >
-        <%= link_to "Nombre de contributions",timelines_path(:sort => 'nb_edits',
-                               :order => params[:order], :tag => params[:tag]) %> </li>
-    </ul>
-</div>
-<div class="btn-group">
-  <button class="btn btn-default dropdown-toggle" type="button"
-          id="dropdownMenuOrder" data-toggle="dropdown">
-    <% if params[:order] == 'desc' || params[:order].nil?  %>
-        Ordre décroissant
-    <% else  %>
-        Ordre croissant
-    <% end  %>
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" role="menu" >
-    <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-      <%= link_to "Décroissant (par défaut)",timelines_path(:sort=> params[:sort],
-                                         :order => 'desc', :tag => params[:tag]) %> </li>
-    <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-      <%= link_to "Croissant",timelines_path(:sort => params[:sort],
-                                         :order => 'asc', :tag => params[:tag]) %> </li>
-  </ul>
-</div>
-<div id="timelines">
-  <div class="row page">
-  <%= render @timelines %>
-    <%= paginate @timelines %>
-  </div>
-</div>
+              <li <%= params[:tag]==key ? "class=selected" : nil %> >
+                <%= link_to "<span class=\"icon-#{key} hvr-grow\"></span> ".html_safe+value,
+                            timelines_path(:sort => params[:sort], :order => params[:order], :tag => key) %>
+              </li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" type="button"
+                id="dropdownMenuTri" data-toggle="dropdown">
+          <% if params[:sort] == nil || params[:sort]=='score' %>
+              Tri magique
+          <% else %>
+              Tri par
+              <%= params[:sort]=='score_recent' ? "activité récente" : nil %>
+              <%= params[:sort]=='created_at' ? "date de création" : nil %>
+              <%= params[:sort]=='nb_contributors' ? "Nombre de contributeurs" : nil %>
+              <%= params[:sort]=='nb_references' ? "nombre de références" : nil %>
+              <%= params[:sort]=='nb_edits' ? "Nombre de contributions" : nil %>
+          <% end %>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
+            <%= link_to "Magique (par défaut)", timelines_path(:sort  => 'score',
+                                                               :order => params[:order], :tag => params[:tag]) %> </li>
+          <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
+            <%= link_to "Les controverses du moment", timelines_path(:sort  => 'score_recent',
+                                                                     :order => params[:order], :tag => params[:tag]) %> </li>
+          <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
+            <%= link_to "Date de création", timelines_path(:sort  => 'created_at',
+                                                           :order => params[:order], :tag => params[:tag]) %> </li>
+          <li <%= params[:sort]=='nb_contributors' ? "class=selected" : nil %> >
+            <%= link_to "Nombre de contributeurs", timelines_path(:sort  => 'nb_contributors',
+                                                                  :order => params[:order], :tag => params[:tag]) %> </li>
+          <li <%= params[:sort]=='nb_references' ? "class=selected" : nil %> >
+            <%= link_to "Nombre de références", timelines_path(:sort  => 'nb_references',
+                                                               :order => params[:order], :tag => params[:tag]) %> </li>
+          <li <%= params[:sort]=='nb_edits' ? "class=selected" : nil %> >
+            <%= link_to "Nombre de contributions", timelines_path(:sort  => 'nb_edits',
+                                                                  :order => params[:order], :tag => params[:tag]) %> </li>
+        </ul>
+      </div>
+      <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" type="button"
+                id="dropdownMenuOrder" data-toggle="dropdown">
+          <% if params[:order] == 'desc' || params[:order].nil? %>
+              Ordre décroissant
+          <% else %>
+              Ordre croissant
+          <% end %>
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
+            <%= link_to "Décroissant (par défaut)", timelines_path(:sort  => params[:sort],
+                                                                   :order => 'desc', :tag => params[:tag]) %> </li>
+          <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
+            <%= link_to "Croissant", timelines_path(:sort  => params[:sort],
+                                                    :order => 'asc', :tag => params[:tag]) %> </li>
+        </ul>
+      </div>
+      <div id="timelines">
+        <div class="row page">
+          <% if logged_in? %>
+              <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes} %>
+          <% else %>
+              <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil} %>
+          <% end %>
+          <%= paginate @timelines %>
+        </div>
+      </div>
 
-  <% if logged_in? %>
-    <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+      <% if logged_in? %>
+          <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
                    </span> Ajouter une controverse".html_safe,
-                new_timeline_path, class: "btn btn-block btn-primary" %>
-  <br/>
-  <br/>
+                      new_timeline_path, class: "btn btn-block btn-primary" %>
+          <br/>
+          <br/>
 
-  <% end %>
-</div>
+      <% end %>
+    </div>
 
-<% if logged_in? %>
-  <div class="col-xs-12 col-md-6 col-md-offset-3 col-lg-offset-0 col-lg-2">
-      <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+    <% if logged_in? %>
+        <div class="col-xs-12 col-md-6 col-md-offset-3 col-lg-offset-0 col-lg-2">
+          <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
                        </span> Ajouter une controverse".html_safe,
-                           new_timeline_path, class: "btn btn-block btn-primary" %>
-  </div>
-<% end %>
+                      new_timeline_path, class: "btn btn-block btn-primary" %>
+        </div>
+    <% end %>
 
-</div>
+  </div>
 </div>
 <div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
   <div class="modal-dialog">
@@ -115,9 +119,11 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <% if logged_in? %>
             <br/>
-            <h2 class="modal-title" id="myModalLabel"> Votre intérêt pour cette controverse a déjà été pris en compte. </h2>
+
+            <h2 class="modal-title" id="myModalLabel"> Le serveur ne répond pas</h2>
         <% else %>
             <br/>
+
             <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette action</h2>
             <br/>
             <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
@@ -128,36 +134,56 @@
         <br/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok </button>
+        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
       </div>
     </div>
   </div>
 </div>
 
 <script type="text/javascript">
-$('.timeline-name').responsiveEqualHeightGrid();
-$('.timeline-body').responsiveEqualHeightGrid();
-$('[data-toggle="tooltip"]').tooltip({container: 'body'});
-  $('.collapse').on('shown.bs.collapse', function () {
-      $(".timeline-body").responsiveEqualHeightGrid();
-  });
-$(function () {
-    $('[data-validate]').click(function () {
-        var self = $(this);
-        self.hide();
-        self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-        $.post(self.data('validate'), {
-            id: self.val()
-        }).success(function () {
-            $('.loader-like').remove();
-            self.show();
-            var like = $('.glyphicon', self);
-            like.text(' ' + (parseInt(like.text()) + 1));
-        }).error(function () {
-            $('.loader-like').remove();
-            self.show();
-            $('#iptaken').modal('show');
+    $('.timeline-name').responsiveEqualHeightGrid();
+    $('.timeline-body').responsiveEqualHeightGrid();
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    $('.collapse').on('shown.bs.collapse', function () {
+        $(".timeline-body").responsiveEqualHeightGrid();
+    });
+    $(function () {
+        $('[data-validate]').click(function () {
+            var self = $(this);
+            self.hide();
+            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
+            $.ajax(self.data('validate'), {
+                url: self.data('validate'),
+                data: {id: self.val()},
+                method: 'POST',
+                statusCode: {
+                    201: function (response){
+                        $('.loader-like').remove();
+                        self.show();
+                        var like = $('.glyphicon', self);
+                        self.addClass('btn-success');
+                        self.removeClass('btn-default');
+                        self.removeClass('green');
+                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                        like.text(' ' + (parseInt(like.text()) + 1));
+                    },
+                    204: function (response){
+                        $('.loader-like').remove();
+                        self.show();
+                        var like = $('.glyphicon', self);
+                        self.removeClass('btn-success');
+                        self.addClass('btn-default');
+                        self.addClass('green');
+                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                        like.text(' ' + (parseInt(like.text()) - 1));
+                    },
+                    401: function (response){
+                        $('.loader-like').remove();
+                        self.show();
+                        $('#iptaken').modal('show');
+                    }
+                }
+            })
         });
     });
-});
 </script>

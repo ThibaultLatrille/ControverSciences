@@ -31,6 +31,9 @@ class TimelinesController < ApplicationController
         end
       end
     end
+    if logged_in?
+      @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
+    end
   end
 
   def new
@@ -113,6 +116,7 @@ class TimelinesController < ApplicationController
       @summary = nil
     end
     if logged_in?
+      @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
       @improve = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
     end
     @references = Reference.select( :article, :id, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )

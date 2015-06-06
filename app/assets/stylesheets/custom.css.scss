@@ -247,6 +247,11 @@ h6 {
 
 .green {
   color: #5cb85c;
+  border-color: #5cb85c;
+}
+
+.green:hover {
+  background-color: #5cb85c;
 }
 
 .blue {
@@ -369,6 +374,7 @@ section h1{
   font-size: 1.3em;
   font-weight: bold;
   text-decoration: none;
+  text-shadow: 2px 2px #EAEAFF;
 }
 
 .timeline-name > a:hover {
@@ -382,10 +388,10 @@ section h1{
 .timeline{
   .panel-primary{
     border-color: #3686BE;
-    -moz-box-shadow: 0px 2px 5px 0px #85A8BE;
-    -webkit-box-shadow: 0px 2px 5px 0px #85A8BE;
-    -o-box-shadow: 0px 2px 5px 0px #85A8BE;
-    box-shadow: 0px 2px 5px 0px #85A8BE;
+    -moz-box-shadow: 0px 2px 4px 0px #85A8BE;
+    -webkit-box-shadow: 0px 2px 4px 0px #85A8BE;
+    -o-box-shadow: 0px 2px 4px 0px #85A8BE;
+    box-shadow: 0px 2px 4px 0px #85A8BE;
     filter:progid:DXImageTransform.Microsoft.Shadow(color=#85A8BE, Direction=180, Strength=5);
   }
 }

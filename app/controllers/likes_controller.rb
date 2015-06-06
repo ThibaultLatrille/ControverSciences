@@ -3,13 +3,24 @@ class LikesController < ApplicationController
 
   def create
     if logged_in?
-      like = Like.new(timeline_id: like_params,
-                      user: current_user)
-      begin
-        like.save!
-        render :nothing => true, :status => 200
-      rescue
-        render :nothing => true, :status => 409
+      like = Like.find_by(timeline_id: like_params,
+                   user: current_user)
+      if like
+        begin
+          like.destroy!
+          render :nothing => true, :status => 204
+        rescue
+          render :nothing => true, :status => 401
+        end
+      else
+        like = Like.new(timeline_id: like_params,
+                        user: current_user)
+        begin
+          like.save!
+          render :nothing => true, :status => 201
+        rescue
+          render :nothing => true, :status => 401
+        end
       end
     else
       render :nothing => true, :status => 401
