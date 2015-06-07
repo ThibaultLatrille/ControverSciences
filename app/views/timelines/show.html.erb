@@ -154,10 +154,18 @@
       <% if @references.any? %>
           <% if @titles > 0 %>
               <br/>
-              <label class="btn active btn-comment grey cd-color-orange"  style="font-size: 16px;"
-                     title="<%= @titles -%> références n'ont pas d'analyses. Cliquer pour les afficher/masquer." data-toggle="tooltip">
-                &nbsp <span class="glyphicon glyphicon-eye-open"></span> <%= @titles -%> références n'ont pas d'analyses
-              </label>
+              <% if @titles == 1 %>
+                  <br/>
+                  <label class="btn active btn-comment grey cd-color-orange"  style="font-size: 16px;"
+                         title="1 référence n'a pas d'analyses. Cliquer pour l'afficher/masquer." data-toggle="tooltip">
+                    &nbsp <span class="glyphicon glyphicon-eye-open"></span> <%= @titles -%> références n'ont pas d'analyses
+                  </label>
+              <% else %>
+                  <label class="btn active btn-comment grey cd-color-orange"  style="font-size: 16px;"
+                         title="<%= @titles -%> références n'ont pas d'analyses. Cliquer pour les afficher/masquer." data-toggle="tooltip">
+                    &nbsp <span class="glyphicon glyphicon-eye-open"></span> <%= @titles -%> références n'ont pas d'analyses
+                  </label>
+              <% end %>
           <% end %>
           <div id="cd-timeline" class="cd-container">
             <%= render :partial => 'references/reference', :collection => @references, :locals => { :binary => @timeline.binary } %>
