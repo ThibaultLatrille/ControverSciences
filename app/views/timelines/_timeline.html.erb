@@ -32,26 +32,25 @@
       </div>
       <div class="collapse collapsed center" id="tags<%= timeline.id %>">
           <% timeline.get_tag_list.each do |name| %>
-              <div class="btn btn-default stick hvr-shadow" title="<%= tags_hash[name] %>"
-                   data-toggle="tooltip">
-                <span class="fat icon-<%= name %>"></span>
-              </div>
+            <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                        timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                        class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
           <% end %>
       </div>
       <div class="collapse in center" id="group<%= timeline.id %>">
-          <div class="btn btn-default stick" data-placement="left"
+          <div class="sticky" data-placement="left"
                title="<%= timeline.nb_contributors.to_s + (timeline.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
                data-toggle="tooltip">
             <span class="fat icon-users"></span>
           <span class="badge"><%= timeline.nb_contributors %></span>
           </div>
-          <div class="btn btn-default stick" data-placement="top"
+          <div class="sticky" data-placement="top"
                title="<%= timeline.nb_references.to_s + (timeline.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
                data-toggle="tooltip">
             <span class="fat icon-reference"></span>
           <span class="badge"><%= timeline.nb_references %></span>
           </div>
-          <div class="btn btn-default stick" data-placement="right"
+          <div class="sticky" data-placement="right"
                title="<%= timeline.nb_edits.to_s + (timeline.nb_edits > 1 ? " contributions" : " contribution") %>"
                data-toggle="tooltip">
             <span class="fat icon-comment"></span>

@@ -119,10 +119,16 @@ footer a:hover {
 }
 
 .stick{
-  cursor: default;
-  margin-left: -2px;
-  margin-right: -2px;
+  margin: 1px -1px 1px -1px;
 }
+
+.sticky{
+  display: inline-block;
+  margin: 3px;
+  text-align: center;
+  cursor: default;
+}
+
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: $nav_hover;
   color: white;

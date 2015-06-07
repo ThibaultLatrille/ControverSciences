@@ -10,24 +10,24 @@
             <br/>
             <br/>
           </strong>
-          <button class="btn btn-default stick" data-placement="bottom"
+          <div class="sticky" data-placement="bottom"
                   title="<%= @timeline.nb_contributors.to_s + (@timeline.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
                   data-toggle="tooltip">
             <span class="big icon-users"></span>
             <%= @timeline.nb_contributors %>
-          </button>
-          <button class="btn btn-default stick" data-placement="bottom"
+          </div>
+          <div class="sticky" data-placement="bottom"
                   title="<%= @timeline.nb_references.to_s + (@timeline.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
                   data-toggle="tooltip">
             <span class="big icon-reference"></span>
             <%= @timeline.nb_references %>
-          </button>
-          <button class="btn btn-default stick" data-placement="right"
+          </div>
+          <div class="sticky" data-placement="right"
                   title="<%= @timeline.nb_edits.to_s + (@timeline.nb_edits > 1 ? " contributions" : " contribution") %>"
                   data-toggle="tooltip">
             <span class="big icon-comment"></span>
             <%= @timeline.nb_edits %>
-          </button>
+          </div>
           <br/>
           <br/>
           <strong>
@@ -36,10 +36,9 @@
             <br/>
           </strong>
           <% @timeline.get_tag_list.each do |name| %>
-              <button class="btn btn-default stick" data-placement="top"
-                      data-toggle="tooltip" title="<%= tags_hash[name] %>">
-                <span class="big icon-<%= name %>"></span>
-              </button>
+              <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                          timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                          class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
           <% end %>
 
         </div>

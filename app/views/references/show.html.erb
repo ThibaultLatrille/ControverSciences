@@ -255,24 +255,24 @@
       <br/>
       Référence ajoutée par <%= link_to @reference.user_name, user_path(@reference.user_id) %>
     </span>
-    <button class="btn btn-default stick" data-placement="left"
+    <div class="sticky" data-placement="left"
             data-toggle="tooltip"
             title="<%= @reference.nb_contributors.to_s + (@reference.nb_contributors > 1 ? " contributeurs" : " contributeur") %>">
       <span class="big icon-users"></span>
       <%= @reference.nb_contributors %>
-    </button>
-    <button class="btn btn-default stick" data-placement="top"
+    </div>
+    <div class="sticky" data-placement="top"
             data-toggle="tooltip"
             title="<%= @reference.nb_edits.to_s + (@reference.nb_edits > 1 ? " analyses" : " analyse") %>">
       <span class="big icon-comment"></span>
       <%= @reference.nb_edits %>
-    </button>
-    <button class="btn btn-default stick" data-placement="right"
+    </div>
+    <div class="sticky" data-placement="right"
             data-toggle="tooltip"
             title="<%= @reference.nb_votes.to_s + (@reference.nb_votes > 1 ? " crédits accordés" : " crédit accordé") %> ">
       <span class="big icon-ribbon"></span>
       <%= @reference.nb_votes %>
-    </button>
+    </div>
   </div>
 </div>
 </div>
