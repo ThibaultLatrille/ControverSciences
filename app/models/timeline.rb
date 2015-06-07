@@ -52,7 +52,7 @@ class Timeline < ActiveRecord::Base
 
   def binary_font_size( value )
     if self.nb_references > 0
-      12+30.0*self["binary_#{value}"]/self.nb_references
+      12+56.0*self["binary_#{value}"]/self.nb_references
     else
       25.0
     end

@@ -40,7 +40,7 @@
                           timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
                           class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
           <% end %>
-
+          <br/>
         </div>
       </div>
     </div>
@@ -140,10 +140,11 @@
               <div class="col-xs-1">
               </div>
               <% (1..5).each do |key| %>
-                  <div class="col-xs-2" title="<%= @timeline.binary_explanation( key ) -%>" data-toggle="tooltip">
-                    <div class="center" style="height: 50px; line-height: 50px; vertical-align: bottom; font-size: <%= @timeline.binary_font_size( key ) -%>px;"><%= @timeline["binary_#{key}".to_sym] -%></div>
-                    <label class="btn btn-default btn-block active btn-frog<%= key %>">
-                      <span class="glyphicon glyphicon-eye-open" style="font-size: <%= @timeline.binary_font_size( key ) -%>px;"></span>
+                  <div class="col-xs-2" title="<%= @timeline.binary_explanation( key ) -%>. Cliquer pour les afficher/masquer." data-toggle="tooltip">
+                    <label class="btn btn-default btn-block active grey btn-filter<%= key %>" style="vertical-align: top;">
+                      <span class="glyphicon glyphicon-eye-open" style="font-size: <%= @timeline.binary_font_size( key ) -%>px;">
+                        <%= @timeline["binary_#{key}".to_sym] -%>
+                      </span>
                     </label>
                   </div>
               <% end %>
@@ -151,6 +152,12 @@
           </div>
       <% end %>
       <% if @references.any? %>
+          <% if @titles > 0 %>
+              <label class="btn active btn-comment grey cd-color-orange"  style="font-size: 16px;"
+                     title="<%= @titles -%> références n'ont pas d'analyses. Cliquer pour les afficher/masquer." data-toggle="tooltip">
+                &nbsp <span class="glyphicon glyphicon-eye-open"></span> <%= @titles -%> références n'ont pas d'analyses
+              </label>
+          <% end %>
           <div id="cd-timeline" class="cd-container">
             <%= render :partial => 'references/reference', :collection => @references, :locals => { :binary => @timeline.binary } %>
           </div>
@@ -293,11 +300,12 @@
             return 1;
         }
     });
-    $('.btn-frog1').zigzag($('.binary1'));
-    $('.btn-frog2').zigzag($('.binary2'));
-    $('.btn-frog3').zigzag($('.binary3'));
-    $('.btn-frog4').zigzag($('.binary4'));
-    $('.btn-frog5').zigzag($('.binary5'));
+    $('.btn-filter1').zigzag($('.binary1'));
+    $('.btn-filter2').zigzag($('.binary2'));
+    $('.btn-filter3').zigzag($('.binary3'));
+    $('.btn-filter4').zigzag($('.binary4'));
+    $('.btn-filter5').zigzag($('.binary5'));
+    $('.btn-comment').zigzag($('.need-comment'));
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
         var $timeline_block = $('.cd-timeline-block');
@@ -323,3 +331,11 @@
         });
     });
 </script>
+
+<% unless logged_in? %>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.btn-comment').click();
+        });
+    </script>
+<% end %>

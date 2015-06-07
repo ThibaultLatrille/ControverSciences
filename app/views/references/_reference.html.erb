@@ -1,7 +1,9 @@
 <% if not reference.title_fr.blank? %>
 <div id="block-<%= reference.id %>" class="cd-timeline-block binary<%= reference.binary_most %>">
     <div class="cd-timeline-img cd-color"
-         title="<%= binary_value_explanation( binary, reference.binary_most ) -%> <%= star_hash[reference.star_most] -%>" data-toggle="tooltip">
+         title="<%= (reference.binary_most == 0 && reference.star_most) ? "Cette référence n'a pas reçu de votes" :
+                            binary_value_explanation( binary, reference.binary_most ) -%>
+                            <%= star_hash[reference.star_most] -%>" data-toggle="tooltip">
       <span class="frog icon-<%= reference.star_most %>"></span>
     </div>
 
@@ -18,9 +20,11 @@
     </div>
 </div>
 <% else %>
-    <div class="cd-timeline-block binary<%= reference.binary_most %>">
+    <div class="cd-timeline-block need-comment binary<%= reference.binary_most %>">
       <div class="cd-timeline-img <%= reference.binary_most == 0 ? "cd-color-orange" : "cd-color" %>"
-           title="<%= binary_value_explanation( binary, reference.binary_most ) -%> <%= star_hash[reference.star_most] -%>" data-toggle="tooltip">
+           title="<%= (reference.binary_most == 0 && reference.star_most) ? "Cette référence n'a pas reçu de votes" :
+                              binary_value_explanation( binary, reference.binary_most ) -%>
+           <%= star_hash[reference.star_most] -%>" data-toggle="tooltip">
         <span class="frog icon-<%= reference.star_most %>"></span>
       </div>
       <div class="cd-timeline-content">

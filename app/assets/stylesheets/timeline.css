@@ -75,14 +75,16 @@
     background-color: #ffffff;
 }
 
-.binary1 .cd-color, .btn-frog1:hover, .btn-frog1.active { background: #702BD9; color: #f1f4f9;}
-.binary2 .cd-color, .btn-frog2:hover, .btn-frog2.active { background: #322DE3; color: #f1f4f9;}
-.binary3 .cd-color, .btn-frog3:hover, .btn-frog3.active { background: #3366CC; color: #f1f4f9;}
-.binary4 .cd-color, .btn-frog4:hover, .btn-frog4.active { background: #2DABE3; color: #f1f4f9;}
-.binary5 .cd-color, .btn-frog5:hover, .btn-frog5.active { background: #2BD9CF; color: #f1f4f9;}
+.binary1 .cd-color, .btn-frog1:hover, .btn-filter1.active, .btn-frog1.active { background: #702BD9; color: #f1f4f9;}
+.binary2 .cd-color, .btn-frog2:hover, .btn-filter2.active, .btn-frog2.active { background: #322DE3; color: #f1f4f9;}
+.binary3 .cd-color, .btn-frog3:hover, .btn-filter3.active, .btn-frog3.active { background: #3366CC; color: #f1f4f9;}
+.binary4 .cd-color, .btn-frog4:hover, .btn-filter4.active, .btn-frog4.active { background: #2DABE3; color: #f1f4f9;}
+.binary5 .cd-color, .btn-frog5:hover, .btn-filter5.active, .btn-frog5.active { background: #2BD9CF; color: #f1f4f9;}
 .binary .cd-color, .binary0 .cd-color, .btn-frog0:hover, .btn-frog0.active { background: #3366CC; color: #f1f4f9;}
 
-.cd-color-orange { background: #E77E5A;; color: #f1f4f9;}
+.cd-color-orange, .cd-color-orange.active { background: #E77E5A; color: #f1f4f9;}
+
+.grey, .grey:hover {background-color: #BBC6DB; color: #f6f9fb}
 
 .cd-frog { color: inherit }
 
