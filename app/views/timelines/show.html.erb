@@ -153,6 +153,7 @@
       <% end %>
       <% if @references.any? %>
           <% if @titles > 0 %>
+              <br/>
               <label class="btn active btn-comment grey cd-color-orange"  style="font-size: 16px;"
                      title="<%= @titles -%> références n'ont pas d'analyses. Cliquer pour les afficher/masquer." data-toggle="tooltip">
                 &nbsp <span class="glyphicon glyphicon-eye-open"></span> <%= @titles -%> références n'ont pas d'analyses
