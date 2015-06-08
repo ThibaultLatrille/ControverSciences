@@ -119,7 +119,7 @@ class TimelinesController < ApplicationController
       @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
       @improve = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
     end
-    @titles = Reference.where( timeline_id: @timeline.id, title_fr: nil ).count
+    @titles = Reference.where( timeline_id: @timeline.id, title_fr: [nil, ""] ).count
     @references = Reference.select( :article, :id, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order( year: :desc).where( timeline_id: @timeline.id )
   end
 
