@@ -84,12 +84,18 @@
           </div>
       </div>
       <div>
-        <%= form_tag(:timelines, method: "get") do %>
-            <%= submit_tag("Search") %>
+        <%= form_tag(:timelines, method: "get", class: "search-box") do %>
+            <div class="input-group">
+                  <span class="input-group-btn">
+                    <%= button_tag( :class => "btn btn-primary submit-search") do %>
+                    <span class="icon icon-search bigger"></span>
+                <% end %>
+              </span>
+              <%= text_field_tag(:filter, params[:filter], placeholder: "Rechercher") %>
+            </div>
             <%= hidden_field_tag(:tag, params[:tag]) %>
             <%= hidden_field_tag(:sort, params[:sort]) %>
             <%= hidden_field_tag(:order, params[:order]) %>
-            <%= text_field_tag(:filter, params[:filter]) %>
         <% end %>
       </div>
       <div id="timelines">

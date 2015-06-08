@@ -623,3 +623,29 @@ body.modal-open {
   }
 }
 
+.search-box{
+  line-height: 29px;
+  font-size: 16px;
+  input{
+    border-radius: 0px 8px 8px 0px;
+    border: 2px solid #dddee1;
+    background-color: #FDFDFD;
+    padding-left: 10px;
+  }
+  input:focus{
+    outline: 0;
+  }
+  input:focus::-webkit-input-placeholder {
+    color: #FDFDFD;
+  }
+  input:focus:-moz-placeholder{
+    color: #FDFDFD;
+  }
+  input:focus::-moz-placeholder{
+    color: #FDFDFD;
+  }
+  input:focus:-ms-input-placeholder{
+    color: #FDFDFD;
+  }
+}
+
