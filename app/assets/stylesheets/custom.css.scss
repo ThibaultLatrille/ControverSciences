@@ -607,34 +607,6 @@ body.modal-open {
   }
 }
 
-
-.fileupload-buttonbar .btn,
-.fileupload-buttonbar .toggle {
-  margin-bottom: 5px;
-}
-.progress-animated .progress-bar,
-.progress-animated .bar {
-  height: 18px;
-  background: green;
-  width: 100%;
-}
-.fileupload-process {
-  float: right;
-  display: none;
-}
-.fileupload-processing .fileupload-process,
-.files .processing .preview {
-  display: block;
-  width: 32px;
-  height: 32px;
-  background: url("../img/loading.gif") center no-repeat;
-  background-size: contain;
-}
-.files audio,
-.files video {
-  max-width: 300px;
-}
-
 @media (max-width: 767px) {
   .fileupload-buttonbar .toggle,
   .files .toggle,
@@ -645,12 +617,9 @@ body.modal-open {
     width: 80px;
     word-wrap: break-word;
   }
-  .files audio,
-  .files video {
-    max-width: 80px;
-  }
   .files img,
   .files canvas {
     max-width: 100%;
   }
 }
+
