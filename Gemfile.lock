@@ -221,6 +221,10 @@ GEM
       sawyer (~> 0.6.0, >= 0.5.3)
     oj (2.12.4)
     pg (0.18.1)
+    pg_search (1.0.3)
+      activerecord (>= 3.1)
+      activesupport (>= 3.1)
+      arel
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -328,6 +332,7 @@ DEPENDENCIES
   octokit
   oj
   pg
+  pg_search
   rabl
   rails (= 4.1.6)
   rails_12factor (= 0.0.2)

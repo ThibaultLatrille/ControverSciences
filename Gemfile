@@ -55,6 +55,9 @@ gem 'octokit'
 # Get info about the client browser
 gem 'browser'
 
+# Search toolbox for postgresql
+gem 'pg_search'
+
 # Image upload, resize and storing
 gem 'carrierwave'
 gem 'mini_magick'
