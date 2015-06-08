@@ -2,35 +2,15 @@ class TimelinesController < ApplicationController
   before_action :logged_in_user, only: [:new, :edit, :update, :create, :destroy]
 
   def index
-    if params[:tag] != 'all' && !params[:tag].nil?
-      if !params[:sort].nil?
-        if !params[:order].nil?
-          @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(24)
-        else
-          @timelines = Timeline.tagged_with(params[:tag]).order(params[:sort].to_sym => :desc).page(params[:page]).per(24)
-        end
-      else
-        if !params[:order].nil?
-          @timelines = Timeline.tagged_with(params[:tag]).order(:score => params[:order].to_sym).page(params[:page]).per(24)
-        else
-          @timelines = Timeline.tagged_with(params[:tag]).order(:score => :desc).page(params[:page]).per(24)
-        end
-      end
-    else
-      if !params[:sort].nil?
-        if !params[:order].nil?
-          @timelines = Timeline.order(params[:sort].to_sym => params[:order].to_sym).page(params[:page]).per(24)
-        else
-          @timelines = Timeline.order(params[:sort].to_sym => :desc).page(params[:page]).per(24)
-        end
-      else
-        if !params[:order].nil?
-          @timelines = Timeline.order(:score => params[:order].to_sym).page(params[:page]).per(24)
-        else
-          @timelines = Timeline.order(:score => :desc).page(params[:page]).per(24)
-        end
-      end
+    query = Timeline.order(params[:sort].blank? ? :score : params[:sort].to_sym =>
+                               params[:order].blank? ? :desc : params[:order].to_sym)
+    if params[:tag] != 'all' && !params[:tag].blank?
+      query = query.tagged_with(params[:tag])
     end
+    unless params[:filter].blank?
+      query = query.search_by_name(params[:filter])
+    end
+    @timelines = query.page(params[:page]).per(24)
     if logged_in?
       @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
     end
