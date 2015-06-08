@@ -51,17 +51,17 @@
           <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> <b>Discussion libre</b> #{@timeline.nb_suggestions}".html_safe, suggestion_path(timeline_id: @timeline.id),
                       class: "btn btn-primary" %>
           <span class="pull-right">
-        <% if @my_likes && @my_likes.include?(@timeline.id) %>
+        <% if @my_like %>
             <button type="button" class="btn btn-success" data-placement="left"
                     data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
                     title="Vous et <%= (@timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
-              <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %> </span>
+              <span class="glyphicon glyphicon-thumbs-up"></span> &nbsp <%= @timeline.nb_likes %>
             </button>
         <% else %>
             <button type="button" class="btn btn-default green" data-placement="left"
                     data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
                     title="<%= @timeline.nb_likes.to_s + " contributeurs s'intéressent à cette controverse" %>">
-              <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %> </span>
+              <span class="glyphicon glyphicon-thumbs-up"></span> &nbsp <%= @timeline.nb_likes %>
             </button>
         <% end %>
     </span>

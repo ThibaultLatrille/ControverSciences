@@ -1,7 +1,18 @@
 <% provide(:title, "Controverses") %>
 <div id="my-container" class="container-fluid">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+    <div class="col-xs-12 col-lg-2">
+      <% if logged_in? && @my_likes.count > 1 %>
+          <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui vous interessent" :
+                  "Afficher toutes les controverses"}".html_safe, timelines_path(:sort  => params[:sort],
+                                                          :order => params[:order],
+                                                          :tag => params[:tag],
+                                                          :filter => params[:filter],
+                                                          :interest => params[:interest].blank? ? "true" : ""),
+          class: "btn btn-block btn-primary" %>
+      <% end %>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-offset-0 col-lg-8">
       <div class="pull-right">
           <div class="btn-group">
             <button class="btn btn-default dropdown-toggle" type="button"
@@ -15,14 +26,15 @@
             </button>
             <ul class="dropdown-menu" role="menu">
               <li <%= params[:tag]=='all' || params[:tag].nil? ? "class=selected" : nil %> >
-                <%= link_to 'Tous (par défaut)', timelines_path(:sort  => params[:sort],
+                <%= link_to 'Tous (par défaut)', timelines_path(:sort  => params[:sort], :interest => params[:interest],
                                                                 :order => params[:order], :tag => 'all') %>
               </li>
               <% tags_hash.each do |key, value| %>
 
                   <li <%= params[:tag]==key ? "class=selected" : nil %> >
                     <%= link_to "<span class=\"icon-#{key} hvr-grow\"></span> ".html_safe+value,
-                                timelines_path(:sort => params[:sort], :order => params[:order], :tag => key) %>
+                                timelines_path(:sort => params[:sort], :order => params[:order],
+                                               :interest => params[:interest], :tag => key) %>
                   </li>
               <% end %>
             </ul>
@@ -44,22 +56,22 @@
             </button>
             <ul class="dropdown-menu" role="menu">
               <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-                <%= link_to "Magique (par défaut)", timelines_path(:sort  => 'score',
+                <%= link_to "Magique (par défaut)", timelines_path(:sort  => 'score', :interest => params[:interest],
                                                                    :order => params[:order], :tag => params[:tag]) %> </li>
               <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
-                <%= link_to "Les controverses du moment", timelines_path(:sort  => 'score_recent',
+                <%= link_to "Les controverses du moment", timelines_path(:sort  => 'score_recent', :interest => params[:interest],
                                                                          :order => params[:order], :tag => params[:tag]) %> </li>
               <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-                <%= link_to "Date de création", timelines_path(:sort  => 'created_at',
+                <%= link_to "Date de création", timelines_path(:sort  => 'created_at', :interest => params[:interest],
                                                                :order => params[:order], :tag => params[:tag]) %> </li>
               <li <%= params[:sort]=='nb_contributors' ? "class=selected" : nil %> >
-                <%= link_to "Nombre de contributeurs", timelines_path(:sort  => 'nb_contributors',
+                <%= link_to "Nombre de contributeurs", timelines_path(:sort  => 'nb_contributors', :interest => params[:interest],
                                                                       :order => params[:order], :tag => params[:tag]) %> </li>
               <li <%= params[:sort]=='nb_references' ? "class=selected" : nil %> >
-                <%= link_to "Nombre de références", timelines_path(:sort  => 'nb_references',
+                <%= link_to "Nombre de références", timelines_path(:sort  => 'nb_references', :interest => params[:interest],
                                                                    :order => params[:order], :tag => params[:tag]) %> </li>
               <li <%= params[:sort]=='nb_edits' ? "class=selected" : nil %> >
-                <%= link_to "Nombre de contributions", timelines_path(:sort  => 'nb_edits',
+                <%= link_to "Nombre de contributions", timelines_path(:sort  => 'nb_edits', :interest => params[:interest],
                                                                       :order => params[:order], :tag => params[:tag]) %> </li>
             </ul>
           </div>
@@ -75,10 +87,10 @@
             </button>
             <ul class="dropdown-menu" role="menu">
               <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-                <%= link_to "Décroissant (par défaut)", timelines_path(:sort  => params[:sort],
+                <%= link_to "Décroissant (par défaut)", timelines_path(:sort  => params[:sort], :interest => params[:interest],
                                                                        :order => 'desc', :tag => params[:tag]) %> </li>
               <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-                <%= link_to "Croissant", timelines_path(:sort  => params[:sort],
+                <%= link_to "Croissant", timelines_path(:sort  => params[:sort], :interest => params[:interest],
                                                         :order => 'asc', :tag => params[:tag]) %> </li>
             </ul>
           </div>
@@ -96,6 +108,7 @@
             <%= hidden_field_tag(:tag, params[:tag]) %>
             <%= hidden_field_tag(:sort, params[:sort]) %>
             <%= hidden_field_tag(:order, params[:order]) %>
+            <%= hidden_field_tag(:interest, params[:interest]) %>
         <% end %>
       </div>
       <div id="timelines">
