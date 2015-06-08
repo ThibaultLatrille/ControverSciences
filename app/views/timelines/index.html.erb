@@ -94,6 +94,8 @@
                                                         :order => 'asc', :tag => params[:tag]) %> </li>
             </ul>
           </div>
+        <br/>
+        <br/>
       </div>
       <div>
         <%= form_tag(:timelines, method: "get", class: "search-box") do %>
@@ -113,12 +115,27 @@
       </div>
       <div id="timelines">
         <div class="row page">
-          <% if logged_in? %>
-              <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes} %>
+          <% if @timelines.count > 0 %>
+              <% if logged_in? %>
+                  <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes} %>
+              <% else %>
+                  <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil} %>
+              <% end %>
+              <%= paginate @timelines %>
           <% else %>
-              <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil} %>
+              <h1 style="font-size: 2.8em;">
+                Aucune controverse ne correspond à vos critères de sélection
+              </h1>
+              <div class="row center">
+                <div class="col-xs-offset-2 col-xs-8 col-sm-6 col-sm-offset-3 col-md-offset-4 col-md-4 center">
+                <%= image_tag "oups.png", title: "Aucune controverse", class: "center img-responsive" %>
+                </div>
+              </div>
+              <br/>
+              <%= link_to " Voir toutes les controverses".html_safe, timelines_path(),
+                          class: "btn btn-lg btn-block btn-primary" %>
+              <br/>
           <% end %>
-          <%= paginate @timelines %>
         </div>
       </div>
 

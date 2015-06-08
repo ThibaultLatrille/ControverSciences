@@ -4,6 +4,18 @@
       <%= image_tag("logo.png", alt: "Bienvenue", :class => "img-responsive") %>
     </div>
     <div class="col-xs-offset-1 col-xs-10 col-md-offset-0  col-md-3 vcenter">
+      <%= form_tag(:timelines, method: "get", class: "search-box") do %>
+          <br/>
+          <div class="input-group">
+                  <span class="input-group-btn">
+                    <%= button_tag(:class => "btn btn-primary submit-search") do %>
+                    <span class="icon icon-search bigger"></span>
+                <% end %>
+              </span>
+            <%= text_field_tag(:filter, "", placeholder: "A la recherche de controverses")%>
+          </div>
+          <br/>
+      <% end %>
       <%= link_to "<b>Les controverses</b>".html_safe, timelines_path,
                   class: "btn btn-block btn-primary", style: "font-size: 1.4em;" %>
       <%= link_to "<b>Découvrir</b>".html_safe, how_to_path,
@@ -14,6 +26,11 @@
                   class: "btn btn-block btn-primary" %>
       <%= link_to "<b>Foire aux questions (FAQ)</b>".html_safe, faq_path,
                   class: "btn btn-block btn-primary" %>
+    </div>
+    <div class="col-xs-12 col-md-offset-3 col-md-6">
+      <br/>
+
+      <br/>
     </div>
     <div class="col-xs-12 col-md-offset-1 col-md-10 center">
       <div class="carousel-container">
