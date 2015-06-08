@@ -1,5 +1,15 @@
 class Timeline < ActiveRecord::Base
   include ApplicationHelper
+  include PgSearch
+
+  pg_search_scope :search_by_name,
+                  :against => :name,
+                  :ignoring => :accents,
+                  :using => {
+                      :tsearch => {:prefix => true,
+                                   :dictionary => "french"},
+                      :trigram => {}
+                  }
 
   attr_accessor :tag_list, :binary_left, :binary_right
   belongs_to :user
