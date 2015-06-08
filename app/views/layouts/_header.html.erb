@@ -37,6 +37,9 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                 <span class="fat icon-user"></span>
+                <% if (current_user.notifications_all + current_user.notifications_all_important) > 0 %>
+                <span class="badge badge-header"><%= current_user.notifications_all + current_user.notifications_all_important %></span>
+                <% end %>
                  <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
@@ -53,8 +56,6 @@
                 <li class="divider"></li>
                 <li><%= link_to "<b><span class=\"badge\">#{current_user.notifications_all }</span> Nouveautés </b>".html_safe,
                                 notifications_index_path %> </li>
-                <li><%= link_to '<b><span class="glyphicon glyphicon-eye-open"></span>&nbsp Mes intérêts</b>'.html_safe,
-                                likes_path %> </li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to '<b><span class="glyphicon glyphicon-off"></span>&nbsp Se déconnecter</b>'.html_safe,
@@ -64,7 +65,7 @@
             </li>
             <% else %>
             <li><%= link_to "S'identifier", login_path, id: "link-navbar" %></li>
-            <% end %>
+             <% end %>
              <li>
                <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\">
     </span>".html_safe, '#newissue',
