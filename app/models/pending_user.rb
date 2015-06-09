@@ -6,7 +6,7 @@ class PendingUser < ActiveRecord::Base
   def send_new_account_email
     mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
     message = {
-        :subject=> "Pending #{self.user.email} sur ControverSciences",
+        :subject=> "En attente #{self.user.email} sur ControverSciences",
         :from=>"pending.user@controversciences.org",
         :to => "thibault.latrille@ens-lyon.fr",
         :html => self.why
