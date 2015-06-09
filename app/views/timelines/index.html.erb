@@ -10,6 +10,8 @@
                                                           :filter => params[:filter],
                                                           :interest => params[:interest].blank? ? "true" : ""),
           class: "btn btn-block btn-primary" %>
+          <br/>
+          <br/>
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-offset-0 col-lg-8">
@@ -166,6 +168,8 @@
           <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
                        </span> Ajouter une controverse".html_safe,
                       new_timeline_path, class: "btn btn-block btn-primary" %>
+          <br/>
+          <br/>
         </div>
     <% end %>
 
