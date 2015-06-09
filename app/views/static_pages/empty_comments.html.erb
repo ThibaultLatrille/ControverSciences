@@ -7,7 +7,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h3>
-                <span class="icon-2"></span>
+                <span class="icon-4"></span>
                 Ces références n'ont pas encore d'analyses, soyez le premier à les décortiquer !
               </h3>
             </div>
@@ -15,10 +15,10 @@
           <div id="cd-timeline" class="cd-container">
             <% @references.each do |reference| %>
                 <div class="cd-timeline-block binary3">
-                  <div class="cd-timeline-img cd-color-orange">
+                  <div class="cd-timeline-img gradient-orange">
                   </div>
                   <div class="cd-timeline-content">
-                    <h2> <%= link_to "#{reference.title}", new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
+                    <h2> <%= link_to "#{reference.title}", new_comment_path(reference_id: reference.id ), class: "hvr-grow1 orange" %>
                     </h2>
                     <h2>
                     dans la controverse

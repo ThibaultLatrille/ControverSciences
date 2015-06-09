@@ -7,18 +7,18 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h3>
-                <span class="icon-2"></span>
+                <span class="icon-4"></span>
                 Ces controverses ont des référénces mais n'ont pas de synthèses, résumez la situation et apportez une vue d'ensemble au débat !
               </h3>
             </div>
           </div>
           <div id="cd-timeline" class="cd-container">
             <% @timelines.each do |timeline| %>
-                <div class="cd-timeline-block binary">
-                  <div class="cd-timeline-img cd-color-orange">
+                <div class="cd-timeline-block binary3">
+                  <div class="cd-timeline-img gradient-orange">
                   </div>
                   <div class="cd-timeline-content">
-                    <h2> <%= link_to "#{timeline.name}", new_summary_path(timeline_id: timeline.id), class: "hvr-grow1" %>
+                    <h2> <%= link_to "#{timeline.name}", new_summary_path(timeline_id: timeline.id), class: "hvr-grow1 orange" %>
                     </h2>
                     <span class="cd-date">Controverse ajoutée il y a <%= time_ago_in_words(timeline.created_at) %></span>
                   </div>
