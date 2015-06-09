@@ -46,7 +46,8 @@
                 <li><%= link_to "<b><span class='icon-techno'></span> Editer mon profil</b>".html_safe,
                                 edit_user_path(current_user) %> </li>
                 <li class="divider"></li>
-                <li> <%= link_to "<b><span class=\"badge\">#{current_user.notifications_all_important}</span> Notifications </b>".html_safe,
+                <li> <%= link_to "<b><span class=\"badge #{current_user.notifications_all_important > 0 ? "badge-li" : nil }\">
+                #{current_user.notifications_all_important}</span> Notifications </b>".html_safe,
                             notifications_important_path %>
                 </li>
                 <li><%= link_to "<b><span class='icon-comment'></span> Mes contributions</b>".html_safe,
@@ -54,7 +55,8 @@
                 <li><%= link_to "<b><span class='icon-ribbon'></span> Mes votes</b>".html_safe,
                                 my_items_votes_path %> </li>
                 <li class="divider"></li>
-                <li><%= link_to "<b><span class=\"badge\">#{current_user.notifications_all }</span> Nouveautés </b>".html_safe,
+                <li><%= link_to "<b><span class=\"badge #{current_user.notifications_all > 0 ? "badge-li" : nil }\">
+                #{current_user.notifications_all }</span> Nouveautés </b>".html_safe,
                                 notifications_index_path %> </li>
                 <li class="divider"></li>
                 <li>

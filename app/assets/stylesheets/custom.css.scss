@@ -248,7 +248,7 @@ h6 {
 }
 
 .red {
-  color: #d9534f;
+  color: $red-error;
 }
 
 .green {
@@ -652,5 +652,9 @@ body.modal-open {
 .badge-header{
   color: #4E7DC9;
   background-color: #FDFDFD;
+}
+
+.badge-li{
+  background-color: $red-error;
 }
 
