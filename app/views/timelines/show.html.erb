@@ -76,6 +76,11 @@
                 <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
                             timeline_path(@timeline.id), method: :delete,
                             data:                                {confirm: "Etes vous certain ?"}, class: "btn btn-danger" %>
+            <% else %>
+                <br/>
+                <div class="pull-right">
+                  Par <%= link_to @timeline.user_name, user_path(@timeline.user_id) %>
+                </div>
             <% end %>
           </div>
         </div>
