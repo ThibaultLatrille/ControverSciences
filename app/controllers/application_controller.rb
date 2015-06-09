@@ -7,14 +7,16 @@ class ApplicationController < ActionController::Base
   include ReferencesHelper
 
   def send_notifications
-    users = User.all
+    users = User.all.where.not( id: UserDetail.where( send_email: false).pluck(:user_id) )
     @empty_comments = Reference.where( title_fr: nil ).count
     @empty_summaries = Timeline.where( nb_summaries: 0 ).where.not( nb_references: 0..3 ).count
     @empty_references = Timeline.where( nb_references: 0..3 ).count
     mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+    names = []
     users.each do |user|
-      if (user.notifications_all_important + user.notifications_all ) > 5
+      if (user.notifications_all_important + user.notifications_all ) > 4
         @user_notif = user
+        names << "#{user.email}: #{user.name} || "
         message = {
             :subject=> "#{@user_notif.name}, les nouveautés qui vous intéressent sur ControverSciences",
             :from=>"contact@controversciences.org",
@@ -24,6 +26,13 @@ class ApplicationController < ActionController::Base
         mg_client.send_message "controversciences.org", message
       end
     end
+    message = {
+        :subject=> "#{names.count} emails ont été envoyé aux contributeurs",
+        :from=>"contact@controversciences.org",
+        :to => "thibault.latrille@ens-lyon.fr",
+        :html => names.join("")
+    }
+    mg_client.send_message "controversciences.org", message
   end
 
   private

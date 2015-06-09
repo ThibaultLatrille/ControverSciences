@@ -30,6 +30,10 @@
             <%= f.label :website, "Site personel" %>
             <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
             <br/>
+            <%= f.check_box :send_email %>
+            <%= f.label :send_email, "Etre notifié par email si j'ai des notifications non lues (une fois par semaine)".html_safe %>
+            <br/>
+            <br/>
             <%= f.label :biography, "Biographie" %>
             <%= f.text_area :biography, placeholder: "Votre biographie", :id => "markdown-textarea", class: 'form-control textarea' %>
             <br/>

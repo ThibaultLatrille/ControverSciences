@@ -36,6 +36,7 @@ class UsersController < ApplicationController
     @user_detail = UserDetail.find_by_user_id( params[:id] )
     unless @user_detail
       @user_detail = UserDetail.new( user_id: params[:id] )
+      @user_detail.send_email = true
     end
     @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
     @references = Reference.select(:id, :timeline_id, :title).where(user_id: params[:id])
@@ -81,6 +82,7 @@ class UsersController < ApplicationController
       @user_detail = UserDetail.find_by_user_id( params[:id] )
       unless @user_detail
         @user_detail = UserDetail.new( user_id: params[:id] )
+        @user_detail.send_email = true
       end
       @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
       @references = Reference.select(:id, :timeline_id, :title).where(user_id: params[:id])
