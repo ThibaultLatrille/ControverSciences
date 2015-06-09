@@ -10,13 +10,15 @@ class TimelinesController < ApplicationController
     unless params[:filter].blank?
       query = query.search_by_name(params[:filter])
     end
-    if !params[:interest].blank? && logged_in?
-      query = query.where(id: Like.where(user_id: current_user.id).pluck(:timeline_id))
+    if logged_in?
+      unless params[:interest].blank?
+        query = query.where(id: Like.where(user_id: current_user.id).pluck(:timeline_id))
+      end
+      @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
+    else
+      query = query.where.not(nb_comments: 0)
     end
     @timelines = query.page(params[:page]).per(24)
-    if logged_in?
-      @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
-    end
   end
 
   def new
@@ -100,7 +102,7 @@ class TimelinesController < ApplicationController
     end
     if logged_in?
       @my_like = Like.find_by(user_id: current_user.id, timeline_id: params[:id])
-      @improve  = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
+      @improve = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
     end
     @titles     = Reference.where(timeline_id: @timeline.id, title_fr: [nil, ""]).count
     @references = Reference.select(:article, :id, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)

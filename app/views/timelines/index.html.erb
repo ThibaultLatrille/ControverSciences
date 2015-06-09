@@ -124,7 +124,7 @@
               <%= paginate @timelines %>
           <% else %>
               <h1 style="font-size: 2.8em;">
-                Aucune controverse ne correspond à vos critères de sélection
+                Aucune controverse ne correspond à ces critères de sélections
               </h1>
               <div class="row center">
                 <div class="col-xs-offset-2 col-xs-8 col-sm-6 col-sm-offset-3 col-md-offset-4 col-md-4 center">
@@ -132,8 +132,9 @@
                 </div>
               </div>
               <br/>
-              <%= link_to " Voir toutes les controverses".html_safe, timelines_path(),
-                          class: "btn btn-lg btn-block btn-primary" %>
+              <%= link_to "<span class=\"icon icon-5\"> Voir toutes les controverses".html_safe, timelines_path(),
+                          class: "btn btn-block btn-primary" %>
+              <br/>
               <br/>
           <% end %>
         </div>
@@ -145,7 +146,18 @@
                       new_timeline_path, class: "btn btn-block btn-primary" %>
           <br/>
           <br/>
+      <% else %>
+          <div class="center">
+            <%= link_to "<span class=\"icon icon-4\" >
+                   </span> Identifiez vous pour voir les controverses en construction".html_safe,
+                        login_path, class: "btn btn-block btn-primary" %>
+            <%= link_to "<span class=\"icon icon-5\" >
+                   </span> Créer un compte".html_safe,
+                        new_user_path, class: "btn btn-block btn-primary" %>
+          </div>
 
+          <br/>
+          <br/>
       <% end %>
     </div>
 
