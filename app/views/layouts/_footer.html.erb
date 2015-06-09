@@ -1,15 +1,3 @@
-<footer>
-  <div class="row">
-    <div class="col-xs-6 text-right">
-      <%= link_to "<span class=\"icon-frog normal\"></span>".html_safe + " A propos", about_path, class: "hvr-grow" %>
-      &nbsp
-    </div>
-    <div class="col-xs-6 text-left">
-      &nbsp
-      <%= link_to "<span class=\"icon-users normal\"></span>".html_safe + " Nous contacter", contact_path, class: "hvr-grow" %>
-    </div>
-  </div>
-</footer>
 
 <div class="modal fade" id="newissue" tabindex="-1" role="dialog">
   <div class="modal-dialog">
@@ -27,31 +15,33 @@
             </p>
           </div>
         </div>
-        <%= form_for( :issue, url: issues_path, remote: true,
-                      html: {role: :form, 'data-model' => 'issue'}) do |f| %>
+        <%= form_for(:issue, url: issues_path, remote: true,
+                     html:        {role: :form, 'data-model' => 'issue'}) do |f| %>
             <div class="form-group">
-              <%= f.label :title, "Objet du bug", class: 'control-label' %><br>
+              <%= f.label :title, "Objet du bug", class: 'control-label' %>
+              <br>
               <%= f.text_field :title, class: 'form-control' %>
               <span class="help-block"></span>
             </div>
             <div class="form-group">
-              <%= f.label :body, "Description", class: 'control-label' %><br>
+              <%= f.label :body, "Description", class: 'control-label' %>
+              <br>
               <%= f.text_area :body, class: 'form-control textarea' %>
               <span class="help-block"></span>
             </div>
             <%= f.hidden_field :url, value: request.original_url %>
             <%= f.label :labels, "Labels" %> </br>
-            <div  class="container-fluid">
-              <div class="row"  data-toggle="buttons">
-                <% {"amelioration" => "Critique sur le fond", "idee" => "J'ai une idée !",
-                    "bug" => "Bug", "design" => "Design (c'est pas beau)",
+            <div class="container-fluid">
+              <div class="row" data-toggle="buttons">
+                <% {"amelioration"     => "Critique sur le fond", "idee" => "J'ai une idée !",
+                    "bug"              => "Bug", "design" => "Design (c'est pas beau)",
                     "incompréhensible" => "C'est pas clair !",
-                    "orthographe" => "Atenssion à la langue francaise !",
-                    "autre" => "Autre", }.each do |label, value| %>
+                    "orthographe"      => "Atenssion à la langue francaise !",
+                    "autre"            => "Autre", }.each do |label, value| %>
                     <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
                       <div class="my-btn">
-                        <%= f.check_box :labels, { :multiple => true}, checked_value = label, unchecked_value = nil %>
-                         <%= value %>
+                        <%= f.check_box :labels, {:multiple => true}, checked_value = label, unchecked_value = nil %>
+                        <%= value %>
                       </div>
                     </div>
                 <% end %>
@@ -61,7 +51,7 @@
             <%= f.label :importance, "Importance" %> </br>
             <div class="btn-group-justified" data-toggle="buttons">
               <% {"***** critic" => "Critique", "**** urgent" => "Urgent", "*** important" => "Important",
-                  "** to do" => "A faire", "* negligible" => "Un détail"}.each do |key, value| %>
+                  "** to do"     => "A faire", "* negligible" => "Un détail"}.each do |key, value| %>
                   <label class="btn btn-default"
                          title="<%= value %>" data-toggle="tooltip">
                     <%= f.radio_button :importance, checked_value = key,
@@ -69,9 +59,11 @@
                     <%= value %>
                   </label>
               <% end %>
-            </div></br>
+            </div>
+            </br>
             <div class="form-group">
-              <%= f.label :author, "Auteur (facultatif)", class: 'control-label' %><br>
+              <%= f.label :author, "Auteur (facultatif)", class: 'control-label' %>
+              <br>
               <% if logged_in? %>
                   <%= f.text_field :author, value: current_user.name, class: 'form-control' %>
               <% else %>
@@ -79,10 +71,12 @@
               <% end %>
               <span class="help-block"></span>
             </div>
+            <input type="reset" style="display:none;"/>
+
             <div class="actions pull-right">
               <%= f.button "Envoyer &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success',
-                           data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "}%>
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "} %>
             </div>
         <% end %>
       </div>
@@ -90,7 +84,8 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <p>
-              Si vous avez des questions, si vous souhaitez nous aider, ou si vous voulez nous inviter à prendre un verre,
+              Si vous avez des questions, si vous souhaitez nous aider, ou si vous voulez nous inviter à prendre un
+              verre,
               <a href="mailto:contact@controversciences.org">contactez-nous sans attendre</a>
               ou spammez directement <a href="mailto:thibault.latrille@controversciences.org">le webmaster !</a>
             </p>
@@ -102,8 +97,22 @@
   </div>
 </div>
 
+<footer>
+  <div class="row">
+    <div class="col-xs-6 text-right">
+      <%= link_to "<span class=\"icon-frog normal\"></span>".html_safe + " A propos", about_path, class: "hvr-grow" %>
+      &nbsp
+    </div>
+    <div class="col-xs-6 text-left">
+      &nbsp
+      <%= link_to "<span class=\"icon-users normal\"></span>".html_safe + " Nous contacter", contact_path, class: "hvr-grow" %>
+    </div>
+  </div>
+</footer>
+
+
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('textarea').autosize();
     });
     $('#newissue').on('shown.bs.modal', function () {
