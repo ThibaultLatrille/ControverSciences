@@ -259,6 +259,7 @@
 	content: "\e631";
 }
 
+.icon-suggestions:before,
 .icon-discuss:before {
     content: "\e63a";
 }

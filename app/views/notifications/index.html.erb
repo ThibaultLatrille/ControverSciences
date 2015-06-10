@@ -11,7 +11,7 @@
       <% { timeline: "Controverses",
            summary: "Synthèses",
            reference: "Références",
-           comment: "Analyses", suggestions: "Commentaire"}.each do |key, value| %>
+           comment: "Analyses", suggestions: "Commentaires"}.each do |key, value| %>
           <%= link_to "<span class=\"icon-#{key}\"></span> &nbsp ".html_safe+value+
                               " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
                       notifications_index_path(filter: key), class: "btn btn-primary btn-block" %>
@@ -77,10 +77,10 @@
     <div class="panel-heading">
       Les nouvelles synthèses (<%= current_user.notifications_summary %>)
     </div>
-    <table id="notification-summaries" class="table table-striped table-hover">
+    <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checksummaries"> </th>
+        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
         <th class="col-xs-4"> La synthèse  </th>
         <th class="col-xs-3"> Par  </th>
         <th class="col-xs-4"> Dans la controverse  </th>
@@ -113,10 +113,10 @@
     <div class="panel-heading">
       Les nouvelles références (<%= current_user.notifications_reference %>)
     </div>
-    <table id="notification-references" class="table table-striped table-hover">
+    <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checkreferences"> </th>
+        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
         <th class="col-xs-4"> La référence  </th>
         <th class="col-xs-3"> Par  </th>
         <th class="col-xs-4"> Dans la controverse </th>
@@ -150,10 +150,10 @@
     <div class="panel-heading">
       Les nouvelles analyses (<%= current_user.notifications_comment %>)
     </div>
-    <table id="notification-comments" class="table table-striped table-hover">
+    <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checkcomments"> </th>
+        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
         <th class="col-xs-3"> L'analyse </th>
         <th class="col-xs-2"> Par </th>
         <th class="col-xs-3"> De la référence </th>
@@ -190,10 +190,10 @@
       Les analyses qui ont pris la première place
       (<%= current_user.notifications_selection %>)
     </div>
-  <table id="notification-sel-comments" class="table table-striped table-hover">
+  <table id="notification-timelines" class="table table-striped table-hover">
     <thead>
     <tr>
-      <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checkselcomments"> </th>
+      <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
       <th class="col-xs-3"> L'analyse </th>
       <th class="col-xs-2"> Par </th>
       <th class="col-xs-3"> De la référence </th>
@@ -232,10 +232,10 @@
       Les synthèses qui ont pris la première place
       (<%= current_user.notifications_summary_selection %>)
     </div>
-    <table id="notification-sel-summaries" class="table table-striped table-hover">
+    <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-xs-1 col-sm-1"> <input title="toggle all" type="checkbox" id="checkselsummaries"> </th>
+        <th class="col-xs-1 col-sm-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
         <th class="col-xs-5 col-sm-4"> Synthèse </th>
         <th class="col-xs-6 col-sm-3"> Par </th>
         <th class="col-xs-6 col-sm-4"> De la controverse </th>
@@ -269,10 +269,10 @@
       Les nouveaux commentaires sur controversciences
       (<%= current_user.notifications_suggestions %>)
     </div>
-    <table id="notification-sel-comments" class="table table-striped table-hover">
+    <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checkselcomments"> </th>
+        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
         <th class="col-xs-3"> Le commentaire </th>
         <th class="col-xs-2"> Par </th>
       </tr>
@@ -282,6 +282,7 @@
           <tr class="notification-sel-comment">
             <td></td>
             <td> Pas de nouveautés</td>
+            <td></td>
           </tr>
       <% else %>
           <% @suggestions.each do |sugg| %>
@@ -326,66 +327,6 @@ $(document).ready(function() {
 
         } else {
             $("#notification-timelines input[type=checkbox]").each(function () {
-                $(this).prop("checked", false);
-            });
-        }
-    });
-    $('#checksummaries').click(function () {
-        if ($('#checksummaries').is(':checked')) {
-            $('#notification-summaries input[type=checkbox]').each(function () {
-                $(this).prop("checked", true);
-            });
-
-        } else {
-            $("#notification-summaries input[type=checkbox]").each(function () {
-                $(this).prop("checked", false);
-            });
-        }
-    });
-    $('#checkreferences').click(function () {
-        if ($('#checkreferences').is(':checked')) {
-            $('#notification-references input[type=checkbox]').each(function () {
-                $(this).prop("checked", true);
-            });
-
-        } else {
-            $("#notification-references input[type=checkbox]").each(function () {
-                $(this).prop("checked", false);
-            });
-        }
-    });
-    $('#checkcomments').click(function () {
-        if ($('#checkcomments').is(':checked')) {
-            $('#notification-comments input[type=checkbox]').each(function () {
-                $(this).prop("checked", true);
-            });
-
-        } else {
-            $("#notification-comments input[type=checkbox]").each(function () {
-                $(this).prop("checked", false);
-            });
-        }
-    });
-    $('#checkselcomments').click(function () {
-        if ($('#checkselcomments').is(':checked')) {
-            $('#notification-sel-comments input[type=checkbox]').each(function () {
-                $(this).prop("checked", true);
-            });
-
-        } else {
-            $("#notification-sel-comments input[type=checkbox]").each(function () {
-                $(this).prop("checked", false);
-            });
-        }
-    });
-    $('#checkselsummaries').click(function () {
-        if ($('#checkselsummaries').is(':checked')) {
-            $('#notification-sel-summaries input[type=checkbox]').each(function () {
-                $(this).prop("checked", true);
-            });
-
-        } else {
-            $("#notification-sel-summaries input[type=checkbox]").each(function () {
                 $(this).prop("checked", false);
             });
         }
