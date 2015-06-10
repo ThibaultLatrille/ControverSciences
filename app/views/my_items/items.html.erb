@@ -253,7 +253,7 @@
         <% else %>
             <% @suggestions.each do |com| %>
                 <tr class="notification-comment">
-                  <td> <%= link_to com.comment.html_safe, suggestion_path(com.id ) %>   </td>
+                  <td> <%= link_to truncate(com.comment, length: 140, separator: ' '), suggestion_path(com.id ) %>   </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
                                                   edit_suggestion_path( com.id ) %>  </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
@@ -263,7 +263,7 @@
             <% end %>
             <% @suggestions_children.each do |com| %>
                 <tr class="notification-comment">
-                  <td> <%= link_to com.comment.html_safe, suggestion_child_path(com.id ) %>   </td>
+                  <td> <%= link_to truncate(com.comment, length: 140, separator: ' '), suggestion_child_path(com.id ) %>   </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
                                                   edit_suggestion_child_path( com.id ) %>  </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
