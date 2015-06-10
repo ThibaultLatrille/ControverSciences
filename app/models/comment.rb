@@ -221,10 +221,12 @@ class Comment < ActiveRecord::Base
       end
       NotificationSelectionWin.create(user_id: self.user_id, comment_id: self.id, field: field)
       notifications = []
-      Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
-        notifications << Notification.new(user_id:      user_id, timeline_id: self.timeline_id,
-                                          reference_id: self.reference_id, field: field,
-                                          comment_id:   self.id, category: 6)
+      Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |like_user_id|
+        unless self.user_id == like_user_id || user_id == like_user_id
+          notifications << Notification.new(user_id:      like_user_id, timeline_id: self.timeline_id,
+                                            reference_id: self.reference_id, field: field,
+                                            comment_id:   self.id, category: 6)
+        end
       end
       Notification.import notifications
     end
@@ -344,9 +346,11 @@ class Comment < ActiveRecord::Base
       unless self.notif_generated
         notifications = []
         Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
-          notifications << Notification.new(user_id:      user_id, timeline_id: self.timeline_id,
-                                            reference_id: self.reference_id,
-                                            comment_id:   self.id, category: 5)
+          unless self.user_id == user_id
+            notifications << Notification.new(user_id:      user_id, timeline_id: self.timeline_id,
+                                              reference_id: self.reference_id,
+                                              comment_id:   self.id, category: 5)
+          end
         end
         Notification.import notifications
         self.update_columns(notif_generated: true)
@@ -367,9 +371,11 @@ class Comment < ActiveRecord::Base
       fill_best_comment
       notifications = []
       Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
-        notifications << Notification.new(user_id:      user_id, timeline_id: self.timeline_id,
-                                          reference_id: self.reference_id,
-                                          comment_id:   self.id, category: 5)
+        unless self.user_id == user_id
+          notifications << Notification.new(user_id:      user_id, timeline_id: self.timeline_id,
+                                            reference_id: self.reference_id,
+                                            comment_id:   self.id, category: 5)
+        end
       end
       Notification.import notifications
       self.update_columns(notif_generated: true)

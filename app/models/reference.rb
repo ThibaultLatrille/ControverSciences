@@ -121,8 +121,10 @@ class Reference < ActiveRecord::Base
     end
     notifications = []
     Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
-      notifications << Notification.new(user_id: user_id, timeline_id: self.timeline_id,
-                                        reference_id: self.id, category: 2)
+      unless self.user_id == user_id
+        notifications << Notification.new(user_id:      user_id, timeline_id: self.timeline_id,
+                                          reference_id: self.id, category: 2)
+      end
     end
     Notification.import notifications
   end

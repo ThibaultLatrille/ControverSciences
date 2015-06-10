@@ -144,15 +144,17 @@ class Summary < ActiveRecord::Base
     if best_summary
       NotificationSummarySelectionLoss.create(user_id: best_summary.user_id,
                                               summary_id: best_summary.summary_id)
+      notifications = []
+      Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
+        unless self.user_id == user_id || best_summary.user_id == user_id
+          notifications << Notification.new(user_id:    user_id, timeline_id: self.timeline_id,
+                                            summary_id: self.id, category: 4)
+        end
+      end
+      Notification.import notifications
       Summary.where(id: best_summary.summary_id).update_all(best: false)
       best_summary.update_attributes(user_id: self.user_id, summary_id: self.id)
       NotificationSummarySelectionWin.create(user_id: self.user_id, summary_id: self.id)
-      notifications = []
-      Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
-        notifications << Notification.new(user_id:    user_id, timeline_id: self.timeline_id,
-                                          summary_id: self.id, category: 4)
-      end
-      Notification.import notifications
     else
       SummaryBest.create(user_id: self.user_id,
                          summary_id: self.id, timeline_id: self.timeline_id)
@@ -179,8 +181,10 @@ class Summary < ActiveRecord::Base
         unless self.notif_generated
           notifications = []
           Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
-            notifications << Notification.new(user_id: user_id, timeline_id: self.timeline_id,
-                                              summary_id: self.id, category: 3)
+            unless self.user_id == user_id
+              notifications << Notification.new(user_id: user_id, timeline_id: self.timeline_id,
+                                                summary_id: self.id, category: 3)
+            end
           end
           Notification.import notifications
           self.update_columns( notif_generated: true)
@@ -202,8 +206,10 @@ class Summary < ActiveRecord::Base
       end
       notifications = []
       Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
-        notifications << Notification.new(user_id: user_id, timeline_id: self.timeline_id,
-                                          summary_id: self.id, category: 3)
+        unless self.user_id == user_id
+          notifications << Notification.new(user_id: user_id, timeline_id: self.timeline_id,
+                                            summary_id: self.id, category: 3)
+        end
       end
       Notification.import notifications
       self.update_columns( notif_generated: true)
