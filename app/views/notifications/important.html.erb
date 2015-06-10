@@ -141,16 +141,19 @@
                   <thead>
                   <tr>
                     <th class="col-xs-1 center"></th>
-                    <th class="col-xs-5">La réponse</th>
-                    <th class="col-xs-6">Par</th>
+                    <th class="col-xs-5">Votre commentaire</th>
+                    <th class="col-xs-4">La réponse</th>
+                    <th class="col-xs-2">Par</th>
                   </tr>
                   </thead>
                   <tbody class="page">
                   <% @suggestions.each do |notif| %>
                       <tr>
                         <td><span class="icon-4 blue center" style="font-size: 2em;"></span></td>
-                        <td> <%= link_to "Voir la réponse",
-                                         notifications_suggestion_path(id: notif.suggestion_child_id), class: "btn btn-primary" %> </td>
+                        <td> <%= link_to truncate(notif.suggestion.comment, length: 140, separator: ' '),
+                                         notifications_suggestion_path(id: notif.suggestion_child_id) %> </td>
+                        <td> <%= link_to truncate(notif.suggestion_child.comment, length: 140, separator: ' '),
+                                         notifications_suggestion_path(id: notif.suggestion_child_id) %> </td>
                         <td> <%= link_to "#{notif.suggestion_child.user_name}",
                                          user_path(id: notif.suggestion_child.user_id), class: "btn btn-primary" %> </td>
                       </tr>
