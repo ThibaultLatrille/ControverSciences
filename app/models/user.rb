@@ -127,6 +127,10 @@ class User < ActiveRecord::Base
     Notification.where(user_id: self.id, category: 6).count
   end
 
+  def notifications_suggestions
+    Notification.where(user_id: self.id, category: 7).count
+  end
+
   def notifications_all
     Notification.where(user_id: self.id).count
   end

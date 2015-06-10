@@ -5,6 +5,7 @@ class Notification < ActiveRecord::Base
   attr_accessor :sel_comment_ids
   attr_accessor :summary_ids
   attr_accessor :sel_summary_ids
+  attr_accessor :suggestion_ids
 
   belongs_to :user
   belongs_to :timeline
@@ -12,5 +13,6 @@ class Notification < ActiveRecord::Base
   belongs_to :reference
   belongs_to :summary
   belongs_to :comment
+  belongs_to :suggestion
 
 end

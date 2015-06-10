@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   get 'notifications/selection_loss'
   get 'notifications/summary_selection_loss'
   get 'notifications/suggestion'
+  get 'notifications/suggestions'
 
   get 'my_items/items'
   get 'my_items/votes'

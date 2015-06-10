@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609204637) do
+ActiveRecord::Schema.define(version: 20150610225144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -335,11 +335,13 @@ ActiveRecord::Schema.define(version: 20150609204637) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "field"
+    t.integer  "suggestion_id"
   end
 
   add_index "notifications", ["comment_id"], name: "index_notifications_on_comment_id", using: :btree
   add_index "notifications", ["like_id"], name: "index_notifications_on_like_id", using: :btree
   add_index "notifications", ["reference_id"], name: "index_notifications_on_reference_id", using: :btree
+  add_index "notifications", ["suggestion_id"], name: "index_notifications_on_suggestion_id", using: :btree
   add_index "notifications", ["summary_id"], name: "index_notifications_on_summary_id", using: :btree
   add_index "notifications", ["timeline_id"], name: "index_notifications_on_timeline_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
