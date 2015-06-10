@@ -42,11 +42,13 @@ class SuggestionChild < ActiveRecord::Base
   end
 
   def cascading_save
-    puts 'qsfdqsdgf'
     Suggestion.update_counters(self.suggestion_id, children: 1 )
-    NotificationSuggestion.create(user_id: Suggestion.select(:user_id).find(self.suggestion_id).user_id,
-                                  suggestion_id: self.suggestion_id,
-                                  suggestion_child_id: self.id)
+    author_id = Suggestion.select(:user_id).find(self.suggestion_id).user_id
+    if self.user_id != author_id
+      NotificationSuggestion.create(user_id: author_id,
+                                    suggestion_id: self.suggestion_id,
+                                    suggestion_child_id: self.id)
+    end
   end
 
   def cascading_destroy
