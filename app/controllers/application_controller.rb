@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   include ReferencesHelper
 
   def send_notifications
-    users = User.all.where.not( id: UserDetail.where( send_email: false).pluck(:user_id) )
+    users = User.all.where.not( id: UserDetail.where( send_email: false).pluck(:user_id), activated: false )
     @empty_comments = Reference.where( title_fr: nil ).count
     @empty_summaries = Timeline.where( nb_summaries: 0 ).where.not( nb_references: 0..3 ).count
     @empty_references = Timeline.where( nb_references: 0..3 ).count
