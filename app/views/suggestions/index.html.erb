@@ -7,8 +7,6 @@
     <% else %>
           <h1> <span class="icon-idea bigger"></span> Apportez vos idées ! </h1>
     <% end %>
-
-
       <div class="row">
         <div class="col-xs-12 col-lg-3">
           <div class="panel panel-default">
@@ -19,7 +17,6 @@
               <% if logged_in? %>
                   <%= form_for(@suggestion) do |f| %>
                       <%= render 'shared/error_messages', object: f.object %>
-
                       <div class="form-group">
                         <% if params[:filter] == "debate" %>
                             <%= f.hidden_field :debate, value: 'true' %>
