@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20150610225144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
   enable_extension "pg_trgm"
+  enable_extension "unaccent"
 
   create_table "best_comments", force: true do |t|
     t.integer  "reference_id"
