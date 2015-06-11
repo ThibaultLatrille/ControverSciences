@@ -1,5 +1,12 @@
 module AssisstantHelper
 
+  def maj_v_2
+    ActiveRecord::Base.transaction do
+      ethic = Tag.find_by(name: "ethics")
+      Tagging.where( tag_id: ethic.id ).destroy_all
+    end
+  end
+
   def maj_v_1
     ActiveRecord::Base.transaction do
       Like.all.delete_all
