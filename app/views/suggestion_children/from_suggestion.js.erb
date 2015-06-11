@@ -81,3 +81,4 @@ $('textarea', "#children<%= params[:suggestion_id] %>").keyup(function () {
         charleft.text(ch + ' caractères restants.');
     }
 });
+$('[data-toggle="tooltip"]', "#children<%= params[:suggestion_id] %>").tooltip({container: 'body'});

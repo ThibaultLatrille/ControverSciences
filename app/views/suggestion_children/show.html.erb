@@ -27,7 +27,7 @@
         <% if logged_in? %>
             <br/>
 
-            <h2 class="modal-title" id="myModalLabel">  Le serveur ne répond pas</h2>
+            <h2 class="modal-title" id="myModalLabel">Opération impossible</h2>
         <% else %>
             <br/>
 
@@ -48,6 +48,7 @@
   </div>
 </div>
 <script type="text/javascript">
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     $(function () {
         $('[data-validate]').click(function () {
             var self = $(this);
