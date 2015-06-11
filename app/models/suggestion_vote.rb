@@ -7,6 +7,7 @@ class SuggestionVote < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => [:suggestion_id, :value]
 
   after_create  :cascading_save_vote
+  after_create  :cascading_destroy_vote
 
   private
 
@@ -15,6 +16,14 @@ class SuggestionVote < ActiveRecord::Base
       Suggestion.update_counters(self.suggestion_id, plus: 1, balance: 1 )
     else
       Suggestion.update_counters(self.suggestion_id, minus: 1, balance: -1 )
+    end
+  end
+
+  def cascading_destroy_vote
+    if self.value == true
+      Suggestion.update_counters(self.suggestion_id, plus: -1, balance: -1 )
+    else
+      Suggestion.update_counters(self.suggestion_id, minus: -1, balance: 1 )
     end
   end
 end
