@@ -136,12 +136,13 @@
             <% end %>
             <% if @suggestions.any? %>
                 <hr style="margin: 0 3em 2em 3em ">
-                &nbsp <span class="blue" style="font-size: 2em;"><span class="glyphicon glyphicon-comment"></span> Les réponses à vos commentaires</span>
+                &nbsp <span class="blue" style="font-size: 2em;"><span class="glyphicon glyphicon-comment"></span> Nouvelles réponses dans les discussions
+                auxquelles vous participez </span>
                 <table class="table table-striped table-hover">
                   <thead>
                   <tr>
                     <th class="col-xs-1 center"></th>
-                    <th class="col-xs-5">Votre commentaire</th>
+                    <th class="col-xs-5">La discussion</th>
                     <th class="col-xs-4">La réponse</th>
                     <th class="col-xs-2">Par</th>
                   </tr>
@@ -155,7 +156,7 @@
                         <td> <%= link_to truncate(notif.suggestion_child.comment, length: 140, separator: ' '),
                                          notifications_suggestion_path(id: notif.suggestion_child_id) %> </td>
                         <td> <%= link_to "#{notif.suggestion_child.user_name}",
-                                         user_path(id: notif.suggestion_child.user_id), class: "btn btn-primary" %> </td>
+                                         user_path(id: notif.suggestion_child.user_id) %> </td>
                       </tr>
                   <% end %>
                   </tbody>
