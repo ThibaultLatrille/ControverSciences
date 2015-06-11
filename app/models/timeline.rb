@@ -135,7 +135,9 @@ class Timeline < ActiveRecord::Base
     Suggestion.create( user_id: self.user_id, timeline_id: self.id, comment: text )
     notifications = []
     User.all.pluck(:id).each do |user_id|
-      notifications << Notification.new( user_id: user_id, timeline_id: self.id, category: 1 )
+      unless self.user_id == user_id
+        notifications << Notification.new( user_id: user_id, timeline_id: self.id, category: 1 )
+      end
     end
     Notification.import notifications
     TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
