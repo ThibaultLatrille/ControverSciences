@@ -1,32 +1,20 @@
-<% provide(:title, "Modifier une suggestion") %>
-<% provide(:title, "Nouvelle suggestion") %>
+<% provide(:title, "Modifier une réponse") %>
+
 <div id="my-container" class="container-fluid">
   <div class="col-xs-12 col-lg-offset-1 col-lg-10">
     <div class="row">
       <%= link_to "<span class=\"glyphicon glyphicon-comment\" aria-hidden=\"true\"></span> Revenir aux discussions".html_safe, suggestions_path,
                   class: "btn btn-primary" %>
       <h5> Le commentaire </h5>
-      <%= render @suggestion %>
+      <div class="clearfix">
+      <%= render @suggestion, show_likes: false %>
+      </div>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h5> Modifier votre réponse </h5>
         </div>
         <div class="panel-body">
-          <div class="col-xs-12 col-md-2">
-            <div class="clearfix pull-right">
-              <button type="button" class="btn btn-success" data-placement="left" data-value="true"
-                      data-toggle="tooltip" value="<%= @suggestion_child.id %>" data-validate="/suggestion_child_votes"
-                      title="<%= @suggestion_child.plus.to_s + " contributeurs sont d'accords" %>">
-                <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion_child.plus %> </span>
-              </button>
-              <button type="button" class="btn btn-danger" data-placement="left" data-value="false"
-                      data-toggle="tooltip" value="<%= @suggestion_child.id %>" data-validate="/suggestion_child_votes"
-                      title="<%= @suggestion_child.minus.to_s + " contributeurs ne sont pas d'accords" %>">
-                <span class="glyphicon glyphicon-thumbs-down"> <%= @suggestion_child.minus %> </span>
-              </button>
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-8">
+          <div class="col-xs-12 col-md-8 col-md-offset-2">
             <div class="panel panel-default suggestion">
               <div class="panel-body">
                 <%= form_for @suggestion_child do |f| %>
@@ -52,33 +40,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <% if logged_in? %>
-            <br/>
-            <h2 class="modal-title" id="myModalLabel"> Votre vote a déjà été pris en compte. </h2>
-        <% else %>
-            <br/>
-            <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette action</h2>
-            <br/>
-            <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
-            <div class="pull-right">
-              <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
-            </div>
-        <% end %>
-        <br/>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok </button>
       </div>
     </div>
   </div>
@@ -111,25 +72,5 @@
             $('#characterLeft').css({"color": "#5cb85c"});
             $('#characterLeft').text(ch + ' caractères restants.');
         }
-    });
-    $(function () {
-        $('[data-validate]').click(function () {
-            var self = $(this);
-            self.hide();
-            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-            $.post(self.data('validate'), {
-                id: self.val(),
-                value: self.data('value')
-            }).success(function () {
-                $('.loader-like').remove();
-                self.show();
-                var like = $('.glyphicon', self);
-                like.text(' ' + (parseInt(like.text()) + 1));
-            }).error(function () {
-                $('.loader-like').remove();
-                self.show();
-                $('#iptaken').modal('show');
-            });
-        });
     });
 </script>

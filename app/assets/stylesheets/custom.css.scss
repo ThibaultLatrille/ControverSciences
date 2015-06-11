@@ -249,6 +249,11 @@ h6 {
 
 .red {
   color: $red-error;
+  border-color: $red-error;
+}
+
+.red:hover {
+  background-color: $red-error;
 }
 
 .green {

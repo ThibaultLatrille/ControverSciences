@@ -6,6 +6,10 @@ class SuggestionsController < ApplicationController
       @suggestion = Suggestion.find_by( timeline_id: params[:timeline_id] )
     else
       @suggestion = Suggestion.find( params[:id] )
+      if logged_in?
+        @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
+        @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
+      end
     end
   end
 
@@ -31,6 +35,10 @@ class SuggestionsController < ApplicationController
     if params[:filter] == "debate"
       @suggestions = Suggestion.order( created_at: :desc).where.not( timeline_id: nil ).page(params[:page]).per(50)
     else
+      if logged_in?
+        @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
+        @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
+      end
       @suggestions = Suggestion.order( created_at: :desc).where( timeline_id: nil ).page(params[:page]).per(50)
     end
     @suggestion = Suggestion.new
