@@ -1,18 +1,27 @@
 class SuggestionChildVotesController < ApplicationController
+
   def create
     if logged_in?
-      if params[:value] == "true"
-        vote = SuggestionChildVote.new(suggestion_child_id: params[:id],
-                                       user_id:             current_user.id, value: true)
+      vote = SuggestionChildVote.find_by(suggestion_child_id: params[:id],
+                                    user_id:       current_user.id,
+                                    value: params[:value] == "true" ? true : false)
+      if vote
+        begin
+          vote.destroy!
+          render :nothing => true, :status => 204
+        rescue
+          render :nothing => true, :status => 401
+        end
       else
         vote = SuggestionChildVote.new(suggestion_child_id: params[:id],
-                                       user_id:             current_user.id, value: false)
-      end
-      begin
-        vote.save!
-        render :nothing => true, :status => 200
-      rescue
-        render :nothing => true, :status => 409
+                                  user_id:       current_user.id,
+                                  value: params[:value] == "true" ? true : false)
+        begin
+          vote.save!
+          render :nothing => true, :status => 201
+        rescue
+          render :nothing => true, :status => 401
+        end
       end
     else
       render :nothing => true, :status => 401
