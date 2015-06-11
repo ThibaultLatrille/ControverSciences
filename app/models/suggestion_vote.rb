@@ -4,7 +4,7 @@ class SuggestionVote < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :suggestion_id, presence: true
-  validates_uniqueness_of :user_id, :scope => [:suggestion_id, :value]
+  validates_uniqueness_of :user_id, :scope => [:suggestion_id]
 
   after_create  :cascading_save_vote
   after_create  :cascading_destroy_vote
