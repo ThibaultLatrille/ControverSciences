@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-xs-12 col-lg-2">
       <% if logged_in? && @my_likes.count > 1 %>
-          <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui vous interessent" :
+          <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui vous intéressent" :
                   "Afficher toutes les controverses"}".html_safe, timelines_path(:sort  => params[:sort],
                                                           :order => params[:order],
                                                           :tag => params[:tag],

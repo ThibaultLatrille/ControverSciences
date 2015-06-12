@@ -9,7 +9,9 @@
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h2> Ecrire une synthèse </h2>
+            <h2> Ecrire une synthèse
+            </h2>
+            <br/>
               De la controverse :
               <%= link_to Timeline.where(id: @summary.timeline_id ).pluck(:name)[0],
                           timeline_url( @summary.timeline_id ) %>
@@ -42,7 +44,7 @@
                     <br/>
                     Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
                     De plus vous pouvez insèrer des liens internes vers les références de cette controverse
-                    (boutton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
+                    (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
                     au lecteur une meilleure navigation dans la controverse.
                   </div>
                 </div>
