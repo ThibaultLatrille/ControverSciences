@@ -8,6 +8,14 @@
                 timeline_path(@reference.timeline_id), class: "btn btn-block btn-primary" %>
     <br/>
     <br/>
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> Référence précédente <span class=\"icon-reference fat\"></span>".html_safe,
+                previous_reference_path(timeline_id: @reference.timeline_id, id: @reference.id), class: "btn btn-block btn-primary" %>
+    <br/>
+    <br/>
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Référence suivante <span class=\"icon-reference fat\"></span>".html_safe,
+                next_reference_path(timeline_id: @reference.timeline_id, id: @reference.id), class: "btn btn-block btn-primary" %>
+    <br/>
+    <br/>
     <% if @reference.nb_edits > 1 && Vote.where( user_id: current_user.id, reference_id: @reference.id ).sum( :value ) > 0 %>
     <div class="panel panel-default">
     <div class="panel-body page">

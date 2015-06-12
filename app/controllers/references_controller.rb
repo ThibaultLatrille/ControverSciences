@@ -9,6 +9,28 @@ class ReferencesController < ApplicationController
     end
   end
 
+  def previous
+    refs = Reference.select(:id, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
+    i = refs.index{|x| x.id == params[:id].to_i }
+    if i == 0
+      i = refs.length
+    else
+      i-=1
+    end
+    redirect_to reference_path(refs[i].id)
+  end
+
+  def next
+    refs = Reference.select(:id, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
+    i = refs.index{|x| x.id == params[:id].to_i }
+    if i == refs.length
+      i = 0
+    else
+      i += 1
+    end
+    redirect_to reference_path(refs[i].id)
+  end
+
   def from_reference
     if logged_in?
       @my_votes = Vote.where(user_id: current_user.id, reference_id: params[:reference_id], field: params[:field] ).sum(:value)

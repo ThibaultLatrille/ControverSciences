@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
+  get "/next" => 'references#next', as: 'next_reference'
+  get "/previous" => 'references#previous', as: 'previous_reference'
   get "/from_timeline" => 'references#from_timeline', as: 'from_timeline'
   get "/from_reference" => 'references#from_reference', as: 'from_reference'
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
