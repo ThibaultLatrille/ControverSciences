@@ -22,6 +22,11 @@ class Timeline < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :links, dependent: :destroy
   has_many :votes, dependent: :destroy
+  has_many :edges, dependent: :destroy
+  has_many :edges, dependent: :destroy
+  has_many :edges_from, class_name: "Edge",
+           foreign_key: "target",
+           dependent: :destroy
 
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
