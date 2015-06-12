@@ -273,6 +273,37 @@ ControverSciences a été bati autour de <b>3 piliers</b> qui favorisent une app
   N’oublions pas que c’est un site participatif ! On attend vos <%= link_to "suggestions", suggestions_path %> !
 </p>
 <br/>
+<section id="newsletter">
+  <%= form_for(:newsletter, url: newsletters_path, remote: true,
+               html: {role: :form, 'data-model' => 'newsletter'}) do |f| %>
+      <div class="row">
+        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
+          <h4>
+            Recevez une fois par mois les informations essentielles de ControverSciences
+          </h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
+          <div class="form-group">
+            <%= f.text_field :email, class: 'form-control', placeholder: "Votre adresse email" %>
+            <span class="help-block"></span>
+          </div>
+        </div>
+        <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-3">
+          <div id="invit" class="actions">
+            <%= f.button "S\'inscrire &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                         class: 'btn btn-block btn-success', data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Inscription "} %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+  <div class="center">
+    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Voir les anciennes newsletters".html_safe, newsletter_path, class: "btn btn-primary btn-lg pull-right" %>
+  </div>
+</section>
+
+<br/>
 <h5> Et derrière le décor ?</h5>
 
 <p>
@@ -415,35 +446,6 @@ ControverSciences a été bati autour de <b>3 piliers</b> qui favorisent une app
 <h5> Politique de confidentialité</h5>
 <%= link_to "Voir les conditions d'utilisation", terms_path, class: "btn btn-primary" %>
 <br/>
-<section id="newsletter">
-  <%= form_for(:newsletter, url: newsletters_path, remote: true,
-               html: {role: :form, 'data-model' => 'newsletter'}) do |f| %>
-      <div class="row">
-        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
-          <h4>
-            Recevez une fois par mois les informations essentielles de ControverSciences
-          </h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
-          <div class="form-group">
-            <%= f.text_field :email, class: 'form-control', placeholder: "Votre adresse email" %>
-            <span class="help-block"></span>
-          </div>
-        </div>
-        <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-3">
-          <div id="invit" class="actions">
-            <%= f.button "S\'inscrire &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
-                         class: 'btn btn-block btn-success', data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Inscription "} %>
-          </div>
-        </div>
-      </div>
-  <% end %>
-  <div class="center">
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Voir les anciennes newsletter".html_safe, newsletter_path, class: "btn btn-primary btn-lg pull-right" %>
-  </div>
-</section>
 
 </div>
 </div>

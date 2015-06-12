@@ -944,7 +944,7 @@
 
             if (selected.length == 0) {
               // Give extra word
-              chunk = e.__localize('texte souligné')
+              chunk = e.__localize('texte en italique')
             } else {
               chunk = selected.text
             }
