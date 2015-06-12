@@ -13,7 +13,7 @@ class ReferencesController < ApplicationController
     refs = Reference.select(:id, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
     i = refs.index{|x| x.id == params[:id].to_i }
     if i == 0
-      i = refs.length
+      i = refs.length-1
     else
       i-=1
     end
@@ -23,7 +23,7 @@ class ReferencesController < ApplicationController
   def next
     refs = Reference.select(:id, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
     i = refs.index{|x| x.id == params[:id].to_i }
-    if i == refs.length
+    if i == refs.length-1
       i = 0
     else
       i += 1
