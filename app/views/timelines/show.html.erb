@@ -240,6 +240,11 @@
 
 
 <script type="text/javascript">
+    $('.timeline-name').responsiveEqualHeightGrid();
+    $('.timeline-body').responsiveEqualHeightGrid();
+    $('.collapse').on('shown.bs.collapse', function () {
+        $(".timeline-body").responsiveEqualHeightGrid();
+    });
     $("#summary").readmore({
         speed: 750,
         embedCSS: false,
