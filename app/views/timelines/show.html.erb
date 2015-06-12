@@ -2,7 +2,7 @@
 <div id="my-container" class="container-fluid">
   <div class="row">
 
-    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2  col-lg-offset-0">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
       <div class="panel panel-default">
         <div class="panel-body">
           <strong>
@@ -51,7 +51,7 @@
           <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> <b>Discussion libre</b> #{@timeline.nb_suggestions}".html_safe, suggestion_path(timeline_id: @timeline.id),
                       class: "btn btn-primary" %>
           <span class="pull-right">
-        <% if @my_like %>
+        <% if @my_likes.include? @timeline.id %>
             <button type="button" class="btn btn-success" data-placement="left"
                     data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
                     title="Vous et <%= (@timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
@@ -189,6 +189,23 @@
       <div>
         <br/>
       </div>
+    </div>
+    <div class="col-xs-12 col-lg-2">
+      <% if logged_in? %>
+          <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+        </span> Ajouter des liens vers d'autres controverses".html_safe,
+                      edges_path(timeline_id: @timeline.id),
+                      class: "btn btn-primary btn-block" %>
+          <br/>
+          <br/>
+      <% end %>
+      <% if @timelines.count > 0 %>
+          <% if logged_in? %>
+              <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes, full_width: true} %>
+          <% else %>
+              <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil, full_width: true} %>
+          <% end %>
+      <% end %>
     </div>
   </div>
 </div>

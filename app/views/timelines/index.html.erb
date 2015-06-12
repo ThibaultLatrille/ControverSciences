@@ -119,9 +119,9 @@
         <div class="row page">
           <% if @timelines.count > 0 %>
               <% if logged_in? %>
-                  <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes} %>
+                  <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes, full_width: false} %>
               <% else %>
-                  <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil} %>
+                  <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil, full_width: false} %>
               <% end %>
               <%= paginate @timelines %>
           <% else %>

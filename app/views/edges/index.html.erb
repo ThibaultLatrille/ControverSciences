@@ -1,0 +1,51 @@
+<% provide(:title, "Liens") %>
+<div id="my-container" class="container-fluid">
+  <%= form_for(:edge, url: edges_path, method: :post) do |f| %>
+      <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+          <div class="panel panel-default clearfix">
+            <div class="panel-heading clearfix">
+              <h2>
+              Les liens vers d'autres controverses (<%= @edges.count %>)
+                <br/>
+                <br/>
+              </h2>
+            </div>
+            <br/>
+            <div style="margin-right: 15px">
+              <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Mettre à jour les liens".html_safe,
+                           class: 'btn btn-success pull-right',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Mise à jour"}%>
+            </div>
+            <br/>
+            <table id="edge-timelines" class="table table-striped table-hover">
+              <thead>
+                  <tr>
+                    <th class="col-xs-1 center"></th>
+                    <th class="col-xs-11"> La controverse</th>
+                  </tr>
+              </thead>
+              <tbody class="page">
+                  <% @timeline_names.each do |timeline| %>
+                      <tr class="notification-timeline">
+                        <td class="center"> <%= f.check_box :target_ids, {checked: @edges.include?(timeline.id) ? true : false , :multiple => true},
+                                             checked_value = timeline.id, unchecked_value = nil %> </td>
+                        <td> <%= link_to timeline.name, timeline_path(id: timeline.id) %> </td>
+                      </tr>
+              <% end %>
+              </tbody>
+            </table>
+            <div style="margin-right: 15px">
+              <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Mettre à jour les liens".html_safe,
+                           class: 'btn btn-success pull-right',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Mise à jour"}%>
+              <br/>
+              <br/>
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+  <% end %>
+</div>

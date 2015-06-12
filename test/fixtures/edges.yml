@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  timeline_id: 
+  target: 
+  weight: 1
+
+two:
+  timeline_id: 
+  target: 
+  weight: 1

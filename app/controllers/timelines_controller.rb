@@ -100,8 +100,9 @@ class TimelinesController < ApplicationController
     else
       @summary = nil
     end
+    @timelines = Timeline.where( id: Edge.where(timeline_id: @timeline.id).pluck(:target) )
     if logged_in?
-      @my_like = Like.find_by(user_id: current_user.id, timeline_id: params[:id])
+      @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
       @improve = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
     end
     @titles     = Reference.where(timeline_id: @timeline.id, title_fr: [nil, ""]).count

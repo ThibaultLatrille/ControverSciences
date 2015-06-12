@@ -215,9 +215,9 @@
     <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
       <div class="row">
         <% if logged_in?  %>
-            <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => { :my_likes => @my_likes } %>
+            <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => { :my_likes => @my_likes, full_width: false} %>
         <% else  %>
-            <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => { :my_likes => nil } %>
+            <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => { :my_likes => nil, full_width: false } %>
         <% end  %>
       </div>
     </div>
