@@ -56,6 +56,11 @@
                     </div>
                   </div>
                 </div>
+                <div class="pull-right">
+                  <%= link_to "<span class=\"icon-fork fat\"></span> Faute".html_safe,
+                              new_typo_path(summary_id: summary.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                              title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 10px"%>
+                </div>
                 <% if improve %>
                 <div class="pull-right">
                   <%= link_to "<span class=\"icon-fork fat\"></span>".html_safe,
@@ -66,6 +71,9 @@
               </div>
           <% end %>
       <% else %>
+          <div class="pull-right">
+            <% link_to "Faute de francais", new_typo_path( summary_id: summary.id ), class: "btn btn-primary" %>
+          </div>
           <% if improve %>
               <div class="pull-right">
                 <%= link_to "<span class=\"icon-fork fat\"></span>".html_safe,

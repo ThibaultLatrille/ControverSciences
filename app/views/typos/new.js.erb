@@ -1,1 +1,6 @@
-$('#newtype').modal('show');
+$("body").append("<%= escape_javascript(render partial: 'typos/modal',
+        locals: { typo: @typo } ) %>");
+$('#newtypo').modal('show');
+$(document).ready(function() {
+    $('textarea', "#newtypo").autosize();
+});
