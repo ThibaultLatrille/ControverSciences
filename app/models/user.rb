@@ -21,8 +21,8 @@ class User < ActiveRecord::Base
   has_many :suggestion_children, dependent: :destroy
   has_many :suggestion_votes, dependent: :destroy
   has_many :suggestion_child_votes, dependent: :destroy
-  has_many :comment_types, dependent: :destroy
-  has_many :comment_mistakes, class_name: "CommentType", foreign_key: "target_user_id"
+  has_many :typos, dependent: :destroy
+  has_many :my_typos, class_name: "Typo", foreign_key: "target_user_id"
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
   before_save :downcase_email

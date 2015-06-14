@@ -60,6 +60,17 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def field_content(field)
+    case field
+      when 6
+        self.title
+      when 7
+        self.caption
+      else
+        self["f_#{field}_content"]
+    end
+  end
+
   def picture_url
     if self.figure_id
       Figure.select(:id, :picture, :user_id).find(self.figure_id).picture_url

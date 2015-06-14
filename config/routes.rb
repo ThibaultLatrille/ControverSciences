@@ -75,7 +75,7 @@ Rails.application.routes.draw do
   resources :issues, only: [:create]
   resources :figures, only: [:create]
 
-  resources :comment_types, only: [:create]
+  resources :typos, only: [:create, :new, :destroy]
   resources :edges, only: [:index, :create]
 
   # The priority is based upon order of creation: first created -> highest priority.
