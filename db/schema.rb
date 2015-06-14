@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612101856) do
+ActiveRecord::Schema.define(version: 20150614083605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,18 +72,6 @@ ActiveRecord::Schema.define(version: 20150612101856) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "comment_types", force: true do |t|
-    t.integer  "comment_id"
-    t.integer  "user_id"
-    t.integer  "target_user_id"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "comment_types", ["comment_id"], name: "index_comment_types_on_comment_id", using: :btree
-  add_index "comment_types", ["user_id"], name: "index_comment_types_on_user_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -582,6 +570,21 @@ ActiveRecord::Schema.define(version: 20150612101856) do
 
   add_index "timelines", ["created_at"], name: "index_timelines_on_created_at", using: :btree
   add_index "timelines", ["user_id"], name: "index_timelines_on_user_id", using: :btree
+
+  create_table "typos", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "summary_id"
+    t.integer  "comment_id"
+    t.integer  "field"
+    t.integer  "target_user_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "typos", ["comment_id"], name: "index_typos_on_comment_id", using: :btree
+  add_index "typos", ["summary_id"], name: "index_typos_on_summary_id", using: :btree
+  add_index "typos", ["user_id"], name: "index_typos_on_user_id", using: :btree
 
   create_table "user_details", force: true do |t|
     t.integer  "user_id"
