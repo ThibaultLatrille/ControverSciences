@@ -27,3 +27,4 @@
 //= require readmore.js
 //= require grid.js
 //= require autosize.js
+//= require jquery.pretty-text-diff.js
