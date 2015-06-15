@@ -22,7 +22,7 @@ GEM
       activemodel (= 4.1.6)
       activesupport (= 4.1.6)
       arel (~> 5.0.0)
-    activerecord-import (0.7.0)
+    activerecord-import (0.8.0)
       activerecord (>= 3.0)
     activesupport (4.1.6)
       i18n (~> 0.6, >= 0.6.9)
@@ -34,7 +34,7 @@ GEM
     ansi (1.5.0)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
-    bibtex-ruby (4.0.12)
+    bibtex-ruby (4.0.13)
       latex-decode (~> 0.0)
     browser (0.8.0)
     builder (3.2.2)
@@ -67,12 +67,13 @@ GEM
     ffi (1.9.8)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.29.0)
+    fog (1.31.0)
       fog-atmos
       fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
-      fog-core (~> 1.27, >= 1.27.4)
+      fog-core (~> 1.30)
       fog-ecloud
+      fog-google (>= 0.0.2)
       fog-json
       fog-local
       fog-powerdns (>= 0.1.1)
@@ -92,7 +93,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.1.2)
+    fog-aws (0.4.0)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -108,19 +109,23 @@ GEM
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
-    fog-ecloud (0.1.1)
+    fog-ecloud (0.1.3)
       fog-core
       fog-xml
-    fog-json (1.0.1)
+    fog-google (0.0.5)
+      fog-core
+      fog-json
+      fog-xml
+    fog-json (1.0.2)
       fog-core (~> 1.0)
-      multi_json (~> 1.0)
+      multi_json (~> 1.10)
     fog-local (0.2.1)
       fog-core (~> 1.27)
     fog-powerdns (0.1.1)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
-    fog-profitbricks (0.0.2)
+    fog-profitbricks (0.0.3)
       fog-core
       fog-xml
       nokogiri
@@ -138,7 +143,7 @@ GEM
     fog-serverlove (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (0.4.5)
+    fog-softlayer (0.4.6)
       fog-core
       fog-json
     fog-storm_on_demand (0.1.1)
@@ -157,7 +162,7 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
-    guard (2.12.5)
+    guard (2.12.6)
       formatador (>= 0.2.4)
       listen (~> 2.7)
       lumberjack (~> 1.0)
@@ -175,7 +180,7 @@ GEM
     i18n (0.7.0)
     inflecto (0.0.2)
     ipaddress (0.8.0)
-    json (1.8.2)
+    json (1.8.3)
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -193,19 +198,19 @@ GEM
       json (~> 1.8)
       rest-client (~> 1.6)
     method_source (0.8.2)
-    mime-types (2.4.3)
+    mime-types (2.6.1)
     mini_backtrace (0.1.3)
       minitest (> 1.2.0)
       rails (>= 2.3.3)
-    mini_magick (4.2.3)
+    mini_magick (4.2.7)
     mini_portile (0.6.2)
-    minitest (5.6.0)
+    minitest (5.7.0)
     minitest-reporters (1.0.5)
       ansi
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    multi_json (1.11.0)
+    multi_json (1.11.1)
     multipart-post (2.0.0)
     nenv (0.2.0)
     net-scp (1.2.1)
@@ -219,9 +224,9 @@ GEM
       shellany (~> 0.0)
     octokit (3.8.0)
       sawyer (~> 0.6.0, >= 0.5.3)
-    oj (2.12.4)
-    pg (0.18.1)
-    pg_search (1.0.3)
+    oj (2.12.9)
+    pg (0.18.2)
+    pg_search (1.0.4)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
       arel
@@ -231,7 +236,7 @@ GEM
       slop (~> 3.4)
     rabl (0.11.6)
       activesupport (>= 2.3.14)
-    rack (1.5.2)
+    rack (1.5.3)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.1.6)
@@ -256,18 +261,18 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.4.2)
-    rb-fsevent (0.9.4)
+    rb-fsevent (0.9.5)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (4.2.0)
       json (~> 1.4)
-    redcarpet (3.2.3)
+    redcarpet (3.3.1)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
     ruby-progressbar (1.7.5)
-    sass (3.4.13)
+    sass (3.4.14)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -283,9 +288,9 @@ GEM
     shellany (0.0.1)
     slop (3.6.0)
     spring (1.1.3)
-    sprockets (3.0.1)
+    sprockets (3.2.0)
       rack (~> 1.0)
-    sprockets-rails (2.2.4)
+    sprockets-rails (2.3.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
