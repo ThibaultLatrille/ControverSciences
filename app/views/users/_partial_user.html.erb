@@ -1,5 +1,11 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
+  <div class="panel-heading clearfix">
+    <% if logged_in? && current_user.id == @user.id %>
+        <div class="pull-right">
+          <%= link_to "<span class=\"fat icon-techno\"></span> Editer mon profil".html_safe,
+                      edit_user_path(@user.id) ,class: "btn btn-primary btn-lg" %>
+        </div>
+    <% end %>
         <% if @user_detail && @user_detail.id && @user_detail.picture? %>
             <%= image_tag @user_detail.picture_url, class: "img-rounded", height: "80px" %>
         <% else %>

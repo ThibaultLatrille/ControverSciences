@@ -44,8 +44,8 @@
                  <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "<b><span class='icon-techno'></span> Editer mon profil</b>".html_safe,
-                                edit_user_path(current_user) %> </li>
+                <li><%= link_to "<b><span class='icon-user'></span> Accéder à mon profil</b>".html_safe,
+                                user_path(current_user) %> </li>
                 <li class="divider"></li>
                 <li> <%= link_to "<b><span class=\"badge #{current_user.notifications_all_important > 0 ? "badge-li" : nil }\">
                 #{current_user.notifications_all_important}</span> Notifications </b>".html_safe,

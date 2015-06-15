@@ -38,10 +38,6 @@ class UsersController < ApplicationController
       @user_detail = UserDetail.new( user_id: params[:id] )
       @user_detail.send_email = true
     end
-    @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
-    @references = Reference.select(:id, :timeline_id, :title).where(user_id: params[:id])
-    @comments = Comment.select(:id, :reference_id, :title_markdown ).where(user_id: params[:id])
-    @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: params[:id])
   end
 
   def create
@@ -84,10 +80,6 @@ class UsersController < ApplicationController
         @user_detail = UserDetail.new( user_id: params[:id] )
         @user_detail.send_email = true
       end
-      @timelines = Timeline.select(:id, :name).where(user_id: params[:id])
-      @references = Reference.select(:id, :timeline_id, :title).where(user_id: params[:id])
-      @comments = Comment.select(:id, :reference_id, :title_markdown ).where(user_id: params[:id])
-      @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: params[:id])
       render 'edit'
     end
   end
