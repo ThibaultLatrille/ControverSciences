@@ -56,7 +56,8 @@
                   <%= params[:sort]=='created_at' ? "date de création" : nil %>
                   <%= params[:sort]=='nb_contributors' ? "Nombre de contributeurs" : nil %>
                   <%= params[:sort]=='nb_references' ? "nombre de références" : nil %>
-                  <%= params[:sort]=='nb_edits' ? "Nombre de contributions" : nil %>
+                  <%= params[:sort]=='nb_comments' ? "Nombre d'analyses" : nil %>
+                  <%= params[:sort]=='nb_summaries' ? "Nombre de synthèses" : nil %>
               <% end %>
               <span class="caret"></span>
             </button>
@@ -76,8 +77,11 @@
               <li <%= params[:sort]=='nb_references' ? "class=selected" : nil %> >
                 <%= link_to "Nombre de références", timelines_path(:sort  => 'nb_references', :interest => params[:interest],
                                                                    :order => params[:order], :tag => params[:tag]) %> </li>
-              <li <%= params[:sort]=='nb_edits' ? "class=selected" : nil %> >
-                <%= link_to "Nombre de contributions", timelines_path(:sort  => 'nb_edits', :interest => params[:interest],
+              <li <%= params[:sort]=='nb_comments' ? "class=selected" : nil %> >
+                <%= link_to "Nombre d'analyses", timelines_path(:sort  => 'nb_comments', :interest => params[:interest],
+                                                                      :order => params[:order], :tag => params[:tag]) %> </li>
+              <li <%= params[:sort]=='nb_summaries' ? "class=selected" : nil %> >
+                <%= link_to "Nombre de synthèses", timelines_path(:sort  => 'nb_summaries', :interest => params[:interest],
                                                                       :order => params[:order], :tag => params[:tag]) %> </li>
             </ul>
           </div>
