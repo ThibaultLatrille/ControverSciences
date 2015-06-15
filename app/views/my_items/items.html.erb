@@ -229,7 +229,7 @@
       <h4 class="panel-title clearfix">
         <a data-toggle="collapse" href="#collapseSix" class="pull-right glyphicon <%= @suggestions.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
         <a class="collapsed" data-toggle="collapse" href="#collapseSix">
-          Mes commentaires (<%= @suggestions.length %>)
+          Mes commentaires (<%= @suggestions.length + @suggestions_children.length %>)
         </a>
       </h4>
     </div>
