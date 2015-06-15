@@ -48,7 +48,7 @@ class SuggestionChildrenController < ApplicationController
     @suggestion_child.user_id = current_user.id
     if @suggestion_child.save
       flash[:success] = "Commentaire ajouté."
-      redirect_to suggestion_child_path( @suggestion_child.id )
+      redirect_to suggestion_path( @suggestion_child.suggestion_id )
     else
       @suggestion = Suggestion.find(suggestion_child_params[:suggestion_id])
       render 'new'

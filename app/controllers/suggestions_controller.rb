@@ -33,13 +33,13 @@ class SuggestionsController < ApplicationController
 
   def index
     if params[:filter] == "debate"
-      @suggestions = Suggestion.order( created_at: :desc).where.not( timeline_id: nil ).page(params[:page]).per(50)
+      @suggestions = Suggestion.order( created_at: :desc).where.not( timeline_id: nil ).page(params[:page]).per(25)
     else
       if logged_in?
         @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
         @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
       end
-      @suggestions = Suggestion.order( created_at: :desc).where( timeline_id: nil ).page(params[:page]).per(50)
+      @suggestions = Suggestion.order( created_at: :desc).where( timeline_id: nil ).page(params[:page]).per(25)
     end
     @suggestion = Suggestion.new
   end
