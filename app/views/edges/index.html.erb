@@ -7,7 +7,9 @@
           <div class="panel panel-default clearfix">
             <div class="panel-heading clearfix">
               <h2>
-              Les liens vers d'autres controverses (<%= @edges.count %>)
+              Les liens deuis la controverse
+                <%= link_to Timeline.select(:name).find(params[:timeline_id]).name, timeline_path(params[:timeline_id]) %>
+                vers d'autres controverses
                 <br/>
                 <br/>
               </h2>
