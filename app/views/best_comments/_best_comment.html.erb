@@ -4,12 +4,14 @@
         <h5  id="content6"> <%= best_comment.markdown(6).html_safe %> </h5>
     <% end %>
     <% if logged_in? && best_comment.f_6_user_id != current_user.id%>
-        <div class="pull-right button6 typo6">
+        <div class="pull-right button6 typo6  clearfix">
           <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                       new_typo_path(comment_id: best_comment.f_6_comment_id, field: 6), remote: true,
                       :class => "btn btn-info", "data-toggle" => "tooltip",
                       title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+
         </div>
+        <br/><br/><br/>
     <% end %>
     <% if best_comment.comment_count(6) > 1 %>
         <%= link_to "Voir toutes les contributions",
@@ -24,7 +26,7 @@
         <br/>
         <br/>
     <% end %>
-    <span class="content">
+    <span class="content clearfix">
     <% for fi in 0..5 %>
       <% if best_comment["f_#{fi}_comment_id".to_sym] %>
         <div class="panel panel-default">
