@@ -50,30 +50,28 @@
         </div>
         <div class="col-xs-12 col-lg-7">
           <div class="row">
-            <div class="clearfix">
-              <% if params[:filter] == "debate" %>
-                  <div class="btn-group">
-                    <div class="btn btn-info cursor-not-allowed">
-                      <span class="icon-frog fat"></span> Discuter des controverses
-                    </div>
-                  </div>
-                  <div class="btn-group">
-                    <%= link_to "<span class=\"icon-idea fat\"></span> Boite à idées".html_safe,
-                                suggestions_path,
-                                class: "btn btn-primary" %>
-                  </div>
-              <% else %>
-                  <div class="btn-group">
+            <div class="col-xs-12 col-lg-10 col-lg-offset-1">
+              <div class="btn-group">
+                <button class="btn btn-lg btn-default dropdown-toggle" type="button"
+                        id="dropdownMenuTag" data-toggle="dropdown">
+                  <% if params[:filter] == "debate" %>
+                      Discuter des controverses
+                  <% else %>
+                      Boite à idées
+                  <% end %>
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li <%= params[:filter] == "debate" ? "class=selected" : nil %> >
                     <%= link_to "<span class=\"icon-frog fat\"></span> Discuter des controverses".html_safe,
-                                suggestions_path(:filter => 'debate'),
-                                class: "btn btn-primary" %>
-                  </div>
-                  <div class="btn-group">
-                    <div class="btn btn-info cursor-not-allowed">
-                      <span class="icon-idea fat"></span> Boite à idées
-                    </div>
-                  </div>
-              <% end %>
+                                suggestions_path(:filter => 'debate') %>
+                  </li>
+                  <li <%= params[:filter] != "debate" ? "class=selected" : nil %> >
+                    <%= link_to "<span class=\"icon-idea fat\"></span> Boite à idées".html_safe,
+                                suggestions_path %>
+                  </li>
+                </ul>
+              </div>
               <div>
                 </br>
               </div>
@@ -136,6 +134,7 @@
   </div>
 </div>
 
+<% if logged_in? %>
 <script type="text/javascript">
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
@@ -165,6 +164,10 @@
             $('#characterLeft').text(ch + ' caractères restants.');
         }
     });
+</script>
+<% end %>
+
+<script type="text/javascript">
     $(function () {
         $('[data-validate]').click(function () {
             var self = $(this);
