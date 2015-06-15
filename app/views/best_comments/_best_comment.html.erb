@@ -3,11 +3,19 @@
     <% if best_comment.f_6_comment_id %>
         <h5  id="content6"> <%= best_comment.markdown(6).html_safe %> </h5>
     <% end %>
+    <% if logged_in? && best_comment.f_6_user_id != current_user.id%>
+        <div class="pull-right button6 typo6">
+          <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                      new_typo_path(comment_id: best_comment.f_6_comment_id, field: 6), remote: true,
+                      :class => "btn btn-info", "data-toggle" => "tooltip",
+                      title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+        </div>
+    <% end %>
     <% if best_comment.comment_count(6) > 1 %>
         <%= link_to "Voir toutes les contributions",
                     from_reference_path(:reference_id => @reference.id, field: 6),
-                    class: "btn btn-info ajax-btn",
-                    :remote => true, id: "button6" %>
+                    class: "btn btn-info ajax-btn button6",
+                    :remote => true %>
         <div id="show6" class="btn btn-info" style="display: none">
           Voir toutes les contributions
         </div>
@@ -29,11 +37,18 @@
             <div id="content<%= fi %>" class="text-justify">
               <%= best_comment.markdown(fi).html_safe %>
             </div>
+            <% if logged_in? && best_comment["f_#{fi}_user_id"] != current_user.id%>
+                <div class="pull-right button<%=fi %> typo<%=fi %>">
+                  <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                              new_typo_path(comment_id: best_comment["f_#{fi}_comment_id"], field: fi), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                              title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+                </div>
+            <% end %>
             <% if best_comment.comment_count(fi) > 1 %>
                 <%= link_to "Voir toutes les contributions",
                             from_reference_path(:reference_id => @reference.id, field: fi),
-                            class: "btn btn-info ajax-btn",
-                            :remote => true, id: "button#{fi}" %>
+                            class: "btn btn-info ajax-btn button#{fi}",
+                            :remote => true %>
                 <div id="show<%= fi %>" class="btn btn-info" style="display: none">
                   Voir toutes les contributions
                 </div>
@@ -62,11 +77,19 @@
               </div>
             </div>
           </div>
+          <% if logged_in? && best_comment.f_7_user_id != current_user.id%>
+              <div class="pull-right button7 typo7">
+                <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                            new_typo_path(comment_id: best_comment.f_7_comment_id, field: 7), remote: true,
+                            :class => "btn btn-info", "data-toggle" => "tooltip",
+                            title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+              </div>
+          <% end %>
           <% if best_comment.comment_count(7) > 1 %>
               <%= link_to "Voir toutes les contributions",
                           from_reference_path(:reference_id => @reference.id, field: 7),
-                          class: "btn btn-info ajax-btn",
-                          :remote => true, id: "button7" %>
+                          class: "btn btn-info ajax-btn button7",
+                          :remote => true %>
           <span id="show7" class="btn btn-info" style="display: none">
             Voir toutes les contributions
           </span>

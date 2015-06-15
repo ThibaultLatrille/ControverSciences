@@ -24,6 +24,7 @@ class Summary < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :notification_summary_selection_wins, dependent: :destroy
   has_many :notification_summary_selection_losses, dependent: :destroy
+  has_many :typos, dependent: :destroy
 
   after_create :cascading_save_summary
 
@@ -162,9 +163,20 @@ class Summary < ActiveRecord::Base
     self.update_columns(best: true)
   end
 
+  def refill_best_summary
+    best_summary = SummaryBest.find_by(timeline_id: self.timeline_id)
+    unless best_summary
+      most = Summary.select(:id, :timeline_id, :user_id).where(timeline_id: self.timeline_id).order(:score => :desc).first
+      if most
+        most.selection_update
+      end
+    end
+  end
+
   def destroy_with_counters
     Timeline.decrement_counter(:nb_summaries, self.timeline_id)
     self.destroy
+    refill_best_summary
   end
 
   private

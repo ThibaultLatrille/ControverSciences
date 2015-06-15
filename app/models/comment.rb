@@ -15,6 +15,7 @@ class Comment < ActiveRecord::Base
   has_many :notification_selection_wins, dependent: :destroy
   has_many :comment_types, dependent: :destroy
   has_many :comment_joins, dependent: :destroy
+  has_many :typos, dependent: :destroy
 
   after_create :cascading_create_comment
 
@@ -121,7 +122,7 @@ class Comment < ActiveRecord::Base
             end
           elsif field == 7
             com = Comment.select(:id, :caption).find(best_comment["f_#{field}_comment_id"])
-            if com.caption == self.title
+            if com.caption == self.caption
               self.title = ""
               flag       = true
             end
@@ -140,23 +141,12 @@ class Comment < ActiveRecord::Base
 
   def markdown(timeline_url)
     render_options = {
-        # will remove from the output HTML tags inputted by user
         filter_html:     true,
-        # will insert <br /> tags in paragraphs where are newlines
-        # (ignored by default)
         hard_wrap:       true,
-        # hash for extra link options, for example 'nofollow'
         link_attributes: {rel: 'nofollow'},
-        # more
-        # will remove <img> tags from output
         no_images:       true,
-        # will remove <a> tags from output
-        # no_links: true
-        # will remove <style> tags from output
         no_styles:       true,
-        # generate links for only safe protocols
         safe_links_only: true
-        # and more ... (prettify, with_toc_data, xhtml)
     }
 
     renderer       = HTMLlinks.new(render_options)
@@ -168,24 +158,11 @@ class Comment < ActiveRecord::Base
     end
 
     extensions = {
-        #will parse links without need of enclosing them
         autolink:          true,
-        # blocks delimited with 3 ` or ~ will be considered as code block.
-        # No need to indent.  You can provide language name too.
-        # ```ruby
-        # block of code
-        # ```
-        #fenced_code_blocks: true,
-        # will ignore standard require for empty lines surrounding HTML blocks
         lax_spacing:       true,
-        # will not generate emphasis inside of words, for example no_emph_no
         no_intra_emphasis: true,
-        # will parse strikethrough from ~~, for example: ~~bad~~
         strikethrough:     true,
-        # will parse superscript after ^, you can wrap superscript in ()
         superscript:       true
-        # will require a space after # in defining headers
-        # space_after_headers: true
     }
     redcarpet  = Redcarpet::Markdown.new(renderer, extensions)
     for fi in 0..5

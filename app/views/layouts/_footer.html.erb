@@ -113,7 +113,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('textarea').autosize();
+        autosize($('textarea'));
     });
     $('#newissue').on('shown.bs.modal', function () {
         $('.my-btn', this).responsiveEqualHeightGrid();

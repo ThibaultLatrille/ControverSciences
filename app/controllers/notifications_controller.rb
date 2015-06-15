@@ -77,6 +77,7 @@ class NotificationsController < ApplicationController
     @summary_losses  = Summary.select(:id, :timeline_id,
                                       :user_id).where(id: summary_loss_ids)
     @suggestions     = NotificationSuggestion.where(user_id: current_user.id)
+    @typos = Typo.where( target_user_id: current_user.id )
   end
 
   def delete

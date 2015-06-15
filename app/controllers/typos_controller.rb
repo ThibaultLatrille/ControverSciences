@@ -1,11 +1,11 @@
 class TyposController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :destroy]
+  before_action :logged_in_user, only: [:accept, :create, :destroy]
 
   def new
     @typo = Typo.new( get_params )
     if !@typo.comment_id.blank?
       com = Comment.find(get_params[:comment_id])
-      @typo.content = com.field_content(typo_params[:field])
+      @typo.content = com.field_content(get_params[:field].to_i)
       @typo.target_user_id = com.user_id
     elsif !@typo.summary_id.blank?
       sum = Summary.select( :user_id, :content ).find(get_params[:summary_id])
@@ -35,6 +35,18 @@ class TyposController < ApplicationController
         format.js { render 'typos/fail', :content_type => 'text/javascript', :layout => false}
       end
     end
+  end
+
+  def accept
+    @typo = Typo.find( params[:id] )
+    @typo.set_content(current_user.id)
+    @typo.destroy
+    redirect_to notifications_important_path
+  end
+
+  def destroy
+    @typo = Typo.find( params[:id] ).destroy
+    redirect_to notifications_important_path
   end
 
   private

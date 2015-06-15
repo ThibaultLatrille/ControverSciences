@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $("#content<%= params[:field] %>").fadeOut(500);
-    $("#button<%= params[:field] %>").fadeOut(500);
+    $(".button<%= params[:field] %>").fadeOut(500);
     $("#field<%= params[:field] %>").html("<%= escape_javascript(render partial: 'best_comments/best_fields',
         locals: { best_fields: @best_fields, field: params[:field].to_i,
         reference_id: params[:reference_id].to_i } ) %>").hide().show(500);

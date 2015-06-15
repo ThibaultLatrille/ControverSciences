@@ -6,12 +6,12 @@
         <br/>
       </div>
       <div class="modal-body clearfix">
-        <div class="panel panel-default">
+        <div class="panel panel-info">
           <div class="panel-heading">
-            <p>
-              Si vous avez déniché un bug, une faute, ou si vous avez des remarques sur le site,
-              ne soyez pas égoïste, faites le nous savoir, cette page est là pour ça ;-)
-            </p>
+            <b>
+             Si une faute de français vous a brulé les yeux, vous pouvez proposer une correction ici à l'auteur.
+              Celle-ci lui sera envoyée pour être soumise à validation.
+            </b>
           </div>
         </div>
         <%= form_for(typo, url: typos_path, remote: true,
@@ -23,7 +23,8 @@
             <br>
             <%= f.text_area :content, class: 'form-control textarea' %>
             <div class="actions pull-right">
-              <%= f.button "Envoyer &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+              <br/>
+              <%= f.button "Envoyer la corretion &nbsp <span class=\"bigger icon-bug-#{rand(18)}\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success',
                            data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "} %>
             </div>

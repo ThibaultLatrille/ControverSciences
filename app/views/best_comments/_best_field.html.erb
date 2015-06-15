@@ -6,6 +6,11 @@
               <%= comment.title_markdown.html_safe %>
             </div>
             <% if logged_in? && comment.user_id != current_user.id %>
+                <div class="pull-right">
+                  <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                              new_typo_path(comment_id: comment.id, field: 6), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                              title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+                </div>
                 <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
                     <div class="row">
                       <%= f.hidden_field :comment_id, value: comment.id %>
@@ -62,6 +67,11 @@
           </div>
         </div>
         <% if logged_in? && comment.user_id != current_user.id %>
+            <div class="pull-right">
+              <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                          new_typo_path(comment_id: comment.id, field: 7), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                          title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+            </div>
             <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
                 <div class="row">
                   <%= f.hidden_field :comment_id, value: comment.id %>
@@ -112,6 +122,11 @@
           <%= comment["markdown_#{field}".to_sym].html_safe %>
         </div>
         <% if logged_in? && comment.user_id != current_user.id%>
+            <div class="pull-right">
+              <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                          new_typo_path(comment_id: comment.id, field: field), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                          title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+            </div>
             <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
                 <div class="row">
                   <%= f.hidden_field :comment_id, value: comment.id %>

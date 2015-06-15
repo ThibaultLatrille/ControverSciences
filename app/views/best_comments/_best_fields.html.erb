@@ -23,14 +23,17 @@
 </div>
 
 <script type="text/javascript">
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     $('#hide<%= field %>').click(function() {
         $('#field<%= field %>').hide(500);
         $('#show<%= field %>').show(500);
         $('#content<%= field %>').show(500);
+        $('.typo<%= field %>').show(500);
     });
     $('#show<%= field %>').click(function() {
         $(this).hide(500);
         $('#content<%= field %>').hide(500);
         $('#field<%= field %>').show(500);
+        $('.typo<%= field %>').hide(500);
     });
 </script>

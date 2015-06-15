@@ -155,9 +155,13 @@ class User < ActiveRecord::Base
     NotificationSuggestion.where(user_id: self.id).count
   end
 
+  def notifications_typo
+    Typo.where(target_user_id: self.id).count
+  end
+
   def notifications_all_important
     notifications_win + notifications_loss + notifications_summary_win +
-        notifications_summary_loss + notifications_suggestion
+        notifications_summary_loss + notifications_suggestion + notifications_typo
   end
 
   # Creates and assigns the activation token and digest.

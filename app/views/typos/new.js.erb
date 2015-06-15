@@ -1,6 +1,9 @@
 $("body").append("<%= escape_javascript(render partial: 'typos/modal',
         locals: { typo: @typo } ) %>");
 $('#newtypo').modal('show');
-$(document).ready(function() {
-    $('textarea', "#newtypo").autosize();
+$('#newtypo').on('shown.bs.modal', function () {
+    autosize($('textarea', "#newtypo"));
+});
+$("#newtypo").on('hidden.bs.modal', function () {
+    $(this).remove()
 });

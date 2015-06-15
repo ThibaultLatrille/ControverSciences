@@ -15,7 +15,7 @@ $(document).ready(function() {
         charleft.css({"color": "#5cb85c"});
         charleft.text(ch + ' caractères restants.');
     }
-    textarea.autosize();
+    autosize(textarea);
 });
 $(function () {
     $('[data-validate]', "#children<%= params[:suggestion_id] %>").click(function () {
