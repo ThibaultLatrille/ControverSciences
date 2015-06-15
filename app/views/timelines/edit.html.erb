@@ -1,87 +1,290 @@
 <% provide(:title, "Modification") %>
 <div id="my-container" class="container-fluid">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3>Créer une nouvelle Controverse</h3>
-        </div>
+<div class="row">
+<div class="col-md-6 col-md-offset-3">
+<div class="panel panel-default">
+<div class="panel-heading">
+  <h3>Créer une nouvelle Controverse</h3>
+</div>
+<div class="panel-body">
+<%= form_for(@timeline) do |f| %>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="heading1">
+        <h3 class="panel-title clearfix">
+          <a data-toggle="collapse" href="#Collapse1" class="pull-right glyphicon glyphicon-chevron-down"></a>
+          <a data-toggle="collapse" href="#Collapse1" aria-expanded="true" aria-controls="Collapse1">
+            <b>Charte des titres</b>
+          </a>
+        </h3>
+      </div>
+      <div id="Collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
-          <%= form_for(@timeline) do |f| %>
-              <%= render 'shared/error_messages', object: f.object %>
-
-              <%= f.label :Nom, "Titre de la controverse" %>
-              <%= f.text_field :name, class: 'form-control' %>
-              </br>
-              <%= f.label :Tags, "Thèmes" %> </br>
-              <div class="container-fluid">
-                <div class="row" data-toggle="buttons">
-                  <% tags_hash.each do |key, value| %>
-                      <% if @tag_list.include? key %>
-                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
-                            <div class="my-btn">
-                              <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
-                              <span class="fat icon-<%= key %>"></span> <%= value %>
-                            </div>
-                          </div>
-                      <% else %>
-                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
-                            <div class="my-btn">
-                              <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
-                              <span class="fat icon-<%= key %>"></span> <%= value %>
-                            </div>
-                          </div>
-                      <% end %>
-                  <% end %>
-                </div>
-              </div>
-              <br/>
-
-              <div class="panel panel-default">
-                <div class="panel-body">
-                  <%= f.label :binary do %>
-                      <%= f.check_box :binary, id: "check-box" %>
-                      <span> Pour cette controverse, il existe deux réponses antagonistes </span>
-                  <% end %>
-                  <div id="binary-box">
-                    <br/>
-
-                    <div class="row">
-                      <div class="col-xs-4">
-                        <br/>
-                        <%= f.text_field :binary_left, class: 'form-control',
-                                         value:               @timeline.binary ? @timeline.binary_left : "", placeholder: "Oui/Blanc/Inné/..." %>
-                        <br/>
-                      </div>
-                      <div class="col-xs-4 center">
-                        <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
-                      </div>
-                      <div class="col-xs-4">
-                        <br/>
-                        <%= f.text_field :binary_right, class: 'form-control',
-                                         value:                @timeline.binary ? @timeline.binary_right : "", placeholder: "Non/Noir/Acquis/..." %>
-                        <br/>
-                      </div>
-                    </div>
-                    <br/>
-                  </div>
-                  <div class="panel panel-info">
-                    <div class="panel-heading">
-                      En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les
-                      références.
-                      Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <%= f.button "Modifier la controverse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                           class: 'btn btn-success btn-lg pull-right',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
-          <% end %>
+          <p>
+            Entendons nous bien, l'art de la controverse exige l'exposition d'oppositions franches voir
+            d'antagonismes.
+            Néanmoins, l'objectif de Controverscience est de replacer le plus rigoureusement possible le
+            <b>cœur du débat</b> dans son <b>contexte scientifique</b>.
+            A ce titre, la première mesure d'hygiène consiste à préserver l'énoncé des controverses de toute
+            formulation pouvant engendrer des oppositions scientifiquement non recevables.
+            Hélas ! La réalité rattrape vite la bonne volonté et la cohabitation des sciences physiques,
+            biologiques,
+            sociales ou mathématiques impose un socle si large qu'il peut rendre difficile la génération de
+            <b>problématiques rigoureuses</b>.
+            <br/>
+            Cette section a la prétention (énorme) de fournir un <b>cadre minimal mais obligatoire</b> pour les
+            titres de controverses.
+            Après avoir été discutée ou critiquée suivant le processus normal,
+            toute problématique qui aurait l'idée sordide de ne pas répondre à ces règles sera modifiée ou
+            supprimée par un modérateur.
+          </p>
         </div>
       </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="col-xs-1">
+        <div class="pull-right">
+                    <span style="margin-top: 10px" class="glyphicon glyphicon-ok green">
+                    </span>
+        </div>
+      </div>
+      <div class="col-xs-10">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="heading1">
+            <h3 class="panel-title clearfix">
+              <a data-toggle="collapse" href="#Collapse2" class="pull-right glyphicon glyphicon-chevron-down"></a>
+              <a data-toggle="collapse" href="#Collapse2" aria-expanded="true" aria-controls="Collapse2">
+                <b>L'énoncé ne doit pas mener à une question d'ordre métaphysique ou universel</b>
+              </a>
+            </h3>
+          </div>
+          <div id="Collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <b style="font-size: 1.1em">1<sup>er</sup> commandement : Ton énoncé à des considérations
+                métaphysiques n’appellera pas.
+              </b>
+              <br/>
+              <br/>
+
+              <p>
+                La science se différencie de la philosophie (entre autre) par le fait qu'elle ne produit que des
+                <b>propositions bornées</b>.
+                La science impose le recours systématique à des <b>cadres de références</b>, portions de réalité
+                délimitées qui confèrent leur sens au questions traitées,
+                et hors desquels celles-ci deviennent incontrôlables. A titre d'exemple, si les risques que
+                représentent un corpus technique peuvent être réfutés
+                ou pointés du doigt par des publications scientifiques,
+                ces dernières abandonnent le précieux adjectif dès lors qu'elles se positionnent sur le
+                <b>terrain moral</b>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-1">
+        <div class="pull-right">
+                    <span style="margin-top: 15px" class="glyphicon glyphicon-ok green">
+                    </span>
+        </div>
+      </div>
+      <div class="col-xs-10">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="heading1">
+            <h3 class="panel-title clearfix">
+              <a data-toggle="collapse" href="#Collapse3" class="pull-right glyphicon glyphicon-chevron-down"></a>
+              <a data-toggle="collapse" href="#Collapse3" aria-expanded="true" aria-controls="Collapse3">
+                <b>L'énoncé doit être le plus précis possible et expliciter au maximum le cadre de référence du
+                  questionnement (zone, date, peuple, échelle… etc)
+                </b>
+              </a>
+            </h3>
+          </div>
+          <div id="Collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <b style="font-size: 1.1em">2<sup>eme</sup> commandement : Science sans précision n'est que ruine…
+                tout court.
+              </b>
+              <br/>
+              <br/>
+
+              <p>
+                Il faudrait pouvoir tenir compte du critère de réfutabilité de Popper, mais la <b>priorité</b>
+                est avant
+                tout de proposer des <b>questions scientifiques</b> tout en conservant des formulations proches
+                de celles
+                qui peuvent circuler ordinairement. La <b>précision</b> est essentielle à bien des égards :
+                <br/>
+                &nbsp - respect du 1<sup>er</sup> commandement
+                <br/>
+                &nbsp - un énoncé large,
+                bien que porteur de plus d'enjeux, peut générer des réfutations qui passeront à côté de l'objet
+                central de la controverse.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-1">
+        <div class="pull-right">
+                    <span style="margin-top: 10px" class="glyphicon glyphicon-ok green">
+                    </span>
+        </div>
+      </div>
+      <div class="col-xs-10">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="heading1">
+            <h3 class="panel-title clearfix">
+              <a data-toggle="collapse" href="#Collapse4" class="pull-right glyphicon glyphicon-chevron-down"></a>
+              <a data-toggle="collapse" href="#Collapse4" aria-expanded="true" aria-controls="Collapse4">
+                <b>L'énoncé doit être compréhensible par tous et délaisser toute technicité superflue </b>
+              </a>
+            </h3>
+          </div>
+          <div id="Collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <b style="font-size: 1.1em">3<sup>eme</sup> commandement : Amo profanum vulgus et accipio.
+              </b>
+              <br/>
+              <br/>
+
+              <p>
+                Controverscience est un site de <b>vulgarisation</b> qui n'a pas vocation à devenir un forum de
+                discussion entre scientifiques.
+                Les titres, tout comme le reste du contenu, doivent être <b>accessibles au plus grand nombre</b>
+                et pas juste à une brochette d'initiés
+                (l'intitulé du commandement est donc ironique).
+                Un <b>équilibre</b> doit être trouvé entre la <b>précision</b> et la <b>simplicité</b> pour que
+                ni la scientificité,
+                ni la lisibilité des controverses ne soit compromis.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-1">
+        <div class="pull-right">
+                    <span style="margin-top: 25px" class="glyphicon glyphicon-ok green">
+                    </span>
+        </div>
+      </div>
+      <div class="col-xs-10">
+        <div class="panel panel-default">
+          <div class="panel-heading" role="tab" id="heading1">
+            <h3 class="panel-title clearfix">
+              <a data-toggle="collapse" href="#Collapse5" class="pull-right glyphicon glyphicon-chevron-down"></a>
+              <a data-toggle="collapse" href="#Collapse5" aria-expanded="true" aria-controls="Collapse5">
+                <b>L'énoncé doit être acceptable aux yeux de toutes les disciplines impliquées
+                  <br/>
+                  <br/>
+                  Les « thèmes » des controverses ne servent pas à délimiter son territoire mais au contraire à
+                  ouvrir le débat aux différents domaines
+                </b>
+              </a>
+            </h3>
+          </div>
+          <div id="Collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+              <b style="font-size: 1.1em">4<sup>eme</sup> commandement : Sur les pompes des autres disciplines
+                tu ne marcheras point.
+              </b>
+              <br/>
+              <br/>
+
+              <p>
+                Pour que la <b>collocation</b> des différentes sciences se déroule paisiblement, il est
+                nécessaire d'accepter qu'un énoncé à caractère pluri
+                voir inter-disciplinaire se plie aux <b>exigences théoriques</b> et <b>méthodologiques</b> de
+                chacune des disciplines en présence.
+                Une astuce pour contourner ce problème consisterait à créer une controverse différente pour
+                chaque « thème ».
+                Cette stratégie, en plus de réduire la lisibilité du site, <b>contourne des difficultés</b> sur
+                lesquelles reposent souvent les
+                points les plus épineux du <b>débat</b>
+                : on ne résout pas un problème de communication en le cloisonnant dans de petites boites
+                étiquetées. </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.label :Nom, "Titre de la controverse" %>
+    <%= f.text_field :name, class: 'form-control' %>
+    </br>
+    <%= f.label :Tags, "Thèmes" %> </br>
+    <div class="container-fluid">
+      <div class="row" data-toggle="buttons">
+        <% tags_hash.each do |key, value| %>
+            <% if @tag_list.include? key %>
+                <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
+                  <div class="my-btn">
+                    <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
+                    <span class="fat icon-<%= key %>"></span> <%= value %>
+                  </div>
+                </div>
+            <% else %>
+                <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+                  <div class="my-btn">
+                    <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
+                    <span class="fat icon-<%= key %>"></span> <%= value %>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+    <br/>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= f.label :binary do %>
+            <%= f.check_box :binary, id: "check-box" %>
+            <span> Pour cette controverse, il existe deux réponses antagonistes </span>
+        <% end %>
+        <div id="binary-box">
+          <br/>
+
+          <div class="row">
+            <div class="col-xs-4">
+              <br/>
+              <%= f.text_field :binary_left, class: 'form-control',
+                               value:               @timeline.binary ? @timeline.binary_left : "", placeholder: "Oui/Blanc/Inné/..." %>
+              <br/>
+            </div>
+            <div class="col-xs-4 center">
+              <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
+            </div>
+            <div class="col-xs-4">
+              <br/>
+              <%= f.text_field :binary_right, class: 'form-control',
+                               value:                @timeline.binary ? @timeline.binary_right : "", placeholder: "Non/Noir/Acquis/..." %>
+              <br/>
+            </div>
+          </div>
+          <br/>
+        </div>
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les
+            références.
+            Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= f.button "Modifier la controverse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                 class: 'btn btn-success btn-lg pull-right',
+                 data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
+<% end %>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 <script type="text/javascript">
