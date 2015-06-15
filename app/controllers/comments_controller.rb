@@ -22,6 +22,8 @@ class CommentsController < ApplicationController
         end
       end
       @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
+      @tim_list = Timeline.where( id: Edge.where(timeline_id:
+                @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )
       @myreference = Reference.find( @comment.reference_id )
     end
   end
@@ -43,6 +45,8 @@ class CommentsController < ApplicationController
     else
       @myreference = Reference.find( @comment.reference_id )
       @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
+      @tim_list = Timeline.where( id: Edge.where(timeline_id:
+                                                     comment_params[:timeline_id] ).pluck(:target) ).pluck( :name, :id )
       render 'new'
     end
   end
@@ -51,6 +55,8 @@ class CommentsController < ApplicationController
     @comment = Comment.find( params[:id] )
     @myreference = Reference.find( @comment.reference_id )
     @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
+    @tim_list = Timeline.where( id: Edge.where(timeline_id:
+                                                   @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )
   end
 
   def update
@@ -74,6 +80,8 @@ class CommentsController < ApplicationController
       else
         @myreference = Reference.find( @comment.reference_id )
         @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
+        @tim_list = Timeline.where( id: Edge.where(timeline_id:
+                                                       @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )
         render 'edit'
       end
     else

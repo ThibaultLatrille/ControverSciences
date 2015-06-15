@@ -15,6 +15,8 @@ class SummariesController < ApplicationController
         @summary.timeline_id = params[:timeline_id]
       end
       @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
+      @tim_list = Timeline.where( id: Edge.where(timeline_id:
+                                                     @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
     end
   end
 
@@ -37,6 +39,8 @@ class SummariesController < ApplicationController
       redirect_to summaries_path( filter: "mine", timeline_id: @summary.timeline_id )
     else
       @list = Reference.where( timeline_id: summary_params[:timeline_id] ).pluck( :title, :id )
+      @tim_list = Timeline.where( id: Edge.where(timeline_id:
+                                                     summary_params[:timeline_id] ).pluck(:target) ).pluck( :name, :id )
       if parent_id
         @parent = Summary.find( parent_id )
       end
@@ -47,6 +51,8 @@ class SummariesController < ApplicationController
   def edit
     @summary = Summary.find( params[:id] )
     @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
+    @tim_list = Timeline.where( id: Edge.where(timeline_id:
+                                                   @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
   end
 
   def update
@@ -67,6 +73,8 @@ class SummariesController < ApplicationController
         redirect_to @summary
       else
         @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
+        @tim_list = Timeline.where( id: Edge.where(timeline_id:
+                                                       @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
         render 'edit'
       end
     else

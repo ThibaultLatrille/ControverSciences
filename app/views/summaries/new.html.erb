@@ -111,6 +111,45 @@
   </div>
 </div>
 </div>
+
+<div class="modal fade" id="mytimlist" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">
+          <% if @tim_list.any? %>
+              Créer un lien vers une controverse
+          <% else %>
+              Opération impossible
+          <% end %>
+        </h4>
+      </div>
+      <% if @tim_list.any? %>
+          <div class="modal-body">
+            <%= select("timeline", "timeline_id", @tim_list, {}, {id: "list-tim", class: 'form-control'}) %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn"> Ajouter
+            </button>
+          </div>
+      <% else %>
+          <div class="modal-body">
+            La controverse sur laquelle vous vous trouvez n'est actuellement liée à aucune autre.
+            <br/>
+            <br/>
+            <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+        </span> Créer des liens entre cette controverse et d'autres".html_safe,
+                        edges_path(timeline_id: @summary.timeline_id),
+                        class: "btn btn-primary btn-block", target: "_blank" %>
+            <br/>
+            <br/>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="mylist" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">

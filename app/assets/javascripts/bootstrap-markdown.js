@@ -112,6 +112,12 @@
                     'href': '#mylist'
                 });
             }
+            if (button.htim == true){
+                  buttonContainer.attr({
+                    'data-toggle': 'modal',
+                    'href': '#mytimlist'
+                });
+            }
             if (button.http == true){
                 buttonContainer.attr({
                     'data-toggle': 'modal',
@@ -977,7 +983,7 @@
                 var monelement = document.getElementById('save-btn-http');
                 if(  monelement.dataset.toggled === 'yes') {
                     monelement.setAttribute("data-toggled", 'no');
-                    var chunk, cursor, selected = e.getSelection(), content = e.getContent(), link
+                    var chunk, cursor, selected = e.getSelection(), content = e.getContent(), link;
 
                     if (selected.length == 0) {
                       // Give extra word
@@ -986,29 +992,29 @@
                       chunk = selected.text
                     }
 
-                    link = 'http://'+document.getElementById("http-text").value
+                    link = document.getElementById("http-text").value;
 
                     if (link != null && link != '' && link != 'http://' && link.substr(0,4) == 'http') {
-                      var sanitizedLink = $('<div>'+link+'</div>').text()
+                      var sanitizedLink = $('<div>'+link+'</div>').text();
 
                       // transform selection and set the cursor into chunked text
-                      e.replaceSelection('['+chunk+']('+sanitizedLink+')')
-                      cursor = selected.start+1
+                      e.replaceSelection('['+chunk+']('+sanitizedLink+')');
+                      cursor = selected.start+1;
 
                       // Set the cursor
                       e.$textarea.focus( )
-                      e.setSelection(cursor,cursor+chunk.length)
+                      e.setSelection(cursor,cursor+chunk.length);
                       throw new Error("Everything is alright")
                     }
                 }
             });
           }
         },{
-          name: 'cmdLinkInt',
-          href: true,
-          title: 'Lien vers une référence de cette controverse',
-          hotkey: 'Ctrl+G',
-          icon: { glyph: 'icon-reference bigger', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
+            name: 'cmdLinkInt',
+            href: true,
+            title: 'Lien vers une référence de cette controverse',
+            hotkey: 'Ctrl+G',
+            icon: { glyph: 'icon-reference bigger', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
             callback: function(e){
                 $('#mylist').one('hidden.bs.modal', function ( event ) {
                     var monelement = document.getElementById('save-btn');
@@ -1026,6 +1032,39 @@
                         var link = elt.options[elt.selectedIndex].value
                         // transform selection and set the cursor into chunked text
                         e.replaceSelection('[' + chunk + '](' + link + ')')
+                        cursor = selected.start+1
+
+                        // Set the cursor
+
+                        e.$textarea.focus( )
+                        e.setSelection(cursor, cursor + chunk.length);
+                        throw new Error("Everything is alright")
+                    }
+                })
+            }
+        },{
+          name: 'cmdLinkIntra',
+          htim: true,
+          title: 'Lien vers une autre controverse',
+          hotkey: 'Ctrl+G',
+          icon: { glyph: 'icon-frog bigger', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
+            callback: function(e){
+                $('#mytimlist').one('hidden.bs.modal', function ( event ) {
+                    var monelement = document.getElementById('save-btn');
+                    if(  monelement.dataset.toggled === 'yes') {
+                        monelement.setAttribute("data-toggled", 'no');
+                        var chunk, cursor,
+                            selected = e.getSelection(), content = e.getContent()
+                        var elt = document.getElementById("list-tim")
+                        if (selected.length == 0) {
+                            // Give extra word
+                            chunk = elt.options[elt.selectedIndex].text
+                        } else {
+                            chunk = selected.text
+                        }
+                        var link = elt.options[elt.selectedIndex].value
+                        // transform selection and set the cursor into chunked text
+                        e.replaceSelection('[' + chunk + '](http://www.controversciences.org/timelines/' + link + ')')
                         cursor = selected.start+1
 
                         // Set the cursor
