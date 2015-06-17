@@ -58,7 +58,7 @@ class SummariesController < ApplicationController
   def update
     @summary = Summary.find( params[:id] )
     @my_summary = Summary.find( params[:id] )
-    if @summary.user_id == current_user.id
+    if @summary.user_id == current_user.id || current_user.admin
       @summary.content = summary_params[:content]
       @summary.public = summary_params[:public]
       @summary.caption = summary_params[:caption]
@@ -151,7 +151,7 @@ class SummariesController < ApplicationController
 
   def destroy
     summary = Summary.find(params[:id])
-    if summary.user_id == current_user.id
+    if summary.user_id == current_user.id || current_user.admin
       summary.destroy_with_counters
       redirect_to my_items_items_path
     else

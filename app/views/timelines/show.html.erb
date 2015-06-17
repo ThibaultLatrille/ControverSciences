@@ -74,7 +74,7 @@
           <div>
             <h1><%= @timeline.name %></h1>
             <br/>
-            <% if logged_in? && @timeline.user_id == current_user.id %>
+            <% if logged_in? && (@timeline.user_id == current_user.id || current_user.admin) %>
                 <br/>
                 <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette controverse".html_safe, edit_timeline_path(@timeline.id),
                             class: "btn btn-primary pull-right" %>

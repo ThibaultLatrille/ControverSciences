@@ -207,7 +207,7 @@
                   <div class="bold">
                     Lien vers la référence (<%= @myreference.open_access ? "<span class=\"icon icon-lock normal\"></span> Accés libre".html_safe : "<span class=\"icon icon-locked normal\"></span> Accés payant".html_safe %>):
                   </div> <%= link_to @myreference.url, @myreference.url, class: "break-word", target: "_blank" %></li>
-                <% if @myreference.user_id == current_user.id %>
+                <% if @myreference.user_id == current_user.id || current_user.admin %>
                     <li class="list-group-item clearfix">
                       <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette référence".html_safe, edit_reference_path(@myreference.id), class: "btn btn-primary pull-right" %>
                       <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette référence".html_safe,

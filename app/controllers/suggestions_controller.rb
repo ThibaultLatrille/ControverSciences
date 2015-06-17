@@ -19,7 +19,7 @@ class SuggestionsController < ApplicationController
 
   def update
     @suggestion = Suggestion.find( params[:id] )
-    if current_user.id == @suggestion.user_id
+    if current_user.id == @suggestion.user_id || current_user.admin
       @suggestion.comment = suggestion_params[:comment]
       if @suggestion.save
         render 'suggestions/show'
@@ -59,7 +59,7 @@ class SuggestionsController < ApplicationController
 
   def destroy
     sug = Suggestion.find(params[:id])
-    if sug.user_id == current_user.id && sug.timeline_id != 0
+    if (sug.user_id == current_user.id || current_user.admin) && (sug.timeline_id != 0)
       sug.destroy
       redirect_to suggestions_path
     end

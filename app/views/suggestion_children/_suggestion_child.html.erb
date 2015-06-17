@@ -5,7 +5,7 @@
             <div class="text-justify">
               <%= suggestion_child.content_markdown.html_safe %>
             </div>
-            <% if logged_in? && suggestion_child.user_id == current_user.id %>
+            <% if logged_in? && (suggestion_child.user_id == current_user.id || current_user.admin) %>
                 <div class="pull-right">
                   <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_child_path(suggestion_child.id), method: :delete,
                               data:                                                                                                                        {confirm: "Etes vous certain ?"},

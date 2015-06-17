@@ -41,7 +41,7 @@ class TimelinesController < ApplicationController
 
   def update
     @timeline = Timeline.find(params[:id])
-    if @timeline.user_id == current_user.id
+    if @timeline.user_id == current_user.id || current_user.admin
       @timeline.name = timeline_params[:name]
       if timeline_params[:binary] != "0"
         @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
@@ -111,7 +111,7 @@ class TimelinesController < ApplicationController
 
   def destroy
     timeline = Timeline.find(params[:id])
-    if timeline.user_id == current_user.id
+    if timeline.user_id == current_user.id || current_user.admin
       timeline.destroy
       redirect_to my_items_items_path
     end

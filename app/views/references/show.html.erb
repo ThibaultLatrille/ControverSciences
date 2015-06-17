@@ -245,7 +245,7 @@
                     <% end %>
                   </div>
               <% end %>
-              <% if @reference.user_id == current_user.id %>
+              <% if @reference.user_id == current_user.id || current_user.admin %>
                   </li>
                   <li class="list-group-item clearfix">
                     <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette référence".html_safe, edit_reference_path(@reference.id), class: "btn btn-primary pull-right" %>

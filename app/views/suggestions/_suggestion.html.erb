@@ -7,7 +7,7 @@
       <% if suggestion.timeline_id && suggestion.timeline_id > 0 %>
           <br/>
           <%= link_to "<span class=\"icon-frog\"></span> Revenir à la controverse".html_safe, timeline_path(suggestion.timeline_id), class: "btn btn-primary pull-right" %>
-      <% elsif logged_in? && suggestion.user_id == current_user.id %>
+      <% elsif logged_in? && (suggestion.user_id == current_user.id || current_user.admin) %>
           <div class="pull-right">
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_path(suggestion.id), method: :delete,
                         data:  {confirm: "Etes vous certain ?"},

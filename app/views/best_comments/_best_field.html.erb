@@ -10,6 +10,14 @@
                   <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                               new_typo_path(comment_id: comment.id, field: 6), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
                               title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+                  <% if current_user.admin %>
+                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                  edit_comment_path(comment_id: comment.id),
+                                  class: "btn btn-primary"%>
+                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                  comment_path(comment_id: comment.id), method: :delete,
+                                  class: "btn btn-danger"%>
+                  <% end %>
                 </div>
                 <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
                     <div class="row">
@@ -71,6 +79,14 @@
               <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                           new_typo_path(comment_id: comment.id, field: 7), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
                           title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+              <% if current_user.admin %>
+                  <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                              edit_comment_path(comment_id: comment.id),
+                              class: "btn btn-primary"%>
+                  <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                              comment_path(comment_id: comment.id), method: :delete,
+                              class: "btn btn-danger"%>
+              <% end %>
             </div>
             <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
                 <div class="row">
@@ -126,6 +142,14 @@
               <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                           new_typo_path(comment_id: comment.id, field: field), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
                           title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
+              <% if current_user.admin %>
+                  <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                              edit_comment_path(comment_id: comment.id),
+                              class: "btn btn-primary"%>
+                  <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                              comment_path(comment_id: comment.id), method: :delete,
+                              class: "btn btn-danger"%>
+              <% end %>
             </div>
             <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
                 <div class="row">

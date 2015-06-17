@@ -60,6 +60,14 @@
                   <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                               new_typo_path(summary_id: summary.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
                               title: "Corriger une faute de français", :style => "padding: 8px; margin-right: 8px"%>
+                  <% if current_user.admin %>
+                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                  edit_summary_path(summary_id: summary.id),
+                                  class: "btn btn-primary"%>
+                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                  summary_path(summary_id: summary.id), method: :delete,
+                                  class: "btn btn-danger"%>
+                  <% end %>
                 </div>
                 <% if improve %>
                 <div class="pull-right">
@@ -76,6 +84,14 @@
             <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                         new_typo_path(summary_id: summary.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
                         title: "Corriger une faute de français", :style => "padding: 8px; margin-right: 8px"%>
+            <% if current_user.admin %>
+                <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                            edit_summary_path(summary_id: summary.id),
+                            class: "btn btn-primary"%>
+                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                            summary_path(summary_id: summary.id), method: :delete,
+                            class: "btn btn-danger"%>
+            <% end %>
           </div>
           <% end %>
           <% if improve %>

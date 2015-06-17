@@ -61,7 +61,7 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find( params[:id] )
-    if @comment.user_id == current_user.id
+    if @comment.user_id == current_user.id || current_user.admin
       @comment.public = comment_params[:public]
       for fi in 0..5 do
         @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
@@ -103,7 +103,7 @@ class CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find(params[:id])
-    if comment.user_id == current_user.id
+    if comment.user_id == current_user.id || current_user.admin
       comment.destroy_with_counters
       redirect_to my_items_items_path
     else

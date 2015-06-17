@@ -31,7 +31,7 @@ class SuggestionChildrenController < ApplicationController
   def update
     @suggestion_child = SuggestionChild.find( params[:id] )
     @suggestion = Suggestion.find( @suggestion_child.suggestion_id )
-    if current_user.id == @suggestion_child.user_id
+    if current_user.id == @suggestion_child.user_id || current_user.admin
       @suggestion_child.comment = suggestion_child_params[:comment]
       if @suggestion_child.save
         render 'suggestion_children/show'
@@ -57,7 +57,7 @@ class SuggestionChildrenController < ApplicationController
 
   def destroy
     sug = SuggestionChild.find(params[:id])
-    if sug.user_id == current_user.id
+    if sug.user_id == current_user.id || current_user.admin
       sug.destroy
       redirect_to suggestions_path
     end
