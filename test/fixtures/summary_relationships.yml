@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  parent_id: 1
-  child_id: 1
-
-two:
-  parent_id: 1
-  child_id: 1
