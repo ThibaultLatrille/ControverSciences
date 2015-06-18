@@ -34,7 +34,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl']});
+        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
         var max = 1200;
         var len = $('#markdown-textarea').val().length;
         if (len >= max) {

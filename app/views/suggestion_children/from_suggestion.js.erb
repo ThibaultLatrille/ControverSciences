@@ -2,7 +2,7 @@ $("#children<%= params[:suggestion_id] %>").html("<%= escape_javascript(render p
 $("#button<%= params[:suggestion_id] %>").hide();
 $(document).ready(function() {
     var textarea = $('textarea', "#children<%= params[:suggestion_id] %>");
-    textarea.markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl']});
+    textarea.markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
     var charleft = $('#characterLeft', "#children<%= params[:suggestion_id] %>");
     var max = 1200;
     var len = textarea.val().length;

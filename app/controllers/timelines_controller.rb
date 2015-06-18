@@ -42,7 +42,6 @@ class TimelinesController < ApplicationController
   def update
     @timeline = Timeline.find(params[:id])
     if @timeline.user_id == current_user.id || current_user.admin
-      @timeline.name = timeline_params[:name]
       if timeline_params[:binary] != "0"
         @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
       else
@@ -121,6 +120,6 @@ class TimelinesController < ApplicationController
   private
 
   def timeline_params
-    params.require(:timeline).permit(:name, :binary, :binary_left, :binary_right)
+    params.require(:timeline).permit(:name, :binary, :frame, :binary_left, :binary_right)
   end
 end

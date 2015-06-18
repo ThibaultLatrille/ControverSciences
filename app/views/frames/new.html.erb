@@ -16,25 +16,20 @@
               <%= link_to Timeline.where(id: @frame.timeline_id ).pluck(:name)[0],
                           timeline_url( @frame.timeline_id ) %>
           </div>
-          <div class="panel-body">
+          <div class="panel-body clearfix">
             <%= form_for(@frame) do |f| %>
+                <%= render 'static_pages/charte' %>
                 <%= render 'shared/error_messages', object: f.object %>
 
                 <br/>
                 <br/>
-                <%= f.label "Contribution" %> <div id="characterLeft1"></div>
-
-                <%= f.text_area :name, {rows: 3, :placeholder => "Titre",
-                                        :class => "form-control textarea",
-                                        id: "description1",
-                                        "data-provide" => "markdown" }%>
-
-                <%= f.label "Contribution" %> <div id="characterLeft0"></div>
-
-                <%= f.text_area :content, {rows: 3, :placeholder => "Cadre de référence",
-                                           :class => "form-control textarea",
-                                           id: "description0",
-                                           "data-provide" => "markdown" }%>
+                <b style="font-size: 1.4em">Titre de la controverse</b><div id="characterLeft1"></div><br/>
+                <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
+                </br>
+                <b style="font-size: 1.4em">Cadre de la controverse</b><div id="characterLeft0"></div><br/>
+                <%= f.text_area :content, class: 'form-control textarea', id: "description0" %>
+                </br>
+                <div class="panel panel-info">
                   <div class="panel-heading">
                     Précisez le cadre de référence de la controverse.
                     <br/>
@@ -64,6 +59,8 @@
 
 
 <script type="text/javascript">
+    $("#description1").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra','cmdList','cmdListO','cmdBold']});
+    $("#description0").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
     $.each(['0', '1'], function (index, value) {
         $(document).ready(function() {
             if (value === '0') {
