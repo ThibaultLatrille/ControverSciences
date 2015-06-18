@@ -10,7 +10,7 @@
     <link rel="icon"
           type="image/png"
           href="<%= path_to_image "favicon.png" %>">
-    <title><%= full_title(yield(:title)) %></title>
+    <title><%= full_title(yield(:title)).html_safe %></title>
     <%= stylesheet_link_tag "application", 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
     <%= javascript_include_tag 'application' %>
