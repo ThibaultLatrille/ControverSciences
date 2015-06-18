@@ -1,5 +1,14 @@
 module AssisstantHelper
 
+  def maj_v_3
+    ActiveRecord::Base.transaction do
+      Timeline.all.each do |timeline|
+        Frame.create!( user_id: timeline.user_id, best: true,
+                      content: "", name: timeline.name, timeline_id: timeline.id )
+      end
+    end
+  end
+
   def maj_v_2
     ActiveRecord::Base.transaction do
       ethic = Tag.find_by(name: "ethics")

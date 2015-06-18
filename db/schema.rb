@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150614222520) do
+ActiveRecord::Schema.define(version: 20150617160715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,6 +182,36 @@ ActiveRecord::Schema.define(version: 20150614222520) do
   add_index "figures", ["timeline_id"], name: "index_figures_on_timeline_id", using: :btree
   add_index "figures", ["user_id"], name: "index_figures_on_user_id", using: :btree
 
+  create_table "frame_credits", force: true do |t|
+    t.integer  "timeline_id"
+    t.integer  "user_id"
+    t.integer  "frame_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "frame_credits", ["frame_id"], name: "index_frame_credits_on_frame_id", using: :btree
+  add_index "frame_credits", ["timeline_id"], name: "index_frame_credits_on_timeline_id", using: :btree
+  add_index "frame_credits", ["user_id"], name: "index_frame_credits_on_user_id", using: :btree
+
+  create_table "frames", force: true do |t|
+    t.integer  "timeline_id"
+    t.integer  "user_id"
+    t.text     "name"
+    t.text     "content"
+    t.text     "name_markdown"
+    t.text     "content_markdown"
+    t.float    "score"
+    t.integer  "balance"
+    t.boolean  "best",             default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "frames", ["timeline_id"], name: "index_frames_on_timeline_id", using: :btree
+  add_index "frames", ["user_id"], name: "index_frames_on_user_id", using: :btree
+
   create_table "issues", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -269,6 +299,26 @@ ActiveRecord::Schema.define(version: 20150614222520) do
     t.datetime "updated_at"
   end
 
+  create_table "notification_frame_selection_loss", force: true do |t|
+    t.integer  "frame_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_frame_selection_loss", ["frame_id"], name: "index_notification_frame_selection_loss_on_frame_id", using: :btree
+  add_index "notification_frame_selection_loss", ["user_id"], name: "index_notification_frame_selection_loss_on_user_id", using: :btree
+
+  create_table "notification_frame_selection_wins", force: true do |t|
+    t.integer  "frame_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "notification_frame_selection_wins", ["frame_id"], name: "index_notification_frame_selection_wins_on_frame_id", using: :btree
+  add_index "notification_frame_selection_wins", ["user_id"], name: "index_notification_frame_selection_wins_on_user_id", using: :btree
+
   create_table "notification_selection_losses", force: true do |t|
     t.integer  "user_id"
     t.integer  "comment_id"
@@ -335,9 +385,11 @@ ActiveRecord::Schema.define(version: 20150614222520) do
     t.datetime "updated_at"
     t.integer  "field"
     t.integer  "suggestion_id"
+    t.integer  "frame_id"
   end
 
   add_index "notifications", ["comment_id"], name: "index_notifications_on_comment_id", using: :btree
+  add_index "notifications", ["frame_id"], name: "index_notifications_on_frame_id", using: :btree
   add_index "notifications", ["like_id"], name: "index_notifications_on_like_id", using: :btree
   add_index "notifications", ["reference_id"], name: "index_notifications_on_reference_id", using: :btree
   add_index "notifications", ["suggestion_id"], name: "index_notifications_on_suggestion_id", using: :btree
@@ -566,6 +618,8 @@ ActiveRecord::Schema.define(version: 20150614222520) do
     t.integer  "binary_3",        default: 0
     t.integer  "binary_4",        default: 0
     t.integer  "binary_5",        default: 0
+    t.integer  "nb_frames",       default: 0
+    t.text     "frame",           default: ""
   end
 
   add_index "timelines", ["created_at"], name: "index_timelines_on_created_at", using: :btree
@@ -580,9 +634,11 @@ ActiveRecord::Schema.define(version: 20150614222520) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "frame_id"
   end
 
   add_index "typos", ["comment_id"], name: "index_typos_on_comment_id", using: :btree
+  add_index "typos", ["frame_id"], name: "index_typos_on_frame_id", using: :btree
   add_index "typos", ["summary_id"], name: "index_typos_on_summary_id", using: :btree
   add_index "typos", ["user_id"], name: "index_typos_on_user_id", using: :btree
 
@@ -617,6 +673,7 @@ ActiveRecord::Schema.define(version: 20150614222520) do
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
     t.integer  "important"
+    t.integer  "nb_notifs",         default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

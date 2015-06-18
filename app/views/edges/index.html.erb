@@ -33,7 +33,7 @@
                       <tr class="notification-timeline">
                         <td class="center"> <%= f.check_box :target_ids, {checked: @edges.include?(timeline.id) ? true : false , :multiple => true},
                                              checked_value = timeline.id, unchecked_value = nil %> </td>
-                        <td> <%= link_to timeline.name, timeline_path(id: timeline.id) %> </td>
+                        <td> <%= link_to timeline.name.html_safe, timeline_path(id: timeline.id) %> </td>
                       </tr>
               <% end %>
               </tbody>

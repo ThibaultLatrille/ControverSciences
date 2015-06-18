@@ -28,6 +28,8 @@ class Timeline < ActiveRecord::Base
            foreign_key: "target",
            dependent: :destroy
 
+  has_many :frames, dependent: :destroy
+
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 

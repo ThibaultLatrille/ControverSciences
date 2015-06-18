@@ -27,7 +27,7 @@
       </div>
       <div class="timeline-name center">
         <br/>
-          <%= link_to timeline.name, timeline, class: "hvr-grow" %>
+          <%= link_to timeline.name.html_safe, timeline, class: "hvr-grow" %>
         <% if timeline.nb_edits == 0 %>
               <div class="construct center">
                 Controverse en construction

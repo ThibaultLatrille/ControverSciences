@@ -33,7 +33,7 @@
       <% else %>
           <% @timelines.each do |timeline| %>
               <tr class="notification-timeline">
-                <td> <%= link_to timeline.name, timeline_path(timeline.id) %> </td>
+                <td> <%= link_to timeline.name.html_safe, timeline_path(timeline.id) %> </td>
                 <td>
                   <% timeline.get_tag_list.each do |name| %>
                       <span class="icon-<%= name %>"></span>

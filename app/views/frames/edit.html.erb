@@ -1,0 +1,100 @@
+<% provide(:title, "Nouvelle contribution") %>
+<div id="my-container" class="container-fluid">
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+    <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
+                timeline_path(@frame.timeline_id), class: "btn btn-block btn-primary" %>
+  </div>
+
+  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2> Modifier ma contribution </h2>
+            <br/>
+            De la controverse :
+            <%= link_to Timeline.where(id: @frame.timeline_id ).pluck(:name)[0],
+                        timeline_url( @frame.timeline_id ) %>
+          </div>
+          <div class="panel-body">
+            <%= form_for(@frame) do |f| %>
+                <%= render 'shared/error_messages', object: f.object %>
+
+                <br/>
+                <br/>
+                <%= f.label "Contribution" %> <div id="characterLeft1"></div>
+
+                <%= f.text_area :name, {rows: 3, :placeholder => "Titre",
+                                           :class => "form-control textarea",
+                                           id: "description1",
+                                           "data-provide" => "markdown" }%>
+
+                <%= f.label "Contribution" %> <div id="characterLeft0"></div>
+
+                <%= f.text_area :content, {rows: 3, :placeholder => "Cadre de référence",
+                                           :class => "form-control textarea",
+                                           id: "description0",
+                                           "data-provide" => "markdown" }%>
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    Précisez le cadre de référence de la controverse.
+                    <br/>
+                    Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
+                    De plus vous pouvez insérer des liens internes vers les références de cette controverse
+                    (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
+                    au lecteur une meilleure navigation dans la controverse.
+                  </div>
+                </div>
+                <br/>
+                <p hidden id="best_frame"><%= @frame.best %></p>
+                <p hidden id="balance_frame"><%= @frame.balance %></p>
+                <%= f.hidden_field :timeline_id, value: @frame.timeline_id %>
+                <br/>
+                <br/>
+                <%= f.button "Modifier ma contribution &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                             class: 'btn btn-success btn-lg pull-right',
+                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
+            <% end %>
+          </div>
+        </div>
+  </div>
+</div>
+</div>
+
+<script type="text/javascript">
+    $.each(['0', '1'], function (index, value) {
+        $(document).ready(function() {
+            if (value === '0') {
+                var max = 2500;
+            } else {
+                var max = 180;
+            }
+            var len = $('#description' + value).val().length;
+            if (len >= max) {
+                var ch = len - max;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
+            }
+        });
+        $('#description' + value).keyup(function () {
+            if (value === '0') {
+                var max = 2500;
+            } else {
+                var max = 180;
+            }
+            var len = $(this).val().length;
+            if (len >= max) {
+                var ch = len - max;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
+            }
+        });
+    });
+</script>

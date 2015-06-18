@@ -18,7 +18,7 @@
                   <div class="cd-timeline-img gradient-orange">
                   </div>
                   <div class="cd-timeline-content">
-                    <h2> <%= link_to "#{timeline.name}", new_reference_path(timeline_id: timeline.id), class: "hvr-grow1" %>
+                    <h2> <%= link_to "#{timeline.name.html_safe}", new_reference_path(timeline_id: timeline.id), class: "hvr-grow1" %>
                     </h2>
                     <span class="cd-date">Controverse ajoutée il y a <%= time_ago_in_words(timeline.created_at) %></span>
                   </div>

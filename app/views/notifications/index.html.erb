@@ -59,7 +59,7 @@
               <tr class="notification-timeline">
                 <td> <%= f.check_box :timeline_ids, { :multiple => true},
                              checked_value = timeline.id, unchecked_value = nil %> </td>
-                <td> <%= link_to timeline.name, notifications_timeline_url( id: timeline.id), class: "btn btn-primary" %> </td>
+                <td> <%= link_to timeline.name.html_safe, notifications_timeline_url( id: timeline.id), class: "btn btn-primary" %> </td>
                 <td>  <%= link_to timeline.user_name, user_path(id: timeline.user_id ), class: "btn btn-primary"  %> </td>
                 <td>
                   <% timeline.get_tag_list.each do |name| %>

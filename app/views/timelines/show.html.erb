@@ -1,4 +1,4 @@
-<% provide(:title, @timeline.name) %>
+<% provide(:title, @timeline.name.html_safe) %>
 <div id="my-container" class="container-fluid">
   <div class="row">
 
@@ -70,10 +70,41 @@
             </button>
         <% end %>
     </span>
-
           <div>
-            <h1><%= @timeline.name %></h1>
+            <h1><%= @timeline.name.html_safe %></h1>
             <br/>
+            <% if @timeline.frame != "" %>
+                <div id="summary" class="clearfix">
+                  <div class="justify">
+                    <%= @timeline.content_markdown.html_safe %>
+                  </div>
+                  <br/>
+                </div>
+            <span class="pull-right">
+                <%= link_to @summary.user_name, user_path(@summary.user_id) %>
+            </span>
+                <br/>
+                <br/>
+                <% if @timeline.nb_frames > 1 %>
+                    <%= link_to "Voir les contributions de cette controverse (#{@timeline.nb_frames})".html_safe,
+                                frames_path(timeline_id: @timeline.id),
+                                class: "btn btn-primary" %>
+                <% end %>
+                <% if logged_in? && @improve_frame %>
+                    <%= link_to "<span class=\"icon-fork\"></span>".html_safe,
+                                new_frame_path(timeline_id: @timeline.id), :class => "btn btn-primary pull-right", "data-toggle" => "tooltip",
+                                title:                                           "Améliorer cette contribution", :style => "padding: 6px; margin-right: 10px" %>
+                <% elsif logged_in? %>
+                    <%= link_to "Voir ma synthèse".html_safe,
+                                frames_path(timeline_id: @timeline.id, filter: "mine"), :class => "btn btn-primary pull-right" %>
+                <% end %>
+            <% else %>
+                <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Aucun cadre n'a été expliciter pour cette controverse, soyez le premier".html_safe,
+                            new_frame_path(timeline_id: @timeline.id),
+                            class: "btn btn-primary" %>
+                <br/><br/>
+            <% end %>
             <% if logged_in? && (@timeline.user_id == current_user.id || current_user.admin) %>
                 <br/>
                 <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette controverse".html_safe, edit_timeline_path(@timeline.id),
@@ -120,7 +151,7 @@
                   <% end %>
                   <% if logged_in? && @improve %>
                       <%= link_to "<span class=\"icon-fork\"></span>".html_safe,
-                                  new_summary_path(parent_id: @summary.id), :class => "btn btn-primary pull-right", "data-toggle" => "tooltip",
+                                  new_summary_path(timeline_id: @timeline.id, parent_id: @summary.id), :class => "btn btn-primary pull-right", "data-toggle" => "tooltip",
                                   title:                                           "Améliorer cette synthèse", :style => "padding: 6px; margin-right: 10px" %>
                   <% elsif logged_in? %>
                       <%= link_to "Voir ma synthèse".html_safe,

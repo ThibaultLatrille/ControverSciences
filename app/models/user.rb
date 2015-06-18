@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
   has_many :suggestion_child_votes, dependent: :destroy
   has_many :typos, dependent: :destroy
   has_many :my_typos, class_name: "Typo", foreign_key: "target_user_id"
+  has_many :frames, dependent: :destroy
+  has_many :frame_credits, dependent: :destroy
+  has_many :notification_frame_selection_losses, dependent: :destroy
+  has_many :notification_frame_selection_wins, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
   before_save :downcase_email

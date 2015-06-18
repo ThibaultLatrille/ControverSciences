@@ -113,7 +113,7 @@
                         <td><%= link_to notif.reference.title, reference_path(notif.reference.id), class: "btn btn-primary" %>
                         </td>
                         <td>
-                          <%= link_to notif.timeline.name, timeline_path(notif.timeline.id), class: "btn btn-primary" %>
+                          <%= link_to notif.timeline.name.html_safe, timeline_path(notif.timeline.id), class: "btn btn-primary" %>
                         </td>
                       </tr>
                   <% end %>
@@ -174,7 +174,7 @@
                           <%= link_to notif.reference.title, reference_path(notif.reference.id), class: "btn btn-primary" %>
                         </td>
                         <td>
-                          <%= link_to notif.timeline.name, timeline_path(notif.timeline.id), class: "btn btn-primary" %>
+                          <%= link_to notif.timeline.name.html_safe, timeline_path(notif.timeline.id), class: "btn btn-primary" %>
 
                         </td>
                       </tr>

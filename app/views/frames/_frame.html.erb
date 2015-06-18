@@ -1,0 +1,112 @@
+<div class="panel panel-default comment">
+  <div class="panel-body">
+  <span class="content">
+    <div class="clearfix">
+      <div class="text-justify">
+        <%= frame.name_markdown.html_safe %>
+      </div>
+        <div class="text-justify">
+            <%= frame.content_markdown.html_safe %>
+        </div>
+    </div>
+    <% unless frame_credit %>
+        <div class="pull-right">
+          Publiée il y a <%= time_ago_in_words(frame.created_at) %> par <%= link_to frame.user_name, user_path(frame.user_id) %>
+        </div>
+    <% end %>
+  </span>
+  </div>
+  <div class="panel-footer">
+    <div class="clearfix">
+      <% if frame_credit %>
+          <%= form_for(:frame_credit, url: frame_credits_path, method: :post, class: "input-group-sm") do |f| %>
+              <div class="row">
+                <%= f.hidden_field :frame_id, value: frame.id %>
+                <%= f.hidden_field :timeline_id, value: frame.timeline_id %>
+                <div class="col-md-9">
+                  <div class="input-group input-small">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default cursor-default">
+                        <span class="icon-ribbon normal">
+                        </span>
+                      </button>
+                    </span>
+                    <%= f.select :value, (0..(12 + frame.my_frame_credit( current_user.id ) -
+                            (@my_frame_credits ? @my_frame_credits : FrameCredit.where( user_id: current_user.id, timeline_id: frame.timeline_id ).sum( :value ) ) )),
+                                 {selected: frame.my_frame_credit( current_user.id )}, { class: "form-control selectwidthauto" } %>
+                    <div>
+                      <% if frame.my_frame_credit( current_user.id ) == 0 %>
+                          <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer cette contribution".html_safe,
+                                       class: "btn btn-success selectwidthauto",
+                                       data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
+                      <% else %>
+                          <%= f.button "<span class=\"icon-ribbon normal\"></span> Changer mes crédits (#{frame.my_frame_credit( current_user.id)} actuellement)".html_safe,
+                                       class: "btn btn-success selectwidthauto",
+                                       data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
+                          <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                      frame_credit_path(id: "none", frame_id: frame.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <div class="pull-right">
+                  <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                              new_typo_path(frame_id: frame.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                              title: "Corriger une faute de français", :style => "padding: 8px; margin-right: 8px"%>
+                  <% if current_user.admin %>
+                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                  edit_frame_path(frame_id: frame.id),
+                                  class: "btn btn-primary"%>
+                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                  frame_path(frame_id: frame.id), method: :delete,
+                                  class: "btn btn-danger"%>
+                  <% end %>
+                </div>
+                <% if improve %>
+                <div class="pull-right">
+                  <%= link_to "<span class=\"icon-fork fat\"></span>".html_safe,
+                              new_frame_path(parent_id: frame.id, timeline_id: frame.timeline_id), :class => "btn btn-primary", "data-toggle" => "tooltip",
+                              title: "Améliorer cette contribution", :style => "padding: 8px; margin-right: 8px"%>
+                </div>
+                <% end %>
+              </div>
+          <% end %>
+      <% else %>
+          <% if logged_in? && current_user.id != frame.user_id %>
+          <div class="pull-right">
+            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                        new_typo_path(frame_id: frame.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                        title: "Corriger une faute de français", :style => "padding: 8px; margin-right: 8px"%>
+            <% if current_user.admin %>
+                <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                            edit_frame_path(frame_id: frame.id),
+                            class: "btn btn-primary"%>
+                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                            frame_path(frame_id: frame.id), method: :delete,
+                            class: "btn btn-danger"%>
+            <% end %>
+          </div>
+          <% end %>
+          <% if improve %>
+              <div class="pull-right">
+                <%= link_to "<span class=\"icon-fork fat\"></span>".html_safe,
+                            new_frame_path(parent_id: frame.id, timeline_id: frame.timeline_id), :class => "pull-right btn btn-primary", "data-toggle" => "tooltip",
+                            title: "Améliorer cette contribution", :style => "padding: 8px; margin-right: 8px"%>
+                <br/>
+              </div>
+          <% end %>
+          <div class="btn btn-default">
+            <span class="icon-ribbon"></span>
+            <%= frame.balance %> crédits ont été donné à cette contribution.
+          </div>
+          <% if delete %>
+              <br/>
+              <br/>
+              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe + "Supprimer ma contribution",
+                          frame_path( frame.id ), method: :delete,
+                          data: { confirm: "Etes vous certain ?" }, class: "btn btn-danger" %>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

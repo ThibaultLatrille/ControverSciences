@@ -31,7 +31,7 @@
                 <tbody class="page">
                 <% @likes.each do |like| %>
                     <tr class="like">
-                      <td> <%= link_to like.timeline.name, timeline_path(like.timeline_id) %> </td>
+                      <td> <%= link_to like.timeline.name.html_safe, timeline_path(like.timeline_id) %> </td>
                       <td>
                         <% like.timeline.get_tag_list.each do |name| %>
                             <span class="icon-<%= name %>"></span>

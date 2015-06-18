@@ -1,0 +1,118 @@
+<% provide(:title, "Contributions") %>
+<div id="my-container" class="container-fluid">
+<div class="row">
+
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+  <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
+              timeline_path(params[:timeline_id]), class: "btn btn-block btn-primary" %>
+<% if logged_in? %>
+    <br/>
+  <br/>
+  <% if @timeline.nb_frames > 1 && FrameCredit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) > 0 %>
+      <div class="panel panel-default">
+        <div class="panel-body page">
+          <span class="icon-ribbon"></span> Il vous reste
+          <%= 12 - FrameCredit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) %>
+          crédits à distribuer aux contributions de cette controverse
+          <br/>
+          <br/>
+          <%= link_to "Récupérer tous mes crédits (#{FrameCredit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value)})", frame_credit_path(id: 'all', timeline_id: params[:timeline_id]), method: :delete,
+                      class: "btn btn-block btn-danger" %>
+        </div>
+      </div>
+  <% end %>
+<% end %>
+</div>
+
+<div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-1">
+<div id="comments" class="panel panel-default">
+  <div class="panel-body">
+    <div>
+    <% if logged_in? %>
+        <div class="btn-group">
+          <%= link_to "Ma contribution (".html_safe + (@improve ? "0" : "1") + ")",
+                      frames_path( timeline_id: params[:timeline_id], :filter => 'mine'),
+                      class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
+        </div>
+        <div class="btn-group">
+          <%= link_to "Les autres contributions (".html_safe +
+                              (@improve ? @timeline.nb_frames.to_s : (@timeline.nb_frames-1).to_s ) + ")",
+                      frames_path( timeline_id: params[:timeline_id] ),
+                      class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
+        </div>
+        <div class="btn-group">
+          <%= link_to "Mes contributions favorites (#{@favorites})".html_safe,
+                      frames_path( timeline_id: params[:timeline_id], :filter => 'my-vote'),
+                      class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
+        </div>
+    <% else %>
+        <div class="btn-group">
+          <button class="btn btn-default dropdown-toggle" type="button"
+                  id="dropdownMenuTri" data-toggle="dropdown">
+            <%= params[:sort]=='score' || params[:sort].nil? ? "Tri magique" : "Tri par date" %>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" >
+            <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
+              <%= link_to "Magique (par défaut)", frames_path( timeline_id: params[:timeline_id],
+                                                                                      :sort=> 'score',
+                                                                                      :order => params[:order]) %> </li>
+            <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
+              <%= link_to "Date de création", frames_path( timeline_id: params[:timeline_id],
+                                                              :sort=> 'created_at',
+                                                              :order => params[:order]) %> </li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button class="btn btn-default dropdown-toggle" type="button"
+                  id="dropdownMenuOrder" data-toggle="dropdown">
+            <%= params[:order]=='desc' || params[:order].nil? ? "Ordre décroissant" : "Ordre croissant" %>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" >
+            <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
+              <%= link_to "Décroissant (par défaut)", frames_path( timeline_id: params[:timeline_id],
+                                                                       :sort=> params[:sort], :order => 'desc') %> </li>
+            <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
+              <%= link_to "Croissant", frames_path( timeline_id: params[:timeline_id],
+                                                       :sort => params[:sort], :order => 'asc') %> </li>
+          </ul>
+        </div>
+    <% end %>
+      <br/>
+      <br/>
+    </div>
+    <% if params[:filter] == "my-vote" %>
+        <% if @frames.any? %>
+            <%= render @frames, frame_credit: true, improve: @improve, delete: false %>
+        <% else %>
+            Vous n'avez pas donné de crédits. Cette page liste les contributions auxquelles vous avez distribué des crédits.
+        <% end %>
+    <% elsif params[:filter] == "mine" %>
+        <% if @frames.any? %>
+            <%= render @frames, frame_credit: false, improve: true, delete: true %>
+        <% else %>
+            <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Vous n'avez pas encore écrit de contribution ".html_safe,
+                        new_frame_path( timeline_id: params[:timeline_id]  ), class: "btn btn-primary" %>
+        <% end %>
+    <% else %>
+        <% if @frames.any? %>
+            <%= render @frames, frame_credit: logged_in? && @timeline.nb_frames > 1 ? true : false, improve: @improve, delete: false %>
+            <%= paginate @frames, :params => {:seed => @seed } %>
+        <% else %>
+            Il n'y a pas de contribution autre que la votre
+        <% end %>
+    <% end %>
+  </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    });
+</script>
