@@ -1,13 +1,18 @@
 class Frame < ActiveRecord::Base
+  include ApplicationHelper
   require 'HTMLlinks'
   belongs_to :timeline
   belongs_to :user
+
+  attr_accessor :binary_left, :tag_list, :binary_right
 
   has_many :frame_credits, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :typos, dependent: :destroy
   has_many :notification_frame_selection_wins, dependent: :destroy
   has_many :notification_frame_selection_losses, dependent: :destroy
+  has_many :frame_taggings, dependent: :destroy
+  has_many :tags, through: :frame_taggings
 
   after_create :cascading_create_frame
   before_create :to_markdown
@@ -27,8 +32,31 @@ class Frame < ActiveRecord::Base
     Timeline.select(:name).find(self.timeline_id).name
   end
 
+  def self.tagged_with(name)
+    Tag.find_by_name!(name).frames
+  end
 
-  def my_credit(user_id)
+  def self.tag_counts
+    Tag.select("tags.*, count(frame_taggings.tag_id) as count").
+        joins(:frame_taggings).group("frame_taggings.tag_id")
+  end
+
+  def get_tag_list
+    tags.map(&:name)
+  end
+
+  def set_tag_list(names)
+    if !names.nil?
+      list = tags_hash.keys
+      self.tags = names.map do |n|
+        if list.include? n
+          Tag.where(name: n.strip).first_or_create!
+        end
+      end
+    end
+  end
+
+  def my_frame_credit(user_id)
     credit = FrameCredit.select(:value).find_by( user_id: user_id, timeline_id: self.timeline_id )
     if credit
       credit.value
@@ -58,8 +86,12 @@ class Frame < ActiveRecord::Base
     self.content_markdown = redcarpet.render(self.content)
     self.name_markdown = redcarpet.render(self.name)
     if self.best
-      Timeline.update(self.timeline_id, frame: self.content_markdown)
-      Timeline.update(self.timeline_id, name: self.name_markdown)
+      tim = self.timeline
+      tim.name = self.name_markdown
+      tim.frame = self.content_markdown
+      tim.binary = self.binary
+      tim.set_tag_list(self.get_tag_list)
+      tim.save
     end
   end
 
@@ -83,10 +115,13 @@ class Frame < ActiveRecord::Base
       Notification.import notifications
 
       NotificationFrameSelectionWin.create(user_id: self.user_id, frame_id: self.id)
-
     end
-    Timeline.update(self.timeline_id, frame: self.content_markdown)
-    Timeline.update(self.timeline_id, name: self.name_markdown)
+    tim = self.timeline
+    tim.name = self.name_markdown
+    tim.frame = self.content_markdown
+    tim.binary = self.binary
+    tim.set_tag_list(self.get_tag_list)
+    tim.save
     self.update_columns(best: true)
   end
 

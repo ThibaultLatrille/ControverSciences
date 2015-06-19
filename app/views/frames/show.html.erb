@@ -14,7 +14,7 @@
           <div class="panel-heading">
             <h3>
           Cette contribution appartient à la controverse
-          <%= link_to( @frame.timeline_name , timeline_path(@frame.timeline_id) ) %>
+          <%= link_to( @frame.timeline_name.html_safe , timeline_path(@frame.timeline_id) ) %>
             </h3>
           </div>
           <div class="panel-body">

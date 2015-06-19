@@ -14,7 +14,7 @@
           <div class="panel-heading">
             <h3>
           Cette synthèse appartient à la controverse
-          <%= link_to( @summary.timeline_name , timeline_path(@summary.timeline_id) ) %>
+          <%= link_to( @summary.timeline_name.html_safe , timeline_path(@summary.timeline_id) ) %>
             </h3>
           </div>
           <div class="panel-body">

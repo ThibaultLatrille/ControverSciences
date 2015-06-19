@@ -33,7 +33,7 @@
                   de la référence
                   <%= link_to vote.reference_title, reference_path(vote.reference_id) %>
                   </td>
-                <td> <%= link_to vote.timeline_name, timeline_path(vote.timeline_id) %>   </td>
+                <td> <%= link_to vote.timeline_name.html_safe, timeline_path(vote.timeline_id) %>   </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                                 vote_path(vote.id), method: :delete,
                                                 data: {confirm: "Etes vous certain ?"} %>  </td>
@@ -71,7 +71,7 @@
                 <td class="center"> <%= vote.value %> </td>
                 <td> <%= link_to "La synthèse", summary_path(vote.summary_id) %>
                   par <%= link_to vote.summary_short.user_name, user_path(vote.summary_short.user_id) %>
-                  de la controverse  <%= link_to vote.timeline_name, timeline_path(vote.timeline_id) %>   </td>
+                  de la controverse  <%= link_to vote.timeline_name.html_safe, timeline_path(vote.timeline_id) %>   </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                                 credit_path(vote.id), method: :delete,
                                                 data: {confirm: " Vous êtes certains ?"} %>  </td>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617160715) do
+ActiveRecord::Schema.define(version: 20150619082224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,16 @@ ActiveRecord::Schema.define(version: 20150617160715) do
   add_index "frame_credits", ["timeline_id"], name: "index_frame_credits_on_timeline_id", using: :btree
   add_index "frame_credits", ["user_id"], name: "index_frame_credits_on_user_id", using: :btree
 
+  create_table "frame_taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "frame_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "frame_taggings", ["frame_id"], name: "index_frame_taggings_on_frame_id", using: :btree
+  add_index "frame_taggings", ["tag_id"], name: "index_frame_taggings_on_tag_id", using: :btree
+
   create_table "frames", force: true do |t|
     t.integer  "timeline_id"
     t.integer  "user_id"
@@ -207,6 +217,7 @@ ActiveRecord::Schema.define(version: 20150617160715) do
     t.boolean  "best",             default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "binary",           default: ""
   end
 
   add_index "frames", ["timeline_id"], name: "index_frames_on_timeline_id", using: :btree

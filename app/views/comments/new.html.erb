@@ -23,7 +23,7 @@
                           reference_url(@comment.reference_id) %> <br>
 
               Dans la controverse :
-              <%= link_to @comment.timeline_name,
+              <%= link_to @comment.timeline_name.html_safe,
                           timeline_url(@comment.timeline_id) %>
             </div>
             <div class="panel-body">

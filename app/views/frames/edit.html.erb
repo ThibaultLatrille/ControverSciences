@@ -9,9 +9,8 @@
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h2> Modifier ma contribution </h2>
+            <h2> Modifier ma formulation de la controverse </h2>
             <br/>
-            De la controverse :
             <%= link_to Timeline.where(id: @frame.timeline_id ).pluck(:name)[0],
                         timeline_url( @frame.timeline_id ) %>
           </div>
@@ -38,6 +37,65 @@
                     au lecteur une meilleure navigation dans la controverse.
                   </div>
                 </div>
+
+                <%= f.label :Tags, "Thèmes" %> </br>
+                <div class="container-fluid">
+                  <div class="row" data-toggle="buttons">
+                    <% tags_hash.each do |key, value| %>
+                        <% if @tag_list.include? key %>
+                            <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
+                              <div class="my-btn">
+                                <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
+                                <span class="fat icon-<%= key %>"></span> <%= value %>
+                              </div>
+                            </div>
+                        <% else %>
+                            <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+                              <div class="my-btn">
+                                <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
+                                <span class="fat icon-<%= key %>"></span> <%= value %>
+                              </div>
+                            </div>
+                        <% end %>
+                    <% end %>
+                  </div>
+                </div>
+                <br/>
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <%= f.label :binary do %>
+                        <%= f.check_box :binary, id: "check-box", value: true %>
+                        <span> Pour cette controverse, il existe deux réponses antagonistes </span>
+                    <% end %>
+                    <div id="binary-box">
+                      <br/>
+
+                      <div class="row">
+                        <div class="col-xs-4">
+                          <br/>
+                          <%= f.text_field :binary_left, class: 'form-control', placeholder: "Oui/Blanc/Inné/..." %>
+                          <br/>
+                        </div>
+                        <div class="col-xs-4 center">
+                          <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
+                        </div>
+                        <div class="col-xs-4">
+                          <br/>
+                          <%= f.text_field :binary_right, class: 'form-control', placeholder: "Non/Noir/Acquis/..." %>
+                          <br/>
+                        </div>
+                      </div>
+                      <br/>
+                    </div>
+                    <div class="panel panel-info">
+                      <div class="panel-heading">
+                        En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les
+                        références.
+                        Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <br/>
                 <p hidden id="best_frame"><%= @frame.best %></p>
                 <p hidden id="balance_frame"><%= @frame.balance %></p>
@@ -57,6 +115,26 @@
 <script type="text/javascript">
     $("#description1").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra','cmdList','cmdListO','cmdBold']});
     $("#description0").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
+    $('#check-box').click(function () {
+        if ($(this).is(':checked')) {
+            $('#binary-box').show(500)
+        } else {
+            $('#binary-box').hide(500)
+        }
+    });
+    $(document).ready(function () {
+        $('.my-btn').responsiveEqualHeightGrid();
+        if (!$('#check-box').is(':checked')) {
+            $('#binary-box').hide()
+        }
+        $('#check-box').click(function () {
+            if ($(this).is(':checked')) {
+                $('#binary-box').show(500)
+            } else {
+                $('#binary-box').hide(500)
+            }
+        });
+    });
     $.each(['0', '1'], function (index, value) {
         $(document).ready(function() {
             if (value === '0') {

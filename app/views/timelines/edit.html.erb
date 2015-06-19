@@ -11,67 +11,6 @@
 
     <%= render 'shared/error_messages', object: f.object %>
 
-    <%= f.label :Tags, "Thèmes" %> </br>
-    <div class="container-fluid">
-      <div class="row" data-toggle="buttons">
-        <% tags_hash.each do |key, value| %>
-            <% if @tag_list.include? key %>
-                <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
-                  <div class="my-btn">
-                    <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
-                    <span class="fat icon-<%= key %>"></span> <%= value %>
-                  </div>
-                </div>
-            <% else %>
-                <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
-                  <div class="my-btn">
-                    <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
-                    <span class="fat icon-<%= key %>"></span> <%= value %>
-                  </div>
-                </div>
-            <% end %>
-        <% end %>
-      </div>
-    </div>
-    <br/>
-
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <%= f.label :binary do %>
-            <%= f.check_box :binary, id: "check-box" %>
-            <span> Pour cette controverse, il existe deux réponses antagonistes </span>
-        <% end %>
-        <div id="binary-box">
-          <br/>
-
-          <div class="row">
-            <div class="col-xs-4">
-              <br/>
-              <%= f.text_field :binary_left, class: 'form-control',
-                               value:               @timeline.binary ? @timeline.binary_left : "", placeholder: "Oui/Blanc/Inné/..." %>
-              <br/>
-            </div>
-            <div class="col-xs-4 center">
-              <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
-            </div>
-            <div class="col-xs-4">
-              <br/>
-              <%= f.text_field :binary_right, class: 'form-control',
-                               value:                @timeline.binary ? @timeline.binary_right : "", placeholder: "Non/Noir/Acquis/..." %>
-              <br/>
-            </div>
-          </div>
-          <br/>
-        </div>
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les
-            références.
-            Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
-          </div>
-        </div>
-      </div>
-    </div>
     <%= f.button "Modifier la controverse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                  class: 'btn btn-success btn-lg pull-right',
                  data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>

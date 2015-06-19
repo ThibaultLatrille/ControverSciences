@@ -124,7 +124,7 @@
           <div class="bold">
             Controverse dans laquelle apparait cette référence :
           </div>
-          <%= link_to @reference.timeline_name, @reference.timeline,
+          <%= link_to @reference.timeline_name.html_safe, @reference.timeline,
                       target: "_blank" %></li>
         <% if @reference.binary != '' %>
             <li class="list-group-item clearfix">

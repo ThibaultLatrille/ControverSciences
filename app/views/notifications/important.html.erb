@@ -18,10 +18,10 @@
                       <% if typo.comment_id %>
                           <%= typo.comment_short.reference.article ? article_hash[typo.field] : review_hash[typo.field] %> de la référence
                             <%= link_to typo.comment_short.reference.title, reference_path(typo.comment_short.reference_id) %> dans la controverse
-                            <%= link_to typo.comment_short.timeline_name, timeline_path(typo.comment_short.timeline_id ) %>
+                            <%= link_to typo.comment_short.timeline_name.html_safe, timeline_path(typo.comment_short.timeline_id ) %>
                       <% else typo.summary_id %>
                           Votre synthèse de la controverse
-                          <%= link_to typo.summary_short.timeline_name, timeline_path(typo.summary_short.timeline_id )  %>
+                          <%= link_to typo.summary_short.timeline_name.html_safe, timeline_path(typo.summary_short.timeline_id )  %>
                     <% end %>
                       </b>
                       <br/>
@@ -84,7 +84,7 @@
                           <%= link_to "synthèse", notifications_summary_selection_win_path(id: com.id), class: "btn btn-primary" %>
                         </td>
                         <td>
-                          <%= link_to com.timeline_name, timeline_path(com.timeline_id), class: "btn btn-primary" %>
+                          <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>
                         </td>
                       </tr>
                   <% end %>
@@ -142,7 +142,7 @@
                           <%= link_to "synthèse", notifications_summary_selection_loss_path(id: com.id), class: "btn btn-primary" %>
                         </td>
                         <td>
-                          <%= link_to com.timeline_name, timeline_path(com.timeline_id), class: "btn btn-primary" %>
+                          <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>
                         </td>
                         <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
                                         notifications_summary_selection_loss_path(id: com.id), class: "btn btn-danger" %></td>

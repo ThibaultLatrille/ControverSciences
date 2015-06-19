@@ -101,7 +101,7 @@
                                      checked_value = com.id, unchecked_value = nil %> </td>
                 <td> <%= link_to "Voir la synthèse", notifications_summary_path(id: com.id ), class: "btn btn-primary"  %> </td>
                 <td>  <%= link_to com.user_name, user_path(id: com.user_id ), class: "btn btn-primary"  %> </td>
-                <td>  <%= link_to com.timeline_name, timeline_path(com.timeline_id ), class: "btn btn-primary"  %>   </td>
+                <td>  <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary"  %>   </td>
               </tr>
           <% end %>
       <% end %>
@@ -138,7 +138,7 @@
                 <td> <%= link_to reference.title,
                             notifications_reference_path( id: reference.id ), class: "btn btn-primary"  %> </td>
                 <td>  <%= link_to reference.user_name, user_path(id: reference.user_id ), class: "btn btn-primary"  %> </td>
-                <td> <%= link_to reference.timeline_name, timeline_path( reference.timeline_id ), class: "btn btn-primary"  %>   </td>
+                <td> <%= link_to reference.timeline_name.html_safe, timeline_path( reference.timeline_id ), class: "btn btn-primary"  %>   </td>
               </tr>
           <% end %>
       <% end %>
@@ -177,7 +177,7 @@
                 <td> <%= link_to "Voir l'analyse", notifications_comment_path(id: com.id ), class: "btn btn-primary" %> </td>
                 <td> <%= link_to com.user_name, user_path(id: com.user_id ), class: "btn btn-primary" %></td>
                 <td>  <%= link_to com.reference_title, reference_path(com.reference_id), class: "btn btn-primary" %></td>
-                <td>  <%= link_to com.timeline_name, timeline_path(com.timeline_id ), class: "btn btn-primary" %>   </td>
+                <td>  <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary" %>   </td>
               </tr>
           <% end %>
       <% end %>
@@ -219,7 +219,7 @@
                                                                         field: notif.field ), class: "btn btn-primary" %> </td>
               <td> <%= link_to notif.comment.user_name, user_path( notif.comment.user_id ), class: "btn btn-primary" %> </td>
               <td> <%= link_to notif.reference.title, reference_path(notif.reference_id), class: "btn btn-primary" %> </td>
-              <td>  <%= link_to notif.comment.timeline_name, timeline_path(notif.timeline_id ), class: "btn btn-primary" %> </td>
+              <td>  <%= link_to notif.comment.timeline_name.html_safe, timeline_path(notif.timeline_id ), class: "btn btn-primary" %> </td>
             </tr>
         <% end %>
     <% end %>
@@ -256,7 +256,7 @@
                                      checked_value = com.id, unchecked_value = nil %> </td>
                 <td>  <%= link_to "La synthèse", notifications_summary_selection_path(id: com.id ), class: "btn btn-primary" %></td>
                 <td>  <%= link_to com.user_name, user_path( com.user_id ), class: "btn btn-primary" %></td>
-                <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ), class: "btn btn-primary" %> </td>
+                <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary" %> </td>
               </tr>
           <% end %>
       <% end %>

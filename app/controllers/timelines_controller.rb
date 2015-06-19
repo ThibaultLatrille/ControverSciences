@@ -28,45 +28,13 @@ class TimelinesController < ApplicationController
   end
 
   def edit
-    @timeline = Timeline.find(params[:id])
-    @tag_list = @timeline.get_tag_list
-    if @timeline.binary != ""
-      @timeline.binary_left  = @timeline.binary.split('&&')[0]
-      @timeline.binary_right = @timeline.binary.split('&&')[1]
-      @timeline.binary       = true
-    else
-      @timeline.binary = false
-    end
-  end
-
-  def update
-    @timeline = Timeline.find(params[:id])
-    if @timeline.user_id == current_user.id || current_user.admin
-      if timeline_params[:binary] != "0"
-        @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
-      else
-        @timeline.binary = ""
-      end
-      if params[:timeline][:tag_list]
-        @timeline.set_tag_list(params[:timeline][:tag_list])
-      end
-      if @timeline.save
-        flash[:success] = "Controverse modifiée."
-        redirect_to @timeline
-      else
-        @tag_list              = @timeline.get_tag_list
-        @timeline.binary_left  = @timeline.binary.split('&&')[0]
-        @timeline.binary_right = @timeline.binary.split('&&')[1]
-        @timeline.binary       = true
-        render 'edit'
-      end
-    else
-      redirect_to @timeline
-    end
+    @frame = Frame.find_by(timeline_id: params[:id], user_id: current_user.id)
+    redirect_to edit_frame_path(@frame.id)
   end
 
   def create
-    @timeline = Timeline.new(user_id: current_user.id, name: timeline_params[:name], debate: true)
+    @timeline = Timeline.new(user_id: current_user.id, frame: timeline_params[:frame],
+                             name: timeline_params[:name], debate: true)
     if timeline_params[:binary] == "1"
       @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
     else

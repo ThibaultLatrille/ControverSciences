@@ -8,9 +8,12 @@ class FramesController < ApplicationController
     else
       timeline = Timeline.find(params[:timeline_id])
       @frame = Frame.new
-      @frame.content = timeline.frame
-      @frame.name = timeline.name
+      frame = Frame.find_by(best:true, timeline_id: params[:timeline_id])
+      @frame.content = frame.content
+      @frame.name = frame.name
       @frame.timeline_id = params[:timeline_id]
+      @frame.binary = timeline.binary
+      @tag_list     = timeline.get_tag_list
     end
   end
 
@@ -18,21 +21,53 @@ class FramesController < ApplicationController
     @frame = Frame.new( timeline_id: frame_params[:timeline_id],
                             content: frame_params[:content],
                             name: frame_params[:name])
+    if frame_params[:binary] == "1"
+      @frame.binary = "#{frame_params[:binary_left].strip}&&#{frame_params[:binary_right].strip}"
+    else
+      @frame.binary = ""
+    end
+    if params[:frame][:tag_list]
+      @frame.set_tag_list(params[:frame][:tag_list])
+    end
     @frame.user_id = current_user.id
-    if @frame.save_with_markdown( timeline_url( frame_params[:timeline_id] ) )
+    if @frame.save_with_markdown
       flash[:success] = "Contribution enregistrée."
       redirect_to frames_path( filter: "mine", timeline_id: @frame.timeline_id )
     else
+      @tag_list = @frame.get_tag_list
+      if @frame.binary != ""
+        @frame.binary_left  = @frame.binary.split('&&')[0]
+        @frame.binary_right = @frame.binary.split('&&')[1]
+        @frame.binary       = true
+      else
+        @frame.binary = false
+      end
       render 'new'
     end
   end
 
   def edit
     @frame = Frame.find( params[:id] )
+    @tag_list = @frame.get_tag_list
+    if @frame.binary != ""
+      @frame.binary_left  = @frame.binary.split('&&')[0]
+      @frame.binary_right = @frame.binary.split('&&')[1]
+      @frame.binary       = true
+    else
+      @frame.binary = false
+    end
   end
 
   def update
     @frame = Frame.find( params[:id] )
+    if frame_params[:binary] != "0"
+      @frame.binary = "#{frame_params[:binary_left].strip}&&#{frame_params[:binary_right].strip}"
+    else
+      @frame.binary = ""
+    end
+    if params[:frame][:tag_list]
+      @frame.set_tag_list(params[:frame][:tag_list])
+    end
     @my_frame = Frame.find( params[:id] )
     if @frame.user_id == current_user.id || current_user.admin
       @frame.content = frame_params[:content]
@@ -126,6 +161,6 @@ class FramesController < ApplicationController
   private
 
   def frame_params
-    params.require(:frame).permit(:timeline_id, :content, :name )
+    params.require(:frame).permit(:timeline_id, :content, :name, :binary, :binary_left, :binary_right )
   end
 end

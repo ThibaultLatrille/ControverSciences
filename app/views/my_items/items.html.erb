@@ -100,7 +100,7 @@
                 <td> <%= link_to "Voir la synthèse",
                                  summaries_path(timeline_id: com.timeline_id, filter: "mine" ),
                                  class: "btn btn-primary" %>   </td>
-                <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+                <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>
                 <td class="center"> <%= com.public ? "<span class=\"glyphicon glyphicon-ok\"> </span>".html_safe :
                                                 "<span class=\"glyphicon glyphicon-remove\"> </span>".html_safe %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
@@ -150,7 +150,7 @@
           <% @references.each do |reference| %>
               <tr class="notification-reference">
                 <td> <%= link_to reference.title, reference_path(reference.id) %>   </td>
-                <td> <%= link_to reference.timeline_name, timeline_path(reference.timeline_id ) %>   </td>
+                <td> <%= link_to reference.timeline_name.html_safe, timeline_path(reference.timeline_id ) %>   </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
                                                 edit_reference_path( reference.id ) %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
@@ -206,7 +206,7 @@
                 <td class="center"> <%= com.balance %> </td>
                 <td> <%= link_to "Voir l'analyse", reference_path(com.reference_id, filter: :mine ), class: "btn btn-primary" %>   </td>
                 <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
-                <td> <%= link_to com.timeline_name, timeline_path(com.timeline_id ) %>   </td>
+                <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>
                 <td class="center"> <%= com.public ? "<span class=\"glyphicon glyphicon-ok\"> </span>".html_safe :
                                                 "<span class=\"glyphicon glyphicon-remove\"> </span>".html_safe %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
