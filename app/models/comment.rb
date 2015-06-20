@@ -13,7 +13,6 @@ class Comment < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :notification_selection_losses, dependent: :destroy
   has_many :notification_selection_wins, dependent: :destroy
-  has_many :comment_types, dependent: :destroy
   has_many :comment_joins, dependent: :destroy
   has_many :typos, dependent: :destroy
 
