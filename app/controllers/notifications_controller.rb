@@ -97,10 +97,10 @@ class NotificationsController < ApplicationController
     @summary_losses  = Summary.select(:id, :timeline_id,
                                       :user_id).where(id: summary_loss_ids)
     @suggestions     = NotificationSuggestion.where(user_id: current_user.id)
-    frame_win_ids  = NotificationFrameSelectionWin.where(user_id: current_user.id).pluck(:summary_id)
+    frame_win_ids  = NotificationFrameSelectionWin.where(user_id: current_user.id).pluck(:frame_id)
     @frame_wins    = Frame.select(:id, :timeline_id,
                                       :user_id).where(id: frame_win_ids)
-    frame_loss_ids = NotificationFrameSelectionLoss.where(user_id: current_user.id).pluck(:summary_id)
+    frame_loss_ids = NotificationFrameSelectionLoss.where(user_id: current_user.id).pluck(:frame_id)
     @frame_losses  = Frame.select(:id, :timeline_id,
                                       :user_id).where(id: frame_loss_ids)
     @typos = Typo.where( target_user_id: current_user.id )

@@ -69,6 +69,7 @@
 }
 
 .icon-summary:before,
+.icon-frame:before,
 .icon-comment:before {
 	content: "\e603";
 }
@@ -137,6 +138,7 @@
 	content: "\e613";
 }
 
+.icon-frame_selection:before,
 .icon-summary_selection:before,
 .icon-selection:before {
 	content: "\e614";
