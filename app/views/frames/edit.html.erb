@@ -11,7 +11,7 @@
           <div class="panel-heading">
             <h2> Modifier ma formulation de la controverse </h2>
             <br/>
-            <%= link_to Timeline.where(id: @frame.timeline_id ).pluck(:name)[0],
+            <%= link_to Timeline.where(id: @frame.timeline_id ).pluck(:name)[0].html_safe,
                         timeline_url( @frame.timeline_id ) %>
           </div>
           <div class="panel-body">

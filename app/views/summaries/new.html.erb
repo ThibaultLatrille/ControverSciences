@@ -13,7 +13,7 @@
             </h2>
             <br/>
               De la controverse :
-              <%= link_to Timeline.where(id: @summary.timeline_id ).pluck(:name)[0],
+              <%= link_to Timeline.where(id: @summary.timeline_id ).pluck(:name)[0].html_safe,
                           timeline_url( @summary.timeline_id ) %>
           </div>
           <div class="panel-body">
