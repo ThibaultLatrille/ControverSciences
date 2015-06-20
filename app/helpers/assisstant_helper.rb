@@ -140,6 +140,22 @@ module AssisstantHelper
       end
       Summary.where(id: summary_id).update_all(score: score)
     end
+    Frame.all.pluck(:id).each do |frame_id|
+      credits = FrameCredit.select(:user_id, :value, :timeline_id).where(frame_id: frame_id)
+      score   = 0.0
+      credits.each do |credit|
+        time  = Time.now-VisiteTimeline.select(:updated_at).find_by(user_id:     credit.user_id,
+                                                                    timeline_id: credit.timeline_id).updated_at
+        scale = 1
+        if time > 2592000
+          # Using the log-logistic cumulative distribution function for it's nice properties
+          # 7776000 is 3 months and 2592000 is a month. So in 4 month after the visit the scale is 0.5 and 1 after a month
+          scale = 1-1/(1 + (7776000/(time - 2592000))**5)
+        end
+        score += scale*User.select(:score).find(credit.user_id).score*credit.value
+      end
+      Frame.where(id: frame_id).update_all(score: score)
+    end
   end
 
   def get_most_comment(reference_id, field)
@@ -181,6 +197,13 @@ module AssisstantHelper
       if most
         if (most.id != best_summary.summary_id) && (most.balance != 0)
           most.selection_update(best_summary)
+        end
+      end
+      most_frame = Frame.where(timeline_id: timeline_id).order(score: :desc).first
+      best_frame = Frame.find_by(timeline_id: timeline_id, best: true)
+      if most_frame
+        if (most_frame.id != best_frame.id) && (most_frame.balance != 0)
+          most_frame.selection_update(best_frame)
         end
       end
     end
