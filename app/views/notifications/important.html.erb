@@ -51,7 +51,7 @@
           </div>
           <hr style="margin: 0 3em 2em 3em ">
       <% end %>
-        <% if current_user.notifications_all_important == 0 %>
+        <% if current_user.nb_notifs == 0 %>
             <div class="panel-body">
           <span style="font-size: 1.5em;">
           Vous n'avez aucune nouvelle notifications
@@ -257,7 +257,7 @@
                   </tbody>
                 </table>
             <% end %>
-            <% unless current_user.notifications_all_important == @typos.length %>
+            <% unless current_user.nb_notifs == @typos.length %>
             <div class="panel-body">
               <div class="pull-right">
                 <%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>&nbsp Supprimer ces notifications".html_safe,

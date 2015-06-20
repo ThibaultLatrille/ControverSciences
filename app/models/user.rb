@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :notification_selection_wins, dependent: :destroy
   has_many :notification_summary_selection_losses, dependent: :destroy
   has_many :notification_summary_selection_wins, dependent: :destroy
+  has_many :notification_frame_selection_losses, dependent: :destroy
+  has_many :notification_frame_selection_wins, dependent: :destroy
   has_many :notification_suggestions, dependent: :destroy
   has_many :visite_references, dependent: :destroy
   has_many :visite_timelines, dependent: :destroy
@@ -25,8 +27,6 @@ class User < ActiveRecord::Base
   has_many :my_typos, class_name: "Typo", foreign_key: "target_user_id"
   has_many :frames, dependent: :destroy
   has_many :frame_credits, dependent: :destroy
-  has_many :notification_frame_selection_losses, dependent: :destroy
-  has_many :notification_frame_selection_wins, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
   before_save :downcase_email
@@ -155,6 +155,14 @@ class User < ActiveRecord::Base
     NotificationSummarySelectionLoss.where(user_id: self.id).count
   end
 
+  def notifications_frame_win
+    NotificationSummarySelectionWin.where(user_id: self.id).count
+  end
+
+  def notifications_frame_loss
+    NotificationSummarySelectionLoss.where(user_id: self.id).count
+  end
+
   def notifications_suggestion
     NotificationSuggestion.where(user_id: self.id).count
   end
@@ -164,8 +172,10 @@ class User < ActiveRecord::Base
   end
 
   def notifications_all_important
-    notifications_win + notifications_loss + notifications_summary_win +
-        notifications_summary_loss + notifications_suggestion + notifications_typo
+    notifications_win + notifications_loss +
+        notifications_summary_win + notifications_summary_loss +
+        notifications_frame_win + notifications_frame_loss +
+        notifications_suggestion + notifications_typo
   end
 
   # Creates and assigns the activation token and digest.

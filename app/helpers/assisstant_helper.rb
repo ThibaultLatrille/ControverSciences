@@ -8,6 +8,9 @@ module AssisstantHelper
         frame.set_tag_list(timeline.get_tag_list)
         frame.save!
       end
+      User.all.each do |user|
+        user.update_columns( nb_notifs: user.notifications_all_important )
+      end
     end
   end
 

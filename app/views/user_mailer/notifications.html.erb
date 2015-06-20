@@ -166,12 +166,12 @@
                              href="http://www.controversciences.org/notifications/index">
                           <%= @user_notif.notifications_all -%> nouveautés vous attendent.</a> </b></li>
                       <% end %>
-                      <% if @user_notif.notifications_all_important > 2 %>
+                      <% if @user_notif.nb_notifs > 2 %>
                           <li style="Margin-top: 0;padding-left: 2px"> <b>
 
                             <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
                                href="http://www.controversciences.org/notifications/important">
-                              <%= @user_notif.notifications_all_important -%> notifications vous attendent .</a> </b></li>
+                              <%= @user_notif.nb_notifs -%> notifications vous attendent .</a> </b></li>
                       <% end %>
                       <% if @empty_comments > 2 && rand(3) == 0 %>
                           <li style="Margin-top: 0;padding-left: 2px"> <b>
