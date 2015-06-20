@@ -14,7 +14,7 @@
       <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-sm-8"> Nom </th>
+        <th class="col-sm-8"> Controverse </th>
         <th class="col-sm-3"> Thèmes </th>
         <th class="col-xs-1 center"> Modifier </th>
         <th class="col-sm-1 center"> Supprimer </th>
@@ -57,6 +57,64 @@
       </tbody>
     </table>
   </div>
+  </div>
+</div>
+
+<div class="col-md-10 col-md-offset-1">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h4 class="panel-title clearfix">
+        <a data-toggle="collapse" href="#collapseZero" class="pull-right glyphicon <%= @frames.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
+        <a data-toggle="collapse" href="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
+          Mes propositions d'amélioration de controverses (<%= @frames.length %>)
+        </a>
+      </h4>
+    </div>
+    <div id="collapseZero" class="panel-collapse collapse <%= @frames.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingOne">
+      <table id="notification-timelines" class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th class="col-sm-8"> Controverse </th>
+          <th class="col-sm-3"> Thèmes </th>
+          <th class="col-xs-1 center"> Modifier </th>
+          <th class="col-sm-1 center"> Supprimer </th>
+        </tr>
+        </thead>
+
+        <tbody class="page">
+        <% if !@frames.any? %>
+            <tr class="notification-timeline">
+              <td> Vous n'avez pas encore proposé d'amélioration de controverses </td>
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+            </tr>
+        <% else %>
+            <% @frames.each do |frame| %>
+                <tr class="notification-timeline">
+                  <td> <%= link_to frame.name.html_safe, timeline_path(timeline.id) %> </td>
+                  <td>
+                    <% frame.get_tag_list.each do |name| %>
+                        <span class="icon-<%= name %>"></span>
+                    <% end %>
+                  </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
+                                                  edit_frame_path( frame.id ) %>  </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                  frame_path( frame.id ), method: :delete,
+                                                  data: { confirm: "Etes vous certain ?" } %>  </td>
+                </tr>
+            <% end %>
+            <tr class="notification-timeline">
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+              <td>  </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 

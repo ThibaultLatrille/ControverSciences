@@ -18,6 +18,7 @@
                      html:      {role: :form, 'data-model' => 'issue'}) do |f| %>
             <%= f.hidden_field :summary_id, value: typo.summary_id %>
             <%= f.hidden_field :comment_id, value: typo.comment_id %>
+            <%= f.hidden_field :frame_id, value: typo.frame_id %>
             <%= f.hidden_field :field, value: typo.field %>
             <%= f.label :content, "Correction", class: 'control-label' %>
             <br>

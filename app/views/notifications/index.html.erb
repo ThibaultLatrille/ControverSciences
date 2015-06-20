@@ -9,6 +9,7 @@
   </strong>
     <div>
       <% { timeline: "Controverses",
+           frame: "Améliorations de Controverses",
            summary: "Synthèses",
            reference: "Références",
            comment: "Analyses", suggestions: "Commentaires"}.each do |key, value| %>
@@ -22,7 +23,8 @@
   Ont pris la première place :
   </strong>
   <div>
-    <% { summary_selection: "Synthèses",
+    <% { frame_selection: "Améliorations de Controverses",
+         summary_selection: "Synthèses",
          selection: "Analyses"
          }.each do |key, value| %>
         <%= link_to "<span class=\"icon-#{key}\"></span> &nbsp ".html_safe+value+
@@ -36,7 +38,7 @@
 <div class="panel panel-default">
   <% if @filter == :timeline %>
   <div class="panel-heading">
-    Les nouvelles controverses (<%= current_user.notifications_timeline %>)
+    Les nouvelles controverses (<%= @timelines.count %>)
   </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
@@ -72,10 +74,46 @@
       </tbody>
     </table>
     <%= paginate @timelines %>
-        
+
+    <% elsif @filter == :frame %>
+    <div class="panel-heading">
+      Les nouvelles améliorations de controverses (<%= @frames.count %>)
+    </div>
+    <table id="notification-timelines" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
+        <th class="col-xs-4"> L'amélioration </th>
+        <th class="col-xs-3"> Par  </th>
+        <th class="col-xs-4"> Dans la controverse  </th>
+      </tr>
+      </thead>
+      <tbody class="page">
+      <% if !@frames.any? %>
+          <tr class="notification-summary">
+            <td></td>
+            <td> Pas de nouveautés </td>
+            <td></td>
+            <td></td>
+          </tr>
+      <% else %>
+          <% @frames.each do |com| %>
+              <tr class="notification-summary">
+                <td> <%= f.check_box :frame_ids, { :multiple => true},
+                                     checked_value = com.id, unchecked_value = nil %> </td>
+                <td> <%= link_to "Voir la proposition", notifications_frame_path(id: com.id ), class: "btn btn-primary"  %> </td>
+                <td>  <%= link_to com.user_name, user_path(id: com.user_id ), class: "btn btn-primary"  %> </td>
+                <td>  <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary"  %>   </td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @summaries %>
+
     <% elsif @filter == :summary %>
     <div class="panel-heading">
-      Les nouvelles synthèses (<%= current_user.notifications_summary %>)
+      Les nouvelles synthèses (<%= @summaries.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
@@ -111,7 +149,7 @@
         
     <% elsif @filter == :reference %>
     <div class="panel-heading">
-      Les nouvelles références (<%= current_user.notifications_reference %>)
+      Les nouvelles références (<%= @references.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
@@ -148,7 +186,7 @@
         
   <% elsif @filter == :comment %>
     <div class="panel-heading">
-      Les nouvelles analyses (<%= current_user.notifications_comment %>)
+      Les nouvelles analyses (<%= @comments.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
@@ -188,7 +226,7 @@
   <% elsif @filter == :selection %>
     <div class="panel-heading">
       Les analyses qui ont pris la première place
-      (<%= current_user.notifications_selection %>)
+      (<%= @selections.count %>)
     </div>
   <table id="notification-timelines" class="table table-striped table-hover">
     <thead>
@@ -226,11 +264,48 @@
     </tbody>
   </table>
   <%= paginate @selections %>
+  <% elsif @filter == :frame_selection %>
+
+    <div class="panel-heading">
+      Les améliorations de controverses qui ont pris la première place
+      (<%= @frame_selections.count %>)
+    </div>
+    <table id="notification-timelines" class="table table-striped table-hover">
+      <thead>
+      <tr>
+        <th class="col-xs-1 col-sm-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
+        <th class="col-xs-5 col-sm-4"> Synthèse </th>
+        <th class="col-xs-6 col-sm-3"> Par </th>
+        <th class="col-xs-6 col-sm-4"> De la controverse </th>
+      </tr>
+      </thead>
+      <tbody class="page">
+      <% if !@frame_selections.any? %>
+          <tr class="notification-sel-summary">
+            <td></td>
+            <td> Pas de nouveautés   </td>
+            <td></td>
+            <td></td>
+          </tr>
+      <% else %>
+          <% @frame_selections.each do |com| %>
+              <tr class="notification-sel-summary">
+                <td> <%= f.check_box :sel_frame_ids, { :multiple => true},
+                                     checked_value = com.id, unchecked_value = nil %> </td>
+                <td>  <%= link_to "La proposition", notifications_frame_selection_path(id: com.id ), class: "btn btn-primary" %></td>
+                <td>  <%= link_to com.user_name, user_path( com.user_id ), class: "btn btn-primary" %></td>
+                <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary" %> </td>
+              </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+    </table>
+    <%= paginate @summary_selections %>
 
   <% elsif @filter == :summary_selection %>
     <div class="panel-heading">
       Les synthèses qui ont pris la première place
-      (<%= current_user.notifications_summary_selection %>)
+      (<%= @summary_selections.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
@@ -267,7 +342,7 @@
     <% elsif @filter == :suggestions %>
     <div class="panel-heading">
       Les nouveaux commentaires sur controversciences
-      (<%= current_user.notifications_suggestions %>)
+      (<%= @suggestions.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>

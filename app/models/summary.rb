@@ -65,7 +65,7 @@ class Summary < ActiveRecord::Base
     end
   end
 
-  def to_markdown(timeline_url)
+  def to_markdown
     render_options = {
         # will remove from the output HTML tags inputted by user
         filter_html: true,
@@ -120,8 +120,8 @@ class Summary < ActiveRecord::Base
     renderer.links
   end
 
-  def save_with_markdown(timeline_url)
-    links = self.to_markdown(timeline_url)
+  def save_with_markdown
+    links = self.to_markdown
     if self.save
       reference_ids = Reference.where(timeline_id: self.id).pluck(:id)
       links.each do |link|
@@ -136,9 +136,9 @@ class Summary < ActiveRecord::Base
     end
   end
 
-  def update_with_markdown(timeline_url)
+  def update_with_markdown
     SummaryLink.where(user_id: user_id, summary_id: id).destroy_all
-    save_with_markdown(timeline_url)
+    save_with_markdown
   end
 
   def selection_update(best_summary = nil)

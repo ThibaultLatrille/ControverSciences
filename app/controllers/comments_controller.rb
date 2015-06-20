@@ -39,7 +39,7 @@ class CommentsController < ApplicationController
     if @comment.is_same_as_best
       flash[:info] = "Une ou plusieurs sous-parties de vos sont identiques à l'originale, elle n'ont pas été sauvegardé"
     end
-    if @comment.save_with_markdown( timeline_url( comment_params[:timeline_id] ) )
+    if @comment.save_with_markdown
       flash[:success] = "Analyse enregistrée."
       redirect_to reference_path( @comment.reference_id, filter: :mine )
     else

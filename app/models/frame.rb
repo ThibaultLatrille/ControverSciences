@@ -139,8 +139,8 @@ class Frame < ActiveRecord::Base
     if Frame.where( timeline_id: self.timeline_id ).count == 1
       false
     else
-      Timeline.decrement_counter(:nb_frames, self.timeline_id)
       self.destroy
+      Timeline.decrement_counter(:nb_frames, self.timeline_id)
       if self.best
         refill_best_frame
       end

@@ -11,6 +11,10 @@ class TyposController < ApplicationController
       sum = Summary.select( :user_id, :content ).find(get_params[:summary_id])
       @typo.content = sum.content
       @typo.target_user_id = sum.user_id
+    elsif !@typo.frame_id.blank?
+      sum = Frame.find(get_params[:frame_id])
+      @typo.content = sum.field_content(get_params[:field].to_i)
+      @typo.target_user_id = sum.user_id
     end
     @typo.user_id = current_user.id
     respond_to do |format|
@@ -24,6 +28,8 @@ class TyposController < ApplicationController
       @typo.target_user_id = Comment.select( :user_id ).find(typo_params[:comment_id]).user_id
     elsif !@typo.summary_id.blank?
       @typo.target_user_id = Summary.select( :user_id ).find(typo_params[:summary_id]).user_id
+    elsif !@typo.frame_id.blank?
+      @typo.target_user_id = Frame.select( :user_id ).find(typo_params[:frame_id]).user_id
     end
     @typo.user_id = current_user.id
     if @typo.save

@@ -3,6 +3,7 @@ class MyItemsController < ApplicationController
 
   def items
     @timelines = Timeline.select(:id, :name).where( user_id: current_user.id)
+    @frames = Frame.select(:id, :name).where( user_id: current_user.id ).where.not( timeline_id: @timelines.map{|tim| tim.id} )
     @references = Reference.select(:id, :timeline_id, :title).where( user_id: current_user.id)
     @comments = Comment.select(:id, :timeline_id, :reference_id,
                                :title_markdown, :public, :f_0_balance,
@@ -17,6 +18,7 @@ class MyItemsController < ApplicationController
   def votes
     @votes = Vote.where( user_id: current_user.id)
     @credits = Credit.where( user_id: current_user.id)
+    @frame_credits = FrameCredit.where( user_id: current_user.id)
   end
 
 end

@@ -63,10 +63,34 @@
           Notifications
           </span>
             </div>
-            <% if @summary_wins.any? || @wins.any? %>
+            <% if @summary_wins.any? || @wins.any? || @frame_wins.any? %>
                 <hr style="margin: 0 3em 2em 3em ">
                 &nbsp <span class="green" style="font-size: 2em;"><span class="glyphicon glyphicon-arrow-up"></span> Vos contributions qui ont pris la première place</span>
             <% end %>
+          <% if @frame_wins.any? %>
+              <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                  <th class="col-xs-1 center"></th>
+                  <th class="col-xs-7">Votre</th>
+                  <th class="col-xs-4">De la controverse</th>
+                </tr>
+                </thead>
+                <tbody class="page">
+                <% @frame_wins.each do |com| %>
+                    <tr>
+                      <td><span class="icon-5 green center" style="font-size: 2em;"></span></td>
+                      <td>
+                        <%= link_to "Proposition de formulation", notifications_frame_selection_win_path(id: com.id), class: "btn btn-primary" %>
+                      </td>
+                      <td>
+                        <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>
+                      </td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+          <% end %>
             <% if @summary_wins.any? %>
                 <table class="table table-striped table-hover">
                   <thead>
@@ -120,10 +144,35 @@
                   </tbody>
                 </table>
             <% end %>
-            <% if @summary_losses.any? || @losses.any? %>
+            <% if @summary_losses.any? || @losses.any? || @frame_losses.any? %>
                 <hr style="margin: 0 3em 2em 3em ">
                 &nbsp <span class="red" style="font-size: 2em;"><span class="glyphicon glyphicon-arrow-down"></span> Vos contributions qui ont perdu la première place</span>
             <% end %>
+              <% if @frame_losses.any? %>
+
+                  <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                      <th class="col-xs-1 center"></th>
+                      <th class="col-xs-7">Votre</th>
+                      <th class="col-xs-4">De la controverse</th>
+                    </tr>
+                    </thead>
+                    <tbody class="page">
+                    <% @frame_losses.each do |com| %>
+                        <tr>
+                          <td><span class="icon-1 red" style="font-size: 2em;"></span></td>
+                          <td>
+                            <%= link_to "Proposition de formulation", notifications_frame_selection_loss_path(id: com.id), class: "btn btn-primary" %>
+                          </td>
+                          <td>
+                            <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>
+                          </td>
+                        </tr>
+                    <% end %>
+                    </tbody>
+                  </table>
+              <% end %>
             <% if @summary_losses.any? %>
 
                 <table class="table table-striped table-hover">
@@ -144,8 +193,6 @@
                         <td>
                           <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>
                         </td>
-                        <td><%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
-                                        notifications_summary_selection_loss_path(id: com.id), class: "btn btn-danger" %></td>
                       </tr>
                   <% end %>
                   </tbody>

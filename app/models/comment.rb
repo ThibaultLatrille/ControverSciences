@@ -139,7 +139,7 @@ class Comment < ActiveRecord::Base
     flag
   end
 
-  def markdown(timeline_url)
+  def markdown
     render_options = {
         filter_html:     true,
         hard_wrap:       true,
@@ -179,8 +179,8 @@ class Comment < ActiveRecord::Base
     renderer.links
   end
 
-  def save_with_markdown(timeline_url)
-    links = self.markdown(timeline_url)
+  def save_with_markdown
+    links = self.markdown
     if self.save
       reference_ids = Reference.where(timeline_id: self.timeline_id).pluck(:id)
       links.each do |link|
@@ -195,9 +195,9 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  def update_with_markdown(timeline_url)
+  def update_with_markdown
     Link.where(user_id: user_id, comment_id: id).destroy_all
-    save_with_markdown(timeline_url)
+    save_with_markdown
   end
 
 

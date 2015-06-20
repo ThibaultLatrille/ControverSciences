@@ -9,8 +9,15 @@ class Typo < ActiveRecord::Base
   def old_content
     if !summary_id.blank?
       self.summary.content
-    elsif !comment.blank?
+    elsif !comment_id.blank?
       self.comment.field_content( self.field.to_i )
+    elsif !frame_id.blank?
+      case self.field.to_i
+        when 0
+          self.frame.name
+        when 1
+          self.frame.content
+      end
     end
   end
 
@@ -22,39 +29,16 @@ class Typo < ActiveRecord::Base
     Comment.select(:id, :user_id, :reference_id, :timeline_id).find(self.comment_id)
   end
 
+  def frame_short
+    Frame.select(:id, :user_id, :timeline_id).find(self.frame_id)
+  end
+
   def set_content(current_user_id)
-    render_options = {
-        filter_html:     true,
-        hard_wrap:       true,
-        link_attributes: {rel: 'nofollow'},
-        no_images:       true,
-        no_styles:       true,
-        safe_links_only: true
-    }
-
-    renderer       = HTMLlinks.new(render_options)
-    renderer.links = []
-    if Rails.env.production?
-      renderer.ref_url = "http://www.controversciences.org/references/"
-    else
-      renderer.ref_url = "http://127.0.0.1:3000/references/"
-    end
-
-    extensions = {
-        autolink:          true,
-        lax_spacing:       true,
-        no_intra_emphasis: true,
-        strikethrough:     true,
-        superscript:       true
-    }
-    redcarpet  = Redcarpet::Markdown.new(renderer, extensions)
-    markdown = redcarpet.render(self.content)
     if !summary_id.blank?
       sum = self.summary
       if sum.user_id == current_user_id
         sum.content = self.content
-        sum.markdown = markdown
-        sum.save
+        sum.update_with_markdown
       else
         false
       end
@@ -63,16 +47,26 @@ class Typo < ActiveRecord::Base
       if com.user_id == current_user_id
         case self.field
           when 6
-            com.title = content
-            com.title_markdown = markdown
+            com.title = self.content
           when 7
-            com.caption = content
-            com.caption_markdown = markdown
+            com.caption = self.content
           else
-            com["f_#{field}_content"] = content
-            com["markdown_#{field}"] = markdown
+            com["f_#{field}_content"] = self.content
         end
-        com.save
+        com.update_with_markdown
+      else
+        false
+      end
+    elsif !frame_id.blank?
+      fra = self.frame
+      if fra.user_id == current_user_id
+        case self.field
+          when 0
+            fra.name = self.content
+          when 1
+            fra.content = self.content
+        end
+        fra.save_with_markdown
       else
         false
       end

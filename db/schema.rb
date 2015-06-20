@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619082224) do
+ActiveRecord::Schema.define(version: 20150619095507) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -310,15 +310,15 @@ ActiveRecord::Schema.define(version: 20150619082224) do
     t.datetime "updated_at"
   end
 
-  create_table "notification_frame_selection_loss", force: true do |t|
+  create_table "notification_frame_selection_losses", force: true do |t|
     t.integer  "frame_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "notification_frame_selection_loss", ["frame_id"], name: "index_notification_frame_selection_loss_on_frame_id", using: :btree
-  add_index "notification_frame_selection_loss", ["user_id"], name: "index_notification_frame_selection_loss_on_user_id", using: :btree
+  add_index "notification_frame_selection_losses", ["frame_id"], name: "index_notification_frame_selection_losses_on_frame_id", using: :btree
+  add_index "notification_frame_selection_losses", ["user_id"], name: "index_notification_frame_selection_losses_on_user_id", using: :btree
 
   create_table "notification_frame_selection_wins", force: true do |t|
     t.integer  "frame_id"

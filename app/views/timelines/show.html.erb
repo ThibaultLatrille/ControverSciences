@@ -98,13 +98,16 @@
                                 frames_path(timeline_id: @timeline.id, filter: "mine"), :class => "btn btn-primary pull-right" %>
                 <% end %>
             <% elsif logged_in? %>
+                <% if @timeline.nb_frames > 1 %>
+                    <%= link_to "Voir les proposition de titre et de cadre (#{@timeline.nb_frames})".html_safe,
+                                frames_path(timeline_id: @timeline.id),
+                                class: "btn btn-primary" %>
+                <% end %>
                 <% if @improve_frame %>
-                    <div class="center">
                       <%= link_to "<span class=\"icon-fork\" >
                                 </span> Améliorer le titre et/ou ajouter un cadre".html_safe,
                                   new_frame_path(timeline_id: @timeline.id),
-                                  class: "btn btn-primary", :style => "padding: 6px:" %>
-                    </div>
+                                  class: "btn btn-primary pull-right", :style => "padding: 6px:" %>
                     <br/><br/>
                 <% elsif logged_in? %>
                       <%= link_to "Voir ma proposition de titre et de cadre".html_safe,

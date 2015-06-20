@@ -31,7 +31,7 @@ class SummariesController < ApplicationController
     end
     @summary.user_id = current_user.id
     parent_id = params[:summary][:parent_id]
-    if @summary.save_with_markdown( timeline_url( summary_params[:timeline_id] ) )
+    if @summary.save_with_markdown
       if parent_id
         SummaryRelationship.create(parent_id: parent_id, child_id: @summary.id)
       end
