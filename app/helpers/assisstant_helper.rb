@@ -3,7 +3,7 @@ module AssisstantHelper
   def maj_v_3
     ActiveRecord::Base.transaction do
       Timeline.all.each do |timeline|
-        frame = Frame.new( user_id: timeline.user_id, best: true,
+        frame = Frame.new( user_id: timeline.user_id, best: true, binary: timeline.binary,
                       content: "", name: timeline.name, timeline_id: timeline.id )
         frame.set_tag_list(timeline.get_tag_list)
         frame.save!
