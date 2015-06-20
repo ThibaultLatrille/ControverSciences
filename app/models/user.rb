@@ -135,6 +135,14 @@ class User < ActiveRecord::Base
     Notification.where(user_id: self.id, category: 7).count
   end
 
+  def notifications_frame
+    Notification.where(user_id: self.id, category: 8).count
+  end
+
+  def notifications_frame_selection
+    Notification.where(user_id: self.id, category: 9).count
+  end
+
   def notifications_all
     Notification.where(user_id: self.id).count
   end
@@ -156,11 +164,11 @@ class User < ActiveRecord::Base
   end
 
   def notifications_frame_win
-    NotificationSummarySelectionWin.where(user_id: self.id).count
+    NotificationFrameSelectionWin.where(user_id: self.id).count
   end
 
   def notifications_frame_loss
-    NotificationSummarySelectionLoss.where(user_id: self.id).count
+    NotificationFrameSelectionLoss.where(user_id: self.id).count
   end
 
   def notifications_suggestion
