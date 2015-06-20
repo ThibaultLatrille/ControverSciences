@@ -109,7 +109,7 @@
       <% end %>
       </tbody>
     </table>
-    <%= paginate @summaries %>
+    <%= paginate @frames %>
 
     <% elsif @filter == :summary %>
     <div class="panel-heading">
@@ -300,7 +300,7 @@
       <% end %>
       </tbody>
     </table>
-    <%= paginate @summary_selections %>
+    <%= paginate @frame_selections %>
 
   <% elsif @filter == :summary_selection %>
     <div class="panel-heading">
