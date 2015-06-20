@@ -44,10 +44,10 @@ class FrameCreditsController < ApplicationController
       frame_credit.destroy_with_counters
       redirect_to frames_path( timeline_id: timeline_id )
     else
-      frame_credits = FrameFrameCredit.find(params[:id])
-      if frame_frame_credits.user_id == current_user.id
+      frame_credits = FrameCredit.find(params[:id])
+      if frame_credits.user_id == current_user.id
         frame_credits.destroy_with_counters
-        redirect_to my_items_items_path
+        redirect_to my_items_votes_path
       end
     end
   end
