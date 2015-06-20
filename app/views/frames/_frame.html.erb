@@ -2,12 +2,25 @@
   <div class="panel-body">
   <span class="content">
     <div class="clearfix">
-      <div class="text-justify">
+      <h1>
         <%= frame.name_markdown.html_safe %>
-      </div>
+      </h1>
         <div class="text-justify">
             <%= frame.content_markdown.html_safe %>
         </div>
+      <div class="center">
+        <br/>
+        <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
+        &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
+        <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%></b>
+      </div>
+      <br/><br/>
+      <b>Thèmes :</b><br/>
+      <% frame.get_tag_list.each do |name| %>
+          <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                      timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                      class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+      <% end %>
     </div>
     <% unless frame_credit %>
         <div class="pull-right">

@@ -277,7 +277,7 @@ class NotificationsController < ApplicationController
   end
 
   def frame_selection_win
-    NotificationSummarySelectionWin.find_by(user_id:    current_user.id,
+    NotificationFrameSelectionWin.find_by(user_id:    current_user.id,
                                              frame_id: notification_params).destroy
     redirect_to frame_path(notification_params)
   end

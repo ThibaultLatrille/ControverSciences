@@ -13,6 +13,13 @@ class FramesController < ApplicationController
       @frame.name = frame.name
       @frame.timeline_id = params[:timeline_id]
       @frame.binary = timeline.binary
+      if @frame.binary != ""
+        @frame.binary_left  = @frame.binary.split('&&')[0]
+        @frame.binary_right = @frame.binary.split('&&')[1]
+        @frame.binary       = true
+      else
+        @frame.binary = false
+      end
       @tag_list     = timeline.get_tag_list
     end
   end
