@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :edit, :destroy]
-  get 'timelines_graphe' => 'timelines#graphe'
+  get 'timelines_graph' => 'timelines#graph'
   get 'timelines_network' => 'timelines#network'
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
   get '/next' => 'references#next', as: 'next_reference'

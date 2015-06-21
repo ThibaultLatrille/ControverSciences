@@ -85,12 +85,12 @@ class TimelinesController < ApplicationController
     end
   end
 
-  def graphe
+  def graph
   end
 
   def network
     @nodes = Timeline.all
-    @links = Edge.all
+    @links = Edge.all.to_a.uniq{ |e| [e.timeline_id,e.target].sort }
   end
 
   private

@@ -12,6 +12,10 @@
                                                                                      :filter => params[:filter],
                                                                                      :interest => params[:interest].blank? ? "true" : ""),
                       class: "btn btn-block btn-primary" %>
+              <div style="margin-bottom: 10px"></div>
+              <%= link_to image_tag("network.svg", alt: "graph", height: "32px") +
+                                  " Le graphe des controverses", timelines_graph_path,
+                          class: "btn btn-block btn-primary" %>
               <br/>
               <br/>
             </div>

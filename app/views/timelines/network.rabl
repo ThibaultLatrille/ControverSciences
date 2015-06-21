@@ -1,9 +1,10 @@
 object false
 
 child @nodes, root:"nodes", :object_root => false do
-  attributes :name
+  node(:name) { |link| link.name }
   attributes :id
-  node(:group) { |node| node.group }
+  node(:size) { |node| node.score }
+  node(:group) { |node| node.score.to_i }
 end
 
 node (:nodes) {[]} if @nodes.empty?
@@ -11,7 +12,7 @@ node (:nodes) {[]} if @nodes.empty?
 child @links, root:"links", :object_root => false do
   node(:source) { |link| link.timeline_id }
   node(:target) { |link| link.target }
-  node(:value) { |link| link.value }
+  node(:value) { |link| 1 }
 end
 
 node (:links) {[]} if @links.empty?

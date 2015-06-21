@@ -1,4 +1,8 @@
 #d3-graph{
+  background-color: white;
+  svg{
+    background-color: white;
+  }
   .node {
     cursor: pointer;
     stroke: #3182bd;
