@@ -14,6 +14,13 @@
       <h1>
         <%= frame.name_markdown.html_safe %>
       </h1>
+      <div class="center">
+        <br/>
+        <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
+        &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
+        <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%></b>
+      </div>
+      <br/><br/>
       <% if frame.content != "" %>
           <% if logged_in? && current_user.id != frame.user_id %>
               <div class="pull-right">
@@ -25,16 +32,11 @@
               </div>
           <% end %>
           <div class="text-justify">
+            <b>Cadre, focus et mise au point :</b><br/>
             <%= frame.content_markdown.html_safe %>
           </div>
+          <br/>
       <% end %>
-      <div class="center">
-        <br/>
-        <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
-        &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
-        <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%></b>
-      </div>
-      <br/><br/>
       <b>Thèmes :</b><br/>
       <% frame.get_tag_list.each do |name| %>
           <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
