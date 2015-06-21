@@ -79,33 +79,36 @@
               <div id="children<%= @suggestion.id %>">
                 <br/>
                 <% @suggestion_children.each do |suggestion_child| %>
-                        <%= render suggestion_child %>
-                <% end %>
-                <div class="col-xs-10 col-xs-offset-1">
-                  <div class="panel panel-default suggestion">
-                    <div class="panel-body">
-                      <%= form_for @suggestion_child do |f| %>
-                          <%= render 'shared/error_messages', object: f.object %>
-                          <%= f.hidden_field :suggestion_id, value: @suggestion_child.suggestion_id %>
-                          <div class="form-group">
-                            <%= f.label :comment, "Votre réponse", class: 'control-label' %><br>
-                            <div id="characterLeft"></div>
-                            <%= f.text_area :comment, class: 'form-control textarea', id: "markdown-textarea" %>
-                            <span class="help-block"></span>
-                          </div>
-                          <div class="row">
-                            <div class="col-xs-12">
-                              <div class="pull-right">
-                                <%= f.button "Modifier &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                                             class: 'btn btn-success',
-                                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
-                              </div>
+                    <% if suggestion_child.id == @suggestion_child.id %>
+                        <div class="col-xs-10 col-xs-offset-1">
+                          <div class="panel panel-default suggestion">
+                            <div class="panel-body">
+                              <%= form_for @suggestion_child do |f| %>
+                                  <%= render 'shared/error_messages', object: f.object %>
+                                  <%= f.hidden_field :suggestion_id, value: @suggestion_child.suggestion_id %>
+                                  <div class="form-group">
+                                    <%= f.label :comment, "Votre réponse", class: 'control-label' %><br>
+                                    <div id="characterLeft"></div>
+                                    <%= f.text_area :comment, class: 'form-control textarea', id: "markdown-textarea" %>
+                                    <span class="help-block"></span>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-xs-12">
+                                      <div class="pull-right">
+                                        <%= f.button "Modifier &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                                                     class: 'btn btn-success',
+                                                     data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
+                                      </div>
+                                    </div>
+                                  </div>
+                              <% end %>
                             </div>
                           </div>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
+                        </div>
+                    <% else %>
+                        <%= render suggestion_child %>
+                    <% end %>
+                <% end %>
               </div>
             </div>
           </div>

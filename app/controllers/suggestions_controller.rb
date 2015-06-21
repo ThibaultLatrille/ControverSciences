@@ -52,7 +52,9 @@ class SuggestionsController < ApplicationController
       flash[:success] = "Commentaire ajouté."
       redirect_to suggestions_path
     else
-      @suggestions = Suggestion.order( :created_at).all.page(params[:page]).per(50)
+      @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
+      @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
+      @suggestions = Suggestion.order( created_at: :desc).where( timeline_id: nil ).page(params[:page]).per(25)
       render 'index'
     end
   end
