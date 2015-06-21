@@ -23,11 +23,13 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :edit, :destroy]
+  get 'timelines_graphe' => 'timelines#graphe'
+  get 'timelines_network' => 'timelines#network'
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
-  get "/next" => 'references#next', as: 'next_reference'
-  get "/previous" => 'references#previous', as: 'previous_reference'
-  get "/from_timeline" => 'references#from_timeline', as: 'from_timeline'
-  get "/from_reference" => 'references#from_reference', as: 'from_reference'
+  get '/next' => 'references#next', as: 'next_reference'
+  get '/previous' => 'references#previous', as: 'previous_reference'
+  get '/from_timeline' => 'references#from_timeline', as: 'from_timeline'
+  get '/from_reference' => 'references#from_reference', as: 'from_reference'
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :votes, only: [:new ,:create, :destroy]
   resources :ratings, only: [:create, :destroy]

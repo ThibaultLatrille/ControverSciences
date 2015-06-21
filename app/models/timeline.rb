@@ -44,6 +44,10 @@ class Timeline < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 180 }
   validate :binary_valid
 
+  def group
+    rand(3)
+  end
+
   def user_name
     User.select( :name ).find( self.user_id ).name
   end

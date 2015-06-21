@@ -16,6 +16,7 @@
  *= require custom.css.scss
  *= require font.css
  *= require timeline.css
+ *= require d3-graph.css.scss
  */
 @font-face{
     font-family: 'Glyphicons Halflings';

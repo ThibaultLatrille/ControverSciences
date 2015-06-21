@@ -1,0 +1,76 @@
+<% provide(:title, 'Les contributeurs') %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+<div id="my-container" class="container-fluid">
+  <div class="row center">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div id="d3-graph">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    var width = 960,
+            height = 500;
+    var color = d3.scale.category20();
+    var force = d3.layout.force()
+            .linkDistance(10)
+            .linkStrength(2)
+            .size([width, height]);
+    var svg = d3.select("#d3-graph").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+    d3.json("/timelines_network", function(error, graph) {
+        if (error) throw error;
+        var nodes = graph.nodes.slice(),
+                links = [],
+                bilinks = [];
+        graph.links.forEach(function(link) {
+            var s = nodes.filter(function(n) {
+                        return n.id === link.source;
+                    })[0],
+                t = nodes.filter(function(n) {
+                        return n.id === link.target;
+                    })[0],
+                    i = {}; // intermediate node
+            console.log(s, i, t)
+            nodes.push(i);
+            links.push({source: s, target: i}, {source: i, target: t});
+            bilinks.push([s, i, t]);
+        });
+        force
+                .nodes(nodes)
+                .links(links)
+                .start();
+        var link = svg.selectAll(".link")
+                .data(bilinks)
+                .enter().append("path")
+                .attr("class", "link");
+        var node = svg.selectAll(".node")
+                .data(graph.nodes)
+                .enter().append("circle")
+                .attr("class", "node")
+                .attr("r", 5)
+                .style("fill", function(d) { return color(d.group); })
+                .call(force.drag);
+        node.attr("title", function(d) { return d.name; });
+        node.attr("data-toggle","tooltip");
+        force.on("tick", function() {
+            link.attr("d", function(d) {
+                return "M" + d[0].x + "," + d[0].y
+                        + "S" + d[1].x + "," + d[1].y
+                        + " " + d[2].x + "," + d[2].y;
+            });
+            node.attr("transform", function(d) {
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+            $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+        });
+    });
+</script>

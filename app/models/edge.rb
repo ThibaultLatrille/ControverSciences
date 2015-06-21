@@ -9,4 +9,8 @@ class Edge < ActiveRecord::Base
   validates :weight, presence: true, inclusion: { in: 1..12 }
   validates_uniqueness_of :timeline_id, :scope => [:target]
 
+  def value
+    1
+  end
+
 end

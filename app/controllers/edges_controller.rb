@@ -11,8 +11,10 @@ class EdgesController < ApplicationController
     Edge.where(timeline_id: edge_params[:timeline_id]).destroy_all
     unless params[:edge][:target_ids].blank?
       params[:edge][:target_ids].each do |target_id|
-        edges << Edge.new(user_id: current_user.id, timeline_id: edge_params[:timeline_id],
-                          weight: 1, target: target_id)
+        if Timeline.exists?(target_id)
+          edges << Edge.new(user_id: current_user.id, timeline_id: edge_params[:timeline_id],
+                            weight: 1, target: target_id)
+        end
       end
       Edge.import edges
     end

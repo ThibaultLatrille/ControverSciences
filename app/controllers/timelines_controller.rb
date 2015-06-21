@@ -85,6 +85,14 @@ class TimelinesController < ApplicationController
     end
   end
 
+  def graphe
+  end
+
+  def network
+    @nodes = Timeline.all
+    @links = Edge.all
+  end
+
   private
 
   def timeline_params
