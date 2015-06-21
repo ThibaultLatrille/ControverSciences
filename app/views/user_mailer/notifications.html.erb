@@ -153,11 +153,9 @@
                       </strong>
                     </p>
                     <p style="Margin-top: 0;color:#60666d;font-size: 15px;font-family:sans-serif;line-height:24px;Margin-bottom: 24px">
-                        La communauté
+                        Il y a du nouveau sur votre compte
                       <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="http://www.controversciences.org">
-                        ControverSciences </a> a organisé les connaissances scientifiques, des nouveautés et des notifications vous attendent !
-
-
+                        ControverSciences</a>, les débats avancent !
                     </p>
                     <ul style="Margin-top: 0;padding-left:0;color: #60666d;font-size:15px;Margin-left: 20px;font-family:sans-serif;line-height:24px;Margin-bottom: 24px">
                       <% if @user_notif.notifications_all > 2 %>
@@ -195,9 +193,11 @@
                       <% end %>
                     </ul>
                     <p style="Margin-top: 0;color:#60666d;font-size: 15px;font-family:sans-serif;line-height:24px;Margin-bottom: 24px">
-                        ControverSciences s'adapte à vos préférences : gérer vos <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="http://www.controversciences.org/likes">
-                      intérêts </a> et/ou <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= "http://www.controversciences.org/users/#{@user_notif.id}/edit" -%>" >
-                      éditer votre profil</a>.
+                        ControverSciences s'adapte à vos préférences : <br/>
+                      •  gérez vos <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="http://www.controversciences.org/likes">
+                      intérêts</a>; <br/>
+                      •  <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= "http://www.controversciences.org/users/#{@user_notif.id}/edit" -%>" >
+                      éditez votre profil</a>.
                       <br>
                       <br>
                       <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted#454545" href='mailto:contact@controversciences.org'>
