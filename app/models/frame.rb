@@ -146,6 +146,7 @@ class Frame < ActiveRecord::Base
       if self.best
         refill_best_frame
       end
+      true
     end
   end
 
