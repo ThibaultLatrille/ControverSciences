@@ -7,7 +7,7 @@ class SuggestionVote < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => [:suggestion_id]
 
   after_create  :cascading_save_vote
-  after_create  :cascading_destroy_vote
+  after_destroy  :cascading_destroy_vote
 
   private
 
