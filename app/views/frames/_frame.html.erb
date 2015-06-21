@@ -2,12 +2,28 @@
   <div class="panel-body">
   <span class="content">
     <div class="clearfix">
+      <% if logged_in? && current_user.id != frame.user_id %>
+          <div class="pull-right">
+            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                        new_typo_path(frame_id: frame.id, field: 0), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                        title: "Corriger une faute de français dans le titre", :style => "padding: 8px; margin-right: 8px"%>
+          </div>
+      <% end %>
       <h1>
         <%= frame.name_markdown.html_safe %>
       </h1>
-        <div class="text-justify">
+      <% if frame.content != "" %>
+          <% if logged_in? && current_user.id != frame.user_id %>
+              <div class="pull-right">
+                <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                            new_typo_path(frame_id: frame.id, field: 1), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                            title: "Corriger une faute de français dans le cadre", :style => "padding: 8px; margin-right: 8px"%>
+              </div>
+          <% end %>
+          <div class="text-justify">
             <%= frame.content_markdown.html_safe %>
-        </div>
+          </div>
+      <% end %>
       <div class="center">
         <br/>
         <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
@@ -62,10 +78,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="pull-right">
-                  <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                              new_typo_path(frame_id: frame.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
-                              title: "Corriger une faute de français", :style => "padding: 8px; margin-right: 8px"%>
+                <div class="pull-right" style="margin-right: 8px;">
                   <% if current_user.admin %>
                       <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
                                   edit_frame_path(frame.id),
@@ -86,10 +99,7 @@
           <% end %>
       <% else %>
           <% if logged_in? && current_user.id != frame.user_id %>
-          <div class="pull-right">
-            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                        new_typo_path(frame_id: frame.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
-                        title: "Corriger une faute de français", :style => "padding: 8px; margin-right: 8px"%>
+          <div class="pull-right" style="margin-right: 8px;">
             <% if current_user.admin %>
                 <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
                             edit_frame_path(frame.id),

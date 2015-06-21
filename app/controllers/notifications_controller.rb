@@ -56,7 +56,9 @@ class NotificationsController < ApplicationController
         @timelines   = Timeline.select(:id, :name,
                                        :user_id).where(id: timeline_ids).page(params[:page]).per(20)
       when :frame
-        frame_ids = Notification.where(user_id: current_user.id, category: 8).pluck(:frame_id)
+        puts "Bim"
+        frame_ids = Notification.where(user_id: current_user.id, category: 8)
+        puts frame_ids
         @frames   = Frame.select(:id, :timeline_id,
                                        :user_id).where(id: frame_ids).page(params[:page]).per(20)
       when :frame_selection

@@ -6,6 +6,9 @@ class Typo < ActiveRecord::Base
 
   belongs_to :target_user, class_name: "User", foreign_key: "target_user_id"
 
+  after_create :increment_nb_notifs
+  after_destroy :decrement_nb_notifs
+
   def old_content
     if !summary_id.blank?
       self.summary.content
@@ -71,6 +74,16 @@ class Typo < ActiveRecord::Base
         false
       end
     end
+  end
+
+  private
+
+  def increment_nb_notifs
+    User.increment_counter(:nb_notifs, self.target_user_id)
+  end
+
+  def decrement_nb_notifs
+    User.decrement_counter(:nb_notifs, self.target_user_id)
   end
 
 end

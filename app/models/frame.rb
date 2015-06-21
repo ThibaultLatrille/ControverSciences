@@ -109,6 +109,7 @@ class Frame < ActiveRecord::Base
       Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
         unless self.user_id == user_id || best_frame.user_id == user_id
           notifications << Notification.new(user_id:    user_id, timeline_id: self.timeline_id,
+                                            frame_id: self.id,
                                             category: 9)
         end
       end
@@ -155,6 +156,7 @@ class Frame < ActiveRecord::Base
       Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
         unless self.user_id == user_id
           notifications << Notification.new(user_id: user_id, timeline_id: self.timeline_id,
+                                            frame_id: self.id,
                                             category: 8)
         end
       end

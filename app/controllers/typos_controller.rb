@@ -12,9 +12,14 @@ class TyposController < ApplicationController
       @typo.content = sum.content
       @typo.target_user_id = sum.user_id
     elsif !@typo.frame_id.blank?
-      sum = Frame.find(get_params[:frame_id])
-      @typo.content = sum.field_content(get_params[:field].to_i)
-      @typo.target_user_id = sum.user_id
+      fra = Frame.find(get_params[:frame_id])
+      case get_params[:field].to_i
+        when 0
+          @typo.content = fra.name
+        when 1
+          @typo.content = fra.content
+      end
+      @typo.target_user_id = fra.user_id
     end
     @typo.user_id = current_user.id
     respond_to do |format|
@@ -58,10 +63,10 @@ class TyposController < ApplicationController
   private
 
   def get_params
-    params.permit(:comment_id, :summary_id, :field)
+    params.permit(:comment_id, :summary_id, :field, :frame_id)
   end
 
   def typo_params
-    params.require(:typo).permit(:comment_id, :summary_id, :content, :field)
+    params.require(:typo).permit(:comment_id, :summary_id, :frame_id, :content, :field)
   end
 end
