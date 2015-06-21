@@ -1,5 +1,5 @@
 class TimelinesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :edit, :update, :create, :destroy]
+  before_action :logged_in_user, only: [:new, :edit, :create, :destroy]
 
   def index
     query = Timeline.order(params[:sort].blank? ? :score : params[:sort].to_sym =>
