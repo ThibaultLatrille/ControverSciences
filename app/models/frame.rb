@@ -129,7 +129,7 @@ class Frame < ActiveRecord::Base
   def refill_best_frame
     best_frame = Frame.find_by(timeline_id: self.timeline_id, best: true)
     unless best_frame
-      most = Frame.select(:id, :timeline_id, :user_id).where(timeline_id: self.timeline_id).order(:score => :desc).first
+      most = Frame.where(timeline_id: self.timeline_id).order(:score => :desc).first
       if most
         most.selection_update
       end
@@ -137,7 +137,8 @@ class Frame < ActiveRecord::Base
   end
 
   def destroy_with_counters
-    if Frame.where( timeline_id: self.timeline_id ).count == 1
+    tim_user_id = Timeline.select(:user_id).find(self.timeline_id ).user_id
+    if self.user_id == tim_user_id
       false
     else
       self.destroy

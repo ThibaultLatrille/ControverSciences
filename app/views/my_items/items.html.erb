@@ -92,7 +92,7 @@
         <% else %>
             <% @frames.each do |frame| %>
                 <tr class="notification-timeline">
-                  <td> <%= link_to frame.name.html_safe, timeline_path(timeline.id) %> </td>
+                  <td> <%= link_to frame.name_markdown.html_safe, frame_path(frame.id) %> </td>
                   <td>
                     <% frame.get_tag_list.each do |name| %>
                         <span class="icon-<%= name %>"></span>
@@ -105,12 +105,6 @@
                                                   data: { confirm: "Etes vous certain ?" } %>  </td>
                 </tr>
             <% end %>
-            <tr class="notification-timeline">
-              <td>  </td>
-              <td>  </td>
-              <td>  </td>
-              <td>  </td>
-            </tr>
         <% end %>
         </tbody>
       </table>

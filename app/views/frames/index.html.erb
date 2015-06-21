@@ -90,7 +90,11 @@
         <% end %>
     <% elsif params[:filter] == "mine" %>
         <% if @frames.any? %>
-            <%= render @frames, frame_credit: false, improve: true, delete: true %>
+            <% if @timeline.user_id == current_user.id %>
+                <%= render @frames, frame_credit: false, improve: true, delete: false %>
+            <% else %>
+                <%= render @frames, frame_credit: false, improve: true, delete: true %>
+            <% end %>
         <% else %>
             <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Vous n'avez pas encore écrit de contribution ".html_safe,

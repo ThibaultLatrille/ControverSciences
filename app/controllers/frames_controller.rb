@@ -95,11 +95,11 @@ class FramesController < ApplicationController
     if logged_in?
       @improve = Frame.where(user_id: current_user.id, timeline_id: @frame.timeline_id ).count == 1 ? false : true
     end
-    @timeline = Timeline.select(:id, :nb_frames, :name ).find( @frame.timeline_id )
+    @timeline = Timeline.select(:id, :user_id, :nb_frames, :name ).find( @frame.timeline_id )
   end
   
   def index
-    @timeline = Timeline.select(:id, :nb_frames, :name ).find( params[:timeline_id] )
+    @timeline = Timeline.select(:id, :user_id, :nb_frames, :name ).find( params[:timeline_id] )
     if logged_in?
       user_id = current_user.id
       @my_frame_credits = FrameCredit.where( user_id: user_id, timeline_id: params[:timeline_id] ).sum( :value )
@@ -157,10 +157,15 @@ class FramesController < ApplicationController
   def destroy
     frame = Frame.find(params[:id])
     if frame.user_id == current_user.id || current_user.admin
-      frame.destroy_with_counters
-      redirect_to my_items_items_path
+      if frame.destroy_with_counters
+        flash[:success] = "Contribution envoyée à la poubelle."
+        redirect_to my_items_items_path
+      else
+        flash[:danger] = "Vous ne pouvez pas supprimer cette contribution."
+        redirect_to frame_path(params[:id])
+      end
     else
-      flash[:danger] = "Cette contribution est la meilleure et ne peut être supprimée."
+      flash[:danger] = "Vous ne pouvez pas supprimer cette contribution."
       redirect_to frame_path(params[:id])
     end
   end

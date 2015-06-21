@@ -5,8 +5,10 @@
       <% if logged_in? && current_user.id != frame.user_id %>
           <div class="pull-right">
             <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                        new_typo_path(frame_id: frame.id, field: 0), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
-                        title: "Corriger une faute de français dans le titre", :style => "padding: 8px; margin-right: 8px"%>
+                        new_typo_path(frame_id: frame.id, field: 0), remote: true,
+                        :class => "btn btn-info", "data-toggle" => "tooltip",
+                        title: "Corriger une faute de français dans le titre",
+                        :style => "padding: 8px; margin-right: 8px"%>
           </div>
       <% end %>
       <h1>
@@ -16,8 +18,10 @@
           <% if logged_in? && current_user.id != frame.user_id %>
               <div class="pull-right">
                 <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                            new_typo_path(frame_id: frame.id, field: 1), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
-                            title: "Corriger une faute de français dans le cadre", :style => "padding: 8px; margin-right: 8px"%>
+                            new_typo_path(frame_id: frame.id, field: 1), remote: true,
+                            :class => "btn btn-info", "data-toggle" => "tooltip",
+                            title: "Corriger une faute de français dans le cadre",
+                            :style => "padding: 8px; margin-right: 8px"%>
               </div>
           <% end %>
           <div class="text-justify">

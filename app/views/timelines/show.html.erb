@@ -76,44 +76,77 @@
             <% if @timeline.frame != "" %>
                 <div id="summary" class="clearfix">
                   <div class="justify">
+                    L
                     <%= @timeline.frame.html_safe %>
                   </div>
                   <br/>
                 </div>
                 <br/>
                 <br/>
-                <% if @timeline.nb_frames > 1 %>
-                    <%= link_to "Voir les proposition de titre et de cadre (#{@timeline.nb_frames})".html_safe,
-                                frames_path(timeline_id: @timeline.id),
-                                class: "btn btn-primary" %>
-                <% end %>
-                <% if logged_in? && @improve_frame %>
-                    <%= link_to "<span class=\"icon-fork\"></span>".html_safe,
-                                new_frame_path(timeline_id: @timeline.id), :class => "btn btn-primary pull-right",
-                                                                                 "data-toggle" => "tooltip",
-                                                                                 title: "Améliorer cette proposition",
-                                                                                 :style => "padding: 6px; margin-right: 10px" %>
+                <div class="pull-right" style="margin-right: 10px;">
+                  <% if @timeline.nb_frames > 1 %>
+                      <%= link_to "Voir les proposition de titre et de cadres (#{@timeline.nb_frames})".html_safe,
+                                  frames_path(timeline_id: @timeline.id),
+                                  class: "btn btn-primary",
+                                  style: "padding: 10px;" %>
+                  <% else %>
+                      <% if logged_in? && @improve_frame %>
+                          <%= link_to "<span class=\"icon-fork\" >
+                                    </span> Améliorer le titre et le cadre".html_safe,
+                                      new_frame_path(timeline_id: @timeline.id),
+                                      class: "btn btn-primary",
+                                      style: "padding: 6px;" %>
+                          <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                      new_typo_path(frame_id: @improve_frame.id, field: 0), remote: true,
+                                      :class => "btn btn-info", "data-toggle" => "tooltip",
+                                      title: "Corriger une faute de français dans le titre" %>
+                          <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                      new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
+                                      :class => "btn btn-info", "data-toggle" => "tooltip",
+                                      title: "Corriger une faute de français dans le cadre",
+                                      style: "padding: 6px;"%>
+
+
                 <% elsif logged_in? %>
-                    <%= link_to "Voir ma proposition de titre et de cadre".html_safe,
-                                frames_path(timeline_id: @timeline.id, filter: "mine"), :class => "btn btn-primary pull-right" %>
-                <% end %>
+                          <%= link_to "<span class=\"icon-fork\" >
+                                    </span> Améliorer le titre et le cadre (voir ma proposition)".html_safe,
+                                      frames_path(timeline_id: @timeline.id, filter: "mine"),
+                                      :class => "btn btn-primary",
+                                      style: "padding: 6px;" %>
+                      <% end %>
+                  <% end %>
+                  <br/><br/>
+                </div>
             <% elsif logged_in? %>
-                <% if @timeline.nb_frames > 1 %>
-                    <%= link_to "Voir les proposition de titre et de cadre (#{@timeline.nb_frames})".html_safe,
-                                frames_path(timeline_id: @timeline.id),
-                                class: "btn btn-primary" %>
-                <% end %>
-                <% if @improve_frame %>
+                <div class="pull-right" style="margin-right: 10px;">
+                  <% if @timeline.nb_frames > 1 %>
                       <%= link_to "<span class=\"icon-fork\" >
-                                </span> Améliorer le titre et/ou ajouter un cadre".html_safe,
-                                  new_frame_path(timeline_id: @timeline.id),
-                                  class: "btn btn-primary pull-right", :style => "padding: 6px:" %>
-                    <br/><br/>
-                <% elsif logged_in? %>
-                      <%= link_to "Voir ma proposition de titre et de cadre".html_safe,
-                                  frames_path(timeline_id: @timeline.id, filter: "mine"), :class => "btn btn-primary pull-right" %>
-                    <br/><br/>
-                <% end %>
+                                </span> Améliorer le titre et ajouter un cadre
+                                (#{@timeline.nb_frames} propositions)".html_safe,
+                                  frames_path(timeline_id: @timeline.id),
+                                  class: "btn btn-primary",
+                                  style: "padding: 6px;"%>
+                  <% else %>
+                      <% if @improve_frame %>
+                          <%= link_to "<span class=\"icon-fork\" >
+                                    </span> Améliorer le titre et ajouter un cadre".html_safe,
+                                      new_frame_path(timeline_id: @timeline.id),
+                                      class: "btn btn-primary" %>
+                          <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                      new_typo_path(frame_id: @improve_frame.id, field: 0), remote: true,
+                                      :class => "btn btn-info", "data-toggle" => "tooltip",
+                                      title: "Corriger une faute de français dans le titre",
+                                      style: "padding: 6px;" %>
+                      <% else %>
+                          <%= link_to "<span class=\"icon-fork\" >
+                                    </span> Améliorer le titre et ajouter un cadre (voir ma proposition)".html_safe,
+                                      frames_path(timeline_id: @timeline.id, filter: "mine"),
+                                      :class => "btn btn-primary",
+                                      style: "padding: 6px;" %>
+                      <% end %>
+                  <% end %>
+                  <br/><br/>
+                </div>
             <% end %>
             <% if logged_in? && (@timeline.user_id == current_user.id || current_user.admin) %>
                 <br/>
@@ -166,7 +199,7 @@
                     <%= link_to "<span class=\"icon-fork\" >
                         </span> Soyez le premier à ecrire une synthèse".html_safe,
                                 new_summary_path(timeline_id: @timeline.id),
-                                class: "btn btn-primary", :style => "padding: 6px:" %>
+                                class: "btn btn-primary", :style => "padding: 6px;" %>
                   </div>
                   <br/>
               <% end %>

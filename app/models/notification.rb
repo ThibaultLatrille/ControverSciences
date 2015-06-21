@@ -6,6 +6,8 @@ class Notification < ActiveRecord::Base
   attr_accessor :summary_ids
   attr_accessor :sel_summary_ids
   attr_accessor :suggestion_ids
+  attr_accessor :sel_frame_ids
+  attr_accessor :frame_ids
 
   belongs_to :user
   belongs_to :timeline

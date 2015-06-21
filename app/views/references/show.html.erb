@@ -60,9 +60,14 @@
               <% if @best_comment && @best_comment.not_empty %>
                   <%= render @best_comment %>
               <% else %>
-                  <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-            </span> Il n'y a pas d'analyse à cette référence, soyez le premier ! ".html_safe,
-                              new_comment_path(reference_id: @reference.id), class: "btn btn-primary" %>
+                  <br/>
+                  <div class="center">
+                  <%= link_to "<span class=\"icon-fork\" >
+                        </span> Soyez le premier à ecrire une analyse".html_safe,
+                              new_comment_path(reference_id: @reference.id),
+                              class: "btn btn-primary", :style => "padding: 6px;" %>
+                  </div>
+                  <br/>
               <% end %>
           <% end %>
         </div>

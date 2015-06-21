@@ -19,7 +19,11 @@
           </div>
           <div class="panel-body">
             <% if logged_in? && current_user.id == @frame.user_id %>
-                <%= render @frame, frame_credit: false, improve: true, delete: true %>
+                <% if @timeline.user_id == current_user.id %>
+                    <%= render @frame, frame_credit: false, improve: true, delete: false %>
+                <% else %>
+                    <%= render @frame, frame_credit: false, improve: true, delete: true %>
+                <% end %>
             <% elsif logged_in? %>
                 <%= render @frame, frame_credit: @timeline.nb_frames > 1 ? true : false , improve: @improve, delete: false %>
             <% else %>
