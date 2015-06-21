@@ -18,12 +18,12 @@
                   <div class="cd-timeline-img gradient-orange">
                   </div>
                   <div class="cd-timeline-content">
-                    <h2> <%= link_to "#{reference.title}", new_comment_path(reference_id: reference.id ), class: "hvr-grow1 orange" %>
+                    <h2> <%= link_to reference.title, new_comment_path(reference_id: reference.id ), class: "hvr-grow1 orange" %>
                     </h2>
                     <h2>
                     dans la controverse
                     </h2>
-                    <h2> <%= link_to "#{reference.timeline_name.html_safe}", timeline_path( reference.timeline_id ), class: "hvr-grow1" %>
+                    <h2> <%= link_to reference.timeline_name.html_safe, timeline_path( reference.timeline_id ), class: "hvr-grow1" %>
                     </h2>
                     <span class="cd-date">Référence ajoutée il y a <%= time_ago_in_words(reference.created_at) %></span>
                   </div>
