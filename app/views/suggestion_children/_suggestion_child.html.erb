@@ -13,6 +13,8 @@
                   <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe, edit_suggestion_child_path(suggestion_child.id),
                               class: "btn btn-primary" %>
                 </div>
+            <% end %>
+            <% if logged_in? && suggestion_child.user_id == current_user.id %>
                   <div class="sticky" style="color: #5cb85c;" data-placement="top"
                        data-toggle="tooltip"
                        title="<%= suggestion_child.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
