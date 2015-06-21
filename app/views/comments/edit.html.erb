@@ -78,24 +78,29 @@
                       <div class="panel panel-info">
                         <div class="panel-heading">
                           <% case fi  %>
-                          <% when 0 %>
-                              L'introduction permet au lecteur de situer cette référence dans
-                              la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
-                          <% when 1 %>
-                              Résumé de l'expérience (ou des expériences) réalisé dans cette étude
-                          <% when 2 %>
-                              Résumé du résultat (ou des résultats) de l’expérience (ou des expériences)
-                          <% when 3 %>
-                              Un résumé des limites de l’étude, que ce soit méthodologique, conceptuelle ou
-                              philosophique. Toute étude à ses limites.
-                          <% when 4 %>
-                              Ce que cette étude apporte de plus et comment elle permet d'éclairer
-                              la controverse.
-                          <% when 5 %>
-                              Toutes les remarques qui ne rentrent pas dans les champs précédents.
-                              Cela peut être sur les affiliations ou les financements douteux de l'étude.
-                              Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
-                              subjective.
+                              <% when 0 %>
+                                  <% if @myreference.article %>
+                                      L'introduction permet au lecteur de situer cette article dans
+                                      la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
+                                  <% else %>
+                                      Le résumé de la review permet au lecteur de
+                                      comprendre cette étude dans le cadre de cette controverse .
+                                  <% end %>
+                              <% when 1 %>
+                                  Résumé de l'expérience (ou des expériences) réalisé dans cette étude
+                              <% when 2 %>
+                                  Résumé du résultat (ou des résultats) de l’expérience (ou des expériences)
+                              <% when 3 %>
+                                  Un résumé des limites de l’étude, que ce soit méthodologique, conceptuelle ou
+                                  philosophique. Toute étude à ses limites.
+                              <% when 4 %>
+                                  Ce que cette étude apporte de plus et comment elle permet d'éclairer
+                                  la controverse.
+                              <% when 5 %>
+                                  Toutes les remarques qui ne rentrent pas dans les champs précédents.
+                                  Cela peut être sur les affiliations ou les financements douteux de l'étude.
+                                  Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
+                                  subjective.
                           <% end %>
                         </div>
                       </div>

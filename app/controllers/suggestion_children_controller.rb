@@ -59,7 +59,7 @@ class SuggestionChildrenController < ApplicationController
     sug = SuggestionChild.find(params[:id])
     if sug.user_id == current_user.id || current_user.admin
       sug.destroy
-      redirect_to suggestions_path
+      redirect_to suggestion_path(sug.suggestion_id)
     end
   end
 
