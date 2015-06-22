@@ -77,8 +77,8 @@
               <%= f.text_field :author, class: 'form-control myforms' %>
               <br/>
               <%= f.label "Abstract en langue originale (Facultatif)" %>
-              <%= f.text_area :abstract, {:rows => 2,
-                                          :class => "form-control myforms textarea"} %>
+              <%= f.text_area :abstract, :class => "form-control myforms textarea",
+                                          id: "markdown-textarea" %>
               <br/>
               <b> Identifiant unique : DOI, PMID, ou autre (facultatif) </b> <br/>
               <%= f.text_field :doi, class: 'form-control myforms' %>
@@ -95,6 +95,7 @@
   </div>
 </div>
 <script type="text/javascript">
+    $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
     function freeze() {
         $("#submit-button").hide();
         $(".myforms").attr('readonly', true)

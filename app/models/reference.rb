@@ -1,4 +1,6 @@
 class Reference < ActiveRecord::Base
+  require 'HTMLlinks'
+
   belongs_to :user
   belongs_to :timeline
   has_many :links, dependent: :destroy
@@ -16,6 +18,9 @@ class Reference < ActiveRecord::Base
 
   after_create :cascading_save_ref
   before_create :binary_timeline
+
+  before_save :to_markdown
+
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
@@ -92,6 +97,29 @@ class Reference < ActiveRecord::Base
   end
 
   private
+
+  def to_markdown
+    render_options = {
+        filter_html: true,
+        hard_wrap: true,
+        link_attributes: {rel: 'nofollow'},
+        no_images: true,
+        no_styles: true,
+        safe_links_only: true
+    }
+    renderer = RenderWithoutWrap.new(render_options)
+    extensions = {
+        autolink: true,
+        lax_spacing: true,
+        no_intra_emphasis: true,
+        strikethrough: true,
+        superscript: true
+    }
+    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
+    unless self.abstract.blank?
+      self.abstract_markdown = redcarpet.render(self.abstract)
+    end
+  end
 
   def delete_if_review
     article = self.article_was

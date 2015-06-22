@@ -103,13 +103,13 @@
       </div> <%= @reference.journal %></li>
     <li class="list-group-item">
       <div class="bold">
-        <% unless @reference.abstract.blank? %>
+        <% unless @reference.abstract_markdown.blank? %>
             <li class="list-group-item">
               <div class="bold">
                 Abstract (dans sa langue originale) :
               </div>
               <div class="justify">
-                <%= @reference.abstract %>
+                <%= @reference.abstract_markdown.html_safe %>
               </div>
             </li>
         <% end %>

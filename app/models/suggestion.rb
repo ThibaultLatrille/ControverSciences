@@ -1,4 +1,6 @@
 class Suggestion < ActiveRecord::Base
+  require 'HTMLlinks'
+
   belongs_to :user
 
   has_many :suggestion_children, dependent: :destroy

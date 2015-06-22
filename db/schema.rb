@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150620132010) do
+ActiveRecord::Schema.define(version: 20150622102420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -405,27 +405,28 @@ ActiveRecord::Schema.define(version: 20150620132010) do
     t.text     "author"
     t.text     "journal"
     t.text     "publisher"
-    t.boolean  "open_access",     default: true
-    t.text     "abstract",        default: ""
-    t.integer  "nb_contributors", default: 0
-    t.integer  "nb_edits",        default: 0
-    t.integer  "nb_votes",        default: 0
-    t.integer  "star_1",          default: 0
-    t.integer  "star_2",          default: 0
-    t.integer  "star_3",          default: 0
-    t.integer  "star_4",          default: 0
-    t.integer  "star_5",          default: 0
-    t.integer  "star_most",       default: 0
-    t.integer  "binary_1",        default: 0
-    t.integer  "binary_2",        default: 0
-    t.integer  "binary_3",        default: 0
-    t.integer  "binary_4",        default: 0
-    t.integer  "binary_5",        default: 0
-    t.integer  "binary_most",     default: 0
+    t.boolean  "open_access",       default: true
+    t.text     "abstract",          default: ""
+    t.integer  "nb_contributors",   default: 0
+    t.integer  "nb_edits",          default: 0
+    t.integer  "nb_votes",          default: 0
+    t.integer  "star_1",            default: 0
+    t.integer  "star_2",            default: 0
+    t.integer  "star_3",            default: 0
+    t.integer  "star_4",            default: 0
+    t.integer  "star_5",            default: 0
+    t.integer  "star_most",         default: 0
+    t.integer  "binary_1",          default: 0
+    t.integer  "binary_2",          default: 0
+    t.integer  "binary_3",          default: 0
+    t.integer  "binary_4",          default: 0
+    t.integer  "binary_5",          default: 0
+    t.integer  "binary_most",       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "binary",          default: ""
-    t.boolean  "article",         default: true
+    t.string   "binary",            default: ""
+    t.boolean  "article",           default: true
+    t.text     "abstract_markdown", default: ""
   end
 
   add_index "references", ["timeline_id"], name: "index_references_on_timeline_id", using: :btree

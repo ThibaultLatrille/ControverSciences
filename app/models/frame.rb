@@ -1,6 +1,7 @@
 class Frame < ActiveRecord::Base
   include ApplicationHelper
   require 'HTMLlinks'
+
   belongs_to :timeline
   belongs_to :user
 

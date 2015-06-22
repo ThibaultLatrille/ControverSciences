@@ -1,5 +1,13 @@
 module AssisstantHelper
 
+  def maj_v_4
+    ActiveRecord::Base.transaction do
+      Reference.all.each do |ref|
+        ref.save
+      end
+    end
+  end
+
   def maj_v_3
     ActiveRecord::Base.transaction do
       Timeline.all.each do |timeline|
