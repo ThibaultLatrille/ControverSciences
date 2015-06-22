@@ -68,7 +68,7 @@ class SummariesController < ApplicationController
         @summary.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
                                                                 timeline_id: @summary.timeline_id ).last.id
       end
-      if @summary.update_with_markdown( timeline_url( @summary.timeline_id ) )
+      if @summary.update_with_markdown
         flash[:success] = "Synthèse modifiée."
         redirect_to @summary
       else

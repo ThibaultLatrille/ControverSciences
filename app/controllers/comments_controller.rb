@@ -74,7 +74,7 @@ class CommentsController < ApplicationController
         @comment.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
           reference_id: @comment.reference_id ).last.id
       end
-      if @comment.update_with_markdown( timeline_url( @comment.timeline_id ) )
+      if @comment.update_with_markdown
         flash[:success] = "Analyse modifiée."
         redirect_to reference_path( @comment.reference_id, filter: :mine )
       else
