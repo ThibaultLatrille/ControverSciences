@@ -131,7 +131,7 @@
           </div>
           <%= link_to @reference.timeline_name.html_safe, @reference.timeline,
                       target: "_blank" %></li>
-        <% if @reference.binary != '' %>
+        <% unless @reference.binary.blank? %>
             <li class="list-group-item clearfix">
               <% if logged_in? %>
                   <div class="clearfix">

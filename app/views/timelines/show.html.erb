@@ -208,7 +208,7 @@
         <% end %>
       </div>
 
-      <% if @references.any? && @timeline.binary != '' && @timeline.total_binary > 0 %>
+      <% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
           <div class="center">
             <br/>
             <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[0].humanize -%></b>
