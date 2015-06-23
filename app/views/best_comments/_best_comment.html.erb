@@ -12,10 +12,10 @@
 
           <% if current_user.admin %>
               <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                          edit_comment_path(comment_id: best_comment.f_6_comment_id),
+                          edit_comment_path(best_comment.f_6_comment_id),
                           class: "btn btn-primary"%>
               <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                          comment_path(comment_id: best_comment.f_6_comment_id), method: :delete,
+                          comment_path(best_comment.f_6_comment_id), method: :delete,
                           class: "btn btn-danger"%>
           <% end %>
         </div>
@@ -55,10 +55,10 @@
                 </div>
                 <% if current_user.admin %>
                     <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                edit_comment_path(comment_id: best_comment["f_#{fi}_comment_id"]),
+                                edit_comment_path(best_comment["f_#{fi}_comment_id"]),
                                 class: "btn btn-primary"%>
                     <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                comment_path(comment_id: best_comment["f_#{fi}_comment_id"]), method: :delete,
+                                comment_path(best_comment["f_#{fi}_comment_id"]), method: :delete,
                                 class: "btn btn-danger"%>
                 <% end %>
             <% end %>
@@ -103,10 +103,10 @@
                             title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
                 <% if current_user.admin %>
                     <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                edit_comment_path(comment_id: best_comment.f_7_comment_id),
+                                edit_comment_path( best_comment.f_7_comment_id),
                                 class: "btn btn-primary"%>
                     <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                comment_path(comment_id: best_comment.f_7_comment_id), method: :delete,
+                                comment_path(best_comment.f_7_comment_id), method: :delete,
                                 class: "btn btn-danger"%>
                 <% end %>
               </div>
