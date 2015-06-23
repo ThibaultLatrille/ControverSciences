@@ -58,7 +58,7 @@ class Frame < ActiveRecord::Base
   end
 
   def my_frame_credit(user_id)
-    credit = FrameCredit.select(:value).find_by( user_id: user_id, timeline_id: self.timeline_id )
+    credit = FrameCredit.select(:value).find_by( user_id: user_id, frame_id: self.id )
     if credit
       credit.value
     else
