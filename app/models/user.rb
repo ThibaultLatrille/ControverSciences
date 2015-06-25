@@ -27,6 +27,8 @@ class User < ActiveRecord::Base
   has_many :my_typos, class_name: "Typo", foreign_key: "target_user_id"
   has_many :frames, dependent: :destroy
   has_many :frame_credits, dependent: :destroy
+  has_many :edges, dependent: :destroy
+  has_many :edge_votes, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
   before_save :downcase_email

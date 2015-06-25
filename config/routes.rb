@@ -88,6 +88,7 @@ Rails.application.routes.draw do
   get 'typos_accept' => 'typos#accept', as: 'typos_accept'
 
   resources :edges, only: [:index, :create]
+  resources :edge_votes, only: [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

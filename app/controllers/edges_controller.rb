@@ -2,28 +2,40 @@ class EdgesController < ApplicationController
   before_action :logged_in_user, only: [:index, :create]
 
   def index
-    @timeline_names = Timeline.select(:id, :name).order(:name).all.where.not( id: params[:timeline_id])
-    @edges = Edge.where( timeline_id: params[:timeline_id]).pluck(:target)
+    @edges = Edge.where("timeline_id = ? OR target = ?",
+                        params[:timeline_id],
+                        params[:timeline_id]).where.not(
+                        "reversible = ? AND target = ?",
+                        true,
+                        params[:timeline_id])
+    timeline_ids = @edges.map{ |e| [e.target, e.timeline_id] }.flatten.uniq
+    @timeline_names = Timeline.order(:name).all.where.not( id: timeline_ids ).pluck(:name, :id)
   end
 
   def create
-    edges = []
-    Edge.where(timeline_id: edge_params[:timeline_id]).destroy_all
-    unless params[:edge][:target_ids].blank?
-      params[:edge][:target_ids].each do |target_id|
-        if Timeline.exists?(target_id)
-          edges << Edge.new(user_id: current_user.id, timeline_id: edge_params[:timeline_id],
-                            weight: 1, target: target_id)
-        end
-      end
-      Edge.import edges
+    case edge_params[:value].to_i
+      when 0
+        Edge.create!(user_id: current_user.id, reversible: false,
+                    timeline_id: edge_params[:timeline_id],
+                        weight: 1, target: edge_params[:target])
+      when 1
+        Edge.create!(user_id: current_user.id, reversible: false,
+                    timeline_id: edge_params[:target],
+                    weight: 1, target: edge_params[:timeline_id])
+      when 2
+        Edge.create!(user_id: current_user.id, reversible: true,
+                    timeline_id: edge_params[:target],
+                    weight: 1, target: edge_params[:timeline_id])
+        Edge.create!(user_id: current_user.id, reversible: true,
+                    timeline_id: edge_params[:timeline_id],
+                    weight: 1, target: edge_params[:target])
     end
-    redirect_to timeline_path(edge_params[:timeline_id])
+    redirect_to edges_path(timeline_id: edge_params[:timeline_id])
   end
 
   private
 
   def edge_params
-    params.require(:edge).permit(:weight, :timeline_id)
+    params.require(:edge).permit(:weight, :timeline_id, :target, :value)
   end
 end

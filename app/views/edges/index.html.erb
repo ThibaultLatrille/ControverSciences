@@ -1,53 +1,96 @@
 <% provide(:title, "Liens") %>
 <div id="my-container" class="container-fluid">
-  <%= form_for(:edge, url: edges_path, method: :post) do |f| %>
-      <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
       <div class="row">
         <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
           <div class="panel panel-default clearfix">
             <div class="panel-heading clearfix">
               <h2>
-              Les liens deuis la controverse
-                <%= link_to Timeline.select(:name).find(params[:timeline_id]).name, timeline_path(params[:timeline_id]) %>
-                vers d'autres controverses
+              Les liens concernant la controverse
+                <%= link_to Timeline.select(:name).find(params[:timeline_id]).name.html_safe, timeline_path(params[:timeline_id]) %>
                 <br/>
                 <br/>
               </h2>
             </div>
-            <br/>
-            <div style="margin-right: 15px">
-              <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Mettre à jour les liens".html_safe,
-                           class: 'btn btn-success pull-right',
-                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Mise à jour"}%>
-            </div>
-            <br/>
-            <table id="edge-timelines" class="table table-striped table-hover">
-              <thead>
-                  <tr>
-                    <th class="col-xs-1 center"></th>
-                    <th class="col-xs-11"> La controverse</th>
-                  </tr>
-              </thead>
-              <tbody class="page">
-                  <% @timeline_names.each do |timeline| %>
-                      <tr class="notification-timeline">
-                        <td class="center"> <%= f.check_box :target_ids, {checked: @edges.include?(timeline.id) ? true : false , :multiple => true},
-                                             checked_value = timeline.id, unchecked_value = nil %> </td>
-                        <td> <%= link_to timeline.name.html_safe, timeline_path(id: timeline.id) %> </td>
-                      </tr>
+            <div class="panel-body">
+              <% @edges.each do |edge| %>
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                  <%= form_for :edge_vote, :url => edge_votes_path do |f| %>
+                      <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+                      <h4>
+                        <% if params[:timeline_id].to_i == edge.target %>
+                            <span class="bigger glyphicon glyphicon-arrow-left blue"></span> &nbsp
+                            Lien depuis la controverse  <%= link_to edge.timeline_name.html_safe, timeline_path(edge.timeline_id) %>
+                            <%= f.hidden_field :target, value: edge.timeline_id %>
+                        <% else %>
+                            <% if edge.reversible %>
+                                <span class="bigger glyphicon glyphicon-resize-horizontal blue"></span> &nbsp
+                                Lien à double sens vers la controverse <%= link_to edge.target_name.html_safe, timeline_path(edge.target) %>
+                                <%= f.hidden_field :target, value: edge.target %>
+                            <% else %>
+                                <span class="bigger glyphicon glyphicon-arrow-right blue"></span> &nbsp
+                                Lien vers la controverse <%= link_to edge.target_name.html_safe, timeline_path(edge.target) %>
+                                <%= f.hidden_field :target, value: edge.target %>
+                            <% end %>
+                        <% end %>
+                      </h4>
+                      <div class="btn-group-justified" data-toggle="buttons">
+                        <% (0..3).each do |key| %>
+                                <label class="btn btn-default btn-select
+                                <%= edge.my_vote_key( current_user.id, params[:timeline_id].to_i ) %>
+                                <%= edge.my_vote_key( current_user.id, params[:timeline_id].to_i ) == key ? "selected" : nil %>
+                                "
+                            title="<%= {0 => "Lien vers la controverse", 1 => "Lien depuis la controverse",
+                                        2 => "Lien à double sens", 3 => "Aucun lien n'a lien d'être"}[key] %>" data-toggle="tooltip" >
+                              <%= f.radio_button :value, checked_value = key,
+                                                 {id: key, autocomplete: "off"} %>
+                              <span class="glyphicon glyphicon-<%= {2 => "resize-horizontal", 1 => "arrow-left",
+                                                                    0 => "arrow-right", 3 => "ban-circle"}[key] %>"></span>
+                            </label>
+                        <% end %>
+                      </div>
+                      <br/>
+
+                      <div class="pull-right">
+                            <%= f.button "Enregistrer cet avis", class: "btn btn-success",
+                                         data:                          {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
+                      </div>
+                  <% end %>
+                    </div>
+                  </div>
+                  <br/>
+                  <br/>
               <% end %>
-              </tbody>
-            </table>
-            <div style="margin-right: 15px">
-              <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Mettre à jour les liens".html_safe,
-                           class: 'btn btn-success pull-right',
-                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Mise à jour"}%>
-              <br/>
-              <br/>
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h4>Créer un nouveau lien</h4>
+              </div>
+              <div class="panel-body">
+                <%= form_for(:edge, url: edges_path, method: :post) do |f| %>
+                    <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+
+                    <%= f.label "Sens du lien" %>
+                    <%= f.select :value, [["Vers".html_safe, 0],["Depuis", 1],["Double sens", 2]], {}, {class: 'form-control'} %>
+                    <br/>
+
+                    <%= f.label "La controverses" %>
+                    <%= f.select :target, @timeline_names.map{ |t| [t[0].html_safe, t[1]]}, {}, {class: 'form-control'} %>
+
+                    <br/>
+                    <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Ajouter un lien".html_safe,
+                                 class: 'btn btn-success pull-right',
+                                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Mise à jour"}%>
+                    <br/>
+                    <br/>
+                <% end %>
+              </div>
             </div>
-            <br/>
+            </div>
           </div>
         </div>
       </div>
-  <% end %>
 </div>
+
+<script type="text/javascript">
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+</script>

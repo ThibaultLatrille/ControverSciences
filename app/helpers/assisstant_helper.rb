@@ -1,5 +1,16 @@
 module AssisstantHelper
 
+  def maj_v_5
+    ActiveRecord::Base.transaction do
+      Edge.all.each do |edge|
+        reverse = Edge.find_by( timeline_id: edge.target, target: edge.timeline_id )
+        if reverse
+          Edge.where(id: [edge.id, reverse.id]).update_all( reversible: true)
+        end
+      end
+    end
+  end
+
   def maj_v_4
     ActiveRecord::Base.transaction do
       Reference.all.each do |ref|
