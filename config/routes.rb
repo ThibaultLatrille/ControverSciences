@@ -89,6 +89,8 @@ Rails.application.routes.draw do
 
   resources :edges, only: [:index, :create]
   resources :edge_votes, only: [:create, :destroy]
+  resources :reference_edges, only: [:index, :create]
+  resources :reference_edge_votes, only: [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

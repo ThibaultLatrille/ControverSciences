@@ -209,29 +209,36 @@
       </div>
 
       <% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
-          <div class="center">
-            <br/>
-            <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[0].humanize -%></b>
-            &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
-            <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[1].humanize -%></b>
-          </div>
-          <br/><br/>
-
-          <div id="sort">
-            <div class="row">
-              <div class="col-xs-1">
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-10">
+            <div class="panel panel-default">
+              <div class="center">
+                <br/>
+                <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[0].humanize -%></b>
+                &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
+                <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[1].humanize -%></b>
               </div>
-              <% (1..5).each do |key| %>
-                  <div class="col-xs-2" title="<%= @timeline.binary_explanation( key ) -%>. Cliquer pour les afficher/masquer." data-toggle="tooltip">
-                    <label class="btn btn-default btn-block active grey btn-filter<%= key %>" style="vertical-align: top;">
+              <br/><br/>
+
+              <div id="sort">
+                <div class="row">
+                  <div class="col-xs-1">
+                  </div>
+                  <% (1..5).each do |key| %>
+                      <div class="col-xs-2" title="<%= @timeline.binary_explanation( key ) -%>. Cliquer pour les afficher/masquer." data-toggle="tooltip">
+                        <label class="btn btn-default btn-block active grey btn-filter<%= key %>" style="vertical-align: top;">
                       <span class="glyphicon glyphicon-eye-open" style="font-size: <%= @timeline.binary_font_size( key ) -%>px;">
                         <%= @timeline["binary_#{key}".to_sym] -%>
                       </span>
-                    </label>
-                  </div>
-              <% end %>
+                        </label>
+                      </div>
+                  <% end %>
+                </div>
+              </div>
+              <br/>
             </div>
           </div>
+        </div>
       <% end %>
       <% if @references.any? %>
           <% if @titles > 0 %>

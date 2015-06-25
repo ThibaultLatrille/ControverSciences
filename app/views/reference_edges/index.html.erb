@@ -1,0 +1,98 @@
+<% provide(:title, "Liens") %>
+<div id="my-container" class="container-fluid">
+      <div class="row">
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+          <div class="panel panel-default clearfix">
+            <div class="panel-heading clearfix">
+              <h2>
+              Les liens concernant la référence
+                <%= link_to Reference.select(:title).find(params[:reference_id]).title.html_safe, reference_path(params[:reference_id]) %>
+                <br/>
+                <br/>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <% @reference_edges.each do |reference_edge| %>
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                  <%= form_for :reference_edge_vote, :url => reference_edge_votes_path do |f| %>
+                      <%= f.hidden_field :reference_id, value: params[:reference_id] %>
+                      <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+                      <h4>
+                        <% if params[:reference_id].to_i == reference_edge.target %>
+                            <span class="bigger glyphicon glyphicon-arrow-left blue"></span> &nbsp
+                            Lien depuis la référence  <%= link_to reference_edge.reference_name.html_safe, reference_path(reference_edge.reference_id) %>
+                            <%= f.hidden_field :target, value: reference_edge.reference_id %>
+                        <% else %>
+                            <% if reference_edge.reversible %>
+                                <span class="bigger glyphicon glyphicon-resize-horizontal blue"></span> &nbsp
+                                Lien à double sens vers la référence <%= link_to reference_edge.target_name.html_safe, reference_path(reference_edge.target) %>
+                                <%= f.hidden_field :target, value: reference_edge.target %>
+                            <% else %>
+                                <span class="bigger glyphicon glyphicon-arrow-right blue"></span> &nbsp
+                                Lien vers la référence <%= link_to reference_edge.target_name.html_safe, reference_path(reference_edge.target) %>
+                                <%= f.hidden_field :target, value: reference_edge.target %>
+                            <% end %>
+                        <% end %>
+                      </h4>
+                      <div class="btn-group-justified" data-toggle="buttons">
+                        <% (0..3).each do |key| %>
+                                <label class="btn btn-default btn-select
+                                <%= reference_edge.my_reference_vote_key( current_user.id, params[:reference_id].to_i ) %>
+                                <%= reference_edge.my_reference_vote_key( current_user.id, params[:reference_id].to_i ) == key ? "selected" : nil %>
+                                "
+                            title="<%= {0 => "Lien vers la reference", 1 => "Lien depuis la référence",
+                                        2 => "Lien à double sens", 3 => "Aucun lien n'a lien d'être"}[key] %>" data-toggle="tooltip" >
+                              <%= f.radio_button :value, checked_value = key,
+                                                 {id: key, autocomplete: "off"} %>
+                              <span class="glyphicon glyphicon-<%= {2 => "resize-horizontal", 1 => "arrow-left",
+                                                                    0 => "arrow-right", 3 => "ban-circle"}[key] %>"></span>
+                            </label>
+                        <% end %>
+                      </div>
+                      <br/>
+
+                      <div class="pull-right">
+                            <%= f.button "Enregistrer cet avis", class: "btn btn-success",
+                                         data:                          {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
+                      </div>
+                  <% end %>
+                    </div>
+                  </div>
+                  <br/>
+                  <br/>
+              <% end %>
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h4>Créer un nouveau lien</h4>
+              </div>
+              <div class="panel-body">
+                <%= form_for(:reference_edge, url: reference_edges_path, method: :post) do |f| %>
+                    <%= f.hidden_field :reference_id, value: params[:reference_id] %>
+                    <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+
+                    <%= f.label "Sens du lien" %>
+                    <%= f.select :value, [["Vers".html_safe, 0],["Depuis", 1],["Double sens", 2]], {}, {class: 'form-control'} %>
+                    <br/>
+
+                    <%= f.label "La références" %>
+                    <%= f.select :target, @reference_names.map{ |t| [t[0].html_safe, t[1]]}, {}, {class: 'form-control'} %>
+
+                    <br/>
+                    <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Ajouter un lien".html_safe,
+                                 class: 'btn btn-success pull-right',
+                                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Mise à jour"}%>
+                    <br/>
+                    <br/>
+                <% end %>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<script type="text/javascript">
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+</script>

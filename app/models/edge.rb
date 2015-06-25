@@ -25,7 +25,6 @@ class Edge < ActiveRecord::Base
       vote = EdgeVote.find_by( timeline_id: self.target, target: self.timeline_id,
                         user_id: user_id )
     end
-    puts vote
     vote
   end
 
@@ -34,7 +33,6 @@ class Edge < ActiveRecord::Base
     if edge_vote.blank?
       4
     else
-      puts edge_vote.inspect
       if edge_vote.reversible
         2
       else
