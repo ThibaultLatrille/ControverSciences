@@ -10,6 +10,9 @@ class Reference < ActiveRecord::Base
   has_many :binaries, dependent: :destroy
   has_many :reference_contributors, dependent: :destroy
 
+  has_many :reference_edges, dependent: :destroy
+  has_many :reference_edge_votes, dependent: :destroy
+
   has_many :notifications, dependent: :destroy
 
   has_one :best_comment, dependent: :destroy
