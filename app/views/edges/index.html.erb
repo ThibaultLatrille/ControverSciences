@@ -49,8 +49,8 @@
                             </label>
                         <% end %>
                       </div>
-                      <br/>
-
+                          <br/>
+                          Donnez votre avis concernant ce lien: <br/><br/>
                       <div class="pull-right">
                             <%= f.button "Enregistrer cet avis", class: "btn btn-success",
                                          data:                          {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
@@ -58,12 +58,10 @@
                   <% end %>
                     </div>
                   </div>
-                  <br/>
-                  <br/>
               <% end %>
             <div class="panel panel-success">
               <div class="panel-heading">
-                <h4>Créer un nouveau lien</h4>
+                <h4><span class="glyphicon glyphicon-link"></span> Créer un nouveau lien</h4>
               </div>
               <div class="panel-body">
                 <%= form_for(:edge, url: edges_path, method: :post) do |f| %>

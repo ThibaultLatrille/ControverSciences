@@ -16,6 +16,12 @@
                   next_reference_path(timeline_id: @reference.timeline_id, id: @reference.id), class: "btn btn-block btn-primary" %>
       <div style="padding-top: 10px">
       </div>
+      <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+        </span> Ajouter des liens vers d'autres références".html_safe,
+                  reference_edges_path(timeline_id: @reference.timeline_id, reference_id: @reference.id),
+                  class: "btn btn-primary btn-block" %>
+      <div style="padding-top: 10px">
+      </div>
       <% if @reference.nb_edits > 1 && Vote.where(user_id: current_user.id, reference_id: @reference.id).sum(:value) > 0 %>
           <div class="panel panel-default">
             <div class="panel-body page">

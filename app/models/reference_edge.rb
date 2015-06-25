@@ -11,12 +11,20 @@ class ReferenceEdge < ActiveRecord::Base
   validates :weight, presence: true, inclusion: { in: 1..12 }
   validates_uniqueness_of :reference_id, :scope => [:target]
 
-  def target_name
+  def target_title
     Reference.select(:title).find(self.target).title
   end
 
-  def reference_name
+  def target_title_fr
+    Reference.select(:title_fr).find(self.target).title_fr
+  end
+
+  def reference_title
     Reference.select(:title).find(self.reference_id).title
+  end
+
+  def reference_title_fr
+    Reference.select(:title_fr).find(self.reference_id).title_fr
   end
 
   def my_reference_vote( user_id )

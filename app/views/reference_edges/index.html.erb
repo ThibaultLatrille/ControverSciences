@@ -21,20 +21,28 @@
                       <h4>
                         <% if params[:reference_id].to_i == reference_edge.target %>
                             <span class="bigger glyphicon glyphicon-arrow-left blue"></span> &nbsp
-                            Lien depuis la référence  <%= link_to reference_edge.reference_name.html_safe, reference_path(reference_edge.reference_id) %>
+                            Lien depuis la référence
+                            <%= link_to "#{reference_edge.reference_title_fr.blank? ? "" : reference_edge.reference_title_fr.html_safe}
+                                <div style=\"font-style: italic; font-size: 0.8em\"> #{reference_edge.reference_title.html_safe}</div>".html_safe,
+                                        reference_path( reference_edge.reference_id ) %>
                             <%= f.hidden_field :target, value: reference_edge.reference_id %>
                         <% else %>
                             <% if reference_edge.reversible %>
                                 <span class="bigger glyphicon glyphicon-resize-horizontal blue"></span> &nbsp
-                                Lien à double sens vers la référence <%= link_to reference_edge.target_name.html_safe, reference_path(reference_edge.target) %>
+                                Lien à double sens vers la référence
                                 <%= f.hidden_field :target, value: reference_edge.target %>
                             <% else %>
                                 <span class="bigger glyphicon glyphicon-arrow-right blue"></span> &nbsp
-                                Lien vers la référence <%= link_to reference_edge.target_name.html_safe, reference_path(reference_edge.target) %>
+                                Lien vers la référence
                                 <%= f.hidden_field :target, value: reference_edge.target %>
                             <% end %>
+                            <%= link_to "#{reference_edge.target_title_fr.blank? ? "" : reference_edge.target_title_fr.html_safe}
+                                <div style=\"margin-top: 0px; font-style: italic; font-size: 0.8em\"> #{reference_edge.target_title.html_safe}</div>".html_safe,
+                                        reference_path( reference_edge.target ) %>
                         <% end %>
                       </h4>
+                          <br/>
+                          Donnez votre avis concernant ce lien: <br/><br/>
                       <div class="btn-group-justified" data-toggle="buttons">
                         <% (0..3).each do |key| %>
                                 <label class="btn btn-default btn-select
@@ -59,12 +67,10 @@
                   <% end %>
                     </div>
                   </div>
-                  <br/>
-                  <br/>
               <% end %>
             <div class="panel panel-success">
               <div class="panel-heading">
-                <h4>Créer un nouveau lien</h4>
+                <h4><span class="glyphicon glyphicon-link"></span> Créer un nouveau lien</h4>
               </div>
               <div class="panel-body">
                 <%= form_for(:reference_edge, url: reference_edges_path, method: :post) do |f| %>
@@ -75,7 +81,7 @@
                     <%= f.select :value, [["Vers".html_safe, 0],["Depuis", 1],["Double sens", 2]], {}, {class: 'form-control'} %>
                     <br/>
 
-                    <%= f.label "La références" %>
+                    <%= f.label "La référence" %>
                     <%= f.select :target, @reference_names.map{ |t| [t[0].html_safe, t[1]]}, {}, {class: 'form-control'} %>
 
                     <br/>

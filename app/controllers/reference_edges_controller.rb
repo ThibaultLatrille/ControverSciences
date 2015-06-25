@@ -2,14 +2,15 @@ class ReferenceEdgesController < ApplicationController
   before_action :logged_in_user, only: [:index, :create]
 
   def index
-    @reference_edges = ReferenceEdge.where("reference_id = ? OR target = ?",
+    @reference_edges = ReferenceEdge.where( timeline_id: params[:timeline_id] )
+                        .where("reference_id = ? OR target = ?",
                         params[:reference_id],
                         params[:reference_id]).where.not(
                         "reversible = ? AND target = ?",
                         true,
                         params[:reference_id])
     reference_ids = @reference_edges.map{ |e| [e.target, e.reference_id] }.flatten.uniq
-    @reference_names = Timeline.order(:name).all.where.not( id: reference_ids ).pluck(:name, :id)
+    @reference_names = Reference.order(:title).where( timeline_id: params[:timeline_id] ).where.not( id: reference_ids ).pluck(:title, :id)
   end
 
   def create
@@ -41,6 +42,6 @@ class ReferenceEdgesController < ApplicationController
   private
 
   def reference_edge_params
-    params.require(:edge).permit(:weight, :reference_id, :target, :value, :timeline_id)
+    params.require(:reference_edge).permit(:weight, :reference_id, :target, :value, :timeline_id)
   end
 end
