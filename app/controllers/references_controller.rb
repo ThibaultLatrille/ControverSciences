@@ -158,6 +158,17 @@ class ReferencesController < ApplicationController
     end
   end
 
+  def graph
+  end
+
+  def network
+    @nodes = Reference.select(:id, :title, :title_fr,:binary_most, :star_most)
+                      .where( timeline_id: params[:timeline_id] )
+    @links = ReferenceEdge.select(:id, :timeline_id, :reference_id, :target)
+                          .where( timeline_id: params[:timeline_id] )
+                          .to_a.uniq{ |e| [e.timeline_id,e.target].sort }
+  end
+
   private
 
   def reference_params

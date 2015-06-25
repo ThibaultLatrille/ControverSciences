@@ -46,6 +46,12 @@
                           class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
           <% end %>
           <br/>
+          <% if logged_in? %>
+              <br/>
+              <%= link_to image_tag("network.svg", alt: "graph", height: "32px") +
+                                  " Le graphe des references", references_graph_path(timeline_id: @timeline.id),
+                      class: "btn btn-block btn-primary" %>
+          <% end %>
         </div>
       </div>
     </div>

@@ -30,6 +30,8 @@ Rails.application.routes.draw do
   get '/previous' => 'references#previous', as: 'previous_reference'
   get '/from_timeline' => 'references#from_timeline', as: 'from_timeline'
   get '/from_reference' => 'references#from_reference', as: 'from_reference'
+  get 'references_graph' => 'references#graph'
+  get 'references_network' => 'references#network'
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :votes, only: [:new ,:create, :destroy]
   resources :ratings, only: [:create, :destroy]
