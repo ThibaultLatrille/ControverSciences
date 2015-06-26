@@ -12,5 +12,12 @@ class PendingUser < ActiveRecord::Base
         :html => self.why
     }
     mg_client.send_message "controversciences.org", message
+    message = {
+        :subject=> "En attente #{self.user.email} sur ControverSciences",
+        :from=>"pending.user@controversciences.org",
+        :to => "sombrenard@gmail.com",
+        :html => self.why
+    }
+    mg_client.send_message "controversciences.org", message
   end
 end
