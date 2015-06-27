@@ -9,6 +9,10 @@ class Typo < ActiveRecord::Base
   after_create :increment_nb_notifs
   after_destroy :decrement_nb_notifs
 
+  validates_uniqueness_of :user_id, :if => Proc.new { |c| not c.summary_id.blank? }, :scope => [:summary_id]
+  validates_uniqueness_of :user_id, :if => Proc.new { |c| not c.comment_id.blank? }, :scope => [:comment_id, :field]
+  validates_uniqueness_of :user_id, :if => Proc.new { |c| not c.frame_id.blank? }, :scope => [:frame_id, :field]
+
   def old_content
     if !summary_id.blank?
       self.summary.content
@@ -36,10 +40,10 @@ class Typo < ActiveRecord::Base
     Frame.select(:id, :user_id, :timeline_id).find(self.frame_id)
   end
 
-  def set_content(current_user_id)
+  def set_content(current_user_id, admin)
     if !summary_id.blank?
       sum = self.summary
-      if sum.user_id == current_user_id
+      if sum.user_id == current_user_id || admin
         sum.content = self.content
         sum.update_with_markdown
       else
@@ -47,7 +51,7 @@ class Typo < ActiveRecord::Base
       end
     elsif !comment_id.blank?
       com = self.comment
-      if com.user_id == current_user_id
+      if com.user_id == current_user_id || admin
         case self.field
           when 6
             com.title = self.content
@@ -62,7 +66,7 @@ class Typo < ActiveRecord::Base
       end
     elsif !frame_id.blank?
       fra = self.frame
-      if fra.user_id == current_user_id
+      if fra.user_id == current_user_id || admin
         case self.field
           when 0
             fra.name = self.content

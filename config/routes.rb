@@ -86,7 +86,7 @@ Rails.application.routes.draw do
   resources :issues, only: [:create]
   resources :figures, only: [:create]
 
-  resources :typos, only: [:create, :new, :show, :destroy]
+  resources :typos, only: [:create, :new, :index, :show, :destroy]
   get 'typos_accept' => 'typos#accept', as: 'typos_accept'
 
   resources :edges, only: [:index, :create]

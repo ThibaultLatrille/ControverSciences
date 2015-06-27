@@ -1,4 +1,4 @@
 $('#newissue').modal('hide');
 $('form > input[type=reset]','#newissue').trigger('click');
 $('.active','#newissue').removeClass("active");
-$('#issue-added').show(500);
+$("#my-container").prepend("<%= escape_javascript(render partial: 'issue/alert') %>");

@@ -1,5 +1,6 @@
 class TyposController < ApplicationController
-  before_action :logged_in_user, only: [:accept, :create, :destroy]
+  before_action :logged_in_user, only: [:accept, :create, :destroy, :index]
+  before_action :admin_user, only: [:index]
 
   def new
     @typo = Typo.new( get_params )
@@ -48,16 +49,33 @@ class TyposController < ApplicationController
     end
   end
 
+  def index
+    @typos = Typo.all
+  end
+
   def accept
     @typo = Typo.find( params[:id] )
-    @typo.set_content(current_user.id)
-    @typo.destroy
-    redirect_to notifications_important_path
+    @typo.set_content(current_user.id, current_user.admin)
+    if @typo.target_user_id == current_user.id || current_user.admin
+      @typo.destroy
+    end
+    if current_user.admin
+      redirect_to typos_path
+    else
+      redirect_to notifications_important_path
+    end
   end
 
   def destroy
-    @typo = Typo.find( params[:id] ).destroy
-    redirect_to notifications_important_path
+    @typo = Typo.find( params[:id] )
+    if @typo.target_user_id == current_user.id || current_user.admin
+      @typo.destroy
+    end
+    if current_user.admin
+      redirect_to typos_path
+    else
+      redirect_to notifications_important_path
+    end
   end
 
   private

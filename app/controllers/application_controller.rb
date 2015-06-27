@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
 
   # Confirms an admin user.
   def admin_user
-    flash[:danger] = "Vous devez être Admin pour accéder à cette page."
+    flash[:danger] = "Uniquement les admins peuvent effectuer ces actions."
     redirect_to(root_url) unless current_user.admin?
   end
 end
