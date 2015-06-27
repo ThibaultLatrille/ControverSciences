@@ -34,6 +34,8 @@
                             <% end %>
                         <% end %>
                       </h4>
+                          <br/>
+                          Donnez votre avis concernant ce lien: <br/><br/>
                       <div class="btn-group-justified" data-toggle="buttons">
                         <% (0..3).each do |key| %>
                                 <label class="btn btn-default btn-select
@@ -49,8 +51,6 @@
                             </label>
                         <% end %>
                       </div>
-                          <br/>
-                          Donnez votre avis concernant ce lien: <br/><br/>
                       <div class="pull-right">
                             <%= f.button "Enregistrer cet avis", class: "btn btn-success",
                                          data:                          {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
