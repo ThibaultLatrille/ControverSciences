@@ -26,13 +26,15 @@ class ApplicationController < ActionController::Base
         mg_client.send_message "controversciences.org", message
       end
     end
-    message = {
-        :subject=> "#{names.count} emails ont été envoyé aux contributeurs",
-        :from=>"contact@controversciences.org",
-        :to => "thibault.latrille@ens-lyon.fr",
-        :html => names.join("")
-    }
-    mg_client.send_message "controversciences.org", message
+    User.where(admin: true).each do |admin|
+      message = {
+          :subject=> "#{names.count} emails ont été envoyé aux contributeurs",
+          :from=>"contact@controversciences.org",
+          :to => admin.email,
+          :html => names.join("")
+      }
+      mg_client.send_message "controversciences.org", message
+    end
   end
 
   private
