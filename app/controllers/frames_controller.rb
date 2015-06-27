@@ -127,8 +127,7 @@ class FramesController < ApplicationController
       end
       Frame.connection.execute("select setseed(#{@seed})")
       @frames = Frame.where(
-          timeline_id: params[:timeline_id]).where.not(
-          user_id: user_id).order('random()').page(params[:page]).per(15)
+          timeline_id: params[:timeline_id]).order('random()').page(params[:page]).per(15)
     else
       if !params[:sort].nil?
         if !params[:order].nil?

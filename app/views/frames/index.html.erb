@@ -35,8 +35,7 @@
                       class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
         </div>
         <div class="btn-group">
-          <%= link_to "Les autres contributions (".html_safe +
-                              (@improve ? @timeline.nb_frames.to_s : (@timeline.nb_frames-1).to_s ) + ")",
+          <%= link_to "Toutes les contributions (#{@timeline.nb_frames})".html_safe,
                       frames_path( timeline_id: params[:timeline_id] ),
                       class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
         </div>

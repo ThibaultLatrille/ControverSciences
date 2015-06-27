@@ -122,8 +122,7 @@ class SummariesController < ApplicationController
       end
       Summary.connection.execute("select setseed(#{@seed})")
       @summaries = Summary.where(
-          timeline_id: params[:timeline_id], public: true ).where.not(
-          user_id: user_id).order('random()').page(params[:page]).per(5)
+          timeline_id: params[:timeline_id], public: true ).order('random()').page(params[:page]).per(5)
     else
       if !params[:sort].nil?
         if !params[:order].nil?
