@@ -24,7 +24,7 @@ class BestComment < ActiveRecord::Base
     elsif !f_5_comment_id.blank?
       markdown( 5 )
     else
-      ""
+      "<p></p>"
     end
   end
 
