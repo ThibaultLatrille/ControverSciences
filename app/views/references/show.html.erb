@@ -1,4 +1,11 @@
-<% provide(:title, "Référence") %>
+<% if @reference.title_fr.blank? %>
+    <% provide(:title, @reference.title.html_safe ) %>
+<% else %>
+    <% provide(:title, @reference.title_fr.strip[3..-5].html_safe ) %>
+<% end %>
+<% if @best_comment && @best_comment.not_empty %>
+    <% provide(:meta, @best_comment.first_data.strip[3..-5].html_safe ) %>
+<% end %>
 
 <div id="my-container" class="container-fluid">
 <div class="row">

@@ -10,6 +10,24 @@ class BestComment < ActiveRecord::Base
         !f_6_comment_id.nil? || !f_7_comment_id.nil?
   end
 
+  def first_data
+    if !f_0_comment_id.blank?
+      markdown( 0 )
+    elsif !f_1_comment_id.blank?
+      markdown( 1 )
+    elsif !f_2_comment_id.blank?
+      markdown( 2 )
+    elsif !f_3_comment_id.blank?
+      markdown( 3 )
+    elsif !f_4_comment_id.blank?
+      markdown( 4 )
+    elsif !f_5_comment_id.blank?
+      markdown( 5 )
+    else
+      ""
+    end
+  end
+
   def authors
     list = []
     for fi in 0..7 do

@@ -16,9 +16,13 @@ module StaticPagesHelper
     "Thibault Latrille"
   end
 
-  def meta_description
-    "Portail de vulgarisation scientique destiné à éclairer débats et controverses.
+  def meta_description(meta_descri)
+    if meta_descri.blank?
+      "Portail de vulgarisation scientique destiné à éclairer débats et controverses.
       Animé par des scientifiques, pour tout public"
+    else
+      meta_descri
+    end
   end
 
   def meta_keywords
