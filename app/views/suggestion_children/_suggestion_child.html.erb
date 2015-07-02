@@ -20,11 +20,6 @@
                        title="<%= suggestion_child.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
                     <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion_child.plus %></span>
                   </div>
-                  <div class="sticky" style="color: #d9534f;" data-placement="right"
-                       data-toggle="tooltip"
-                       title="<%= suggestion_child.minus.to_s + " contributeurs trouvent cette idée non constructive" %>">
-                    <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion_child.minus %></span>
-                  </div>
             <% else %>
               <div>
                 <% if @my_sug_child_likes && @my_sug_child_likes.include?(suggestion_child.id) %>
@@ -38,19 +33,6 @@
                             data-toggle="tooltip" value="<%= suggestion_child.id %>" data-validate="/suggestion_child_votes"
                             title="<%= suggestion_child.plus.to_s + " contributeurs trouvent cette réponse constructive" %>">
                       <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion_child.plus %></span>
-                    </button>
-                <% end %>
-                <% if @my_sug_child_dislikes && @my_sug_child_dislikes.include?(suggestion_child.id) %>
-                    <button type="button" class="btn btn-sm btn-success" data-placement="right" data-value="false"
-                            data-toggle="tooltip" value="<%= suggestion_child.id %>" data-validate="/suggestion_child_votes"
-                            title="Vous et <%= (suggestion_child.minus - 1).to_s + " contributeurs trouvent cette réponse non constructive" %>">
-                      <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion_child.minus %></span>
-                    </button>
-                <% else %>
-                    <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
-                            data-toggle="tooltip" value="<%= suggestion_child.id %>" data-validate="/suggestion_child_votes"
-                            title="<%= suggestion_child.minus.to_s + " contributeurs trouvent cette réponse non constructive" %>">
-                      <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion_child.minus %></span>
                     </button>
                 <% end %>
               </div>

@@ -5,7 +5,6 @@ class SuggestionChildrenController < ApplicationController
     @suggestion_children = SuggestionChild.order( :created_at ).where( suggestion_id: params[:suggestion_id])
     if logged_in?
       @my_sug_child_likes = SuggestionChildVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_child_id)
-      @my_sug_child_dislikes = SuggestionChildVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_child_id)
     end
     respond_to do |format|
       format.js
@@ -18,17 +17,13 @@ class SuggestionChildrenController < ApplicationController
     @suggestion_children = SuggestionChild.order( :created_at ).where( suggestion_id: @suggestion_child.suggestion_id )
     if logged_in?
       @my_sug_child_likes = SuggestionChildVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_child_id)
-      @my_sug_child_dislikes = SuggestionChildVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_child_id)
       @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
-      @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
     end
   end
 
   def edit
     @my_sug_child_likes = SuggestionChildVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_child_id)
-    @my_sug_child_dislikes = SuggestionChildVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_child_id)
     @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
-    @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
     @suggestion_child = SuggestionChild.find( params[:id] )
     @suggestion = Suggestion.find( @suggestion_child.suggestion_id )
     @suggestion_children = SuggestionChild.order( :created_at ).where( suggestion_id: @suggestion_child.suggestion_id )
@@ -39,9 +34,7 @@ class SuggestionChildrenController < ApplicationController
     @suggestion = Suggestion.find( @suggestion_child.suggestion_id )
     @suggestion_children = SuggestionChild.order( :created_at ).where( suggestion_id: @suggestion_child.suggestion_id )
     @my_sug_child_likes = SuggestionChildVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_child_id)
-    @my_sug_child_dislikes = SuggestionChildVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_child_id)
     @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
-    @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
     if current_user.id == @suggestion_child.user_id || current_user.admin
       @suggestion_child.comment = suggestion_child_params[:comment]
       if @suggestion_child.save
@@ -65,9 +58,7 @@ class SuggestionChildrenController < ApplicationController
       @suggestion_children = SuggestionChild.order( :created_at ).where( suggestion_id: @suggestion_child.suggestion_id )
       if logged_in?
         @my_sug_child_likes = SuggestionChildVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_child_id)
-        @my_sug_child_dislikes = SuggestionChildVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_child_id)
         @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
-        @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
       end
       render 'new'
     end

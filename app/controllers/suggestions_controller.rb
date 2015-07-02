@@ -8,7 +8,6 @@ class SuggestionsController < ApplicationController
       @suggestion = Suggestion.find( params[:id] )
       if logged_in?
         @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
-        @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
       end
     end
   end
@@ -37,7 +36,6 @@ class SuggestionsController < ApplicationController
     else
       if logged_in?
         @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
-        @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
       end
       @suggestions = Suggestion.order( created_at: :desc).where( timeline_id: nil ).page(params[:page]).per(25)
     end
@@ -53,7 +51,6 @@ class SuggestionsController < ApplicationController
       redirect_to suggestions_path
     else
       @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
-      @my_sug_dislikes = SuggestionVote.where(user_id: current_user.id, value: false ).pluck(:suggestion_id)
       @suggestions = Suggestion.order( created_at: :desc).where( timeline_id: nil ).page(params[:page]).per(25)
       render 'index'
     end

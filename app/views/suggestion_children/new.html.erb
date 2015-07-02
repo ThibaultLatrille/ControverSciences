@@ -52,19 +52,6 @@
                               <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.plus %></span>
                             </button>
                         <% end %>
-                        <% if @my_sug_dislikes && @my_sug_dislikes.include?(@suggestion.id) %>
-                            <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
-                                    data-toggle="tooltip" value="<%= @suggestion.id %>" data-validate="/suggestion_votes"
-                                    title="Vous et <%= (@suggestion.minus - 1).to_s + " contributeurs trouvent cette idée non constructive" %>">
-                              <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.minus %></span>
-                            </button>
-                        <% else %>
-                            <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
-                                    data-toggle="tooltip" value="<%= @suggestion.id %>" data-validate="/suggestion_votes"
-                                    title="<%= @suggestion.minus.to_s + " contributeurs trouvent cette idée non constructive" %>">
-                              <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.minus %></span>
-                            </button>
-                        <% end %>
                       </div>
                   <% end %>
               <% end %>
@@ -188,13 +175,8 @@
                         $('.loader-like').remove();
                         self.show();
                         var like = $('.glyphicon', self);
-                        if (self.data('value') == true){
-                            self.removeClass('green');
-                            self.addClass('btn-success');
-                        } else {
-                            self.removeClass('red');
-                            self.addClass('btn-danger');
-                        }
+                        self.removeClass('green');
+                        self.addClass('btn-success');
                         self.removeClass('btn-default');
                         self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
@@ -204,13 +186,8 @@
                         self.show();
                         var like = $('.glyphicon', self);
                         self.addClass('btn-default');
-                        if (self.data('value') == true){
-                            self.removeClass('btn-success');
-                            self.addClass('green');
-                        } else {
-                            self.removeClass('btn-danger');
-                            self.addClass('red');
-                        }
+                        self.removeClass('btn-success');
+                        self.addClass('green');
                         self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },

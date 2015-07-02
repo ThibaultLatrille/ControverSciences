@@ -32,11 +32,6 @@
                            title="<%= @suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
                         <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.plus %></span>
                       </div>
-                      <div class="sticky" style="color: #d9534f;" data-placement="right"
-                           data-toggle="tooltip"
-                           title="<%= @suggestion.minus.to_s + " contributeurs trouvent cette idée non constructive" %>">
-                        <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.minus %></span>
-                      </div>
                   <% else %>
                       <div>
                         <% if @my_sug_likes && @my_sug_likes.include?(@suggestion.id) %>
@@ -50,19 +45,6 @@
                                     data-toggle="tooltip" value="<%= @suggestion.id %>" data-validate="/suggestion_votes"
                                     title="<%= @suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
                               <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.plus %></span>
-                            </button>
-                        <% end %>
-                        <% if @my_sug_dislikes && @my_sug_dislikes.include?(@suggestion.id) %>
-                            <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
-                                    data-toggle="tooltip" value="<%= @suggestion.id %>" data-validate="/suggestion_votes"
-                                    title="Vous et <%= (@suggestion.minus - 1).to_s + " contributeurs trouvent cette idée non constructive" %>">
-                              <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.minus %></span>
-                            </button>
-                        <% else %>
-                            <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
-                                    data-toggle="tooltip" value="<%= @suggestion.id %>" data-validate="/suggestion_votes"
-                                    title="<%= @suggestion.minus.to_s + " contributeurs trouvent cette idée non constructive" %>">
-                              <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.minus %></span>
                             </button>
                         <% end %>
                       </div>
