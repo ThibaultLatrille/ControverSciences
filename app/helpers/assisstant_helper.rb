@@ -9,7 +9,7 @@ module AssisstantHelper
 
   def maj_v_5
     ActiveRecord::Base.transaction do
-      Edge.all.each do |edge|
+      Edge.find_each do |edge|
         reverse = Edge.find_by( timeline_id: edge.target, target: edge.timeline_id )
         if reverse
           Edge.where(id: [edge.id, reverse.id]).update_all( reversible: true)
@@ -20,7 +20,7 @@ module AssisstantHelper
 
   def maj_v_4
     ActiveRecord::Base.transaction do
-      Reference.all.each do |ref|
+      Reference.find_each do |ref|
         ref.save
       end
     end
@@ -28,13 +28,13 @@ module AssisstantHelper
 
   def maj_v_3
     ActiveRecord::Base.transaction do
-      Timeline.all.each do |timeline|
+      Timeline.find_each do |timeline|
         frame = Frame.new( user_id: timeline.user_id, best: true, binary: timeline.binary,
                       content: "", name: timeline.name, timeline_id: timeline.id )
         frame.set_tag_list(timeline.get_tag_list)
         frame.save!
       end
-      User.all.each do |user|
+      User.find_each do |user|
         user.update_columns( nb_notifs: user.notifications_all_important )
       end
     end
@@ -60,7 +60,7 @@ module AssisstantHelper
         Suggestion.create!(user_id: tim.user_id, timeline_id: tim.id, comment: text)
       end
       Timeline.all.update_all(debate: true)
-      Reference.all.each do |ref|
+      Reference.find_each do |ref|
         ref.binary_1 = Binary.where( reference_id: ref.id, value: 1).count
         ref.binary_2 = Binary.where( reference_id: ref.id, value: 2).count
         ref.binary_3 = Binary.where( reference_id: ref.id, value: 3).count
@@ -91,7 +91,7 @@ module AssisstantHelper
         end
         ref.save!
       end
-      Timeline.all.each do |tim|
+      Timeline.find_each do |tim|
         tim.binary_0 = Reference.where( timeline_id: tim.id, binary_most: 0).count
         tim.binary_1 = Reference.where( timeline_id: tim.id, binary_most: 1).count
         tim.binary_2 = Reference.where( timeline_id: tim.id, binary_most: 2).count
@@ -104,7 +104,7 @@ module AssisstantHelper
   end
 
   def update_score_users
-    User.select(:id, :score).all.each do |user|
+    User.select(:id, :score).find_each do |user|
       count = 1
       for field in 0..7 do
         count += BestComment.where("f_#{field}_user_id".to_sym => user.id).count
@@ -119,7 +119,7 @@ module AssisstantHelper
   end
 
   def update_score_timelines
-    Timeline.select(:id, :nb_contributors, :nb_references, :nb_summaries, :nb_comments).all.each do |timeline|
+    Timeline.select(:id, :nb_contributors, :nb_references, :nb_summaries, :nb_comments).find_each do |timeline|
       ago             = Time.now - 7.days
       nb_references   = Reference.where(timeline_id: timeline.id, created_at: ago..Time.now).count
       nb_edits        = Comment.where(timeline_id: timeline.id, created_at: ago..Time.now).count +
@@ -132,9 +132,9 @@ module AssisstantHelper
   end
 
   def compute_fitness
-    Comment.where(public: true).pluck(:id).each do |comment_id|
+    Comment.select(:id).where(public: true).find_each do |comment|
       score = {0 => 0.0, 1 => 0.0, 2 => 0.0, 3 => 0.0, 4 => 0.0, 5 => 0.0, 6 => 0.0, 7 => 0.0}
-      Vote.select(:user_id, :value, :reference_id, :field).where(comment_id: comment_id).group_by { |vote| vote.field }.map do |field, votes_by_field|
+      Vote.select(:user_id, :value, :reference_id, :field).where(comment_id: comment.id).group_by { |vote| vote.field }.map do |field, votes_by_field|
         votes_by_field.each do |vote|
           time  = Time.now-VisiteReference.select(:updated_at).find_by(user_id:      vote.user_id,
                                                                        reference_id: vote.reference_id).updated_at
@@ -147,11 +147,11 @@ module AssisstantHelper
           score[field] += scale*User.select(:score).find(vote.user_id).score*vote.value
         end
       end
-      Comment.where(id: comment_id).update_all(f_0_score: score[0], f_1_score: score[1], f_2_score: score[2], f_3_score: score[3], f_4_score: score[4],
+      comment.update_columns(f_0_score: score[0], f_1_score: score[1], f_2_score: score[2], f_3_score: score[3], f_4_score: score[4],
                                                f_5_score: score[5], f_6_score: score[6], f_7_score: score[7])
     end
-    Summary.where(public: true).pluck(:id).each do |summary_id|
-      credits = Credit.select(:user_id, :value, :timeline_id).where(summary_id: summary_id)
+    Summary.select(:id).where(public: true).find_each do |summary|
+      credits = Credit.select(:user_id, :value, :timeline_id).where(summary_id: summary.id)
       score   = 0.0
       credits.each do |credit|
         time  = Time.now-VisiteTimeline.select(:updated_at).find_by(user_id:     credit.user_id,
@@ -164,10 +164,10 @@ module AssisstantHelper
         end
         score += scale*User.select(:score).find(credit.user_id).score*credit.value
       end
-      Summary.where(id: summary_id).update_all(score: score)
+      summary.update_columns(score: score)
     end
-    Frame.all.pluck(:id).each do |frame_id|
-      credits = FrameCredit.select(:user_id, :value, :timeline_id).where(frame_id: frame_id)
+    Frame.select(:id).find_each do |frame|
+      credits = FrameCredit.select(:user_id, :value, :timeline_id).where(frame_id: frame.id)
       score   = 0.0
       credits.each do |credit|
         time  = Time.now-VisiteTimeline.select(:updated_at).find_by(user_id:     credit.user_id,
@@ -180,7 +180,7 @@ module AssisstantHelper
         end
         score += scale*User.select(:score).find(credit.user_id).score*credit.value
       end
-      Frame.where(id: frame_id).update_all(score: score)
+      frame.update_columns(score: score)
     end
   end
 
@@ -212,21 +212,21 @@ module AssisstantHelper
   end
 
   def selection_events
-    Reference.all.pluck(:id).each do |reference_id|
+    Reference.select(:id).find_each do |reference|
       for field in 0..7 do
-        update_best_comment(reference_id, field)
+        update_best_comment(reference.id, field)
       end
     end
-    Timeline.all.pluck(:id).each do |timeline_id|
-      most         = Summary.where(timeline_id: timeline_id, public: true).order(score: :desc).first
-      best_summary = SummaryBest.find_by(timeline_id: timeline_id)
+    Timeline.select(:id).find_each do |timeline|
+      most         = Summary.where(timeline_id: timeline.id, public: true).order(score: :desc).first
+      best_summary = SummaryBest.find_by(timeline_id: timeline.id)
       if most
         if (most.id != best_summary.summary_id) && (most.balance != 0)
           most.selection_update(best_summary)
         end
       end
-      most_frame = Frame.where(timeline_id: timeline_id).order(score: :desc).first
-      best_frame = Frame.find_by(timeline_id: timeline_id, best: true)
+      most_frame = Frame.where(timeline_id: timeline.id).order(score: :desc).first
+      best_frame = Frame.find_by(timeline_id: timeline.id, best: true)
       if most_frame
         if (most_frame.id != best_frame.id) && (most_frame.balance != 0)
           most_frame.selection_update(best_frame)
