@@ -1,5 +1,12 @@
 module AssisstantHelper
 
+  def maj_v_6
+    ActiveRecord::Base.transaction do
+      SuggestionChildVote.where( value: false).destroy_all
+      SuggestionVote.where( value: false).destroy_all
+    end
+  end
+
   def maj_v_5
     ActiveRecord::Base.transaction do
       Edge.all.each do |edge|
