@@ -12,9 +12,14 @@
             <%= image_tag "favicon.svg", class: "img-rounded", height: "80px" %>
         <% end %>
     <span style="font-size: 3em">
-      &nbsp <%= @user.name %> </span>
+      &nbsp <%= @user.name %>
+    </span>
   </div>
   <div class="panel-body">
+    <% if logged_in? && current_user.admin %>
+        <a href="mailto:<%= @user.email %>"><%= @user.email %></a>
+        <br/>
+    <% end %>
     <% if @user_detail && @user_detail.id && @user_detail.job != "" %>
         <% if @user_detail.institution != "" %>
             <%= @user.name %> est <%= @user_detail.job  %>

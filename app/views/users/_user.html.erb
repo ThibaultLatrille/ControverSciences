@@ -1,7 +1,6 @@
 <tr class="user">
   <td> <%= link_to user.name, user %>
   </td>
-  <td> <%= number_with_precision(user.score, precision: 2) %> </td>
   <td>
     <% if current_user && current_user.admin? && !current_user?(user) %>
         <%= link_to "delete", user, method: :delete,
