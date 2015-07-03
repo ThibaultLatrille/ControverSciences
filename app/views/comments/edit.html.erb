@@ -2,12 +2,26 @@
 <div id="my-container" class="container-fluid">
 <div class="row">
 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-  <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
-              timeline_path(@comment.timeline_id), class: "btn btn-block btn-primary", style: "white-space: normal" %>
-  <br/>
-  <br/>
-  <%= link_to "<span class=\"icon-arrow-left\"></span> Revenir à la référence <span class=\"icon-reference fat\"></span>".html_safe,
-              reference_path(@comment.reference_id), class: "btn btn-block  btn-primary", style: "white-space: normal" %>
+  <div class="list-group">
+    <%= link_to "<span class=\"icon-arrow-left normal\"></span>
+    Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
+                timeline_path(@comment.timeline_id),
+                class: "list-group-item" %>
+    <%= link_to "<span class=\"icon-arrow-left normal\"></span>
+    Revenir à la référence <span class=\"icon-reference fat\"></span>".html_safe,
+                reference_path(@comment.reference_id),
+                class: "list-group-item" %>
+
+    <% if @myreference.user_id == current_user.id || current_user.admin %>
+          <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier la référence".html_safe,
+                      edit_reference_path(@myreference.id),
+                      class: "list-group-item" %>
+          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer la référence".html_safe,
+                      reference_path(@myreference.id), method: :delete,
+                      data:                                    {confirm: "Etes vous certain ?"},
+                      class:                                   "list-group-item list-group-item-danger" %>
+    <% end %>
+  </div>
 </div>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
 <div class="row">
@@ -206,14 +220,6 @@
             <%= @myreference.open_access ? "(<span class=\"icon icon-lock normal\"></span> Accés libre)".html_safe : "" %>
             :
           </div> <%= link_to @myreference.url, @myreference.url, class: "break-word", target: "_blank" %></li>
-        <% if @myreference.user_id == current_user.id || current_user.admin %>
-            <li class="list-group-item clearfix">
-              <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette référence".html_safe, edit_reference_path(@myreference.id), class: "btn btn-primary pull-right" %>
-              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette référence".html_safe,
-                          reference_path(@myreference.id), method: :delete,
-                          data:                                    {confirm: "Etes vous certain ?"}, class: "btn btn-danger" %>
-            </li>
-        <% end %>
       </ul>
     </div>
     <div class="panel-footer clearfix">
