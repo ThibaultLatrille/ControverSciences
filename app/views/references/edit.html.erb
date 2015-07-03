@@ -33,18 +33,10 @@
               <br/>
               <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
               <br/>
-              <%= f.label "Référence en Open-Access" %>
-              <div class="switcher">
-                <p class="fieldset pull-left">
-                  <%= f.radio_button :open_access, true %>
-                  <label for="reference_open_access_true"><span class="icon-lock font16"></span>Oui</label>
-                  <%= f.radio_button :open_access, false %>
-                  <label for="reference_open_access_false"><span class="icon-locked font16"></span>Non</label>
-                  <span class="switch"></span>
-                </p>
-              </div>
-              <br/>
-              <br/>
+              <%= f.label :open_access do %>
+                  <%= f.check_box :open_access %>
+                  <span> &nbsp Cette référence est en libre accès </span>
+              <% end %>
               <br/>
               <br/>
               <%= f.label "Lien vers la publication" %>
