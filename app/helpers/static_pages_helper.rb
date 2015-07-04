@@ -21,7 +21,7 @@ module StaticPagesHelper
       "Portail de vulgarisation scientique destiné à éclairer débats et controverses.
       Animé par des scientifiques, pour tout public"
     else
-      meta_descri
+      ActionView::Base.full_sanitizer.sanitize meta_descri
     end
   end
 
@@ -33,7 +33,7 @@ module StaticPagesHelper
     if page_title.empty?
       site_name
     else
-      "#{page_title} | #{site_name}"
+      ActionView::Base.full_sanitizer.sanitize "#{page_title} | #{site_name}"
     end
   end
 end
