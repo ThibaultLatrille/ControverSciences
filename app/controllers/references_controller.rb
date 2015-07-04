@@ -140,9 +140,8 @@ class ReferencesController < ApplicationController
       else
         VisiteReference.create( user_id: user_id, reference_id: params[:id] )
       end
-      if params[:filter] == "mine"
-        @comment = Comment.find_by( user_id: user_id, reference_id: @reference.id )
-      else
+      @comment = Comment.find_by( user_id: user_id, reference_id: @reference.id )
+      if params[:filter] != "mine"
         @best_comment = BestComment.find_by_reference_id( @reference.id )
       end
     else

@@ -11,8 +11,6 @@ class MyItemsController < ApplicationController
                                :f_4_balance, :f_5_balance, :f_6_balance ,
                                :f_7_balance ).where( user_id: current_user.id)
     @summaries = Summary.select(:id, :timeline_id, :content, :balance, :public ).where( user_id: current_user.id)
-    @suggestions = Suggestion.where( user_id: current_user.id, timeline_id: nil)
-    @suggestions_children = SuggestionChild.where( user_id: current_user.id)
   end
 
   def votes

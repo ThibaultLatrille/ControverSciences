@@ -2,8 +2,22 @@
 <div id="my-container" class="container-fluid">
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-    <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
-                timeline_path(@frame.timeline_id), class: "btn btn-block btn-primary" %>
+    <div class="list-group">
+      <%= link_to "<span class=\"icon-arrow-left normal\"></span>
+            Revenir à la controverse".html_safe,
+                  timeline_path(@frame.timeline_id),
+                  class: "list-group-item" %>
+      <% if @my_timeline.nb_frames > 1 %>
+          <%= link_to "<span class=\"badge pull-left\">#{@my_timeline.nb_frames}</span>
+                  &nbsp Toutes les contributions de cette controverse".html_safe,
+                      frames_path( timeline_id: @frame.timeline_id ),
+                      class: "list-group-item"  %>
+      <% end %>
+      <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                  Ma contribution".html_safe,
+                  frames_path(timeline_id: @my_timeline.id, filter: "mine"),
+                  :class => "list-group-item" %>
+    </div>
   </div>
 
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
@@ -12,8 +26,7 @@
             <h2> Proposer une nouvelle formulation de la controverse
             </h2>
             <br/>
-              De la controverse :
-              <%= link_to Timeline.where(id: @frame.timeline_id ).pluck(:name)[0].html_safe,
+              <%= link_to @my_timeline.name.html_safe,
                           timeline_url( @frame.timeline_id ) %>
           </div>
           <div class="panel-body clearfix">
@@ -95,9 +108,6 @@
                     </div>
                   </div>
                 </div>
-                <% if @parent %>
-                    <%= f.hidden_field :parent_id, value: @parent.id %>
-                <% end %>
                 <%= f.hidden_field :timeline_id, value: @frame.timeline_id %>
                 <br/>
                 <br/>

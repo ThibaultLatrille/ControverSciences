@@ -3,42 +3,40 @@
   <div class="row">
     <div class="col-xs-12 col-lg-2">
       <% if logged_in? && @my_likes.count > 1 %>
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-lg-12 col-lg-offset-0">
-              <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui vous intéressent" :
-                      "Afficher toutes les controverses"}".html_safe, timelines_path(:sort  => params[:sort],
-                                                                                     :order => params[:order],
-                                                                                     :tag => params[:tag],
-                                                                                     :filter => params[:filter],
-                                                                                     :interest => params[:interest].blank? ? "true" : ""),
-                      class: "btn btn-block btn-primary" %>
-              <div style="margin-bottom: 10px"></div>
-              <%= link_to image_tag("network.svg", alt: "graph", height: "32px") +
-                                  " Le graphe des controverses", timelines_graph_path,
-                          class: "btn btn-block btn-primary" %>
-              <br/>
-              <br/>
-            </div>
+          <div class="list-group">
+            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui vous intéressent" :
+                    "Afficher toutes les controverses"}".html_safe, timelines_path(:sort     => params[:sort],
+                                                                                   :order    => params[:order],
+                                                                                   :tag      => params[:tag],
+                                                                                   :filter   => params[:filter],
+                                                                                   :interest => params[:interest].blank? ? "true" : ""),
+                                                                    class: "list-group-item" %>
+            <%= link_to "<span class=\"icon-network normal\"></span> Le graphe des controverses".html_safe, timelines_graph_path,
+                        class: "list-group-item" %>
+            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+                       </span> Ajouter une controverse".html_safe,
+                        new_timeline_path,
+                        class: "list-group-item" %>
           </div>
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-offset-0 col-lg-8">
-      <div>
-        <%= form_tag(:timelines, method: "get", class: "search-box") do %>
-            <div class="input-group">
+                 <div>
+             <%= form_tag(:timelines, method: "get", class: "search-box") do %>
+                 <div class="input-group">
                   <span class="input-group-btn">
-                    <%= button_tag( :class => "btn btn-primary submit-search") do %>
+                    <%= button_tag(:class => "btn btn-primary submit-search") do %>
                     <span class="icon icon-search bigger"></span>
                 <% end %>
-              </span>
-              <%= text_field_tag(:filter, params[:filter], placeholder: "Rechercher") %>
-            </div>
-            <%= hidden_field_tag(:tag, params[:tag]) %>
-            <%= hidden_field_tag(:sort, params[:sort]) %>
-            <%= hidden_field_tag(:order, params[:order]) %>
-            <%= hidden_field_tag(:interest, params[:interest]) %>
-        <% end %>
-      </div>
+                    </span>
+                   <%= text_field_tag(:filter, params[:filter], placeholder: " Rechercher") %>
+                 </div>
+                       <%= hidden_field_tag(:tag, params[:tag]) %>
+                       <%= hidden_field_tag(:sort, params[:sort]) %>
+                       <%= hidden_field_tag(:order, params[:order]) %>
+                       <%= hidden_field_tag(:interest, params[:interest]) %>
+             <% end %>
+           </div>
       <div class="center">
         <div class="btn-group">
           <button class="btn btn-default dropdown-toggle" type="button"
@@ -59,7 +57,7 @@
 
                 <li <%= params[:tag]==key ? "class=selected" : nil %> >
                   <%= link_to "<span class=\"icon-#{key} hvr-grow\"></span> ".html_safe+value,
-                              timelines_path(:sort => params[:sort], :order => params[:order],
+                              timelines_path(:sort     => params[:sort], :order => params[:order],
                                              :interest => params[:interest], :tag => key) %>
                 </li>
             <% end %>
@@ -138,9 +136,10 @@
               <h1 style="font-size: 2.8em;">
                 Aucune controverse ne correspond à ces critères de sélection
               </h1>
+
               <div class="row center">
                 <div class="col-xs-offset-2 col-xs-8 col-sm-6 col-sm-offset-3 col-md-offset-4 col-md-4 center">
-                <%= image_tag "oups.png", title: "Aucune controverse", class: "center img-responsive" %>
+                  <%= image_tag "oups.png", title: "Aucune controverse", class: "center img-responsive" %>
                 </div>
               </div>
               <br/>
@@ -152,17 +151,7 @@
         </div>
       </div>
 
-      <% if logged_in? %>
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-              <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
-                       </span> Ajouter une controverse".html_safe,
-                          new_timeline_path, class: "btn btn-block btn-primary" %>
-              <br/>
-              <br/>
-            </div>
-          </div>
-      <% else %>
+      <% unless logged_in? %>
           <div class="center">
             <%= link_to "<span class=\"icon icon-4\" >
                    </span> Identifiez vous pour voir les controverses en construction".html_safe,
@@ -176,16 +165,6 @@
           <br/>
       <% end %>
     </div>
-
-    <% if logged_in? %>
-        <div class="col-xs-12 col-md-6 col-md-offset-3 col-lg-offset-0 col-lg-2 hide-small">
-          <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
-                       </span> Ajouter une controverse".html_safe,
-                      new_timeline_path, class: "btn btn-block btn-primary" %>
-          <br/>
-          <br/>
-        </div>
-    <% end %>
 
   </div>
 </div>
@@ -234,7 +213,7 @@
                 data: {id: self.val()},
                 method: 'POST',
                 statusCode: {
-                    201: function (response){
+                    201: function (response) {
                         $('.loader-like').remove();
                         self.show();
                         var like = $('.glyphicon', self);
@@ -244,7 +223,7 @@
                         self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
-                    204: function (response){
+                    204: function (response) {
                         $('.loader-like').remove();
                         self.show();
                         var like = $('.glyphicon', self);
@@ -254,7 +233,7 @@
                         self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
-                    401: function (response){
+                    401: function (response) {
                         $('.loader-like').remove();
                         self.show();
                         $('#iptaken').modal('show');

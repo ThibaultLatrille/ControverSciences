@@ -46,7 +46,7 @@
                       class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
       <% end %>
     </div>
-    <% unless frame_credit %>
+    <% if !logged_in? || current_user.id == frame.user_id %>
         <div class="pull-right">
           Publiée il y a <%= time_ago_in_words(frame.created_at) %> par <%= link_to frame.user_name, user_path(frame.user_id) %>
         </div>
@@ -55,7 +55,7 @@
   </div>
   <div class="panel-footer">
     <div class="clearfix">
-      <% if frame_credit %>
+      <% if logged_in? && current_user.id != frame.user_id %>
           <%= form_for(:frame_credit, url: frame_credits_path, method: :post, class: "input-group-sm") do |f| %>
               <div class="row">
                 <%= f.hidden_field :frame_id, value: frame.id %>
@@ -96,47 +96,13 @@
                                   class: "btn btn-danger"%>
                   <% end %>
                 </div>
-                <% if improve %>
-                <div class="pull-right">
-                  <%= link_to "<span class=\"icon-fork fat\"></span>".html_safe,
-                              new_frame_path(parent_id: frame.id, timeline_id: frame.timeline_id), :class => "btn btn-primary", "data-toggle" => "tooltip",
-                              title: "Améliorer cette contribution", :style => "padding: 8px; margin-right: 8px"%>
-                </div>
-                <% end %>
               </div>
           <% end %>
       <% else %>
-          <% if logged_in? && current_user.id != frame.user_id %>
-          <div class="pull-right" style="margin-right: 8px;">
-            <% if current_user.admin %>
-                <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                            edit_frame_path(frame.id),
-                            class: "btn btn-primary"%>
-                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                            frame_path(frame.id), method: :delete,
-                            class: "btn btn-danger"%>
-            <% end %>
-          </div>
-          <% end %>
-          <% if improve %>
-              <div class="pull-right">
-                <%= link_to "<span class=\"icon-fork fat\"></span>".html_safe,
-                            new_frame_path(parent_id: frame.id, timeline_id: frame.timeline_id), :class => "pull-right btn btn-primary", "data-toggle" => "tooltip",
-                            title: "Améliorer cette contribution", :style => "padding: 8px; margin-right: 8px"%>
-                <br/>
-              </div>
-          <% end %>
           <div class="btn btn-default">
             <span class="icon-ribbon"></span>
             <%= frame.balance %> crédits ont été donné à cette contribution.
           </div>
-          <% if delete %>
-              <br/>
-              <br/>
-              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe + "Supprimer ma contribution",
-                          frame_path( frame.id ), method: :delete,
-                          data: { confirm: "Etes vous certain ?" }, class: "btn btn-danger" %>
-          <% end %>
       <% end %>
     </div>
   </div>

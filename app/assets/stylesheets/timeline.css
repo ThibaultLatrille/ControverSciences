@@ -59,17 +59,17 @@
     left: 8px;
 }
 
-.btn-frog1 { color: #702BD9; }
+.btn-frog1, .div-frog1 { color: #702BD9; }
 
-.btn-frog2 { color: #322DE3; }
+.btn-frog2, .div-frog2 { color: #322DE3; }
 
-.btn-frog3 { color: #3366CC; }
+.btn-frog3, .div-frog3 { color: #3366CC; }
 
-.btn-frog4 { color: #2DABE3; }
+.btn-frog4, .div-frog4 { color: #2DABE3; }
 
-.btn-frog5 { color: #2BD9CF; }
+.btn-frog5, .div-frog5 { color: #2BD9CF; }
 
-.btn-frog0 { color: #3366CC; }
+.btn-frog0, .div-frog0 { color: #3366CC; }
 
 .btn-select{
     background-color: #ffffff;

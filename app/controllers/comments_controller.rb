@@ -10,17 +10,6 @@ class CommentsController < ApplicationController
       reference = Reference.select(:id, :timeline_id).find( params[:reference_id] )
       @comment.reference_id = reference.id
       @comment.timeline_id = reference.timeline_id
-      if params[:improve]
-        best_comment = BestComment.find_by(reference_id: params[:reference_id])
-        for fi in 0..5 do
-          if best_comment["f_#{fi}_comment_id".to_sym]
-            @comment["f_#{fi}_content".to_sym] = Comment.select( "f_#{fi}_content".to_sym ).find( best_comment["f_#{fi}_comment_id".to_sym] )["f_#{fi}_content".to_sym ]
-          end
-        end
-        if best_comment.f_6_comment_id
-          @comment.title = Comment.select( :title ).find( best_comment.f_6_comment_id ).title
-        end
-      end
       @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
       @tim_list = Timeline.where( id: Edge.where(timeline_id:
                 @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )

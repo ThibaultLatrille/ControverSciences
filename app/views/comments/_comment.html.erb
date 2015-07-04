@@ -54,18 +54,4 @@
     </div>
   </span>
   </div>
-  <div class="panel-footer">
-    <div class="clearfix">
-      <% if delete %>
-          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer mon analyse".html_safe,
-                      comment_path( comment.id ), method: :delete,
-                      data: { confirm: "Etes vous certain ?" }, class: "btn btn-danger", :style => "padding: 14px; margin-right: 10px" %>
-      <% end %>
-        <div class="pull-right">
-          <%= link_to "<span class=\"icon-fork big\"></span>".html_safe,
-                      new_comment_path(reference_id: comment.reference_id), :class => "btn btn-primary", "data-toggle" => "tooltip",
-                      title: "Améliorer cette analyse", :style => "padding: 8px; margin-right: 10px"%>
-        </div>
-    </div>
-  </div>
 </div>

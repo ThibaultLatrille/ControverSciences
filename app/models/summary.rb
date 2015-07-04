@@ -1,22 +1,13 @@
 class Summary < ActiveRecord::Base
   require 'HTMLlinks'
 
-  attr_accessor :parent_id, :delete_picture, :has_picture
+  attr_accessor :delete_picture, :has_picture
 
   belongs_to :user
   belongs_to :timeline
 
   has_many :credits, dependent: :destroy
   has_many :summary_links, dependent: :destroy
-
-  has_many :child_relationships, class_name: "SummaryRelationship",
-           foreign_key: "parent_id",
-           dependent: :destroy
-  has_one :parent_relationship, class_name: "SummaryRelationship",
-          foreign_key: "child_id",
-          dependent: :destroy
-  has_many :children, class_name: "Summary", through: :child_relationships, source: :child
-  has_one :parent, class_name: "Summary", through: :parent_relationship, source: :parent
 
   # WTF is that dependent: :destroy doing here
   has_one :summary_best, dependent: :destroy

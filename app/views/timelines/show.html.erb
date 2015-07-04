@@ -4,65 +4,99 @@
   <div class="row">
 
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
-      <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir aux controverses".html_safe,
-                  timelines_path(:sort => params[:sort], :order => params[:order]),
-                  class: "btn btn-primary btn-block" %>
-      <div style="padding-top: 10px">
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <strong>
-            Information :
-            <br/>
-            <br/>
-          </strong>
+      <div class="list-group">
+        <div class="list-group-item center">
           <div class="sticky" data-placement="bottom"
-                  title="<%= @timeline.nb_contributors.to_s + (@timeline.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
-                  data-toggle="tooltip">
-            <span class="big icon-users"></span>
+               title="<%= @timeline.nb_contributors.to_s + (@timeline.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
+               data-toggle="tooltip">
+            <span class="fat icon-users"></span>
             <%= @timeline.nb_contributors %>
           </div>
           <div class="sticky" data-placement="bottom"
-                  title="<%= @timeline.nb_references.to_s + (@timeline.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
-                  data-toggle="tooltip">
-            <span class="big icon-reference"></span>
+               title="<%= @timeline.nb_references.to_s + (@timeline.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
+               data-toggle="tooltip">
+            <span class="fat icon-reference"></span>
             <%= @timeline.nb_references %>
           </div>
           <div class="sticky" data-placement="right"
-                  title="<%= @timeline.nb_edits.to_s + (@timeline.nb_edits > 1 ? " contributions" : " contribution") %>"
-                  data-toggle="tooltip">
-            <span class="big icon-comment"></span>
+               title="<%= @timeline.nb_edits.to_s + (@timeline.nb_edits > 1 ? " contributions" : " contribution") %>"
+               data-toggle="tooltip">
+            <span class="fat icon-comment"></span>
             <%= @timeline.nb_edits %>
           </div>
-          <br/>
-          <br/>
-          <strong>
-            Thèmes :
-            <br/>
-            <br/>
-          </strong>
-          <% @timeline.get_tag_list.each do |name| %>
-              <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
-                          timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
-                          class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
-          <% end %>
-          <br/>
-          <% if logged_in? %>
-              <br/>
-              <%= link_to image_tag("network.svg", alt: "graph", height: "32px") +
-                                  " Le graphe des references", references_graph_path(timeline_id: @timeline.id),
-                      class: "btn btn-block btn-primary" %>
-          <% end %>
         </div>
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir aux controverses".html_safe,
+                    timelines_path(:sort => params[:sort], :order => params[:order]),
+                    class: "list-group-item" %>
+          <% if @timeline.nb_frames > 1 %>
+              <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_frames}</span>
+              &nbsp Les proposition de titre et de cadres des contributeurs ".html_safe,
+                          frames_path(timeline_id: @timeline.id),
+                          class: "list-group-item" %>
+          <% elsif logged_in? && !@my_frame %>
+                  <%= link_to "<span class=\"icon-fork normal\" >
+                                </span> Proposer un amélioration de titre et de cadre".html_safe,
+                              new_frame_path(timeline_id: @timeline.id),
+                              class: "list-group-item" %>
+          <% end %>
+            <% if logged_in? && @my_frame %>
+            <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                                </span> Ma proposition de titre et de cadre".html_safe,
+                        frames_path(timeline_id: @timeline.id, filter: "mine"),
+                        :class => "list-group-item" %>
+            <% end %>
+        <% if @timeline.nb_references > 2 || @summary %>
+          <% if @summary %>
+              <% if @timeline.nb_summaries > 1 %>
+                  <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
+                  &nbsp Les synthèses de cette controverse ".html_safe,
+                              summaries_path(timeline_id: @timeline.id),
+                              class: "list-group-item" %>
+              <% end %>
+              <% if logged_in? && @improve %>
+                  <%= link_to "<span class=\"icon-fork normal\" >
+                    </span> Ecrire une synthèse".html_safe,
+                              new_summary_path(timeline_id: @timeline.id),
+                              :class => "list-group-item"%>
+              <% elsif logged_in? %>
+                  <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                  Ma synthèse".html_safe,
+                              summaries_path(timeline_id: @timeline.id, filter: "mine"),
+                              :class => "list-group-item" %>
+              <% end %>
+          <% else %>
+                <%= link_to "<span class=\"icon-fork normal\" >
+                    </span> Ecrire une synthèse".html_safe,
+                            new_summary_path(timeline_id: @timeline.id),
+                            class: "list-group-item" %>
+          <% end %>
+        <% end %>
+        <% if logged_in? %>
+            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+    </span> Ajouter une référence à cette controverse.".html_safe,
+                        new_reference_path(timeline_id: @timeline.id),
+                        class: "list-group-item" %>
+            <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+                        </span> Ajouter des liens vers d'autres controverses".html_safe,
+                        edges_path(timeline_id: @timeline.id),
+                        class: "list-group-item" %>
+            <%= link_to "<span class=\"icon-network normal\"></span> Le graphe des references".html_safe,
+                        references_graph_path(timeline_id: @timeline.id),
+                        class: "list-group-item" %>
+            <% if (@timeline.user_id == current_user.id || current_user.admin) %>
+                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
+                            timeline_path(@timeline.id), method: :delete,
+                            data:                                {confirm: "Etes vous certain ?"},
+                            class:                               "list-group-item list-group-item-danger" %>
+            <% end %>
+        <% end %>
       </div>
     </div>
 
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
       <div class="panel panel-default">
         <div class="panel-heading clearfix">
-          <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> <b>Discussion libre</b> #{@timeline.nb_suggestions}".html_safe, suggestion_path(timeline_id: @timeline.id),
-                      class: "btn btn-primary" %>
-          <span class="pull-right">
+        <span class="pull-right">
             <% if logged_in? && (@my_likes.include? @timeline.id) %>
                 <button type="button" class="btn btn-success" data-placement="left"
                         data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
@@ -77,9 +111,32 @@
                 </button>
             <% end %>
         </span>
+            <% @timeline.get_tag_list.each do |name| %>
+                <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                            timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                            class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+            <% end %>
           <div>
             <br/>
             <h1><%= @timeline.name.html_safe %></h1>
+            <% if logged_in? %>
+            <div class="pull-right" style="margin-right: 10px;">
+                <% if @improve_frame %>
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                new_typo_path(frame_id: @improve_frame.id, field: 0), remote: true,
+                                :class => "btn btn-info", "data-toggle" => "tooltip",
+                                title: "Corriger une faute de français dans le titre" %>
+                  <% if current_user.admin %>
+                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                  edit_frame_path(@improve_frame.id),
+                                  class: "btn btn-primary"%>
+                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                  frame_path(@improve_frame.id), method: :delete,
+                                  class: "btn btn-danger"%>
+                  <% end %>
+                <% end %>
+            </div>
+            <% end %>
             <br/>
             <% if @timeline.frame != "" %>
                 <div id="summary" class="clearfix">
@@ -91,82 +148,31 @@
                 </div>
                 <br/>
                 <br/>
+                <% if logged_in? %>
                 <div class="pull-right" style="margin-right: 10px;">
-                  <% if @timeline.nb_frames > 1 %>
-                      <%= link_to "Voir les proposition de titre et de cadres (#{@timeline.nb_frames})".html_safe,
-                                  frames_path(timeline_id: @timeline.id),
-                                  class: "btn btn-primary",
-                                  style: "padding: 10px;" %>
-                  <% else %>
-                      <% if logged_in? && @improve_frame %>
-                          <%= link_to "<span class=\"icon-fork\" >
-                                    </span> Améliorer le titre et le cadre".html_safe,
-                                      new_frame_path(timeline_id: @timeline.id),
-                                      class: "btn btn-primary",
-                                      style: "padding: 6px;" %>
-                          <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                                      new_typo_path(frame_id: @improve_frame.id, field: 0), remote: true,
-                                      :class => "btn btn-info", "data-toggle" => "tooltip",
-                                      title: "Corriger une faute de français dans le titre" %>
+                      <% if @improve_frame %>
                           <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                                       new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
                                       :class => "btn btn-info", "data-toggle" => "tooltip",
                                       title: "Corriger une faute de français dans le cadre",
                                       style: "padding: 6px;"%>
-
-
-                <% elsif logged_in? %>
-                          <%= link_to "<span class=\"icon-fork\" >
-                                    </span> Améliorer le titre et le cadre (voir ma proposition)".html_safe,
-                                      frames_path(timeline_id: @timeline.id, filter: "mine"),
-                                      :class => "btn btn-primary",
-                                      style: "padding: 6px;" %>
+                          <% if current_user.admin %>
+                              <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                          edit_frame_path(@improve_frame.id),
+                                          class: "btn btn-primary"%>
+                              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                          frame_path(@improve_frame.id), method: :delete,
+                                          class: "btn btn-danger"%>
+                          <% end %>
                       <% end %>
-                  <% end %>
                   <br/><br/>
                 </div>
-            <% elsif logged_in? %>
-                <div class="pull-right" style="margin-right: 10px;">
-                  <% if @timeline.nb_frames > 1 %>
-                      <%= link_to "<span class=\"icon-fork\" >
-                                </span> Améliorer le titre et ajouter un cadre
-                                (#{@timeline.nb_frames} propositions)".html_safe,
-                                  frames_path(timeline_id: @timeline.id),
-                                  class: "btn btn-primary",
-                                  style: "padding: 6px;"%>
-                  <% else %>
-                      <% if @improve_frame %>
-                          <%= link_to "<span class=\"icon-fork\" >
-                                    </span> Améliorer le titre et ajouter un cadre".html_safe,
-                                      new_frame_path(timeline_id: @timeline.id),
-                                      class: "btn btn-primary" %>
-                          <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                                      new_typo_path(frame_id: @improve_frame.id, field: 0), remote: true,
-                                      :class => "btn btn-info", "data-toggle" => "tooltip",
-                                      title: "Corriger une faute de français dans le titre",
-                                      style: "padding: 6px;" %>
-                      <% else %>
-                          <%= link_to "<span class=\"icon-fork\" >
-                                    </span> Améliorer le titre et ajouter un cadre (voir ma proposition)".html_safe,
-                                      frames_path(timeline_id: @timeline.id, filter: "mine"),
-                                      :class => "btn btn-primary",
-                                      style: "padding: 6px;" %>
-                      <% end %>
-                  <% end %>
-                  <br/><br/>
-                </div>
-            <% end %>
-            <% if logged_in? && (@timeline.user_id == current_user.id || current_user.admin) %>
-                <br/>
-                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
-                            timeline_path(@timeline.id), method: :delete,
-                            data:                                {confirm: "Etes vous certain ?"}, class: "btn btn-danger" %>
+                <% end %>
             <% end %>
           </div>
         </div>
-        <% if @timeline.nb_references > 2 || @summary %>
+        <% if @timeline.nb_references > 2 && @summary %>
             <div class="panel-body">
-              <% if @summary %>
                   <div id="summary" class="clearfix">
                     <% if @summary.picture? %>
                         <div class="pull-right">
@@ -180,37 +186,30 @@
                     <% end %>
                     <div class="justify">
                       <%= @summary.markdown.html_safe %>
+                      <% if logged_in? %>
+                          <div class="pull-right">
+                            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                        new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                                        title: "Corriger une faute de français dans la synthèse", :style => "padding: 6px; margin-right: 6px"%>
+                            <% if current_user.admin %>
+                                <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                            edit_summary_path(@summary.id),
+                                            class: "btn btn-primary"%>
+                                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                            summary_path(@summary.id), method: :delete,
+                                            class: "btn btn-danger"%>
+                            <% end %>
+                          </div>
+                          <br/>
+                          <br/>
+                          <br/>
+                      <% end %>
                     </div>
                     <br/>
                   </div>
             <span class="pull-right">
                 <%= link_to @summary.user_name, user_path(@summary.user_id) %>
             </span>
-                  <br/>
-                  <br/>
-                  <% if @timeline.nb_summaries > 1 %>
-                      <%= link_to "Voir les synthèses de cette controverse (#{@timeline.nb_summaries})".html_safe,
-                                  summaries_path(timeline_id: @timeline.id),
-                                  class: "btn btn-primary" %>
-                  <% end %>
-                  <% if logged_in? && @improve %>
-                      <%= link_to "<span class=\"icon-fork\"></span>".html_safe,
-                                  new_summary_path(timeline_id: @timeline.id, parent_id: @summary.id), :class => "btn btn-primary pull-right", "data-toggle" => "tooltip",
-                                  title:                                           "Améliorer cette synthèse", :style => "padding: 6px; margin-right: 10px" %>
-                  <% elsif logged_in? %>
-                      <%= link_to "Voir ma synthèse".html_safe,
-                                  summaries_path(timeline_id: @timeline.id, filter: "mine"), :class => "btn btn-primary pull-right" %>
-                  <% end %>
-              <% else %>
-                  <br/>
-                  <div class="center">
-                    <%= link_to "<span class=\"icon-fork\" >
-                        </span> Soyez le premier à ecrire une synthèse".html_safe,
-                                new_summary_path(timeline_id: @timeline.id),
-                                class: "btn btn-primary", :style => "padding: 6px;" %>
-                  </div>
-                  <br/>
-              <% end %>
             </div>
         <% end %>
       </div>
@@ -267,29 +266,8 @@
             <%= render :partial => 'references/reference', :collection => @references, :locals => { :binary => @timeline.binary } %>
           </div>
       <% end %>
-      <div class="row">
-        <div class="col-xs-12 col-md-6 col-md-offset-3">
-          <div class="center">
-            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
-    </span> Ajouter une référence à cette controverse. <br/> Diablement rapide si vous connaissez son titre".html_safe,
-                        new_reference_path(timeline_id: @timeline.id),
-                        class: "btn btn-primary" %>
-          </div>
-        </div>
-      </div>
-      <div>
-        <br/>
-      </div>
     </div>
     <div class="col-xs-12 col-lg-2">
-      <% if logged_in? %>
-          <%= link_to "<span class=\"glyphicon glyphicon-link\" >
-        </span> Ajouter des liens vers d'autres controverses".html_safe,
-                      edges_path(timeline_id: @timeline.id),
-                      class: "btn btn-primary btn-block" %>
-          <br/>
-          <br/>
-      <% end %>
       <% if @timelines.count > 0 %>
           <% if logged_in? %>
               <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes, full_width: true} %>

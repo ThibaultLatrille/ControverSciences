@@ -2,13 +2,19 @@
 <div id="my-container" class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-      <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
-                  timeline_path(@reference.timeline_id), class: "btn btn-block btn-primary" %>
+      <div class="list-group">
+          <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la controverse".html_safe,
+                      timeline_path(@reference.timeline_id),
+                      class: "list-group-item" %>
+          <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la référence".html_safe,
+                      reference_path(@reference.id),
+                      class: "list-group-item" %>
+      </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4> Editer une référence appartenant à la controverse <%= link_to Timeline.find(@reference.timeline_id).name,
+          <h4> Editer une référence appartenant à la controverse <%= link_to Timeline.find(@reference.timeline_id).name.html_safe,
                                                                              Timeline.find(@reference.timeline_id) %></h4>
         </div>
         <div class="panel-body">

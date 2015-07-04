@@ -22,6 +22,7 @@ class FramesController < ApplicationController
       end
       @tag_list     = timeline.get_tag_list
     end
+    @my_timeline = Timeline.select(:id, :nb_frames, :name ).find( @frame.timeline_id )
   end
 
   def create
@@ -37,7 +38,7 @@ class FramesController < ApplicationController
       @frame.set_tag_list(params[:frame][:tag_list])
     end
     @frame.user_id = current_user.id
-    if @frame.save_with_markdown
+    if @frame.save
       flash[:success] = "Contribution enregistrée."
       redirect_to frames_path( filter: "mine", timeline_id: @frame.timeline_id )
     else
@@ -49,6 +50,7 @@ class FramesController < ApplicationController
       else
         @frame.binary = false
       end
+      @my_timeline = Timeline.select(:id, :nb_frames, :name ).find( @frame.timeline_id )
       render 'new'
     end
   end
@@ -56,6 +58,7 @@ class FramesController < ApplicationController
   def edit
     @frame = Frame.find( params[:id] )
     @tag_list = @frame.get_tag_list
+    @my_timeline = Timeline.select(:id, :nb_frames, :name ).find( @frame.timeline_id )
     if @frame.binary != ""
       @frame.binary_left  = @frame.binary.split('&&')[0]
       @frame.binary_right = @frame.binary.split('&&')[1]
@@ -83,6 +86,7 @@ class FramesController < ApplicationController
         flash[:success] = "Contribution modifiée."
         redirect_to @frame
       else
+        @my_timeline = Timeline.select(:id, :nb_frames, :name ).find( @frame.timeline_id )
         render 'edit'
       end
     else
@@ -158,7 +162,7 @@ class FramesController < ApplicationController
     if frame.user_id == current_user.id || current_user.admin
       if frame.destroy_with_counters
         flash[:success] = "Contribution envoyée à la poubelle."
-        redirect_to my_items_items_path
+        redirect_to timeline_path(frame.timeline_id)
       else
         flash[:danger] = "Vous ne pouvez pas supprimer cette contribution."
         redirect_to frame_path(params[:id])

@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
   require 'HTMLlinks'
 
-  attr_accessor :parent_id, :delete_picture, :has_picture
+  attr_accessor :delete_picture, :has_picture
 
   belongs_to :user
   belongs_to :timeline

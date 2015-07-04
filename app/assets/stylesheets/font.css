@@ -334,3 +334,7 @@
 .icon-arrow-left:before {
     content: "\e63c";
 }
+
+.icon-network:before {
+    content: "\e640";
+}

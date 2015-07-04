@@ -1,49 +1,53 @@
 <% provide(:title, "Synthèse") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
+  <div class="row">
 
-  <div class="col-xs-12 col-md-4 col-lg-2">
-    <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
-                timeline_path(@frame.timeline_id), class: "btn btn-block btn-primary" %>
-  </div>
+    <div class="col-xs-12 col-md-4 col-lg-2">
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span>
+            Revenir à la controverse".html_safe,
+                    timeline_path(@frame.timeline_id),
+                    class: "list-group-item" %>
+        <% if @timeline.nb_frames > 1 %>
+            <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_frames}</span>
+                  &nbsp Toutes les contributions de cette controverse".html_safe,
+                        frames_path(timeline_id: @frame.timeline_id),
+                        class: "list-group-item" %>
+        <% end %>
+        <% if logged_in? && @frame.user_id == current_user.id %>
+            <%= link_to "<span class=\"icon-frog normal\"></span> Modifier ma contribution".html_safe,
+                        edit_frame_path(@frame.id),
+                        class: "list-group-item" %>
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer ma contribution".html_safe,
+                        frame_path(@frame.id), method: :delete,
+                        data:                          {confirm: "Etes vous certain ?"},
+                        class:                         "list-group-item list-group-item-danger" %>
+        <% end %>
+      </div>
+    </div>
 
-  <div class="col-xs-12 col-md-8 col-lg-10">
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-1">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3>
-          Cette contribution appartient à la controverse
-          <%= link_to( @frame.timeline_name.html_safe , timeline_path(@frame.timeline_id) ) %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            <% if logged_in? && current_user.id == @frame.user_id %>
-                <% if @timeline.user_id == current_user.id %>
-                    <%= render @frame, frame_credit: false, improve: true, delete: false %>
-                <% else %>
-                    <%= render @frame, frame_credit: false, improve: true, delete: true %>
-                <% end %>
-            <% elsif logged_in? %>
-                <%= render @frame, frame_credit: @timeline.nb_frames > 1 ? true : false , improve: @improve, delete: false %>
-            <% else %>
-                <%= render @frame, frame_credit: false, delete: false, improve: false %>
-            <% end %>
-            <% if @timeline.nb_frames > 1 %>
-                <%= link_to "Voir l'ensemble des contributions".html_safe,
-                            frames_path( timeline_id: @frame.timeline_id ),
-                            class: "btn btn-primary pull-right"  %>
-            <% end %>
+    <div class="col-xs-12 col-md-8 col-lg-10">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-1">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>
+                Cette contribution appartient à la controverse
+                <%= link_to(@timeline.name.html_safe, timeline_path(@frame.timeline_id)) %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <%= render @frame %>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-</div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     });
 </script>

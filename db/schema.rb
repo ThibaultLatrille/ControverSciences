@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625122417) do
+ActiveRecord::Schema.define(version: 20150704105413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,13 +65,6 @@ ActiveRecord::Schema.define(version: 20150625122417) do
 
   add_index "comment_joins", ["comment_id"], name: "index_comment_joins_on_comment_id", using: :btree
   add_index "comment_joins", ["reference_id"], name: "index_comment_joins_on_reference_id", using: :btree
-
-  create_table "comment_relationships", force: true do |t|
-    t.integer  "parent_id"
-    t.integer  "child_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -570,13 +563,6 @@ ActiveRecord::Schema.define(version: 20150625122417) do
   add_index "summary_links", ["summary_id"], name: "index_summary_links_on_summary_id", using: :btree
   add_index "summary_links", ["timeline_id"], name: "index_summary_links_on_timeline_id", using: :btree
   add_index "summary_links", ["user_id"], name: "index_summary_links_on_user_id", using: :btree
-
-  create_table "summary_relationships", force: true do |t|
-    t.integer  "parent_id"
-    t.integer  "child_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

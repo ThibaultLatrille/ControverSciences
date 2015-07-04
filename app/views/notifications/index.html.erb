@@ -3,38 +3,40 @@
 <%= form_for( :notification, url: notifications_delete_path, method: :post ) do |f| %>
 <div class="row">
 
-<div class="col-md-2">
-  <strong>
+<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
+<div class="list-group">
+    <div class="list-group-item">
   Les nouvelles/nouveaux :
-  </strong>
-    <div>
+  </div>
       <% { timeline: "Controverses",
            frame: "Améliorations de Controverses",
            summary: "Synthèses",
            reference: "Références",
            comment: "Analyses", suggestions: "Commentaires"}.each do |key, value| %>
-          <%= link_to "<span class=\"icon-#{key}\"></span> &nbsp ".html_safe+value+
+          <%= link_to "<span class=\"icon-#{key} normal\"></span> &nbsp ".html_safe+value+
                               " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
-                      notifications_index_path(filter: key), class: "btn btn-primary btn-block" %>
+                      notifications_index_path(filter: key),
+                      class: "list-group-item" %>
       <% end %>
-    </div>
+</div>
   <br/>
-  <strong>
+<div class="list-group">
+<div class="list-group-item">
   Ont pris la première place :
-  </strong>
-  <div>
+</div>
     <% { frame_selection: "Améliorations de Controverses",
          summary_selection: "Synthèses",
          selection: "Analyses"
          }.each do |key, value| %>
-        <%= link_to "<span class=\"icon-#{key}\"></span> &nbsp ".html_safe+value+
+        <%= link_to "<span class=\"icon-#{key} normal\"></span> &nbsp ".html_safe+value+
                             " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
-                    notifications_index_path(filter: key), class: "btn btn-primary btn-block" %>
+                    notifications_index_path(filter: key),
+                    class: "list-group-item" %>
     <% end %>
-  </div>
 </div>
 
-<div class="col-md-8">
+</div>
+<div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
 <div class="panel panel-default">
   <% if @filter == :timeline %>
   <div class="panel-heading">
@@ -376,19 +378,18 @@
   <% end %>
 </div>
 </div>
-
-<div class="col-md-2">
-  <%= f.button "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>&nbsp Supprimer les notifications sélectionnées".html_safe,
-               class: 'btn btn-danger btn-block',
-               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Suppression en cours "}%>
- </br>
-  </br>
-  <%= link_to "<span class=\"icon-#{@filter}\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications",
-              notifications_delete_all_path(filter: @filter), class: "btn btn-danger btn-block" %>
+<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
+  <div class="list-group">
+    <%= f.button "<span class=\"glyphicon glyphicon-trash\"></span>&nbsp
+    Supprimer les notifications sélectionnées".html_safe,
+                 class: 'list-group-item list-group-item-danger',
+                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp Suppression en cours "}%>
+    <%= link_to "<span class=\"icon-#{@filter} normal\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications",
+                notifications_delete_all_path(filter: @filter),
+                class: "list-group-item list-group-item-danger" %>
+  </div>
 </div>
-
 </div>
-
 <% end %>
 </div>
 

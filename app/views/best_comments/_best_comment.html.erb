@@ -2,7 +2,6 @@
   <div class="panel-body clearfix">
     <% if best_comment.f_6_comment_id %>
         <h5  id="content6"> <%= best_comment.markdown(6).html_safe %> </h5>
-    <% end %>
     <% if logged_in? && best_comment.f_6_user_id != current_user.id %>
         <div class="pull-right button6 typo6 clearfix">
           <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
@@ -20,6 +19,7 @@
           <% end %>
         </div>
         <br/><br/><br/>
+    <% end %>
     <% end %>
     <% if best_comment.comment_count(6) > 1 %>
         <%= link_to "Voir toutes les contributions",
@@ -135,15 +135,6 @@
           <%= link_to user_name(best_comment.authors[-2]), user_path(best_comment.authors[-2]) %> et
       <% end %>
       <%= link_to user_name(best_comment.authors.last), user_path(best_comment.authors.last) %>
-    </div>
-  </div>
-  <div class="panel-footer">
-    <div class="clearfix">
-      <div class="pull-right">
-        <%= link_to "<span class=\"icon-fork big\"></span>".html_safe,
-                    new_comment_path(reference_id: @reference.id, improve: true), :class => "btn btn-primary", "data-toggle" => "tooltip",
-                    title: "Améliorer cette analyse", :style => "padding: 8px; margin-right: 10px;" %>
-      </div>
     </div>
   </div>
 </div>

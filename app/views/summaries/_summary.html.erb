@@ -13,10 +13,19 @@
           </div>
         <% end %>
     <div class="text-justify">
+      <% if logged_in? && current_user.id != frame.user_id %>
+          <div class="pull-right">
+            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                        new_typo_path(summary_id: summary.id), remote: true,
+                        :class => "btn btn-info", "data-toggle" => "tooltip",
+                        title: "Corriger une faute de français dans la synthèse",
+                        :style => "padding: 8px; margin-right: 8px"%>
+          </div>
+      <% end %>
         <%= summary.markdown.html_safe %>
     </div>
     </div>
-    <% unless credit %>
+    <% if !logged_in? || current_user.id == summary.user_id %>
         <div class="pull-right">
           Publiée il y a <%= time_ago_in_words(summary.created_at) %> par <%= link_to summary.user_name, user_path(summary.user_id) %>
         </div>
@@ -25,7 +34,7 @@
   </div>
   <div class="panel-footer">
     <div class="clearfix">
-      <% if credit %>
+      <% if logged_in? && current_user.id != summary.user_id %>
           <%= form_for(:credit, url: credits_path, method: :post, class: "input-group-sm") do |f| %>
               <div class="row">
                 <%= f.hidden_field :summary_id, value: summary.id %>
@@ -62,57 +71,21 @@
                               title: "Corriger une faute de français", :style => "padding: 8px; margin-right: 8px"%>
                   <% if current_user.admin %>
                       <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                  edit_summary_path(summary_id: summary.id),
+                                  edit_summary_path(id: summary.id),
                                   class: "btn btn-primary"%>
                       <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                  summary_path(summary_id: summary.id), method: :delete,
-                                  class: "btn btn-danger"%>
+                                  summary_path(id: summary.id), method: :delete,
+                                  class: "btn btn-danger",
+                                  :style => "margin-right: 8px" %>
                   <% end %>
                 </div>
-                <% if improve %>
-                <div class="pull-right">
-                  <%= link_to "<span class=\"icon-fork fat\"></span>".html_safe,
-                              new_summary_path(parent_id: summary.id, timeline_id: summary.timeline_id), :class => "btn btn-primary", "data-toggle" => "tooltip",
-                              title: "Améliorer cette synthèse", :style => "padding: 8px; margin-right: 8px"%>
-                </div>
-                <% end %>
               </div>
           <% end %>
       <% else %>
-          <% if logged_in? && current_user.id != summary.user_id %>
-          <div class="pull-right">
-            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                        new_typo_path(summary_id: summary.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
-                        title: "Corriger une faute de français", :style => "padding: 8px; margin-right: 8px"%>
-            <% if current_user.admin %>
-                <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                            edit_summary_path(summary_id: summary.id),
-                            class: "btn btn-primary"%>
-                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                            summary_path(summary_id: summary.id), method: :delete,
-                            class: "btn btn-danger"%>
-            <% end %>
-          </div>
-          <% end %>
-          <% if improve %>
-              <div class="pull-right">
-                <%= link_to "<span class=\"icon-fork fat\"></span>".html_safe,
-                            new_summary_path(parent_id: summary.id, timeline_id: summary.timeline_id), :class => "pull-right btn btn-primary", "data-toggle" => "tooltip",
-                            title: "Améliorer cette synthèse", :style => "padding: 8px; margin-right: 8px"%>
-                <br/>
-              </div>
-          <% end %>
           <div class="btn btn-default">
             <span class="icon-ribbon"></span>
             <%= summary.balance %> crédits ont été donné à cette synthèse.
           </div>
-          <% if delete %>
-              <br/>
-              <br/>
-              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe + "Supprimer ma synthèse",
-                          summary_path( summary.id ), method: :delete,
-                          data: { confirm: "Etes vous certain ?" }, class: "btn btn-danger" %>
-          <% end %>
       <% end %>
     </div>
   </div>

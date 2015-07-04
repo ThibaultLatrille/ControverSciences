@@ -86,7 +86,7 @@ class Frame < ActiveRecord::Base
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     self.content_markdown = redcarpet.render(self.content)
     self.name_markdown = redcarpet.render(self.name)
-    if self.best
+    if self.best && !self.new_record?
       tim = self.timeline
       tim.name = self.name_markdown
       tim.frame = self.content_markdown

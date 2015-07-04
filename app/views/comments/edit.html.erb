@@ -4,14 +4,19 @@
 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
   <div class="list-group">
     <%= link_to "<span class=\"icon-arrow-left normal\"></span>
-    Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
+    Revenir à la controverse".html_safe,
                 timeline_path(@comment.timeline_id),
                 class: "list-group-item" %>
     <%= link_to "<span class=\"icon-arrow-left normal\"></span>
-    Revenir à la référence <span class=\"icon-reference fat\"></span>".html_safe,
+    Revenir à la référence".html_safe,
                 reference_path(@comment.reference_id),
                 class: "list-group-item" %>
-
+    <% if @comment.user_id == current_user.id || current_user.admin %>
+        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer l'analyse".html_safe,
+                    comment_path(@comment.id), method: :delete,
+                    data:                                    {confirm: "Etes vous certain ?"},
+                    class:                                   "list-group-item list-group-item-danger" %>
+    <% end %>
     <% if @myreference.user_id == current_user.id || current_user.admin %>
           <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier la référence".html_safe,
                       edit_reference_path(@myreference.id),

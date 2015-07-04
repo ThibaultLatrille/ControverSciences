@@ -3,25 +3,50 @@
 <div class="row">
 
 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-  <%= link_to "<span class=\"icon-arrow-left fat\"></span> Revenir à la controverse <span class=\"icon-frog fat\"></span>".html_safe,
-              timeline_path(params[:timeline_id]), class: "btn btn-block btn-primary" %>
-<% if logged_in? %>
-    <br/>
-  <br/>
-  <% if @timeline.nb_summaries > 1 && Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) > 0 %>
-      <div class="panel panel-default">
-        <div class="panel-body page">
-          <span class="icon-ribbon"></span> Il vous reste
-          <%= 12 - Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) %>
-          crédits à distribuer aux synthèses de cette controverse
-          <br/>
-          <br/>
-          <%= link_to "Récupérer tous mes crédits (#{Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value)})", credit_path(id: 'all', timeline_id: params[:timeline_id]), method: :delete,
-                      class: "btn btn-block btn-danger" %>
-        </div>
-      </div>
-  <% end %>
-<% end %>
+  <div class="list-group">
+  <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la controverse".html_safe,
+              timeline_path(params[:timeline_id]),
+              class: "list-group-item" %>
+    <% if logged_in? %>
+        <% if @improve %>
+            <%= link_to "<span class=\"icon-fork normal\" >
+                    </span> Ecrire une synthèse".html_safe,
+                        new_summary_path(timeline_id: @timeline.id),
+                        :class => "list-group-item"%>
+        <% else %>
+            <% if params[:filter] == "mine" %>
+                <%= link_to "<span class=\"icon-fork normal\" >
+             </span> Modifier ma synthèse".html_safe,
+                            edit_summary_path(@summaries.first.id),
+                            class: "list-group-item" %>
+                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer ma synthèse".html_safe,
+                            summary_path( @summaries.first.id ), method: :delete,
+                            data: { confirm: "Etes vous certain ?" },
+                            class: "list-group-item list-group-item-danger"%>
+            <% else %>
+                <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                  Ma synthèse".html_safe,
+                            summaries_path(timeline_id: @timeline.id, filter: "mine"),
+                            :class => "list-group-item" %>
+            <% end %>
+        <% end %>
+        <br/>
+        <br/>
+        <% if @timeline.nb_summaries > 1 && Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) > 0 %>
+            <div class="panel panel-default">
+              <div class="panel-body page">
+                <span class="icon-ribbon"></span> Il vous reste
+                <%= 12 - Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) %>
+                crédits à distribuer aux synthèses de cette controverse
+                <br/>
+                <br/>
+                <%= link_to "Récupérer tous mes crédits (#{Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value)})", credit_path(id: 'all', timeline_id: params[:timeline_id]), method: :delete,
+                            class: "btn btn-block btn-danger" %>
+              </div>
+            </div>
+        <% end %>
+    <% end %>
+</div>
 </div>
 
 <div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-1">
@@ -29,13 +54,15 @@
   <div class="panel-body">
     <div>
     <% if logged_in? %>
+          <% unless @improve %>
+              <div class="btn-group">
+                <%= link_to "Ma synthèse",
+                            summaries_path(timeline_id: params[:timeline_id], :filter => 'mine'),
+                            class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
+              </div>
+          <% end %>
         <div class="btn-group">
-          <%= link_to "Ma synthèse (".html_safe + (@improve ? "0" : "1") + ")",
-                      summaries_path( timeline_id: params[:timeline_id], :filter => 'mine'),
-                      class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
-        </div>
-        <div class="btn-group">
-          <%= link_to "Toutes les synthèses (#{@timeline.nb_summaries}".html_safe,
+          <%= link_to "Toutes les synthèses (#{@timeline.nb_summaries})".html_safe,
                       summaries_path( timeline_id: params[:timeline_id] ),
                       class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
         </div>
@@ -83,13 +110,13 @@
     </div>
     <% if params[:filter] == "my-vote" %>
         <% if @summaries.any? %>
-            <%= render @summaries, credit: true, improve: @improve, delete: false %>
+            <%= render @summaries %>
         <% else %>
             Vous n'avez pas donné de crédits. Cette page liste les synthèses auxquelles vous avez distribué des crédits.
         <% end %>
     <% elsif params[:filter] == "mine" %>
         <% if @summaries.any? %>
-            <%= render @summaries, credit: false, improve: true, delete: true %>
+            <%= render @summaries %>
         <% else %>
             <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Vous n'avez pas encore écrit de synthèse ".html_safe,
@@ -97,7 +124,7 @@
         <% end %>
     <% else %>
         <% if @summaries.any? %>
-            <%= render @summaries, credit: logged_in? && @timeline.nb_summaries > 1 ? true : false, improve: @improve, delete: false %>
+            <%= render @summaries %>
             <%= paginate @summaries, :params => {:seed => @seed } %>
         <% else %>
             Il n'y a pas de synthèse autre que la votre

@@ -7,13 +7,8 @@ class SummariesController < ApplicationController
       redirect_to edit_summary_path( id: summary.id )
     else
       @summary = Summary.new
-      if params[:parent_id]
-        @parent = Summary.find(params[:parent_id])
-        @summary.content = @parent.content
-        @summary.timeline_id = @parent.timeline_id
-      else
-        @summary.timeline_id = params[:timeline_id]
-      end
+      @summary.timeline_id = params[:timeline_id]
+      @my_timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
       @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
       @tim_list = Timeline.where( id: Edge.where(timeline_id:
                                                      @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
@@ -30,26 +25,21 @@ class SummariesController < ApplicationController
       @summary.caption = summary_params[:caption]
     end
     @summary.user_id = current_user.id
-    parent_id = params[:summary][:parent_id]
     if @summary.save_with_markdown
-      if parent_id
-        SummaryRelationship.create(parent_id: parent_id, child_id: @summary.id)
-      end
       flash[:success] = "Synthèse enregistrée."
       redirect_to summaries_path( filter: "mine", timeline_id: @summary.timeline_id )
     else
       @list = Reference.where( timeline_id: summary_params[:timeline_id] ).pluck( :title, :id )
       @tim_list = Timeline.where( id: Edge.where(timeline_id:
                                                      summary_params[:timeline_id] ).pluck(:target) ).pluck( :name, :id )
-      if parent_id
-        @parent = Summary.find( parent_id )
-      end
+      @my_timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
       render 'new'
     end
   end
 
   def edit
     @summary = Summary.find( params[:id] )
+    @my_timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
     @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
     @tim_list = Timeline.where( id: Edge.where(timeline_id:
                                                    @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
@@ -72,6 +62,7 @@ class SummariesController < ApplicationController
         flash[:success] = "Synthèse modifiée."
         redirect_to @summary
       else
+        @my_timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
         @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
         @tim_list = Timeline.where( id: Edge.where(timeline_id:
                                                        @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
@@ -152,7 +143,7 @@ class SummariesController < ApplicationController
     summary = Summary.find(params[:id])
     if summary.user_id == current_user.id || current_user.admin
       summary.destroy_with_counters
-      redirect_to my_items_items_path
+      redirect_to timeline_path(summary.timeline_id)
     else
       flash[:danger] = "Cette synthèse est la meilleure et ne peut être supprimée."
       redirect_to summary_path(params[:id])
