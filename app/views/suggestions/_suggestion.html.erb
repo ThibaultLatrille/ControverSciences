@@ -49,11 +49,11 @@
           <br/>
           <% if suggestion.children > 0 %>
               <%= link_to "<span class=\"glyphicon glyphicon-list\"></span> Voir les réactions (#{suggestion.children})".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
-                          :remote => true, id: "fetch", class: "btn btn-info" %>
+                          :remote => true, id: "fetch", class: "btn btn-default" %>
           <% else %>
               <% if logged_in? %>
                   <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Répondre".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
-                              :remote => true, id: "fetch", class: "btn btn-info" %>
+                              :remote => true, id: "fetch", class: "btn btn-default" %>
               <% else %>
                   <div class="clearfix">
                     <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Créer un compte pour répondre".html_safe, new_user_path,

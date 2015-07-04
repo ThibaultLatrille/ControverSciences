@@ -138,7 +138,7 @@
               <% if @improve_frame %>
                   <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                               new_typo_path(frame_id: @improve_frame.id, field: 0), remote: true,
-                              :class                                                        => "btn btn-info", "data-toggle" => "tooltip",
+                              :class                                                        => "btn btn-default", "data-toggle" => "tooltip",
                               title:                                                        "Corriger une faute de français dans le titre" %>
                   <% if current_user.admin %>
                       <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
@@ -168,7 +168,7 @@
                   <% if @improve_frame %>
                       <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                                   new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
-                                  :class                                                        => "btn btn-info", "data-toggle" => "tooltip",
+                                  :class                                                        => "btn btn-default", "data-toggle" => "tooltip",
                                   title:                                                        "Corriger une faute de français dans le cadre",
                                   style:                                                        "padding: 6px;" %>
                       <% if current_user.admin %>
@@ -205,7 +205,7 @@
               <% if logged_in? %>
                   <div class="pull-right">
                     <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                                new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                                new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
                                 title:                                          "Corriger une faute de français dans la synthèse", :style => "padding: 6px; margin-right: 6px" %>
                     <% if current_user.admin %>
                         <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
@@ -320,7 +320,7 @@
         <br/>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
       </div>
     </div>
   </div>
@@ -337,8 +337,8 @@
         speed: 750,
         embedCSS: false,
         collapsedHeight: 450,
-        moreLink: '<a href="#" class="btn btn-info">Continuer la lecture</a>',
-        lessLink: '<a href="#" class="btn btn-info">Réduire le texte</a>'
+        moreLink: '<a href="#" class="btn btn-default">Continuer la lecture</a>',
+        lessLink: '<a href="#" class="btn btn-default">Réduire le texte</a>'
     });
     $('.linked-ref').click(function (e) {
         var id = $(this).data("ref");

@@ -8,7 +8,7 @@
             <% if logged_in? && comment.user_id != current_user.id %>
                 <div class="pull-right">
                   <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                              new_typo_path(comment_id: comment.id, field: 6), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                              new_typo_path(comment_id: comment.id, field: 6), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
                               title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
                   <% if current_user.admin %>
                       <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
@@ -78,7 +78,7 @@
         <% if logged_in? && comment.user_id != current_user.id %>
             <div class="pull-right">
               <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                          new_typo_path(comment_id: comment.id, field: 7), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                          new_typo_path(comment_id: comment.id, field: 7), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
                           title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
               <% if current_user.admin %>
                   <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
@@ -142,7 +142,7 @@
         <% if logged_in? && comment.user_id != current_user.id%>
             <div class="pull-right">
               <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                          new_typo_path(comment_id: comment.id, field: field), remote: true, :class => "btn btn-info", "data-toggle" => "tooltip",
+                          new_typo_path(comment_id: comment.id, field: field), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
                           title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
               <% if current_user.admin %>
                   <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
