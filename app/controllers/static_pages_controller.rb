@@ -7,7 +7,11 @@ class StaticPagesController < ApplicationController
   end
 
   def empty_comments
-    @references = Reference.select(:id, :title, :timeline_id, :created_at).order(:created_at => :desc).where( title_fr: nil )
+    if params[:filter] == "mine" && logged_in?
+      @references = Reference.select(:id, :title, :timeline_id, :created_at).order(:created_at => :desc).where( title_fr: nil, user_id: current_user.id )
+    else
+      @references = Reference.select(:id, :title, :timeline_id, :created_at).order(:created_at => :desc).where( title_fr: nil )
+    end
   end
 
   def empty_summaries
