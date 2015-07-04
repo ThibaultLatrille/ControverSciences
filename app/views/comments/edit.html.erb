@@ -11,22 +11,25 @@
     Revenir à la référence".html_safe,
                 reference_path(@comment.reference_id),
                 class: "list-group-item" %>
+    <% if @myreference.user_id == current_user.id || current_user.admin %>
+        <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier la référence".html_safe,
+                    edit_reference_path(@myreference.id),
+                    class: "list-group-item" %>
+        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer la référence".html_safe,
+                    reference_path(@myreference.id), method: :delete,
+                    data:                                    {confirm: "Etes vous certain ?"},
+                    class:                                   "list-group-item list-group-item-danger" %>
+    <% end %>
+  </div>
     <% if @comment.user_id == current_user.id || current_user.admin %>
+    <div class="list-group">
         <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer l'analyse".html_safe,
                     comment_path(@comment.id), method: :delete,
                     data:                                    {confirm: "Etes vous certain ?"},
                     class:                                   "list-group-item list-group-item-danger" %>
+    </div>
     <% end %>
-    <% if @myreference.user_id == current_user.id || current_user.admin %>
-          <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier la référence".html_safe,
-                      edit_reference_path(@myreference.id),
-                      class: "list-group-item" %>
-          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer la référence".html_safe,
-                      reference_path(@myreference.id), method: :delete,
-                      data:                                    {confirm: "Etes vous certain ?"},
-                      class:                                   "list-group-item list-group-item-danger" %>
-    <% end %>
-  </div>
+
 </div>
 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
 <div class="row">
