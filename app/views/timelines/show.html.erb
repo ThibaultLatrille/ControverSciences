@@ -28,6 +28,10 @@
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir aux controverses".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order]),
                 class: "list-group-item" %>
+    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Inviter à participer".html_safe,
+                new_invitation_path(timeline_id: @timeline.id),
+                remote: true,
+                class: "list-group-item" %>
     <% if logged_in? %>
         <%= link_to "<span class=\"glyphicon glyphicon-link\" >
                         </span> Ajouter des liens vers d'autres controverses".html_safe,
@@ -142,6 +146,7 @@
                                   class: "btn btn-primary" %>
                       <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                                   frame_path(@improve_frame.id), method: :delete,
+                                  data:                          {confirm: "Etes vous certain ?"},
                                   class:                                 "btn btn-danger" %>
                   <% end %>
               <% end %>
@@ -172,6 +177,7 @@
                                       class: "btn btn-primary" %>
                           <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                                       frame_path(@improve_frame.id), method: :delete,
+                                      data:                          {confirm: "Etes vous certain ?"},
                                       class:                                 "btn btn-danger" %>
                       <% end %>
                   <% end %>
@@ -207,6 +213,7 @@
                                     class: "btn btn-primary" %>
                         <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                                     summary_path(@summary.id), method: :delete,
+                                    data:                          {confirm: "Etes vous certain ?"},
                                     class:                             "btn btn-danger" %>
                     <% end %>
                   </div>

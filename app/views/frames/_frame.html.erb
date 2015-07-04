@@ -93,6 +93,7 @@
                                   class: "btn btn-primary"%>
                       <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                                   frame_path(frame.id), method: :delete,
+                                  data:                          {confirm: "Etes vous certain ?"},
                                   class: "btn btn-danger"%>
                   <% end %>
                 </div>
