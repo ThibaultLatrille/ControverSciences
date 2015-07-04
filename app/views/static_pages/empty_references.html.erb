@@ -8,7 +8,11 @@
             <div class="panel-body">
               <h3>
                 <span class="icon-4"></span>
-                Ces controverses ont besoin de références scientifiques, venez les enrichir !
+                Ces controverses
+                <% if params[:filter] == "mine" %>
+                    que vous avez ajouté
+                <% end %>
+                ont besoin de références scientifiques, venez les enrichir !
               </h3>
             </div>
           </div>

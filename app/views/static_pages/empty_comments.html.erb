@@ -8,7 +8,11 @@
             <div class="panel-body">
               <h3>
                 <span class="icon-4"></span>
-                Ces références n'ont pas encore d'analyses, soyez le premier à les décortiquer !
+                Ces références
+                <% if params[:filter] == "mine" %>
+                    que vous avez ajouté
+                <% end %>
+                    n'ont pas encore d'analyses, soyez le premier à les décortiquer !
               </h3>
             </div>
           </div>
