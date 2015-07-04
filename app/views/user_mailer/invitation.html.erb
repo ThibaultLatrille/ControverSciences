@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                       <td  class="w520" width="520" >
-                        <h1 style="font-size:30px;line-height:45px;"> Bonjour,
+                        <h1 style="font-size:30px;line-height:45px;"> Bonjour <%= @invitation.target_name %>,
                         </h1>
                       </td>
                     </tr>
@@ -62,7 +62,16 @@
                       <td class="w520" width="520" style="line-height:30px">
                         <div>
                           <p>
-                            Vous êtes maintenant inscrit au bulletin d'informations ControverSciences.
+                            <%= @invitation.user_name %> vous invite à découvrir <%= link_to "ControverSciences", root_url %> et en particulier à la
+                            <% if @invitation.timeline_id %>
+                                controverse <%= link_to @invitation.timeline.name.html_safe, timeline_url(@invitation.timeline_id) %>
+                            <% elsif @invitation.reference_id %>
+                                référence <%= link_to @invitation.reference.title_display.html_safe, reference_url(@invitation.reference_id) %>
+                            <% end %>
+                            <% if @message && @message.strip != "" %>
+                                <br/>
+                                <%= @invitation.user_name %> vous a écrit le message suivant: <br/> <%= @message %>
+                            <% end %>
                           </p>
                         </div>
                       </td>
@@ -78,7 +87,7 @@
                           <tr>
                             <td class="w40" width="40"></td>
                             <td class="w440" width="440" height="45" align="center" style="background:#30be90;border-radius:5px;" >
-                              <%= link_to "Decouvrir", "http://www.controversciences.org/" , style: "text-decoration: none;color:#fff;font-weight:600;font-size:15px;line-height:45px;text-transform:uppercase;width:100%; display:inline-block" %>
+                              <%= link_to "Decouvrir la #{@invitation.timeline_id ? "controverse" : "reference"}", @invitation.timeline_id ? timeline_url(@invitation.timeline_id) : reference_url(@invitation.reference_id) , style: "text-decoration: none;color:#fff;font-weight:600;font-size:15px;line-height:45px;text-transform:uppercase;width:100%; display:inline-block" %>
                             </td>
                             <td class="w40" width="40"></td>
                           </tr>

@@ -1,8 +1,5 @@
-<% if @reference.title_fr.blank? %>
-    <% provide(:title, @reference.title.html_safe) %>
-<% else %>
-    <% provide(:title, @reference.title_fr.strip[3..-5].html_safe) %>
-<% end %>
+
+<% provide(:title, @reference.title_display) %>
 <% if @best_comment && @best_comment.not_empty %>
     <% provide(:meta, @best_comment.first_data.strip[3..-5].html_safe) %>
 <% else %>
@@ -42,7 +39,7 @@
     <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Référence suivante".html_safe,
                 next_reference_path(timeline_id: @reference.timeline_id, id: @reference.id),
                 class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Inviter à participer".html_safe,
+    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Envoyer une invitation".html_safe,
                 new_invitation_path(reference_id: @reference.id),
                 remote: true,
                 class: "list-group-item" %>

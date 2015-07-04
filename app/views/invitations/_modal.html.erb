@@ -9,18 +9,34 @@
         <div class="panel panel-info">
           <div class="panel-heading">
             <b>
-             Inviter un  à participer
+              <% if invitation.timeline_id %>
+                Envoyez une invitation à un intéressé par cette controverse
+              <% elsif invitation.reference_id  %>
+                Envoyez une invitation à un intéressé par cette référence
+              <% end %>
             </b>
           </div>
         </div>
         <%= form_for(invitation, url: invitations_path, remote: true,
                      html:      {role: :form, 'data-model' => 'issue'}) do |f| %>
+            <%= render 'shared/error_messages', object: f.object %>
+
             <%= f.hidden_field :timeline_id, value: invitation.timeline_id %>
             <%= f.hidden_field :reference_id, value: invitation.reference_id %>
-
+            <br/>
+            <%= f.label "Son nom*" %>
+            <%= f.text_field :target_name, class: 'form-control' %>
+            <br/>
+            <%= f.label "Son adresse email*" %>
+            <%= f.text_field :target_email, class: 'form-control' %>
+            <br/>
             <%= f.label :message, "Message", class: 'control-label' %>
             <br>
             <%= f.text_area :message, class: 'form-control textarea' %>
+            <br>
+            <%= f.label "Votre nom*" %>
+            <%= f.text_field :user_name, value: logged_in? ? current_user.name : "", class: 'form-control' %>
+            <br/>
             <div class="actions pull-right">
               <br/>
               <%= f.button "Envoyer l'invitation &nbsp <span class=\"glyphicon glyphicon-send\"></span>".html_safe,

@@ -1,2 +1,10 @@
-$('#newinvitation').modal('hide');
-$("#my-container").prepend("<%= escape_javascript(render partial: 'invitations/alert_danger') %>");
+$('#newinvitation').remove();
+$("body").append("<%= escape_javascript(render partial: 'invitations/modal',
+        locals: { invitation: @invitation } ) %>");
+$('#newinvitation').modal('show');
+$('#newinvitation').on('shown.bs.modal', function () {
+    autosize($('textarea', "#newinvitation"));
+});
+$("#newinvitation").on('hidden.bs.modal', function () {
+    $(this).remove()
+});

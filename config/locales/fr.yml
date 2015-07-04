@@ -24,6 +24,10 @@ fr:
         password_confirmation: "Confirmation de mot de passe"
       timeline:
         name: "Titre"
+      invitation:
+        target_name: "Son nom"
+        target_email: "Son adresse électronique"
+        user_name: "Votre nom"
   date:
     abbr_day_names:
       - dim
