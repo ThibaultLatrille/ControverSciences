@@ -1,145 +1,153 @@
 <% provide(:title, "Nouvelle contribution") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-    <div class="list-group">
-      <%= link_to "<span class=\"icon-arrow-left normal\"></span>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span>
             Revenir à la controverse".html_safe,
-                  timeline_path(@frame.timeline_id),
-                  class: "list-group-item" %>
-      <% if @my_timeline.nb_frames > 1 %>
-          <%= link_to "<span class=\"badge pull-left\">#{@my_timeline.nb_frames}</span>
+                    timeline_path(@frame.timeline_id),
+                    class: "list-group-item" %>
+        <% if @my_timeline.nb_frames > 1 %>
+            <%= link_to "<span class=\"badge pull-left\">#{@my_timeline.nb_frames}</span>
                   &nbsp Toutes les contributions de cette controverse".html_safe,
-                      frames_path( timeline_id: @frame.timeline_id ),
-                      class: "list-group-item"  %>
-      <% end %>
-      <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                        frames_path(timeline_id: @frame.timeline_id),
+                        class: "list-group-item" %>
+        <% end %>
+        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
                   Ma contribution".html_safe,
-                  frames_path(timeline_id: @my_timeline.id, filter: "mine"),
-                  :class => "list-group-item" %>
+                    frames_path(timeline_id: @my_timeline.id, filter: "mine"),
+                    :class => "list-group-item" %>
+      </div>
     </div>
-  </div>
 
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2> Proposer une nouvelle formulation de la controverse
-            </h2>
-            <br/>
-              <%= link_to @my_timeline.name.html_safe,
-                          timeline_url( @frame.timeline_id ) %>
-          </div>
-          <div class="panel-body clearfix">
-            <%= form_for(@frame) do |f| %>
-                <%= render 'static_pages/charte' %>
-                <%= render 'shared/error_messages', object: f.object %>
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2> Proposer une nouvelle formulation de la controverse
+          </h2>
+          <br/>
+          <%= link_to @my_timeline.name.html_safe,
+                      timeline_url(@frame.timeline_id) %>
+        </div>
+        <div class="panel-body clearfix">
+          <%= form_for(@frame) do |f| %>
+              <%= render 'static_pages/charte' %>
+              <%= render 'shared/error_messages', object: f.object %>
 
-                <br/>
-                <br/>
-                <b style="font-size: 1.4em">Titre de la controverse</b><div id="characterLeft1"></div><br/>
-                <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
-                </br>
-                <b style="font-size: 1.4em">Cadre, focus et mise au point de la controverse</b><div id="characterLeft0"></div><br/>
-                <%= f.text_area :content, class: 'form-control textarea', id: "description0" %>
-                </br>
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    Précisez le cadre de référence de la controverse.
+              <br/>
+              <br/>
+              <b style="font-size: 1.4em">Titre de la controverse</b>
+
+              <div id="characterLeft1"></div>
+              <br/>
+              <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
+              </br>
+              <b style="font-size: 1.4em">Cadre, focus et mise au point de la controverse</b>
+
+              <div id="characterLeft0"></div>
+              <br/>
+              <%= f.text_area :content, class: 'form-control textarea', id: "description0" %>
+              </br>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  Précisez le cadre de référence de la controverse.
+                  <br/>
+                  Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est
+                  supporté</a>.
+                </div>
+              </div>
+              <br/>
+              <%= f.label :Tags, "Thèmes" %> </br>
+              <div class="container-fluid">
+                <div class="row" data-toggle="buttons">
+                  <% tags_hash.each do |key, value| %>
+                      <% if @tag_list.include? key %>
+                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
+                            <div class="my-btn">
+                              <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
+                              <span class="fat icon-<%= key %>"></span> <%= value %>
+                            </div>
+                          </div>
+                      <% else %>
+                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+                            <div class="my-btn">
+                              <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
+                              <span class="fat icon-<%= key %>"></span> <%= value %>
+                            </div>
+                          </div>
+                      <% end %>
+                  <% end %>
+                </div>
+              </div>
+              <br/>
+
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <%= f.label :binary do %>
+                      <%= f.check_box :binary, id: "check-box", value: true %>
+                      <span> Pour cette controverse, il existe deux réponses antagonistes </span>
+                  <% end %>
+                  <div id="binary-box">
                     <br/>
-                    Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
-                  </div>
-                </div>
-                <br/>
-                <%= f.label :Tags, "Thèmes" %> </br>
-                <div class="container-fluid">
-                  <div class="row" data-toggle="buttons">
-                    <% tags_hash.each do |key, value| %>
-                        <% if @tag_list.include? key %>
-                            <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
-                              <div class="my-btn">
-                                <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
-                                <span class="fat icon-<%= key %>"></span> <%= value %>
-                              </div>
-                            </div>
-                        <% else %>
-                            <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
-                              <div class="my-btn">
-                                <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
-                                <span class="fat icon-<%= key %>"></span> <%= value %>
-                              </div>
-                            </div>
-                        <% end %>
-                    <% end %>
-                  </div>
-                </div>
-                <br/>
-                <div class="panel panel-default">
-                  <div class="panel-body">
-                    <%= f.label :binary do %>
-                        <%= f.check_box :binary, id: "check-box", value: true %>
-                        <span> Pour cette controverse, il existe deux réponses antagonistes </span>
-                    <% end %>
-                    <div id="binary-box">
-                      <br/>
 
-                      <div class="row">
-                        <div class="col-xs-4">
-                          <br/>
-                          <%= f.text_field :binary_left, class: 'form-control', placeholder: "Oui/Blanc/Inné/..." %>
-                          <br/>
-                        </div>
-                        <div class="col-xs-4 center">
-                          <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
-                        </div>
-                        <div class="col-xs-4">
-                          <br/>
-                          <%= f.text_field :binary_right, class: 'form-control', placeholder: "Non/Noir/Acquis/..." %>
-                          <br/>
-                        </div>
+                    <div class="row">
+                      <div class="col-xs-4">
+                        <br/>
+                        <%= f.text_field :binary_left, class: 'form-control', placeholder: "Oui/Blanc/Inné/..." %>
+                        <br/>
                       </div>
-                      <br/>
+                      <div class="col-xs-4 center">
+                        <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
+                      </div>
+                      <div class="col-xs-4">
+                        <br/>
+                        <%= f.text_field :binary_right, class: 'form-control', placeholder: "Non/Noir/Acquis/..." %>
+                        <br/>
+                      </div>
                     </div>
-                    <div class="panel panel-info">
-                      <div class="panel-heading">
-                        En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les
-                        références.
-                        Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
-                      </div>
+                    <br/>
+                  </div>
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                      En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les
+                      références.
+                      Si la controverse n'est pas une question fermée, décocher cette case ou reformulez la controverse.
                     </div>
                   </div>
                 </div>
-                <%= f.hidden_field :timeline_id, value: @frame.timeline_id %>
-                <br/>
-                <br/>
-                <%= f.button "Publier la contribution &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                             class: 'btn btn-success btn-lg pull-right',
-                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "}%>
-            <% end %>
-          </div>
+              </div>
+              <%= f.hidden_field :timeline_id, value: @frame.timeline_id %>
+              <br/>
+              <br/>
+              <%= f.button "Publier la contribution &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success btn-lg pull-right',
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </div>
 
 
 <script type="text/javascript">
-    $("#description1").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra','cmdList','cmdListO','cmdBold']});
-    $("#description0").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
-        $(document).ready(function () {
-            $('.my-btn').responsiveEqualHeightGrid();
-            if (!$('#check-box').is(':checked')) {
-                $('#binary-box').hide()
+    $("#description1").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra', 'cmdList', 'cmdListO', 'cmdBold']});
+    $("#description0").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']});
+    $(document).ready(function () {
+        $('.my-btn').responsiveEqualHeightGrid();
+        if (!$('#check-box').is(':checked')) {
+            $('#binary-box').hide()
+        }
+        $('#check-box').click(function () {
+            if ($(this).is(':checked')) {
+                $('#binary-box').show(500)
+            } else {
+                $('#binary-box').hide(500)
             }
-            $('#check-box').click(function () {
-                if ($(this).is(':checked')) {
-                    $('#binary-box').show(500)
-                } else {
-                    $('#binary-box').hide(500)
-                }
-            });
         });
+    });
     $.each(['0', '1'], function (index, value) {
-        $(document).ready(function() {
+        $(document).ready(function () {
             if (value === '0') {
                 var max = 2500;
             } else {

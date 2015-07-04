@@ -1,144 +1,146 @@
 <% provide(:title, "Synthèses") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
+  <div class="row">
 
-<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-  <div class="list-group">
-  <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la controverse".html_safe,
-              timeline_path(params[:timeline_id]),
-              class: "list-group-item" %>
-    <% if logged_in? %>
-        <% if @improve %>
-            <%= link_to "<span class=\"icon-fork normal\" >
-                    </span> Ecrire une synthèse".html_safe,
-                        new_summary_path(timeline_id: @timeline.id),
-                        :class => "list-group-item"%>
-        <% else %>
-            <% if params[:filter] == "mine" %>
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la controverse".html_safe,
+                    timeline_path(params[:timeline_id]),
+                    class: "list-group-item" %>
+        <% if logged_in? %>
+            <% if @improve %>
                 <%= link_to "<span class=\"icon-fork normal\" >
-             </span> Modifier ma synthèse".html_safe,
-                            edit_summary_path(@summaries.first.id),
-                            class: "list-group-item" %>
-                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer ma synthèse".html_safe,
-                            summary_path( @summaries.first.id ), method: :delete,
-                            data: { confirm: "Etes vous certain ?" },
-                            class: "list-group-item list-group-item-danger"%>
-            <% else %>
-                <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
-                  Ma synthèse".html_safe,
-                            summaries_path(timeline_id: @timeline.id, filter: "mine"),
+                    </span> Ecrire une synthèse".html_safe,
+                            new_summary_path(timeline_id: @timeline.id),
                             :class => "list-group-item" %>
+            <% else %>
+                <% if params[:filter] == "mine" %>
+                    <%= link_to "<span class=\"icon-fork normal\" >
+             </span> Modifier ma synthèse".html_safe,
+                                edit_summary_path(@summaries.first.id),
+                                class: "list-group-item" %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer ma synthèse".html_safe,
+                                summary_path(@summaries.first.id), method: :delete,
+                                data:                                      {confirm: "Etes vous certain ?"},
+                                class:                                     "list-group-item list-group-item-danger" %>
+                <% else %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                  Ma synthèse".html_safe,
+                                summaries_path(timeline_id: @timeline.id, filter: "mine"),
+                                :class => "list-group-item" %>
+                <% end %>
+                <br/>
+                <br/>
+                <% if params[:filter] != "mine" && @timeline.nb_summaries > 1 && Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) > 0 %>
+                    <div class="list-group">
+                      <div class="list-group-item">
+                        <span class="icon-ribbon"></span> Il vous reste
+                        <%= 12 - Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) %>
+                        crédits à distribuer aux synthèses de cette controverse
+                      </div>
+                      <%= link_to "<span class=\"icon-ribbon\"></span>
+                    Récupérer mes crédits (#{Credit.where(user_id: current_user.id,
+                                                               timeline_id: params[:timeline_id]).sum(:value)})".html_safe,
+                                  credit_path(id: 'all', timeline_id: params[:timeline_id]), method: :delete,
+                                  class: "list-group-item list-group-item-danger" %>
+                    </div>
+                <% end %>
             <% end %>
         <% end %>
-        <br/>
-        <br/>
-        <% if @timeline.nb_summaries > 1 && Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) > 0 %>
-            <div class="panel panel-default">
-              <div class="panel-body page">
-                <span class="icon-ribbon"></span> Il vous reste
-                <%= 12 - Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) %>
-                crédits à distribuer aux synthèses de cette controverse
-                <br/>
-                <br/>
-                <%= link_to "Récupérer tous mes crédits (#{Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value)})", credit_path(id: 'all', timeline_id: params[:timeline_id]), method: :delete,
-                            class: "btn btn-block btn-danger" %>
-              </div>
-            </div>
-        <% end %>
-    <% end %>
-</div>
-</div>
-
-<div class="col-sm-10 col-sm-offset-1 col-md-10 col-lg-6 col-lg-offset-1">
-<div id="comments" class="panel panel-default">
-  <div class="panel-body">
-    <div>
-    <% if logged_in? %>
-          <% unless @improve %>
-              <div class="btn-group">
-                <%= link_to "Ma synthèse",
-                            summaries_path(timeline_id: params[:timeline_id], :filter => 'mine'),
-                            class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
-              </div>
-          <% end %>
-        <div class="btn-group">
-          <%= link_to "Toutes les synthèses (#{@timeline.nb_summaries})".html_safe,
-                      summaries_path( timeline_id: params[:timeline_id] ),
-                      class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }"  %>
-        </div>
-        <div class="btn-group">
-          <%= link_to "Mes synthèses favorites (#{@favorites})".html_safe,
-                      summaries_path( timeline_id: params[:timeline_id], :filter => 'my-vote'),
-                      class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }"  %>
-        </div>
-    <% else %>
-        <div class="btn-group">
-          <button class="btn btn-default dropdown-toggle" type="button"
-                  id="dropdownMenuTri" data-toggle="dropdown">
-            <%= params[:sort]=='score' || params[:sort].nil? ? "Tri magique" : "Tri par date" %>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" >
-            <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-              <%= link_to "Magique (par défaut)", summaries_path( timeline_id: params[:timeline_id],
-                                                                                      :sort=> 'score',
-                                                                                      :order => params[:order]) %> </li>
-            <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-              <%= link_to "Date de création", summaries_path( timeline_id: params[:timeline_id],
-                                                              :sort=> 'created_at',
-                                                              :order => params[:order]) %> </li>
-          </ul>
-        </div>
-        <div class="btn-group">
-          <button class="btn btn-default dropdown-toggle" type="button"
-                  id="dropdownMenuOrder" data-toggle="dropdown">
-            <%= params[:order]=='desc' || params[:order].nil? ? "Ordre décroissant" : "Ordre croissant" %>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu" >
-            <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-              <%= link_to "Décroissant (par défaut)", summaries_path( timeline_id: params[:timeline_id],
-                                                                       :sort=> params[:sort], :order => 'desc') %> </li>
-            <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-              <%= link_to "Croissant", summaries_path( timeline_id: params[:timeline_id],
-                                                       :sort => params[:sort], :order => 'asc') %> </li>
-          </ul>
-        </div>
-    <% end %>
-      <br/>
-      <br/>
+      </div>
     </div>
-    <% if params[:filter] == "my-vote" %>
-        <% if @summaries.any? %>
-            <%= render @summaries %>
-        <% else %>
-            Vous n'avez pas donné de crédits. Cette page liste les synthèses auxquelles vous avez distribué des crédits.
-        <% end %>
-    <% elsif params[:filter] == "mine" %>
-        <% if @summaries.any? %>
-            <%= render @summaries %>
-        <% else %>
-            <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Vous n'avez pas encore écrit de synthèse ".html_safe,
-                        new_summary_path( timeline_id: params[:timeline_id]  ), class: "btn btn-primary" %>
-        <% end %>
-    <% else %>
-        <% if @summaries.any? %>
-            <%= render @summaries %>
-            <%= paginate @summaries, :params => {:seed => @seed } %>
-        <% else %>
-            Il n'y a pas de synthèse autre que la votre
-        <% end %>
-    <% end %>
-  </div>
-</div>
-</div>
 
-</div>
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
+      <div id="comments" class="panel panel-default">
+        <div class="panel-body">
+          <div>
+            <% if logged_in? %>
+                <% unless @improve %>
+                    <div class="btn-group">
+                      <%= link_to "Ma synthèse",
+                                  summaries_path(timeline_id: params[:timeline_id], :filter => 'mine'),
+                                  class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
+                    </div>
+                <% end %>
+                <div class="btn-group">
+                  <%= link_to "Toutes les synthèses (#{@timeline.nb_summaries})".html_safe,
+                              summaries_path(timeline_id: params[:timeline_id]),
+                              class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }" %>
+                </div>
+                <div class="btn-group">
+                  <%= link_to "Mes synthèses favorites (#{@favorites})".html_safe,
+                              summaries_path(timeline_id: params[:timeline_id], :filter => 'my-vote'),
+                              class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
+                </div>
+            <% else %>
+                <div class="btn-group">
+                  <button class="btn btn-default dropdown-toggle" type="button"
+                          id="dropdownMenuTri" data-toggle="dropdown">
+                    <%= params[:sort]=='score' || params[:sort].nil? ? "Tri magique" : "Tri par date" %>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
+                      <%= link_to "Magique (par défaut)", summaries_path(timeline_id: params[:timeline_id],
+                                                                         :sort        => 'score',
+                                                                         :order       => params[:order]) %> </li>
+                    <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
+                      <%= link_to "Date de création", summaries_path(timeline_id: params[:timeline_id],
+                                                                     :sort        => 'created_at',
+                                                                     :order       => params[:order]) %> </li>
+                  </ul>
+                </div>
+                <div class="btn-group">
+                  <button class="btn btn-default dropdown-toggle" type="button"
+                          id="dropdownMenuOrder" data-toggle="dropdown">
+                    <%= params[:order]=='desc' || params[:order].nil? ? "Ordre décroissant" : "Ordre croissant" %>
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                    <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
+                      <%= link_to "Décroissant (par défaut)", summaries_path(timeline_id: params[:timeline_id],
+                                                                             :sort        => params[:sort], :order => 'desc') %> </li>
+                    <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
+                      <%= link_to "Croissant", summaries_path(timeline_id: params[:timeline_id],
+                                                              :sort        => params[:sort], :order => 'asc') %> </li>
+                  </ul>
+                </div>
+            <% end %>
+            <br/>
+            <br/>
+          </div>
+          <% if params[:filter] == "my-vote" %>
+              <% if @summaries.any? %>
+                  <%= render @summaries %>
+              <% else %>
+                  Vous n'avez pas donné de crédits. Cette page liste les synthèses auxquelles vous avez distribué des
+                  crédits.
+              <% end %>
+          <% elsif params[:filter] == "mine" %>
+              <% if @summaries.any? %>
+                  <%= render @summaries %>
+              <% else %>
+                  <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
+        </span> Vous n'avez pas encore écrit de synthèse ".html_safe,
+                              new_summary_path(timeline_id: params[:timeline_id]), class: "btn btn-primary" %>
+              <% end %>
+          <% else %>
+              <% if @summaries.any? %>
+                  <%= render @summaries %>
+                  <%= paginate @summaries, :params => {:seed => @seed} %>
+              <% else %>
+                  Il n'y a pas de synthèse autre que la votre
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     });
 </script>

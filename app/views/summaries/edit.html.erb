@@ -1,133 +1,138 @@
 <% provide(:title, "Nouvelle synthèse") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-    <div class="list-group">
-      <%= link_to "<span class=\"icon-arrow-left normal\"></span>
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span>
             Revenir à la controverse".html_safe,
-                  timeline_path(@summary.timeline_id),
-                  class: "list-group-item" %>
-      <% if @my_timeline.nb_summaries > 1 %>
-          <%= link_to "<span class=\"badge pull-left\">#{@my_timeline.nb_summaries}</span>
+                    timeline_path(@summary.timeline_id),
+                    class: "list-group-item" %>
+        <% if @my_timeline.nb_summaries > 1 %>
+            <%= link_to "<span class=\"badge pull-left\">#{@my_timeline.nb_summaries}</span>
                   &nbsp Toutes les synthèses de cette controverse".html_safe,
-                      summaries_path( timeline_id: @summary.timeline_id ),
-                      class: "list-group-item"  %>
-      <% end %>
-      <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                        summaries_path(timeline_id: @summary.timeline_id),
+                        class: "list-group-item" %>
+        <% end %>
+        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
                   Ma synthèse".html_safe,
-                  summaries_path(timeline_id: @my_timeline.id, filter: "mine"),
-                  :class => "list-group-item" %>
-      <% if @summary.user_id == current_user.id || current_user.admin %>
-          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer ma synthèse".html_safe,
-                      summary_path(@summary.id), method: :delete,
-                      data:                              {confirm: "Etes vous certain ?"},
-                      class:                             "list-group-item list-group-item-danger" %>
-      <% end %>
+                    summaries_path(timeline_id: @my_timeline.id, filter: "mine"),
+                    :class => "list-group-item" %>
+        <% if @summary.user_id == current_user.id || current_user.admin %>
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer ma synthèse".html_safe,
+                        summary_path(@summary.id), method: :delete,
+                        data:                              {confirm: "Etes vous certain ?"},
+                        class:                             "list-group-item list-group-item-danger" %>
+        <% end %>
+      </div>
     </div>
-  </div>
 
-  <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2> Modifier ma synthèse </h2>
-            <br/>
-            De la controverse :
-            <%= link_to @my_timeline.name.html_safe,
-                        timeline_url( @summary.timeline_id ) %>
-          </div>
-          <div class="panel-body">
-            <%= form_for(@summary, html: { multipart: true }) do |f| %>
-                <%= render 'shared/error_messages', object: f.object %>
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2> Modifier ma synthèse </h2>
+          <br/>
+          De la controverse :
+          <%= link_to @my_timeline.name.html_safe,
+                      timeline_url(@summary.timeline_id) %>
+        </div>
+        <div class="panel-body">
+          <%= form_for(@summary, html: {multipart: true}) do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
 
-                <div class="switcher pull-right">
-                  <p class="fieldset">
-                    <%= f.radio_button :public, true %>
-                    <label for="summary_public_true">Public</label>
-                    <%= f.radio_button :public, false %>
-                    <label for="summary_public_false">Privé</label>
-                    <span class="switch"></span>
-                  </p>
+              <div class="switcher pull-right">
+                <p class="fieldset">
+                  <%= f.radio_button :public, true %>
+                  <label for="summary_public_true">Public</label>
+                  <%= f.radio_button :public, false %>
+                  <label for="summary_public_false">Privé</label>
+                  <span class="switch"></span>
+                </p>
+              </div>
+              <br/>
+              <br/>
+
+              <%= f.label "Synthèse" %>
+              <div id="characterLeft0"></div>
+
+              <%= f.text_area :content, {rows:          3, :placeholder => "synthèse",
+                                         :class         => "form-control textarea",
+                                         id:            "description0",
+                                         "data-provide" => "markdown"} %>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  La synthèse est un résumé général de la controverse. Son objectif
+                  est d'intégrer l'ensemble des références analysées, et donc de donner un bilan de la controverse basé
+                  sur des résultats scientifiques.
+                  <br/>
+                  Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est
+                  supporté</a>.
+                  De plus vous pouvez insérer des liens internes vers les références de cette controverse
+                  (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
+                  au lecteur une meilleure navigation dans la controverse.
                 </div>
-                <br/>
-                <br/>
+              </div>
+              <br/>
 
-                <%= f.label "Synthèse" %> <div id="characterLeft0"></div>
+              <p hidden id="best_summary"><%= @summary.best %></p>
 
-                <%= f.text_area :content, {rows: 3, :placeholder => "synthèse",
-                                           :class => "form-control textarea",
-                                           id: "description0",
-                                           "data-provide" => "markdown" }%>
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    La synthèse est un résumé général de la controverse. Son objectif
-                    est d'intégrer l'ensemble des références analysées, et donc de donner un bilan de la controverse basé sur des résultats scientifiques.
+              <p hidden id="balance_summary"><%= @summary.balance %></p>
+              <%= f.hidden_field :has_picture, value: @summary.picture? %>
+              <%= f.hidden_field :delete_picture, value: false %>
+              <%= f.hidden_field :timeline_id, value: @summary.timeline_id %>
+              <div id="caption" style="display: none">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6">
+                    <div id="original">
+                      <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
+                    </div>
+                    <div id="uploaded" style="display: none">
+                      <%= image_tag '', class: "img-rounded img-responsive" %>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
                     <br/>
-                    Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
-                    De plus vous pouvez insérer des liens internes vers les références de cette controverse
-                    (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
-                    au lecteur une meilleure navigation dans la controverse.
-                  </div>
-                </div>
-                <br/>
-                <p hidden id="best_summary"><%= @summary.best %></p>
-                <p hidden id="balance_summary"><%= @summary.balance %></p>
-                <%= f.hidden_field :has_picture, value: @summary.picture? %>
-                <%= f.hidden_field :delete_picture, value: false %>
-                <%= f.hidden_field :timeline_id, value: @summary.timeline_id %>
-                <div id="caption" style="display: none">
-                  <div class="row">
-                    <div class="col-xs-12 col-md-6">
-                      <div id="original">
-                        <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
-                      </div>
-                      <div id="uploaded" style="display: none">
-                        <%= image_tag '', class: "img-rounded img-responsive" %>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                      <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
-                      <br/>
 
-                      <div id="characterLeft1"></div>
-                      <%= f.text_area :caption, {rows: 3, :placeholder => "Légende de la figure",
-                                                 :class => "form-control textarea", id: "description1",
-                                                 "data-provide" => "markdown"} %>
-                      <div class="panel panel-info">
-                        <div class="panel-heading">
-                          La légende de votre figure, facultatif mais vivement recommandée.
-                        </div>
+                    <div id="characterLeft1"></div>
+                    <%= f.text_area :caption, {rows:          3, :placeholder => "Légende de la figure",
+                                               :class         => "form-control textarea", id: "description1",
+                                               "data-provide" => "markdown"} %>
+                    <div class="panel panel-info">
+                      <div class="panel-heading">
+                        La légende de votre figure, facultatif mais vivement recommandée.
                       </div>
                     </div>
                   </div>
                 </div>
-                <br/>
-                <br/>
-                <%= f.button "Modifier ma synthèse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                             class: 'btn btn-success btn-lg pull-right',
-                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "}%>
-            <% end %>
-            <div>
-              <div id="upload-btn" class="btn btn-info btn-lg fileinput-button">
-                <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-                <span id="ajouter"> Ajouter une figure </span>
-                <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
               </div>
-              <div id="progress" style="display: none">
-                <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                  <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
-                    <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
-                  </path>
-                </svg>
-              </div>
-              <div id="delete" class="btn btn-danger btn-lg" style="display: none">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-                Supprimer la figure
-              </div>
+              <br/>
+              <br/>
+              <%= f.button "Modifier ma synthèse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success btn-lg pull-right',
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
+          <% end %>
+          <div>
+            <div id="upload-btn" class="btn btn-info btn-lg fileinput-button">
+              <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+              <span id="ajouter"> Ajouter une figure </span>
+              <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
+            </div>
+            <div id="progress" style="display: none">
+              <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                  <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                </path>
+              </svg>
+            </div>
+            <div id="delete" class="btn btn-danger btn-lg" style="display: none">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+              Supprimer la figure
             </div>
           </div>
         </div>
+      </div>
+    </div>
   </div>
-</div>
 </div>
 
 <div class="modal fade" id="mytimlist" tabindex="-1">
@@ -176,10 +181,11 @@
         <h4 class="modal-title" id="myModalLabel"> Créer un lien vers une référence </h4>
       </div>
       <div class="modal-body">
-        <%= select("reference", "reference_id", @list , {}, {id: "list-ref", class: 'form-control'}) %>
+        <%= select("reference", "reference_id", @list, {}, {id: "list-ref", class: 'form-control'}) %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn"> Ajouter </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn"> Ajouter
+        </button>
       </div>
     </div>
   </div>
@@ -196,7 +202,9 @@
         <input id="http-text" type="text" class="form-control" placeholder="http://">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn-http"> Ajouter </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn-http">
+          Ajouter
+        </button>
       </div>
     </div>
   </div>
@@ -213,14 +221,14 @@
         Rendre une contribution privé vous fera perdre tous les crédits qui lui ont été attribués.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
       </div>
     </div>
   </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         if ($('#summary_has_picture').val() === 'true') {
             $('#caption').show();
             $('#delete').show();
@@ -257,7 +265,7 @@
         $('#summary_delete_picture').val('true');
     });
     $('input[type=radio]', '.switcher').change(function () {
-        if ($('input[type=radio]:checked', '.switcher').val() === 'false' ) {
+        if ($('input[type=radio]:checked', '.switcher').val() === 'false') {
             if ($('#best_summary').text() === 'true') {
                 $('#warning').modal('show');
             } else if (!($('#balance_summary').text() === '0')) {
@@ -275,7 +283,7 @@
         myref.setAttribute("data-toggled", 'yes');
     });
     $.each(['0', '1'], function (index, value) {
-        $(document).ready(function() {
+        $(document).ready(function () {
             if (value === '0') {
                 var max = 12500;
             } else {

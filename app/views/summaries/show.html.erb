@@ -1,48 +1,44 @@
 <% provide(:title, "Synthèse") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
+  <div class="row">
 
-  <div class="col-xs-12 col-md-4 col-lg-2">
-    <div class="list-group">
-    <%= link_to "<span class=\"icon-arrow-left normal\"></span>
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span>
             Revenir à la controverse".html_safe,
-                timeline_path(@summary.timeline_id),
-                class: "list-group-item" %>
-      <% if @timeline.nb_summaries > 1 %>
-          <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
+                    timeline_path(@summary.timeline_id),
+                    class: "list-group-item" %>
+        <% if @timeline.nb_summaries > 1 %>
+            <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
                   &nbsp Toutes les synthèses de cette controverse".html_safe,
-                      summaries_path( timeline_id: @summary.timeline_id ),
-                      class: "list-group-item"  %>
-      <% end %>
-      <% if logged_in? && @summary.user_id == current_user.id %>
-          <%= link_to "<span class=\"icon-frog normal\"></span> Modifier l'analyse".html_safe,
-                      edit_summary_path(@summary.id),
-                      class: "list-group-item" %>
-          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer l'analyse".html_safe,
-                      summary_path(@summary.id), method: :delete,
-                      data:                              {confirm: "Etes vous certain ?"},
-                      class:                             "list-group-item list-group-item-danger" %>
-      <% end %>
+                        summaries_path(timeline_id: @summary.timeline_id),
+                        class: "list-group-item" %>
+        <% end %>
+        <% if logged_in? && @summary.user_id == current_user.id %>
+            <%= link_to "<span class=\"icon-frog normal\"></span> Modifier l'analyse".html_safe,
+                        edit_summary_path(@summary.id),
+                        class: "list-group-item" %>
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer l'analyse".html_safe,
+                        summary_path(@summary.id), method: :delete,
+                        data:                              {confirm: "Etes vous certain ?"},
+                        class:                             "list-group-item list-group-item-danger" %>
+        <% end %>
+      </div>
     </div>
-  </div>
 
-  <div class="col-xs-12 col-md-8 col-lg-10">
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-1">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3>
-          Cette synthèse appartient à la controverse
-          <%= link_to( @summary.timeline_name.html_safe , timeline_path(@summary.timeline_id) ) %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            <%= render @summary, credit: false, improve: false %>
-          </div>
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>
+            Cette synthèse appartient à la controverse
+            <%= link_to(@summary.timeline_name.html_safe, timeline_path(@summary.timeline_id)) %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= render @summary, credit: false, improve: false %>
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 

@@ -13,7 +13,7 @@
           </div>
         <% end %>
     <div class="text-justify">
-      <% if logged_in? && current_user.id != frame.user_id %>
+      <% if logged_in? && current_user.id != summary.user_id %>
           <div class="pull-right">
             <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                         new_typo_path(summary_id: summary.id), remote: true,
