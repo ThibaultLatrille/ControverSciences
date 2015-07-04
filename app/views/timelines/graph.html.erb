@@ -2,29 +2,64 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 
-<span id="d3-graph">
-
+<div class="row">
+  <div class="side-bar col-xs-12 col-lg-4">
+    <div class="container-fluid">
+      <div class="row" data-toggle="buttons">
+        <% tags_hash.each do |key, value| %>
+            <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
+              <div class="my-btn">
+                <span class="fat icon-<%= key %>"></span> <%= value %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<span id="d3-graph"></span>
 <script type="text/javascript">
-    var width = $(window).width();
-            height = $(window).height()-125;
+    $('.my-btn').responsiveEqualHeightGrid();
+    var margin = {top: 0, right: 0, bottom: 0, left: 0},
+            width = $(window).width(),
+            height = $(window).height() - 125;
+
+    var zoom = d3.behavior.zoom()
+            .scaleExtent([1, 10])
+            .on("zoom", zoomed);
+
     var color = d3.scale.category20();
+
     var force = d3.layout.force()
             .linkDistance(10)
             .linkStrength(2)
             .size([width, height]);
+
     var svg = d3.select("#d3-graph").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
+            .call(zoom);
+
+    var rect = svg.append("rect")
             .attr("width", width)
-            .attr("height", height);
-    d3.json("/timelines_network", function(error, graph) {
+            .attr("height", height)
+            .style("fill", "none")
+            .style("pointer-events", "all");
+
+    var container = svg.append("g");
+
+    d3.json("/timelines_network", function (error, graph) {
         if (error) throw error;
         var nodes = graph.nodes.slice(),
                 links = [],
                 bilinks = [];
-        graph.links.forEach(function(link) {
-            var s = nodes.filter(function(n) {
+        graph.links.forEach(function (link) {
+            var s = nodes.filter(function (n) {
                         return n.id === link.source;
                     })[0],
-                t = nodes.filter(function(n) {
+                    t = nodes.filter(function (n) {
                         return n.id === link.target;
                     })[0],
                     i = {}; // intermediate node
@@ -36,29 +71,39 @@
                 .nodes(nodes)
                 .links(links)
                 .start();
-        var link = svg.selectAll(".link")
+        var link = container.selectAll(".link")
                 .data(bilinks)
                 .enter().append("path")
                 .attr("class", "link");
-        var node = svg.selectAll(".node")
+        var node = container.selectAll(".node")
                 .data(graph.nodes)
                 .enter().append("circle")
                 .attr("class", "node")
-                .attr("r", function(d) { return 3*d.size; })
-                .style("fill", function(d) { return color(d.group); })
+                .attr("r", function (d) {
+                    return 3 * d.size;
+                })
+                .style("fill", function (d) {
+                    return color(d.group);
+                })
                 .call(force.drag);
-        node.attr("title", function(d) { return $('<div/>').html(d.name).text(); });
-        node.attr("data-toggle","tooltip");
-        force.on("tick", function() {
-            link.attr("d", function(d) {
+        node.attr("title", function (d) {
+            return $('<div/>').html(d.name).text();
+        });
+        node.attr("data-toggle", "tooltip");
+        force.on("tick", function () {
+            link.attr("d", function (d) {
                 return "M" + d[0].x + "," + d[0].y
                         + "S" + d[1].x + "," + d[1].y
                         + " " + d[2].x + "," + d[2].y;
             });
-            node.attr("transform", function(d) {
+            node.attr("transform", function (d) {
                 return "translate(" + d.x + "," + d.y + ")";
             });
             $('[data-toggle="tooltip"]').tooltip({container: 'body'});
         });
     });
+
+    function zoomed() {
+        container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    }
 </script>
