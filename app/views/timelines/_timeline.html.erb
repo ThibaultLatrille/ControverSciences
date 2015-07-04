@@ -38,7 +38,7 @@
           <% timeline.get_tag_list.each do |name| %>
             <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
                         timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
-                        class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+                        class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
           <% end %>
       </div>
       <div class="collapse in center" id="group<%= timeline.id %>">
@@ -60,6 +60,7 @@
             <span class="fat icon-comment"></span>
           <span class="badge"><%= timeline.nb_edits %></span>
           </div>
+        <div class="stats"></div>
       </div>
     </div>
   </div>

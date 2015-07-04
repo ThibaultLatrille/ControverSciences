@@ -127,7 +127,7 @@
       <% @timeline.get_tag_list.each do |name| %>
           <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
                       timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
-                      class: "btn btn-primary stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+                      class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
       <% end %>
       <div>
         <br/>

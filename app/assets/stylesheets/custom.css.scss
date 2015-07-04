@@ -410,6 +410,9 @@ section h1{
     box-shadow: 0px 2px 4px 0px #85A8BE;
     filter:progid:DXImageTransform.Microsoft.Shadow(color=#85A8BE, Direction=180, Strength=5);
   }
+  .stats{
+    padding-bottom: 10px;
+  }
 }
 
 .new-reference {
@@ -679,4 +682,7 @@ del {
 .break-word {
   word-wrap: break-word;
 }
-
+.tooltip-inner {
+  line-height: 1.2em;
+  font-size: 1.2em;
+}
