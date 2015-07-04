@@ -89,6 +89,8 @@ Rails.application.routes.draw do
   resources :typos, only: [:create, :new, :index, :show, :destroy]
   get 'typos_accept' => 'typos#accept', as: 'typos_accept'
 
+  resources :invitations, only: [:create, :new]
+
   resources :edges, only: [:index, :create]
   resources :edge_votes, only: [:create, :destroy]
   resources :reference_edges, only: [:index, :create]

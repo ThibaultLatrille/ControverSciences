@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150704105413) do
+ActiveRecord::Schema.define(version: 20150704121413) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,6 +228,22 @@ ActiveRecord::Schema.define(version: 20150704105413) do
 
   add_index "frames", ["timeline_id"], name: "index_frames_on_timeline_id", using: :btree
   add_index "frames", ["user_id"], name: "index_frames_on_user_id", using: :btree
+
+  create_table "invitations", force: true do |t|
+    t.integer  "user_id"
+    t.text     "message"
+    t.integer  "timeline_id"
+    t.integer  "reference_id"
+    t.text     "target_email"
+    t.text     "target_name"
+    t.text     "user_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invitations", ["reference_id"], name: "index_invitations_on_reference_id", using: :btree
+  add_index "invitations", ["timeline_id"], name: "index_invitations_on_timeline_id", using: :btree
+  add_index "invitations", ["user_id"], name: "index_invitations_on_user_id", using: :btree
 
   create_table "issues", force: true do |t|
     t.string   "title"

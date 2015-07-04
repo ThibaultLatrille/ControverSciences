@@ -1,0 +1,34 @@
+<div class="modal fade" id="newinvitation" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br/>
+      </div>
+      <div class="modal-body clearfix">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <b>
+             Inviter un  à participer
+            </b>
+          </div>
+        </div>
+        <%= form_for(invitation, url: invitations_path, remote: true,
+                     html:      {role: :form, 'data-model' => 'issue'}) do |f| %>
+            <%= f.hidden_field :timeline_id, value: invitation.timeline_id %>
+            <%= f.hidden_field :reference_id, value: invitation.reference_id %>
+
+            <%= f.label :message, "Message", class: 'control-label' %>
+            <br>
+            <%= f.text_area :message, class: 'form-control textarea' %>
+            <div class="actions pull-right">
+              <br/>
+              <%= f.button "Envoyer l'invitation &nbsp <span class=\"glyphicon glyphicon-send\"></span>".html_safe,
+                           class: 'btn btn-success',
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "} %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
