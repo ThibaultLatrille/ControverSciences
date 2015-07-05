@@ -5,36 +5,22 @@ class ReferenceEdgesController < ApplicationController
     @reference_edges = ReferenceEdge.where( timeline_id: params[:timeline_id] )
                         .where("reference_id = ? OR target = ?",
                         params[:reference_id],
-                        params[:reference_id]).where.not(
-                        "reversible = ? AND target = ?",
-                        true,
                         params[:reference_id])
     reference_ids = @reference_edges.map{ |e| [e.target, e.reference_id] }.flatten.uniq
-    @reference_names = Reference.order(:title).where( timeline_id: params[:timeline_id] ).where.not( id: reference_ids ).pluck(:title, :id)
+    @reference_names = Reference.order(:title).where( timeline_id: params[:timeline_id] )
+                                              .where.not( id: reference_ids )
+                                              .pluck(:title, :id)
+    @my_vote_likes = ReferenceEdgeVote.where(user_id: current_user.id, value: true,
+                                        reference_edge_id: @reference_edges.map{|e| e.id}).pluck(:reference_edge_id)
+    @my_vote_dislikes = ReferenceEdgeVote.where(user_id: current_user.id, value: false,
+                                        reference_edge_id: @reference_edges.map{|e| e.id}).pluck(:reference_edge_id)
   end
 
   def create
-    case reference_edge_params[:value].to_i
-      when 0
-        ReferenceEdge.create!(user_id: current_user.id, reversible: false,
-                    reference_id: reference_edge_params[:reference_id],
-                    timeline_id: reference_edge_params[:timeline_id],
-                        weight: 1, target: reference_edge_params[:target])
-      when 1
-        ReferenceEdge.create!(user_id: current_user.id, reversible: false,
-                    reference_id: reference_edge_params[:target],
-                    timeline_id: reference_edge_params[:timeline_id],
-                    weight: 1, target: reference_edge_params[:reference_id])
-      when 2
-        ReferenceEdge.create!(user_id: current_user.id, reversible: true,
-                    reference_id: reference_edge_params[:target],
-                    timeline_id: reference_edge_params[:timeline_id],
-                    weight: 1, target: reference_edge_params[:reference_id])
-        ReferenceEdge.create!(user_id: current_user.id, reversible: true,
-                    reference_id: reference_edge_params[:reference_id],
-                    timeline_id: reference_edge_params[:timeline_id],
+    ReferenceEdge.create!(user_id: current_user.id, reversible: false,
+                reference_id: reference_edge_params[:reference_id],
+                timeline_id: reference_edge_params[:timeline_id],
                     weight: 1, target: reference_edge_params[:target])
-    end
     redirect_to reference_edges_path(reference_id: reference_edge_params[:reference_id],
                                      timeline_id: reference_edge_params[:timeline_id])
   end

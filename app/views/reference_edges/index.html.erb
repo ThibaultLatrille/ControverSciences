@@ -12,59 +12,53 @@
               </h2>
             </div>
             <div class="panel-body">
+              <% if @reference_edges.any? %>
+                  <h6><span class="glyphicon glyphicon-link"></span> Liens avec les références : </h6>
+              <% end %>
               <% @reference_edges.each do |reference_edge| %>
                   <div class="panel panel-default">
                     <div class="panel-body">
-                  <%= form_for :reference_edge_vote, :url => reference_edge_votes_path do |f| %>
-                      <%= f.hidden_field :reference_id, value: params[:reference_id] %>
-                      <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+                      <div class="pull-left">
+                        <% if @my_vote_likes && @my_vote_likes.include?(reference_edge.id) %>
+                            <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
+                                    data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
+                                    title="Vous et <%= (reference_edge.plus - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                              <span class="icon icon-4 font16"> <%= reference_edge.plus %></span>
+                            </button>
+                        <% else %>
+                            <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
+                                    data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
+                                    title="<%= reference_edge.plus.to_s + " contributeurs sont d'accord avec ce lien" %>">
+                              <span class="icon icon-4 font16"> <%= reference_edge.plus %></span>
+                            </button>
+                        <% end %>
+                        <% if @my_vote_dislikes && @my_vote_dislikes.include?(reference_edge.id) %>
+                            <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
+                                    data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
+                                    title="Vous et <%= (reference_edge.minus - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
+                              <span class="icon icon-2 font16"> <%= reference_edge.minus %></span>
+                            </button>
+                        <% else %>
+                            <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
+                                    data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
+                                    title="<%= reference_edge.minus.to_s + " contributeurs en sont pas d'accord avec ce lien" %>">
+                              <span class="icon icon-2 font16"> <%= reference_edge.minus %></span>
+                            </button>
+                        <% end %>
+                      </div>
                       <h4>
+                        &nbsp &nbsp
+                        <span class="glyphicon glyphicon-link blue"></span>
                         <% if params[:reference_id].to_i == reference_edge.target %>
-                            <span class="bigger glyphicon glyphicon-arrow-left blue"></span> &nbsp
-                            Lien depuis la référence
                             <%= link_to "#{reference_edge.reference_title_fr.blank? ? "" : reference_edge.reference_title_fr.html_safe}
                                 <div style=\"font-style: italic; font-size: 0.8em\"> #{reference_edge.reference_title.html_safe}</div>".html_safe,
                                         reference_path( reference_edge.reference_id ) %>
-                            <%= f.hidden_field :target, value: reference_edge.reference_id %>
                         <% else %>
-                            <% if reference_edge.reversible %>
-                                <span class="bigger glyphicon glyphicon-resize-horizontal blue"></span> &nbsp
-                                Lien à double sens vers la référence
-                                <%= f.hidden_field :target, value: reference_edge.target %>
-                            <% else %>
-                                <span class="bigger glyphicon glyphicon-arrow-right blue"></span> &nbsp
-                                Lien vers la référence
-                                <%= f.hidden_field :target, value: reference_edge.target %>
-                            <% end %>
                             <%= link_to "#{reference_edge.target_title_fr.blank? ? "" : reference_edge.target_title_fr.html_safe}
                                 <div style=\"margin-top: 0px; font-style: italic; font-size: 0.8em\"> #{reference_edge.target_title.html_safe}</div>".html_safe,
                                         reference_path( reference_edge.target ) %>
                         <% end %>
                       </h4>
-                          <br/>
-                          Donnez votre avis concernant ce lien: <br/><br/>
-                      <div class="btn-group-justified" data-toggle="buttons">
-                        <% (0..3).each do |key| %>
-                                <label class="btn btn-default btn-select
-                                <%= reference_edge.my_reference_vote_key( current_user.id, params[:reference_id].to_i ) %>
-                                <%= reference_edge.my_reference_vote_key( current_user.id, params[:reference_id].to_i ) == key ? "selected" : nil %>
-                                "
-                            title="<%= {0 => "Lien vers la reference", 1 => "Lien depuis la référence",
-                                        2 => "Lien à double sens", 3 => "Aucun lien n'a lien d'être"}[key] %>" data-toggle="tooltip" >
-                              <%= f.radio_button :value, checked_value = key,
-                                                 {id: key, autocomplete: "off"} %>
-                              <span class="glyphicon glyphicon-<%= {2 => "resize-horizontal", 1 => "arrow-left",
-                                                                    0 => "arrow-right", 3 => "ban-circle"}[key] %>"></span>
-                            </label>
-                        <% end %>
-                      </div>
-                      <br/>
-
-                      <div class="pull-right">
-                            <%= f.button "Enregistrer cet avis", class: "btn btn-success",
-                                         data:                          {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
-                      </div>
-                  <% end %>
                     </div>
                   </div>
               <% end %>

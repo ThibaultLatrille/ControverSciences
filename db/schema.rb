@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150705090122) do
+ActiveRecord::Schema.define(version: 20150705100446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -417,15 +417,14 @@ ActiveRecord::Schema.define(version: 20150705090122) do
 
   create_table "reference_edge_votes", force: true do |t|
     t.integer  "timeline_id"
-    t.integer  "reference_id"
-    t.integer  "target"
     t.integer  "user_id"
-    t.boolean  "reversible"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "reference_edge_id"
+    t.boolean  "value"
   end
 
-  add_index "reference_edge_votes", ["reference_id"], name: "index_reference_edge_votes_on_reference_id", using: :btree
+  add_index "reference_edge_votes", ["reference_edge_id"], name: "index_reference_edge_votes_on_reference_edge_id", using: :btree
   add_index "reference_edge_votes", ["timeline_id"], name: "index_reference_edge_votes_on_timeline_id", using: :btree
   add_index "reference_edge_votes", ["user_id"], name: "index_reference_edge_votes_on_user_id", using: :btree
 
@@ -438,6 +437,8 @@ ActiveRecord::Schema.define(version: 20150705090122) do
     t.boolean  "reversible"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "best",         default: false
+    t.integer  "category"
   end
 
   add_index "reference_edges", ["reference_id"], name: "index_reference_edges_on_reference_id", using: :btree

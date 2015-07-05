@@ -1,8 +1,8 @@
 class ReferenceEdge < ActiveRecord::Base
   belongs_to :reference
+  belongs_to :timeline
   belongs_to :user
-
-  attr_accessor :value
+  has_many :reference_edge_votes, dependent: :destroy
 
   validates :user_id, presence: true
   validates :reference_id, presence: true
@@ -27,31 +27,12 @@ class ReferenceEdge < ActiveRecord::Base
     Reference.select(:title_fr).find(self.reference_id).title_fr
   end
 
-  def my_reference_vote( user_id )
-    reference_vote = ReferenceEdgeVote.find_by( reference_id: self.reference_id, target: self.target,
-                      user_id: user_id )
-    unless reference_vote
-      reference_vote = ReferenceEdgeVote.find_by( reference_id: self.target, target: self.reference_id,
-                        user_id: user_id )
-    end
-    reference_vote
+  def plus
+    ReferenceEdgeVote.where(reference_edge_id: self.id, value: true).count
   end
 
-  def my_reference_vote_key( user_id, reference_id)
-    edge_reference_vote = my_reference_vote( user_id )
-    if edge_reference_vote.blank?
-      4
-    else
-      if edge_reference_vote.reversible
-        2
-      else
-        if edge_reference_vote.reference_id == reference_id
-          0
-        else
-          1
-        end
-      end
-    end
+  def minus
+    ReferenceEdgeVote.where(reference_edge_id: self.id, value: false).count
   end
 
   def reverse

@@ -1,13 +1,11 @@
 class ReferenceEdgeVote < ActiveRecord::Base
-  belongs_to :reference
-  belongs_to :timeline
   belongs_to :user
+  belongs_to :reference_edge
+  belongs_to :timeline
 
-  attr_accessor :value
-
-  validates :user_id, presence: true
   validates :timeline_id, presence: true
-  validates :reference_id, presence: true
-  validates :target, presence: true
-  validates_uniqueness_of :user_id, :scope => [:reference_id, :target]
+  validates :user_id, presence: true
+  validates :reference_edge_id, presence: true
+  validates_uniqueness_of :user_id, :scope => [:reference_edge_id]
+
 end

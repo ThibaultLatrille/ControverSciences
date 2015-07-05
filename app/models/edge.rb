@@ -2,7 +2,7 @@ class Edge < ActiveRecord::Base
   belongs_to :timeline
   belongs_to :user
 
-  attr_accessor :value
+  has_many :edge_votes, dependent: :destroy
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
@@ -17,7 +17,6 @@ class Edge < ActiveRecord::Base
   def timeline_name
     Timeline.select(:name).find(self.timeline_id).name
   end
-
 
   def plus
     EdgeVote.where(edge_id: self.id, value: true).count
