@@ -186,8 +186,7 @@ class User < ActiveRecord::Base
   def notifications_all_important
     notifications_win + notifications_loss +
         notifications_summary_win + notifications_summary_loss +
-        notifications_frame_win + notifications_frame_loss +
-        notifications_suggestion + notifications_typo
+        notifications_frame_win + notifications_frame_loss + notifications_typo
   end
 
   # Creates and assigns the activation token and digest.

@@ -40,6 +40,11 @@ module MajHelper
       EdgeVote.destroy_all
       ReferenceEdge.destroy_all
       ReferenceEdgeVote.destroy_all
+      NotificationSuggestion.destroy_all
+      Notification.where(category: 7).destroy_all
+      User.find_each do |user|
+        user.update_columns(nb_notifs: user.notifications_all_important)
+      end
     end
   end
 

@@ -9,10 +9,10 @@ class NotificationSuggestion < ActiveRecord::Base
   private
 
   def increment_nb_notifs
-    User.increment_counter(:nb_notifs, self.user_id)
+    User.increment_counter(:nb_notifs, self.suggestion.user_id)
   end
 
   def decrement_nb_notifs
-    User.decrement_counter(:nb_notifs, self.user_id)
+    User.decrement_counter(:nb_notifs, self.suggestion.user_id)
   end
 end
