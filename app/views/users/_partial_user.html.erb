@@ -17,8 +17,14 @@
   </div>
   <div class="panel-body">
     <% if logged_in? && current_user.admin %>
-        <a href="mailto:<%= @user.email %>"><%= @user.email %></a>
-        <br/>
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <span class="glyphicon glyphicon-warning-sign"></span> Pour les admins seulement <br/>
+            <a href="mailto:<%= @user.email %>"><%= @user.email %></a>
+            <br/>
+            <%= link_to "Se connecter en tant que #{@user.name}", login_for_admin_path(id:@user.id) %>
+          </div>
+        </div>
     <% end %>
     <% if @user_detail && @user_detail.id && @user_detail.job != "" %>
         <% if @user_detail.institution != "" %>

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
   resources :user_details, only: [:create]
   resources :sessions, only: [:new, :create, :destroy]
+  get 'login_for_admin' => 'sessions#as_admin'
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :timelines, only: [:new, :create, :index, :show, :edit, :destroy]

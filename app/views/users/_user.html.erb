@@ -3,7 +3,7 @@
   </td>
   <td>
     <% if current_user && current_user.admin? && !current_user?(user) %>
-        <%= link_to "delete", user, method: :delete,
+        <%= link_to "Supprimer ce contributeur", user, method: :delete,
                     data: {confirm: "Etes vous certain ?"} %>
     <% end %>
   </td>

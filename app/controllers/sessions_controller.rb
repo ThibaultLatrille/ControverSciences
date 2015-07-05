@@ -71,6 +71,15 @@ class SessionsController < ApplicationController
     end
   end
 
+  def as_admin
+    if current_user.admin
+      user = User.find(params[:id])
+      log_in user
+      forget(user)
+      redirect_to user and return
+    end
+  end
+
   def destroy
     log_out if logged_in?
     redirect_to root_url
