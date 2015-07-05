@@ -59,6 +59,30 @@ module ApplicationHelper
       5 => "très fermement" }
   end
 
+  def edges_category
+    [[1, "Lettre de réponse"],
+     [2, "est une lettre de réponse à"],
+     [3, "précise"],
+     [4, "est précisée par"],
+     [5, "infirme"],
+     [6, "est infirmée par"],
+     [7, "confirme"],
+     [8, "est confirmée par"]]
+  end
+
+  def forward_edges_category
+    edges_category.to_h
+  end
+
+  def backward_edges_category
+    edges_category.each_with_object({}) do |v,h|
+      if v[0].odd?
+        h[v[0]+1]=v[1]
+      else
+        h[v[0]-1]=v[1]
+      end
+    end
+  end
 
   def binary_value_explanation( binary, value )
     text = "Cette référence est "

@@ -5,8 +5,9 @@ class EdgesController < ApplicationController
     @edges = Edge.where("timeline_id = ? OR target = ?",
                         params[:timeline_id],
                         params[:timeline_id])
-    timeline_ids = @edges.map{ |e| [e.target, e.timeline_id] }.flatten.uniq
-    @timeline_names = Timeline.order(:name).all.where.not( id: timeline_ids ).pluck(:name, :id)
+    timeline_ids = @edges.map{ |e| [e.target, e.timeline_id] }
+    timeline_ids << params[:timeline_id].to_i
+    @timeline_names = Timeline.order(:name).all.where.not( id: timeline_ids.flatten.uniq ).pluck(:name, :id)
     @my_vote_likes = EdgeVote.where(user_id: current_user.id, value: true,
                                     edge_id: @edges.map{|e| e.id}).pluck(:edge_id)
     @my_vote_dislikes = EdgeVote.where(user_id: current_user.id, value: false,

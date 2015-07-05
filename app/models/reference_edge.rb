@@ -1,4 +1,5 @@
 class ReferenceEdge < ActiveRecord::Base
+  include ApplicationHelper
   belongs_to :reference
   belongs_to :timeline
   belongs_to :user
@@ -9,7 +10,17 @@ class ReferenceEdge < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :target, presence: true
   validates :weight, presence: true, inclusion: { in: 1..12 }
-  validates_uniqueness_of :reference_id, :scope => [:target]
+  validates_uniqueness_of :category, :scope => [:target, :reference_id]
+
+  validate :target_reference_diff
+
+  def target_reference_diff
+    if self.reference_id == self.target
+      errors.add(:target, 'Lien vers elle même')
+    else
+      true
+    end
+  end
 
   def target_title
     Reference.select(:title).find(self.target).title
@@ -27,12 +38,14 @@ class ReferenceEdge < ActiveRecord::Base
     Reference.select(:title_fr).find(self.reference_id).title_fr
   end
 
-  def plus
-    ReferenceEdgeVote.where(reference_edge_id: self.id, value: true).count
+  def plus(category)
+    ReferenceEdgeVote.where(reference_edge_id: self.id,
+                                    value: true, category: category).count
   end
 
-  def minus
-    ReferenceEdgeVote.where(reference_edge_id: self.id, value: false).count
+  def minus(category)
+    ReferenceEdgeVote.where(reference_edge_id: self.id,
+                                    value: false, category: category).count
   end
 
   def reverse
@@ -40,4 +53,5 @@ class ReferenceEdge < ActiveRecord::Base
       ReferenceEdge.find_by( reference_id: self.target )
     end
   end
+
 end

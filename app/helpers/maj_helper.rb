@@ -38,17 +38,7 @@ module MajHelper
         end
       end
       EdgeVote.destroy_all
-      while true
-        edge = ReferenceEdge.where( reversible: true ).first
-        reverse = ReferenceEdge.find_by( reference_id: edge.target, target: edge.timeline_id )
-        if reverse
-          reverse.destroy
-        end
-        edge.update_columns(reversible: false)
-        if ReferenceEdge.where( reversible: true ).count < 1
-          break
-        end
-      end
+      ReferenceEdge.destroy_all
       ReferenceEdgeVote.destroy_all
     end
   end
