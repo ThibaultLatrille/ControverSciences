@@ -166,13 +166,11 @@
               </div>
               <div id="Collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body clearfix">
-                  <p>
-                    Une salle de discussion pour les améliorations a été ouverte.
-
-                  <div class="pull-right">
-                    <%= link_to "Entrer dans la salle de discussion", suggestions_path, class: "btn btn-primary" %>
-                  </div>
-                  </p>
+                  <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                              '#newissue',
+                              'data-toggle' => 'modal',
+                               class: "pull-right btn btn-default",
+                                style: "font-size: 2.2em"%>
                 </div>
               </div>
             </div>
@@ -191,8 +189,6 @@
           Contribuer à ControverSciences
         </div>
         <%= link_to "Foire aux questions (FAQ)", faq_path,
-                    class: "btn btn-block btn-primary" %>
-        <%= link_to "Venez discuter", suggestions_path,
                     class: "btn btn-block btn-primary" %>
       </div>
     </div>
