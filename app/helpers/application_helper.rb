@@ -60,14 +60,14 @@ module ApplicationHelper
   end
 
   def edges_category
-    [[1, "Lettre de réponse"],
-     [2, "est une lettre de réponse à"],
-     [3, "précise"],
-     [4, "est précisée par"],
-     [5, "infirme"],
-     [6, "est infirmée par"],
-     [7, "confirme"],
-     [8, "est confirmée par"]]
+    [[1, "A une lettre de réponse :"],
+     [2, "Est une lettre de réponse à"],
+     [3, "Précise"],
+     [4, "Est précisée par"],
+     [5, "Infirme"],
+     [6, "Est infirmée par"],
+     [7, "Confirme"],
+     [8, "Est confirmée par"]]
   end
 
   def forward_edges_category
