@@ -1,5 +1,5 @@
 <div class="panel panel-default comment">
-  <div class="panel-body">
+  <div class="panel-body" style="background: white url(<%= frame.picture_url%>)">
   <span class="content">
     <div class="clearfix">
       <% if logged_in? && current_user.id != frame.user_id %>

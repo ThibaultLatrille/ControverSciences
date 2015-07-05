@@ -55,7 +55,7 @@
                 <% if Reference.where(user_id: current_user.id, title_fr: nil).count > 0 %>
                     <li style="background-color: #d9534f">
                       <%= link_to "<span class=\"badge badge-header\"> #{Reference.where(user_id: current_user.id, nb_edits: 0).count} </span>
-                      Vos références qui ont besoin d'analyses".html_safe,
+                      Vos références qui ont besoin d'une analyse".html_safe,
                                   empty_comments_path(filter: "mine"), style: "color: white;" %>
 
                     </li>

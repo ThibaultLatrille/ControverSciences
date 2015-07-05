@@ -160,6 +160,16 @@
               </div>
             </div>
           </div>
+          <div id="size-warning" class="row" style="display: none">
+            <div class="col-xs-10 col-xs-offset-1">
+              <div class="alert alert-danger alert-dismissible" role="alert">
+                <strong>
+                  <span class="glyphicon glyphicon-warning-sign"></span>
+                  Cette image est de trop petite résolution, ou bien est trop grande (>5Mo)
+                </strong>
+              </div>
+            </div>
+          </div>
           <br/>
           <br/>
           <%= f.button "Modifier mon analyse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
@@ -370,13 +380,18 @@
             dataType: 'json',
             done: function (e, data) {
                 $('#upload-btn').show(300);
-                $('#comment_delete_picture').val('false');
-                $('#comment_has_picture').val('true');
-                $('#caption').show(300);
                 $('#progress').hide(300);
-                $('#original').hide(300);
-                $('#uploaded').show(300);
-                $('#uploaded img').attr("src", data.result.picture.url);
+                if (data.result.id == null) {
+                    $('#size-warning').show(300);
+                } else {
+                    $('#comment_delete_picture').val('false');
+                    $('#comment_has_picture').val('true');
+                    $('#caption').show(300);
+                    $('#original').hide(300);
+                    $('#uploaded').show(300);
+                    $('#size-warning').hide();
+                    $('#uploaded img').attr("src", data.result.picture.url);
+                }
             },
             start: function (e, data) {
                 $('#upload-btn').hide();
