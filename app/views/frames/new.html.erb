@@ -30,10 +30,12 @@
                       timeline_url(@frame.timeline_id) %>
         </div>
         <div class="panel-body clearfix">
-          <%= form_for(@frame) do |f| %>
+          <%= form_for(@frame, html: {multipart: true}) do |f| %>
               <%= render 'static_pages/charte' %>
               <%= render 'shared/error_messages', object: f.object %>
-
+              <%= f.hidden_field :has_picture, value: @frame.picture? %>
+              <%= f.hidden_field :delete_picture, value: false %>
+              <%= f.hidden_field :frame_timeline_id, value: @frame.timeline_id %>
               <br/>
               <br/>
               <b style="font-size: 1.4em">Titre de la controverse</b>
@@ -117,12 +119,42 @@
                 </div>
               </div>
               <%= f.hidden_field :timeline_id, value: @frame.timeline_id %>
+              <div id="caption" style="display: none">
+                <div class="row">
+                  <div class="col-xs-12 col-md-6">
+                    <div id="original">
+                      <%= image_tag @frame.picture_url, class: "img-rounded img-responsive" %>
+                    </div>
+                    <div id="uploaded" style="display: none">
+                      <%= image_tag '', class: "img-rounded img-responsive" %>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <br/>
               <br/>
               <%= f.button "Publier la contribution &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success btn-lg pull-right',
                            data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
           <% end %>
+          <div>
+            <div id="upload-btn" class="btn btn-default btn-lg fileinput-button">
+              <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+              <span id="ajouter"> Ajouter une figure </span>
+              <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
+            </div>
+            <div id="progress" style="display: none">
+              <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                  <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                </path>
+              </svg>
+            </div>
+            <div id="delete" class="btn btn-danger btn-lg" style="display: none">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+              Supprimer la figure
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -131,6 +163,42 @@
 
 
 <script type="text/javascript">
+    $(document).ready(function () {
+        if ($('#frame_has_picture').val() === 'true') {
+            $('#caption').show();
+            $('#delete').show();
+            $('#ajouter').text("Modifier la figure");
+        }
+    });
+    $(function () {
+        'use strict';
+        // Change this to the location of your server-side upload handler:
+        $('#fileupload').fileupload({
+            url: "<%= figures_url + "?frame_timeline_id=" + @frame.timeline_id.to_s %>",
+            type: 'POST',
+            dataType: 'json',
+            done: function (e, data) {
+                $('#upload-btn').show(300);
+                $('#frame_has_picture').val('true');
+                $('#frame_delete_picture').val('false');
+                $('#caption').show(300);
+                $('#progress').hide(300);
+                $('#original').hide(300);
+                $('#uploaded').show(300);
+                $('#uploaded img').attr("src", data.result.picture.url);
+            },
+            start: function (e, data) {
+                $('#upload-btn').hide();
+                $('#progress').show();
+            }
+        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+    $('#delete').click(function () {
+        $('#caption').hide(300);
+        $('#delete').hide(300);
+        $('#ajouter').text("Ajouter une figure à cette synthèse");
+        $('#frame_delete_picture').val('true');
+    });
     $("#description1").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra', 'cmdList', 'cmdListO', 'cmdBold']});
     $("#description0").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']});
     $(document).ready(function () {

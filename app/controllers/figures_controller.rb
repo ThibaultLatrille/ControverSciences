@@ -6,6 +6,8 @@ class FiguresController < ApplicationController
       figure.reference_id = params[:reference_id]
     elsif params[:timeline_id]
       figure.timeline_id = params[:timeline_id]
+    elsif params[:frame_timeline_id]
+      figure.frame_timeline_id = params[:frame_timeline_id]
     elsif params[:profil_picture]
       figure.user_id = current_user.id
       figure.profil = true

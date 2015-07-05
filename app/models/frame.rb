@@ -2,10 +2,10 @@ class Frame < ActiveRecord::Base
   include ApplicationHelper
   require 'HTMLlinks'
 
+  attr_accessor :delete_picture, :has_picture, :frame_timeline_id, :binary_left, :tag_list, :binary_right
+
   belongs_to :timeline
   belongs_to :user
-
-  attr_accessor :binary_left, :tag_list, :binary_right
 
   has_many :frame_credits, dependent: :destroy
   has_many :notifications, dependent: :destroy
@@ -31,6 +31,18 @@ class Frame < ActiveRecord::Base
 
   def timeline_name
     Timeline.select(:name).find(self.timeline_id).name
+  end
+
+  def picture?
+    self.figure_id ? true : false
+  end
+
+  def picture_url
+    if self.figure_id
+      Figure.select(:id, :picture, :user_id).find(self.figure_id).picture_url
+    else
+      nil
+    end
   end
 
   def self.tagged_with(name)

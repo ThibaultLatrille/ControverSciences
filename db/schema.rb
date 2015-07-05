@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150705131138) do
+ActiveRecord::Schema.define(version: 20150705151802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,6 +181,7 @@ ActiveRecord::Schema.define(version: 20150705131138) do
     t.string   "file_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "frame_timeline_id"
   end
 
   add_index "figures", ["reference_id"], name: "index_figures_on_reference_id", using: :btree
@@ -223,6 +224,7 @@ ActiveRecord::Schema.define(version: 20150705131138) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "binary",           default: ""
+    t.integer  "figure_id"
   end
 
   add_index "frames", ["timeline_id"], name: "index_frames_on_timeline_id", using: :btree
