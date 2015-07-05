@@ -12,50 +12,49 @@
               </h2>
             </div>
             <div class="panel-body">
+              <% if @edges.any? %>
+              <h6><span class="glyphicon glyphicon-link"></span> Liens avec les controverses : </h6>
+              <% end %>
               <% @edges.each do |edge| %>
                   <div class="panel panel-default">
                     <div class="panel-body">
-                  <%= form_for :edge_vote, :url => edge_votes_path do |f| %>
-                      <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
-                      <h4>
-                        <% if params[:timeline_id].to_i == edge.target %>
-                            <span class="bigger glyphicon glyphicon-arrow-left blue"></span> &nbsp
-                            Lien depuis la controverse  <%= link_to edge.timeline_name.html_safe, timeline_path(edge.timeline_id) %>
-                            <%= f.hidden_field :target, value: edge.timeline_id %>
+                      <div class="pull-left">
+                        <% if @my_vote_likes && @my_vote_likes.include?(edge.id) %>
+                            <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
+                                    data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
+                                    title="Vous et <%= (edge.plus - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                              <span class="icon icon-4 font16"> <%= edge.plus %></span>
+                            </button>
                         <% else %>
-                            <% if edge.reversible %>
-                                <span class="bigger glyphicon glyphicon-resize-horizontal blue"></span> &nbsp
-                                Lien à double sens vers la controverse <%= link_to edge.target_name.html_safe, timeline_path(edge.target) %>
-                                <%= f.hidden_field :target, value: edge.target %>
-                            <% else %>
-                                <span class="bigger glyphicon glyphicon-arrow-right blue"></span> &nbsp
-                                Lien vers la controverse <%= link_to edge.target_name.html_safe, timeline_path(edge.target) %>
-                                <%= f.hidden_field :target, value: edge.target %>
-                            <% end %>
+                            <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
+                                    data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
+                                    title="<%= edge.plus.to_s + " contributeurs sont d'accord avec ce lien" %>">
+                              <span class="icon icon-4 font16"> <%= edge.plus %></span>
+                            </button>
+                        <% end %>
+                        <% if @my_vote_dislikes && @my_vote_dislikes.include?(edge.id) %>
+                            <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
+                                    data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
+                                    title="Vous et <%= (edge.minus - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
+                              <span class="icon icon-2 font16"> <%= edge.minus %></span>
+                            </button>
+                        <% else %>
+                            <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
+                                    data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
+                                    title="<%= edge.minus.to_s + " contributeurs en sont pas d'accord avec ce lien" %>">
+                              <span class="icon icon-2 font16"> <%= edge.minus %></span>
+                            </button>
+                        <% end %>
+                      </div>
+                      <h4>
+                        &nbsp &nbsp
+                        <span class="glyphicon glyphicon-link blue"></span>
+                        <% if params[:timeline_id].to_i == edge.target %>
+                            <%= link_to edge.timeline_name.html_safe, timeline_path(edge.timeline_id) %>
+                        <% else %>
+                            <%= link_to edge.target_name.html_safe, timeline_path(edge.target) %>
                         <% end %>
                       </h4>
-                          <br/>
-                          Donnez votre avis concernant ce lien: <br/><br/>
-                      <div class="btn-group-justified" data-toggle="buttons">
-                        <% (0..3).each do |key| %>
-                                <label class="btn btn-default btn-select
-                                <%= edge.my_vote_key( current_user.id, params[:timeline_id].to_i ) %>
-                                <%= edge.my_vote_key( current_user.id, params[:timeline_id].to_i ) == key ? "selected" : nil %>
-                                "
-                            title="<%= {0 => "Lien vers la controverse", 1 => "Lien depuis la controverse",
-                                        2 => "Lien à double sens", 3 => "Aucun lien n'a lien d'être"}[key] %>" data-toggle="tooltip" >
-                              <%= f.radio_button :value, checked_value = key,
-                                                 {id: key, autocomplete: "off"} %>
-                              <span class="glyphicon glyphicon-<%= {2 => "resize-horizontal", 1 => "arrow-left",
-                                                                    0 => "arrow-right", 3 => "ban-circle"}[key] %>"></span>
-                            </label>
-                        <% end %>
-                      </div>
-                      <div class="pull-right">
-                            <%= f.button "Enregistrer cet avis", class: "btn btn-success",
-                                         data:                          {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
-                      </div>
-                  <% end %>
                     </div>
                   </div>
               <% end %>
@@ -67,9 +66,6 @@
                 <%= form_for(:edge, url: edges_path, method: :post) do |f| %>
                     <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
 
-                    <%= f.label "Sens du lien" %>
-                    <%= f.select :value, [["Vers".html_safe, 0],["Depuis", 1],["Double sens", 2]], {}, {class: 'form-control'} %>
-                    <br/>
 
                     <%= f.label "La controverses" %>
                     <%= f.select :target, @timeline_names.map{ |t| [t[0].html_safe, t[1]]}, {}, {class: 'form-control'} %>
@@ -89,6 +85,73 @@
       </div>
 </div>
 
+<div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <br/>
+
+            <h2 class="modal-title" id="myModalLabel">Opération impossible</h2>
+        <br/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal"> Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    $(function () {
+        $('[data-validate]').click(function () {
+            var self = $(this);
+            self.hide();
+            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
+            $.ajax(self.data('validate'), {
+                url: self.data('validate'),
+                data: {id: self.val(),
+                    value: self.data('value')},
+                method: 'POST',
+                statusCode: {
+                    201: function (response){
+                        $('.loader-like').remove();
+                        self.show();
+                        var like = $('.icon', self);
+                        if (self.data('value') == true){
+                            self.removeClass('green');
+                            self.addClass('btn-success');
+                        } else {
+                            self.removeClass('red');
+                            self.addClass('btn-danger');
+                        }
+                        self.removeClass('btn-default');
+                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                        like.text(' ' + (parseInt(like.text()) + 1));
+                    },
+                    204: function (response){
+                        $('.loader-like').remove();
+                        self.show();
+                        var like = $('.icon', self);
+                        self.addClass('btn-default');
+                        if (self.data('value') == true){
+                            self.removeClass('btn-success');
+                            self.addClass('green');
+                        } else {
+                            self.removeClass('btn-danger');
+                            self.addClass('red');
+                        }
+                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                        like.text(' ' + (parseInt(like.text()) - 1));
+                    },
+                    401: function (response){
+                        $('.loader-like').remove();
+                        self.show();
+                        $('#iptaken').modal('show');
+                    }
+                }
+            })
+        });
+    });
 </script>

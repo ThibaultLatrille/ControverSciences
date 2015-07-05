@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150704121413) do
+ActiveRecord::Schema.define(version: 20150705090122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,14 +151,13 @@ ActiveRecord::Schema.define(version: 20150704121413) do
 
   create_table "edge_votes", force: true do |t|
     t.integer  "user_id"
-    t.integer  "timeline_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "reversible",  default: false
-    t.integer  "target"
+    t.integer  "edge_id"
+    t.boolean  "value"
   end
 
-  add_index "edge_votes", ["timeline_id"], name: "index_edge_votes_on_timeline_id", using: :btree
+  add_index "edge_votes", ["edge_id"], name: "index_edge_votes_on_edge_id", using: :btree
   add_index "edge_votes", ["user_id"], name: "index_edge_votes_on_user_id", using: :btree
 
   create_table "edges", force: true do |t|

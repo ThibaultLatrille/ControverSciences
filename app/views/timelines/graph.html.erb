@@ -2,7 +2,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 
-<div class="row">
+<div class="row" style="display: none">
   <div class="side-bar col-xs-12 col-lg-4">
     <div class="container-fluid">
       <div class="row" data-toggle="buttons">
@@ -56,6 +56,7 @@
                 links = [],
                 bilinks = [];
         graph.links.forEach(function (link) {
+
             var s = nodes.filter(function (n) {
                         return n.id === link.source;
                     })[0],

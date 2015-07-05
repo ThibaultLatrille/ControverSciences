@@ -26,6 +26,18 @@ module MajHelper
       end
       ref = Reference.find(2)
       ref.update_columns( title_fr: Comment.find(2).title_markdown )
+      while true
+        edge = Edge.where( reversible: true ).first
+        reverse = Edge.find_by( timeline_id: edge.target, target: edge.timeline_id )
+        if reverse
+          reverse.destroy
+        end
+        edge.update_columns(reversible: false)
+        if Edge.where( reversible: true ).count < 1
+          break
+        end
+      end
+      EdgeVote.destroy_all
     end
   end
 

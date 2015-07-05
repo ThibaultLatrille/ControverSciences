@@ -18,31 +18,13 @@ class Edge < ActiveRecord::Base
     Timeline.select(:name).find(self.timeline_id).name
   end
 
-  def my_vote( user_id )
-    vote = EdgeVote.find_by( timeline_id: self.timeline_id, target: self.target,
-                      user_id: user_id )
-    unless vote
-      vote = EdgeVote.find_by( timeline_id: self.target, target: self.timeline_id,
-                        user_id: user_id )
-    end
-    vote
+
+  def plus
+    EdgeVote.where(edge_id: self.id, value: true).count
   end
 
-  def my_vote_key( user_id, timeline_id)
-    edge_vote = my_vote( user_id )
-    if edge_vote.blank?
-      4
-    else
-      if edge_vote.reversible
-        2
-      else
-        if edge_vote.timeline_id == timeline_id
-          0
-        else
-          1
-        end
-      end
-    end
+  def minus
+    EdgeVote.where(edge_id: self.id, value: false).count
   end
 
   def reverse
