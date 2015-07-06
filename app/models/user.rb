@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_many :suggestion_votes, dependent: :destroy
   has_many :suggestion_child_votes, dependent: :destroy
   has_many :typos, dependent: :destroy
-  has_many :my_typos, class_name: "Typo", foreign_key: "target_user_id"
+  has_many :received_typos, class_name: "Typo", foreign_key: "target_user_id"
   has_many :frames, dependent: :destroy
   has_many :frame_credits, dependent: :destroy
   has_many :edges, dependent: :destroy

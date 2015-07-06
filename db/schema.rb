@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150705151802) do
+ActiveRecord::Schema.define(version: 20150706141209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
+  enable_extension "hstore"
 
   create_table "best_comments", force: true do |t|
     t.integer  "reference_id"
@@ -664,6 +665,7 @@ ActiveRecord::Schema.define(version: 20150705151802) do
     t.integer  "figure_id"
     t.text     "content_markdown", default: ""
     t.boolean  "send_email",       default: true
+    t.hstore   "profil"
   end
 
   add_index "user_details", ["figure_id"], name: "index_user_details_on_figure_id", using: :btree
@@ -685,6 +687,8 @@ ActiveRecord::Schema.define(version: 20150705151802) do
     t.datetime "reset_sent_at"
     t.integer  "important"
     t.integer  "nb_notifs",         default: 0
+    t.integer  "my_typos",          default: 0
+    t.integer  "target_typos",      default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

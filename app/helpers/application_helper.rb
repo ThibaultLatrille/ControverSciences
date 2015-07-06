@@ -36,6 +36,18 @@ module ApplicationHelper
      6 => "Titre de l'article", 7 => "Figure"}
   end
 
+  def user_profils
+    {1 => "Dilemnatique",
+     2 => "Reformulateur",
+     3 => "Ecrivain",
+     4 => "Encyclopédiste",
+     5 => "Analyste",
+     6 => "Passionné",
+     7 => "Adulé",
+     8 => "Fanatique",
+     9 => "Bienveillant"}
+  end
+
   def review_hash
     {0 => "Résumé de la review",
      3 => "Limites de la review",

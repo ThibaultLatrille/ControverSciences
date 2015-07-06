@@ -1,4 +1,5 @@
 class UserDetail < ActiveRecord::Base
+
   belongs_to :user
   attr_accessor :delete_picture, :has_picture
 

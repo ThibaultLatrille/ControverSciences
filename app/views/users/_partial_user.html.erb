@@ -1,3 +1,6 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"></script>
+
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
     <% if logged_in? && current_user.id == @user.id %>
@@ -16,7 +19,7 @@
     </span>
   </div>
   <div class="panel-body">
-    <% if logged_in? && current_user.admin %>
+    <% if logged_in? && current_user.admin && current_user.id != @user.id %>
         <div class="panel panel-danger">
           <div class="panel-heading">
             <span class="glyphicon glyphicon-warning-sign"></span> Pour les admins seulement <br/>
@@ -45,6 +48,10 @@
     <% if  @user_detail && @user_detail.id && @user_detail.website != "" %>
         <%= @user.name %> a même un site personnel : <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %> <br/>
     <% end %>
+    <br/>
+    <div id="spider-graph" class="center">
+    </div>
+    <br/>
     <br/>
     <div class="panel-group" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
@@ -213,3 +220,25 @@
         $(this).parent("div").parent("div").find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
     });
 </script>
+
+<% if @user_detail && !@user_detail.profil.blank? %>
+<script type="text/javascript">
+    RadarChart.defaultConfig.color = function() {};
+    RadarChart.defaultConfig.radius = 4;
+    RadarChart.defaultConfig.w = 400;
+    RadarChart.defaultConfig.h = 400;
+    var data = [
+        {
+            className: 'user', // optional can be used for styling
+            axes: [
+                <% (1..8).each do |n| %>
+                {axis: "<%= user_profils[n] %>", value: <%= 0.5 + Float(@user_detail.profil[n.to_s]).round(3) %>},
+                <% end %>
+                {axis: "<%= user_profils[9] %>", value: <%= 0.5 + Float(@user_detail.profil["9"]).round(3) %>}
+            ]
+        }
+    ];
+    RadarChart.draw("#spider-graph", data);
+</script>
+
+<% end %>

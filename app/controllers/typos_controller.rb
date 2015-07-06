@@ -58,6 +58,8 @@ class TyposController < ApplicationController
     @typo.set_content(current_user.id, current_user.admin)
     if @typo.target_user_id == current_user.id || current_user.admin
       @typo.destroy
+      User.increment_counter(:my_typos, @typo.user_id)
+      User.increment_counter(:target_typos, @typo.target_user_id)
     end
     if current_user.admin
       redirect_to typos_path
