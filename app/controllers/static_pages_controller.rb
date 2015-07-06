@@ -22,6 +22,7 @@ class StaticPagesController < ApplicationController
                     .order(:created_at => :desc)
                     .where(nb_summaries: 0)
                     .where.not(nb_references: 0..3)
+                    .where.not(nb_comments: 0..3)
     if params[:filter] == "mine" && logged_in?
       @timelines = query.where(user_id: current_user.id)
     else
