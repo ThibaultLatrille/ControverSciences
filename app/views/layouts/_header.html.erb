@@ -51,31 +51,35 @@
                                   typos_path, style: "color: white;" %>
 
                     </li>
+                    <li class="divider"></li>
                 <% end %>
                 <% if Reference.where(user_id: current_user.id, title_fr: nil).count > 0 %>
-                    <li style="background-color: #d9534f">
+                    <li class="my-missing">
                       <%= link_to "<span class=\"badge badge-header\"> #{Reference.where(user_id: current_user.id, nb_edits: 0).count} </span>
                       Vos références qui ont besoin d'une analyse".html_safe,
                                   empty_comments_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
+                    <li class="divider"></li>
                 <% end %>
                 <% if Timeline.where(user_id: current_user.id, nb_summaries: 0 ).where.not( nb_references: 0..3 ).where.not(nb_comments: 0..3).count > 0 %>
-                    <li style="background-color: #d9534f">
+                    <li class="my-missing">
                       <%= link_to "<span class=\"badge badge-header\"> #{Timeline.where(user_id: current_user.id, nb_summaries: 0
                       ).where.not( nb_references: 0..3 ).where.not(nb_comments: 0..3).count} </span>
                       Vos controverses qui ont besoin de synthèse".html_safe,
                                   empty_summaries_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
+                    <li class="divider"></li>
                 <% end %>
                 <% if Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count > 0 %>
-                    <li style="background-color: #d9534f">
+                    <li class="my-missing">
                       <%= link_to "<span class=\"badge badge-header\"> #{Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count} </span>
                       Vos controverses qui ont besoin de références".html_safe,
                                   empty_references_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
+                    <li class="divider"></li>
                 <% end %>
                 <li> <%= link_to "<b><span class=\"badge #{current_user.nb_notifs > 0 ? "badge-li" : nil }\">
                 #{current_user.nb_notifs}</span> Notifications </b>".html_safe,
