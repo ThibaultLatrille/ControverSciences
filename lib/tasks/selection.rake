@@ -6,5 +6,6 @@ namespace :admin  do
     update_score_timelines
     compute_fitness
     selection_events
+    update_all_profils
   end
 end
