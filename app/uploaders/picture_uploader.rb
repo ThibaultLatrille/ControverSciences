@@ -5,7 +5,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
-  process resize_to_limit: [1280, 1280], :if => :is_picture?
+  process resize_to_limit: [1600, 1600], :if => :is_picture?
 
   def filename
     if model.picture.file
