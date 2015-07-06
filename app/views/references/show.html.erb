@@ -1,7 +1,7 @@
 
 <% provide(:title, @reference.title_display) %>
 <% if @best_comment && @best_comment.not_empty %>
-    <% provide(:meta, @best_comment.first_data.strip[3..-5].html_safe) %>
+    <% provide(:meta, @best_comment.first_data.html_safe) %>
 <% else %>
     <% provide(:meta, "") %>
 <% end %>

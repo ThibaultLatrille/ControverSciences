@@ -87,7 +87,8 @@ class Frame < ActiveRecord::Base
         no_styles: true,
         safe_links_only: true
     }
-    renderer = RenderWithoutWrap.new(render_options)
+    renderer_no_wrap = RenderWithoutWrap.new(render_options)
+    renderer = Redcarpet::Render::HTML.new(render_options)
     extensions = {
         autolink: true,
         lax_spacing: true,
@@ -95,9 +96,10 @@ class Frame < ActiveRecord::Base
         strikethrough: true,
         superscript: true
     }
+    redcarpet_no_wrap = Redcarpet::Markdown.new(renderer_no_wrap, extensions)
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     self.content_markdown = redcarpet.render(self.content)
-    self.name_markdown = redcarpet.render(self.name)
+    self.name_markdown = redcarpet_no_wrap.render(self.name)
     if self.best && !self.new_record?
       tim = self.timeline
       tim.name = self.name_markdown

@@ -13,10 +13,6 @@
                         frames_path(timeline_id: @frame.timeline_id),
                         class: "list-group-item" %>
         <% end %>
-        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
-                  Ma contribution".html_safe,
-                    frames_path(timeline_id: @my_timeline.id, filter: "mine"),
-                    :class => "list-group-item" %>
       </div>
     </div>
 
