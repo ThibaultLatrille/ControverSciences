@@ -4,13 +4,6 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
-    if ENV['CS_MASTER_PASSWORD']
-      if params[:session][:password] == ENV['CS_MASTER_PASSWORD']
-        log_in user
-        forget(user)
-        redirect_to user and return
-      end
-    end
     if user && user.authenticate(params[:session][:password])
       if user.activated?
         log_in user
