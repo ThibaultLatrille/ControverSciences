@@ -12,9 +12,9 @@
            frame: "Améliorations de Controverses",
            summary: "Synthèses",
            reference: "Références",
-           comment: "Analyses", suggestions: "Commentaires"}.each do |key, value| %>
-          <%= link_to "<span class=\"icon-#{key} normal\"></span> &nbsp ".html_safe+value+
-                              " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
+           comment: "Analyses"}.each do |key, value| %>
+          <%= link_to "<span class=\"badge\">#{current_user.send( "notifications_#{key}")}</span>
+          <span class=\"icon-#{key} normal\"></span> &nbsp ".html_safe+value,
                       notifications_index_path(filter: key),
                       class: "list-group-item" %>
       <% end %>
@@ -28,8 +28,8 @@
          summary_selection: "Synthèses",
          selection: "Analyses"
          }.each do |key, value| %>
-        <%= link_to "<span class=\"icon-#{key} normal\"></span> &nbsp ".html_safe+value+
-                            " ("+current_user.send( "notifications_#{key}".to_sym).to_s+")",
+        <%= link_to "<span class=\"badge\">#{current_user.send( "notifications_#{key}")}</span>
+                    <span class=\"icon-#{key} normal\"></span> &nbsp ".html_safe+value,
                     notifications_index_path(filter: key),
                     class: "list-group-item" %>
     <% end %>
@@ -349,7 +349,8 @@
     Supprimer les notifications sélectionnées".html_safe,
                  class: 'list-group-item list-group-item-danger',
                  data: {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp Suppression en cours "}%>
-    <%= link_to "<span class=\"icon-#{@filter} normal\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications",
+    <%= link_to "<span class=\"badge badge-li\">#{current_user.send( "notifications_#{@filter}")}</span>
+                    <span class=\"icon-#{@filter} normal\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications",
                 notifications_delete_all_path(filter: @filter),
                 class: "list-group-item list-group-item-danger" %>
   </div>
