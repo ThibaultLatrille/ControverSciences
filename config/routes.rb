@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   get 'login_for_admin' => 'sessions#as_admin'
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :timelines, only: [:new, :create, :index, :show, :edit, :destroy]
+  resources :timelines, only: [:new, :create, :index, :show, :edit, :update, :destroy]
   get 'timelines_graph' => 'timelines#graph'
   get 'timelines_network' => 'timelines#network'
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]

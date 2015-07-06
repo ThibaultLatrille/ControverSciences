@@ -108,7 +108,7 @@
 
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
   <div class="panel panel-default comment">
-    <div class="panel-body" style="background: white url(<%= @frame_picture_url %>)">
+    <div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>)">
       <div class="content">
         <div class="clearfix">
 
@@ -163,7 +163,7 @@
               </div>
               <br/>
           <% end %>
-          <% if logged_in? && @improve_frame && current_user.admin %>
+          <% if logged_in? && current_user.admin && @improve_frame %>
               <div class="pull-right" style="margin-right: 8px;">
                 <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
                             edit_frame_path(@improve_frame.id),
@@ -173,10 +173,50 @@
                             data:                                  {confirm: "Etes vous certain ?"},
                             class:                                 "btn btn-danger" %>
               </div>
-          <% end %>
+            <% end %>
         </div>
       </div>
     </div>
+    <% if logged_in? && current_user.admin %>
+      <div class="panel-footer">
+      <%= form_for(@timeline, html: {multipart: true}) do |f| %>
+          <%= f.hidden_field :has_picture, value: @timeline.picture? %>
+          <%= f.hidden_field :delete_picture, value: false %>
+          <%= f.hidden_field :img_timeline_id, value: @timeline.id %>
+          <div id="size-warning" class="row" style="display: none">
+            <div class="col-xs-10 col-xs-offset-1">
+              <div class="alert alert-danger alert-dismissible" role="alert">
+                <strong>
+                  <span class="glyphicon glyphicon-warning-sign"></span>
+                  Cette image est de trop petite résolution, ou bien est trop grande (>5Mo)
+                </strong>
+              </div>
+            </div>
+          </div>
+          <%= f.button "Sauvegarder &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                       class: 'btn btn-success pull-right',
+                       data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
+      <% end %>
+      <div>
+        <div id="upload-btn" class="btn btn-default fileinput-button">
+          <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+          <span id="ajouter"> Ajouter une figure </span>
+          <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
+        </div>
+        <div id="progress" style="display: none">
+          <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+            <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+              <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+            </path>
+          </svg>
+        </div>
+        <div id="delete" class="btn btn-danger" style="display: none">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+          Supprimer la figure
+        </div>
+      </div>
+      </div>
+  <% end %>
     <% if @timeline.nb_references > 2 && @summary %>
         <div class="panel-body">
           <div id="summary" class="clearfix">
@@ -445,3 +485,45 @@
         });
     });
 </script>
+
+<% if logged_in? && current_user.admin %>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($('#timeline_has_picture').val() === 'true') {
+            $('#delete').show();
+            $('#ajouter').text("Modifier la figure");
+        }
+    });
+    $(function () {
+        'use strict';
+        // Change this to the location of your server-side upload handler:
+        $('#fileupload').fileupload({
+            url: "<%= figures_url + "?img_timeline_id=" + @timeline.id.to_s %>",
+            type: 'POST',
+            dataType: 'json',
+            done: function (e, data) {
+                $('#upload-btn').show(300);
+                $('#progress').hide(300);
+                if (data.result.id == null) {
+                    $('#size-warning').show(300);
+                } else {
+                    $('#timeline_has_picture').val('true');
+                    $('#timeline_delete_picture').val('false');
+                    $('#size-warning').hide();
+                    $('#uploaded').css("background", "white url(" + data.result.picture.url + ")");
+                }
+            },
+            start: function (e, data) {
+                $('#upload-btn').hide();
+                $('#progress').show();
+            }
+        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+    $('#delete').click(function () {
+        $('#delete').hide(300);
+        $('#uploaded').css("background", "white");
+        $('#ajouter').text("Ajouter une figure");
+        $('#timeline_delete_picture').val('true');
+    });
+</script>
+<% end %>

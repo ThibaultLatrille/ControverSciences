@@ -11,7 +11,7 @@ class Timeline < ActiveRecord::Base
                       :trigram => {}
                   }
 
-  attr_accessor :tag_list, :binary_left, :binary_right
+  attr_accessor :delete_picture, :has_picture, :frame_timeline_id, :tag_list, :binary_left, :binary_right
   belongs_to :user
   has_many :timeline_contributors, dependent: :destroy
   has_many :references, dependent: :destroy
@@ -48,6 +48,18 @@ class Timeline < ActiveRecord::Base
 
   def user_name
     User.select( :name ).find( self.user_id ).name
+  end
+
+  def picture?
+    self.figure_id ? true : false
+  end
+
+  def picture_url
+    if self.figure_id
+      Figure.select(:id, :picture, :user_id).find(self.figure_id).picture_url
+    else
+      nil
+    end
   end
 
   def nb_edits

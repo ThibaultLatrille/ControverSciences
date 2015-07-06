@@ -1,5 +1,5 @@
 class TimelinesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :edit, :create, :destroy]
+  before_action :logged_in_user, only: [:new, :edit, :update, :create, :destroy]
 
   def index
     query = Timeline.order(params[:sort].blank? ? :score : params[:sort].to_sym =>
@@ -81,7 +81,6 @@ class TimelinesController < ApplicationController
       query = query.where.not(nb_comments: 0)
     end
     @timelines =query
-    @frame_picture_url = Frame.find_by(best: true, timeline_id: params[:id]).picture_url
     @titles     = Reference.where(timeline_id: @timeline.id, title_fr: [nil, ""]).count
     @references = Reference.select(:article, :id, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
   end
@@ -91,6 +90,20 @@ class TimelinesController < ApplicationController
     if timeline.user_id == current_user.id || current_user.admin
       timeline.destroy
       redirect_to my_items_items_path
+    end
+  end
+
+  def update
+    timeline = Timeline.find(params[:id])
+    if timeline.user_id == current_user.id || current_user.admin
+      if timeline_params[:delete_picture] == 'true'
+        timeline.figure_id = nil
+      elsif timeline_params[:has_picture] == 'true'
+        timeline.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
+                                                              img_timeline_id: timeline.id ).last.id
+      end
+      timeline.save
+      redirect_to timeline_path(timeline.id)
     end
   end
 
@@ -105,6 +118,6 @@ class TimelinesController < ApplicationController
   private
 
   def timeline_params
-    params.require(:timeline).permit(:name, :binary, :frame, :binary_left, :binary_right)
+    params.require(:timeline).permit(:name, :binary, :frame, :binary_left, :binary_right, :img_timeline_id, :delete_picture, :has_picture )
   end
 end

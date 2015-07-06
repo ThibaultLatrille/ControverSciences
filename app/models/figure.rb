@@ -14,9 +14,9 @@ class Figure < ActiveRecord::Base
     elsif self.timeline_id
       self.file_name = "#{self.user_id}_tim_#{self.timeline_id}_v_#{
         Figure.where( user_id: self.user_id, reference_id: self.reference_id).count }"
-    elsif self.frame_timeline_id
-      self.file_name = "#{self.user_id}_fra_#{self.frame_timeline_id}_v_#{
-      Figure.where( user_id: self.user_id, frame_timeline_id: self.frame_timeline_id).count }"
+    elsif self.img_timeline_id
+      self.file_name = "#{self.user_id}_img_#{self.img_timeline_id}_v_#{
+      Figure.where( user_id: self.user_id, img_timeline_id: self.img_timeline_id).count }"
     else
       self.file_name = "#{self.user_id}_profil_v_#{
         Figure.where( user_id: self.user_id, profil: true ).count }"

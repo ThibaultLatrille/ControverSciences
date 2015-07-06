@@ -29,15 +29,6 @@ class FramesController < ApplicationController
     @frame = Frame.new( timeline_id: frame_params[:timeline_id],
                             content: frame_params[:content],
                             name: frame_params[:name])
-    if frame_params[:has_picture] == 'true' && frame_params[:delete_picture] == 'false'
-      @frame.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
-                                                              frame_timeline_id: @frame.timeline_id ).last.id
-    end
-    if frame_params[:binary] == "1"
-      @frame.binary = "#{frame_params[:binary_left].strip}&&#{frame_params[:binary_right].strip}"
-    else
-      @frame.binary = ""
-    end
     if params[:frame][:tag_list]
       @frame.set_tag_list(params[:frame][:tag_list])
     end
@@ -83,12 +74,6 @@ class FramesController < ApplicationController
       end
       if params[:frame][:tag_list]
         @frame.set_tag_list(params[:frame][:tag_list])
-      end
-      if frame_params[:delete_picture] == 'true'
-        @frame.figure_id = nil
-      elsif frame_params[:has_picture] == 'true'
-        @frame.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
-                                                                frame_timeline_id: @frame.timeline_id ).last.id
       end
       @frame.content = frame_params[:content]
       @frame.name = frame_params[:name]
