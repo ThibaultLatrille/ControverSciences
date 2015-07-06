@@ -90,6 +90,10 @@
                 <li><%= link_to "<b><span class='icon-ribbon'></span> Mes votes</b>".html_safe,
                                 my_items_votes_path %> </li>
                 <li class="divider"></li>
+                <li>
+                  <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> Les controverses qui m'intéressent".html_safe,
+                              timelines_path(:interest => "true")%>
+                </li>
                 <li><%= link_to "<b><span class=\"badge #{current_user.notifications_all > 0 ? "badge-li" : nil }\">
                 #{current_user.notifications_all }</span> Nouveautés </b>".html_safe,
                                 notifications_index_path %> </li>
