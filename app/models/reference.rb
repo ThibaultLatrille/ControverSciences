@@ -58,10 +58,10 @@ class Reference < ActiveRecord::Base
   end
 
   def display_year
-    if self.year > 1958
+    if self.year > 1858
       self.year
     else
-      "Avant 1858"
+      "Avant 1859"
     end
   end
 
