@@ -24,7 +24,7 @@ class Figure < ActiveRecord::Base
   end
 
   def user_name
-    User.select( :email ).find(self.user_id).email.partition("@")[0].gsub(".", "_" )
+    self.user_id.to_s
   end
 
   private
@@ -34,7 +34,7 @@ class Figure < ActiveRecord::Base
     if picture.size > 5.megabytes
       errors.add(:picture, 'Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.')
     end
-    if picture.size < 100.kilobytes
+    if picture.size < 85.kilobytes
       errors.add(:picture, 'Taille de la figure inférieur à 100ko, veuillez fournir une image de meilleur qualité.')
     end
   end

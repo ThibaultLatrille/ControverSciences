@@ -11,24 +11,16 @@
                         :style => "padding: 8px; margin-right: 8px"%>
           </div>
       <% end %>
-      <b>Thèmes :</b><br/>
       <% frame.get_tag_list.each do |name| %>
           <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
                       timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
                       class: "btn btn-lg btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
       <% end %>
-      <h1>
-        <%= frame.name_markdown.html_safe %>
-      </h1>
-      <% unless frame.binary.blank? %>
-      <div class="center">
+      <h1 class="shadowed">
         <br/>
-        <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
-        &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
-        <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%></b>
-      </div>
-      <br/><br/>
-      <% end %>
+        <%= frame.name_markdown.html_safe %>
+        <br/><br/>
+      </h1>
       <% if frame.content != "" %>
           <% if logged_in? && current_user.id != frame.user_id %>
               <div class="pull-right">
@@ -36,24 +28,33 @@
                             new_typo_path(frame_id: frame.id, field: 1), remote: true,
                             :class => "btn btn-default", "data-toggle" => "tooltip",
                             title: "Corriger une faute de français dans le cadre",
-                            :style => "padding: 8px; margin-right: 8px"%>
+                            :style => "padding: 8px; margin: 8px"%>
               </div>
           <% end %>
-          <div class="text-justify">
-            <b>Cadre, focus et mise au point :</b><br/>
-            <%= frame.content_markdown.html_safe %>
-          </div>
+              <div class="cadre text-justify">
+                    <b>Cadre, focus et mise au point :</b><br/>
+                    <%= frame.content_markdown.html_safe %>
+                </div>
           <br/>
       <% end %>
     </div>
     <% if !logged_in? || current_user.id == frame.user_id %>
-        <div class="pull-right">
+        <div class="cadre pull-right">
           Publiée il y a <%= time_ago_in_words(frame.created_at) %> par <%= link_to frame.user_name, user_path(frame.user_id) %>
         </div>
     <% end %>
   </span>
   </div>
   <div class="panel-footer">
+    <% unless frame.binary.blank? %>
+        <div class="center">
+          <br/>
+          <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
+          &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
+          <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%></b>
+        </div>
+        <br/><br/>
+    <% end %>
     <div class="clearfix">
       <% if logged_in? && current_user.id != frame.user_id %>
           <%= form_for(:frame_credit, url: frame_credits_path, method: :post, class: "input-group-sm") do |f| %>

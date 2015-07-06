@@ -212,6 +212,21 @@ h1 {
   text-shadow: 2px 2px lightgray;
 }
 
+.shadowed {
+  letter-spacing: 0px;
+  font-weight: bold;
+  text-shadow: 2px 2px 1px  rgba(255, 255, 255, 0.8),
+    -2px 2px 1px  rgba(255, 255, 255, 0.8),
+    -2px -2px 1px  rgba(255, 255, 255, 0.8),
+    2px -2px 1px  rgba(255, 255, 255, 0.8);
+}
+.cadre {
+  padding: 10px 18px;
+  border-radius: 3px;
+  border: 1px solid lightgrey;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
 .fatter{
   font-size: 3em;
 }

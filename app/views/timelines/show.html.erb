@@ -31,7 +31,7 @@
     <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Envoyer une invitation".html_safe,
                 new_invitation_path(timeline_id: @timeline.id),
                 remote: true,
-                class: "list-group-item" %>
+                class:  "list-group-item" %>
     <% if logged_in? %>
         <%= link_to "<span class=\"glyphicon glyphicon-link\" >
                         </span> Ajouter des liens vers d'autres controverses".html_safe,
@@ -107,9 +107,22 @@
 </div>
 
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
-  <div class="panel panel-default">
-    <div class="panel-heading clearfix">
-        <span class="pull-right">
+  <div class="panel panel-default comment">
+    <div class="panel-body" style="background: white url(<%= @frame_picture_url %>)">
+      <div class="content">
+        <div class="clearfix">
+
+          <% if logged_in? && @improve_frame %>
+              <div class="pull-right">
+                <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                            new_typo_path(frame_id: @improve_frame.id, field: 0),
+                            remote: true,
+                            class: "btn btn-default", "data-toggle" => "tooltip",
+                            title: "Corriger une faute de français dans le titre",
+                            style: "padding: 8px; margin: 0px 8px;" %>
+              </div>
+          <% end %>
+          <div class="pull-right">
             <% if logged_in? && (@my_likes.include? @timeline.id) %>
                 <button type="button" class="btn btn-success" data-placement="left"
                         data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
@@ -123,68 +136,45 @@
                   <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
                 </button>
             <% end %>
-        </span>
-      <% @timeline.get_tag_list.each do |name| %>
-          <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
-                      timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
-                      class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
-      <% end %>
-      <div>
-        <br/>
-
-        <h1><%= @timeline.name.html_safe %></h1>
-        <% if logged_in? %>
-            <div class="pull-right" style="margin-right: 10px;">
-              <% if @improve_frame %>
-                  <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                              new_typo_path(frame_id: @improve_frame.id, field: 0), remote: true,
-                              :class                                                        => "btn btn-default", "data-toggle" => "tooltip",
-                              title:                                                        "Corriger une faute de français dans le titre" %>
-                  <% if current_user.admin %>
-                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                  edit_frame_path(@improve_frame.id),
-                                  class: "btn btn-primary" %>
-                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                  frame_path(@improve_frame.id), method: :delete,
-                                  data:                          {confirm: "Etes vous certain ?"},
-                                  class:                                 "btn btn-danger" %>
-                  <% end %>
+          </div>
+          <% @timeline.get_tag_list.each do |name| %>
+              <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                          timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                          class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+          <% end %>
+          <h1 class="shadowed">
+            <br/>
+            <%= @timeline.name.html_safe %>
+            <br/><br/>
+          </h1>
+          <% if @timeline.frame != "" %>
+              <% if logged_in? && @improve_frame %>
+                  <div class="pull-right">
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
+                                :class                                                        => "btn btn-default", "data-toggle" => "tooltip",
+                                title:                                                        "Corriger une faute de français dans le cadre",
+                                :style                                                        => "padding: 8px; margin: 8px" %>
+                  </div>
               <% end %>
-            </div>
-        <% end %>
-        <br/>
-        <% if @timeline.frame != "" %>
-            <div id="summary" class="clearfix">
-              <div class="justify">
+              <div class="cadre text-justify">
                 <b>Cadre, focus et mise au point :</b><br/>
                 <%= @timeline.frame.html_safe %>
               </div>
               <br/>
-            </div>
-            <br/>
-            <br/>
-            <% if logged_in? %>
-                <div class="pull-right" style="margin-right: 10px;">
-                  <% if @improve_frame %>
-                      <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                                  new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
-                                  :class                                                        => "btn btn-default", "data-toggle" => "tooltip",
-                                  title:                                                        "Corriger une faute de français dans le cadre",
-                                  style:                                                        "padding: 6px;" %>
-                      <% if current_user.admin %>
-                          <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                      edit_frame_path(@improve_frame.id),
-                                      class: "btn btn-primary" %>
-                          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                      frame_path(@improve_frame.id), method: :delete,
-                                      data:                          {confirm: "Etes vous certain ?"},
-                                      class:                                 "btn btn-danger" %>
-                      <% end %>
-                  <% end %>
-                  <br/><br/>
-                </div>
-            <% end %>
-        <% end %>
+          <% end %>
+          <% if logged_in? && @improve_frame && current_user.admin %>
+              <div class="pull-right" style="margin-right: 8px;">
+                <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                            edit_frame_path(@improve_frame.id),
+                            class: "btn btn-primary" %>
+                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                            frame_path(@improve_frame.id), method: :delete,
+                            data:                                  {confirm: "Etes vous certain ?"},
+                            class:                                 "btn btn-danger" %>
+              </div>
+          <% end %>
+        </div>
       </div>
     </div>
     <% if @timeline.nb_references > 2 && @summary %>
@@ -213,7 +203,7 @@
                                     class: "btn btn-primary" %>
                         <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                                     summary_path(@summary.id), method: :delete,
-                                    data:                          {confirm: "Etes vous certain ?"},
+                                    data:                              {confirm: "Etes vous certain ?"},
                                     class:                             "btn btn-danger" %>
                     <% end %>
                   </div>
