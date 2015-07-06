@@ -7,10 +7,14 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h3>
-                <span class="icon-4"></span>
+                <span class="icon-4 pull-right" style="margin-right: 15px"></span>
                 Ces controverses
-                <% if params[:filter] == "mine" %>
-                    que vous avez ajouté
+                <% if logged_in? %>
+                    <% if params[:filter] == "mine" %>
+                        que vous avez ajoutés
+                    <% else %>
+                        qui vous intéressent
+                    <% end %>
                 <% end %>
                 ont besoin de références scientifiques, venez les enrichir !
               </h3>
@@ -33,8 +37,16 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h3>
-                <span class="icon-4"></span>
-                Toutes les controverses ont actuellement au moins une référence.
+                <span class="icon-4 pull-right" style="margin-right: 15px"></span>
+                Toutes les controverses
+                <% if logged_in? %>
+                    <% if params[:filter] == "mine" %>
+                        que vous avez ajoutés
+                    <% else %>
+                        qui vous intéressent
+                    <% end %>
+                <% end %>
+                ont actuellement au moins une référence.
               </h3>
               <%= link_to "<span class=\"icon-frog fat\"></span> Créer une controverse".html_safe, new_timeline_path, class: "btn btn-primary btn-lg pull-right" %>
             </div>

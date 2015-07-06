@@ -7,10 +7,14 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h3>
-                <span class="icon-4"></span>
+                <span class="icon-4 pull-right" style="margin-right: 15px"></span>
                 Ces références
-                <% if params[:filter] == "mine" %>
-                    que vous avez ajouté
+                <% if logged_in? %>
+                    <% if params[:filter] == "mine" %>
+                        que vous avez ajoutés
+                    <% else %>
+                        qui vous intéressent
+                    <% end %>
                 <% end %>
                     n'ont pas encore d'analyses, soyez le premier à les décortiquer !
               </h3>
@@ -38,8 +42,16 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h3>
-                <span class="icon-4"></span>
-                Toutes les références ont actuellement au moins une analyse.
+                <span class="icon-4 pull-right" style="margin-right: 15px"></span>
+                Toutes les références
+                <% if logged_in? %>
+                    <% if params[:filter] == "mine" %>
+                        que vous avez ajoutés
+                    <% else %>
+                        qui vous intéressent
+                    <% end %>
+                <% end %>
+                ont actuellement au moins une analyse.
               </h3>
               <%= link_to "<span class=\"icon-frog fat\"></span> Voir les controverses".html_safe, timelines_path, class: "btn btn-primary btn-lg pull-right" %>
             </div>
