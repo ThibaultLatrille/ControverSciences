@@ -71,13 +71,16 @@ class TimelinesController < ApplicationController
                        @timeline.id,
                        @timeline.id)
     timeline_ids = edges.map{ |e| [e.target, e.timeline_id] }
-    @timelines = Timeline.where( id: timeline_ids.flatten.uniq ).where.not( id: @timeline.id )
+    query = Timeline.where( id: timeline_ids.flatten.uniq ).where.not( id: @timeline.id )
     if logged_in?
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
       @improve = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
       @improve_frame = Frame.where.not(user_id: current_user.id ).find_by(best: true, timeline_id: params[:id])
       @my_frame = Frame.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? true : false
+    else
+      query = query.where.not(nb_comments: 0)
     end
+    @timelines =query
     @frame_picture_url = Frame.find_by(best: true, timeline_id: params[:id]).picture_url
     @titles     = Reference.where(timeline_id: @timeline.id, title_fr: [nil, ""]).count
     @references = Reference.select(:article, :id, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
