@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  before_action :admin_user,     only: [:destroy]
 
   def new
     @user = User.new
@@ -82,6 +82,17 @@ class UsersController < ApplicationController
       end
       render 'edit'
     end
+  end
+
+  def switch_admin
+    if current_user.can_switch_admin
+      if current_user.admin
+        current_user.update_columns(admin: false)
+      else
+        current_user.update_columns(admin: true)
+      end
+    end
+    redirect_to user_path(current_user.id)
   end
 
   def destroy

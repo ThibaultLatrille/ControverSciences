@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :users do
     collection do
       get 'checkemail'
+      get 'switch_admin'
     end
   end
   resources :user_details, only: [:create]
