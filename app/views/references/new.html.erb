@@ -23,7 +23,7 @@
 
               <div class="input-group">
           <span class="input-group-btn">
-            <button class="btn btn-default" name="title" type="submit" onclick="freeze()">
+            <button class="btn btn-primary" name="title" type="submit" onclick="freeze()">
               <span class="glyphicon glyphicon-refresh"></span></button>
           </span>
                 <%= f.text_field :title, class: 'form-control myforms' %>
@@ -77,6 +77,20 @@
               <br/>
               <b> Identifiant unique : DOI, PMID, ou autre (facultatif) </b> <br/>
               <%= f.text_field :doi, class: 'form-control myforms' %>
+              <br/>
+              <%= f.label :Tags, "Thèmes" %> </br>
+              <div class="container-fluid">
+                <div class="row" data-toggle="buttons">
+                  <% tags_hash.each do |key, value| %>
+                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+                            <div class="my-btn">
+                              <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
+                              <span class="fat icon-<%= key %>"></span> <%= value %>
+                            </div>
+                          </div>
+                  <% end %>
+                </div>
+              </div>
               <br/>
               <%= f.button "Ajouter la référence &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            id: "submit-button",

@@ -93,10 +93,14 @@ class ReferencesController < ApplicationController
         redirect_to same
       else
         if @reference.save
-          if params[:reference][:tag_list]
-            @reference.set_tag_list(params[:reference][:tag_list])
+          ref_user_tag = ReferenceUserTag.find_or_create_by( reference_id: @reference.id,
+                                                              user_id: current_user.id,
+                                                              timeline_id: @reference.timeline_id)
+          if ref_user_tag.set_tag_list(params[:reference][:tag_list].blank? ? [] : params[:reference][:tag_list])
+            flash[:success] = "Référence ajoutée, mais les thèmes n'ont pas été pris en compte."
+          else
+            flash[:success] = "Référence ajoutée avec succès."
           end
-          flash[:success] = "Référence ajoutée."
           redirect_to new_comment_path( reference_id: @reference.id )
         else
           @tag_list = @reference.get_tag_list
