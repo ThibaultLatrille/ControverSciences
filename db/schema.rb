@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150706180239) do
+ActiveRecord::Schema.define(version: 20150707133146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
   enable_extension "pg_trgm"
   enable_extension "unaccent"
-  enable_extension "hstore"
 
   create_table "best_comments", force: true do |t|
     t.integer  "reference_id"
@@ -201,16 +201,6 @@ ActiveRecord::Schema.define(version: 20150706180239) do
   add_index "frame_credits", ["frame_id"], name: "index_frame_credits_on_frame_id", using: :btree
   add_index "frame_credits", ["timeline_id"], name: "index_frame_credits_on_timeline_id", using: :btree
   add_index "frame_credits", ["user_id"], name: "index_frame_credits_on_user_id", using: :btree
-
-  create_table "frame_taggings", force: true do |t|
-    t.integer  "tag_id"
-    t.integer  "frame_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "frame_taggings", ["frame_id"], name: "index_frame_taggings_on_frame_id", using: :btree
-  add_index "frame_taggings", ["tag_id"], name: "index_frame_taggings_on_tag_id", using: :btree
 
   create_table "frames", force: true do |t|
     t.integer  "timeline_id"
@@ -446,6 +436,30 @@ ActiveRecord::Schema.define(version: 20150706180239) do
   add_index "reference_edges", ["reference_id"], name: "index_reference_edges_on_reference_id", using: :btree
   add_index "reference_edges", ["timeline_id"], name: "index_reference_edges_on_timeline_id", using: :btree
   add_index "reference_edges", ["user_id"], name: "index_reference_edges_on_user_id", using: :btree
+
+  create_table "reference_user_taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "reference_user_tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "reference_id"
+  end
+
+  add_index "reference_user_taggings", ["reference_id"], name: "index_reference_user_taggings_on_reference_id", using: :btree
+  add_index "reference_user_taggings", ["reference_user_tag_id"], name: "index_reference_user_taggings_on_reference_user_tag_id", using: :btree
+  add_index "reference_user_taggings", ["tag_id"], name: "index_reference_user_taggings_on_tag_id", using: :btree
+
+  create_table "reference_user_tags", force: true do |t|
+    t.integer  "reference_id"
+    t.integer  "timeline_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reference_user_tags", ["reference_id"], name: "index_reference_user_tags_on_reference_id", using: :btree
+  add_index "reference_user_tags", ["timeline_id"], name: "index_reference_user_tags_on_timeline_id", using: :btree
+  add_index "reference_user_tags", ["user_id"], name: "index_reference_user_tags_on_user_id", using: :btree
 
   create_table "references", force: true do |t|
     t.integer  "user_id"

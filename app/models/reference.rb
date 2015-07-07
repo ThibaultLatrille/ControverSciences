@@ -1,6 +1,8 @@
 class Reference < ActiveRecord::Base
   require 'HTMLlinks'
 
+  attr_accessor :tag_list
+
   belongs_to :user
   belongs_to :timeline
   has_many :links, dependent: :destroy
@@ -9,16 +11,14 @@ class Reference < ActiveRecord::Base
   has_many :ratings, dependent: :destroy
   has_many :binaries, dependent: :destroy
   has_many :reference_contributors, dependent: :destroy
-
   has_many :reference_edges, dependent: :destroy
   has_many :reference_edges_from, class_name: "ReferenceEdge",
            foreign_key: "target",
            dependent: :destroy
   has_many :reference_edge_votes, dependent: :destroy
-
   has_many :notifications, dependent: :destroy
-
   has_one :best_comment, dependent: :destroy
+  has_many :reference_user_tags, dependent: :destroy
 
   around_update :delete_if_review
 
@@ -33,6 +33,25 @@ class Reference < ActiveRecord::Base
 
   validates_presence_of :title, :author, :year, :url, :journal
   validates_uniqueness_of :timeline_id, :if => Proc.new { |c| not c.doi.blank? }, :scope => [:doi]
+
+  def self.tagged_with(name)
+    Tag.find_by_name!(name).timelines
+  end
+
+  def self.tag_counts
+    Tag.select("tags.*, count(reference_user_taggings.tag_id) as count").
+        joins(:taggings).group("reference_user_taggings.tag_id")
+  end
+
+  def get_tag_hash
+    hash = {}
+    reference_user_tags.each do |ref_user_tag|
+      ref_user_tag.tags.map(&:name).each do |name|
+        hash[name] ? hash[name] += 1 : hash[name] = 1
+      end
+    end
+    hash
+  end
 
   def user_name
     User.select(:name).find(self.user_id).name

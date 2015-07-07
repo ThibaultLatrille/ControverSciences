@@ -165,6 +165,17 @@
   </div>
   <div class="panel-body">
     <ul class="list-group">
+      <% if !logged_in? && !@reference.get_tag_hash.blank? %>
+        <li class="list-group-item clearfix">
+          <% @reference.get_tag_hash.each do |key, value| %>
+              <%= link_to "<span class=\"fat icon-#{key}\"></span> #{value}".html_safe,
+                          timelines_path(:sort => params[:sort], :order => params[:order], :tag => key),
+                          class: "btn btn-default stick hvr-shadow",
+                          title: "#{value} contributeur#{ value > 1 ? "s" :""} pensent que cette référence appartient au thème #{tags_hash[key]}",
+                          "data-toggle" => "tooltip" %>
+          <% end %>
+        </li>
+      <% end %>
       <li class="list-group-item">
         <div class="bold">
           Les auteurs de l'étude :
@@ -176,9 +187,9 @@
       <li class="list-group-item">
         <div class="bold">
           Journal :
-        </div> <%= @reference.journal %></li>
-      <li class="list-group-item">
-        <% unless @reference.abstract_markdown.blank? %>
+        </div> <%= @reference.journal %>
+      </li>
+      <% unless @reference.abstract_markdown.blank? %>
           <li class="list-group-item">
             <div class="bold">
               Abstract (dans sa langue originale) :
@@ -206,7 +217,42 @@
           Controverse dans laquelle apparait cette référence :
         </div>
         <%= link_to @reference.timeline_name.html_safe, @reference.timeline,
-                    target: "_blank" %></li>
+                    target: "_blank" %>
+      </li>
+      <% if logged_in? %>
+        <li class="list-group-item clearfix">
+          <%= form_for(:reference_user_tag, url: reference_user_tags_path, method: :post,) do |f| %>
+              <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
+              <%= f.hidden_field :reference_id, value: @reference.id %>
+              <%= f.label :Tags, "Thèmes" %> </br>
+              <div class="container-fluid">
+                <div class="row" data-toggle="buttons">
+                  <% tags_hash.each do |key, value| %>
+                      <% if @tag_list.include? key %>
+                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
+                            <div class="my-btn">
+                              <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
+                              <span class="fat icon-<%= key %>"></span> <%= value %>
+                            </div>
+                          </div>
+                      <% else %>
+                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+                            <div class="my-btn">
+                              <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
+                              <span class="fat icon-<%= key %>"></span> <%= value %>
+                            </div>
+                          </div>
+                      <% end %>
+                  <% end %>
+                </div>
+              </div>
+              <br/>
+              <%= f.button "Enregistrer cet avis &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success pull-right',
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
+          <% end %>
+        </li>
+      <% end %>
       <% unless @reference.binary.blank? %>
           <li class="list-group-item clearfix">
             <% if logged_in? %>
@@ -366,6 +412,7 @@
 </div>
 
 <script type="text/javascript">
+    $('.my-btn').responsiveEqualHeightGrid();
     $(function () {
         $('.ajax-btn').click(function () {
             $(this).text("Chargement");

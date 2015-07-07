@@ -11,11 +11,6 @@
                         :style => "padding: 8px; margin-right: 8px"%>
           </div>
       <% end %>
-      <% frame.get_tag_list.each do |name| %>
-          <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
-                      timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
-                      class: "btn btn-lg btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
-      <% end %>
       <h1 class="shadowed">
         <br/>
         <%= frame.name_markdown.html_safe %>

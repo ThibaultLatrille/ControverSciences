@@ -62,30 +62,6 @@
                 </div>
               </div>
 
-              <%= f.label :Tags, "Thèmes" %> </br>
-              <div class="container-fluid">
-                <div class="row" data-toggle="buttons">
-                  <% tags_hash.each do |key, value| %>
-                      <% if @tag_list.include? key %>
-                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
-                            <div class="my-btn">
-                              <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
-                              <span class="fat icon-<%= key %>"></span> <%= value %>
-                            </div>
-                          </div>
-                      <% else %>
-                          <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
-                            <div class="my-btn">
-                              <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
-                              <span class="fat icon-<%= key %>"></span> <%= value %>
-                            </div>
-                          </div>
-                      <% end %>
-                  <% end %>
-                </div>
-              </div>
-              <br/>
-
               <div class="panel panel-default">
                 <div class="panel-body">
                   <%= f.label :binary do %>
@@ -150,7 +126,6 @@
         }
     });
     $(document).ready(function () {
-        $('.my-btn').responsiveEqualHeightGrid();
         if (!$('#check-box').is(':checked')) {
             $('#binary-box').hide()
         }

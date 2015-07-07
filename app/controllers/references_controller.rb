@@ -59,6 +59,7 @@ class ReferencesController < ApplicationController
   def new
     @reference = Reference.new
     @reference.open_access = false
+    @tag_list        = []
   end
 
   def create
@@ -92,9 +93,13 @@ class ReferencesController < ApplicationController
         redirect_to same
       else
         if @reference.save
+          if params[:reference][:tag_list]
+            @reference.set_tag_list(params[:reference][:tag_list])
+          end
           flash[:success] = "Référence ajoutée."
           redirect_to new_comment_path( reference_id: @reference.id )
         else
+          @tag_list = @reference.get_tag_list
           params[:timeline_id] = reference_params[:timeline_id]
           render 'new'
         end
@@ -124,6 +129,13 @@ class ReferencesController < ApplicationController
     @reference = Reference.find(params[:id])
     if logged_in?
       user_id = current_user.id
+      ref_user_tag = ReferenceUserTag.find_by(user_id: user_id,
+                                           reference_id: @reference.id)
+      if ref_user_tag
+        @tag_list = ref_user_tag.get_tag_list
+      else
+        @tag_list = []
+      end
       @user_rating = @reference.ratings.find_by(user_id: user_id)
       unless @user_rating.nil?
         @user_rating = @user_rating.value

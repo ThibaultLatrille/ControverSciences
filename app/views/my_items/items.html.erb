@@ -87,17 +87,11 @@
               <td> Vous n'avez pas encore proposé d'amélioration de controverses </td>
               <td>  </td>
               <td>  </td>
-              <td>  </td>
             </tr>
         <% else %>
             <% @frames.each do |frame| %>
                 <tr class="notification-timeline">
                   <td> <%= link_to frame.name_markdown.html_safe, frame_path(frame.id) %> </td>
-                  <td>
-                    <% frame.get_tag_list.each do |name| %>
-                        <span class="icon-<%= name %>"></span>
-                    <% end %>
-                  </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
                                                   edit_frame_path( frame.id ) %>  </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,

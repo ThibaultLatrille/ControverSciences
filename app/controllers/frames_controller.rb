@@ -20,7 +20,6 @@ class FramesController < ApplicationController
       else
         @frame.binary = false
       end
-      @tag_list     = timeline.get_tag_list
     end
     @my_timeline = Timeline.select(:id, :nb_frames, :name ).find( @frame.timeline_id )
   end
@@ -29,15 +28,11 @@ class FramesController < ApplicationController
     @frame = Frame.new( timeline_id: frame_params[:timeline_id],
                             content: frame_params[:content],
                             name: frame_params[:name])
-    if params[:frame][:tag_list]
-      @frame.set_tag_list(params[:frame][:tag_list])
-    end
     @frame.user_id = current_user.id
     if @frame.save
       flash[:success] = "Contribution enregistrée."
       redirect_to frames_path( filter: "mine", timeline_id: @frame.timeline_id )
     else
-      @tag_list = @frame.get_tag_list
       if @frame.binary != ""
         @frame.binary_left  = @frame.binary.split('&&')[0]
         @frame.binary_right = @frame.binary.split('&&')[1]
@@ -52,7 +47,6 @@ class FramesController < ApplicationController
 
   def edit
     @frame = Frame.find( params[:id] )
-    @tag_list = @frame.get_tag_list
     @my_timeline = Timeline.select(:id, :nb_frames, :name ).find( @frame.timeline_id )
     if @frame.binary != ""
       @frame.binary_left  = @frame.binary.split('&&')[0]
@@ -71,9 +65,6 @@ class FramesController < ApplicationController
         @frame.binary = "#{frame_params[:binary_left].strip}&&#{frame_params[:binary_right].strip}"
       else
         @frame.binary = ""
-      end
-      if params[:frame][:tag_list]
-        @frame.set_tag_list(params[:frame][:tag_list])
       end
       @frame.content = frame_params[:content]
       @frame.name = frame_params[:name]

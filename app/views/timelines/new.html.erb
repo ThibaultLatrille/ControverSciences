@@ -18,30 +18,6 @@
     <b style="font-size: 1.4em">Cadre, focus et mise au point de la controverse</b><div id="characterLeft0"></div><br/>
     <%= f.text_area :frame, class: 'form-control textarea', id: "description0" %>
     </br>
-    <b style="font-size: 1.4em">Thèmes</b><br/>
-
-    <div class="container-fluid">
-      <div class="row" data-toggle="buttons">
-        <% tags_hash.each do |key, value| %>
-            <% if @tag_list.include? key %>
-                <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
-                  <div class="my-btn">
-                    <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
-                    <span class="fat icon-<%= key %>"></span> <%= value %>
-                  </div>
-                </div>
-            <% else %>
-                <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
-                  <div class="my-btn">
-                    <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
-                    <span class="fat icon-<%= key %>"></span> <%= value %>
-                  </div>
-                </div>
-            <% end %>
-        <% end %>
-      </div>
-    </div>
-    <br/>
 
     <div class="panel panel-default">
       <div class="panel-body">
@@ -95,7 +71,6 @@
     $(document).ready(function () {
         $("#description1").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra','cmdList','cmdListO','cmdBold']});
         $("#description0").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
-        $('.my-btn').responsiveEqualHeightGrid();
         $('#check-box').click(function () {
             if ($(this).is(':checked')) {
                 $('#binary-box').show(500)

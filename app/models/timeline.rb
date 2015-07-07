@@ -154,9 +154,8 @@ class Timeline < ActiveRecord::Base
   def cascading_save_timeline
     text = "Discussion libre autour de la controverse : **#{self.name.strip}**"
     Suggestion.create( user_id: self.user_id, timeline_id: self.id, comment: text )
-    frame = Frame.create( user_id: self.user_id, best: true,
+    Frame.create( user_id: self.user_id, best: true,
                    content: self.frame, name: self.name, timeline_id: self.id, binary: self.binary )
-    frame.set_tag_list(self.get_tag_list)
     notifications = []
     User.all.pluck(:id).each do |user_id|
       unless self.user_id == user_id
