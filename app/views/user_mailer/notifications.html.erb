@@ -155,7 +155,7 @@
                     <p style="Margin-top: 0;color:#60666d;font-size: 15px;font-family:sans-serif;line-height:24px;Margin-bottom: 24px">
                         Il y a du nouveau sur votre compte
                       <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="http://www.controversciences.org">
-                        ControverSciences</a>, les débats avancent !
+                        ControverSciences</a> : les débats avancent !
                     </p>
                     <ul style="Margin-top: 0;padding-left:0;color: #60666d;font-size:15px;Margin-left: 20px;font-family:sans-serif;line-height:24px;Margin-bottom: 24px">
                       <% if @user_notif.notifications_all > 2 %>
@@ -169,19 +169,19 @@
 
                             <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
                                href="http://www.controversciences.org/notifications/important">
-                              <%= @user_notif.nb_notifs -%> notifications vous attendent .</a> </b></li>
+                              <%= @user_notif.nb_notifs -%> notifications vous attendent.</a> </b></li>
                       <% end %>
                       <% if @empty_comments > 2 && rand(3) == 0 %>
                           <li style="Margin-top: 0;padding-left: 2px"> <b>
                             <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
                                href="http://www.controversciences.org/empty_comments">
-                              <%= @empty_comments -%> références n'ont pas encore d'analyses, soyez le premier à les décortiquer !</a> </b></li>
+                              <%= @empty_comments -%> références n'ont pas encore d'analyse, soyez le premier à les décortiquer !</a> </b></li>
                       <% end %>
                       <% if @empty_summaries > 2 && rand(3) == 0 %>
                           <li style="Margin-top: 0;padding-left: 2px"> <b>
                             <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
                                href="http://www.controversciences.org/empty_summaries">
-                              <%= @empty_summaries -%> controverses ont des références mais n'ont pas synthèses,
+                              <%= @empty_summaries -%> controverses ont des références mais n'ont pas synthèse,
                             apportez votre vue d'ensemble et écrivez l'une d'entre elle ! </a> </b></li>
                       <% end %>
                       <% if @empty_references > 2 && rand(3) == 0 %>
