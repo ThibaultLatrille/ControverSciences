@@ -15,7 +15,6 @@ class Reference < ActiveRecord::Base
   has_many :reference_edges_from, class_name: "ReferenceEdge",
            foreign_key: "target",
            dependent: :destroy
-  has_many :reference_edge_votes, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_one :best_comment, dependent: :destroy
   has_many :reference_user_tags, dependent: :destroy
