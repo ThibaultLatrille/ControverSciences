@@ -104,7 +104,7 @@
                 'tabindex': tabIndex,
                 'data-provider': ns,
                 'data-handler': buttonHandler,
-                'data-hotkey': hotkey,
+                'data-hotkey': hotkey
             });
             if (button.href == true){
                 buttonContainer.attr({
@@ -1050,7 +1050,7 @@
           icon: { glyph: 'icon-frog bigger', fa: 'fa fa-picture-o', 'fa-3': 'icon-picture' },
             callback: function(e){
                 $('#mytimlist').one('hidden.bs.modal', function ( event ) {
-                    var monelement = document.getElementById('save-btn');
+                    var monelement = document.getElementById('save-btn-tim');
                     if(  monelement.dataset.toggled === 'yes') {
                         monelement.setAttribute("data-toggled", 'no');
                         var chunk, cursor,
@@ -1064,7 +1064,7 @@
                         }
                         var link = elt.options[elt.selectedIndex].value
                         // transform selection and set the cursor into chunked text
-                        e.replaceSelection('[' + chunk + '](http://www.controversciences.org/timelines/' + link + ')')
+                        e.replaceSelection('[' + chunk + '](https://www.controversciences.org/timelines/' + link + ')')
                         cursor = selected.start+1
 
                         // Set the cursor

@@ -317,7 +317,7 @@
         <%= select("reference", "reference_id", @list, {}, {id: "list-ref", class: 'form-control'}) %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn"> Ajouter
+        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-tim"> Ajouter
         </button>
       </div>
     </div>
@@ -386,13 +386,14 @@
         $('#ajouter').text("Ajouter une figure à cette analyse");
         $('#comment_delete_picture').val('true');
     });
-    var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
-        mysavebtn.setAttribute("data-toggled", 'yes');
+        this.setAttribute("data-toggled", 'yes');
     });
-    var myref = document.getElementById('save-btn-http');
+    $('#save-btn-tim').on('click', function (event) {
+        this.setAttribute("data-toggled", 'yes');
+    });
     $('#save-btn-http').on('click', function (event) {
-        myref.setAttribute("data-toggled", 'yes');
+        this.setAttribute("data-toggled", 'yes');
     });
 </script>
 

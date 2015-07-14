@@ -18,8 +18,7 @@ module StaticPagesHelper
 
   def meta_description(meta_descri)
     if meta_descri.blank?
-      "Portail de vulgarisation scientique destiné à éclairer débats et controverses.
-      Animé par des scientifiques, pour tout public"
+      "ControverSciences est un portail collaboratif et indépendant qui rassemble les publications scientifiques autour de controverses, en les rendant accessible à tous."
     else
       ActionView::Base.full_sanitizer.sanitize meta_descri
     end

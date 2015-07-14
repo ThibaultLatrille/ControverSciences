@@ -163,7 +163,7 @@
             <%= select("timeline", "timeline_id", @tim_list, {}, {id: "list-tim", class: 'form-control'}) %>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn"> Ajouter
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-tim"> Ajouter
             </button>
           </div>
       <% else %>
@@ -288,14 +288,14 @@
             }
         }
     });
-    var mysavebtn = document.getElementById('save-btn');
     $('#save-btn').on('click', function (event) {
-        mysavebtn.setAttribute("data-toggled", 'yes');
+        this.setAttribute("data-toggled", 'yes');
     });
-
-    var myref = document.getElementById('save-btn-http');
+    $('#save-btn-tim').on('click', function (event) {
+        this.setAttribute("data-toggled", 'yes');
+    });
     $('#save-btn-http').on('click', function (event) {
-        myref.setAttribute("data-toggled", 'yes');
+        this.setAttribute("data-toggled", 'yes');
     });
     $.each(['0', '1'], function (index, value) {
         $(document).ready(function () {
