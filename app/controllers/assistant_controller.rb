@@ -1,7 +1,7 @@
 class AssistantController < ApplicationController
   include AssisstantHelper
 
-  before_action :admin_user, only: [:view, :index, :users, :timelines, :selection, :fitness]
+  before_action :admin_user, only: [:view, :index, :users, :timelines, :selection, :fitness, :profils]
 
   def view
   end
@@ -35,6 +35,12 @@ class AssistantController < ApplicationController
   def selection
     selection_events
     flash[:success] = "La sélection a opéré"
+    redirect_to assistant_path
+  end
+
+  def profils
+    update_all_profils
+    flash[:success] = "Les profils ont été mis à jour"
     redirect_to assistant_path
   end
 end

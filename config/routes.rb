@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   get 'assistant/timelines' => 'assistant#timelines'
   get 'assistant/fitness' => 'assistant#fitness'
   get 'assistant/selection' => 'assistant#selection'
+  get 'assistant/profils' => 'assistant#profils'
   get 'notifications/index'
   get 'notifications/important'
   get 'notifications/delete_all'
