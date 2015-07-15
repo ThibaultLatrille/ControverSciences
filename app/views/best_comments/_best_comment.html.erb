@@ -67,7 +67,6 @@
             <% if best_comment.comment_count(fi) > 1 %>
                 <%= link_to "Voir toutes les contributions",
                             from_reference_path(:reference_id => @reference.id, field: fi),
-                            data:                          {confirm: "Etes vous certain ?"},
                             class: "btn btn-default ajax-btn button#{fi}",
                             :remote => true %>
                 <div id="show<%= fi %>" class="btn btn-default" style="display: none">
@@ -110,6 +109,7 @@
                                 class: "btn btn-primary"%>
                     <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                                 comment_path(best_comment.f_7_comment_id), method: :delete,
+                                data:                          {confirm: "Etes vous certain ?"},
                                 class: "btn btn-danger"%>
                 <% end %>
               </div>
