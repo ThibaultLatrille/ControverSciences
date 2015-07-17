@@ -5,10 +5,11 @@
       <% if logged_in? && current_user.id != frame.user_id %>
           <div class="pull-right">
             <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                        new_typo_path(frame_id: frame.id, field: 0), remote: true,
-                        :class => "btn btn-default", "data-toggle" => "tooltip",
-                        title: "Corriger une faute de français dans le titre",
-                        :style => "padding: 8px; margin-right: 8px"%>
+                        new_typo_path(frame_id: frame.id, field: 0),
+                        remote: true,
+                        :class  => "btn btn-default", "data-toggle" => "tooltip",
+                        title:  "Corriger une faute de français dans le titre",
+                        :style  => "padding: 8px; margin-right: 8px" %>
           </div>
       <% end %>
       <h1 class="shadowed">
@@ -20,28 +21,30 @@
           <% if logged_in? && current_user.id != frame.user_id %>
               <div class="pull-right">
                 <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                            new_typo_path(frame_id: frame.id, field: 1), remote: true,
-                            :class => "btn btn-default", "data-toggle" => "tooltip",
-                            title: "Corriger une faute de français dans le cadre",
-                            :style => "padding: 8px; margin: 8px"%>
+                            new_typo_path(frame_id: frame.id, field: 1),
+                            remote: true,
+                            :class  => "btn btn-default", "data-toggle" => "tooltip",
+                            title:  "Corriger une faute de français dans le cadre",
+                            :style  => "padding: 8px; margin: 8px" %>
               </div>
           <% end %>
-              <div class="cadre text-justify">
-                    <b style="font-size: 1.4em">Cadre, focus et mise au point :</b><br/>
-                    <%= frame.content_markdown.html_safe %>
-                </div>
+          <div class="cadre text-justify">
+            <b style="font-size: 1.4em">Cadre, focus et mise au point :</b><br/>
+            <%= frame.content_markdown.html_safe %>
+          </div>
           <br/>
       <% end %>
     </div>
     <% unless logged_in? %>
         <div class="cadre pull-right">
-          Publiée il y a <%= time_ago_in_words(frame.created_at) %> par <%= link_to frame.user_name, user_path(frame.user_id) %>
+          Publiée il y a <%= time_ago_in_words(frame.created_at) %>
+          par <%= link_to frame.user_name, user_path(frame.user_id) %>
         </div>
     <% end %>
   </span>
   </div>
   <% unless frame.binary.blank? %>
-<div class="panel-footer">
+      <div class="panel-footer">
         <div class="center">
           <br/>
           <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
@@ -49,8 +52,8 @@
           <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%></b>
         </div>
         <br/><br/>
-</div>
-    <% end %>
+      </div>
+  <% end %>
   <% if logged_in? %>
       <div class="panel-heading">
         <div class="clearfix">
@@ -63,33 +66,35 @@
                       data-toggle="tooltip"></span>
               <% else %>
                   <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
-                              frame_credits_path(timeline_id: frame.timeline_id, frame_id: frame.id),
+                              frame_credits_path(timeline_id: frame.timeline_id,
+                                                 frame_id:    frame.id),
                               "data-toggle"    => "tooltip",
                               "data-placement" => "right",
                               title:           "Selectionner cette contribution comme votre favorite",
                               method:          :post,
                               class:           "btn btn-success",
-                              :style  => "padding: 8px; margin-left: 8px"  %>
+                              :style           => "padding: 8px; margin-left: 8px" %>
               <% end %>
-                <div class="pull-right" style="margin-right: 8px;">
-                  <% if current_user.admin %>
-                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                  edit_frame_path(frame.id),
-                                  class: "btn btn-primary"%>
-                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                  frame_path(frame.id), method: :delete,
-                                  data:                          {confirm: "Etes vous certain ?"},
-                                  class: "btn btn-danger"%>
-                  <% end %>
-                </div>
+              <div class="pull-right" style="margin-right: 8px;">
+                <% if current_user.admin %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                edit_frame_path(frame.id),
+                                class: "btn btn-primary" %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                frame_path(frame.id),
+                                method: :delete,
+                                data:   {confirm: "Etes vous certain ?"},
+                                class:  "btn btn-danger" %>
+                <% end %>
+              </div>
               </div>
           <% end %>
-      <% else %>
+  <% else %>
       <div class="pull-right">
         Publiée il y a <%= time_ago_in_words(summary.created_at) %>
         par <%= link_to summary.user_name, user_path(summary.user_id) %>
       </div>
-      <% end %>
-    </div>
+  <% end %>
   </div>
+</div>
 </div>
