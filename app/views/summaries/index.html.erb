@@ -29,22 +29,6 @@
                                 summaries_path(timeline_id: @timeline.id, filter: "mine"),
                                 :class => "list-group-item" %>
                 <% end %>
-                <br/>
-                <br/>
-                <% if params[:filter] != "mine" && @timeline.nb_summaries > 1 && Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) > 0 %>
-                    <div class="list-group">
-                      <div class="list-group-item">
-                        <span class="icon-ribbon"></span> Il vous reste
-                        <%= 12 - Credit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) %>
-                        crédits à distribuer aux synthèses de cette controverse
-                      </div>
-                      <%= link_to "<span class=\"icon-ribbon\"></span>
-                    Récupérer mes crédits (#{Credit.where(user_id: current_user.id,
-                                                               timeline_id: params[:timeline_id]).sum(:value)})".html_safe,
-                                  credit_path(id: 'all', timeline_id: params[:timeline_id]), method: :delete,
-                                  class: "list-group-item list-group-item-danger" %>
-                    </div>
-                <% end %>
             <% end %>
         <% end %>
       </div>
@@ -67,11 +51,13 @@
                               summaries_path(timeline_id: params[:timeline_id]),
                               class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }" %>
                 </div>
-                <div class="btn-group">
-                  <%= link_to "Mes synthèses favorites (#{@favorites})".html_safe,
-                              summaries_path(timeline_id: params[:timeline_id], :filter => 'my-vote'),
-                              class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
-                </div>
+                <% if @my_credit %>
+                    <div class="btn-group">
+                      <%= link_to "Ma synthèse favorite",
+                                  summaries_path(timeline_id: params[:timeline_id], :filter => 'my-vote'),
+                                  class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
+                    </div>
+                <% end %>
             <% else %>
                 <div class="btn-group">
                   <button class="btn btn-default dropdown-toggle" type="button"
@@ -109,14 +95,7 @@
             <br/>
             <br/>
           </div>
-          <% if params[:filter] == "my-vote" %>
-              <% if @summaries.any? %>
-                  <%= render @summaries %>
-              <% else %>
-                  Vous n'avez pas donné de crédits. Cette page liste les synthèses auxquelles vous avez distribué des
-                  crédits.
-              <% end %>
-          <% elsif params[:filter] == "mine" %>
+          <% if params[:filter] == "mine" %>
               <% if @summaries.any? %>
                   <%= render @summaries %>
               <% else %>
@@ -127,7 +106,6 @@
           <% else %>
               <% if @summaries.any? %>
                   <%= render @summaries %>
-                  <%= paginate @summaries, :params => {:seed => @seed} %>
               <% else %>
                   Il n'y a pas de synthèse autre que la votre
               <% end %>

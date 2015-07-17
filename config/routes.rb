@@ -76,7 +76,6 @@ Rails.application.routes.draw do
 
   resources :summaries, only: [:show, :index, :new, :create, :edit, :update, :destroy]
   resources :credits, only: [:new ,:create, :destroy]
-
   resources :frames, only: [:show, :index, :new, :create, :edit, :update, :destroy]
   resources :frame_credits, only: [:new ,:create, :destroy]
   resources :suggestions, only: [:index, :create, :show, :edit, :update, :destroy]

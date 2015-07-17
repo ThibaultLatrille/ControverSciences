@@ -11,7 +11,7 @@ class SummariesController < ApplicationController
       @my_timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
       @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
       @tim_list = Timeline.where( id: Edge.where(timeline_id:
-                                                     @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
+                                  @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
     end
   end
 
@@ -76,8 +76,7 @@ class SummariesController < ApplicationController
   def show
     @summary = Summary.select( :id, :user_id, :timeline_id,
                                :markdown, :balance, :best, :figure_id, :caption_markdown,
-                               :created_at
-    ).find(params[:id])
+                               :created_at).find(params[:id])
     if logged_in?
       @improve = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id ).count == 1 ? false : true
     end
@@ -88,7 +87,6 @@ class SummariesController < ApplicationController
     @timeline = Timeline.select(:id, :nb_summaries, :name ).find( params[:timeline_id] )
     if logged_in?
       user_id = current_user.id
-      @my_credits = Credit.where( user_id: user_id, timeline_id: params[:timeline_id] ).sum( :value )
       visit = VisiteTimeline.find_by( user_id: user_id, timeline_id: params[:timeline_id] )
       if visit
         visit.update( updated_at: Time.zone.now )
@@ -97,45 +95,31 @@ class SummariesController < ApplicationController
       end
       @favorites = Credit.where( user_id: user_id, timeline_id: params[:timeline_id] ).count
       @improve = Summary.where(user_id: user_id, timeline_id: params[:timeline_id] ).count == 1 ? false : true
-    else
-      user_id = nil
-    end
-    if params[:filter] == "my-vote"
-      summary_ids = Credit.where( user_id: user_id, timeline_id: params[:timeline_id] ).pluck( :summary_id )
-      @summaries = Summary.where( id: summary_ids, public: true ).page(params[:page]).per(10)
-    elsif params[:filter] == "mine"
-      @summaries = Summary.where( user_id: user_id, timeline_id: params[:timeline_id] ).page(params[:page]).per(10)
-    elsif logged_in?
-      if params[:seed]
-        @seed = params[:seed]
+      @my_credit = Credit.find_by( user_id: user_id, timeline_id: params[:timeline_id] )
+      if params[:filter] == "mine"
+        @summaries = Summary.where( user_id: user_id, timeline_id: params[:timeline_id] )
+      elsif params[:filter] == "my-vote" && @my_credit
+        @summaries = Summary.where(id: @my_credit.summary_id)
       else
-        @seed = rand
+        @summaries = Summary.where( timeline_id: params[:timeline_id], public: true )
       end
-      Summary.connection.execute("select setseed(#{@seed})")
-      @summaries = Summary.where(
-          timeline_id: params[:timeline_id], public: true ).order('random()').page(params[:page]).per(5)
     else
+      query = Summary.where(
+          timeline_id: params[:timeline_id], public: true).page(params[:page]).per(5)
       if !params[:sort].nil?
         if !params[:order].nil?
-          @summaries = Summary.order(params[:sort].to_sym => params[:order].to_sym).where(
-              timeline_id: params[:timeline_id], public: true).where.not(
-              user_id: user_id).page(params[:page]).per(5)
+          query = query.order(params[:sort].to_sym => params[:order].to_sym)
         else
-          @summaries = Summary.order(params[:sort].to_sym => :desc).where(
-              timeline_id: params[:timeline_id], public: true).where.not(
-              user_id: user_id).page(params[:page]).per(5)
+          query = query.order(params[:sort].to_sym => :desc)
         end
       else
         if !params[:order].nil?
-          @summaries = Summary.order(:score => params[:order].to_sym).where(
-              timeline_id: params[:timeline_id], public: true).where.not(
-              user_id: user_id).page(params[:page]).per(5)
+          query = query.order(:score => params[:order].to_sym)
         else
-          @summaries = Summary.order(:score => :desc).page(params[:page]).where(
-              timeline_id: params[:timeline_id], public: true).where.not(
-              user_id: user_id).page(params[:page]).per(5)
+          query = query.order(:score => :desc)
         end
       end
+      @summaries = query
     end
   end
 

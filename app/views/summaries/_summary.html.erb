@@ -1,8 +1,8 @@
-<div class="panel panel-default comment">
+<div class="panel <%= logged_in? && @my_credit && @my_credit.summary_id == summary.id ? "panel-success" : "panel-default" %>">
   <div class="panel-body">
   <span class="content">
     <div class="clearfix">
-         <% if summary.picture? %>
+      <% if summary.picture? %>
           <div class="pull-right">
             <div class="thumbnail">
               <%= image_tag summary.picture_url, class: "img-rounded img-responsive" %>
@@ -11,83 +11,64 @@
               </div>
             </div>
           </div>
-        <% end %>
-    <div class="text-justify">
-      <% if logged_in? && current_user.id != summary.user_id %>
-          <div class="pull-right">
-            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                        new_typo_path(summary_id: summary.id), remote: true,
-                        :class => "btn btn-default", "data-toggle" => "tooltip",
-                        title: "Corriger une faute de français dans la synthèse",
-                        :style => "padding: 8px; margin-right: 8px"%>
-          </div>
       <% end %>
+      <div class="text-justify">
         <%= summary.markdown.html_safe %>
+      </div>
     </div>
-    </div>
-    <% if !logged_in? || current_user.id == summary.user_id %>
+    <% unless logged_in? %>
         <div class="pull-right">
-          Publiée il y a <%= time_ago_in_words(summary.created_at) %> par <%= link_to summary.user_name, user_path(summary.user_id) %>
+          Publiée il y a <%= time_ago_in_words(summary.created_at) %>
+          par <%= link_to summary.user_name, user_path(summary.user_id) %>
         </div>
     <% end %>
   </span>
   </div>
-  <div class="panel-footer">
-    <div class="clearfix">
-      <% if logged_in? && current_user.id != summary.user_id %>
-          <%= form_for(:credit, url: credits_path, method: :post, class: "input-group-sm") do |f| %>
-              <div class="row">
-                <%= f.hidden_field :summary_id, value: summary.id %>
-                <%= f.hidden_field :timeline_id, value: summary.timeline_id %>
-                <div class="col-md-9">
-                  <div class="input-group input-small">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default cursor-default">
-                        <span class="icon-ribbon normal">
-                        </span>
-                      </button>
-                    </span>
-                    <%= f.select :value, (0..(12 + summary.my_credit( current_user.id ) -
-                            (@my_credits ? @my_credits : Credit.where( user_id: current_user.id, timeline_id: summary.timeline_id ).sum( :value ) ) )),
-                                 {selected: summary.my_credit( current_user.id )}, { class: "form-control selectwidthauto" } %>
-                    <div>
-                      <% if summary.my_credit( current_user.id ) == 0 %>
-                          <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer cette synthèse".html_safe,
-                                       class: "btn btn-success selectwidthauto",
-                                       data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                      <% else %>
-                          <%= f.button "<span class=\"icon-ribbon normal\"></span> Changer mes crédits (#{summary.my_credit( current_user.id)} actuellement)".html_safe,
-                                       class: "btn btn-success selectwidthauto",
-                                       data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                          <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                      credit_path(id: "none", summary_id: summary.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-                <div class="pull-right">
-                  <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                              new_typo_path(summary_id: summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
-                              title: "Corriger une faute de français", :style => "padding: 8px; margin-right: 8px"%>
-                  <% if current_user.admin %>
-                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                  edit_summary_path(id: summary.id),
-                                  class: "btn btn-primary"%>
-                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                  summary_path(id: summary.id), method: :delete,
-                                  data:                          {confirm: "Etes vous certain ?"},
-                                  class: "btn btn-danger",
-                                  :style => "margin-right: 8px" %>
-                  <% end %>
-                </div>
+  <% if logged_in? %>
+      <div class="panel-heading">
+        <div class="clearfix">
+          <% if current_user.id != summary.user_id %>
+              <% if @my_credit && @my_credit.summary_id == summary.id %>
+                  &nbsp
+                <span class="icon-frog-laurel big"
+                      title="Vous avez selectionné cette synthèse comme votre favorite"
+                      data-placement="right"
+                      data-toggle="tooltip"></span>
+              <% else %>
+                  <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
+                              credits_path(timeline_id: summary.timeline_id, summary_id: summary.id),
+                              "data-toggle"    => "tooltip",
+                              "data-placement" => "right",
+                              title:           "Selectionner cette synthèse comme votre favorite",
+                              method:          :post,
+                              class:           "btn btn-success",
+                              :style  => "padding: 8px; margin-left: 8px"  %>
+              <% end %>
+              <div class="pull-right">
+                <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                            new_typo_path(summary_id: summary.id), remote: true,
+                            :class                                         => "btn btn-default",
+                            "data-toggle"                                  => "tooltip",
+                            title:                                         "Corriger une faute de français",
+                            :style                                         => "padding: 8px; margin-right: 8px" %>
+                <% if current_user.admin %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                edit_summary_path(id: summary.id),
+                                class: "btn btn-primary" %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                summary_path(id: summary.id), method: :delete,
+                                data:                                 {confirm: "Etes vous certain ?"},
+                                class:                                "btn btn-danger",
+                                :style                                => "margin-right: 8px" %>
+                <% end %>
               </div>
+          <% else %>
+                  <div class="pull-right">
+                    Publiée il y a <%= time_ago_in_words(summary.created_at) %>
+                    par <%= link_to summary.user_name, user_path(summary.user_id) %>
+                  </div>
           <% end %>
-      <% else %>
-          <div class="btn btn-default">
-            <span class="icon-ribbon"></span>
-            <%= summary.balance %> crédits ont été donné à cette synthèse.
-          </div>
-      <% end %>
-    </div>
-  </div>
+        </div>
+      </div>
+  <% end %>
 </div>

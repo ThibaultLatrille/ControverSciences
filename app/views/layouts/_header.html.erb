@@ -81,14 +81,12 @@
                     </li>
                     <li class="divider"></li>
                 <% end %>
+                <li><%= link_to "<b><span class='icon-comment'></span> Mes contributions</b>".html_safe,
+                                my_items_items_path %> </li>
                 <li> <%= link_to "<b><span class=\"badge #{current_user.nb_notifs > 0 ? "badge-li" : nil }\">
                 #{current_user.nb_notifs}</span> Notifications </b>".html_safe,
                             notifications_important_path %>
                 </li>
-                <li><%= link_to "<b><span class='icon-comment'></span> Mes contributions</b>".html_safe,
-                                my_items_items_path %> </li>
-                <li><%= link_to "<b><span class='icon-ribbon'></span> Mes votes</b>".html_safe,
-                                my_items_votes_path %> </li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> Les controverses qui m'intéressent".html_safe,

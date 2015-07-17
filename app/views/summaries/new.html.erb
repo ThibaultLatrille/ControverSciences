@@ -7,7 +7,7 @@
                     timeline_path(@summary.timeline_id),
                     class: "list-group-item" %>
         <% if @my_timeline.nb_summaries > 1 %>
-            <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
+            <%= link_to "<span class=\"badge pull-left\">#{@my_timeline.nb_summaries}</span>
                   &nbsp Toutes les synthèses de cette controverse".html_safe,
                         summaries_path(timeline_id: @summary.timeline_id),
                         class: "list-group-item" %>
