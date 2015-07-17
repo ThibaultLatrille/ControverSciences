@@ -71,6 +71,7 @@ end
 
 group :development do
   gem 'spring',  '1.1.3'
+  gem 'quiet_assets'
 end
 
 group :production do
