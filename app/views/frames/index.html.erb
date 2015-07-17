@@ -41,9 +41,9 @@
                 </div>
                 <%= link_to "<span class=\"icon-ribbon\"></span>
                             Récupérer mes crédits (#{FrameCredit.where(user_id:     current_user.id,
-                                                                             timeline_id: params[:timeline_id]).sum(:value)})".html_safe,
+                                                                       timeline_id: params[:timeline_id]).sum(:value)})".html_safe,
                             frame_credit_path(id: 'all', timeline_id: params[:timeline_id]), method: :delete,
-                            class: "list-group-item list-group-item-danger" %>
+                            class:                                                                   "list-group-item list-group-item-danger" %>
               </div>
           <% end %>
       <% end %>
@@ -66,11 +66,13 @@
                               frames_path(timeline_id: params[:timeline_id]),
                               class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }" %>
                 </div>
-                <div class="btn-group">
-                  <%= link_to "Mes contributions favorites (#{@favorites})".html_safe,
-                              frames_path(timeline_id: params[:timeline_id], :filter => 'my-vote'),
-                              class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
-                </div>
+                <% if @my_credit %>
+                    <div class="btn-group">
+                      <%= link_to "Ma contribution favorite".html_safe,
+                                  frames_path(timeline_id: params[:timeline_id], :filter => 'my-vote'),
+                                  class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
+                    </div>
+                <% end %>
             <% else %>
                 <div class="btn-group">
                   <button class="btn btn-default dropdown-toggle" type="button"
@@ -108,26 +110,16 @@
             <br/>
             <br/>
           </div>
-          <% if params[:filter] == "my-vote" %>
-              <% if @frames.any? %>
-                  <%= render @frames %>
-              <% else %>
-                  Vous n'avez pas donné de crédits. Cette page liste les contributions auxquelles vous avez distribué
-                  des crédits.
-              <% end %>
-          <% elsif params[:filter] == "mine" %>
-              <% if @frames.any? %>
-                  <%= render @frames %>
-              <% else %>
+          <% if @frames.any? %>
+              <%= render @frames %>
+          <% else %>
+              <% if params[:filter] == "my-vote" %>
+                  Vous n'avez pas de contribution favorite
+              <% elsif params[:filter] == "mine" %>
                   <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Vous n'avez pas encore écrit de contribution ".html_safe,
                               new_frame_path(timeline_id: params[:timeline_id]),
                               class: "btn btn-primary" %>
-              <% end %>
-          <% else %>
-              <% if @frames.any? %>
-                  <%= render @frames %>
-                  <%= paginate @frames, :params => {:seed => @seed} %>
               <% else %>
                   Il n'y a pas de contribution autre que la votre
               <% end %>

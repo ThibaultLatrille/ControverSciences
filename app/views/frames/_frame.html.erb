@@ -1,4 +1,4 @@
-<div class="panel panel-default comment">
+<div class="panel <%= logged_in? && @my_frame_credit && @my_frame_credit.frame_id == frame.id ? "panel-success" : "panel-default" %>">
   <div class="panel-body">
   <span class="content">
     <div class="clearfix">
@@ -33,15 +33,15 @@
           <br/>
       <% end %>
     </div>
-    <% if !logged_in? || current_user.id == frame.user_id %>
+    <% unless logged_in? %>
         <div class="cadre pull-right">
           Publiée il y a <%= time_ago_in_words(frame.created_at) %> par <%= link_to frame.user_name, user_path(frame.user_id) %>
         </div>
     <% end %>
   </span>
   </div>
-  <div class="panel-footer">
-    <% unless frame.binary.blank? %>
+  <% unless frame.binary.blank? %>
+<div class="panel-footer">
         <div class="center">
           <br/>
           <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
@@ -49,39 +49,28 @@
           <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%></b>
         </div>
         <br/><br/>
+</div>
     <% end %>
-    <div class="clearfix">
-      <% if logged_in? && current_user.id != frame.user_id %>
-          <%= form_for(:frame_credit, url: frame_credits_path, method: :post, class: "input-group-sm") do |f| %>
-              <div class="row">
-                <%= f.hidden_field :frame_id, value: frame.id %>
-                <%= f.hidden_field :timeline_id, value: frame.timeline_id %>
-                <div class="col-md-9">
-                  <div class="input-group input-small">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default cursor-default">
-                        <span class="icon-ribbon normal">
-                        </span>
-                      </button>
-                    </span>
-                    <%= f.select :value, (0..(12 + frame.my_frame_credit( current_user.id ) -
-                            (@my_frame_credits ? @my_frame_credits : FrameCredit.where( user_id: current_user.id, timeline_id: frame.timeline_id ).sum( :value ) ) )),
-                                 {selected: frame.my_frame_credit( current_user.id )}, { class: "form-control selectwidthauto" } %>
-                    <div>
-                      <% if frame.my_frame_credit( current_user.id ) == 0 %>
-                          <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer cette contribution".html_safe,
-                                       class: "btn btn-success selectwidthauto",
-                                       data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                      <% else %>
-                          <%= f.button "<span class=\"icon-ribbon normal\"></span> Changer mes crédits (#{frame.my_frame_credit( current_user.id)} actuellement)".html_safe,
-                                       class: "btn btn-success selectwidthauto",
-                                       data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                          <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                      frame_credit_path(id: "none", frame_id: frame.id ), method: :delete, class: "btn btn-danger selectwidthauto" %>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
+  <% if logged_in? %>
+      <div class="panel-heading">
+        <div class="clearfix">
+          <% if current_user.id != frame.user_id %>
+              <% if @my_frame_credit && @my_frame_credit.summary_id == frame.id %>
+                  &nbsp
+                <span class="icon-frog-laurel big"
+                      title="Vous avez selectionné cette contribution comme votre favorite"
+                      data-placement="right"
+                      data-toggle="tooltip"></span>
+              <% else %>
+                  <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
+                              frame_credits_path(timeline_id: frame.timeline_id, frame_id: frame.id),
+                              "data-toggle"    => "tooltip",
+                              "data-placement" => "right",
+                              title:           "Selectionner cette contribution comme votre favorite",
+                              method:          :post,
+                              class:           "btn btn-success",
+                              :style  => "padding: 8px; margin-left: 8px"  %>
+              <% end %>
                 <div class="pull-right" style="margin-right: 8px;">
                   <% if current_user.admin %>
                       <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
@@ -96,10 +85,10 @@
               </div>
           <% end %>
       <% else %>
-          <div class="btn btn-default">
-            <span class="icon-ribbon"></span>
-            <%= frame.balance %> crédits ont été donné à cette contribution.
-          </div>
+      <div class="pull-right">
+        Publiée il y a <%= time_ago_in_words(summary.created_at) %>
+        par <%= link_to summary.user_name, user_path(summary.user_id) %>
+      </div>
       <% end %>
     </div>
   </div>

@@ -95,17 +95,15 @@
             <br/>
             <br/>
           </div>
-          <% if params[:filter] == "mine" %>
-              <% if @summaries.any? %>
-                  <%= render @summaries %>
-              <% else %>
+          <% if @summaries.any? %>
+              <%= render @summaries %>
+          <% else %>
+              <% if params[:filter] == "my-vote" %>
+                  Vous n'avez pas de synthèse favorite
+              <% elsif params[:filter] == "mine" %>
                   <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
         </span> Vous n'avez pas encore écrit de synthèse ".html_safe,
                               new_summary_path(timeline_id: params[:timeline_id]), class: "btn btn-primary" %>
-              <% end %>
-          <% else %>
-              <% if @summaries.any? %>
-                  <%= render @summaries %>
               <% else %>
                   Il n'y a pas de synthèse autre que la votre
               <% end %>

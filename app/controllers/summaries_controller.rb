@@ -2,70 +2,70 @@ class SummariesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
 
   def new
-    summary = Summary.find_by( user_id: current_user.id, timeline_id: params[:timeline_id] )
+    summary = Summary.find_by(user_id: current_user.id, timeline_id: params[:timeline_id])
     if summary
-      redirect_to edit_summary_path( id: summary.id )
+      redirect_to edit_summary_path(id: summary.id)
     else
-      @summary = Summary.new
+      @summary             = Summary.new
       @summary.timeline_id = params[:timeline_id]
-      @my_timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
-      @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
-      @tim_list = Timeline.where( id: Edge.where(timeline_id:
-                                  @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
+      @my_timeline         = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
+      @list                = Reference.where(timeline_id: @summary.timeline_id).pluck(:title, :id)
+      @tim_list            = Timeline.where(id: Edge.where(timeline_id:
+                                                               @summary.timeline_id).pluck(:target)).pluck(:name, :id)
     end
   end
 
   def create
-    @summary = Summary.new( timeline_id: summary_params[:timeline_id],
-                            content: summary_params[:content],
-                            public: summary_params[:public])
+    @summary = Summary.new(timeline_id: summary_params[:timeline_id],
+                           content:     summary_params[:content],
+                           public:      summary_params[:public])
     if summary_params[:has_picture] == 'true' && summary_params[:delete_picture] == 'false'
-      @summary.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
-                                                              timeline_id: @summary.timeline_id ).last.id
-      @summary.caption = summary_params[:caption]
+      @summary.figure_id = Figure.order(:created_at).where(user_id:     current_user.id,
+                                                           timeline_id: @summary.timeline_id).last.id
+      @summary.caption   = summary_params[:caption]
     end
     @summary.user_id = current_user.id
     if @summary.save_with_markdown
       flash[:success] = "Synthèse enregistrée."
-      redirect_to summaries_path( filter: "mine", timeline_id: @summary.timeline_id )
+      redirect_to summaries_path(filter: "mine", timeline_id: @summary.timeline_id)
     else
-      @list = Reference.where( timeline_id: summary_params[:timeline_id] ).pluck( :title, :id )
-      @tim_list = Timeline.where( id: Edge.where(timeline_id:
-                                                     summary_params[:timeline_id] ).pluck(:target) ).pluck( :name, :id )
-      @my_timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
+      @list        = Reference.where(timeline_id: summary_params[:timeline_id]).pluck(:title, :id)
+      @tim_list    = Timeline.where(id: Edge.where(timeline_id:
+                                                       summary_params[:timeline_id]).pluck(:target)).pluck(:name, :id)
+      @my_timeline = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
       render 'new'
     end
   end
 
   def edit
-    @summary = Summary.find( params[:id] )
-    @my_timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
-    @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
-    @tim_list = Timeline.where( id: Edge.where(timeline_id:
-                                                   @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
+    @summary     = Summary.find(params[:id])
+    @my_timeline = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
+    @list        = Reference.where(timeline_id: @summary.timeline_id).pluck(:title, :id)
+    @tim_list    = Timeline.where(id: Edge.where(timeline_id:
+                                                     @summary.timeline_id).pluck(:target)).pluck(:name, :id)
   end
 
   def update
-    @summary = Summary.find( params[:id] )
-    @my_summary = Summary.find( params[:id] )
+    @summary    = Summary.find(params[:id])
+    @my_summary = Summary.find(params[:id])
     if @summary.user_id == current_user.id || current_user.admin
       @summary.content = summary_params[:content]
-      @summary.public = summary_params[:public]
+      @summary.public  = summary_params[:public]
       @summary.caption = summary_params[:caption]
       if summary_params[:delete_picture] == 'true'
         @summary.figure_id = nil
       elsif summary_params[:has_picture] == 'true'
-        @summary.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
-                                                                timeline_id: @summary.timeline_id ).last.id
+        @summary.figure_id = Figure.order(:created_at).where(user_id:     current_user.id,
+                                                             timeline_id: @summary.timeline_id).last.id
       end
       if @summary.update_with_markdown
         flash[:success] = "Synthèse modifiée."
         redirect_to @summary
       else
-        @my_timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
-        @list = Reference.where( timeline_id: @summary.timeline_id ).pluck( :title, :id )
-        @tim_list = Timeline.where( id: Edge.where(timeline_id:
-                                                       @summary.timeline_id ).pluck(:target) ).pluck( :name, :id )
+        @my_timeline = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
+        @list        = Reference.where(timeline_id: @summary.timeline_id).pluck(:title, :id)
+        @tim_list    = Timeline.where(id: Edge.where(timeline_id:
+                                                         @summary.timeline_id).pluck(:target)).pluck(:name, :id)
         render 'edit'
       end
     else
@@ -74,49 +74,49 @@ class SummariesController < ApplicationController
   end
 
   def show
-    @summary = Summary.select( :id, :user_id, :timeline_id,
-                               :markdown, :balance, :best, :figure_id, :caption_markdown,
-                               :created_at).find(params[:id])
+    @summary = Summary.select(:id, :user_id, :timeline_id,
+                              :markdown, :balance, :best, :figure_id, :caption_markdown,
+                              :created_at).find(params[:id])
     if logged_in?
-      @improve = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id ).count == 1 ? false : true
+      @improve   = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id).count == 1 ? false : true
+      @my_credit = Credit.find_by(user_id: current_user.id, timeline_id: params[:timeline_id])
     end
-    @timeline = Timeline.select(:id, :nb_summaries, :name ).find( @summary.timeline_id )
+    @timeline = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
   end
-  
+
   def index
-    @timeline = Timeline.select(:id, :nb_summaries, :name ).find( params[:timeline_id] )
+    @timeline = Timeline.select(:id, :nb_summaries, :name).find(params[:timeline_id])
     if logged_in?
       user_id = current_user.id
-      visit = VisiteTimeline.find_by( user_id: user_id, timeline_id: params[:timeline_id] )
+      visit   = VisiteTimeline.find_by(user_id: user_id, timeline_id: params[:timeline_id])
       if visit
-        visit.update( updated_at: Time.zone.now )
+        visit.update(updated_at: Time.zone.now)
       else
-        VisiteTimeline.create( user_id: user_id, timeline_id: params[:timeline_id] )
+        VisiteTimeline.create(user_id: user_id, timeline_id: params[:timeline_id])
       end
-      @favorites = Credit.where( user_id: user_id, timeline_id: params[:timeline_id] ).count
-      @improve = Summary.where(user_id: user_id, timeline_id: params[:timeline_id] ).count == 1 ? false : true
-      @my_credit = Credit.find_by( user_id: user_id, timeline_id: params[:timeline_id] )
+      @improve   = Summary.where(user_id: user_id, timeline_id: params[:timeline_id]).count == 1 ? false : true
+      @my_credit = Credit.find_by(user_id: user_id, timeline_id: params[:timeline_id])
       if params[:filter] == "mine"
-        @summaries = Summary.where( user_id: user_id, timeline_id: params[:timeline_id] )
+        @summaries = Summary.where(user_id: user_id, timeline_id: params[:timeline_id])
       elsif params[:filter] == "my-vote" && @my_credit
         @summaries = Summary.where(id: @my_credit.summary_id)
       else
-        @summaries = Summary.where( timeline_id: params[:timeline_id], public: true )
+        @summaries = Summary.where(timeline_id: params[:timeline_id], public: true)
       end
     else
       query = Summary.where(
-          timeline_id: params[:timeline_id], public: true).page(params[:page]).per(5)
-      if !params[:sort].nil?
-        if !params[:order].nil?
-          query = query.order(params[:sort].to_sym => params[:order].to_sym)
+          timeline_id: params[:timeline_id], public: true)
+      if params[:sort].nil?
+        if params[:order].nil?
+          query = query.order(:score => :desc)
         else
-          query = query.order(params[:sort].to_sym => :desc)
+          query = query.order(:score => params[:order].to_sym)
         end
       else
-        if !params[:order].nil?
-          query = query.order(:score => params[:order].to_sym)
+        if params[:order].nil?
+          query = query.order(params[:sort].to_sym => :desc)
         else
-          query = query.order(:score => :desc)
+          query = query.order(params[:sort].to_sym => params[:order].to_sym)
         end
       end
       @summaries = query
@@ -137,6 +137,6 @@ class SummariesController < ApplicationController
   private
 
   def summary_params
-    params.require(:summary).permit(:timeline_id, :content, :public, :picture, :caption, :delete_picture, :has_picture )
+    params.require(:summary).permit(:timeline_id, :content, :public, :picture, :caption, :delete_picture, :has_picture)
   end
 end
