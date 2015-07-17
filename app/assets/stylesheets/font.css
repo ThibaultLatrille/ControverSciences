@@ -42,7 +42,7 @@
 }
 
 .big{
-    font-size: 2.5em;
+    font-size: 3.2em;
 }
 
 .normal{
@@ -337,4 +337,12 @@
 
 .icon-network:before {
     content: "\e640";
+}
+
+.icon-frog-laurel-2:before {
+    content: "\e643";
+}
+
+.icon-frog-laurel:before {
+    content: "\e642";
 }
