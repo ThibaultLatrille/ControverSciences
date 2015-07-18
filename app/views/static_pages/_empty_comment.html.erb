@@ -2,7 +2,7 @@
   <div class="panel-heading" role="tab" id="heading<%= empty_comment.id %>">
     <h4 class="panel-title clearfix" style="padding: 7px; font-size: 1.2em">
       <div data-toggle="collapse" data-target="#Collapse<%= empty_comment.id %>" class="my-collapse detail pull-right glyphicon glyphicon-chevron-down"></div>
-      <%= link_to empty_comment.title_display.html_safe, reference_path(empty_comment.id), class: "hvr-grow1" %>
+      <%= link_to empty_comment.title_display.html_safe, reference_path(empty_comment), class: "hvr-grow1" %>
     </h4>
   </div>
   <div id="Collapse<%= empty_comment.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
