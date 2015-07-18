@@ -11,10 +11,11 @@ class StaticPagesController < ApplicationController
                     .order(:created_at => :desc)
                     .where(title_fr: nil)
     if logged_in?
+      @like_ids = Like.where(user_id: current_user.id).pluck(:timeline_id)
       if params[:filter] == "mine"
         query = query.where(user_id: current_user.id)
-      else
-        query = query.where( timeline_id: Like.where(user_id: current_user.id).pluck(:timeline_id))
+      elsif params[:filter] == "interest"
+        query = query.where( timeline_id: @like_ids )
       end
     end
     @references = query
@@ -27,10 +28,11 @@ class StaticPagesController < ApplicationController
                     .where.not(nb_references: 0..3)
                     .where.not(nb_comments: 0..3)
     if logged_in?
+      @like_ids = Like.where(user_id: current_user.id).pluck(:timeline_id)
       if params[:filter] == "mine"
         query = query.where(user_id: current_user.id)
-      else
-        query = query.where( id: Like.where(user_id: current_user.id).pluck(:timeline_id))
+      elsif params[:filter] == "interest"
+        query = query.where( id: @like_ids )
       end
     end
     @timelines = query
@@ -41,10 +43,11 @@ class StaticPagesController < ApplicationController
                     .order(:created_at => :desc)
                     .where(nb_references: 0..3)
     if logged_in?
+      @like_ids = Like.where(user_id: current_user.id).pluck(:timeline_id)
       if params[:filter] == "mine"
         query = query.where(user_id: current_user.id)
-      else
-        query = query.where( id: Like.where(user_id: current_user.id).pluck(:timeline_id))
+      elsif params[:filter] == "interest"
+        query = query.where( id: @like_ids )
       end
     end
     @timelines = query

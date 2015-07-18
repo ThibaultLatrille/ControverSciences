@@ -1,6 +1,65 @@
 <div id="my-container" class="container-fluid">
   <div class="row">
-    <div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-4 normal\"></span>
+                                    Enrichir les controverses
+                                    <span class=\"badge\">#{Timeline.where(nb_references: 0..3).count}</span>".html_safe,
+                    empty_references_path,
+                    class: "list-group-item" %>
+        <% if logged_in? %>
+            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up normal\"></span>
+                        Enrichir les controverses qui m'intéressent
+                        <span class=\"badge\">#{Timeline.where(id: @like_ids).where(nb_references: 0..3).count}</span>".html_safe,
+                        empty_references_path(filter: "interest"),
+                        class: "list-group-item" %>
+            <%= link_to "<span class=\"icon-user normal\"></span>
+                                Enrichir mes controverses
+                                <span class=\"badge\">#{Timeline.where(user_id: current_user.id).where(nb_references: 0..3).count}</span>".html_safe,
+                        empty_references_path(filter: "mine"),
+                        class: "list-group-item" %>
+        <% end %>
+      </div>
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-4 normal\"></span>
+                                    Analyser les références
+                                    <span class=\"badge\">#{Reference.where(title_fr: nil).count}</span>".html_safe,
+                    empty_comments_path,
+                    class: "list-group-item" %>
+        <% if logged_in? %>
+            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up normal\"></span>
+                        Analyser les références qui m'intéressent
+                        <span class=\"badge\">#{Reference.where(timeline_id: @like_ids).where(title_fr: nil).count}</span>".html_safe,
+                        empty_comments_path(filter: "interest"),
+                        class: "list-group-item" %>
+            <%= link_to "<span class=\"icon-user normal\"></span>
+                                Analyser mes références
+                                <span class=\"badge\">#{Reference.where(user_id: current_user.id).where(title_fr: nil).count}</span>".html_safe,
+                        empty_comments_path(filter: "mine"),
+                        class: "list-group-item" %>
+        <% end %>
+      </div>
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-4 normal\"></span>
+                                    Synthètiser les controverses
+                                    <span class=\"badge\">#{Timeline.where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
+                    empty_summaries_path,
+                    class: "list-group-item #{ ((!logged_in?)||(params[:filter].blank?)) ? "list-group-item-default cursor-not-allowed" : ""}" %>
+        <% if logged_in? %>
+            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up normal\"></span>
+                        Synthètiser les controverses qui m'intéressent
+                        <span class=\"badge\">#{Timeline.where(id: @like_ids).where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
+                        empty_summaries_path(filter: "interest"),
+                        class: "list-group-item #{ (params[:filter] == "interest") ? "list-group-item-default cursor-not-allowed" : ""}" %>
+            <%= link_to "<span class=\"icon-user normal\"></span>
+                                Synthètiser mes controverses
+                                <span class=\"badge\">#{Timeline.where(user_id: current_user.id).where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
+                        empty_summaries_path(filter: "mine"),
+                        class: "list-group-item #{ (params[:filter] == "mine") ? "list-group-item-default cursor-not-allowed" : ""}" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-6">
       <br/>
       <br/>
       <% if @timelines.any? %>
@@ -16,7 +75,8 @@
                         qui vous intéressent
                     <% end %>
                 <% end %>
-                ont des référénces mais n'ont pas de synthèse, résumez la situation et apportez une vue d'ensemble au débat !
+                ont des référénces mais n'ont pas de synthèse, résumez la situation et apportez une vue d'ensemble au
+                débat !
               </h3>
             </div>
           </div>
@@ -57,25 +117,25 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
         var $timeline_block = $('.cd-timeline-block');
 
         //hide timeline blocks which are outside the viewport
-        $timeline_block.each(function(){
+        $timeline_block.each(function () {
             $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
         });
 
-        $timeline_block.each(function(){
-            if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.95 ) {
+        $timeline_block.each(function () {
+            if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95) {
                 $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
             }
         });
 
         //on scolling, show/animate timeline blocks when enter the viewport
-        $(window).on('scroll', function(){
-            $timeline_block.each(function(){
-                if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.95 && $(this).find('.cd-timeline-img').hasClass('is-hidden') ) {
+        $(window).on('scroll', function () {
+            $timeline_block.each(function () {
+                if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
                     $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
                 }
             });
