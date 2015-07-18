@@ -103,7 +103,7 @@ class TimelinesController < ApplicationController
                                                               img_timeline_id: timeline.id ).last.id
       end
       timeline.save
-      redirect_to timeline_path(timeline.id)
+      redirect_to timeline_path(timeline)
     end
   end
 

@@ -39,7 +39,7 @@
                     class: "list-group-item" %>
         <% if @timeline.user_id == current_user.id || current_user.admin %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
-                        timeline_path(@timeline.id), method: :delete,
+                        timeline_path(@timeline), method: :delete,
                         data:                                {confirm: "Etes vous certain ?"},
                         class:                               "list-group-item list-group-item-danger" %>
         <% end %>

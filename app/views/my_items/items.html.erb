@@ -33,16 +33,16 @@
       <% else %>
           <% @timelines.each do |timeline| %>
               <tr class="notification-timeline">
-                <td> <%= link_to timeline.name.html_safe, timeline_path(timeline.id) %> </td>
+                <td> <%= link_to timeline.name.html_safe, timeline_path(timeline) %> </td>
                 <td>
                   <% timeline.get_tag_list.each do |name| %>
                       <span class="icon-<%= name %>"></span>
                   <% end %>
                 </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
-                                                edit_timeline_path( timeline.id ) %>  </td>
+                                                edit_timeline_path( timeline ) %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                                timeline_path( timeline.id ), method: :delete,
+                                                timeline_path( timeline ), method: :delete,
                                                 data: { confirm: "Etes vous certain ?" } %>  </td>
               </tr>
           <% end %>
@@ -195,9 +195,9 @@
                 <td> <%= link_to reference.title, reference_path(reference.id) %>   </td>
                 <td> <%= link_to reference.timeline_name.html_safe, timeline_path(reference.timeline_id ) %>   </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
-                                                edit_reference_path( reference.id ) %>  </td>
+                                                edit_reference_path( reference ) %>  </td>
                 <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                                reference_path( reference.id ), method: :delete,
+                                                reference_path( reference ), method: :delete,
                                                 data: { confirm: "Etes vous certain ?" } %>  </td>
               </tr>
           <% end %>

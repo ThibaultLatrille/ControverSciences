@@ -13,7 +13,7 @@
         <div class="panel-heading">
           <h4>
             Ajouter une référence à la controverse
-            <%= link_to Timeline.find(params[:timeline_id]).name.html_safe, timeline_path(Timeline.find(params[:timeline_id])) %>
+            <%= link_to Timeline.find(params[:timeline_id]).name.html_safe, timeline_path(params[:timeline_id]) %>
           </h4>
         </div>
         <div class="panel-body">

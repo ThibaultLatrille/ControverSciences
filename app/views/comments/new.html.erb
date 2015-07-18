@@ -14,10 +14,10 @@
 
     <% if @myreference.user_id == current_user.id || current_user.admin %>
           <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier la référence".html_safe,
-                      edit_reference_path(@myreference.id),
+                      edit_reference_path(@myreference),
                       class: "list-group-item" %>
           <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer la référence".html_safe,
-                      reference_path(@myreference.id), method: :delete,
+                      reference_path(@myreference), method: :delete,
                       data:                                    {confirm: "Etes vous certain ?"},
                       class:                                   "list-group-item list-group-item-danger" %>
     <% end %>

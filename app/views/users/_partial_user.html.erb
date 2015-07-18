@@ -103,7 +103,7 @@
             <% else %>
                 <% @timelines.each do |timeline| %>
                     <tr class="notification-timeline">
-                      <td> <%= link_to timeline.name.html_safe, timeline_path(timeline.id) %> </td>
+                      <td> <%= link_to timeline.name.html_safe, timeline_path(timeline) %> </td>
                       <td>
                         <% timeline.get_tag_list.each do |name| %>
                             <span class="icon-<%= name %>"></span>
@@ -181,7 +181,7 @@
             <% else %>
                 <% @references.each do |reference| %>
                     <tr class="notification-reference">
-                      <td> <%= link_to reference.title, reference_path(reference.id) %>   </td>
+                      <td> <%= link_to reference.title, reference_path(reference) %>   </td>
                       <td> <%= link_to reference.timeline_name.html_safe, timeline_path(reference.timeline_id ) %>   </td>
                     </tr>
                 <% end %>
