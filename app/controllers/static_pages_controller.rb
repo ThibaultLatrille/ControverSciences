@@ -7,8 +7,7 @@ class StaticPagesController < ApplicationController
   end
 
   def empty_comments
-    query = Reference.select(:id, :title, :timeline_id, :created_at)
-                    .order(:created_at => :desc)
+    query = Reference.order(:created_at => :desc)
                     .where(title_fr: nil)
     if logged_in?
       @like_ids = Like.where(user_id: current_user.id).pluck(:timeline_id)
@@ -18,12 +17,11 @@ class StaticPagesController < ApplicationController
         query = query.where( timeline_id: @like_ids )
       end
     end
-    @references = query
+    @empty_comments = query.page(params[:page]).per(12)
   end
 
   def empty_summaries
-    query = Timeline.select(:id, :name, :created_at)
-                    .order(:created_at => :desc)
+    query = Timeline.order(:created_at => :desc)
                     .where(nb_summaries: 0)
                     .where.not(nb_references: 0..3)
                     .where.not(nb_comments: 0..3)
@@ -35,12 +33,11 @@ class StaticPagesController < ApplicationController
         query = query.where( id: @like_ids )
       end
     end
-    @timelines = query
+    @empty_summaries = query.page(params[:page]).per(12)
   end
 
   def empty_references
-    query = Timeline.select(:id, :name, :created_at)
-                    .order(:created_at => :desc)
+    query = Timeline.order(:created_at => :desc)
                     .where(nb_references: 0..3)
     if logged_in?
       @like_ids = Like.where(user_id: current_user.id).pluck(:timeline_id)
@@ -50,7 +47,7 @@ class StaticPagesController < ApplicationController
         query = query.where( id: @like_ids )
       end
     end
-    @timelines = query
+    @empty_references = query.page(params[:page]).per(12)
   end
 
   def newsletter

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
       <div class="list-group">
-        <%= link_to "<span class=\"icon-4 normal\"></span>
+        <%= link_to "<span class=\"icon-frog normal\"></span>
                                     Enrichir les controverses
                                     <span class=\"badge\">#{Timeline.where(nb_references: 0..3).count}</span>".html_safe,
                     empty_references_path,
@@ -21,7 +21,7 @@
         <% end  %>
       </div>
       <div class="list-group">
-        <%= link_to "<span class=\"icon-4 normal\"></span>
+        <%= link_to "<span class=\"icon-reference normal\"></span>
                                     Analyser les références
                                     <span class=\"badge\">#{Reference.where(title_fr: nil).count}</span>".html_safe,
                     empty_comments_path,
@@ -40,7 +40,7 @@
         <% end  %>
       </div>
       <div class="list-group">
-        <%= link_to "<span class=\"icon-4 normal\"></span>
+        <%= link_to "<span class=\"icon-frog normal\"></span>
                                     Synthètiser les controverses
                                     <span class=\"badge\">#{Timeline.where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
                     empty_summaries_path,
@@ -62,11 +62,10 @@
     <div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-6">
       <br/>
       <br/>
-      <% if @timelines.any? %>
+      <% if @empty_references.any? %>
           <div class="panel panel-default">
             <div class="panel-body">
               <h3>
-                <span class="icon-4 pull-right" style="margin-right: 15px"></span>
                 Ces controverses
                 <% if logged_in? %>
                     <% if params[:filter] == "mine" %>
@@ -79,18 +78,11 @@
               </h3>
             </div>
           </div>
-          <div id="cd-timeline" class="cd-container">
-            <% @timelines.each do |timeline| %>
-                <div class="cd-timeline-block binary3">
-                  <div class="cd-timeline-img gradient-orange">
-                  </div>
-                  <div class="cd-timeline-content">
-                    <h2> <%= link_to timeline.name.html_safe, new_reference_path(timeline_id: timeline.id), class: "hvr-grow1" %>
-                    </h2>
-                    <span class="cd-date">Controverse ajoutée il y a <%= time_ago_in_words(timeline.created_at) %></span>
-                  </div>
-                </div>
-            <% end %>
+          <div id="empties">
+            <div class="row page">
+            <%= render :partial => 'static_pages/empty_reference', :collection => @empty_references %>
+            <%= paginate @empty_references %>
+          </div>
           </div>
       <% else %>
           <div class="panel panel-default">
@@ -116,28 +108,12 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-        var $timeline_block = $('.cd-timeline-block');
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    $('.collapse').on('show.bs.collapse', function () {
+        $(this).parent(".panel").find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
 
-        //hide timeline blocks which are outside the viewport
-        $timeline_block.each(function(){
-            $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
-        });
-
-        $timeline_block.each(function(){
-            if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.95 ) {
-                $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
-            }
-        });
-
-        //on scolling, show/animate timeline blocks when enter the viewport
-        $(window).on('scroll', function(){
-            $timeline_block.each(function(){
-                if( $(this).offset().top <= $(window).scrollTop()+$(window).height()*0.95 && $(this).find('.cd-timeline-img').hasClass('is-hidden') ) {
-                    $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
-                }
-            });
-        });
+    });
+    $('.collapse').on('hide.bs.collapse', function () {
+        $(this).parent("div").parent("div").find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
     });
 </script>

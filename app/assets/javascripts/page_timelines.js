@@ -7,8 +7,8 @@ $(document).ready(function () {
     }, function (arrayOfNewElems) {
         $('.timeline-name', arrayOfNewElems).responsiveEqualHeightGrid();
         $('.timeline-body', arrayOfNewElems).responsiveEqualHeightGrid();
-        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-        $('.collapse').on('shown.bs.collapse', function () {
+        $('[data-toggle="tooltip"]', arrayOfNewElems).tooltip({container: 'body'});
+        $('.collapse', arrayOfNewElems).on('shown.bs.collapse', function () {
             $(".timeline-body", arrayOfNewElems).responsiveEqualHeightGrid();
         });
         $(function () {

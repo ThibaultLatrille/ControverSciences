@@ -1,0 +1,46 @@
+<div class="panel panel-default empty">
+  <div class="panel-heading" role="tab" id="heading<%= empty_reference.id %>">
+    <h4 class="panel-title clearfix" style="padding: 7px; font-size: 1.2em">
+      <div data-toggle="collapse" data-target="#Collapse<%= empty_reference.id %>" class="my-collapse detail pull-right glyphicon glyphicon-chevron-down"></div>
+      <%= link_to empty_reference.name.html_safe, timeline_path(empty_reference.id), class: "hvr-grow1" %>
+    </h4>
+  </div>
+  <div id="Collapse<%= empty_reference.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+    <div class="panel-body">
+      <div class="list-group">
+        <div class="list-group-item center">
+          <div class="sticky" data-placement="left"
+               title="<%= empty_reference.nb_contributors.to_s + (empty_reference.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
+               data-toggle="tooltip">
+            <span class="fatter icon-users"></span>
+            <%= empty_reference.nb_contributors %>
+          </div>
+          <div class="sticky" data-placement="bottom"
+               title="<%= empty_reference.nb_references.to_s + (empty_reference.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
+               data-toggle="tooltip">
+            <span class="fatter icon-reference"></span>
+            <%= empty_reference.nb_references %>
+          </div>
+          <div class="sticky" data-placement="right"
+               title="<%= empty_reference.nb_edits.to_s + (empty_reference.nb_edits > 1 ? " contributions" : " contribution") %>"
+               data-toggle="tooltip">
+            <span class="fatter icon-comment"></span>
+            <%= empty_reference.nb_edits %>
+          </div>
+        </div>
+      </div>
+      <% if empty_reference.frame != "" %>
+          <div class="cadre text-justify">
+            <b style="font-size: 1.4em">Cadre, focus et mise au point :</b><br/>
+            <%= empty_reference.frame.html_safe %>
+          </div>
+      <% end %>
+      <div class="center">
+        <br/>
+        <b style="font-size: 2.2em"><%= empty_reference.binary.split('&&')[0].humanize -%></b>
+        &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
+        <b style="font-size: 2.2em"><%= empty_reference.binary.split('&&')[1].humanize -%></b>
+      </div>
+    </div>
+  </div>
+</div>

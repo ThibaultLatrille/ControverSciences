@@ -55,7 +55,7 @@
                 <% end %>
                 <% if Reference.where(user_id: current_user.id, title_fr: nil).count > 0 %>
                     <li class="my-missing">
-                      <%= link_to "<span class=\"badge badge-header\"> #{Reference.where(user_id: current_user.id, nb_edits: 0).count} </span>
+                      <%= link_to "<span class=\"badge badge-header\"> #{Reference.where(user_id: current_user.id, title_fr: nil).count} </span>
                       Vos références qui ont besoin d'une analyse".html_safe,
                                   empty_comments_path(filter: "mine"), style: "color: white;" %>
 
