@@ -1,10 +1,14 @@
-<tr class="user">
-  <td> <%= link_to user.name, user %>
-  </td>
-  <td>
-    <% if current_user && current_user.admin? && !current_user?(user) %>
-        <%= link_to "Supprimer ce contributeur", user, method: :delete,
-                    data: {confirm: "Etes vous certain ?"} %>
-    <% end %>
-  </td>
-</tr>
+<div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 timeline">
+  <a href="<%= user_path(user.id) %>" style="color: white">
+    <div class="thumbnail timeline-body hvr-grow">
+      <% if user.user_detail && user.user_detail.id && user.user_detail.picture? %>
+          <%= image_tag user.user_detail.picture_url, class: "img-rounded", height: "80px" %>
+      <% else %>
+          <%= image_tag "favicon.svg", class: "img-rounded", height: "80px" %>
+      <% end %>
+      <div class="caption">
+        <h4 style="word-wrap: break-all"><%= user.name %></h4>
+      </div>
+    </div>
+  </a>
+</div>

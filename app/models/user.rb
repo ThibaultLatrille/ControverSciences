@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_many :reference_edges, dependent: :destroy
   has_many :reference_edge_votes, dependent: :destroy
   has_many :reference_user_tags, dependent: :destroy
+  has_one :user_detail, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
   before_save :downcase_email
