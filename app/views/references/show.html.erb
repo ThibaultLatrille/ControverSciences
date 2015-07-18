@@ -23,12 +23,6 @@
         <span class="fat icon-comment"></span>
         <%= @reference.nb_edits %>
       </div>
-      <div class="sticky" data-placement="right"
-           data-toggle="tooltip"
-           title="<%= @reference.nb_votes.to_s + (@reference.nb_votes > 1 ? " crédits accordés" : " crédit accordé") %> ">
-        <span class="fat icon-ribbon"></span>
-        <%= @reference.nb_votes %>
-      </div>
     </div>
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la controverse".html_safe,
                 timeline_path(@reference.timeline_id),

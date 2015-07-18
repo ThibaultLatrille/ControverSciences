@@ -32,20 +32,6 @@
           <% end %>
           <br/>
           <br/>
-          <% if params[:filter] != "mine" && @timeline.nb_frames > 1 && FrameCredit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) > 0 %>
-              <div class="list-group">
-                <div class="list-group-item">
-                  <span class="icon-ribbon"></span> Il vous reste
-                  <%= 12 - FrameCredit.where(user_id: current_user.id, timeline_id: params[:timeline_id]).sum(:value) %>
-                  crédits à distribuer aux contributions de cette controverse
-                </div>
-                <%= link_to "<span class=\"icon-ribbon\"></span>
-                            Récupérer mes crédits (#{FrameCredit.where(user_id:     current_user.id,
-                                                                       timeline_id: params[:timeline_id]).sum(:value)})".html_safe,
-                            frame_credit_path(id: 'all', timeline_id: params[:timeline_id]), method: :delete,
-                            class:                                                                   "list-group-item list-group-item-danger" %>
-              </div>
-          <% end %>
       <% end %>
     </div>
 
