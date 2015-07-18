@@ -1,4 +1,16 @@
 module MajHelper
+  def maj_v_7
+    ActiveRecord::Base.transaction do
+      Credit.destroy_all
+      Summary.update_all( balance: 0)
+      FrameCredit.destroy_all
+      Frame.update_all( balance: 0)
+      Vote.destroy_all
+      Comment.update_all( f_0_balance: 0, f_1_balance: 0, f_2_balance: 0, f_3_balance: 0, f_4_balance: 0,
+                          f_5_balance: 0, f_6_balance: 0, f_7_balance: 0)
+      Reference.update_all( nb_votes: 0)
+    end
+  end
 
   def maj_v_6
     ActiveRecord::Base.transaction do
