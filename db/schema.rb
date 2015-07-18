@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707151424) do
+ActiveRecord::Schema.define(version: 20150718114231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,7 +119,6 @@ ActiveRecord::Schema.define(version: 20150707151424) do
     t.integer  "user_id"
     t.integer  "timeline_id"
     t.integer  "summary_id"
-    t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -193,7 +192,6 @@ ActiveRecord::Schema.define(version: 20150707151424) do
     t.integer  "timeline_id"
     t.integer  "user_id"
     t.integer  "frame_id"
-    t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -492,6 +490,7 @@ ActiveRecord::Schema.define(version: 20150707151424) do
     t.string   "binary",            default: ""
     t.boolean  "article",           default: true
     t.text     "abstract_markdown", default: ""
+    t.integer  "category"
   end
 
   add_index "references", ["timeline_id"], name: "index_references_on_timeline_id", using: :btree
@@ -733,7 +732,6 @@ ActiveRecord::Schema.define(version: 20150707151424) do
     t.integer  "timeline_id"
     t.integer  "reference_id"
     t.integer  "comment_id"
-    t.integer  "value",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "field"
