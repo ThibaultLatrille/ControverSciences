@@ -33,7 +33,7 @@ class ReferencesController < ApplicationController
 
   def from_reference
     if logged_in?
-      @my_votes = Vote.where(user_id: current_user.id, reference_id: params[:reference_id], field: params[:field] ).sum(:value)
+      @my_votes = Vote.where(user_id: current_user.id, reference_id: params[:reference_id], field: params[:field] )
     end
     Comment.connection.execute("select setseed(#{rand})")
     params[:timeline_id] = Reference.select( :timeline_id ).find( params[:reference_id] ).timeline_id
@@ -156,8 +156,15 @@ class ReferencesController < ApplicationController
       else
         VisiteReference.create( user_id: user_id, reference_id: params[:id] )
       end
+      @my_votes = Vote.where(user_id: current_user.id, reference_id: @reference.id )
       @comment = Comment.find_by( user_id: user_id, reference_id: @reference.id )
-      if params[:filter] != "mine"
+      if params[:filter] == "my-vote"
+        @best_comment = BestComment.new
+        @my_votes.each do |vote|
+          @best_comment["f_#{vote.field}_comment_id"] = vote.comment_id
+          @best_comment["f_#{vote.field}_user_id"] = vote.comment_short.user_id
+        end
+      else
         @best_comment = BestComment.find_by_reference_id( @reference.id )
       end
     else

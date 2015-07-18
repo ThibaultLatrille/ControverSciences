@@ -6,9 +6,6 @@
           <% else %>
                <%= review_hash[6] %>
           <% end %>
-          <% if display %>
-              (<%= comment[:f_6_balance] %> crédits)
-          <% end %>
         </b> :
         <h5> <%= comment.title_markdown.html_safe %>   </h5>
         <br/>
@@ -22,10 +19,7 @@
                     <%= article_hash[7] %>
                 <% else %>
                     <%= review_hash[7] %>
-                <% end %>
-              <% if display %>
-                   (<%= comment[:f_7_balance] %> crédits)
-              <% end %> :
+                <% end %> :
               </b>
               <%= comment.caption_markdown.html_safe %>
             </div>
@@ -39,10 +33,7 @@
                    <%= article_hash[fi] %>
               <% else %>
                    <%= review_hash[fi] %>
-              <% end %>
-            <% if display %>
-                (<%= comment["f_#{fi}_balance".to_sym] %> crédits)
-            <% end %> :
+              <% end %> :
             </b>
             <div class="text-justify">
             <%= comment["markdown_#{fi}".to_sym].html_safe %>

@@ -1,198 +1,79 @@
-<% if field == 6 %>
-    <% if comment.title_markdown != "" %>
-        <div class="panel panel-default">
-          <div class="panel-body">
+<% if (field == 6 && comment.title_markdown != "")||(field == 7 && comment.figure_id)||(((0..5).include? field) && comment["markdown_#{field}".to_sym] != "") %>
+    <div class="panel <%= logged_in? &&
+                                  @my_votes &&
+                                  (@my_votes.map{ |c| c.comment_id}.include? comment.id) ? "panel-success" : "panel-default" %>">
+      <div class="panel-body clearfix">
+        <% if field == 6 %>
             <div class="text-left">
               <%= comment.title_markdown.html_safe %>
             </div>
-            <% if logged_in? && comment.user_id != current_user.id %>
-                <div class="pull-right">
-                  <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                              new_typo_path(comment_id: comment.id, field: 6), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
-                              title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
-                  <% if current_user.admin %>
-                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                  edit_comment_path(comment.id),
-                                  class: "btn btn-primary"%>
-                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                  comment_path(comment.id), method: :delete,
-                                  data:                          {confirm: "Etes vous certain ?"},
-                                  class: "btn btn-danger"%>
+        <% elsif field == 7 %>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <%= image_tag comment.picture_url, class: "img-rounded img-responsive" %>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="caption">
+                  <b> Figure </b> :
+                  <%= comment.caption_markdown.html_safe %>
+                </div>
+              </div>
+            </div>
+        <% else %>
+            <div class="text-justify">
+              <%= comment["markdown_#{field}".to_sym].html_safe %>
+            </div>
+        <% end %>
+      </div>
+      <% if logged_in? %>
+          <div class="panel-heading clearfix">
+              <% if current_user.id != comment.user_id %>
+                  <% if @my_votes && (@my_votes.map{ |c| c.comment_id}.include? comment.id) %>
+                      &nbsp
+                <span class="icon-frog-laurel big"
+                      title="Vous avez selectionné cette analyse comme votre favorite"
+                      data-placement="right"
+                      data-toggle="tooltip"></span>
+                  <% else %>
+                      <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
+                                  votes_path(timeline_id: params[:timeline_id],
+                                             comment_id: comment.id,
+                                             field: field,
+                                             reference_id: params[:reference_id]),
+                                  "data-toggle"    => "tooltip",
+                                  "data-placement" => "right",
+                                  title:           "Selectionner cette analyse comme votre favorite",
+                                  method:          :post,
+                                  class:           "btn btn-success",
+                                  :style           => "padding: 8px; margin-left: 8px" %>
                   <% end %>
-                </div>
-                <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
-                    <div class="row">
-                      <%= f.hidden_field :comment_id, value: comment.id %>
-                      <%= f.hidden_field :reference_id, value: params[:reference_id] %>
-                      <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
-                      <%= f.hidden_field :field, value: field %>
-                      <div class="col-md-9">
-                        <div class="input-group input-small">
-                            <span class="input-group-btn">
-                              <button class="btn btn-default cursor-default">
-                                <span class="glyphicon glyphicon-question-sign"></span>
-                              </button>
-                            </span>
-                          <%= f.select :value, (0..(12 + comment.my_vote(current_user.id, field) - @my_votes)),
-                                       {selected: comment.my_vote(current_user.id, field)}, {class: "form-control selectwidthauto"} %>
-                          <div>
-                            <% if comment.my_vote(current_user.id, field) == 0 %>
-                                <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer cette contribution".html_safe,
-                                             class: "btn btn-success selectwidthauto",
-                                             data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                            <% else %>
-                                <%= f.button "<span class=\"icon-ribbon normal\"></span> Changer mes crédits (#{comment.my_vote(current_user.id, field)} actuellement)".html_safe,
-                                             class: "btn btn-success selectwidthauto",
-                                             data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                                <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                            vote_path(id: "none", comment_id: comment.id, field: field), method: :delete, class: "btn btn-danger selectwidthauto" %>
-                            <% end %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                <% end %>
-            <% else %>
-                <div class="pull-right">
-                  Publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id) %>
-                </div>
-            <% end %>
-          </div>
-        </div>
-    <% end %>
-<% elsif field == 7 %>
-    <% if comment.figure_id %>
-    <div class="panel panel-default">
-      <div class="panel-body clearfix">
-        <div class="row">
-          <div class="col-xs-12 col-md-6">
-            <%= image_tag comment.picture_url, class: "img-rounded img-responsive" %>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <div class="caption">
-              <b> Figure </b> :
-              <%= comment.caption_markdown.html_safe %>
-            </div>
-          </div>
-        </div>
-        <% if logged_in? && comment.user_id != current_user.id %>
-            <div class="pull-right">
-              <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                          new_typo_path(comment_id: comment.id, field: 7), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
-                          title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
-              <% if current_user.admin %>
-                  <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                              edit_comment_path(comment.id),
-                              class: "btn btn-primary"%>
-                  <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                              comment_path(comment.id), method: :delete,
-                              data:                          {confirm: "Etes vous certain ?"},
-                              class: "btn btn-danger"%>
-              <% end %>
-            </div>
-            <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
-                <div class="row">
-                  <%= f.hidden_field :comment_id, value: comment.id %>
-                  <%= f.hidden_field :reference_id, value: params[:reference_id] %>
-                  <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
-                  <%= f.hidden_field :field, value: field %>
-                  <div class="col-md-9">
-                    <div class="input-group input-small">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default cursor-default">
-                        <span class="icon-ribbon normal">
-                        </span>
-                      </button>
-                    </span>
-                      <%= f.select :value, (0..(12 + comment.my_vote(current_user.id, field) - @my_votes)),
-                                   {selected: comment.my_vote(current_user.id, field)}, {class: "form-control selectwidthauto"} %>
-                      <div>
-                        <% if comment.my_vote(current_user.id, field) == 0 %>
-                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer cette figure".html_safe,
-                                         class: "btn btn-success selectwidthauto",
-                                         data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                        <% else %>
-                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Changer mes crédits (#{comment.my_vote(current_user.id, field)} actuellement)".html_safe,
-                                         class: "btn btn-success selectwidthauto",
-                                         data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                            <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                        vote_path(id: "none", comment_id: comment.id, field: field), method: :delete, class: "btn btn-danger selectwidthauto" %>
-                        <% end %>
-                      </div>
-                    </div>
+                  <div class="pull-right">
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                new_typo_path(comment_id: comment.id, field: field),
+                                remote:       true,
+                                :class        => "btn btn-default",
+                                "data-toggle" => "tooltip",
+                                title:        "Corriger une faute de français",
+                                :style        => "padding: 8px; margin-right: 8px" %>
+                    <% if current_user.admin %>
+                        <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                    edit_comment_path(comment.id),
+                                    class: "btn btn-primary" %>
+                        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                    comment_path(id: comment.id),
+                                    method: :delete,
+                                    data:   {confirm: "Etes vous certain ?"},
+                                    class:  "btn btn-danger",
+                                    :style  => "margin-right: 8px" %>
+                    <% end %>
                   </div>
-                </div>
-            <% end %>
-        <% else %>
-            <div class="pull-right">
-              Publiée il y a <%= time_ago_in_words(comment.created_at) %>
-              par <%= link_to comment.user_name, user_path(comment.user_id) %>
-            </div>
-        <% end %>
-      </div>
-    </div>
-    <% end %>
-<% else %>
-    <% if comment["markdown_#{field}".to_sym] != "" %>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div class="text-justify">
-          <%= comment["markdown_#{field}".to_sym].html_safe %>
-        </div>
-        <% if logged_in? && comment.user_id != current_user.id%>
-            <div class="pull-right">
-              <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                          new_typo_path(comment_id: comment.id, field: field), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
-                          title: "Corriger une faute de français", :style => "padding: 6px; margin-right: 6px"%>
-              <% if current_user.admin %>
-                  <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                              edit_comment_path(comment.id),
-                              class: "btn btn-primary"%>
-                  <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                              comment_path(comment.id), method: :delete,
-                              data:                          {confirm: "Etes vous certain ?"},
-                              class: "btn btn-danger"%>
-              <% end %>
-            </div>
-            <%= form_for(:vote, url: votes_path, method: :post, class: "input-group-sm") do |f| %>
-                <div class="row">
-                  <%= f.hidden_field :comment_id, value: comment.id %>
-                  <%= f.hidden_field :reference_id, value: params[:reference_id] %>
-                  <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
-                  <%= f.hidden_field :field, value: field %>
-                  <div class="col-md-9">
-                    <div class="input-group input-small">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default cursor-default">
-                        <span class="icon-ribbon normal">
-                        </span>
-                      </button>
-                    </span>
-                      <%= f.select :value, (0..(12 + comment.my_vote(current_user.id, field) - @my_votes)),
-                                   {selected: comment.my_vote(current_user.id, field)}, {class: "form-control selectwidthauto"} %>
-                      <div>
-                        <% if comment.my_vote(current_user.id, field) == 0 %>
-                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Accréditer cette contribution".html_safe,
-                                         class: "btn btn-success selectwidthauto",
-                                         data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                        <% else %>
-                            <%= f.button "<span class=\"icon-ribbon normal\"></span> Changer mes crédits (#{comment.my_vote(current_user.id, field)} actuellement)".html_safe,
-                                         class: "btn btn-success selectwidthauto",
-                                         data: {disable_with: "<span class=\"icon-ribbon normal\"></span> En cours"}%>
-                            <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                        vote_path(id: "none", comment_id: comment.id, field: field), method: :delete, class: "btn btn-danger selectwidthauto" %>
-                        <% end %>
-                      </div>
-                    </div>
+              <% else %>
+                  <div class="pull-right">
+                    Publiée il y a <%= time_ago_in_words(comment.created_at) %>
+                    par <%= link_to comment.user_name, user_path(comment.user_id) %>
                   </div>
-                </div>
-            <% end %>
-        <% else %>
-            <div class="pull-right">
-              Publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id) %>
-            </div>
-        <% end %>
-      </div>
+              <% end %>
+          </div>
+      <% end %>
     </div>
-    <% end %>
 <% end %>

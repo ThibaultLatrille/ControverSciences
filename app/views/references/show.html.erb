@@ -83,17 +83,6 @@
                         class: "list-group-item" %>
         <% end %>
       </div>
-      <% if params[:filter] != "mine" && @reference.nb_edits > 1 && Vote.where(user_id:      current_user.id,
-                                                                               reference_id: @reference.id).sum(:value) > 0 %>
-          <div class="list-group">
-            <%= link_to "<span class=\"icon-ribbon normal\" >
-                        </span> Récupérer mes crédits (#{Vote.where(user_id:      current_user.id,
-                                                                    reference_id: @reference.id).sum(:value)})
-                                                             attribués aux analyses de cette référence".html_safe,
-                        vote_path(id: 'all', reference_id: @reference.id), method: :delete,
-                        class:                                                     "list-group-item list-group-item-danger" %>
-          </div>
-      <% end %>
   <% end %>
 </div>
 <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-offset-0 col-lg-6">
@@ -113,8 +102,15 @@
                           reference_path,
                           class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }" %>
             </div>
+            <% if @my_votes.any? %>
+                <div class="btn-group">
+                  <%= link_to "Mon analyse favorite".html_safe,
+                              reference_path(:filter => 'my-vote'),
+                              class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
+                </div>
+            <% end %>
             <div>
-              </br>
+              <br/>
             </div>
           </div>
           <% if params[:filter] == "mine" %>
@@ -130,6 +126,10 @@
                                 class: "btn btn-primary", :style => "padding: 6px;" %>
                   </div>
                   <br/>
+              <% end %>
+          <% elsif params[:filter] == "my-vote" %>
+              <% if @best_comment && @best_comment.not_empty %>
+                  <%= render @best_comment %>
               <% end %>
           <% else %>
               <% if @best_comment && @best_comment.not_empty %>

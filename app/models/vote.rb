@@ -5,17 +5,15 @@ class Vote < ActiveRecord::Base
   belongs_to :comment
 
   after_create  :cascading_save_vote
-  around_update  :cascading_update_vote
+  after_destroy  :cascading_destroy_vote
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validates :comment_id, presence: true
   validates :field, presence: true, inclusion: { in: 0..7 }
-  validates :value, presence: true, inclusion: { in: 1..12 }
-  validates_uniqueness_of :user_id, :scope => [:comment_id, :value]
+  validates_uniqueness_of :user_id, :scope => [:reference_id, :field]
   validate :not_user_comment
-  validate :not_excede_value
 
   def user_name
     User.select( :name ).find( self.user_id ).name
@@ -33,10 +31,6 @@ class Vote < ActiveRecord::Base
     Timeline.select( :name ).find( self.timeline_id ).name
   end
 
-  def sum
-    Vote.where( user_id: self.user_id, reference_id: self.reference_id).sum( :value )
-  end
-
   def not_user_comment
     comment = Comment.select( :user_id).find( self.comment_id )
     if comment.user_id == self.user_id
@@ -44,35 +38,15 @@ class Vote < ActiveRecord::Base
     end
   end
 
-  def not_excede_value
-    sum = Vote.where( user_id: self.user_id,
-                reference_id: self.reference_id, field: self.field ).where.not( id: self.id ).sum( :value )
-    sum += self.value
-    if sum > 12
-      errors.add(:value, "The value exceded the permitted amount")
-    end
-  end
-
-  def destroy_with_counters
-    Comment.update_counters(self.comment_id, "f_#{self.field}_balance" => -self.value )
-    Reference.update_counters(self.reference_id, nb_votes: -self.value )
-    self.destroy
-  end
-
   private
 
   def cascading_save_vote
-    Comment.update_counters(self.comment_id, "f_#{self.field}_balance".to_sym => self.value )
-    Reference.update_counters(self.reference_id, nb_votes: self.value )
+    Comment.increment_counter( "f_#{self.field}_balance".to_sym, self.comment_id )
+    Reference.increment_counter( :nb_votes, self.reference_id )
   end
 
-  def cascading_update_vote
-    value = self.value_was
-    yield
-    if value != self.value
-      diff = self.value - value
-      Comment.update_counters(self.comment_id, "f_#{self.field}_balance".to_sym => diff )
-      Reference.update_counters(self.reference_id, nb_votes: diff )
-    end
+  def cascading_destroy_vote
+    Comment.decrement_counter( "f_#{self.field}_balance".to_sym, self.comment_id )
+    Reference.decrement_counter( :nb_votes, self.reference_id )
   end
 end

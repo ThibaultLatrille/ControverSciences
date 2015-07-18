@@ -3,17 +3,6 @@
     <% best_fields.each do |best_field| %>
         <%= render partial: 'best_comments/best_field', locals: { comment: best_field, field: field } %>
     <% end %>
-    <% if logged_in? && @my_votes > 0 %>
-        <span class="icon-ribbon"></span> Il vous reste
-        <%= 12 - @my_votes %>
-        crédits à distribuer entre les différentes contributions
-        <br/>
-        <br/>
-            <%= link_to "<span class=\"icon-ribbon normal\"></span>&nbsp Récupérer mes crédits (#{Vote.where( user_id: current_user.id,
-                            reference_id: reference_id, field: field ).sum( :value )})".html_safe,
-                        vote_path( id: 'field', reference_id: reference_id, field: field), method: :delete,
-                        class: "btn btn-danger" %>
-    <% end %>
     <span id="hide<%= field %>" class="detail btn btn-default pull-right">
        Masquer les contributions
     </span>
