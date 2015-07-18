@@ -1,25 +1,23 @@
-<div class="panel panel-default coms">
-  <div class="panel-heading clearfix">
-    <% best_fields.each do |best_field| %>
-        <%= render partial: 'best_comments/best_field', locals: { comment: best_field, field: field } %>
-    <% end %>
-    <span id="hide<%= field %>" class="detail btn btn-default pull-right">
-       Masquer les contributions
-    </span>
-    <br/>
-    <br/>
+
+<div class="coms">
+  <% best_fields.each do |best_field| %>
+      <%= render partial: 'best_comments/best_field', locals: {comment: best_field, field: field} %>
+  <% end %>
+</div>
+<div class="clearfix">
+  <div id="hide<%= field %>" class="detail btn btn-default pull-right">
+    <span class="glyphicon glyphicon-chevron-up"></span>
   </div>
 </div>
-
 <script type="text/javascript">
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    $('#hide<%= field %>').click(function() {
+    $('#hide<%= field %>').click(function () {
         $('#field<%= field %>').hide(500);
         $('#show<%= field %>').show(500);
         $('#content<%= field %>').show(500);
         $('.typo<%= field %>').show(500);
     });
-    $('#show<%= field %>').click(function() {
+    $('#show<%= field %>').click(function () {
         $(this).hide(500);
         $('#content<%= field %>').hide(500);
         $('#field<%= field %>').show(500);

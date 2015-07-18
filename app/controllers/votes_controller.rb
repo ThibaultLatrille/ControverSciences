@@ -14,6 +14,6 @@ class VotesController < ApplicationController
     else
       flash[:danger] = "Impossible d'effectuer cette action."
     end
-    redirect_to reference_path(params[:reference_id])
+    redirect_to reference_path(id: params[:reference_id], filter: "my-vote")
   end
 end
