@@ -9,6 +9,9 @@ module MajHelper
       Comment.update_all( f_0_balance: 0, f_1_balance: 0, f_2_balance: 0, f_3_balance: 0, f_4_balance: 0,
                           f_5_balance: 0, f_6_balance: 0, f_7_balance: 0)
       Reference.update_all( nb_votes: 0)
+      User.find_each(&:save)
+      Reference.find_each(&:save)
+      Timeline.find_each(&:save)
     end
   end
 

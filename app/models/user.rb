@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :finders]
+
   has_many :timelines, dependent: :destroy
   has_many :references, dependent: :destroy
   has_many :comments, dependent: :destroy

@@ -2,9 +2,9 @@ class MyItemsController < ApplicationController
   before_action :logged_in_user, only: [:items, :votes]
 
   def items
-    @timelines = Timeline.select(:id, :name).where( user_id: current_user.id)
+    @timelines = Timeline.select(:id, :slug, :name).where( user_id: current_user.id)
     @frames = Frame.select(:id, :name_markdown).where( user_id: current_user.id ).where.not( timeline_id: @timelines.map{|tim| tim.id} )
-    @references = Reference.select(:id, :timeline_id, :title).where( user_id: current_user.id)
+    @references = Reference.select(:id, :slug, :timeline_id, :title).where( user_id: current_user.id)
     @comments = Comment.select(:id, :timeline_id, :reference_id,
                                :title_markdown, :public, :f_0_balance,
                                :f_1_balance, :f_2_balance, :f_3_balance,

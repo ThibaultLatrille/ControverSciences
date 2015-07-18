@@ -10,7 +10,7 @@ class NotificationFrameSelectionLoss < ActiveRecord::Base
   end
 
   def timeline
-    Timeline.select( :id, :name ).find( Frame.select( :timeline_id ).find( self.frame_id ).timeline_id )
+    Timeline.select( :id, :slug, :name ).find( Frame.select( :timeline_id ).find( self.frame_id ).timeline_id )
   end
 
   private

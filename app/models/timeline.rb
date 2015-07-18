@@ -1,7 +1,10 @@
 class Timeline < ActiveRecord::Base
+
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :finders]
+
   include ApplicationHelper
   include PgSearch
-
   pg_search_scope :search_by_name,
                   :against => :name,
                   :ignoring => :accents,
@@ -152,8 +155,6 @@ class Timeline < ActiveRecord::Base
   end
 
   def cascading_save_timeline
-    text = "Discussion libre autour de la controverse : **#{self.name.strip}**"
-    Suggestion.create( user_id: self.user_id, timeline_id: self.id, comment: text )
     Frame.create( user_id: self.user_id, best: true,
                    content: self.frame, name: self.name, timeline_id: self.id, binary: self.binary )
     notifications = []

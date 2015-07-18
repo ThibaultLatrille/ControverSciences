@@ -1,4 +1,7 @@
 class Reference < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :title, use: [:slugged, :finders]
+
   require 'HTMLlinks'
 
   attr_accessor :tag_list

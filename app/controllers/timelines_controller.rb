@@ -82,7 +82,7 @@ class TimelinesController < ApplicationController
     end
     @timelines =query
     @titles     = Reference.where(timeline_id: @timeline.id, title_fr: [nil, ""]).count
-    @references = Reference.select(:article, :id, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
+    @references = Reference.select(:article, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
   end
 
   def destroy
@@ -111,7 +111,7 @@ class TimelinesController < ApplicationController
   end
 
   def network
-    @nodes = Timeline.select(:id, :name, :score).all
+    @nodes = Timeline.select(:id, :slug, :name, :score).all
     @links = Edge.select(:id, :timeline_id, :target).all.to_a.uniq{ |e| [e.timeline_id,e.target].sort }
   end
 

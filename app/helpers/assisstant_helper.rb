@@ -47,7 +47,7 @@ module AssisstantHelper
   end
 
   def update_score_users
-    User.select(:id, :score).find_each do |user|
+    User.select(:id, :slug, :score).find_each do |user|
       count = 1
       for field in 0..7 do
         count += BestComment.where("f_#{field}_user_id".to_sym => user.id).count
@@ -62,7 +62,7 @@ module AssisstantHelper
   end
 
   def update_score_timelines
-    Timeline.select(:id, :nb_contributors, :nb_references, :nb_summaries, :nb_comments).find_each do |timeline|
+    Timeline.select(:id, :slug, :nb_contributors, :nb_references, :nb_summaries, :nb_comments).find_each do |timeline|
       ago             = Time.now - 7.days
       nb_references   = Reference.where(timeline_id: timeline.id, created_at: ago..Time.now).count
       nb_edits        = Comment.where(timeline_id: timeline.id, created_at: ago..Time.now).count +
@@ -155,12 +155,12 @@ module AssisstantHelper
   end
 
   def selection_events
-    Reference.select(:id).find_each do |reference|
+    Reference.select(:id, :slug).find_each do |reference|
       for field in 0..7 do
         update_best_comment(reference.id, field)
       end
     end
-    Timeline.select(:id).find_each do |timeline|
+    Timeline.select(:id, :slug).find_each do |timeline|
       most         = Summary.where(timeline_id: timeline.id, public: true).order(score: :desc).first
       best_summary = SummaryBest.find_by(timeline_id: timeline.id)
       if most

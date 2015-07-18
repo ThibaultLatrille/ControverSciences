@@ -21,7 +21,7 @@ class FramesController < ApplicationController
         @frame.binary = false
       end
     end
-    @my_timeline = Timeline.select(:id, :nb_frames, :name).find(@frame.timeline_id)
+    @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
   end
 
   def create
@@ -40,14 +40,14 @@ class FramesController < ApplicationController
       else
         @frame.binary = false
       end
-      @my_timeline = Timeline.select(:id, :nb_frames, :name).find(@frame.timeline_id)
+      @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
       render 'new'
     end
   end
 
   def edit
     @frame       = Frame.find(params[:id])
-    @my_timeline = Timeline.select(:id, :nb_frames, :name).find(@frame.timeline_id)
+    @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
     if @frame.binary != ""
       @frame.binary_left  = @frame.binary.split('&&')[0]
       @frame.binary_right = @frame.binary.split('&&')[1]
@@ -72,7 +72,7 @@ class FramesController < ApplicationController
         flash[:success] = "Contribution modifiée."
         redirect_to @frame
       else
-        @my_timeline = Timeline.select(:id, :nb_frames, :name).find(@frame.timeline_id)
+        @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
         render 'edit'
       end
     else
@@ -86,11 +86,11 @@ class FramesController < ApplicationController
       @improve         = Frame.where(user_id: current_user.id, timeline_id: @frame.timeline_id).count == 1 ? false : true
       @my_frame_credit = FrameCredit.find_by(user_id: current_user.id, timeline_id: params[:timeline_id])
     end
-    @timeline = Timeline.select(:id, :user_id, :nb_frames, :name).find(@frame.timeline_id)
+    @timeline = Timeline.select(:id, :slug, :user_id, :nb_frames, :name).find(@frame.timeline_id)
   end
 
   def index
-    @timeline = Timeline.select(:id, :user_id, :nb_frames, :name).find(params[:timeline_id])
+    @timeline = Timeline.select(:id, :slug, :user_id, :nb_frames, :name).find(params[:timeline_id])
     if logged_in?
       user_id = current_user.id
       visit   = VisiteTimeline.find_by(user_id: user_id, timeline_id: params[:timeline_id])

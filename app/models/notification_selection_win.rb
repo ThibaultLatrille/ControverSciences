@@ -10,11 +10,11 @@ class NotificationSelectionWin < ActiveRecord::Base
   end
 
   def reference
-    Reference.select( :id, :title, :article ).find( Comment.select( :reference_id ).find( self.comment_id ).reference_id )
+    Reference.select( :id, :slug, :title, :article ).find( Comment.select( :reference_id ).find( self.comment_id ).reference_id )
   end
 
   def timeline
-    Timeline.select( :id, :name ).find( Comment.select( :timeline_id ).find( self.comment_id ).timeline_id )
+    Timeline.select( :id, :slug, :name ).find( Comment.select( :timeline_id ).find( self.comment_id ).timeline_id )
   end
 
   private

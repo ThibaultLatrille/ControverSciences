@@ -10,7 +10,7 @@ class ReferencesController < ApplicationController
   end
 
   def previous
-    refs = Reference.select(:id, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
+    refs = Reference.select(:id, :slug, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
     i = refs.index{|x| x.id == params[:id].to_i }
     if i == 0
       i = refs.length-1
@@ -21,7 +21,7 @@ class ReferencesController < ApplicationController
   end
 
   def next
-    refs = Reference.select(:id, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
+    refs = Reference.select(:id, :slug, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
     i = refs.index{|x| x.id == params[:id].to_i }
     if i == refs.length-1
       i = 0
@@ -184,7 +184,7 @@ class ReferencesController < ApplicationController
   end
 
   def network
-    @nodes = Reference.select(:id, :title, :title_fr,:binary_most, :star_most)
+    @nodes = Reference.select(:id, :slug, :title, :title_fr,:binary_most, :star_most)
                       .where( timeline_id: params[:timeline_id] )
     @links = ReferenceEdge.select(:id, :timeline_id, :reference_id, :target)
                           .where( timeline_id: params[:timeline_id] )

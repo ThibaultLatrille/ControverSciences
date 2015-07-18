@@ -10,7 +10,7 @@ class NotificationSummarySelectionLoss < ActiveRecord::Base
   end
 
   def timeline
-    Timeline.select( :id, :name ).find( Summary.select( :timeline_id ).find( self.summary_id ).timeline_id )
+    Timeline.select( :id, :slug, :name ).find( Summary.select( :timeline_id ).find( self.summary_id ).timeline_id )
   end
 
   private

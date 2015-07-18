@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
       redirect_to edit_comment_path( id: comment.id )
     else
       @comment = Comment.new
-      reference = Reference.select(:id, :timeline_id).find( params[:reference_id] )
+      reference = Reference.select(:id, :slug, :timeline_id).find( params[:reference_id] )
       @comment.reference_id = reference.id
       @comment.timeline_id = reference.timeline_id
       @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )

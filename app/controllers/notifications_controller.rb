@@ -53,7 +53,7 @@ class NotificationsController < ApplicationController
     case @filter
       when :timeline
         timeline_ids = Notification.where(user_id: current_user.id, category: 1).pluck(:timeline_id)
-        @timelines   = Timeline.select(:id, :name,
+        @timelines   = Timeline.select(:id, :slug, :name,
                                        :user_id).where(id: timeline_ids).page(params[:page]).per(20)
       when :frame
         frame_ids = Notification.where(user_id: current_user.id, category: 8).pluck(:frame_id )
@@ -65,7 +65,7 @@ class NotificationsController < ApplicationController
                                  :user_id).where(id: frame_ids).page(params[:page]).per(20)
       when :reference
         reference_ids = Notification.where(user_id: current_user.id, category: 2).pluck(:reference_id)
-        @references   = Reference.select(:id, :timeline_id, :title,
+        @references   = Reference.select(:id, :slug, :timeline_id, :title,
                                          :user_id).where(id: reference_ids).page(params[:page]).per(20)
       when :summary
         summary_ids = Notification.where(user_id: current_user.id, category: 3).pluck(:summary_id)

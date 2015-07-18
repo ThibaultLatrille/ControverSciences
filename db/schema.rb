@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718114231) do
+ActiveRecord::Schema.define(version: 20150718185458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -491,8 +491,10 @@ ActiveRecord::Schema.define(version: 20150718114231) do
     t.boolean  "article",           default: true
     t.text     "abstract_markdown", default: ""
     t.integer  "category"
+    t.string   "slug"
   end
 
+  add_index "references", ["slug"], name: "index_references_on_slug", unique: true, using: :btree
   add_index "references", ["timeline_id"], name: "index_references_on_timeline_id", using: :btree
   add_index "references", ["user_id"], name: "index_references_on_user_id", using: :btree
 
@@ -643,9 +645,11 @@ ActiveRecord::Schema.define(version: 20150718114231) do
     t.integer  "nb_frames",       default: 0
     t.text     "frame",           default: ""
     t.integer  "figure_id"
+    t.string   "slug"
   end
 
   add_index "timelines", ["created_at"], name: "index_timelines_on_created_at", using: :btree
+  add_index "timelines", ["slug"], name: "index_timelines_on_slug", unique: true, using: :btree
   add_index "timelines", ["user_id"], name: "index_timelines_on_user_id", using: :btree
 
   create_table "typos", force: true do |t|
@@ -701,9 +705,11 @@ ActiveRecord::Schema.define(version: 20150718114231) do
     t.integer  "my_typos",          default: 0
     t.integer  "target_typos",      default: 0
     t.boolean  "can_switch_admin",  default: false
+    t.string   "slug"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
   create_table "visite_references", force: true do |t|
     t.integer  "user_id"

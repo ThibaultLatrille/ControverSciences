@@ -162,6 +162,8 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
+    friendly_id (5.0.5)
+      activerecord (>= 4.0.0)
     guard (2.12.6)
       formatador (>= 0.2.4)
       listen (~> 2.7)
@@ -329,6 +331,7 @@ DEPENDENCIES
   faraday
   faraday_middleware
   fog
+  friendly_id (~> 5.0.0)
   guard-minitest (= 2.3.1)
   json
   kaminari

@@ -63,6 +63,9 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 
+# Friendly id for SEO
+gem 'friendly_id', '~> 5.0.0'
+
 group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace',     '0.1.3'

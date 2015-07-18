@@ -8,7 +8,7 @@ class SummariesController < ApplicationController
     else
       @summary             = Summary.new
       @summary.timeline_id = params[:timeline_id]
-      @my_timeline         = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
+      @my_timeline         = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
       @list                = Reference.where(timeline_id: @summary.timeline_id).pluck(:title, :id)
       @tim_list            = Timeline.where(id: Edge.where(timeline_id:
                                                                @summary.timeline_id).pluck(:target)).pluck(:name, :id)
@@ -32,14 +32,14 @@ class SummariesController < ApplicationController
       @list        = Reference.where(timeline_id: summary_params[:timeline_id]).pluck(:title, :id)
       @tim_list    = Timeline.where(id: Edge.where(timeline_id:
                                                        summary_params[:timeline_id]).pluck(:target)).pluck(:name, :id)
-      @my_timeline = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
+      @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
       render 'new'
     end
   end
 
   def edit
     @summary     = Summary.find(params[:id])
-    @my_timeline = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
+    @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
     @list        = Reference.where(timeline_id: @summary.timeline_id).pluck(:title, :id)
     @tim_list    = Timeline.where(id: Edge.where(timeline_id:
                                                      @summary.timeline_id).pluck(:target)).pluck(:name, :id)
@@ -62,7 +62,7 @@ class SummariesController < ApplicationController
         flash[:success] = "Synthèse modifiée."
         redirect_to @summary
       else
-        @my_timeline = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
+        @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
         @list        = Reference.where(timeline_id: @summary.timeline_id).pluck(:title, :id)
         @tim_list    = Timeline.where(id: Edge.where(timeline_id:
                                                          @summary.timeline_id).pluck(:target)).pluck(:name, :id)
@@ -81,11 +81,11 @@ class SummariesController < ApplicationController
       @improve   = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id).count == 1 ? false : true
       @my_credit = Credit.find_by(user_id: current_user.id, timeline_id: params[:timeline_id])
     end
-    @timeline = Timeline.select(:id, :nb_summaries, :name).find(@summary.timeline_id)
+    @timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
   end
 
   def index
-    @timeline = Timeline.select(:id, :nb_summaries, :name).find(params[:timeline_id])
+    @timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(params[:timeline_id])
     if logged_in?
       user_id = current_user.id
       visit   = VisiteTimeline.find_by(user_id: user_id, timeline_id: params[:timeline_id])
