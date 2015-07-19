@@ -334,21 +334,6 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            jQuery.fn.extend({
-                zigzag: function (array) {
-                    $(this).click(function () {
-                        if ($(this).hasClass("active")) {
-                            array.hide(500);
-                            $(this).removeClass("active");
-                        } else {
-                            $(this).addClass("active");
-                            array.show(500);
-                        }
-                    });
-                    return 1;
-                }
-            });
-            $('.btn-comment').zigzag($('.need-comment'));
             var data = {
                 labels: [
                     $('#versus-left').text().toUpperCase(),
@@ -459,6 +444,21 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
+            jQuery.fn.extend({
+                zigzag: function (array) {
+                    $(this).click(function () {
+                        if ($(this).hasClass("active")) {
+                            array.hide(500);
+                            $(this).removeClass("active");
+                        } else {
+                            $(this).addClass("active");
+                            array.show(500);
+                        }
+                    });
+                    return 1;
+                }
+            });
+            $('.btn-comment').zigzag($('.need-comment'));
             $('.linked-ref').click(function (e) {
                 var id = $(this).data("ref");
                 $("#button" + id).trigger('click');
