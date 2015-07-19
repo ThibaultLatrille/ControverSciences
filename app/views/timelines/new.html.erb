@@ -82,7 +82,8 @@
     $.each(['0', '1'], function (index, value) {
         $(document).ready(function() {
             if (value === '0') {
-                var max = 2500;
+                var max = 2500,
+                    min= 180;
             } else {
                 var max = 180;
             }
@@ -91,6 +92,10 @@
                 var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
                 $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else if (len <= min) {
+                var ch = min - len;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text('Au moins ' + ch + ' caractères manquants !');
             } else {
                 var ch = max - len;
                 $('#characterLeft' + value).css({"color": "#5cb85c"});
@@ -99,7 +104,8 @@
         });
         $('#description' + value).keyup(function () {
             if (value === '0') {
-                var max = 2500;
+                var max = 2500,
+                        min= 180;
             } else {
                 var max = 180;
             }
@@ -108,6 +114,10 @@
                 var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
                 $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else if (len <= min) {
+                var ch = min - len;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text('Au moins ' + ch + ' caractères manquants !');
             } else {
                 var ch = max - len;
                 $('#characterLeft' + value).css({"color": "#5cb85c"});

@@ -19,7 +19,7 @@ class Frame < ActiveRecord::Base
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :name, presence: true, length: {maximum: 180}
-  validates :content, length: {maximum: 2500}
+  validates :content, length: {minimum: 180, maximum: 2500}
 
   validates_uniqueness_of :user_id, :scope => :timeline_id
 

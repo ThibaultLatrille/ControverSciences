@@ -47,6 +47,7 @@ class Timeline < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :name, presence: true, length: { maximum: 180 }
+  validates :frame, length: {minimum: 180, maximum: 2500}
   validate :binary_valid
 
   def user_name
