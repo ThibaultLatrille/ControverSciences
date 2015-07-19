@@ -1,0 +1,35 @@
+#my-legend{
+  .list-group-item{
+    color: white;
+    border: 0px;
+  }
+  .list-group-item:hover{
+    color: #000000;
+    cursor: pointer;
+    background-color: lightgrey;
+  }
+  .legend-1, .legend-1.active:hover{
+    color: white;
+    background-color: rgba(231,113,27,1);
+  }
+  .legend-2, .legend-2.active:hover{
+    color: white;
+    background-color: rgba(241,202,58,1);
+  }
+  .legend-3, .legend-3.active:hover{
+    color: white;
+    background-color: rgba(111,150,84,1);
+  }
+  .legend-4, .legend-4.active:hover{
+    color: white;
+    background-color: rgba(28,145,192,1);
+  }
+  .legend-5, .legend-5.active:hover{
+    color: white;
+    background-color: rgba(67,69,157,1);
+  }
+  .active{
+    background-color: lightgrey;
+    color: #000000;
+  }
+}

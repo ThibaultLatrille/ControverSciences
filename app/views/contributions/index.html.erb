@@ -3,79 +3,122 @@
 <% provide(:title, "Evolution des contributions") %>
 <div id="my-container" class="container-fluid">
   <div class="row">
-    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-users normal\"></span> Qui sont les contributeurs".html_safe,
+                    users_path,
+                    class: "list-group-item" %>
+        <%= link_to "<span class=\"icon-graph normal\"></span> Les contributions".html_safe,
+                    contributions_path,
+                    class: "list-group-item" %>
+        <%= link_to "<span class=\"icon-graph normal\"></span> Les nouvelles contributions".html_safe,
+                    contributions_path(filter: "freq"),
+                    class: "list-group-item" %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
       <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>
+            L'évolution des contributions sur ControverSciences
+          </h4>
+        </div>
         <div class="panel-body">
           <canvas id="myChart"></canvas>
         </div>
       </div>
+    </div>
+    <div class="col-xs-12 col-lg-2">
+      <div id="my-legend"></div>
     </div>
   </div>
 </div>
 
 <script type="text/javascript">
     var data = {
-        labels: <%= raw @contrib_timelines.keys -%>,
+        labels: <%= raw @keys -%>,
         datasets: [
             {
                 label: "Les contributeurs",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
+                fillColor: "rgba(231,113,27,0.2)",
+                strokeColor: "rgba(231,113,27,1)",
+                pointColor: "rgba(231,113,27,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                <% sum = 0 %>
-                data: <%= @contrib_users.values.map{ |x| sum += x.length } -%>
+                pointHighlightStroke: "rgba(231,113,27,1)",
+                data: <%= @contribs[0] -%>
             },
             {
                 label: "Les controverses",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
+                fillColor: "rgba(241,202,58,0.2)",
+                strokeColor: "rgba(241,202,58,1)",
+                pointColor: "rgba(241,202,58,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                <% sum = 0 %>
-                data: <%= @contrib_timelines.values.map{ |x| sum += x.length } -%>
+                pointHighlightStroke: "rgba(241,202,58,1)",
+                data: <%= @contribs[1] -%>
             },
             {
                 label: "Les références",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
+                fillColor: "rgba(111,150,84,0.2)",
+                strokeColor: "rgba(111,150,84,1)",
+                pointColor: "rgba(111,150,84,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                <% sum = 0 %>
-                data: <%= @contrib_references.values.map{ |x| sum += x.length } -%>
+                pointHighlightStroke: "rgba(111,150,84,1)",
+                data: <%= @contribs[2] -%>
             },
             {
                 label: "Les analyses",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
+                fillColor: "rgba(28,145,192,0.2)",
+                strokeColor: "rgba(28,145,192,1)",
+                pointColor: "rgba(28,145,192,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                <% sum = 0 %>
-                data: <%= @contrib_comments.values.map{ |x| sum += x.length } -%>
+                pointHighlightStroke: "rgba(28,145,192,1)",
+                data: <%= @contribs[3] -%>
             },
             {
                 label: "Les synthèses",
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
+                fillColor: "rgba(67,69,157,0.2)",
+                strokeColor: "rgba(67,69,157,1)",
+                pointColor: "rgba(67,69,157,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(151,187,205,1)",
-                <% sum = 0 %>
-                data: <%= @contrib_summaries.values.map{ |x| sum += x.length } -%>
+                pointHighlightStroke: "rgba(67,69,157,1)",
+                data: <%= @contribs[4] -%>
             }
         ]
     };
     Chart.defaults.global.responsive = true;
     var canvas = $("#myChart").get(0),
             ctx = canvas.getContext('2d'),
-            myLineChart = new Chart(ctx).Line(data, {});
+            myLineChart = new Chart(ctx).Line(data, {
+                legendTemplate: "<div class=\"list-group <%%=name.toLowerCase()%>-legend\"><%% for (var i=0; i<datasets.length; i++){%><div data-legend=\"<%%=i%>\" class=\"list-group-item legend-<%%=i+1%>\"><%%if(datasets[i].label){%><%%=datasets[i].label%><%%}%></div><%%}%></div>"
+            }),
+            myDatasets = myLineChart.datasets;
+    $('#my-legend').append(myLineChart.generateLegend());
+    $('.list-group-item', '#my-legend').on('click', function () {
+        if ($(this).hasClass("active")){
+            $(this).removeClass("active");
+            myLineChart.clear();
+            myLineChart.datasets = [];
+            $.each($('.list-group-item', '#my-legend'), function (index, value) {
+                if (!$(value).hasClass("active")) {
+                    myLineChart.datasets.push(myDatasets[parseInt($(value).data("legend"))])
+                }
+            });
+            myLineChart.draw()
+        } else {
+            $(this).addClass("active");
+            myLineChart.clear();
+            myLineChart.datasets = [];
+            $.each($('.list-group-item', '#my-legend'), function (index, value) {
+                if (!$(value).hasClass("active")) {
+                    myLineChart.datasets.push(myDatasets[parseInt($(value).data("legend"))])
+                }
+            });
+            myLineChart.draw()
+        }
+    });
 </script>
