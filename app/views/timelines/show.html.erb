@@ -319,9 +319,9 @@
         <div class="panel panel-default">
           <div class="center">
             <br/>
-            <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[0].humanize -%></b>
+            <b style="font-size: 2.2em" id="versus-left"><%= @timeline.binary.split('&&')[0].humanize -%></b>
             &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
-            <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[1].humanize -%></b>
+            <b style="font-size: 2.2em" id="versus-right"><%= @timeline.binary.split('&&')[1].humanize -%></b>
           </div>
           <br/><br/>
           <div class="row">
@@ -350,7 +350,12 @@
             });
             $('.btn-comment').zigzag($('.need-comment'));
             var data = {
-                labels: ["January", "February", "March", "April", "May"],
+                labels: [
+                    $('#versus-left').text().toUpperCase(),
+                    $('#versus-left').text().toLowerCase(),
+                    "",
+                    $('#versus-right').text().toLowerCase(),
+                    $('#versus-right').text().toUpperCase()],
                 datasets: [
                     {
                         label: "My First dataset",
@@ -367,8 +372,15 @@
                     2: 'rgba(50,45,227,0.0)',
                     3: 'rgba(51,102,204,0.0)',
                     4: 'rgba(45,171,227,0.0)',
-                    5: 'rgba(43,217,207,0.0)'};
+                    5: 'rgba(43,217,207,0.0)'},
+                labels = {
+                1: '<%= @timeline.binary_explanation(1) -%>',
+                2: '<%= @timeline.binary_explanation(2) -%>',
+                3: '<%= @timeline.binary_explanation(3) -%>',
+                4: '<%= @timeline.binary_explanation(4) -%>',
+                5: '<%= @timeline.binary_explanation(5) -%>'};
             Chart.defaults.global.responsive = true;
+            Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%> : <%%}%><%%= value %>";
             (function(){
                 var helpers = Chart.helpers,
                         canvas = $("#myChart").get(0),
@@ -411,6 +423,7 @@
                 $.each(microBar.datasets[0].bars, function( key, bar ) {
                     bar.active = true;
                     bar.references = ".binary" + (key + 1).toString();
+                    bar.toolLabel = labels[key+1];
                     bar.baseColor = colors[key+1];
                     bar.fillColor = colors[key+1].replace('.0)', '.5)');
                     bar.strokeColor = colors[key+1].replace('.0)', '.75)');
