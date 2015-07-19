@@ -150,11 +150,11 @@ class ReferencesController < ApplicationController
           @user_binary = @user_binary.value
         end
       end
-      visit = VisiteReference.find_by( user_id: user_id, reference_id: params[:id] )
+      visit = VisiteReference.find_by( user_id: user_id, reference_id: @reference.id )
       if visit
         visit.update( updated_at: Time.zone.now )
       else
-        VisiteReference.create( user_id: user_id, reference_id: params[:id] )
+        VisiteReference.create( user_id: user_id, reference_id: @reference.id )
       end
       @my_votes = Vote.where(user_id: current_user.id, reference_id: @reference.id )
       @comment = Comment.find_by( user_id: user_id, reference_id: @reference.id )

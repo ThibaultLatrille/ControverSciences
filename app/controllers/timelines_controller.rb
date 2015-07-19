@@ -61,7 +61,7 @@ class TimelinesController < ApplicationController
 
   def show
     @timeline    = Timeline.find(params[:id])
-    summary_best = SummaryBest.find_by(timeline_id: params[:id])
+    summary_best = SummaryBest.find_by(timeline_id: @timeline.id)
     if summary_best
       @summary = Summary.find(summary_best.summary_id)
     else
@@ -74,9 +74,9 @@ class TimelinesController < ApplicationController
     query = Timeline.where( id: timeline_ids.flatten.uniq ).where.not( id: @timeline.id )
     if logged_in?
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
-      @improve = Summary.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? false : true
-      @improve_frame = Frame.where.not(user_id: current_user.id ).find_by(best: true, timeline_id: params[:id])
-      @my_frame = Frame.where(user_id: current_user.id, timeline_id: params[:id]).count == 1 ? true : false
+      @improve = Summary.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? false : true
+      @improve_frame = Frame.where.not(user_id: current_user.id ).find_by(best: true, timeline_id: @timeline.id)
+      @my_frame = Frame.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
     else
       query = query.where.not(nb_comments: 0)
     end
