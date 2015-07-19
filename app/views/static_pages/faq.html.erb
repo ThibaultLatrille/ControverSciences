@@ -1,45 +1,45 @@
 <% provide(:title, "FAQ") %>
 
 <div id="my-container" class="container-fluid">
-<div class="row">
-<div class="col-xs-12 col-md-6 col-md-offset-3">
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4> Foire aux questions (FAQ) </h4>
-  </div>
-  <div class="panel-body">
-    <div class="panel-group" role="tablist" aria-multiselectable="true">
-      <%= render 'collapse', id: 34, title: "Quelle est la différence entre une analyse et une synthèse ?",
-                 content: "Une analyse est la version vulgarisée en français d'une publication scientifique. Une synthèse est un bilan
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
+      <div class="list-group">
+        <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
+                    class: "list-group-item", style: "font-size: 1.3em;" %>
+        <%= link_to "Découvrir ControverSciences", how_to_path,
+                    class: "list-group-item" %>
+        <%= link_to "Contribuer à ControverSciences", how_to_edit_path,
+                    class: "list-group-item" %>
+        <div class="list-group-item list-group-item-default cursor-not-allowed">
+          Foire aux questions (FAQ)
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3> Foire aux questions (FAQ) </h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div id="empties">
+                <div class="page">
+                  <%= render 'collapse', id: 34, title: "Quelle est la différence entre une analyse et une synthèse ?",
+                             content:        "Une analyse est la version vulgarisée en français d'une publication scientifique. Une synthèse est un bilan
                  de l'ensemble des analyses, pour une controverse donnée." %>
-      <%= render 'collapse', id: 23, title: "Je ne suis pas d'accord avec un contributeur, comment puis-je lui répondre ?",
-                 content: "Vous ne pouvez tout simplement pas, et pas parce que le site est encore en construction !
+                  <%= render 'collapse', id: 23, title: "Je ne suis pas d'accord avec un contributeur, comment puis-je lui répondre ?",
+                             content:        "Vous ne pouvez tout simplement pas, et pas parce que le site est encore en construction !
                  Ceci est absolument intentionnel, désolé pour la frustration.
                  Nous souhaitons favoriser les approches constructives et ne voulons absolument pas
                  que se déverse un torrent d'insultes (Youtube a de toute façon le quasi monopole dans ce domaine).
                  Sur ControverSciences, on répond à une analyse (ou synthèse) par une autre analyse (ou synthèse).
                  Les autres contributeurs s'occuperont alors de déterminer laquelle des ces analyses (ou synthèses) est la meilleure. <br/>
                  <strong> Si vous trouvez qu'une analyse ou une synthèse est mauvaise, faites mieux !</strong>".html_safe %>
-      <%= render 'collapse', id: 42, title: "Comment distribuer mes crédits ?",
-                 content: "De la façon qu'il vous convient, mais ils sont limités. Les critères qui doivent rentrer en ligne de compte pour
-                  déterminer la qualité d'une analyse ou d'une synthèse sont : <br/>
-                 • Objectivité <br/>
-                 • Pertinence <br/>
-                 • Clarté <br/>".html_safe %>
-      <%= render 'collapse', id: 2, title: "A quoi servent les scores des contributeurs ?",
-                 content: "Ils servent à calculer les scores des analyses et synthèses afin de déterminer les meilleures.
-                 Plus un contributeur a un score élevé plus les crédits qu'il a distribués ont du poids." %>
-      <%= render 'collapse', id: 3, title: "Comment sont calculés les scores des contributeurs ?",
-                 content: 'Par un algorithme secret qui ne sera jamais révélé afin que les administrateurs puissent favoriser
-                  en toute discrétion leurs contributeurs préférés... <br/>
-                  E réalité ces scores sont re-calculés toutes les nuits.
-                  Il s\'agit d\'une moyenne harmonique de différents indices.
-                  Ces indices prennent en compte la qualité des analyses et synthèses, ainsi que la qualité des références ajoutées par le contributeur.
-                  Le score est un nombre réel supérieur à 1.'.html_safe %>
-      <%= render 'collapse', id: 4, title: "Qu'advient-il des contenus de mauvaise qualité ?",
-                 content: "Un algorithme s'occupe de nettoyer de temps en temps les contenus désuets qui ne sont pas accrédités." %>
-      <%= render 'collapse', id: 1, title: "Comment sont évités les trolls sur le site ?",
-                 content: "Deux homo erectus sont poursuivis par un lion dans la savane, l'un d'eux déclame au second : <br/>
+                  <%= render 'collapse', id: 4, title: "Qu'advient-il des contenus de mauvaise qualité ?",
+                             content:        "Un algorithme s'occupe de nettoyer de temps en temps les contenus désuets qui ne sont pas accrédités." %>
+                  <%= render 'collapse', id: 1, title: "Comment sont évités les trolls sur le site ?",
+                             content:        "Deux homo erectus sont poursuivis par un lion dans la savane, l'un d'eux déclame au second : <br/>
                  \"Mais ça ne sert à rien de courir car de toute façon il finira par nous rattraper.\" <br/>
                  Ce à quoi le second répond :<br/> \"Je ne cherche pas à courir plus vite que le lion, mais plus vite que toi !\" <br/>
                  Pour ControverSciences, c'est un peu la même chose : les contraintes permettent de dissuader une grosse majorité des trolls
@@ -47,27 +47,16 @@
                  Pour les trolls de compétition, on supprime ce qui est nécessaire à la main.
                  Pour finir de les dissuader, ça nous prend beaucoup moins de temps de les supprimer qu'à eux d'écrire.
                  ".html_safe %>
-      <%= render 'collapse', id: 5, title: "Quand je suis connecté, les analyses ou synthèses semblent arriver dans
-                    un ordre aléatoire... Quand ce bug sera-t-il corrigé ?",
-                 content: "Ce comportement est tout à fait normal, il est même entièrement voulu. Les analyses et synthèses sont rangées dans
-                 un ordre pseudo-aléatoire afin de n'en favoriser aucune. La distribution uniforme donne toutes leurs chances à toutes les
-                 analyses/synthèses. Egalité et pas de traitement de faveur." %>
-      <%= render 'collapse', id: 6, title: "Quand je suis connecté je n'arrive pas à voir les crédits donnés
-                    aux analyses et synthèses, où est cette information ?",
-                 content: "Cette information est volontairement invisible au contributeur afin qu'il
-                 ne soit pas biaisé dans l'attribution des crédits. Dans le cas contraire,
-                 une analyse/synthèse qui aurait beaucoup de crédits en
-                 recevrait encore plus par effet de consensus. Egalité et pas de traitement de faveur encore une fois." %>
-      <%= render 'collapse', id: 7, title: "Qu'advient-il de mes contributions ?",
-                 content: "Les contributions que vous déposez sur ControverSciences n'ont en premier lieu aucun copyright.
+                  <%= render 'collapse', id: 7, title: "Qu'advient-il de mes contributions ?",
+                             content:        "Les contributions que vous déposez sur ControverSciences n'ont en premier lieu aucun copyright.
                    Elles sont ensuite mises aux enchères et revendues à l'entreprise/entité la plus offrante qui
                en disposera. Il se peut donc que celle-ci décide de mettre un copyright dessus afin que le texte ne puisse plus
                 être diffusé sans leur accord préalable. C'est sur ce <i>business model</i> novateur et très lucratif qu'est financé ControverSciences.
                 <br/>
                 Non, bien évidemment, les contributions sont dans le domaine public.
                 Plus précisement les contributions sont sous la license CC-BY-SA".html_safe %>
-      <%= render 'collapse', id: 54, title: "Comment est financé ControverSciences ?",
-                 content: "Pour l'instant le site ControverSciences est codé et maintenu par des bénévoles qui
+                  <%= render 'collapse', id: 54, title: "Comment est financé ControverSciences ?",
+                             content:        "Pour l'instant le site ControverSciences est codé et maintenu par des bénévoles qui
                  donc ne sont pas payés mais sont convaincus de la raison d'être de ce site. Les frais d'hébergement
                  du site sont actuellement maigres (~30E/mois) mais vont
                  évidemment changer dans le même sens que l'affluence du site. \n
@@ -75,29 +64,23 @@
                 Si vous trouvez l'initative intéressante et que vous n'avez pas donné tout votre argent pour préserver
                 les lamantins du golfe de Guinée vous pouvez nous aider (les dons seront bientôt possibles).
                 Si vous avez l'âme d'un mécène nous serons bien évidemment ravis !".html_safe %>
-
-    </div>
-    <div class="clearfix">
-    <div class="actions pull-right">
-      <%= link_to "<span class=\"glyphicon glyphicon-question-sign\">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix">
+          <div class="actions pull-right" style="margin-right: 15px">
+            <%= link_to "<span class=\"glyphicon glyphicon-question-sign\">
     </span> Poser une question".html_safe, '#newquestion',
-                  'data-toggle' => 'modal', class: "btn btn-default" %>
-    </div>
-    </div>
-    <div class="col-xs-12">
-      <hr>
-    </div>
-    <div class="col-xs-12">
-      <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
-                  class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
-      <%= link_to "Découvrir ControverSciences", how_to_path,
-                  class: "btn btn-block btn-primary" %>
-      <%= link_to "Contribuer à ControverSciences", how_to_edit_path,
-                  class: "btn btn-block btn-primary" %>
-      <div class="btn btn-block btn-default cursor-not-allowed">
-        Foire aux questions (FAQ)
+                        'data-toggle' => 'modal', class: "btn btn-default" %>
+            <br/>
+            <br/>
+          </div>
+          <br/>
+          <br/>
+        </div>
       </div>
-    </div>
     </div>
   </div>
 </div>
@@ -112,15 +95,17 @@
         <h4 class="modal-title" id="myModalLabel"> Poser une question </h4>
       </div>
       <div class="modal-body clearfix">
-        <%= form_for( :issue, url: issues_path, remote: true,
-                      html: {role: :form, 'data-model' => 'issue'}) do |f| %>
+        <%= form_for(:issue, url: issues_path, remote: true,
+                     html:        {role: :form, 'data-model' => 'issue'}) do |f| %>
             <div class="form-group">
-              <%= f.label :title, "La question ?", class: 'control-label' %><br>
+              <%= f.label :title, "La question ?", class: 'control-label' %>
+              <br>
               <%= f.text_field :title, class: 'form-control' %>
               <span class="help-block"></span>
             </div>
             <div class="form-group">
-              <%= f.label :body, "Remarques", class: 'control-label' %><br>
+              <%= f.label :body, "Remarques", class: 'control-label' %>
+              <br>
               <%= f.text_area :body, class: 'form-control textarea' %>
               <span class="help-block"></span>
             </div>
@@ -136,9 +121,11 @@
                     <%= value %>
                   </label>
               <% end %>
-            </div></br>
+            </div>
+            </br>
             <div class="form-group">
-              <%= f.label :author, "Auteur (facultatif)", class: 'control-label' %><br>
+              <%= f.label :author, "Auteur (facultatif)", class: 'control-label' %>
+              <br>
               <% if logged_in? %>
                   <%= f.text_field :author, value: current_user.name, class: 'form-control' %>
               <% else %>
@@ -149,7 +136,7 @@
             <div class="actions pull-right">
               <%= f.button "Envoyer &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success',
-                           data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "}%>
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "} %>
             </div>
         <% end %>
       </div>

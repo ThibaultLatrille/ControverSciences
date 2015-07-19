@@ -62,9 +62,10 @@
     <div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-6">
       <br/>
       <br/>
-      <% if @empty_summaries.any? %>
-          <div class="panel panel-default">
-            <div class="panel-body">
+
+      <div class="panel panel-default">
+        <% if @empty_summaries.any? %>
+            <div class="panel-heading">
               <h3>
                 Ces controverses
                 <% if logged_in? %>
@@ -78,16 +79,20 @@
                 débat !
               </h3>
             </div>
-          </div>
-          <div id="empties">
-            <div class="row page">
-            <%= render :partial => 'static_pages/empty_summary', :collection => @empty_summaries %>
-            <%= paginate @empty_summaries %>
-          </div>
-          </div>
-      <% else %>
-          <div class="panel panel-default">
             <div class="panel-body">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="empties">
+                    <div class="page">
+                      <%= render :partial => 'static_pages/empty_summary', :collection => @empty_summaries %>
+                      <%= paginate @empty_summaries %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% else %>
+            <div class="panel-heading">
               <h3>
                 Toutes les controverses
                 <% if logged_in? %>
@@ -101,8 +106,8 @@
               </h3>
               <%= link_to "<span class=\"icon-frog fat\"></span> Créer une controverse".html_safe, new_timeline_path, class: "btn btn-primary btn-lg pull-right" %>
             </div>
-          </div>
-      <% end %>
+        <% end %>
+      </div>
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
           <div class="center-block">
