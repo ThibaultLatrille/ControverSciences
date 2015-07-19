@@ -1,5 +1,7 @@
 <% provide(:title, @timeline.name.html_safe) %>
 <% provide(:meta, @timeline.frame.html_safe) %>
+<%= javascript_include_tag 'chart' %>
+
 <div id="my-container" class="container-fluid">
 <div class="row">
 
@@ -40,8 +42,8 @@
         <% if @timeline.user_id == current_user.id || current_user.admin %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
                         timeline_path(@timeline), method: :delete,
-                        data:                                {confirm: "Etes vous certain ?"},
-                        class:                               "list-group-item list-group-item-danger" %>
+                        data:                             {confirm: "Etes vous certain ?"},
+                        class:                            "list-group-item list-group-item-danger" %>
         <% end %>
     <% end %>
   </div>
@@ -107,78 +109,78 @@
 </div>
 
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
-  <div class="panel panel-default comment">
-    <div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>); background-size: 100% auto;">
-      <div class="content">
-        <div class="clearfix">
+<div class="panel panel-default comment">
+<div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>); background-size: 100% auto;">
+  <div class="content">
+    <div class="clearfix">
 
+      <% if logged_in? && @improve_frame %>
+          <div class="pull-right">
+            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                        new_typo_path(frame_id: @improve_frame.id, field: 0),
+                        remote: true,
+                        class:  "btn btn-default", "data-toggle" => "tooltip",
+                        title:  "Corriger une faute de français dans le titre",
+                        style:  "padding: 8px; margin: 0px 8px;" %>
+          </div>
+      <% end %>
+      <div class="pull-right">
+        <% if logged_in? && (@my_likes.include? @timeline.id) %>
+            <button type="button" class="btn btn-success" data-placement="left"
+                    data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
+                    title="Vous et <%= (@timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
+              <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
+            </button>
+        <% else %>
+            <button type="button" class="btn btn-default green" data-placement="left"
+                    data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
+                    title="<%= @timeline.nb_likes.to_s + " contributeurs s'intéressent à cette controverse" %>">
+              <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
+            </button>
+        <% end %>
+      </div>
+      <% @timeline.get_tag_list.each do |name| %>
+          <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                      timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                      class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+      <% end %>
+      <h1 class="shadowed">
+        <br/>
+        <%= @timeline.name.html_safe %>
+        <br/><br/>
+      </h1>
+      <% if @timeline.frame != "" %>
           <% if logged_in? && @improve_frame %>
               <div class="pull-right">
                 <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                            new_typo_path(frame_id: @improve_frame.id, field: 0),
-                            remote: true,
-                            class: "btn btn-default", "data-toggle" => "tooltip",
-                            title: "Corriger une faute de français dans le titre",
-                            style: "padding: 8px; margin: 0px 8px;" %>
+                            new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
+                            :class                                                        => "btn btn-default", "data-toggle" => "tooltip",
+                            title:                                                        "Corriger une faute de français dans le cadre",
+                            :style                                                        => "padding: 8px; margin: 8px" %>
               </div>
           <% end %>
-          <div class="pull-right">
-            <% if logged_in? && (@my_likes.include? @timeline.id) %>
-                <button type="button" class="btn btn-success" data-placement="left"
-                        data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                        title="Vous et <%= (@timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
-                  <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
-                </button>
-            <% else %>
-                <button type="button" class="btn btn-default green" data-placement="left"
-                        data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                        title="<%= @timeline.nb_likes.to_s + " contributeurs s'intéressent à cette controverse" %>">
-                  <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
-                </button>
-            <% end %>
+          <div class="cadre text-justify">
+            <b style="font-size: 1.4em">Cadre, focus et mise au point :</b><br/>
+            <%= @timeline.frame.html_safe %>
           </div>
-          <% @timeline.get_tag_list.each do |name| %>
-              <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
-                          timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
-                          class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
-          <% end %>
-          <h1 class="shadowed">
-            <br/>
-            <%= @timeline.name.html_safe %>
-            <br/><br/>
-          </h1>
-          <% if @timeline.frame != "" %>
-              <% if logged_in? && @improve_frame %>
-                  <div class="pull-right">
-                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                                new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
-                                :class                                                        => "btn btn-default", "data-toggle" => "tooltip",
-                                title:                                                        "Corriger une faute de français dans le cadre",
-                                :style                                                        => "padding: 8px; margin: 8px" %>
-                  </div>
-              <% end %>
-              <div class="cadre text-justify">
-                <b style="font-size: 1.4em">Cadre, focus et mise au point :</b><br/>
-                <%= @timeline.frame.html_safe %>
-              </div>
-              <br/>
-          <% end %>
-          <% if logged_in? && current_user.admin && @improve_frame %>
-              <div class="pull-right" style="margin-right: 8px;">
-                <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                            edit_frame_path(@improve_frame.id),
-                            class: "btn btn-primary" %>
-                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                            frame_path(@improve_frame.id), method: :delete,
-                            data:                                  {confirm: "Etes vous certain ?"},
-                            class:                                 "btn btn-danger" %>
-              </div>
-            <% end %>
-        </div>
-      </div>
+          <br/>
+      <% end %>
+      <% if logged_in? && current_user.admin && @improve_frame %>
+          <div class="pull-right" style="margin-right: 8px;">
+            <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                        edit_frame_path(@improve_frame.id),
+                        class: "btn btn-primary" %>
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                        frame_path(@improve_frame.id), method: :delete,
+                        data:                                  {confirm: "Etes vous certain ?"},
+                        class:                                 "btn btn-danger" %>
+          </div>
+      <% end %>
     </div>
-    <% if logged_in? && current_user.admin %>
-      <div class="panel-footer">
+  </div>
+</div>
+<% if logged_in? && current_user.admin %>
+    <div class="panel-footer">
       <%= form_for(@timeline, html: {multipart: true}) do |f| %>
           <%= f.hidden_field :has_picture, value: @timeline.picture? %>
           <%= f.hidden_field :delete_picture, value: false %>
@@ -215,86 +217,167 @@
           Supprimer la figure
         </div>
       </div>
-      </div>
-  <% end %>
-    <% if @timeline.nb_references > 2 && @summary %>
-        <div class="panel-body">
-          <div id="summary" class="clearfix">
-            <% if @summary.picture? %>
-                <div class="pull-right">
-                  <div class="thumbnail">
-                    <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
-                    <div class="caption">
-                      <%= @summary.caption_markdown.html_safe %>
-                    </div>
-                  </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($('#timeline_has_picture').val() === 'true') {
+                $('#delete').show();
+                $('#ajouter').text("Modifier la figure");
+            }
+            $(function () {
+                'use strict';
+                // Change this to the location of your server-side upload handler:
+                $('#fileupload').fileupload({
+                    url: "<%= figures_url + "?img_timeline_id=" + @timeline.id.to_s %>",
+                    type: 'POST',
+                    dataType: 'json',
+                    done: function (e, data) {
+                        $('#upload-btn').show(300);
+                        $('#progress').hide(300);
+                        if (data.result.id == null) {
+                            $('#size-warning').show(300);
+                        } else {
+                            $('#timeline_has_picture').val('true');
+                            $('#timeline_delete_picture').val('false');
+                            $('#size-warning').hide();
+                            $('#uploaded').css("background", "white url(" + data.result.picture.url + ")");
+                        }
+                    },
+                    start: function (e, data) {
+                        $('#upload-btn').hide();
+                        $('#progress').show();
+                    }
+                }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+            });
+            $('#delete').click(function () {
+                $('#delete').hide(300);
+                $('#uploaded').css("background", "white");
+                $('#ajouter').text("Ajouter une figure");
+                $('#timeline_delete_picture').val('true');
+            });
+        });
+    </script>
+<% end %>
+<% if @timeline.nb_references > 2 && @summary %>
+    <div class="panel-body">
+      <div id="summary" class="clearfix">
+        <% if @summary.picture? %>
+            <div class="pull-right">
+              <div class="thumbnail">
+                <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
+                <div class="caption">
+                  <%= @summary.caption_markdown.html_safe %>
                 </div>
-            <% end %>
-            <div class="justify">
-              <%= @summary.markdown.html_safe %>
-              <% if logged_in? %>
-                  <div class="pull-right">
-                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                                new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
-                                title:                                          "Corriger une faute de français dans la synthèse", :style => "padding: 6px; margin-right: 6px" %>
-                    <% if current_user.admin %>
-                        <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                    edit_summary_path(@summary.id),
-                                    class: "btn btn-primary" %>
-                        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                    summary_path(@summary.id), method: :delete,
-                                    data:                              {confirm: "Etes vous certain ?"},
-                                    class:                             "btn btn-danger" %>
-                    <% end %>
-                  </div>
-                  <br/>
-                  <br/>
-                  <br/>
-              <% end %>
+              </div>
             </div>
-            <br/>
-          </div>
+        <% end %>
+        <div class="justify">
+          <%= @summary.markdown.html_safe %>
+          <% if logged_in? %>
+              <div class="pull-right">
+                <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                            new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
+                            title:                                          "Corriger une faute de français dans la synthèse", :style => "padding: 6px; margin-right: 6px" %>
+                <% if current_user.admin %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                edit_summary_path(@summary.id),
+                                class: "btn btn-primary" %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                summary_path(@summary.id), method: :delete,
+                                data:                              {confirm: "Etes vous certain ?"},
+                                class:                             "btn btn-danger" %>
+                <% end %>
+              </div>
+              <br/>
+              <br/>
+              <br/>
+          <% end %>
+        </div>
+        <br/>
+      </div>
             <span class="pull-right">
                 <%= link_to @summary.user_name, user_path(@summary.user_id) %>
             </span>
-        </div>
-    <% end %>
-  </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#summary").readmore({
+                speed: 750,
+                embedCSS: false,
+                collapsedHeight: 450,
+                moreLink: '<a href="#" class="btn btn-default">Continuer la lecture</a>',
+                lessLink: '<a href="#" class="btn btn-default">Réduire le texte</a>'
+            });
+        });
+    </script>
+<% end %>
+</div>
 
-  <% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
-      <div class="row">
-        <div class="col-xs-offset-1 col-xs-10">
-          <div class="panel panel-default">
-            <div class="center">
-              <br/>
-              <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[0].humanize -%></b>
-              &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
-              <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[1].humanize -%></b>
-            </div>
-            <br/><br/>
+<% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
+    <div class="row">
+      <div class="col-xs-offset-1 col-xs-10">
+        <div class="panel panel-default">
+          <div class="center">
+            <br/>
+            <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[0].humanize -%></b>
+            &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
+            <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[1].humanize -%></b>
+          </div>
+          <br/><br/>
 
-            <div id="sort">
-              <div class="row">
-                <div class="col-xs-1">
-                </div>
-                <% (1..5).each do |key| %>
-                    <div class="col-xs-2" title="<%= @timeline.binary_explanation(key) -%>. Cliquer pour les afficher/masquer." data-toggle="tooltip">
-                      <label class="btn btn-default btn-block active grey btn-filter<%= key %>" style="vertical-align: top;">
+          <div id="sort">
+            <div class="row">
+              <div class="col-xs-1">
+              </div>
+              <% (1..5).each do |key| %>
+                  <div class="col-xs-2" title="<%= @timeline.binary_explanation(key) -%>. Cliquer pour les afficher/masquer." data-toggle="tooltip">
+                    <label class="btn btn-default btn-block active grey btn-filter<%= key %>" style="vertical-align: top;">
                       <span class="glyphicon glyphicon-eye-open" style="font-size: <%= @timeline.binary_font_size( key ) -%>px;">
                         <%= @timeline["binary_#{key}".to_sym] -%>
                       </span>
-                      </label>
-                    </div>
-                <% end %>
-              </div>
+                    </label>
+                  </div>
+              <% end %>
             </div>
-            <br/>
           </div>
+          <br/><br/><br/>
+
+          <canvas id="myChart" width="400" height="400"></canvas>
         </div>
       </div>
-  <% end %>
-  <% if @references.any? %>
-      <% if @titles > 0 %>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            jQuery.fn.extend({
+                zigzag: function (array) {
+                    $(this).click(function () {
+                        if ($(this).hasClass("active")) {
+                            array.hide(500);
+                            $(this).removeClass("active");
+                            $('.glyphicon', this).removeClass("glyphicon-eye-open");
+                            $('.glyphicon', this).addClass("glyphicon-eye-close");
+                        } else {
+                            $(this).addClass("active");
+                            $('.glyphicon', this).removeClass("glyphicon-eye-close");
+                            $('.glyphicon', this).addClass("glyphicon-eye-open");
+                            array.show(500);
+                        }
+                    });
+                    return 1;
+                }
+            });
+            $('.btn-filter1').zigzag($('.binary1'));
+            $('.btn-filter2').zigzag($('.binary2'));
+            $('.btn-filter3').zigzag($('.binary3'));
+            $('.btn-filter4').zigzag($('.binary4'));
+            $('.btn-filter5').zigzag($('.binary5'));
+            $('.btn-comment').zigzag($('.need-comment'));
+        });
+    </script>
+<% end %>
+<% if @references.any? %>
+    <% if logged_in? && @titles > 0 %>
+        <div class="center">
           <br/>
           <% if @titles == 1 %>
               <br/>
@@ -310,11 +393,65 @@
                 &nbsp <%= @titles -%> références n'ont pas d'analyse
               </label>
           <% end %>
-      <% end %>
-      <div id="cd-timeline" class="cd-container">
-        <%= render :partial => 'references/reference', :collection => @references, :locals => {:binary => @timeline.binary} %>
-      </div>
-  <% end %>
+        </div>
+    <% end %>
+    <div id="cd-timeline" class="cd-container">
+      <%= render :partial => 'references/reference', :collection => @references, :locals => {:binary => @timeline.binary} %>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.linked-ref').click(function (e) {
+                var id = $(this).data("ref");
+                $("#button" + id).trigger('click');
+                if ($("#ref-" + id).hasClass("glyphicon-chevron-down")) {
+                    $("#ref-" + id).trigger('click');
+                }
+                $("#block-" + id).show(500);
+                e.stopPropagation();
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $('#block-' + id).offset().top - 80
+                }, 500);
+                return false
+            });
+            $('.detail').click(function () {
+                if ($(this).hasClass("glyphicon-chevron-down")) {
+                    $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+                    $(this).parent().parent().parent().find('.ref').show(500);
+                    $('html, body').animate({
+                        scrollTop: $(this).parent().parent().parent().offset().top - 80
+                    }, 500)
+                }
+                else {
+                    $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+                    $(this).parent().parent().parent().find('.ref').hide(500)
+                }
+            });
+            $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+            var $timeline_block = $('.cd-timeline-block');
+
+            //hide timeline blocks which are outside the viewport
+            $timeline_block.each(function () {
+                $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden');
+            });
+
+            $timeline_block.each(function () {
+                if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95) {
+                    $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').removeClass('bounce-in');
+                }
+            });
+
+            //on scolling, show/animate timeline blocks when enter the viewport
+            $(window).on('scroll', function () {
+                $timeline_block.each(function () {
+                    if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
+                        $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').removeClass('bounce-in');
+                    }
+                });
+            });
+        });
+    </script>
+<% end %>
 </div>
 <div class="col-xs-12 col-lg-2">
   <% if @timelines.count > 0 %>
@@ -323,6 +460,54 @@
       <% else %>
           <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil, full_width: true} %>
       <% end %>
+      <script type="text/javascript">
+          $(document).ready(function () {
+              $('.timeline-name').responsiveEqualHeightGrid();
+              $('.timeline-body').responsiveEqualHeightGrid();
+              $('.collapse').on('shown.bs.collapse', function () {
+                  $(".timeline-body").responsiveEqualHeightGrid();
+              });
+          });
+          $(function () {
+              $('[data-validate]').click(function () {
+                  var self = $(this);
+                  self.hide();
+                  self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
+                  $.ajax(self.data('validate'), {
+                      url: self.data('validate'),
+                      data: {id: self.val()},
+                      method: 'POST',
+                      statusCode: {
+                          201: function (response) {
+                              $('.loader-like').remove();
+                              self.show();
+                              var like = $('.glyphicon', self);
+                              self.addClass('btn-success');
+                              self.removeClass('btn-default');
+                              self.removeClass('green');
+                              self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                              like.text(' ' + (parseInt(like.text()) + 1));
+                          },
+                          204: function (response) {
+                              $('.loader-like').remove();
+                              self.show();
+                              var like = $('.glyphicon', self);
+                              self.removeClass('btn-success');
+                              self.addClass('btn-default');
+                              self.addClass('green');
+                              self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                              like.text(' ' + (parseInt(like.text()) - 1));
+                          },
+                          401: function (response) {
+                              $('.loader-like').remove();
+                              self.show();
+                              $('#iptaken').modal('show');
+                          }
+                      }
+                  })
+              });
+          });
+      </script>
   <% end %>
 </div>
 </div>
@@ -355,175 +540,3 @@
     </div>
   </div>
 </div>
-
-
-<script type="text/javascript">
-    $('.timeline-name').responsiveEqualHeightGrid();
-    $('.timeline-body').responsiveEqualHeightGrid();
-    $('.collapse').on('shown.bs.collapse', function () {
-        $(".timeline-body").responsiveEqualHeightGrid();
-    });
-    $("#summary").readmore({
-        speed: 750,
-        embedCSS: false,
-        collapsedHeight: 450,
-        moreLink: '<a href="#" class="btn btn-default">Continuer la lecture</a>',
-        lessLink: '<a href="#" class="btn btn-default">Réduire le texte</a>'
-    });
-    $('.linked-ref').click(function (e) {
-        var id = $(this).data("ref");
-        $("#button" + id).trigger('click');
-        if ($("#ref-" + id).hasClass("glyphicon-chevron-down")) {
-            $("#ref-" + id).trigger('click');
-        }
-        $("#block-" + id).show(500);
-        e.stopPropagation();
-        e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $('#block-' + id).offset().top - 80
-        }, 500);
-        return false
-    });
-    $('.detail').click(function () {
-        if ($(this).hasClass("glyphicon-chevron-down")) {
-            $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-            $(this).parent().parent().parent().find('.ref').show(500);
-            $('html, body').animate({
-                scrollTop: $(this).parent().parent().parent().offset().top - 80
-            }, 500)
-        }
-        else {
-            $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-            $(this).parent().parent().parent().find('.ref').hide(500)
-        }
-    });
-    $(function () {
-        $('[data-validate]').click(function () {
-            var self = $(this);
-            self.hide();
-            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-            $.ajax(self.data('validate'), {
-                url: self.data('validate'),
-                data: {id: self.val()},
-                method: 'POST',
-                statusCode: {
-                    201: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.glyphicon', self);
-                        self.addClass('btn-success');
-                        self.removeClass('btn-default');
-                        self.removeClass('green');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
-                        like.text(' ' + (parseInt(like.text()) + 1));
-                    },
-                    204: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.glyphicon', self);
-                        self.removeClass('btn-success');
-                        self.addClass('btn-default');
-                        self.addClass('green');
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
-                        like.text(' ' + (parseInt(like.text()) - 1));
-                    },
-                    401: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        $('#iptaken').modal('show');
-                    }
-                }
-            })
-        });
-    });
-    jQuery.fn.extend({
-        zigzag: function (array) {
-            $(this).click(function () {
-                if ($(this).hasClass("active")) {
-                    array.hide(500);
-                    $(this).removeClass("active");
-                    $('.glyphicon', this).removeClass("glyphicon-eye-open");
-                    $('.glyphicon', this).addClass("glyphicon-eye-close");
-                } else {
-                    $(this).addClass("active");
-                    $('.glyphicon', this).removeClass("glyphicon-eye-close");
-                    $('.glyphicon', this).addClass("glyphicon-eye-open");
-                    array.show(500);
-                }
-            });
-            return 1;
-        }
-    });
-    $('.btn-filter1').zigzag($('.binary1'));
-    $('.btn-filter2').zigzag($('.binary2'));
-    $('.btn-filter3').zigzag($('.binary3'));
-    $('.btn-filter4').zigzag($('.binary4'));
-    $('.btn-filter5').zigzag($('.binary5'));
-    $('.btn-comment').zigzag($('.need-comment'));
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-        var $timeline_block = $('.cd-timeline-block');
-
-        //hide timeline blocks which are outside the viewport
-        $timeline_block.each(function () {
-            $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden');
-        });
-
-        $timeline_block.each(function () {
-            if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95) {
-                $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').removeClass('bounce-in');
-            }
-        });
-
-        //on scolling, show/animate timeline blocks when enter the viewport
-        $(window).on('scroll', function () {
-            $timeline_block.each(function () {
-                if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
-                    $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').removeClass('bounce-in');
-                }
-            });
-        });
-    });
-</script>
-
-<% if logged_in? && current_user.admin %>
-<script type="text/javascript">
-    $(document).ready(function () {
-        if ($('#timeline_has_picture').val() === 'true') {
-            $('#delete').show();
-            $('#ajouter').text("Modifier la figure");
-        }
-    });
-    $(function () {
-        'use strict';
-        // Change this to the location of your server-side upload handler:
-        $('#fileupload').fileupload({
-            url: "<%= figures_url + "?img_timeline_id=" + @timeline.id.to_s %>",
-            type: 'POST',
-            dataType: 'json',
-            done: function (e, data) {
-                $('#upload-btn').show(300);
-                $('#progress').hide(300);
-                if (data.result.id == null) {
-                    $('#size-warning').show(300);
-                } else {
-                    $('#timeline_has_picture').val('true');
-                    $('#timeline_delete_picture').val('false');
-                    $('#size-warning').hide();
-                    $('#uploaded').css("background", "white url(" + data.result.picture.url + ")");
-                }
-            },
-            start: function (e, data) {
-                $('#upload-btn').hide();
-                $('#progress').show();
-            }
-        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-    });
-    $('#delete').click(function () {
-        $('#delete').hide(300);
-        $('#uploaded').css("background", "white");
-        $('#ajouter').text("Ajouter une figure");
-        $('#timeline_delete_picture').val('true');
-    });
-</script>
-<% end %>
