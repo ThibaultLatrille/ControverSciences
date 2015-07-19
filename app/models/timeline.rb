@@ -47,7 +47,7 @@ class Timeline < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :name, presence: true, length: { maximum: 180 }
-  validates :frame, length: {minimum: 180, maximum: 2500}
+  validates :frame, length: {maximum: 2500}
   validate :binary_valid
 
   def user_name
@@ -168,9 +168,6 @@ class Timeline < ActiveRecord::Base
   end
 
   def updating_with_params
-    sug = Suggestion.find_by( timeline_id: self.id )
-    sug.comment = "Discussion libre autour de la controverse : **#{self.name.strip}**"
-    sug.save
     binary = self.binary_was
     yield
     if binary != self.binary
