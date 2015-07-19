@@ -346,3 +346,11 @@
 .icon-frog-laurel:before {
     content: "\e642";
 }
+
+.icon-buoy:before {
+    content: "\e644";
+}
+
+.icon-graph:before {
+    content: "\e645";
+}
