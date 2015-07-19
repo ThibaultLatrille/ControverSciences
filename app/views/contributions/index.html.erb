@@ -1,4 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment-with-locales.min.js"></script>
 <%= javascript_include_tag 'chart' %>
 
 <% provide(:title, "Evolution des contributions") %>
@@ -16,27 +15,62 @@
 
 <script type="text/javascript">
     var data = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: <%= raw @contrib_timelines.keys -%>,
         datasets: [
             {
-                label: "My First dataset",
+                label: "Les contributeurs",
                 fillColor: "rgba(220,220,220,0.2)",
                 strokeColor: "rgba(220,220,220,1)",
                 pointColor: "rgba(220,220,220,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
+                <% sum = 0 %>
+                data: <%= @contrib_users.values.map{ |x| sum += x.length } -%>
             },
             {
-                label: "My Second dataset",
+                label: "Les controverses",
                 fillColor: "rgba(151,187,205,0.2)",
                 strokeColor: "rgba(151,187,205,1)",
                 pointColor: "rgba(151,187,205,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
+                <% sum = 0 %>
+                data: <%= @contrib_timelines.values.map{ |x| sum += x.length } -%>
+            },
+            {
+                label: "Les références",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                <% sum = 0 %>
+                data: <%= @contrib_references.values.map{ |x| sum += x.length } -%>
+            },
+            {
+                label: "Les analyses",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                <% sum = 0 %>
+                data: <%= @contrib_comments.values.map{ |x| sum += x.length } -%>
+            },
+            {
+                label: "Les synthèses",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                <% sum = 0 %>
+                data: <%= @contrib_summaries.values.map{ |x| sum += x.length } -%>
             }
         ]
     };
