@@ -80,11 +80,16 @@
 					var activeBars = (evt.type !== 'mouseout') ? this.getBarsAtEvent(evt) : [];
 
 					this.eachBars(function(bar){
-						bar.restore(['fillColor', 'strokeColor']);
+                        if (bar.active) {
+                            bar.fillColor = bar.baseColor.replace('.0)','.5)');
+                            bar.strokeColor = bar.baseColor.replace('.0)','.75)');
+                        } else {
+                            bar.fillColor = bar.baseColor.replace('.0)','.05)');
+                        }
 					});
 					helpers.each(activeBars, function(activeBar){
-						activeBar.fillColor = activeBar.highlightFill;
-						activeBar.strokeColor = activeBar.highlightStroke;
+                            activeBar.fillColor = activeBar.highlightFill;
+                            activeBar.strokeColor = activeBar.highlightStroke;
 					});
 					this.showTooltip(activeBars);
 				});
@@ -102,8 +107,6 @@
 
 				var datasetObject = {
 					label : dataset.label || null,
-					fillColor : dataset.fillColor,
-					strokeColor : dataset.strokeColor,
 					bars : []
 				};
 
@@ -114,11 +117,7 @@
 					datasetObject.bars.push(new this.BarClass({
 						value : dataPoint,
 						label : data.labels[index],
-						datasetLabel: dataset.label,
-						strokeColor : dataset.strokeColor,
-						fillColor : dataset.fillColor,
-						highlightFill : dataset.highlightFill || dataset.fillColor,
-						highlightStroke : dataset.highlightStroke || dataset.strokeColor
+						datasetLabel: dataset.label
 					}));
 				},this);
 
@@ -142,9 +141,6 @@
 		update : function(){
 			this.scale.update();
 			// Reset any highlight colours before updating.
-			helpers.each(this.activeElements, function(activeElement){
-				activeElement.restore(['fillColor', 'strokeColor']);
-			});
 
 			this.eachBars(function(bar){
 				bar.save();
@@ -244,9 +240,7 @@
 					x: this.scale.calculateBarX(this.datasets.length, datasetIndex, this.scale.valuesCount+1),
 					y: this.scale.endPoint,
 					width : this.scale.calculateBarWidth(this.datasets.length),
-					base : this.scale.endPoint,
-					strokeColor : this.datasets[datasetIndex].strokeColor,
-					fillColor : this.datasets[datasetIndex].fillColor
+					base : this.scale.endPoint
 				}));
 			},this);
 

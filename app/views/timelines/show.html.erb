@@ -363,11 +363,11 @@
                 ]
             };
             var colors = {
-                    1: 'rgba(112,43,217,0.7)',
-                    2: 'rgba(50,45,227,0.7)',
-                    3: 'rgba(51,102,204,0.7)',
-                    4: 'rgba(45,171,227,0.7)',
-                    5: 'rgba(43,217,207,0.7)'};
+                    1: 'rgba(112,43,217,0.0)',
+                    2: 'rgba(50,45,227,0.0)',
+                    3: 'rgba(51,102,204,0.0)',
+                    4: 'rgba(45,171,227,0.0)',
+                    5: 'rgba(43,217,207,0.0)'};
             Chart.defaults.global.responsive = true;
             (function(){
                 var helpers = Chart.helpers,
@@ -396,9 +396,11 @@
                         if (bar.active) {
                             $(bar.references).hide(500);
                             bar.active = false;
+                            bar.fillColor = bar.baseColor.replace('.0)', '.05)');
                         } else {
                             bar.active = true;
                             $(bar.references).show(500);
+                            bar.fillColor = bar.baseColor.replace('.0)', '.5)');
                         }
                     });
                     if (bars.length > 0){
@@ -409,10 +411,11 @@
                 $.each(microBar.datasets[0].bars, function( key, bar ) {
                     bar.active = true;
                     bar.references = ".binary" + (key + 1).toString();
-                    bar.fillColor = colors[key+1];
-                    bar.strokeColor = colors[key+1];
-                    bar.highlightFill = colors[key+1];
-                    bar.highlightStroke = colors[key+1];
+                    bar.baseColor = colors[key+1];
+                    bar.fillColor = colors[key+1].replace('.0)', '.5)');
+                    bar.strokeColor = colors[key+1].replace('.0)', '.75)');
+                    bar.highlightFill = colors[key+1].replace('.0)', '.75)');
+                    bar.highlightStroke = colors[key+1].replace('.0)', '.95)');
                 });
             })();
         });
