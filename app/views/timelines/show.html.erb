@@ -324,25 +324,11 @@
             <b style="font-size: 2.2em"><%= @timeline.binary.split('&&')[1].humanize -%></b>
           </div>
           <br/><br/>
-
-          <div id="sort">
-            <div class="row">
-              <div class="col-xs-1">
-              </div>
-              <% (1..5).each do |key| %>
-                  <div class="col-xs-2" title="<%= @timeline.binary_explanation(key) -%>. Cliquer pour les afficher/masquer." data-toggle="tooltip">
-                    <label class="btn btn-default btn-block active grey btn-filter<%= key %>" style="vertical-align: top;">
-                      <span class="glyphicon glyphicon-eye-open" style="font-size: <%= @timeline.binary_font_size( key ) -%>px;">
-                        <%= @timeline["binary_#{key}".to_sym] -%>
-                      </span>
-                    </label>
-                  </div>
-              <% end %>
+          <div class="row">
+            <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+                <canvas id="myChart"></canvas>
             </div>
           </div>
-          <br/><br/><br/>
-
-          <canvas id="myChart" width="400" height="400"></canvas>
         </div>
       </div>
     </div>
@@ -354,24 +340,81 @@
                         if ($(this).hasClass("active")) {
                             array.hide(500);
                             $(this).removeClass("active");
-                            $('.glyphicon', this).removeClass("glyphicon-eye-open");
-                            $('.glyphicon', this).addClass("glyphicon-eye-close");
                         } else {
                             $(this).addClass("active");
-                            $('.glyphicon', this).removeClass("glyphicon-eye-close");
-                            $('.glyphicon', this).addClass("glyphicon-eye-open");
                             array.show(500);
                         }
                     });
                     return 1;
                 }
             });
-            $('.btn-filter1').zigzag($('.binary1'));
-            $('.btn-filter2').zigzag($('.binary2'));
-            $('.btn-filter3').zigzag($('.binary3'));
-            $('.btn-filter4').zigzag($('.binary4'));
-            $('.btn-filter5').zigzag($('.binary5'));
             $('.btn-comment').zigzag($('.need-comment'));
+            var data = {
+                labels: ["January", "February", "March", "April", "May"],
+                datasets: [
+                    {
+                        label: "My First dataset",
+                        data: [$('.binary1').length,
+                            $('.binary2').length,
+                            $('.binary3').length,
+                            $('.binary4').length,
+                            $('.binary5').length]
+                    }
+                ]
+            };
+            var colors = {
+                    1: 'rgba(112,43,217,0.7)',
+                    2: 'rgba(50,45,227,0.7)',
+                    3: 'rgba(51,102,204,0.7)',
+                    4: 'rgba(45,171,227,0.7)',
+                    5: 'rgba(43,217,207,0.7)'};
+            Chart.defaults.global.responsive = true;
+            (function(){
+                var helpers = Chart.helpers,
+                        canvas = $("#myChart").get(0),
+                        ctx = canvas.getContext('2d'),
+                        microBar = new Chart(ctx).Bar(data, {
+                        });
+
+                helpers.addEvent(canvas, 'mousemove', function(evt){
+                    var bars =microBar.getBarsAtEvent(evt);
+                    if (bars.length > 0){
+                        canvas.style.cursor = "pointer";
+                    }
+                    else {
+                        canvas.style.cursor = "default";
+                    }
+                });
+
+                helpers.addEvent(canvas, 'click', function(evt){
+                    microBar.options.animation = true;
+                    microBar.options.onAnimationComplete = function(){
+                        this.showTooltip(this.activeElements, true);
+                    };
+                    var bars = microBar.getBarsAtEvent(evt);
+                    helpers.each(bars, function(bar){
+                        if (bar.active) {
+                            $(bar.references).hide(500);
+                            bar.active = false;
+                        } else {
+                            bar.active = true;
+                            $(bar.references).show(500);
+                        }
+                    });
+                    if (bars.length > 0){
+                        microBar.update();
+                    }
+                });
+
+                $.each(microBar.datasets[0].bars, function( key, bar ) {
+                    bar.active = true;
+                    bar.references = ".binary" + (key + 1).toString();
+                    bar.fillColor = colors[key+1];
+                    bar.strokeColor = colors[key+1];
+                    bar.highlightFill = colors[key+1];
+                    bar.highlightStroke = colors[key+1];
+                });
+            })();
         });
     </script>
 <% end %>
