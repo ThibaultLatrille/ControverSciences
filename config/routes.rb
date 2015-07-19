@@ -99,6 +99,8 @@ Rails.application.routes.draw do
   resources :reference_edge_votes, only: [:create, :destroy]
   resources :reference_user_tags, only: [:create, :update]
 
+  resources :contributions, only: [:index]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
