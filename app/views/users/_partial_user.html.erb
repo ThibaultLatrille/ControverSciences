@@ -1,5 +1,4 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script src="https://rawgit.com/tpreusse/radar-chart-d3/master/src/radar-chart.js"></script>
+<%= javascript_include_tag 'chart' %>
 
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
@@ -70,8 +69,45 @@
         <%= @user.name %> a même un site personnel : <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %> <br/>
     <% end %>
     <br/>
-    <div id="spider-graph" class="center">
-    </div>
+    <% if @user_detail && !@user_detail.profil.blank? %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6">
+          <canvas id="myChart"></canvas>
+        </div>
+      </div>
+      <script type="text/javascript">
+          var data = {
+              labels: [
+                  <% (1..8).each do |n| %>
+                  "<%= user_profils[n] %>",
+                  <% end %>
+                  "<%= user_profils[9] %>"
+              ],
+              datasets: [
+                  {
+                      label: "<%= @user.name %>",
+                      fillColor: "rgba(151,187,205,0.2)",
+                      strokeColor: "rgba(151,187,205,1)",
+                      pointColor: "rgba(151,187,205,1)",
+                      pointStrokeColor: "#fff",
+                      pointHighlightFill: "#fff",
+                      pointHighlightStroke: "rgba(151,187,205,1)",
+                      data: [
+                          <% (1..8).each do |n| %>
+                          "<%= 0.5 + Float(@user_detail.profil[n.to_s]).round(3) %>",
+                          <% end %>
+                          "<%= 0.5 + Float(@user_detail.profil["9"]).round(3) %>"
+                      ]
+                  }
+              ]
+          };
+          Chart.defaults.global.responsive = true;
+          var canvas = $("#myChart").get(0),
+              ctx = canvas.getContext('2d'),
+              myRadarChart = new Chart(ctx).Radar(data, {});
+      </script>
+
+  <% end %>
     <br/>
     <br/>
     <div class="panel-group" role="tablist" aria-multiselectable="true">
@@ -241,25 +277,3 @@
         $(this).parent("div").parent("div").find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
     });
 </script>
-
-<% if @user_detail && !@user_detail.profil.blank? %>
-<script type="text/javascript">
-    RadarChart.defaultConfig.color = function() {};
-    RadarChart.defaultConfig.radius = 4;
-    RadarChart.defaultConfig.w = 400;
-    RadarChart.defaultConfig.h = 400;
-    var data = [
-        {
-            className: 'user', // optional can be used for styling
-            axes: [
-                <% (1..8).each do |n| %>
-                {axis: "<%= user_profils[n] %>", value: <%= 0.5 + Float(@user_detail.profil[n.to_s]).round(3) %>},
-                <% end %>
-                {axis: "<%= user_profils[9] %>", value: <%= 0.5 + Float(@user_detail.profil["9"]).round(3) %>}
-            ]
-        }
-    ];
-    RadarChart.draw("#spider-graph", data);
-</script>
-
-<% end %>
