@@ -111,9 +111,9 @@
                 if (!$(value).hasClass("active")) {
                     myLineChart.datasets.push(myDatasets[parseInt($(value).data("legend"))])
                 }
-                myLineChart.draw();
-                myLineChart.update();
             });
+            myLineChart.draw();
+            myLineChart.update();
         } else {
             if ($('.active', '#my-legend').length < 4) {
                 $(this).addClass("active");
