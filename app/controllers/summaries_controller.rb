@@ -55,7 +55,7 @@ class SummariesController < ApplicationController
       if summary_params[:delete_picture] == 'true'
         @summary.figure_id = nil
       elsif summary_params[:has_picture] == 'true'
-        @summary.figure_id = Figure.order(:created_at).where(user_id:     current_user.id,
+        @summary.figure_id = Figure.order(:created_at).where(user_id:     @summary.user_id,
                                                              timeline_id: @summary.timeline_id).last.id
       end
       if @summary.update_with_markdown
