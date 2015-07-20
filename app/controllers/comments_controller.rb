@@ -60,7 +60,7 @@ class CommentsController < ApplicationController
       if comment_params[:delete_picture] == 'true'
         @comment.figure_id = nil
       elsif comment_params[:has_picture] == 'true'
-        @comment.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
+        @comment.figure_id = Figure.order( :created_at ).where( user_id: @comment.user_id,
           reference_id: @comment.reference_id ).last.id
       end
       if @comment.update_with_markdown
