@@ -44,14 +44,14 @@
   </span>
   </div>
   <% unless frame.binary.blank? %>
-      <div class="panel-footer">
+      <div class="panel-footer clearfix">
         <div class="center">
           <br/>
           <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
           &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
           <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%></b>
         </div>
-        <br/><br/>
+        <br/>
       </div>
   <% end %>
   <% if logged_in? %>
@@ -87,14 +87,9 @@
                                 class:  "btn btn-danger" %>
                 <% end %>
               </div>
-              </div>
+
           <% end %>
-  <% else %>
-      <div class="pull-right">
-        Publiée il y a <%= time_ago_in_words(frame.created_at) %>
-        par <%= link_to frame.user_name, user_path(frame.user_id) %>
+        </div>
       </div>
   <% end %>
-  </div>
-</div>
 </div>

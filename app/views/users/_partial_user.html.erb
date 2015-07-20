@@ -255,7 +255,7 @@
             <% else %>
                 <% @comments.each do |com| %>
                     <tr class="notification-comment">
-                      <td> <%= link_to "Voir l'analayse", comment_path(com.id ), class: "btn btn-primary" %>   </td>
+                      <td> <%= link_to "Voir l'analyse", comment_path(com.id ), class: "btn btn-primary" %>   </td>
                       <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
                     </tr>
                 <% end %>

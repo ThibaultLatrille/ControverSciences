@@ -64,11 +64,6 @@
                                 :style  => "margin-right: 8px" %>
                 <% end %>
               </div>
-          <% else %>
-              <div class="pull-right">
-                Publiée il y a <%= time_ago_in_words(summary.created_at) %>
-                par <%= link_to summary.user_name, user_path(summary.user_id) %>
-              </div>
           <% end %>
         </div>
       </div>

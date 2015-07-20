@@ -121,7 +121,7 @@
       <thead>
       <tr>
         <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> La synthèse  </th>
+        <th class="col-xs-4"> Synthèse  </th>
         <th class="col-xs-3"> Par  </th>
         <th class="col-xs-4"> Dans la controverse  </th>
       </tr>
@@ -157,7 +157,7 @@
       <thead>
       <tr>
         <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> La référence  </th>
+        <th class="col-xs-4"> Référence  </th>
         <th class="col-xs-3"> Par  </th>
         <th class="col-xs-4"> Dans la controverse </th>
       </tr>
@@ -194,7 +194,7 @@
       <thead>
       <tr>
         <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-3"> L'analyse </th>
+        <th class="col-xs-3"> Analyse </th>
         <th class="col-xs-2"> Par </th>
         <th class="col-xs-3"> De la référence </th>
         <th class="col-xs-3"> De la controverse </th>
@@ -234,7 +234,7 @@
     <thead>
     <tr>
       <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-      <th class="col-xs-3"> L'analyse </th>
+      <th class="col-xs-3"> Analyse </th>
       <th class="col-xs-2"> Par </th>
       <th class="col-xs-3"> De la référence </th>
       <th class="col-xs-3"> De la controverse </th>
@@ -347,10 +347,10 @@
   <div class="list-group">
     <%= f.button "<span class=\"glyphicon glyphicon-trash\"></span>&nbsp
     Supprimer les notifications sélectionnées".html_safe,
-                 class: 'list-group-item list-group-item-danger',
+                 class: 'list-group-item list-group-item-danger hover-red',
                  data: {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp Suppression en cours "}%>
     <%= link_to "<span class=\"badge badge-li\">#{current_user.send( "notifications_#{@filter}")}</span>
-                    <span class=\"icon-#{@filter} normal\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications",
+                    <span class=\"icon-#{@filter} normal\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications sur cette page",
                 notifications_delete_all_path(filter: @filter),
                 class: "list-group-item list-group-item-danger" %>
   </div>

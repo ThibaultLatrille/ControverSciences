@@ -55,10 +55,19 @@
                     </li>
                     <li class="divider"></li>
                 <% end %>
+                <% if Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count > 0 %>
+                    <li class="my-missing">
+                      <%= link_to "<span class=\"badge badge-header\"> #{Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count} </span>
+                      Vos controverses à enrichir".html_safe,
+                                  empty_references_path(filter: "mine"), style: "color: white;" %>
+
+                    </li>
+                    <li class="divider"></li>
+                <% end %>
                 <% if Reference.where(user_id: current_user.id, title_fr: nil).count > 0 %>
                     <li class="my-missing">
                       <%= link_to "<span class=\"badge badge-header\"> #{Reference.where(user_id: current_user.id, title_fr: nil).count} </span>
-                      Vos références qui ont besoin d'une analyse".html_safe,
+                      Vos références à analyser".html_safe,
                                   empty_comments_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
@@ -68,17 +77,8 @@
                     <li class="my-missing">
                       <%= link_to "<span class=\"badge badge-header\"> #{Timeline.where(user_id: current_user.id, nb_summaries: 0
                       ).where.not( nb_references: 0..3 ).where.not(nb_comments: 0..3).count} </span>
-                      Vos controverses qui ont besoin de synthèse".html_safe,
+                      Vos controverses à synthétiser".html_safe,
                                   empty_summaries_path(filter: "mine"), style: "color: white;" %>
-
-                    </li>
-                    <li class="divider"></li>
-                <% end %>
-                <% if Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count > 0 %>
-                    <li class="my-missing">
-                      <%= link_to "<span class=\"badge badge-header\"> #{Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count} </span>
-                      Vos controverses qui ont besoin de références".html_safe,
-                                  empty_references_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
                     <li class="divider"></li>
