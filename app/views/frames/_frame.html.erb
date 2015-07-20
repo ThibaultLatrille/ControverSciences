@@ -58,7 +58,7 @@
       <div class="panel-heading">
         <div class="clearfix">
           <% if current_user.id != frame.user_id %>
-              <% if @my_frame_credit && @my_frame_credit.summary_id == frame.id %>
+              <% if @my_frame_credit && @my_frame_credit.frame_id == frame.id %>
                   &nbsp
                 <span class="icon-frog-laurel big"
                       title="Vous avez selectionné cette contribution comme votre favorite"
@@ -91,8 +91,8 @@
           <% end %>
   <% else %>
       <div class="pull-right">
-        Publiée il y a <%= time_ago_in_words(summary.created_at) %>
-        par <%= link_to summary.user_name, user_path(summary.user_id) %>
+        Publiée il y a <%= time_ago_in_words(frame.created_at) %>
+        par <%= link_to frame.user_name, user_path(frame.user_id) %>
       </div>
   <% end %>
   </div>

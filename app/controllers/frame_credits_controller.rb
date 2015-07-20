@@ -6,7 +6,7 @@ class FrameCreditsController < ApplicationController
                  timeline_id: params[:timeline_id]).destroy_all
     credit = FrameCredit.new({user_id:     current_user.id,
                          timeline_id: params[:timeline_id],
-                         summary_id:  params[:summary_id]})
+                         frame_id:  params[:frame_id]})
     if credit.save
       flash[:success] = "Votre vote a été pris en compte"
     else
