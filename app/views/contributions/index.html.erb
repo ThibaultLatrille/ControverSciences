@@ -103,7 +103,7 @@
             myDatasets = myLineChart.datasets;
     $('#my-legend').append(myLineChart.generateLegend());
     $('.list-group-item', '#my-legend').on('click', function () {
-        if ($(this).hasClass("active")){
+        if ($(this).hasClass("active")) {
             $(this).removeClass("active");
             myLineChart.clear();
             myLineChart.datasets = [];
@@ -111,18 +111,22 @@
                 if (!$(value).hasClass("active")) {
                     myLineChart.datasets.push(myDatasets[parseInt($(value).data("legend"))])
                 }
+                myLineChart.draw();
+                myLineChart.update();
             });
-            myLineChart.draw()
         } else {
-            $(this).addClass("active");
-            myLineChart.clear();
-            myLineChart.datasets = [];
-            $.each($('.list-group-item', '#my-legend'), function (index, value) {
-                if (!$(value).hasClass("active")) {
-                    myLineChart.datasets.push(myDatasets[parseInt($(value).data("legend"))])
-                }
-            });
-            myLineChart.draw()
+            if ($('.active', '#my-legend').length < 4) {
+                $(this).addClass("active");
+                myLineChart.clear();
+                myLineChart.datasets = [];
+                $.each($('.list-group-item', '#my-legend'), function (index, value) {
+                    if (!$(value).hasClass("active")) {
+                        myLineChart.datasets.push(myDatasets[parseInt($(value).data("legend"))])
+                    }
+                });
+                myLineChart.draw();
+                myLineChart.update();
+            }
         }
     });
 </script>
