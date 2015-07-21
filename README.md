@@ -14,12 +14,12 @@ https://rvm.io/
 
 ControverSciences is currently using ruby 2.1.2
 
-## Install PostgreSQL and create role
+## Install PostgreSQL 9.4 and create role
 
 Install the Postgresql libraries:
 
 ```
-$ sudo apt-get install postgresql
+$ sudo apt-get install postgresql-9.4
 $ sudo apt-get install libpq-dev
 ```
 
