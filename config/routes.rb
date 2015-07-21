@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
   root             'static_pages#home'
+
+  if Rails.env.development?
+    get '/public/uploads/:file', to: redirect { |path_params, req|
+      "/uploads/#{path_params[:file]}.#{path_params[:format]}"
+    }
+  end
+
   get 'how_to'    => 'static_pages#how_to'
   get 'how_to_edit'    => 'static_pages#how_to_edit'
   get 'faq'    => 'static_pages#faq'
