@@ -20,15 +20,17 @@ class InvitationsController < ApplicationController
     end
     if @invitation.save
       begin
-        mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-        subject = "#{@invitation.user_name} vous invite à découvrir la #{@invitation.timeline_id ? "controverse \"#{@invitation.timeline.name}\"" : "référence \"#{@invitation.reference.title_display}\""}"
-        message = {
-            :subject =>  (CGI.unescapeHTML subject),
-            :from=>"#{@invitation.user_name} <invitation@controversciences.org>",
-            :to => @invitation.target_email,
-            :html => render_to_string( :file => 'user_mailer/invitation', layout: nil ).to_str
-        }
-        mg_client.send_message "controversciences.org", message
+        if Rails.env.production?
+          mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+          subject = "#{@invitation.user_name} vous invite à découvrir la #{@invitation.timeline_id ? "controverse \"#{@invitation.timeline.name}\"" : "référence \"#{@invitation.reference.title_display}\""}"
+          message = {
+              :subject =>  (CGI.unescapeHTML subject),
+              :from=>"#{@invitation.user_name} <invitation@controversciences.org>",
+              :to => @invitation.target_email,
+              :html => render_to_string( :file => 'user_mailer/invitation', layout: nil ).to_str
+          }
+          mg_client.send_message "controversciences.org", message
+        end
         respond_to do |format|
           format.js { render 'invitations/success', :content_type => 'text/javascript', :layout => false}
         end

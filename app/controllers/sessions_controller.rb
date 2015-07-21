@@ -20,14 +20,16 @@ class SessionsController < ApplicationController
           @user = user
           @user.create_activation_digest
           @user.update_columns(activation_digest: @user.activation_digest)
-          mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-          message   = {
-              :subject => "Activation du compte sur ControverSciences",
-              :from    => "activation@controversciences.org",
-              :to      => @user.email,
-              :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
-          }
-          mg_client.send_message "controversciences.org", message
+          if Rails.env.production?
+            mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+            message   = {
+                :subject => "Activation du compte sur ControverSciences",
+                :from    => "activation@controversciences.org",
+                :to      => @user.email,
+                :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
+            }
+            mg_client.send_message "controversciences.org", message
+          end
           render 'users/success'
         end
       end
@@ -47,14 +49,16 @@ class SessionsController < ApplicationController
           @user = user
           @user.create_activation_digest
           @user.update_columns(activation_digest: @user.activation_digest)
-          mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-          message   = {
-              :subject => "Activation du compte sur ControverSciences",
-              :from    => "activation@controversciences.org",
-              :to      => @user.email,
-              :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
-          }
-          mg_client.send_message "controversciences.org", message
+          if Rails.env.production?
+            mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+            message   = {
+                :subject => "Activation du compte sur ControverSciences",
+                :from    => "activation@controversciences.org",
+                :to      => @user.email,
+                :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
+            }
+            mg_client.send_message "controversciences.org", message
+          end
           render 'users/success'
         end
       end

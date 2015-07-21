@@ -2,15 +2,17 @@ class NewslettersController < ApplicationController
   def create
     if Newsletter.create( newsletter_params )
       begin
-        mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-        mg_client.post("/lists/newsletter@controversciences.org/members", {address: newsletter_params[:email]})
-        message = {
-            :subject=> "Inscription à la newsletter ControverSciences",
-            :from=>"contact@controversciences.org",
-            :to => newsletter_params[:email],
-            :html => render_to_string( :file => 'user_mailer/newsletter', layout: nil ).to_str
-        }
-        mg_client.send_message "controversciences.org", message
+        if Rails.env.production?
+          mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+          mg_client.post("/lists/newsletter@controversciences.org/members", {address: newsletter_params[:email]})
+          message = {
+              :subject=> "Inscription à la newsletter ControverSciences",
+              :from=>"contact@controversciences.org",
+              :to => newsletter_params[:email],
+              :html => render_to_string( :file => 'user_mailer/newsletter', layout: nil ).to_str
+          }
+          mg_client.send_message "controversciences.org", message
+        end
         respond_to do |format|
           format.js { render 'newsletters/success', :content_type => 'text/javascript', :layout => false}
         end

@@ -9,14 +9,16 @@ class PasswordResetsController < ApplicationController
     if @user
       if @user.activated?
         @user.create_reset_digest
-        mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-        message = {
-            :subject=> "Réinitialisation du mot de passe sur ControverSciences",
-            :from=>"reinitialisation@controversciences.org",
-            :to => @user.email,
-            :html => render_to_string( :file => 'user_mailer/password_reset', layout: nil ).to_str
-        }
-        mg_client.send_message "controversciences.org", message
+        if Rails.env.production?
+          mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+          message = {
+              :subject=> "Réinitialisation du mot de passe sur ControverSciences",
+              :from=>"reinitialisation@controversciences.org",
+              :to => @user.email,
+              :html => render_to_string( :file => 'user_mailer/password_reset', layout: nil ).to_str
+          }
+          mg_client.send_message "controversciences.org", message
+        end
         flash[:info] = "Un email vous a été envoyé."
         redirect_to root_url
       else
@@ -29,14 +31,16 @@ class PasswordResetsController < ApplicationController
         else
           @user.create_activation_digest
           @user.update_columns( activation_digest: @user.activation_digest )
-          mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-          message = {
-              :subject=> "Activation du compte sur ControverSciences",
-              :from=>"activation@controversciences.org",
-              :to => @user.email,
-              :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str
-          }
-          mg_client.send_message "controversciences.org", message
+          if Rails.env.production?
+            mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+            message = {
+                :subject=> "Activation du compte sur ControverSciences",
+                :from=>"activation@controversciences.org",
+                :to => @user.email,
+                :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str
+            }
+            mg_client.send_message "controversciences.org", message
+          end
           render 'users/success'
         end
       end
