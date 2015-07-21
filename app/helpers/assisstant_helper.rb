@@ -1,13 +1,21 @@
 module AssisstantHelper
 
   def anonymize_data
-    User.find_each do |user|
-      user.name = Faker::Name.name
-      user.email = Faker::Internet.email
-      user.password = SecureRandom.hex
-      user.password_confirmation = user.password
-      user.activated = true
-      user.save!
+    ActiveRecord::Base.transaction do
+      User.find_each do |user|
+        user.name = Faker::Name.name
+        user.email = Faker::Internet.email
+        user.password = SecureRandom.hex
+        user.password_confirmation = user.password
+        user.activated = true
+        user.save!
+      end
+      admin = User.first
+      admin.name = "Administrator"
+      admin.email = "administrator@controversciences.org"
+      admin.password = "password"
+      admin.password_confirmation = "password"
+      admin.save!
     end
   end
 
