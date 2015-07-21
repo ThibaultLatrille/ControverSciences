@@ -1,5 +1,16 @@
 module AssisstantHelper
 
+  def anonymize_data
+    User.find_each do |user|
+      user.name = Faker::Name.name
+      user.email = Faker::Internet.email
+      user.password = SecureRandom.hex
+      user.password_confirmation = user.password
+      user.activated = true
+      user.save!
+    end
+  end
+
   def update_all_profils
     max = {1 => 0.0, 2 => 0.0, 3 => 0.0, 4 => 0.0, 5 => 0.0, 6 => 0.0, 7 => 0.0, 8 => 0.0, 9 => 0.0 }
     UserDetail.find_each do |user_detail|
