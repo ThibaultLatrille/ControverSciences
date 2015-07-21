@@ -30,9 +30,6 @@ gem 'oj'
 
 gem 'sdoc',         '0.4.0', group: :doc
 
-# Database seeding with fake data
-gem 'faker',                '1.4.2'
-
 # Bib parser to seed the references
 gem 'bibtex-ruby'
 
@@ -77,6 +74,8 @@ group :test do
 end
 
 group :development do
+  # Database seeding with fake data
+  gem 'faker',                '1.4.2'
   gem 'spring',  '1.1.3'
   gem 'quiet_assets'
 end
