@@ -1,0 +1,1 @@
+pg_dump -Fc -h localhost -U controversciences controversciences_dev > ./dump/controversciences_dev.dump 

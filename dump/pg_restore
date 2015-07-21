@@ -1,0 +1,1 @@
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -U controversciences -d controversciences_dev ./dump/controversciences_dev.dump
