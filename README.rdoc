@@ -1,28 +1,55 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Get ControverSciences up and running for developpement on Linux
 
-Things you may want to cover:
+## Clone the repository and cd to the dir
+```
+$ git clone https://github.com/ThibaultLatrille/ControverSciences.git
+$ cd /ControverSciences
+```
 
-* Ruby version
+## Install RVM for managing ruby version
 
-* System dependencies
+Follow steps in
+https://rvm.io/
 
-* Configuration
+ControverSciences is currently using ruby 2.1.2
 
-* Database creation
+## Install PostgreSQL and create role
+Install the Postgresql libraries:
+```
+$ sudo apt-get install postgresql
+$ sudo apt-get install libpq-dev
+```
 
-* Database initialization
+Then create the user (AKA "role") inside PostgreSQL:
+```
+$ psql -d postgres
+postgres=# create role controversciences login createdb password 'password';
+postgres=# \q
+```
 
-* How to run the test suite
+## Install the gems
+```
+$ bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Create database and populate with Fake data
+```
+$ rake db:create
+$ sh ./dump/pg_restore
+```
 
-* Deployment instructions
+## Run local webserver
+```
+$ rails s
+```
 
-* ...
+Navigate to 127.0.0.1:3000 with your favorite browser and you are Up & Running
 
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+# Repopulate the database after a maj or if you screwed the database
+```
+$ rake db:drop
+$ rake db:create
+$ sh ./dump/pg_restore
+```
