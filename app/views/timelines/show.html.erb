@@ -68,32 +68,41 @@
   </div>
 
   <% if @timeline.nb_references > 2 || @summary %>
-      <div class="list-group">
-        <% if @summary %>
-            <% if @timeline.nb_summaries > 1 %>
-                <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
+      <% if logged_in? %>
+          <div class="list-group">
+            <% if @summary %>
+                <% if @timeline.nb_summaries > 1 %>
+                    <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
                   &nbsp Les synthèses de cette controverse ".html_safe,
-                            summaries_path(timeline_id: @timeline.id),
-                            class: "list-group-item" %>
-            <% end %>
-            <% if logged_in? && @improve %>
+                                summaries_path(timeline_id: @timeline.id),
+                                class: "list-group-item" %>
+                <% end %>
+                <% if @improve %>
+                    <%= link_to "<span class=\"icon-fork normal\" >
+                    </span> Ecrire une synthèse".html_safe,
+                                new_summary_path(timeline_id: @timeline.id),
+                                :class => "list-group-item" %>
+                <% else %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                  Ma synthèse".html_safe,
+                                summaries_path(timeline_id: @timeline.id, filter: "mine"),
+                                :class => "list-group-item" %>
+                <% end %>
+            <% else %>
                 <%= link_to "<span class=\"icon-fork normal\" >
                     </span> Ecrire une synthèse".html_safe,
                             new_summary_path(timeline_id: @timeline.id),
-                            :class => "list-group-item" %>
-            <% elsif logged_in? %>
-                <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
-                  Ma synthèse".html_safe,
-                            summaries_path(timeline_id: @timeline.id, filter: "mine"),
-                            :class => "list-group-item" %>
+                            class: "list-group-item" %>
             <% end %>
-        <% else %>
-            <%= link_to "<span class=\"icon-fork normal\" >
-                    </span> Ecrire une synthèse".html_safe,
-                        new_summary_path(timeline_id: @timeline.id),
+          </div>
+      <% elsif @timeline.nb_summaries > 1 %>
+          <div class="list-group">
+            <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
+              &nbsp Les synthèses de cette controverse ".html_safe,
+                        summaries_path(timeline_id: @timeline.id),
                         class: "list-group-item" %>
-        <% end %>
-      </div>
+          </div>
+      <% end %>
   <% end %>
   <% if logged_in? %>
       <div class="list-group">
