@@ -22,18 +22,6 @@ class Edge < ActiveRecord::Base
     Timeline.select(:name).find(self.timeline_id).name
   end
 
-  def plus
-    EdgeVote.where(edge_id: self.id, value: true).count
-  end
-
-  def minus
-    EdgeVote.where(edge_id: self.id, value: false).count
-  end
-
-  def balance
-    self.plus - self.minus
-  end
-
   private
 
   def uniqueness_validation

@@ -32,12 +32,12 @@ class ReferenceEdge < ActiveRecord::Base
     Reference.select(:title_fr).find(self.reference_id).title_fr
   end
 
-  def plus(category)
+  def plus_count(category)
     ReferenceEdgeVote.where(reference_edge_id: self.id,
                                     value: true, category: category).count
   end
 
-  def minus(category)
+  def minus_count(category)
     ReferenceEdgeVote.where(reference_edge_id: self.id,
                                     value: false, category: category).count
   end

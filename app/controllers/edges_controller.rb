@@ -2,7 +2,7 @@ class EdgesController < ApplicationController
   before_action :logged_in_user, only: [:index, :create]
 
   def index
-    @edges = Edge.where("timeline_id = ? OR target = ?",
+    @edges = Edge.order( balance: :desc).where("timeline_id = ? OR target = ?",
                         params[:timeline_id],
                         params[:timeline_id])
     timeline_ids = @edges.map{ |e| [e.target, e.timeline_id] }

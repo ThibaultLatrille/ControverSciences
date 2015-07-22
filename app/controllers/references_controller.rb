@@ -186,9 +186,9 @@ class ReferencesController < ApplicationController
   def network
     @nodes = Reference.select(:id, :slug, :title, :title_fr,:binary_most, :star_most)
                       .where( timeline_id: params[:timeline_id] )
-    @links = ReferenceEdge.select(:id, :timeline_id, :reference_id, :target)
+    @links = ReferenceEdge.select(:id, :timeline_id, :reference_id, :target, :balance)
                           .where( timeline_id: params[:timeline_id] )
-                          .to_a.uniq{ |e| [e.timeline_id,e.target].sort }
+                          .to_a.reject{|i|  i.balance < 0 }.uniq{ |e| [e.timeline_id,e.target].sort }
   end
 
   private

@@ -3,11 +3,23 @@ module MajHelper
   def maj_v_8
     ActiveRecord::Base.transaction do
       Edge.find_each do |edge|
+        plus = EdgeVote.where( edge_id: edge.id, value: true).count
+        minus = EdgeVote.where( edge_id: edge.id, value: false).count
+        edge.plus = plus
+        edge.minus = minus
+        edge.balance = plus - minus
+        edge.save!
         EdgeVote.find_or_create_by( user_id: edge.user_id,
                                     edge_id: edge.id,
                                     value: true )
       end
       ReferenceEdge.find_each do |ref_edge|
+        plus = ReferenceEdgeVote.where( reference_edge_id: ref_edge.id, value: true, category: ref_edge.category).count
+        minus = ReferenceEdgeVote.where( reference_edge_id: ref_edge.id, value: false, category: ref_edge.category).count
+        ref_edge.plus = plus
+        ref_edge.minus = minus
+        ref_edge.balance = plus - minus
+        ref_edge.save!
         ReferenceEdgeVote.find_or_create_by( user_id: ref_edge.user_id,
                                     reference_edge_id: ref_edge.id,
                                     category: ref_edge.category,

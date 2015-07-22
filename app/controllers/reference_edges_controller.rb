@@ -2,7 +2,7 @@ class ReferenceEdgesController < ApplicationController
   before_action :logged_in_user, only: [:index, :create]
 
   def index
-    @reference_edges = ReferenceEdge.where( timeline_id: params[:timeline_id] )
+    @reference_edges = ReferenceEdge.order( balance: :desc).where( timeline_id: params[:timeline_id] )
                         .where("reference_id = ? OR target = ?",
                         params[:reference_id],
                         params[:reference_id])

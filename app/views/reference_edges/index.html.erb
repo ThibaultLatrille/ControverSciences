@@ -32,8 +32,8 @@
               </h6>
           <% end %>
           <% @reference_edges.each do |reference_edge| %>
-              <div class="panel panel-default">
-                <div class="panel-body">
+              <div class="panel <%= reference_edge.balance >= 0 ? "panel-default" : "panel-danger" %>">
+                <div class="panel-heading">
                   <h4>
                     <% if params[:reference_id].to_i == reference_edge.target %>
                         <%= backward_edges_category[reference_edge.category] %>
@@ -64,21 +64,21 @@
                       <div class="panel-body">
                   <% (1..edges_category.length).each do |category| %>
                       <div class="panel panel-default">
-                        <div class="panel-body">
+                        <div class="panel-heading">
                           <div class="pull-left" style="margin-right: 20px">
                             <% if @my_vote_likes && @my_vote_likes.include?([reference_edge.id, category]) %>
                                 <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
                                         data-category="<%= category %>"
                                         data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                        title="Vous et <%= (reference_edge.plus(category) - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
-                                  <span class="icon icon-4 font16"> <%= reference_edge.plus(category)  %></span>
+                                        title="Vous et <%= (reference_edge.plus_count(category) - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                                  <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category)  %></span>
                                 </button>
                             <% else %>
                                 <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
                                         data-category="<%= category %>"
                                         data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                        title="<%= reference_edge.plus(category).to_s + " contributeurs sont d'accord avec ce lien" %>">
-                                  <span class="icon icon-4 font16"> <%= reference_edge.plus(category)  %></span>
+                                        title="<%= reference_edge.plus_count(category).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                                  <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category)  %></span>
                                 </button>
                             <% end %>
                             <div style="margin-top: 5px"></div>
@@ -86,15 +86,15 @@
                                 <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
                                         data-category="<%= category %>"
                                         data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                        title="Vous et <%= (reference_edge.minus(category)  - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
-                                  <span class="icon icon-2 font16"> <%= reference_edge.minus(category)  %></span>
+                                        title="Vous et <%= (reference_edge.minus_count(category)  - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
+                                  <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category)  %></span>
                                 </button>
                             <% else %>
                                 <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
                                         data-category="<%= category %>"
                                         data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                        title="<%= reference_edge.minus(category).to_s + " contributeurs en sont pas d'accord avec ce lien" %>">
-                                  <span class="icon icon-2 font16"> <%= reference_edge.minus(category)  %></span>
+                                        title="<%= reference_edge.minus_count(category).to_s + " contributeurs en sont pas d'accord avec ce lien" %>">
+                                  <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category)  %></span>
                                 </button>
                             <% end %>
                           </div>

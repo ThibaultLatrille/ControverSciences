@@ -23,8 +23,8 @@
               <h6><span class="glyphicon glyphicon-link"></span> Liens avec les controverses : </h6>
               <% end %>
               <% @edges.each do |edge| %>
-                  <div class="panel panel-default">
-                    <div class="panel-body">
+                  <div class="panel <%= edge.balance >= 0 ? "panel-default" : "panel-danger" %>" >
+                    <div class="panel-heading">
                       <div class="pull-left">
                         <% if @my_vote_likes && @my_vote_likes.include?(edge.id) %>
                             <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"

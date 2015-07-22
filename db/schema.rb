@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722090257) do
+ActiveRecord::Schema.define(version: 20150722100625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,9 @@ ActiveRecord::Schema.define(version: 20150722090257) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "plus",        default: 0
+    t.integer  "minus",       default: 0
+    t.integer  "balance",     default: 0
   end
 
   add_index "edges", ["timeline_id"], name: "index_edges_on_timeline_id", using: :btree
@@ -427,6 +430,9 @@ ActiveRecord::Schema.define(version: 20150722090257) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category"
+    t.integer  "plus",         default: 0
+    t.integer  "minus",        default: 0
+    t.integer  "balance",      default: 0
   end
 
   add_index "reference_edges", ["reference_id"], name: "index_reference_edges_on_reference_id", using: :btree
