@@ -15,7 +15,7 @@ class EdgesController < ApplicationController
   end
 
   def create
-        Edge.create!(user_id: current_user.id, reversible: false,
+        Edge.create!(user_id: current_user.id,
                     timeline_id: edge_params[:timeline_id],
                         weight: 1, target: edge_params[:target])
     redirect_to edges_path(timeline_id: edge_params[:timeline_id])

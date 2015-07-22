@@ -18,7 +18,7 @@ class ReferenceEdgesController < ApplicationController
   end
 
   def create
-    ReferenceEdge.create!(user_id: current_user.id, reversible: false,
+    ReferenceEdge.create!(user_id: current_user.id,
                           category: reference_edge_params[:category],
                 reference_id: reference_edge_params[:reference_id],
                 timeline_id: reference_edge_params[:timeline_id],
