@@ -133,6 +133,16 @@ class Timeline < ActiveRecord::Base
     end
   end
 
+  def get_tag_hash
+    hash = {}
+    self.references.each do |ref|
+      ref.tags.map(&:name).each do |name|
+        hash[name] ? hash[name] += 1 : hash[name] = 1
+      end
+    end
+    hash
+  end
+
   def compute_score( nb_contributors, nb_references, nb_edits )
     3.0/(1.0/(1+Math.log(1+nb_contributors))+1.0/(1+Math.log(1+10*nb_references))+1.0/(1+Math.log(1+5*nb_edits)))
   end

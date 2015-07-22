@@ -2,6 +2,9 @@ module MajHelper
 
   def maj_v_8
     ActiveRecord::Base.transaction do
+      ReferenceUserTag.find_each do |ref_user_tag|
+        ref_user_tag.update_tags
+      end
       Edge.find_each do |edge|
         plus = EdgeVote.where( edge_id: edge.id, value: true).count
         minus = EdgeVote.where( edge_id: edge.id, value: false).count
