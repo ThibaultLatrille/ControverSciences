@@ -56,8 +56,8 @@ module ApplicationHelper
   end
 
   def star_hash
-    { 1 => "Cette référence n'est pas du tout rigoureuse et n'apporte rien à la controverse.",
-      2 => "Cette référence est rigoureuse mais n'apporte rien à la controverse.",
+    { 1 => "Cette référence est peu rigoureuse et n'apporte rien à la controverse.",
+      2 => "Cette référence est rigoureuse mais pas importante pour comprendre la controverse.",
       3 => "Cette référence est peu rigoureuse mais est importante pour comprendre la controverse.",
       4 => "Cette référence est rigoureuse et est importante pour comprendre la controverse.",
       5 => "Cette référence est à lire absolument dans le cadre de cette controverse !"}
