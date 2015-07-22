@@ -11,16 +11,10 @@ class ReferenceEdge < ActiveRecord::Base
   validates :target, presence: true
   validates :weight, presence: true, inclusion: { in: 1..12 }
   validates_uniqueness_of :category, :scope => [:target, :reference_id]
-
+  validate :uniqueness_validation
   validate :target_reference_diff
 
-  def target_reference_diff
-    if self.reference_id == self.target
-      errors.add(:target, 'Lien vers elle même')
-    else
-      true
-    end
-  end
+  after_create :cascading_create_vote
 
   def target_title
     Reference.select(:title).find(self.target).title
@@ -48,9 +42,29 @@ class ReferenceEdge < ActiveRecord::Base
                                     value: false, category: category).count
   end
 
-  def reverse
-    if self.reversible
-      ReferenceEdge.find_by( reference_id: self.target )
+  private
+
+  def uniqueness_validation
+    if ReferenceEdge.find_by(reference_id: self.target, target: self.reference_id)
+      errors.add(:target, ". Ce lien existe déjà")
+    else
+      true
+    end
+  end
+
+  def cascading_create_vote
+    ReferenceEdgeVote.create(user_id: self.user_id,
+                             reference_edge_id: self.id,
+                             category: self.category,
+                             timeline_id: self.timeline_id,
+                             value: true)
+  end
+
+  def target_reference_diff
+    if self.reference_id == self.target
+      errors.add(:target, 'Lien vers elle même')
+    else
+      true
     end
   end
 
