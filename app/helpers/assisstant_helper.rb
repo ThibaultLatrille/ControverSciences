@@ -16,6 +16,8 @@ module AssisstantHelper
       admin.password = "password"
       admin.password_confirmation = "password"
       admin.save!
+      Comment.where( public: false).destroy_all
+      Summary.where( public: false).destroy_all
     end
   end
 
