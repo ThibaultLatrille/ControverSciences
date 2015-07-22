@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722100625) do
+ActiveRecord::Schema.define(version: 20150722115335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -438,6 +438,16 @@ ActiveRecord::Schema.define(version: 20150722100625) do
   add_index "reference_edges", ["reference_id"], name: "index_reference_edges_on_reference_id", using: :btree
   add_index "reference_edges", ["timeline_id"], name: "index_reference_edges_on_timeline_id", using: :btree
   add_index "reference_edges", ["user_id"], name: "index_reference_edges_on_user_id", using: :btree
+
+  create_table "reference_taggings", force: true do |t|
+    t.integer  "tag_id"
+    t.integer  "reference_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reference_taggings", ["reference_id"], name: "index_reference_taggings_on_reference_id", using: :btree
+  add_index "reference_taggings", ["tag_id"], name: "index_reference_taggings_on_tag_id", using: :btree
 
   create_table "reference_user_taggings", force: true do |t|
     t.integer  "tag_id"

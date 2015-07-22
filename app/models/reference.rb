@@ -21,6 +21,8 @@ class Reference < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_one :best_comment, dependent: :destroy
   has_many :reference_user_tags, dependent: :destroy
+  has_many :reference_taggings, dependent: :destroy
+  has_many :tags, through: :reference_taggings
 
   around_update :delete_if_review
 
@@ -36,13 +38,19 @@ class Reference < ActiveRecord::Base
   validates_presence_of :title, :author, :year, :url, :journal
   validates_uniqueness_of :timeline_id, :if => Proc.new { |c| not c.doi.blank? }, :scope => [:doi]
 
-  def self.tagged_with(name)
-    Tag.find_by_name!(name).timelines
+  def get_tag_list
+    tags.map(&:name)
   end
 
-  def self.tag_counts
-    Tag.select("tags.*, count(reference_user_taggings.tag_id) as count").
-        joins(:taggings).group("reference_user_taggings.tag_id")
+  def set_tag_list(names)
+    if !names.nil?
+      list = tags_hash.keys
+      self.tags = names.map do |n|
+        if list.include? n
+          Tag.where(name: n.strip).first_or_create!
+        end
+      end
+    end
   end
 
   def get_tag_hash
