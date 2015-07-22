@@ -50,6 +50,11 @@
                                     reference_path(reference_edge.target) %>
                     <% end %>
                   </h4>
+                  <% if reference_edge.balance < 0  %>
+                      <div class="alert alert-danger">
+                        Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs.
+                      </div>
+                  <% end  %>
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="heading1">
                       <h4 class="panel-title clearfix">
