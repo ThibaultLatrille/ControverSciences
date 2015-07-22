@@ -1,4 +1,22 @@
 module MajHelper
+
+  def maj_v_8
+    ActiveRecord::Base.transaction do
+      Edge.find_each do |edge|
+        EdgeVote.find_or_create_by( user_id: edge.user_id,
+                                    edge_id: edge.id,
+                                    value: true )
+      end
+      ReferenceEdge.find_each do |ref_edge|
+        ReferenceEdgeVote.find_or_create_by( user_id: ref_edge.user_id,
+                                    reference_edge_id: ref_edge.id,
+                                    category: ref_edge.category,
+                                    timeline_id: ref_edge.timeline_id,
+                                    value: true )
+      end
+    end
+  end
+
   def maj_v_7
     ActiveRecord::Base.transaction do
       Credit.destroy_all
