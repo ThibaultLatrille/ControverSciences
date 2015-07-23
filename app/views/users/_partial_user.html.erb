@@ -6,20 +6,6 @@
         <div class="pull-right">
           <%= link_to "<span class=\"fat icon-techno\"></span> Editer mon profil".html_safe,
                       edit_user_path(@user.id) ,class: "btn btn-default" %>
-          <% if current_user.can_switch_admin %>
-              &nbsp
-              <% if current_user.admin %>
-              <div class="pull-right">
-                <%= link_to "<span class=\"glyphicon glyphicon-log-out\"></span> Human mode ".html_safe,
-                            switch_admin_users_path ,class: "btn btn-primary" %>
-              </div>
-              <% else %>
-              <div class="pull-right">
-                <%= link_to "<span class=\"glyphicon glyphicon-log-in\"></span> God Power mode ".html_safe,
-                            switch_admin_users_path ,class: "btn btn-primary" %>
-              </div>
-              <% end %>
-          <% end %>
         </div>
     <% end %>
         <% if @user_detail && @user_detail.id && @user_detail.picture? %>

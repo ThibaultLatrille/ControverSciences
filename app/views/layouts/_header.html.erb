@@ -108,10 +108,21 @@
             <li><%= link_to "S'identifier", login_path, id: "link-navbar" %></li>
              <% end %>
              <li>
-               <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\">
-    </span>".html_safe, '#newissue',
-                                   'data-toggle' => 'modal' %>
+               <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe, '#newissue','data-toggle' => 'modal' %>
              </li>
+             <% if logged_in? && current_user.can_switch_admin %>
+                 <% if current_user.admin %>
+                     <li>
+                       <%= link_to "<span class=\"glyphicon glyphicon-log-out\"></span> Be Human".html_safe,
+                                   switch_admin_users_path %>
+                     </li>
+                 <% else %>
+                     <li>
+                       <%= link_to "<span class=\"glyphicon glyphicon-log-in\"></span> Be God".html_safe,
+                                   switch_admin_users_path %>
+                     </li>
+                 <% end %>
+             <% end %>
           </ul>
     </nav>
   </div>

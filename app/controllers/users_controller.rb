@@ -92,7 +92,7 @@ class UsersController < ApplicationController
         current_user.update_columns(admin: true)
       end
     end
-    redirect_to user_path(current_user.id)
+    redirect_to :back
   end
 
   def destroy
