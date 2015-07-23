@@ -1,68 +1,70 @@
 <% if full_width %>
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 timeline">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-12 timeline">
 <% else %>
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 timeline">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 timeline">
 <% end %>
-  <div class="panel panel-primary">
-    <div class="timeline-body">
+<div class="panel panel-primary">
+  <div class="timeline-body">
     <div class="panel-body">
-      <button type="button" class="btn btn-default" data-toggle="collapse"
-              data-target="#tags<%= timeline.id %>,#group<%= timeline.id %>">
-        <span class="icon-frog" style="font-size: 1.4em"></span> Thèmes
-      </button>
-      <div class="pull-right">
-        <% if my_likes && my_likes.include?(timeline.id) %>
-            <button type="button" class="btn btn-success" data-placement="left"
-                    data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
-                    title="Vous et <%= (timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
-              <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
-            </button>
-        <% else %>
-            <button type="button" class="btn btn-default green" data-placement="left"
-                    data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
-                    title="<%= timeline.nb_likes.to_s + " contributeurs s'intéressent à cette controverse" %>">
-              <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
+      <div class="timeline-name">
+        <% unless timeline.get_tag_list.blank? %>
+            <button type="button" class="btn btn-default" data-toggle="collapse"
+                    data-target="#tags<%= timeline.id %>,#group<%= timeline.id %>">
+              <span class="icon-frog" style="font-size: 1.4em"></span> Thèmes
             </button>
         <% end %>
-      </div>
-      <div class="timeline-name center">
-        <br/>
-          <%= link_to timeline.name.html_safe, timeline, class: "hvr-grow" %>
+        <div class="pull-right">
+          <% if my_likes && my_likes.include?(timeline.id) %>
+              <button type="button" class="btn btn-success" data-placement="left"
+                      data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
+                      title="Vous et <%= (timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
+                <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
+              </button>
+          <% else %>
+              <button type="button" class="btn btn-default green" data-placement="left"
+                      data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
+                      title="<%= timeline.nb_likes.to_s + " contributeurs s'intéressent à cette controverse" %>">
+                <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
+              </button>
+          <% end %>
+        </div>
+        <br/><br/>
+        <%= link_to timeline.name.html_safe, timeline, class: "hvr-grow center" %>
         <% if timeline.nb_comments == 0 %>
-              <div class="construct center">
-                Controverse en construction
-              </div>
+            <div class="construct center">
+              Controverse en construction
+            </div>
         <% end %>
       </div>
       <div class="collapse collapsed center" id="tags<%= timeline.id %>">
-          <% timeline.get_tag_list.each do |name| %>
+        <% timeline.get_tag_list.each do |name| %>
             <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
                         timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
                         class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
-          <% end %>
+        <% end %>
       </div>
       <div class="collapse in center" id="group<%= timeline.id %>">
-          <div class="sticky" data-placement="left"
-               title="<%= timeline.nb_contributors.to_s + (timeline.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
-               data-toggle="tooltip">
-            <span class="fat icon-users"></span>
+        <div class="sticky" data-placement="left"
+             title="<%= timeline.nb_contributors.to_s + (timeline.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
+             data-toggle="tooltip">
+          <span class="fat icon-users"></span>
           <span class="badge"><%= timeline.nb_contributors %></span>
-          </div>
-          <div class="sticky" data-placement="top"
-               title="<%= timeline.nb_references.to_s + (timeline.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
-               data-toggle="tooltip">
-            <span class="fat icon-reference"></span>
+        </div>
+        <div class="sticky" data-placement="top"
+             title="<%= timeline.nb_references.to_s + (timeline.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
+             data-toggle="tooltip">
+          <span class="fat icon-reference"></span>
           <span class="badge"><%= timeline.nb_references %></span>
-          </div>
-          <div class="sticky" data-placement="right"
-               title="<%= timeline.nb_edits.to_s + (timeline.nb_edits > 1 ? " contributions" : " contribution") %>"
-               data-toggle="tooltip">
-            <span class="fat icon-comment"></span>
+        </div>
+        <div class="sticky" data-placement="right"
+             title="<%= timeline.nb_edits.to_s + (timeline.nb_edits > 1 ? " contributions" : " contribution") %>"
+             data-toggle="tooltip">
+          <span class="fat icon-comment"></span>
           <span class="badge"><%= timeline.nb_edits %></span>
-          </div>
+        </div>
         <div class="stats"></div>
       </div>
     </div>
   </div>
-  </div>
+</div>
 </div>

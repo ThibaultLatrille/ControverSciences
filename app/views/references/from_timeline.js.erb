@@ -7,3 +7,4 @@ $("#reference<%= params[:reference_id] %>").html(
         });
 $("#ref-<%= params[:reference_id] %>").show();
 $("#button<%= params[:reference_id] %>").remove();
+$('[data-toggle="tooltip"]',"#reference<%= params[:reference_id] %>").tooltip({container: 'body'});

@@ -1,4 +1,10 @@
 <br/>
+<% @ref.get_tag_list.each do |name| %>
+    <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+<% end %>
+<br/>
 <% if best_comment.f_7_comment_id %>
     <div class="pull-right">
       <br/><br/>
@@ -13,7 +19,7 @@
 <% end %>
 <% for fi in 0..5 %>
     <% if best_comment["f_#{fi}_comment_id".to_sym] %>
-        <b> <% if @article %>
+        <b> <% if @ref.article %>
               <%= article_hash[fi] %>
           <% else %>
               <%= review_hash[fi] %>
