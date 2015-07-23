@@ -61,7 +61,7 @@
               <% if @my_frame_credit && @my_frame_credit.frame_id == frame.id %>
                   &nbsp
                 <span class="icon-frog-laurel big"
-                      title="Vous avez selectionné cette contribution comme votre favorite"
+                      title="J'ai selectionné cette contribution comme ma favorite"
                       data-placement="right"
                       data-toggle="tooltip"></span>
               <% else %>
@@ -70,7 +70,7 @@
                                                  frame_id:    frame.id),
                               "data-toggle"    => "tooltip",
                               "data-placement" => "right",
-                              title:           "Selectionner cette contribution comme votre favorite",
+                              title:           "Selectionner cette contribution comme ma favorite",
                               method:          :post,
                               class:           "btn btn-success",
                               :style           => "padding: 8px; margin-left: 8px" %>

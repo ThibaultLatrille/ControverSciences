@@ -19,10 +19,10 @@
         <% else %>
             <br/>
 
-            <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette
+            <h2 class="modal-title" id="myModalLabel"> M'identifier afin d'effectuer cette
               action</h2>
             <br/>
-            <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
+            <%= link_to "M'identifier", login_path, class: "btn btn-lg btn-primary" %>
             <div class="pull-right">
               <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
             </div>
@@ -37,7 +37,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#fetch').trigger('click')
+        $('#fetch').trigger('click');
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     });
     $(function () {
@@ -58,7 +58,7 @@
                         self.removeClass('green');
                         self.addClass('btn-success');
                         self.removeClass('btn-default');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                        self.attr('data-original-title', "Moi et " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
                     204: function (response){
@@ -68,7 +68,7 @@
                         self.addClass('btn-default');
                         self.removeClass('btn-success');
                         self.addClass('green');
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                        self.attr('data-original-title', self.attr('data-original-title').replace('Moi et ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
                     401: function (response){

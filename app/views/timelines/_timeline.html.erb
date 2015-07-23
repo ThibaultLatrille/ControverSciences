@@ -17,7 +17,7 @@
           <% if my_likes && my_likes.include?(timeline.id) %>
               <button type="button" class="btn btn-success" data-placement="left"
                       data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
-                      title="Vous et <%= (timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
+                      title="Moi et <%= (timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
                 <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
               </button>
           <% else %>

@@ -29,7 +29,7 @@
             <% if @my_sug_likes && @my_sug_likes.include?(suggestion.id) %>
                 <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
                         data-toggle="tooltip" value="<%= suggestion.id %>" data-validate="/suggestion_votes"
-                        title="Vous et <%= (suggestion.plus - 1).to_s + " contributeurs trouvent cette idée constructive" %>">
+                        title="Moi et <%= (suggestion.plus - 1).to_s + " contributeurs trouvent cette idée constructive" %>">
                   <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion.plus %></span>
                 </button>
             <% else %>

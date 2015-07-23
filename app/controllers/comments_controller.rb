@@ -84,7 +84,7 @@ class CommentsController < ApplicationController
       if current_user && current_user.id == @comment.user_id
         flash.now[:info] = "Cette analyse est privée."
       else
-        flash[:danger] = "Vous n'avez pas l'autorisation d'accéder à l'analyse, le contenu à été rendu privé par son auteur."
+        flash[:danger] = "Je n'ai pas l'autorisation d'accéder à l'analyse, le contenu à été rendu privé par son auteur."
         redirect_to reference_path(@comment.reference_id)
       end
     end
@@ -96,7 +96,7 @@ class CommentsController < ApplicationController
       comment.destroy_with_counters
       redirect_to my_items_items_path
     else
-      flash[:danger] = "Vous ne pouvez pas supprimer une analyse qui ne vous appartient pas."
+      flash[:danger] = "Je ne peux pas supprimer une analyse qui ne m'appartient pas."
       redirect_to comment_path(params[:id])
     end
   end

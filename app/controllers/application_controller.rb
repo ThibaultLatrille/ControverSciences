@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
           @user_notif = user
           names << "#{user.email}: #{user.name} || "
           message = {
-              :subject=> "#{@user_notif.name}, les nouveautés qui vous intéressent sur ControverSciences",
+              :subject=> "#{@user_notif.name}, les nouveautés qui m'intéressent sur ControverSciences",
               :from=>"contact@controversciences.org",
               :to => @user_notif.email,
               :html => render_to_string( :file => 'user_mailer/notifications', layout: nil ).to_str
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   def logged_in_user
     unless logged_in?
       store_location
-      flash[:danger] = "Vous devez vous connecter/inscrire pour explorer ce recoin de ControverSciences."
+      flash[:danger] = "Je dois me connecter pour explorer ce recoin de ControverSciences."
       redirect_to login_url
     end
   end

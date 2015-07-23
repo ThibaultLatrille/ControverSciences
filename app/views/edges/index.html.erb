@@ -29,7 +29,7 @@
                         <% if @my_vote_likes && @my_vote_likes.include?(edge.id) %>
                             <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="Vous et <%= (edge.plus - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                                    title="Moi et <%= (edge.plus - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
                               <span class="icon icon-4 font16"> <%= edge.plus %></span>
                             </button>
                         <% else %>
@@ -42,13 +42,13 @@
                         <% if @my_vote_dislikes && @my_vote_dislikes.include?(edge.id) %>
                             <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="Vous et <%= (edge.minus - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
+                                    title="Moi et <%= (edge.minus - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
                               <span class="icon icon-2 font16"> <%= edge.minus %></span>
                             </button>
                         <% else %>
                             <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="<%= edge.minus.to_s + " contributeurs en sont pas d'accord avec ce lien" %>">
+                                    title="<%= edge.minus.to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
                               <span class="icon icon-2 font16"> <%= edge.minus %></span>
                             </button>
                         <% end %>
@@ -139,7 +139,7 @@
                             self.addClass('btn-danger');
                         }
                         self.removeClass('btn-default');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                        self.attr('data-original-title', "Moi et " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
                     204: function (response){
@@ -154,7 +154,7 @@
                             self.removeClass('btn-danger');
                             self.addClass('red');
                         }
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                        self.attr('data-original-title', self.attr('data-original-title').replace('Moi et ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
                     401: function (response){

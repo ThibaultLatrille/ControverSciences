@@ -19,7 +19,7 @@ class PasswordResetsController < ApplicationController
           }
           mg_client.send_message "controversciences.org", message
         end
-        flash[:info] = "Un email vous a été envoyé."
+        flash[:info] = "L'email pour la réinitialisation a été envoyé."
         redirect_to root_url
       else
         if logged_in?

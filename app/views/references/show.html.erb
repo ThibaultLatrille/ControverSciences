@@ -115,7 +115,7 @@
 
                   <div class="center">
                     <%= link_to "<span class=\"icon-fork\" >
-                        </span> Vous n'avez pas encore écrit d'analyse ".html_safe,
+                        </span> Je n'ai pas encore écrit d'analyse ".html_safe,
                                 new_comment_path(reference_id: @reference.id),
                                 class: "btn btn-primary", :style => "padding: 6px;" %>
                   </div>
@@ -263,7 +263,7 @@
                       <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                       <% unless @user_binary.nil? %>
                           <b>
-                            Vous avez déjà voté, mais vous avez peut être changé d'avis ?
+                            J'ai déjà voté, mais j'ai peut être changé d'avis ?
                           </b>
                       <% end %>
                       <div class="btn-group-justified" data-toggle="buttons">
@@ -335,12 +335,12 @@
                 <%= f.hidden_field :reference_id, value: @reference.id %>
                 <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                 <% if @user_rating.nil? %>
-                    <%= f.label "Comment evaluez vous la qualité scientifique de ce papier ?" %>
+                    <%= f.label "Mon avis sur la qualité scientifique de ce papier ?" %>
                 <% else %>
                     <b>
-                      Vous pensez que <%= star_hash[@user_rating].downcase %>.
+                      Je pense que <%= star_hash[@user_rating].downcase %>.
                       <br/>
-                      Mais vous avez peut être changé d'avis ?
+                      Mais j'ai peut être changé d'avis ?
                     </b>
                 <% end %>
                 <div class="btn-group-justified" data-toggle="buttons">

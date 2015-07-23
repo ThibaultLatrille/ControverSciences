@@ -100,14 +100,14 @@
               <%= render @frames %>
           <% else %>
               <% if params[:filter] == "my-vote" %>
-                  Vous n'avez pas de contribution favorite
+                  Je n'ai pas de contribution favorite
               <% elsif params[:filter] == "mine" %>
                   <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Vous n'avez pas encore écrit de contribution ".html_safe,
+        </span> Je n'ai pas encore écrit de contribution ".html_safe,
                               new_frame_path(timeline_id: params[:timeline_id]),
                               class: "btn btn-primary" %>
               <% else %>
-                  Il n'y a pas de contribution autre que la votre
+                  Il n'y a pas de contribution autre que la mienne
               <% end %>
           <% end %>
         </div>

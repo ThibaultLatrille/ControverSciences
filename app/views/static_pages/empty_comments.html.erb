@@ -70,9 +70,9 @@
                 Ces références
                 <% if logged_in? %>
                     <% if params[:filter] == "mine" %>
-                        que vous avez ajoutées
+                        que j'ai ajoutées
                     <% elsif params[:filter] == "interest" %>
-                        qui vous intéressent
+                        qui m'intéressent
                     <% end %>
                 <% end %>
                 n'ont pas encore d'analyse, soyez le premier à les décortiquer !
@@ -96,9 +96,9 @@
                 Toutes les références
                 <% if logged_in? %>
                     <% if params[:filter] == "mine" %>
-                        que vous avez ajoutées
+                        que j'ai ajoutées
                     <% elsif params[:filter] == "interest" %>
-                        qui vous intéressent
+                        qui m'intéressent
                     <% end %>
                 <% end %>
                 ont actuellement au moins une analyse.

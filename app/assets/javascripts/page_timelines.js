@@ -28,7 +28,7 @@ $(document).ready(function () {
                             self.addClass('btn-success');
                             self.removeClass('btn-default');
                             self.removeClass('green');
-                            self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                            self.attr('data-original-title', "Moi et " + self.attr('data-original-title'));
                             like.text(' ' + (parseInt(like.text()) + 1));
                         },
                         204: function (response){
@@ -38,7 +38,7 @@ $(document).ready(function () {
                             self.removeClass('btn-success');
                             self.addClass('btn-default');
                             self.addClass('green');
-                            self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                            self.attr('data-original-title', self.attr('data-original-title').replace('Moi et ', ''));
                             like.text(' ' + (parseInt(like.text()) - 1));
                         },
                         401: function (response){

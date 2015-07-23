@@ -137,7 +137,7 @@
         <% if logged_in? && (@my_likes.include? @timeline.id) %>
             <button type="button" class="btn btn-success" data-placement="left"
                     data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                    title="Vous et <%= (@timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
+                    title="Moi et <%= (@timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
               <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
             </button>
         <% else %>
@@ -554,10 +554,10 @@
         <% else %>
             <br/>
 
-            <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette
+            <h2 class="modal-title" id="myModalLabel"> M'identifier afin d'effectuer cette
               action</h2>
             <br/>
-            <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
+            <%= link_to "M'identifier", login_path, class: "btn btn-lg btn-primary" %>
             <div class="pull-right">
               <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
             </div>
@@ -590,7 +590,7 @@
                         self.addClass('btn-success');
                         self.removeClass('btn-default');
                         self.removeClass('green');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                        self.attr('data-original-title', "Moi et " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
                     204: function (response) {
@@ -600,7 +600,7 @@
                         self.removeClass('btn-success');
                         self.addClass('btn-default');
                         self.addClass('green');
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                        self.attr('data-original-title', self.attr('data-original-title').replace('Moi et ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
                     401: function (response) {
