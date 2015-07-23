@@ -74,8 +74,8 @@
       <table id="notification-timelines" class="table table-striped table-hover">
         <thead>
         <tr>
-          <th class="col-sm-8"> Controverse </th>
-          <th class="col-sm-3"> Thèmes </th>
+          <th class="col-sm-1 center"> Crédits </th>
+          <th class="col-sm-9"> Controverse </th>
           <th class="col-xs-1 center"> Modifier </th>
           <th class="col-sm-1 center"> Supprimer </th>
         </tr>
@@ -84,6 +84,7 @@
         <tbody class="page">
         <% if !@frames.any? %>
             <tr class="notification-timeline">
+              <td>  </td>
               <td> Je n'ai pas encore proposé d'amélioration de controverses </td>
               <td>  </td>
               <td>  </td>
@@ -91,6 +92,7 @@
         <% else %>
             <% @frames.each do |frame| %>
                 <tr class="notification-timeline">
+                  <td class="center"> <%= frame.balance %> </td>
                   <td> <%= link_to frame.name_markdown.html_safe, frame_path(frame.id) %> </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
                                                   edit_frame_path( frame.id ) %>  </td>
@@ -120,8 +122,9 @@
       <table id="notification-summaries" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-xs-5"> Synthèse </th>
-        <th class="col-xs-5"> De la controverse </th>
+        <th class="col-xs-1 center"> Crédits </th>
+        <th class="col-xs-4"> Synthèse </th>
+        <th class="col-xs-4"> De la controverse </th>
         <th class="col-xs-1 center"> Public </th>
         <th class="col-xs-1 center"> Modifier </th>
         <th class="col-xs-1 center"> Supprimer </th>
@@ -131,6 +134,7 @@
       <tbody class="page">
       <% if !@summaries.any? %>
           <tr class="notification-summary">
+            <td> </td>
             <td> Pas encore de synthèses ajoutées </td>
             <td> </td>
             <td> </td>
@@ -140,6 +144,7 @@
       <% else %>
           <% @summaries.each do |com| %>
               <tr class="notification-summary">
+                <td class="center"> <%= com.balance %>   </td>
                 <td> <%= link_to "Voir la synthèse",
                                  summaries_path(timeline_id: com.timeline_id, filter: "mine" ),
                                  class: "btn btn-primary" %>   </td>
@@ -222,8 +227,9 @@
       <table id="notification-comments" class="table table-striped table-hover">
       <thead>
       <tr>
-        <th class="col-xs-3"> L'analyse </th>
-        <th class="col-xs-4"> De la référence </th>
+        <th class="col-xs-1 center"> Crédits </th>
+        <th class="col-xs-2"> L'analyse </th>
+        <th class="col-xs-2"> De la référence </th>
         <th class="col-xs-3"> Dans la controverse </th>
         <th class="col-xs-1 center"> Public </th>
         <th class="col-xs-1 center"> Modifier </th>
@@ -234,6 +240,7 @@
       <tbody class="page">
       <% if !@comments.any? %>
           <tr class="notification-comment">
+            <td> </td>
             <td> Pas encore d'analyse ajoutées </td>
             <td> </td>
             <td> </td>
@@ -244,6 +251,7 @@
       <% else %>
           <% @comments.each do |com| %>
               <tr class="notification-comment">
+                <td class="center"> <%= com.balance %>  </td>
                 <td> <%= link_to "Voir l'analyse", reference_path(com.reference_id, filter: :mine ), class: "btn btn-primary" %>   </td>
                 <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
                 <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>
