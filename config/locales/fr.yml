@@ -18,16 +18,39 @@ fr:
   activerecord:
     attributes:
       user:
-        name: "Nom"
-        email: "Adresse électronique"
-        password: "Mot de passe"
-        password_confirmation: "Confirmation de mot de passe"
+        name: "Le nom"
+        email: "L'adresse électronique"
+        password: "Le mot de passe"
+        password_confirmation: "La confirmation de mot de passe"
+        terms_of_service: "Les conditions générales d'utilisation"
       timeline:
-        name: "Titre"
+        name: "Le titre"
+        frame: "Le cadre"
+      frame:
+        name: "Le titre"
+        content: "Le cadre"
       invitation:
         target_name: "Son nom"
         target_email: "Son adresse électronique"
-        user_name: "Votre nom"
+        user_name: "Mon nom"
+      comment:
+        title: "Le titre"
+        caption: "La légende"
+        f_1_content: "Un des champs"
+        f_2_content: "Un des champs"
+        f_3_content: "Un des champs"
+        f_4_content: "Un des champs"
+        f_5_content: "Un des champs"
+      reference:
+        title: "Le titre"
+        author: "Les auteurs de l'étude"
+        year: "L'année de publication"
+        url: "Le lien vers la référence"
+        journal: "Le journal"
+      suggestion:
+        comment: "Le message"
+      summary:
+        content: "La synthèse"
   date:
     abbr_day_names:
       - dim
