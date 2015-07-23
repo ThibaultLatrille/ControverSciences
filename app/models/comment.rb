@@ -23,7 +23,7 @@ class Comment < ActiveRecord::Base
   validates :user_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
-  validate :f_0_validation
+  validate :content_validation
   validates :f_1_content, length: {maximum: 1001}
   validates :f_2_content, length: {maximum: 1001}
   validates :f_3_content, length: {maximum: 1001}
@@ -302,18 +302,17 @@ class Comment < ActiveRecord::Base
 
   def destroy_with_counters
     empty_best_comment
-    nb_votes = self.votes.sum(:value)
     Timeline.decrement_counter(:nb_comments, self.timeline_id)
     Reference.update_counters(self.reference_id, nb_edits: -1)
-    Reference.update_counters(self.reference_id, nb_votes: -nb_votes)
     self.destroy
     refill_best_comment
   end
 
   private
 
-  def f_0_validation
-    if self.reference.article
+  def content_validation
+    ref = self.reference
+    if ref.article
       if self.f_0_content.length > 1001
         errors.add(:f_0_content, 'est trop long (pas plus de 1000 caractères)')
       end
@@ -321,6 +320,15 @@ class Comment < ActiveRecord::Base
       if self.f_0_content.length > 4001
         errors.add(:f_0_content, 'est trop long (pas plus de 4000 caractères)')
       end
+    end
+    if ref.title_fr.blank? && self.title.blank?
+      errors.add(:title, 'doit être spécifié dans l\'analyse')
+    end
+    if ref.nb_edits == 0 && self.f_0_content.blank? &&
+        self.f_1_content.blank? && self.f_2_content.blank? &&
+        self.f_3_content.blank? && self.f_4_content.blank? &&
+        self.f_5_content.blank? && self.caption.blank?
+      errors.add(:base, "Un titre seul n'est pas une analyse !")
     end
   end
 
