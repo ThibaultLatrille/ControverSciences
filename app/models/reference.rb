@@ -25,6 +25,7 @@ class Reference < ActiveRecord::Base
   has_many :reference_user_tags, dependent: :destroy
   has_many :reference_taggings, dependent: :destroy
   has_many :tags, through: :reference_taggings
+  has_many :figures, dependent: :destroy
 
   around_update :delete_if_review
 
