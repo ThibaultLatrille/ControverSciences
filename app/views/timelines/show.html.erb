@@ -189,11 +189,13 @@
   </div>
 </div>
 <% if logged_in? && current_user.admin %>
-    <div class="panel-footer">
-      <%= form_for(@timeline, html: {multipart: true}) do |f| %>
+    <div id="source-timeline" class="panel-heading">
+      <%= form_for(@timeline, html: {multipart: true}, remote: true) do |f| %>
           <%= f.hidden_field :has_picture, value: @timeline.picture? %>
           <%= f.hidden_field :delete_picture, value: false %>
           <%= f.hidden_field :img_timeline_id, value: @timeline.id %>
+          <%= f.text_field :source, value: (@timeline.figure_id.blank? ? nil: @timeline.figure.source ), placeholder: "La source de l'image", class: 'form-control' %>
+          <br/>
           <div id="size-warning" class="row" style="display: none">
             <div class="col-xs-10 col-xs-offset-1">
               <div class="alert alert-danger alert-dismissible" role="alert">

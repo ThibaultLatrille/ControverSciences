@@ -99,15 +99,19 @@ class TimelinesController < ApplicationController
 
   def update
     timeline = Timeline.find(params[:id])
-    if timeline.user_id == current_user.id || current_user.admin
-      if timeline_params[:delete_picture] == 'true'
-        timeline.figure_id = nil
-      elsif timeline_params[:has_picture] == 'true'
-        timeline.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
-                                                              img_timeline_id: timeline.id ).last.id
+    if current_user.admin
+      unless timeline_params[:source].blank?
+        if timeline_params[:delete_picture] == 'true'
+          timeline.figure_id = nil
+        elsif timeline_params[:has_picture] == 'true'
+          timeline.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
+                                                                  img_timeline_id: timeline.id ).last.id
+        end
+        if timeline.save
+          Figure.where(id: timeline.figure_id).update_all( source: timeline_params[:source] )
+          render 'timelines/success'
+        end
       end
-      timeline.save
-      redirect_to timeline_path(timeline)
     end
   end
 
@@ -125,6 +129,8 @@ class TimelinesController < ApplicationController
   private
 
   def timeline_params
-    params.require(:timeline).permit(:name, :binary, :frame, :binary_left, :binary_right, :img_timeline_id, :delete_picture, :has_picture )
+    params.require(:timeline).permit(:name, :binary, :frame, :binary_left,
+                                     :binary_right, :img_timeline_id,
+                                     :delete_picture, :has_picture, :source )
   end
 end

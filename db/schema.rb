@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150722115335) do
+ActiveRecord::Schema.define(version: 20150723144812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(version: 20150722115335) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "img_timeline_id"
+    t.text     "source",          default: ""
   end
 
   add_index "figures", ["reference_id"], name: "index_figures_on_reference_id", using: :btree

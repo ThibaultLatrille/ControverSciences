@@ -14,7 +14,8 @@ class Timeline < ActiveRecord::Base
                       :trigram => {}
                   }
 
-  attr_accessor :delete_picture, :has_picture, :frame_timeline_id, :tag_list, :binary_left, :binary_right
+  attr_accessor :delete_picture, :has_picture, :frame_timeline_id,
+                :tag_list, :binary_left, :binary_right, :source
   belongs_to :user
   has_many :timeline_contributors, dependent: :destroy
   has_many :references, dependent: :destroy
@@ -40,6 +41,9 @@ class Timeline < ActiveRecord::Base
 
   has_many :notifications, dependent: :destroy
   has_one :suggestion, dependent: :destroy
+
+  has_many :figures, foreign_key: "img_timeline_id", dependent: :destroy
+  belongs_to :figure, dependent: :destroy
 
   after_create :cascading_save_timeline
 
