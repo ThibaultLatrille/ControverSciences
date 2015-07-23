@@ -10,7 +10,7 @@ class VotesController < ApplicationController
                          comment_id: params[:comment_id],
                          reference_id:  params[:reference_id]})
     if vote.save
-      flash[:success] = "Votre vote a été pris en compte"
+      flash[:success] = "Mon vote a été pris en compte"
     else
       flash[:danger] = "Impossible d'effectuer cette action."
     end

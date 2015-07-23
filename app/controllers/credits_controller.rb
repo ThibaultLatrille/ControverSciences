@@ -8,7 +8,7 @@ class CreditsController < ApplicationController
                          timeline_id: params[:timeline_id],
                          summary_id:  params[:summary_id]})
     if credit.save
-      flash[:success] = "Votre vote a été pris en compte"
+      flash[:success] = "Mon vote a été pris en compte"
     else
       flash[:danger] = "Impossible d'effectuer cette action."
     end

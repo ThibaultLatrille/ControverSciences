@@ -69,7 +69,7 @@
                                   <%= render 'shared/error_messages', object: f.object %>
                                   <%= f.hidden_field :suggestion_id, value: @suggestion_child.suggestion_id %>
                                   <div class="form-group">
-                                    <%= f.label :comment, "Votre réponse", class: 'control-label' %><br>
+                                    <%= f.label :comment, "Ma réponse", class: 'control-label' %><br>
                                     <div id="characterLeft"></div>
                                     <%= f.text_area :comment, class: 'form-control textarea', id: "markdown-textarea" %>
                                     <span class="help-block"></span>

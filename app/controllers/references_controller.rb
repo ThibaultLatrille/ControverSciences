@@ -77,7 +77,7 @@ class ReferencesController < ApplicationController
           @reference.article = reference_params[:article]
           @reference.open_access = reference_params[:article]
         rescue ArgumentError
-          flash.now[:danger] = "Votre requête n'a rien donné de concluant."
+          flash.now[:danger] = "Ma requête n'a rien donné de concluant."
         rescue ConnectionError
           flash.now[:danger] = "Impossible de se connecter aux serveurs qui délivrent les metadonnées."
         rescue StandardError

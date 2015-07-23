@@ -22,7 +22,7 @@
                       <%= link_to typo.comment_short.reference.title, reference_path(typo.comment_short.reference_id) %> dans la controverse
                       <%= link_to typo.comment_short.timeline_name.html_safe, timeline_path(typo.comment_short.timeline_id ) %>
                   <% elsif typo.summary_id %>
-                      Votre synthèse de la controverse
+                      Ma synthèse de la controverse
                       <%= link_to typo.summary_short.timeline_name.html_safe, timeline_path(typo.summary_short.timeline_id )  %>
                   <% elsif typo.frame_id %>
                       <%= link_to typo.field == 0 ? "Le titre" : "Le cadre",
