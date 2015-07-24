@@ -10,6 +10,8 @@ module SampleApp
   class Application < Rails::Application
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
 
+    I18n.enforce_available_locales = false
+
     config.force_ssl = false
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
