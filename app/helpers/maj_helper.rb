@@ -2,6 +2,8 @@ module MajHelper
 
   def maj_v_8
     ActiveRecord::Base.transaction do
+      Reference.where(article: true).update_all(category: 0)
+      Reference.where(article: false).update_all(category: 1)
       ReferenceUserTag.find_each do |ref_user_tag|
         ref_user_tag.update_tags
       end
