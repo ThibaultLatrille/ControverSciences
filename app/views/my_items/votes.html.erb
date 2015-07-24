@@ -109,7 +109,7 @@
             <% @votes.each do |vote| %>
                 <tr class="notification-reference">
                   <td class="center"> <%= vote.value %> </td>
-                  <td> <%= link_to "Voir " + (vote.reference.article ? article_hash[vote.field] : review_hash[vote.field]),
+                  <td> <%= link_to category_hash[vote.reference.category][vote.field],
                                    comment_path(vote.comment_id) %>
                     par <%= link_to vote.comment_short.user_name, user_path(vote.comment_short.user_id) %>
                     de la référence

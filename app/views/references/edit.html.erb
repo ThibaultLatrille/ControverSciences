@@ -24,21 +24,10 @@
               <%= f.text_area :title, {:rows => 2,
                                        :class => "form-control textarea"} %>
               <br/>
-              <%= f.label "Article ou Review" %>
-              <div class="switcher">
-                <p class="fieldset pull-left">
-                  <%= f.radio_button :article, true %>
-                  <label for="reference_article_true">article</label>
-                  <%= f.radio_button :article, false %>
-                  <label for="reference_article_false">review</label>
-                  <span class="switch"></span>
-                </p>
-              </div>
-              <br/>
-              <br/>
+              <%= f.label "Article, Review, Meta-analyse ou Livre*" %>
+              <%= f.select :category, [["Article", 0],["Review", 1],["Meta-analyse", 2],["Livre", 3]], {}, {class: 'form-control myforms'} %>
               <br/>
               <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-              <br/>
               <%= f.label :open_access do %>
                   <%= f.check_box :open_access %>
                   <span> &nbsp Cette référence est en libre accès </span>

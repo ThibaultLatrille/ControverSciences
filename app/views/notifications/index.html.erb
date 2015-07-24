@@ -254,7 +254,7 @@
             <tr class="notification-sel-comment">
               <td> <%= f.check_box :sel_comment_ids, { :multiple => true},
                                    checked_value = notif.comment_id, unchecked_value = nil %> </td>
-              <td> <%= link_to notif.reference.article ? article_hash[notif.field] : review_hash[notif.field],
+              <td> <%= link_to category_hash[ notif.reference.category][notif.field],
                                notifications_selection_path(id: notif.comment_id,
                                                                         field: notif.field ), class: "btn btn-primary" %> </td>
               <td> <%= link_to notif.comment.user_name, user_path( notif.comment.user_id ), class: "btn btn-primary" %> </td>

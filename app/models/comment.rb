@@ -24,7 +24,6 @@ class Comment < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validate :content_validation
-  validates :f_1_content, length: {maximum: 1001}
   validates :f_2_content, length: {maximum: 1001}
   validates :f_3_content, length: {maximum: 1001}
   validates :f_4_content, length: {maximum: 1001}
@@ -79,8 +78,8 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  def article
-    self.reference.article
+  def category
+    self.reference.category
   end
 
   def balance
@@ -312,13 +311,22 @@ class Comment < ActiveRecord::Base
 
   def content_validation
     ref = self.reference
-    if ref.article
+    if ref.category == 1
+      if self.f_0_content.length > 4001
+        errors.add(:f_0_content, 'est trop long (pas plus de 4000 caractères)')
+      end
+    else
       if self.f_0_content.length > 1001
         errors.add(:f_0_content, 'est trop long (pas plus de 1000 caractères)')
       end
-    else
-      if self.f_0_content.length > 4001
+    end
+    if ref.category == 3
+      if self.f_1_content.length > 4001
         errors.add(:f_0_content, 'est trop long (pas plus de 4000 caractères)')
+      end
+    else
+      if self.f_1_content.length > 1001
+        errors.add(:f_0_content, 'est trop long (pas plus de 1000 caractères)')
       end
     end
     if ref.title_fr.blank? && self.title.blank?

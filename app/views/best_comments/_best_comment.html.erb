@@ -5,11 +5,7 @@
       <% if best_comment["f_#{fi}_comment_id".to_sym] %>
         <div class="panel panel-default">
           <div class="panel-body clearfix">
-            <% if @reference.article %>
-                <h6> <%= article_hash[fi] %> </h6>
-            <% else %>
-                <h6> <%= review_hash[fi] %> </h6>
-            <% end %>
+            <h6> <%= category_hash[@reference.category][fi] %> </h6>
             <% if  fi == 7 %>
                 <div id="content7" class="row">
                   <div class="col-xs-12 col-md-6">

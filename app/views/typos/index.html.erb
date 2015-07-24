@@ -18,7 +18,7 @@
               <div class="panel-body">
                 <b>
                   <% if typo.comment_id %>
-                      <%= typo.comment_short.reference.article ? article_hash[typo.field] : review_hash[typo.field] %> de la référence
+                      <%= category_hash[ typo.comment_short.reference.category][typo.field] %> de la référence
                       <%= link_to typo.comment_short.reference.title, reference_path(typo.comment_short.reference_id) %> dans la controverse
                       <%= link_to typo.comment_short.timeline_name.html_safe, timeline_path(typo.comment_short.timeline_id ) %>
                   <% elsif typo.summary_id %>

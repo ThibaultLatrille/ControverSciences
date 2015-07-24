@@ -17,7 +17,7 @@
                     <div class="panel-body">
                       <b>
                       <% if typo.comment_id %>
-                          <%= typo.comment_short.reference.article ? article_hash[typo.field] : review_hash[typo.field] %> de la référence
+                          <%= category_hash[typo.comment_short.reference.category][typo.field] %> de la référence
                             <%= link_to typo.comment_short.reference.title, reference_path(typo.comment_short.reference_id) %> dans la controverse
                             <%= link_to typo.comment_short.timeline_name.html_safe, timeline_path(typo.comment_short.timeline_id ) %>
                       <% elsif typo.summary_id %>
@@ -135,7 +135,7 @@
                       <tr>
                         <td><span class="icon-5 green center" style="font-size: 2em;"></span></td>
                         <td>
-                          <%= link_to notif.reference.article ? article_hash[notif.field] : review_hash[notif.field],
+                          <%= link_to category_hash[ notif.reference.category][notif.field],
                                       notifications_selection_win_path(id:    notif.comment_id,
                                                                        field: notif.field), class: "btn btn-primary" %>
                         </td>
@@ -218,7 +218,7 @@
                       <tr>
                         <td><span class="icon-1 red center" style="font-size: 2em;"></span></td>
                         <td>
-                          <%= link_to notif.reference.article ? article_hash[notif.field] : review_hash[notif.field],
+                          <%= link_to category_hash[ notif.reference.category][notif.field],
                                       notifications_selection_loss_path(id:    notif.comment_id,
                                                                         field: notif.field), class: "btn btn-primary" %>
                         </td>

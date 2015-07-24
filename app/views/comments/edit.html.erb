@@ -85,12 +85,8 @@
           </div>
           <br/>
           <% for fi in 0..5 %>
-              <% if @myreference.article || [0, 3, 4, 5].include?(fi) %>
-                  <% if @myreference.article %>
-                      <%= f.label article_hash[fi] %>
-                  <% else %>
-                      <%= f.label review_hash[fi] %>
-                  <% end %>
+              <% if category_limit[@myreference.category].keys.include?(fi) %>
+                  <%= f.label category_hash[@myreference.category][fi] %>
                   <div id="characterLeft<%= fi %>"></div>
 
                   <%= f.text_area "f_#{fi}_content".to_sym, {rows:          3,
@@ -99,31 +95,7 @@
                                                              "data-provide" => "markdown"} %>
                   <div class="panel panel-info">
                     <div class="panel-heading">
-                      <% case fi %>
-                      <% when 0 %>
-                          <% if @myreference.article %>
-                              L'introduction permet au lecteur de situer cette article dans
-                              la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
-                          <% else %>
-                              Le résumé de la review permet au lecteur de
-                              comprendre cette étude dans le cadre de cette controverse .
-                          <% end %>
-                      <% when 1 %>
-                          Résumé de l'expérience (ou des expériences) réalisé dans cette étude
-                      <% when 2 %>
-                          Résumé du résultat (ou des résultats) de l’expérience (ou des expériences)
-                      <% when 3 %>
-                          Un résumé des limites de l’étude, que ce soit méthodologique, conceptuelle ou
-                          philosophique. Toute étude à ses limites.
-                      <% when 4 %>
-                          Ce que cette étude apporte de plus et comment elle permet d'éclairer
-                          la controverse.
-                      <% when 5 %>
-                          Toutes les remarques qui ne rentrent pas dans les champs précédents.
-                          Cela peut être sur les affiliations ou les financements douteux de l'étude.
-                          Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
-                          subjective.
-                      <% end %>
+                      <%= category_explanation[@myreference.category][fi] %>
                     </div>
                   </div>
                   <br/>
@@ -200,7 +172,7 @@
 <div class="col-xs-12 col-lg-5">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h6 class="panel-title"><%= @myreference.article ? "Article" : "Review" %> : <%= @myreference.title %> </h6>
+      <h6 class="panel-title"><%= category_names[@myreference.category] %> : <%= @myreference.title %> </h6>
     </div>
     <div class="panel-body">
       <ul class="list-group">
@@ -419,90 +391,33 @@
     });
 </script>
 
-<% if @myreference.article %>
-    <script type="text/javascript">
-        $.each(['0', '1', '2', '3', '4', '5', '6', '7' ], function (index, value) {
-            $(document).ready(function () {
-                if (value === '7') {
-                    var max = 180;
-                } else {
-                    var max = 1000;
-                }
-                var len = $('#description' + value).val().length;
-                if (len >= max) {
-                    var ch = len - max;
-                    $('#characterLeft' + value).css({"color": "#a94442"});
-                    $('#characterLeft' + value).text(ch + ' caractères en trop !');
-                } else {
-                    var ch = max - len;
-                    $('#characterLeft' + value).css({"color": "#5cb85c"});
-                    $('#characterLeft' + value).text(ch + ' caractères restants.');
-                }
-            });
-            $('#description' + value).keyup(function () {
-                if (value === '7') {
-                    var max = 180;
-                } else {
-                    var max = 1000;
-                }
-                var len = $(this).val().length;
-                if (len >= max) {
-                    var ch = len - max;
-                    $('#characterLeft' + value).css({"color": "#a94442"});
-                    $('#characterLeft' + value).text(ch + ' caractères en trop !');
-                } else {
-                    var ch = max - len;
-                    $('#characterLeft' + value).css({"color": "#5cb85c"});
-                    $('#characterLeft' + value).text(ch + ' caractères restants.');
-                }
-            });
+<script type="text/javascript">
+    $.each(<%= raw category_limit[@myreference.category].to_a %>, function (index, limit) {
+        var max = limit[1];
+        var value = limit[0];
+        $(document).ready(function () {
+            var len = $('#description' + value).val().length;
+            if (len >= max) {
+                var ch = len - max;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
+            }
         });
-    </script>
-<% else %>
-    <script type="text/javascript">
-        $.each(['0', '3', '4', '5', '6', '7' ], function (index, value) {
-            $(document).ready(function () {
-                if (value === '7') {
-                    var max = 180;
-                } else {
-                    if (value === '0') {
-                        var max = 4000;
-                    } else {
-                        var max = 1000;
-                    }
-                }
-                var len = $('#description' + value).val().length;
-                if (len >= max) {
-                    var ch = len - max;
-                    $('#characterLeft' + value).css({"color": "#a94442"});
-                    $('#characterLeft' + value).text(ch + ' caractères en trop !');
-                } else {
-                    var ch = max - len;
-                    $('#characterLeft' + value).css({"color": "#5cb85c"});
-                    $('#characterLeft' + value).text(ch + ' caractères restants.');
-                }
-            });
-            $('#description' + value).keyup(function () {
-                if (value === '7') {
-                    var max = 180;
-                } else {
-                    if (value === '0') {
-                        var max = 4000;
-                    } else {
-                        var max = 1000;
-                    }
-                }
-                var len = $(this).val().length;
-                if (len >= max) {
-                    var ch = len - max;
-                    $('#characterLeft' + value).css({"color": "#a94442"});
-                    $('#characterLeft' + value).text(ch + ' caractères en trop !');
-                } else {
-                    var ch = max - len;
-                    $('#characterLeft' + value).css({"color": "#5cb85c"});
-                    $('#characterLeft' + value).text(ch + ' caractères restants.');
-                }
-            });
+        $('#description' + value).keyup(function () {
+            var len = $(this).val().length;
+            if (len >= max) {
+                var ch = len - max;
+                $('#characterLeft' + value).css({"color": "#a94442"});
+                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+            } else {
+                var ch = max - len;
+                $('#characterLeft' + value).css({"color": "#5cb85c"});
+                $('#characterLeft' + value).text(ch + ' caractères restants.');
+            }
         });
-    </script>
-<% end %>
+    });
+</script>

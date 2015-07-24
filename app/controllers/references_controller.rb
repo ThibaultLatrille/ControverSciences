@@ -3,7 +3,7 @@ class ReferencesController < ApplicationController
 
   def from_timeline
     @best_comment = BestComment.find_by_reference_id( params[:reference_id] )
-    @ref = Reference.select( :id, :article ).find( params[:reference_id] )
+    @ref = Reference.select( :id, :category ).find( params[:reference_id] )
     respond_to do |format|
       format.js
     end
@@ -74,8 +74,8 @@ class ReferencesController < ApplicationController
       unless query.blank?
         begin
           @reference = fetch_reference( query )
-          @reference.article = reference_params[:article]
-          @reference.open_access = reference_params[:article]
+          @reference.category = reference_params[:category]
+          @reference.open_access = reference_params[:open_access]
         rescue ArgumentError
           flash.now[:danger] = "Ma requête n'a rien donné de concluant."
         rescue ConnectionError
@@ -195,7 +195,7 @@ class ReferencesController < ApplicationController
 
   def reference_params
     params.require(:reference).permit(:title, :timeline_id,
-                                      :open_access, :url, :author, :year, :doi, :journal, :abstract, :article)
+                                      :open_access, :url, :author, :year, :doi, :journal, :abstract, :category)
   end
 
 end

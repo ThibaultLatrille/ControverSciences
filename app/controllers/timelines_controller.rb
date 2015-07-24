@@ -82,7 +82,7 @@ class TimelinesController < ApplicationController
     end
     @timelines =query
     @titles     = Reference.where(timeline_id: @timeline.id, title_fr: [nil, ""]).count
-    ref_query = Reference.select(:article, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
+    ref_query = Reference.select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
     unless logged_in?
       ref_query = ref_query.where.not( title_fr: "" )
     end

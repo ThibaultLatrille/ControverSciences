@@ -1,11 +1,7 @@
 <div class="panel panel-default comment">
   <div class="panel-body clearfix">
     <% unless comment.empty_field?( 6 ) %>
-        <b> <% if comment.article %>
-               <%= article_hash[6] %>
-          <% else %>
-               <%= review_hash[6] %>
-          <% end %>
+        <b> <%= category_hash[comment.category][6] %>
         </b> :
         <h5> <%= comment.title_markdown.html_safe %>   </h5>
         <br/>
@@ -15,11 +11,7 @@
           <div class="thumbnail">
             <%= image_tag comment.picture_url, class: "img-rounded img-responsive" %>
             <div class="caption">
-              <b> <% if comment.article %>
-                    <%= article_hash[7] %>
-                <% else %>
-                    <%= review_hash[7] %>
-                <% end %> :
+              <b>  <%= category_hash[comment.category][7] %> :
               </b>
               <%= comment.caption_markdown.html_safe %>
             </div>
@@ -29,11 +21,7 @@
   <span class="content">
     <% for fi in 0..5 %>
         <% unless comment.empty_field?( fi ) %>
-            <b> <% if comment.article %>
-                   <%= article_hash[fi] %>
-              <% else %>
-                   <%= review_hash[fi] %>
-              <% end %> :
+            <b>  <%= category_hash[comment.category][fi] %> :
             </b>
             <div class="text-justify">
             <%= comment["markdown_#{fi}".to_sym].html_safe %>

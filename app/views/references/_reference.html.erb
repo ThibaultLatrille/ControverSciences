@@ -16,7 +16,7 @@
       </h2>
       <div id="reference<%= reference.id %>" class="ref clearfix" style="display: none">
       </div>
-      <span class="cd-date"><%= reference.display_year %> - <b><%= reference.article ? "Article" : "Review" %></b></span>
+      <span class="cd-date"><%= reference.display_year %> - <b><%= category_names[reference.category] %></b></span>
     </div>
 </div>
 <% else %>
@@ -32,7 +32,7 @@
         <h2 style="font-size: 1.3em"> <%= link_to "#{reference.title}<br/><br/><span class=\"orange\"><span class=\"icon icon-comment bigger\"></span>
         Cette référence n'a pas encore été analysée</span>".html_safe, new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
         </h2>
-        <span class="cd-date"><%= reference.display_year %> - <b><%= reference.article ? "Article" : "Review" %></b></span>
+        <span class="cd-date"><%= reference.display_year %> - <b><%= category_names[reference.category] %></b></span>
       </div>
     </div>
 <% end %>

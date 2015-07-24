@@ -10,7 +10,7 @@ class NotificationSelectionLoss < ActiveRecord::Base
   end
 
   def reference
-    Reference.select( :id, :slug, :title, :article ).find( Comment.select( :reference_id ).find( self.comment_id ).reference_id )
+    Reference.select( :id, :slug, :title, :category ).find( Comment.select( :reference_id ).find( self.comment_id ).reference_id )
   end
 
   def timeline
