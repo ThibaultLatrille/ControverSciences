@@ -130,7 +130,7 @@
             </div>
           </div>
           <div class="text-center">
-            <h4><br/>Si j'ai des arguments à apporter, une référence
+            <h4><br/>Si vous avez des arguments à apporter, une référence
               scientifique est nécessaire pour les justifier !</h4>
           </div>
         </div>
@@ -149,7 +149,7 @@
             </div>
           </div>
           <div class="text-center">
-            <h4><br/>Si je ne suis pas d’accord avec une contribution, je propose la mienne !
+            <h4><br/>Si vous n’êtes pas d’accord avec une contribution, proposez la vôtre !
               Les contributeurs voteront pour décider laquelle est la plus pertinente.</h4>
           </div>
         </div>
@@ -287,9 +287,9 @@
             <h2 class="modal-title" id="myModalLabel"> Le serveur ne répond pas </h2>
         <% else %>
             <br/>
-            <h2 class="modal-title" id="myModalLabel"> M'identifier afin d'effectuer cette action</h2>
+            <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette action</h2>
             <br/>
-            <%= link_to "M'identifier", login_path, class: "btn btn-lg btn-primary" %>
+            <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
             <div class="pull-right">
               <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
             </div>
@@ -308,8 +308,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Je suis dès à prèsent inscrit au bulletion d'information, et l'équipe
-          me tiendra au courant des avancées du projet avec plaisir ;-) </h4>
+        <h4 class="modal-title" id="myModalLabel"> Un grand merci de votre interêt à ControverSciences, nous vous
+          tiendrons au courant des avancées du projet avec plaisir ;-) </h4>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
@@ -323,7 +323,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Je suis déjà inscrit à ce bulletion d'information, ou mon adresse
+        <h4 class="modal-title" id="myModalLabel"> Vous êtes déjà inscrit à ce bulletion d'information, ou votre adresse
           est invalide. </h4>
       </div>
       <div class="modal-footer">
@@ -358,7 +358,7 @@
                         self.addClass('btn-success');
                         self.removeClass('btn-default');
                         self.removeClass('green');
-                        self.attr('data-original-title', "Moi et " + self.attr('data-original-title'));
+                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
                     204: function (response){
@@ -368,7 +368,7 @@
                         self.removeClass('btn-success');
                         self.addClass('btn-default');
                         self.addClass('green');
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Moi et ', ''));
+                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
                     401: function (response){

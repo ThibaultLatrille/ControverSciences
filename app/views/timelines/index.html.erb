@@ -4,7 +4,7 @@
     <div class="col-xs-12 col-lg-2">
       <% if logged_in? && @my_likes.count > 1 %>
           <div class="list-group">
-            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui m'intéressent" :
+            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui vous intéressent" :
                     "Afficher toutes les controverses"}".html_safe, timelines_path(:sort     => params[:sort],
                                                                                    :order    => params[:order],
                                                                                    :tag      => params[:tag],
@@ -154,7 +154,7 @@
       <% unless logged_in? %>
           <div class="center">
             <%= link_to "<span class=\"icon icon-4\" >
-                   </span> M'identifier pour voir les controverses en construction".html_safe,
+                   </span> Identifiez vous pour voir les controverses en construction".html_safe,
                         login_path, class: "btn btn-block btn-primary" %>
             <%= link_to "<span class=\"icon icon-5\" >
                    </span> Créer un compte".html_safe,
@@ -180,9 +180,9 @@
         <% else %>
             <br/>
 
-            <h2 class="modal-title" id="myModalLabel">M'identifier afin d'effectuer cette action</h2>
+            <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette action</h2>
             <br/>
-            <%= link_to "M'identifier", login_path, class: "btn btn-lg btn-primary" %>
+            <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
             <div class="pull-right">
               <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
             </div>
@@ -220,7 +220,7 @@
                         self.addClass('btn-success');
                         self.removeClass('btn-default');
                         self.removeClass('green');
-                        self.attr('data-original-title', "Moi et " + self.attr('data-original-title'));
+                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
                     204: function (response) {
@@ -230,7 +230,7 @@
                         self.removeClass('btn-success');
                         self.addClass('btn-default');
                         self.addClass('green');
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Moi et ', ''));
+                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
                     401: function (response) {

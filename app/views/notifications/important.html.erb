@@ -8,7 +8,7 @@
           <br/>
           <br/>
           &nbsp  &nbsp  &nbsp <span class="blue" style="font-size: 2em;"><span class="fat icon-bug-<%= rand(18) %>"></span>
-                    Les corrections que m'ont apporté les contributeurs </span>
+                    Les corrections que vous ont apporté les contributeurs </span>
           <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
               <% @typos.each do |typo| %>
@@ -59,7 +59,7 @@
         <% if current_user.nb_notifs == 0 %>
             <div class="panel-body">
           <span style="font-size: 1.5em;">
-          je n'ai aucune nouvelle notification
+          Vous n'avez aucune nouvelle notification
           </span>
             </div>
         <% else %>
@@ -237,7 +237,7 @@
             <% if @suggestions.any? %>
                 <hr style="margin: 0 3em 2em 3em ">
                 &nbsp <span class="blue" style="font-size: 2em;"><span class="glyphicon glyphicon-comment"></span> Nouvelles réponses dans les discussions
-                auxquelles je participe </span>
+                auxquelles vous participez </span>
                 <table class="table table-striped table-hover">
                   <thead>
                   <tr>

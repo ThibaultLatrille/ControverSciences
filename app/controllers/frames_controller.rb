@@ -134,11 +134,11 @@ class FramesController < ApplicationController
         flash[:success] = "Contribution envoyée à la poubelle."
         redirect_to timeline_path(frame.timeline_id)
       else
-        flash[:danger] = "Je ne peux pas supprimer cette contribution."
+        flash[:danger] = "Vous ne pouvez pas supprimer cette contribution."
         redirect_to frame_path(params[:id])
       end
     else
-      flash[:danger] = "Je ne peux pas supprimer cette contribution."
+      flash[:danger] = "Vous ne pouvez pas supprimer cette contribution."
       redirect_to frame_path(params[:id])
     end
   end

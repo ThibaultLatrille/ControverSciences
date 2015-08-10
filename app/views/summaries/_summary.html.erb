@@ -31,7 +31,7 @@
               <% if @my_credit && @my_credit.summary_id == summary.id %>
                   &nbsp
                 <span class="icon-frog-laurel big"
-                      title="J'ai selectionné cette synthèse comme ma favorite"
+                      title="Vous avez selectionné cette synthèse comme votre favorite"
                       data-placement="right"
                       data-toggle="tooltip"></span>
               <% else %>
@@ -39,7 +39,7 @@
                               credits_path(timeline_id: summary.timeline_id, summary_id: summary.id),
                               "data-toggle"    => "tooltip",
                               "data-placement" => "right",
-                              title:           "Selectionner cette synthèse comme ma favorite",
+                              title:           "Selectionner cette synthèse comme votre favorite",
                               method:          :post,
                               class:           "btn btn-success",
                               :style           => "padding: 8px; margin-left: 8px" %>
