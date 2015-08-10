@@ -62,7 +62,7 @@
                       <td class="w520" width="520" style="line-height:30px">
                         <div>
                           <p>
-                            <%= @invitation.user_name %> vous invite à découvrir <%= link_to "ControverSciences", root_url %> et en particulier à la
+                            <%= @invitation.user_name %> vous invitent à découvrir <%= link_to "ControverSciences", root_url %> et en particulier la
                             <% if @invitation.timeline_id %>
                                 controverse <%= link_to @invitation.timeline.name.html_safe, timeline_url(@invitation.timeline_id) %>
                             <% elsif @invitation.reference_id %>
