@@ -165,7 +165,7 @@
               <%= link_to "<span class=\"fat icon-#{key}\"></span> #{value}".html_safe,
                           timelines_path(:sort => params[:sort], :order => params[:order], :tag => key),
                           class: "btn btn-default stick hvr-shadow",
-                          title: "#{value} contributeur#{ value > 1 ? "s" :""} pensent que cette référence appartient au thème #{tags_hash[key]}",
+                          title: "#{value} contributeur#{ value > 1 ? "s pensent" :" pense"} que cette référence appartient au thème #{tags_hash[key]}",
                           "data-toggle" => "tooltip" %>
           <% end %>
         </li>
