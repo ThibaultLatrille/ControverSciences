@@ -18,21 +18,21 @@
         <%= form_for(@user_detail, html: {multipart: true}, url: user_details_path, method: :post) do |f| %>
             <%= render 'shared/error_messages', object: f.object %>
 
-            <%= f.label :job, "Ma fonction/Mon métier" %>
-            <%= f.text_field :job, placeholder: "Chercheur, professeur, ...", class: 'form-control' %>
+            <%= f.label :job, "Fonction/métier" %>
+            <%= f.text_field :job, placeholder: "Votre fonction/métier", class: 'form-control' %>
             <br/>
-            <%= f.label :institution, "Mon institution" %>
-            <%= f.text_field :institution, placeholder: "Université, CNRS, ...", class: 'form-control' %>
+            <%= f.label :institution, "Institution" %>
+            <%= f.text_field :institution, placeholder: "Où vous travaillez", class: 'form-control' %>
             <br/>
-            <%= f.label :website, "Mon site personnel" %>
+            <%= f.label :website, "Site personnel" %>
             <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
             <br/>
             <%= f.check_box :send_email %>
-            <%= f.label :send_email, "Je souhaite recevoir un email si j'ai des notifications non lues (une fois par semaine)".html_safe %>
+            <%= f.label :send_email, "Etre notifié par email si j'ai des notifications non lues (une fois par semaine)".html_safe %>
             <br/>
             <br/>
-            <%= f.label :biography, "Ma biographie" %>
-            <%= f.text_area :biography, placeholder: "J'aime les carottes, ca me rend aimable...", :id => "markdown-textarea", class: 'form-control textarea' %>
+            <%= f.label :biography, "Biographie" %>
+            <%= f.text_area :biography, placeholder: "Votre biographie", :id => "markdown-textarea", class: 'form-control textarea' %>
             <br/>
             <%= f.hidden_field :has_picture, value: @user_detail.picture? %>
             <%= f.hidden_field :delete_picture, value: false %>
