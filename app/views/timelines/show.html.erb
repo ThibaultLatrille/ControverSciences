@@ -155,7 +155,9 @@
       <% end %>
       <h1 class="shadowed">
         <br/>
-        <%= @timeline.name.html_safe %>
+        <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 0 %>">
+           <%= @timeline.name.html_safe %>
+        </span>
         <br/><br/>
       </h1>
       <% if @timeline.frame != "" %>
@@ -170,7 +172,9 @@
           <% end %>
           <div class="cadre text-justify">
             <b style="font-size: 1.4em">Cadre, focus et mise au point :</b><br/>
-            <%= @timeline.frame.html_safe %>
+            <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 1 %>">
+              <%= @timeline.frame.html_safe %>
+           </span>
           </div>
           <br/>
       <% end %>
@@ -283,7 +287,9 @@
             </div>
         <% end %>
         <div class="justify">
-          <%= @summary.markdown.html_safe %>
+          <span class="content<%= @summary.id %>">
+              <%= @summary.markdown.html_safe %>
+           </span>
           <% if logged_in? %>
               <div class="pull-right">
                 <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,

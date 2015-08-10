@@ -19,7 +19,7 @@
                   </div>
                 </div>
             <% else %>
-                <div id="content<%= fi %>" class="text-justify">
+                <div id="content<%= fi %>" class="text-justify content<%= best_comment["f_#{fi}_comment_id"]*10 + fi %>">
                   <%= best_comment.markdown(fi).html_safe %>
                 </div>
             <% end %>
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="panel-heading clearfix">
-            <% if logged_in? && best_comment["f_#{fi}_user_id"] != current_user.id %>
+            <% if logged_in? %>
                 <div class="pull-right button<%= fi %> typo<%= fi %>">
                   <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                               new_typo_path(comment_id: best_comment["f_#{fi}_comment_id"],

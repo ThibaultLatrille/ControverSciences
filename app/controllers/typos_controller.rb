@@ -14,10 +14,9 @@ class TyposController < ApplicationController
       @typo.target_user_id = sum.user_id
     elsif !@typo.frame_id.blank?
       fra = Frame.find(get_params[:frame_id])
-      case get_params[:field].to_i
-        when 0
+      if get_params[:field].to_i == 0
           @typo.content = fra.name
-        when 1
+      else
           @typo.content = fra.content
       end
       @typo.target_user_id = fra.user_id
@@ -38,13 +37,25 @@ class TyposController < ApplicationController
       @typo.target_user_id = Frame.select( :user_id ).find(typo_params[:frame_id]).user_id
     end
     @typo.user_id = current_user.id
-    if @typo.save
-      respond_to do |format|
-        format.js { render 'typos/success', :content_type => 'text/javascript', :layout => false}
+    if @typo.target_user_id == @typo.user_id || current_user.admin
+      if @typo.set_content(current_user.id, current_user.admin)
+        respond_to do |format|
+          format.js { render 'typos/mine', :content_type => 'text/javascript', :layout => false}
+        end
+      else
+        respond_to do |format|
+          format.js { render 'typos/fail', :content_type => 'text/javascript', :layout => false}
+        end
       end
     else
-      respond_to do |format|
-        format.js { render 'typos/fail', :content_type => 'text/javascript', :layout => false}
+      if @typo.save
+        respond_to do |format|
+          format.js { render 'typos/success', :content_type => 'text/javascript', :layout => false}
+        end
+      else
+        respond_to do |format|
+          format.js { render 'typos/fail', :content_type => 'text/javascript', :layout => false}
+        end
       end
     end
   end

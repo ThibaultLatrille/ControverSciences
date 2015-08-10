@@ -20,7 +20,7 @@
               </div>
             </div>
         <% else %>
-            <div class="text-justify">
+            <div class="text-justify content<%= comment.id*10 + field %>">
               <%= comment["markdown_#{field}".to_sym].html_safe %>
             </div>
         <% end %>
@@ -47,32 +47,27 @@
                                   class:           "btn btn-success",
                                   :style           => "padding: 8px; margin-left: 8px" %>
                   <% end %>
-                  <div class="pull-right">
-                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                                new_typo_path(comment_id: comment.id, field: field),
-                                remote:       true,
-                                :class        => "btn btn-default",
-                                "data-toggle" => "tooltip",
-                                title:        "Corriger une faute de français",
-                                :style        => "padding: 8px; margin-right: 8px" %>
-                    <% if current_user.admin %>
-                        <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                    edit_comment_path(comment.id),
-                                    class: "btn btn-primary" %>
-                        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                    comment_path(id: comment.id),
-                                    method: :delete,
-                                    data:   {confirm: "Etes vous certain ?"},
-                                    class:  "btn btn-danger",
-                                    :style  => "margin-right: 8px" %>
-                    <% end %>
-                  </div>
-              <% else %>
-                  <div class="pull-right">
-                    Publiée il y a <%= time_ago_in_words(comment.created_at) %>
-                    par <%= link_to comment.user_name, user_path(comment.user_id) %>
-                  </div>
               <% end %>
+            <div class="pull-right">
+              <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                          new_typo_path(comment_id: comment.id, field: field),
+                          remote:       true,
+                          :class        => "btn btn-default",
+                          "data-toggle" => "tooltip",
+                          title:        "Corriger une faute de français",
+                          :style        => "padding: 8px; margin-right: 8px" %>
+              <% if current_user.admin %>
+                  <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                              edit_comment_path(comment.id),
+                              class: "btn btn-primary" %>
+                  <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                              comment_path(id: comment.id),
+                              method: :delete,
+                              data:   {confirm: "Etes vous certain ?"},
+                              class:  "btn btn-danger",
+                              :style  => "margin-right: 8px" %>
+              <% end %>
+            </div>
           </div>
       <% end %>
     </div>

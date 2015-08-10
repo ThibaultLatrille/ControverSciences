@@ -2,7 +2,7 @@
   <div class="panel-body">
   <span class="content">
     <div class="clearfix">
-      <% if logged_in? && current_user.id != frame.user_id %>
+      <% if logged_in? %>
           <div class="pull-right">
             <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                         new_typo_path(frame_id: frame.id, field: 0),
@@ -14,11 +14,13 @@
       <% end %>
       <h1 class="shadowed">
         <br/>
-        <%= frame.name_markdown.html_safe %>
+        <span class="content<%= frame.id*10 + 0 %>">
+           <%= frame.name_markdown.html_safe %>
+        </span>
         <br/><br/>
       </h1>
       <% if frame.content != "" %>
-          <% if logged_in? && current_user.id != frame.user_id %>
+          <% if logged_in? %>
               <div class="pull-right">
                 <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                             new_typo_path(frame_id: frame.id, field: 1),
@@ -28,7 +30,7 @@
                             :style  => "padding: 8px; margin: 8px" %>
               </div>
           <% end %>
-          <div class="cadre text-justify">
+          <div class="cadre text-justify content<%= frame.id*10 + 1 %>">
             <b style="font-size: 1.4em">Cadre, focus et mise au point :</b><br/>
             <%= frame.content_markdown.html_safe %>
           </div>

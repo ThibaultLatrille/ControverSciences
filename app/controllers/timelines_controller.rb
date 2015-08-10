@@ -75,7 +75,7 @@ class TimelinesController < ApplicationController
     if logged_in?
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
       @improve = Summary.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? false : true
-      @improve_frame = Frame.where.not(user_id: current_user.id ).find_by(best: true, timeline_id: @timeline.id)
+      @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
       @my_frame = Frame.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
     else
       query = query.where.not(nb_comments: 0)

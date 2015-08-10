@@ -8,10 +8,16 @@
       <div class="modal-body clearfix">
         <div class="panel panel-info">
           <div class="panel-heading">
-            <b>
-             Si une faute de français vous a brulé les yeux, vous pouvez proposer une correction ici à l'auteur.
-              Celle-ci lui sera envoyée pour être soumise à validation.
-            </b>
+            <% if typo.target_user_id == current_user.id %>
+                <b>
+                  Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
+                </b>
+            <% else %>
+                <b>
+                  Si une faute de français vous a brulé les yeux, vous pouvez proposer une correction ici à l'auteur.
+                  Celle-ci lui sera envoyée pour être soumise à validation.
+                </b>
+            <% end %>
           </div>
         </div>
         <%= form_for(typo, url: typos_path, remote: true,

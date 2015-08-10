@@ -17,7 +17,7 @@ class Typo < ActiveRecord::Base
     if !summary_id.blank?
       self.summary.content
     elsif !comment_id.blank?
-      self.comment.field_content( self.field.to_i )
+      self.comment.field_content(self.field.to_i)
     elsif !frame_id.blank?
       case self.field.to_i
         when 0
@@ -67,16 +67,35 @@ class Typo < ActiveRecord::Base
     elsif !frame_id.blank?
       fra = self.frame
       if fra.user_id == current_user_id || admin
-        case self.field
-          when 0
-            fra.name = self.content
-          when 1
-            fra.content = self.content
+        if self.field == 0
+          fra.name = self.content
+        else
+          fra.content = self.content
         end
         fra.save_with_markdown
       else
         false
       end
+    end
+  end
+
+  def content_index
+    if !summary_id.blank?
+      self.summary_id
+    elsif !comment_id.blank?
+      self.comment_id*10 + self.field
+    elsif !frame_id.blank?
+      self.frame_id*10 + self.field
+    end
+  end
+
+  def get_model_errors
+    if !summary_id.blank?
+      self.summary.errors
+    elsif !comment_id.blank?
+      self.comment.errors
+    elsif !frame_id.blank?
+      self.frame.errors
     end
   end
 
