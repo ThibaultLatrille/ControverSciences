@@ -348,11 +348,11 @@
         $(document).ready(function () {
             var data = {
                 labels: [
-                    $('#versus-left').text().toUpperCase(),
-                    $('#versus-left').text().toLowerCase(),
-                    "",
-                    $('#versus-right').text().toLowerCase(),
-                    $('#versus-right').text().toUpperCase()],
+                    "Fermement "+$('#versus-left').text().toLowerCase(),
+                    $('#versus-left').text(),
+                    "Neutre",
+                    $('#versus-right').text(),
+                    "Fermement "+$('#versus-right').text().toLowerCase()],
                 datasets: [
                     {
                         label: "My First dataset",
