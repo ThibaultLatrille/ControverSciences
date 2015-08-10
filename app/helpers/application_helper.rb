@@ -164,6 +164,18 @@ module ApplicationHelper
      9 => "Bienveillant"}
   end
 
+  def user_profil_info
+    ["A créé des controverses qui sont bien classées.",
+     "A écrit des propositions de formulation qui sont bien classées.",
+     "A écrit des synthèses qui sont bien notées dans des controverses bien classées.",
+     "A ajouté des références qui sont bien classées.",
+     "A Ajouté des analyses qui sont bien classées.",
+     "S'intéresse à des thèmes variés.",
+     "A reçu des crédits par les autres contributeurs.",
+     "A donné des crédits aux autres contributeurs.",
+     "A corrigé des fautes d'orthographes."]
+  end
+
   def star_hash
     {1 => "Cette référence est peu rigoureuse et n'est pas importante pour comprendre la controverse.",
      2 => "Cette référence est rigoureuse mais pas importante pour comprendre la controverse.",

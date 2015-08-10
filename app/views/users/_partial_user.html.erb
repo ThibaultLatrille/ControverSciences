@@ -80,17 +80,29 @@
                       pointHighlightStroke: "rgba(151,187,205,1)",
                       data: [
                           <% (1..8).each do |n| %>
-                          "<%= 0.5 + Float(@user_detail.profil[n.to_s]).round(3) %>",
+                          "<%= (0.5 + Float(@user_detail.profil[n.to_s])).round(2) %>",
                           <% end %>
-                          "<%= 0.5 + Float(@user_detail.profil["9"]).round(3) %>"
+                          "<%= (0.5 + 0.5 + Float(@user_detail.profil["9"])).round(2) %>"
                       ]
                   }
               ]
-          };
+          },
+          labels = <%= raw user_profil_info %>;
           Chart.defaults.global.responsive = true;
+          Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%><%%}%>";
+          Chart.defaults.global.scaleOverride = true;
+          // Number - The number of steps in a hard coded scale
+          Chart.defaults.global.scaleSteps = 5;
+          // Number - The value jump in the hard coded scale
+          Chart.defaults.global.scaleStepWidth = 0.3;
+          // Number - The scale starting value
+          Chart.defaults.global.scaleStartValue = 0;
           var canvas = $("#myChart").get(0),
               ctx = canvas.getContext('2d'),
               myRadarChart = new Chart(ctx).Radar(data, {});
+          $.each(myRadarChart.datasets[0].points, function( key, point ) {
+              point.toolLabel = labels[key];
+          });
       </script>
 
   <% end %>
