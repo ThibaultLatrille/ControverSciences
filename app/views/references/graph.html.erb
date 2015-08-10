@@ -28,16 +28,36 @@
       }
       return color
   }
-    var width = $(window).width();
-            height = $(window).height()-125;
-    var color = d3.scale.category20();
-    var force = d3.layout.force()
-            .linkDistance(10)
-            .linkStrength(2)
-            .size([width, height]);
-    var svg = d3.select("#d3-graph").append("svg")
-            .attr("width", width)
-            .attr("height", height);
+  var margin = {top: 0, right: 0, bottom: 0, left: 0},
+          width = $(window).width(),
+          height = $(window).height() - 125;
+
+  var zoom = d3.behavior.zoom()
+          .scaleExtent([1, 10])
+          .on("zoom", zoomed);
+
+  var color = d3.scale.category20();
+
+  var force = d3.layout.force()
+          .linkDistance(10)
+          .linkStrength(2)
+          .size([width, height]);
+
+  var svg = d3.select("#d3-graph").append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+          .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
+          .call(zoom);
+
+  var rect = svg.append("rect")
+          .attr("width", width)
+          .attr("height", height)
+          .style("fill", "none")
+          .style("pointer-events", "all");
+
+  var container = svg.append("g");
+
     d3.json("/references_network?timeline_id=<%= params[:timeline_id] %>", function(error, graph) {
         if (error) throw error;
         var nodes = graph.nodes.slice(),
@@ -59,11 +79,11 @@
                 .nodes(nodes)
                 .links(links)
                 .start();
-        var link = svg.selectAll(".link")
+        var link = container.selectAll(".link")
                 .data(bilinks)
                 .enter().append("path")
                 .attr("class", "link");
-        var node = svg.selectAll(".node")
+        var node = container.selectAll(".node")
                 .data(graph.nodes)
                 .enter().append("circle")
                 .attr("class", "node")
@@ -84,4 +104,8 @@
             $('[data-toggle="tooltip"]').tooltip({container: 'body'});
         });
     });
+
+  function zoomed() {
+      container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+  }
 </script>
