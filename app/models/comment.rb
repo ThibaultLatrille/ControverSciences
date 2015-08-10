@@ -312,21 +312,21 @@ class Comment < ActiveRecord::Base
   def content_validation
     ref = self.reference
     if ref.category == 1
-      if self.f_0_content.length > 4001
+      if self.f_0_content && self.f_0_content.length > 4001
         errors.add(:f_0_content, 'est trop long (pas plus de 4000 caractères)')
       end
     else
-      if self.f_0_content.length > 1001
+      if self.f_0_content && self.f_0_content.length > 1001
         errors.add(:f_0_content, 'est trop long (pas plus de 1000 caractères)')
       end
     end
     if ref.category == 3
-      if self.f_1_content.length > 4001
-        errors.add(:f_0_content, 'est trop long (pas plus de 4000 caractères)')
+      if self.f_1_content && self.f_1_content.length > 4001
+        errors.add(:f_1_content, 'est trop long (pas plus de 4000 caractères)')
       end
     else
-      if self.f_1_content.length > 1001
-        errors.add(:f_0_content, 'est trop long (pas plus de 1000 caractères)')
+      if self.f_1_content && self.f_1_content.length > 1001
+        errors.add(:f_1_content, 'est trop long (pas plus de 1000 caractères)')
       end
     end
     if ref.title_fr.blank? && self.title.blank?
