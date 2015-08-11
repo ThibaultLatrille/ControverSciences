@@ -48,32 +48,44 @@ footer, #my-container:after {
 }
 
 footer {
-  text-align: center;
   background: #232D33;
   color: #ffffff;
 }
 
-footer img{
- padding-top: 5px;
- padding-left: 10px;
+footer #about-link a {
+  margin-left: 20px;
+  text-align: left;
+  font-size: 24px;
+  line-height: 52px
 }
-
-footer a {
-  padding: 12px 0 12px 0;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 20px;
-}
-
-footer a:hover {
+footer #about-link a {
   color: #ffffff;
   text-decoration: none;
 }
 
-@media (max-width: 767px) {
-  footer a {
-    font-size: 12px;
+footer #about-link a:hover {
+  color: #f1f1f1;
+  text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  footer #social-footer {
+    display: none;
   }
+  footer #about-link a {
+    font-size: 18px;
+  }
+}
+
+.twitter-follow-button{
+  vertical-align: top !important;
+  margin-top: 17px;
+}
+
+.fb-like {
+  vertical-align: top !important;
+  margin-top: 17px;
+  margin-right: 20px;
 }
 
 .img-responsive {

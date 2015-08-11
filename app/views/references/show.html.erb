@@ -33,7 +33,23 @@
     <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Référence suivante".html_safe,
                 next_reference_path(timeline_id: @reference.timeline_id, id: @reference.id),
                 class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Envoyer une invitation à participer à la référence".html_safe,
+  </div>
+  <div class="list-group">
+    <div class="list-group-item">
+      <a href="https://twitter.com/share"
+         class="twitter-share-button"
+         data-text="<%= @reference.title_display %>"
+         data-via="ControverSci">
+        Tweet
+      </a>
+    </div>
+    <div class="list-group-item">
+      <div class="fb-share-button"
+           data-href="<%= reference_path @reference %>"
+           data-layout="button_count">
+      </div>
+    </div>
+    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Inviter à participer à la référence".html_safe,
                 new_invitation_path(reference_id: @reference.id),
                 remote: true,
                 class: "list-group-item" %>

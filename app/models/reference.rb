@@ -98,10 +98,10 @@ class Reference < ActiveRecord::Base
   end
 
   def title_display
-    if self.title_fr && !self.title_fr.blank?
-      self.title_fr.strip[3..-5].html_safe
-    else
+    if self.title_fr.blank?
       self.title.html_safe
+    else
+      self.title_fr.strip[3..-5].html_safe
     end
   end
 
