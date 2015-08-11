@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-offset-1 col-lg-6">
-    <div class="panel panel-default clearfix">
+      <div class="panel panel-default clearfix">
         <div class="panel-heading clearfix">
           <h2>
             Les liens concernant la référence
@@ -23,11 +23,13 @@
         </div>
         <div class="panel-body">
           <% if @reference_edges.any? %>
-              <h6><span class="glyphicon glyphicon-link"></span> La référence <%= Reference.select(:title, :title_fr).find(params[:reference_id])
-                                                                             .title_display.html_safe %> </h6>
+              <h6><span class="glyphicon glyphicon-link"></span> La
+                référence <%= Reference.select(:title, :title_fr).find(params[:reference_id])
+                              .title_display.html_safe %> </h6>
           <% else %>
-              <h6><span class="glyphicon glyphicon-link"></span> La référence <%= Reference.select(:title, :title_fr).find(params[:reference_id])
-                                                                                          .title_display.html_safe %> n'a aucun lien vers
+              <h6><span class="glyphicon glyphicon-link"></span> La
+                référence <%= Reference.select(:title, :title_fr).find(params[:reference_id])
+                              .title_display.html_safe %> n'a aucun lien vers
                 d'autres références
               </h6>
           <% end %>
@@ -50,11 +52,11 @@
                                     reference_path(reference_edge.target) %>
                     <% end %>
                   </h4>
-                  <% if reference_edge.balance < 0  %>
+                  <% if reference_edge.balance < 0 %>
                       <div class="alert alert-danger">
                         Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs.
                       </div>
-                  <% end  %>
+                  <% end %>
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="heading1">
                       <h4 class="panel-title clearfix">
@@ -67,68 +69,70 @@
                     </div>
                     <div id="Collapse<%= reference_edge.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                       <div class="panel-body">
-                  <% (1..edges_category.length).each do |category| %>
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <div class="pull-left" style="margin-right: 20px">
-                            <% if @my_vote_likes && @my_vote_likes.include?([reference_edge.id, category]) %>
-                                <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
-                                        data-category="<%= category %>"
-                                        data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                        title="Vous et <%= (reference_edge.plus_count(category) - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
-                                  <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category)  %></span>
-                                </button>
-                            <% else %>
-                                <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
-                                        data-category="<%= category %>"
-                                        data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                        title="<%= reference_edge.plus_count(category).to_s + " contributeurs sont d'accord avec ce lien" %>">
-                                  <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category)  %></span>
-                                </button>
-                            <% end %>
-                            <div style="margin-top: 5px"></div>
-                            <% if @my_vote_dislikes && @my_vote_dislikes.include?([reference_edge.id, category]) %>
-                                <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
-                                        data-category="<%= category %>"
-                                        data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                        title="Vous et <%= (reference_edge.minus_count(category)  - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
-                                  <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category)  %></span>
-                                </button>
-                            <% else %>
-                                <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
-                                        data-category="<%= category %>"
-                                        data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                        title="<%= reference_edge.minus_count(category).to_s + " contributeurs en sont pas d'accord avec ce lien" %>">
-                                  <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category)  %></span>
-                                </button>
-                            <% end %>
-                          </div>
-                          <div style="padding-top: 10px">
-                            <% if params[:reference_id].to_i == reference_edge.target %>
-                                <%= backward_edges_category[category] %>
-                            <% else %>
-                                <%= forward_edges_category[category] %>
-                            <% end %> la référence
-                            <% if params[:reference_id].to_i == reference_edge.target %>
-                                <%= link_to "#{reference_edge.reference_title_fr.blank? ? "" : reference_edge.reference_title_fr.strip[3..-5].html_safe}
+                        <% (1..edges_category.length).each do |category| %>
+                            <div class="panel panel-default">
+                              <div class="panel-heading">
+                                <div class="pull-left" style="margin-right: 20px">
+                                  <% if @my_vote_likes && @my_vote_likes.include?([reference_edge.id, category]) %>
+                                      <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
+                                              data-category="<%= category %>"
+                                              data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
+                                              title="Vous et <%= (reference_edge.plus_count(category) - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                                        <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category) %></span>
+                                      </button>
+                                  <% else %>
+                                      <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
+                                              data-category="<%= category %>"
+                                              data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
+                                              title="<%= reference_edge.plus_count(category).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                                        <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category) %></span>
+                                      </button>
+                                  <% end %>
+                                  <div style="margin-top: 5px"></div>
+                                  <% if @my_vote_dislikes && @my_vote_dislikes.include?([reference_edge.id, category]) %>
+                                      <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
+                                              data-category="<%= category %>"
+                                              data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
+                                              title="Vous et <%= (reference_edge.minus_count(category) - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
+                                        <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category) %></span>
+                                      </button>
+                                  <% else %>
+                                      <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
+                                              data-category="<%= category %>"
+                                              data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
+                                              title="<%= reference_edge.minus_count(category).to_s + " contributeurs en sont pas d'accord avec ce lien" %>">
+                                        <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category) %></span>
+                                      </button>
+                                  <% end %>
+                                </div>
+                                <div style="padding-top: 10px">
+                                  <% if params[:reference_id].to_i == reference_edge.target %>
+                                      <%= backward_edges_category[category] %>
+                                  <% else %>
+                                      <%= forward_edges_category[category] %>
+                                  <% end %> la référence
+                                  <% if params[:reference_id].to_i == reference_edge.target %>
+                                      <%= link_to "#{reference_edge.reference_title_fr.blank? ? "" : reference_edge.reference_title_fr.strip[3..-5].html_safe}
                                 <div style=\"margin-top: 5px; font-style: italic; font-size: 1em\"> #{reference_edge.reference_title.html_safe}</div>".html_safe,
-                                            reference_path(reference_edge.reference_id) %>
-                            <% else %>
-                                <%= link_to "#{reference_edge.target_title_fr.blank? ? "" : reference_edge.target_title_fr.strip[3..-5].html_safe}
+                                                  reference_path(reference_edge.reference_id) %>
+                                  <% else %>
+                                      <%= link_to "#{reference_edge.target_title_fr.blank? ? "" : reference_edge.target_title_fr.strip[3..-5].html_safe}
                                 <div style=\"margin-top: 5px; font-style: italic; font-size:1em\"> #{reference_edge.target_title.html_safe}</div>".html_safe,
-                                            reference_path(reference_edge.target) %>
-                            <% end %>
-                          </div>
-                          <br/>
-                        </div>
-                      </div>
-                  <% end %>
+                                                  reference_path(reference_edge.target) %>
+                                  <% end %>
+                                </div>
+                                <br/>
+                              </div>
+                            </div>
+                        <% end %>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
           <% end %>
+          <br/>
+          <% if @reference_names.length > 0 %>
           <div class="panel panel-success">
             <div class="panel-heading">
               <h4><span class="glyphicon glyphicon-link"></span> Créer un nouveau lien
@@ -136,21 +140,25 @@
               </h4>
             </div>
             <div class="panel-body">
-              <%= form_for(:reference_edge, url: reference_edges_path, method: :post) do |f| %>
+              <%= form_for(@reference_edge) do |f| %>
+                  <%= render 'shared/error_messages', object: f.object %>
+
                   <%= f.hidden_field :reference_id, value: params[:reference_id] %>
                   <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
 
-                  <b>
-                    <%= Reference.select(:title, :title_fr).find(params[:reference_id]).title_display.html_safe %>
-                  </b> <div style="padding-bottom: 5px"></div>
-                  <%= f.select :category, edges_category.map { |e| [e[1], e[0]] }, {}, {class: 'form-control'} %>
+                  <%= f.label "Sens du lien" %>
+                  <%= f.select :direction, [["Vers", "to"], ["Depuis", "from"]], {:prompt => "Sens du lien..."}, {class: 'form-control'} %>
                   <br/>
 
-                  <%= f.label "La référence" %>
-                  <%= f.select :target, @reference_names.map { |t| [t[0].html_safe, t[1]] }, {}, {class: 'form-control'} %>
+                  <div id="type-of-link" style="display: none">
+                    <%= f.label "Type de lien" %>
+                    <%= f.select :category, [], {:prompt => "Type de lien..."}, {class: 'form-control'} %>
+                    <br/>
+                  </div>
+
+                  <%= f.label "Avec la référence" %>
+                  <%= f.select :target, @reference_names.map { |t| [t[0].html_safe, t[1]] }, {:prompt => "Avec la référence..."}, {class: 'form-control'} %>
                   <br/>
-
-
                   <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Ajouter un lien".html_safe,
                                class: 'btn btn-success pull-right',
                                data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Mise à jour"} %>
@@ -159,6 +167,7 @@
               <% end %>
             </div>
           </div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -183,6 +192,43 @@
 </div>
 
 <script type="text/javascript">
+    var selectList = <%= raw edges_category.map { |e| [e[1], e[0]] } %>,
+            typeOfLink = $('#type-of-link'),
+            referenceEdgeCategory = $('#reference_edge_category');
+    $.updateSelect = function(myvalue) {
+        if (myvalue === "to"){
+            referenceEdgeCategory.empty();
+            referenceEdgeCategory.append($("<option></option>")
+                    .attr("value", "").text("Type de lien..."));
+            $.each(selectList, function(key, value) {
+                if (value[1] % 2 === 1) {
+                    referenceEdgeCategory.append($("<option></option>")
+                            .attr("value", value[1]).text(value[0]));
+                }
+            });
+            typeOfLink.show(500)
+        } else if (myvalue === "from") {
+            referenceEdgeCategory.empty();
+            referenceEdgeCategory.append($("<option></option>")
+                    .attr("value", "").text("Type de lien..."));
+            $.each(selectList, function(key, value) {
+                if (value[1] % 2 === 0) {
+                    referenceEdgeCategory.append($("<option></option>")
+                            .attr("value", value[1]).text(value[0]));
+                }
+            });
+            typeOfLink.show(500)
+        } else {
+            referenceEdgeCategory.empty();
+            referenceEdgeCategory.append($("<option></option>")
+                    .attr("value", "").text("Type de lien..."));
+            typeOfLink.hide(500)
+        }
+    };
+    $.updateSelect($('#reference_edge_direction').val());
+    $('#reference_edge_direction').on('change', function() {
+        $.updateSelect(this.value);
+    });
     $('.collapse').on('show.bs.collapse', function () {
         $(this).parent(".panel").find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
 

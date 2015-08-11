@@ -75,12 +75,13 @@
                 <h4><span class="glyphicon glyphicon-link"></span> Créer un nouveau lien</h4>
               </div>
               <div class="panel-body">
-                <%= form_for(:edge, url: edges_path, method: :post) do |f| %>
+                <%= form_for(@edge) do |f| %>
+                    <%= render 'shared/error_messages', object: f.object %>
                     <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
 
 
-                    <%= f.label "La controverses" %>
-                    <%= f.select :target, @timeline_names.map{ |t| [t[0].html_safe, t[1]]}, {}, {class: 'form-control'} %>
+                    <%= f.label "La controverse" %>
+                    <%= f.select :target, @timeline_names.map{ |t| [t[0].html_safe, t[1]]}, {:prompt => "Lien avec la controverse..."}, {class: 'form-control'} %>
 
                     <br/>
                     <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Ajouter un lien".html_safe,
