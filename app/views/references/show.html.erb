@@ -33,6 +33,13 @@
     <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Référence suivante".html_safe,
                 next_reference_path(timeline_id: @reference.timeline_id, id: @reference.id),
                 class: "list-group-item" %>
+    <% if logged_in? %>
+    <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+        </span> Ajouter ou modifier les liens vers d'autres références".html_safe,
+                reference_edges_path(timeline_id:  @reference.timeline_id,
+                                     reference_id: @reference.id),
+                class: "list-group-item" %>
+    <% end %>
   </div>
   <div class="list-group">
     <div class="list-group-item">
@@ -56,11 +63,6 @@
   </div>
   <% if logged_in? %>
       <div class="list-group">
-        <%= link_to "<span class=\"glyphicon glyphicon-link\" >
-        </span> Ajouter des liens vers d'autres références".html_safe,
-                    reference_edges_path(timeline_id:  @reference.timeline_id,
-                                         reference_id: @reference.id),
-                    class: "list-group-item" %>
         <% if @reference.user_id == current_user.id || current_user.admin %>
             <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette référence".html_safe,
                         edit_reference_path(@reference),
