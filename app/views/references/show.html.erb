@@ -74,16 +74,16 @@
       <div class="list-group">
         <% if @comment && params[:filter] == "mine" %>
             <%= link_to "<span class=\"icon-fork normal\" >
-             </span> Modifier mon analyse".html_safe,
+             </span> Modifier votre analyse".html_safe,
                         edit_comment_path(@comment.id),
                         class: "list-group-item" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer mon analyse".html_safe,
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre analyse".html_safe,
                         comment_path(@comment.id), method: :delete,
                         data:                              {confirm: "Etes vous certain ?"},
                         class:                             "list-group-item list-group-item-danger" %>
         <% elsif @comment %>
             <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-             </span> Mon analyse".html_safe,
+             </span> Votre analyse".html_safe,
                         reference_path(reference_id: @reference.id, filter: "mine"),
                         class: "list-group-item" %>
         <% else %>
@@ -102,7 +102,7 @@
           <div class="clearfix">
             <% if @comment %>
                 <div class="btn-group">
-                  <%= link_to "Mon analyse".html_safe,
+                  <%= link_to "Votre analyse".html_safe,
                               reference_path(:filter => 'mine'),
                               class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
                 </div>
@@ -114,7 +114,7 @@
             </div>
             <% if @my_votes.any? %>
                 <div class="btn-group">
-                  <%= link_to "Mon analyse favorite".html_safe,
+                  <%= link_to "Votre analyse favorite".html_safe,
                               reference_path(:filter => 'my-vote'),
                               class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
                 </div>
@@ -285,7 +285,7 @@
                       <div class="btn-group-justified" data-toggle="buttons">
                         <% unless @user_binary.nil? %>
                             <label class="btn btn-default"
-                                   title="Retirer mon avis" data-toggle="tooltip">
+                                   title="Retirer votre avis" data-toggle="tooltip">
                               <%= f.radio_button :value, checked_value = "none",
                                                  {id: "none", autocomplete: "off"} %>
                               <span class="icon-no"></span>
@@ -362,7 +362,7 @@
                 <div class="btn-group-justified" data-toggle="buttons">
                   <% unless @user_rating.nil? %>
                       <label class="btn btn-default btn-select"
-                             title="Retirer mon avis" data-toggle="tooltip">
+                             title="Retirer votre avis" data-toggle="tooltip">
                         <%= f.radio_button :value, checked_value = "none",
                                            {id: "none", autocomplete: "off"} %>
                         <span class="icon-no"></span>

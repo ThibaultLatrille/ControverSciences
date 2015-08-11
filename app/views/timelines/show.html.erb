@@ -71,7 +71,7 @@
     <% end %>
     <% if logged_in? && @my_frame %>
         <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
-                                </span> Ma proposition de titre et de cadre".html_safe,
+                                </span> Votre proposition de titre et de cadre".html_safe,
                     frames_path(timeline_id: @timeline.id, filter: "mine"),
                     :class => "list-group-item" %>
     <% end %>
@@ -94,7 +94,7 @@
                                 :class => "list-group-item" %>
                 <% else %>
                     <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
-                  Ma synthèse".html_safe,
+                  Votre synthèse".html_safe,
                                 summaries_path(timeline_id: @timeline.id, filter: "mine"),
                                 :class => "list-group-item" %>
                 <% end %>

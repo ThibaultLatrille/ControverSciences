@@ -4,7 +4,7 @@
   <div class="panel-heading clearfix">
     <% if logged_in? && current_user.id == @user.id %>
         <div class="pull-right">
-          <%= link_to "<span class=\"fat icon-techno\"></span> Editer mon profil".html_safe,
+          <%= link_to "<span class=\"fat icon-techno\"></span> Editer votre profil".html_safe,
                       edit_user_path(@user.id) ,class: "btn btn-default" %>
         </div>
     <% end %>

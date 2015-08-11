@@ -15,10 +15,10 @@
                         class: "list-group-item" %>
         <% end %>
         <% if logged_in? && @summary.user_id == current_user.id %>
-            <%= link_to "<span class=\"icon-frog normal\"></span> Modifier l'analyse".html_safe,
+            <%= link_to "<span class=\"icon-frog normal\"></span> Modifier votre synthèse".html_safe,
                         edit_summary_path(@summary.id),
                         class: "list-group-item" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer l'analyse".html_safe,
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre synthèse".html_safe,
                         summary_path(@summary.id), method: :delete,
                         data:                              {confirm: "Etes vous certain ?"},
                         class:                             "list-group-item list-group-item-danger" %>
