@@ -193,7 +193,7 @@ module ApplicationHelper
   end
 
   def edges_category
-    [[1, "A une lettre de réponse :"],
+    [[1, "À une lettre de réponse"],
      [2, "Est une lettre de réponse à"],
      [3, "Précise"],
      [4, "Est précisée par"],

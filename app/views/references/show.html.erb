@@ -33,7 +33,7 @@
     <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Référence suivante".html_safe,
                 next_reference_path(timeline_id: @reference.timeline_id, id: @reference.id),
                 class: "list-group-item" %>
-    <% if logged_in? %>
+    <% if logged_in? && @reference.timeline.nb_references > 1 %>
     <%= link_to "<span class=\"glyphicon glyphicon-link\" >
         </span> Ajouter ou modifier les liens vers d'autres références".html_safe,
                 reference_edges_path(timeline_id:  @reference.timeline_id,

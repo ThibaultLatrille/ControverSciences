@@ -41,7 +41,7 @@
                         <%= backward_edges_category[reference_edge.category] %>
                     <% else %>
                         <%= forward_edges_category[reference_edge.category] %>
-                    <% end %> la référence
+                    <% end %> :
                     <% if params[:reference_id].to_i == reference_edge.target %>
                         <%= link_to "#{reference_edge.reference_title_fr.blank? ? "" : reference_edge.reference_title_fr.strip[3..-5].html_safe}
                                 <div style=\"margin-top: 5px; font-style: italic; font-size: 0.8em\"> #{reference_edge.reference_title.html_safe}</div>".html_safe,
@@ -110,7 +110,7 @@
                                       <%= backward_edges_category[category] %>
                                   <% else %>
                                       <%= forward_edges_category[category] %>
-                                  <% end %> la référence
+                                  <% end %> la référence :
                                   <% if params[:reference_id].to_i == reference_edge.target %>
                                       <%= link_to "#{reference_edge.reference_title_fr.blank? ? "" : reference_edge.reference_title_fr.strip[3..-5].html_safe}
                                 <div style=\"margin-top: 5px; font-style: italic; font-size: 1em\"> #{reference_edge.reference_title.html_safe}</div>".html_safe,
@@ -150,11 +150,9 @@
                   <%= f.select :direction, [["Vers", "to"], ["Depuis", "from"]], {:prompt => "Sens du lien..."}, {class: 'form-control'} %>
                   <br/>
 
-                  <div id="type-of-link" style="display: none">
                     <%= f.label "Type de lien" %>
                     <%= f.select :category, [], {:prompt => "Type de lien..."}, {class: 'form-control'} %>
                     <br/>
-                  </div>
 
                   <%= f.label "Avec la référence" %>
                   <%= f.select :target, @reference_names.map { |t| [t[0].html_safe, t[1]] }, {:prompt => "Avec la référence..."}, {class: 'form-control'} %>
@@ -193,7 +191,6 @@
 
 <script type="text/javascript">
     var selectList = <%= raw edges_category.map { |e| [e[1], e[0]] } %>,
-            typeOfLink = $('#type-of-link'),
             referenceEdgeCategory = $('#reference_edge_category');
     $.updateSelect = function(myvalue) {
         if (myvalue === "to"){
@@ -206,7 +203,6 @@
                             .attr("value", value[1]).text(value[0]));
                 }
             });
-            typeOfLink.show(500)
         } else if (myvalue === "from") {
             referenceEdgeCategory.empty();
             referenceEdgeCategory.append($("<option></option>")
@@ -217,12 +213,6 @@
                             .attr("value", value[1]).text(value[0]));
                 }
             });
-            typeOfLink.show(500)
-        } else {
-            referenceEdgeCategory.empty();
-            referenceEdgeCategory.append($("<option></option>")
-                    .attr("value", "").text("Type de lien..."));
-            typeOfLink.hide(500)
         }
     };
     $.updateSelect($('#reference_edge_direction').val());

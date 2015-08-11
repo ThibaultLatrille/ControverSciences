@@ -116,9 +116,11 @@
   <% end %>
   <% if logged_in? %>
       <div class="list-group">
+        <% if @timeline.nb_references >1 %>
         <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les références de cette controverse".html_safe,
                     references_graph_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
+        <% end %>
         <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
     </span> Ajouter une référence à cette controverse.".html_safe,
                     new_reference_path(timeline_id: @timeline.id),

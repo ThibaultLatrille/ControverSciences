@@ -2,7 +2,7 @@ class ReferenceEdgesController < ApplicationController
   before_action :logged_in_user, only: [:index, :create]
 
   def index
-    @reference_edge = ReferenceEdge.new
+    @reference_edge = ReferenceEdge.new(direction: "to")
     set_index
   end
 
