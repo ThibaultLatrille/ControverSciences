@@ -29,11 +29,14 @@
         <div class="clearfix">
           <% if current_user.id != summary.user_id %>
               <% if @my_credit && @my_credit.summary_id == summary.id %>
-                  &nbsp
-                <span class="icon-frog-laurel big"
-                      title="Vous avez selectionné cette synthèse comme votre favorite"
-                      data-placement="right"
-                      data-toggle="tooltip"></span>
+                  <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
+                              credit_path(@my_credit.id),
+                              "data-toggle"    => "tooltip",
+                              "data-placement" => "right",
+                              title:           "Vous avez selectionné cette synthèse comme votre favorite",
+                              method:          :delete,
+                              class:           "btn btn-success",
+                              :style           => "padding: 8px; margin-left: 8px" %>
               <% else %>
                   <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
                               credits_path(timeline_id: summary.timeline_id, summary_id: summary.id),
@@ -41,7 +44,7 @@
                               "data-placement" => "right",
                               title:           "Selectionner cette synthèse comme votre favorite",
                               method:          :post,
-                              class:           "btn btn-success",
+                              class:           "btn btn-default green",
                               :style           => "padding: 8px; margin-left: 8px" %>
               <% end %>
           <% end %>

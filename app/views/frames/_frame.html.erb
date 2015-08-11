@@ -61,11 +61,14 @@
         <div class="clearfix">
           <% if current_user.id != frame.user_id %>
               <% if @my_frame_credit && @my_frame_credit.frame_id == frame.id %>
-                  &nbsp
-                <span class="icon-frog-laurel big"
-                      title="Vous avez selectionné cette contribution comme votre favorite"
-                      data-placement="right"
-                      data-toggle="tooltip"></span>
+                  <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
+                              frame_credit_path(@my_frame_credit.id),
+                              "data-toggle"    => "tooltip",
+                              "data-placement" => "right",
+                              title:           "Vous avez selectionné cette contribution comme votre favorite",
+                              method:          "delete",
+                              class:           "btn btn-success",
+                              :style           => "padding: 8px; margin-left: 8px" %>
               <% else %>
                   <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
                               frame_credits_path(timeline_id: frame.timeline_id,
@@ -74,7 +77,7 @@
                               "data-placement" => "right",
                               title:           "Selectionner cette contribution comme votre favorite",
                               method:          :post,
-                              class:           "btn btn-success",
+                              class:           "btn btn-default green",
                               :style           => "padding: 8px; margin-left: 8px" %>
               <% end %>
               <div class="pull-right" style="margin-right: 8px;">

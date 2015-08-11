@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-  before_action :logged_in_user, only: [:create]
+  before_action :logged_in_user, only: [:create, :destroy]
 
   def create
     Vote.where(user_id:     current_user.id, reference_id: params[:reference_id],
@@ -15,5 +15,13 @@ class VotesController < ApplicationController
       flash[:danger] = "Impossible d'effectuer cette action."
     end
     redirect_to reference_path(id: params[:reference_id], filter: "my-vote")
+  end
+
+  def destroy
+    vote = Vote.find(params[:id])
+    if vote.user_id == current_user.id ||current_user.admin
+      vote.destroy
+    end
+    redirect_to :back
   end
 end

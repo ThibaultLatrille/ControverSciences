@@ -1,5 +1,5 @@
 class CreditsController < ApplicationController
-  before_action :logged_in_user, only: [:create]
+  before_action :logged_in_user, only: [:create, :destroy]
 
   def create
     Credit.where(user_id:     current_user.id,
@@ -13,5 +13,13 @@ class CreditsController < ApplicationController
       flash[:danger] = "Impossible d'effectuer cette action."
     end
     redirect_to summaries_path(timeline_id: params[:timeline_id])
+  end
+
+  def destroy
+    credit = Credit.find(params[:id])
+    if credit.user_id == current_user.id ||current_user.admin
+      credit.destroy
+    end
+    redirect_to :back
   end
 end
