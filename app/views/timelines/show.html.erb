@@ -27,15 +27,15 @@
         <%= @timeline.nb_edits %>
       </div>
     </div>
+    <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir aux controverses".html_safe,
+                timelines_path(:sort => params[:sort], :order => params[:order]),
+                class: "list-group-item" %>
     <% if logged_in? %>
         <%= link_to "<span class=\"glyphicon glyphicon-link\" >
                         </span> Liens vers d'autres controverses".html_safe,
                     edges_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
     <% end %>
-    <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir aux controverses".html_safe,
-                timelines_path(:sort => params[:sort], :order => params[:order]),
-                class: "list-group-item" %>
   </div>
   <div class="list-group">
     <div class="list-group-item">
