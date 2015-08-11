@@ -99,6 +99,36 @@ class Typo < ActiveRecord::Base
     end
   end
 
+  def is_content_valid
+    if !summary_id.blank?
+      sum = self.summary
+      sum.content = self.content
+      sum.valid?
+      sum.errors
+    elsif !comment_id.blank?
+      com = self.comment
+      case self.field
+        when 6
+          com.title = self.content
+        when 7
+          com.caption = self.content
+        else
+          com["f_#{field}_content"] = self.content
+      end
+      com.valid?
+      com.errors
+    elsif !frame_id.blank?
+      fra = self.frame
+      if self.field == 0
+        fra.name = self.content
+      else
+        fra.content = self.content
+      end
+      fra.valid?
+      fra.errors
+    end
+  end
+
   private
 
   def increment_nb_notifs

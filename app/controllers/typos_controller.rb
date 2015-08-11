@@ -43,18 +43,26 @@ class TyposController < ApplicationController
           format.js { render 'typos/mine', :content_type => 'text/javascript', :layout => false}
         end
       else
+        @typo_errors = @typo.get_model_errors
         respond_to do |format|
-          format.js { render 'typos/fail', :content_type => 'text/javascript', :layout => false}
+          format.js { render 'typos/errors', :content_type => 'text/javascript', :layout => false}
         end
       end
     else
-      if @typo.save
-        respond_to do |format|
-          format.js { render 'typos/success', :content_type => 'text/javascript', :layout => false}
+      @typo_errors = @typo.is_content_valid
+      if @typo_errors.full_messages.blank?
+        if @typo.save
+          respond_to do |format|
+            format.js { render 'typos/success', :content_type => 'text/javascript', :layout => false}
+          end
+        else
+          respond_to do |format|
+            format.js { render 'typos/fail', :content_type => 'text/javascript', :layout => false}
+          end
         end
       else
         respond_to do |format|
-          format.js { render 'typos/fail', :content_type => 'text/javascript', :layout => false}
+          format.js { render 'typos/errors', :content_type => 'text/javascript', :layout => false}
         end
       end
     end
