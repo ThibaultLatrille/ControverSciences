@@ -66,11 +66,11 @@ $ sh ./dump/pg_restore
 * Login : administrator@controversciences.org
 * Password: 'password'
 
-# AUTHORS
+### Authors
 
 Thibault Latrille
 
-# LICENCE
+### Licence
 
 The MIT License (MIT)
 
