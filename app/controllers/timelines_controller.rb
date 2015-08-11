@@ -93,7 +93,7 @@ class TimelinesController < ApplicationController
     timeline = Timeline.find(params[:id])
     if timeline.user_id == current_user.id || current_user.admin
       timeline.destroy
-      redirect_to my_items_items_path
+      redirect_to timelines_path
     end
   end
 

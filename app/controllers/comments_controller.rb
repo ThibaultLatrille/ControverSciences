@@ -94,7 +94,7 @@ class CommentsController < ApplicationController
     comment = Comment.find(params[:id])
     if comment.user_id == current_user.id || current_user.admin
       comment.destroy_with_counters
-      redirect_to my_items_items_path
+      redirect_to reference_path(comment.reference_id)
     else
       flash[:danger] = "Vous ne pouvez pas supprimer une analyse qui ne vous appartient pas."
       redirect_to comment_path(params[:id])

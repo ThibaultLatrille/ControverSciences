@@ -176,7 +176,7 @@ class ReferencesController < ApplicationController
     reference = Reference.find(params[:id])
     if reference.user_id == current_user.id || current_user.admin
       reference.destroy_with_counters
-      redirect_to my_items_items_path
+      redirect_to timeline_path(reference.timeline_id)
     end
   end
 
