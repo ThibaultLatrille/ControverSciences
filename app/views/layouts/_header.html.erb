@@ -46,14 +46,12 @@
               <ul class="dropdown-menu">
                 <li><%= link_to "<b><span class='icon-user'></span> Accéder à votre profil</b>".html_safe,
                                 user_path(current_user) %> </li>
-                <li class="divider"></li>
                 <% if current_user.admin && Typo.all.count > 0 %>
                     <li style="background-color: #d9534f">
                       <%= link_to "<span class=\"badge badge-header\"> #{Typo.all.count} </span> corrections en attente".html_safe,
                                   typos_path, style: "color: white;" %>
 
                     </li>
-                    <li class="divider"></li>
                 <% end %>
                 <% if Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count > 0 %>
                     <li class="my-missing">
@@ -62,7 +60,6 @@
                                   empty_references_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
-                    <li class="divider"></li>
                 <% end %>
                 <% if Reference.where(user_id: current_user.id, title_fr: nil).count > 0 %>
                     <li class="my-missing">
@@ -71,7 +68,6 @@
                                   empty_comments_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
-                    <li class="divider"></li>
                 <% end %>
                 <% if Timeline.where(user_id: current_user.id, nb_summaries: 0 ).where.not( nb_references: 0..3 ).where.not(nb_comments: 0..3).count > 0 %>
                     <li class="my-missing">
@@ -81,9 +77,9 @@
                                   empty_summaries_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
-                    <li class="divider"></li>
                 <% end %>
-                <li><%= link_to "<b><span class='icon-comment'></span> Mes contributions</b>".html_safe,
+                <li class="divider"></li>
+                <li><%= link_to "<b><span class='icon-comment'></span> Vos contributions</b>".html_safe,
                                 my_items_items_path %> </li>
                 <li> <%= link_to "<b><span class=\"badge #{current_user.nb_notifs > 0 ? "badge-li" : nil }\">
                 #{current_user.nb_notifs}</span> Notifications </b>".html_safe,

@@ -3,7 +3,7 @@ class TimelinesController < ApplicationController
 
   def index
     query = Timeline.order(params[:sort].blank? ? :score : params[:sort].to_sym =>
-                               params[:order].blank? ? :desc : params[:order].to_sym)
+                               params[:order].blank? ? :desc : params[:order].to_sym).where.not(private: true)
     unless params[:tag].blank? || params[:tag] == 'all'
       query = query.tagged_with(params[:tag])
     end
@@ -25,6 +25,9 @@ class TimelinesController < ApplicationController
     @timeline        = Timeline.new
     @timeline.binary = true
     @tag_list        = []
+    if current_user.private_timeline
+      @timeline.private = true
+    end
   end
 
   def edit
@@ -34,7 +37,9 @@ class TimelinesController < ApplicationController
 
   def create
     @timeline = Timeline.new(user_id: current_user.id, frame: timeline_params[:frame],
-                             name: timeline_params[:name], debate: true)
+                             name: timeline_params[:name],
+                             private: timeline_params[:private],
+                             debate: true)
     if timeline_params[:binary] == "1"
       @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
     else
@@ -91,7 +96,7 @@ class TimelinesController < ApplicationController
 
   def destroy
     timeline = Timeline.find(params[:id])
-    if timeline.user_id == current_user.id || current_user.admin
+    if (timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin
       timeline.destroy
       redirect_to timelines_path
     end
@@ -126,11 +131,19 @@ class TimelinesController < ApplicationController
                 .uniq{ |e| [e.timeline_id,e.target].sort }
   end
 
+  def set_public
+    if current_user.private_timeline
+      Timeline.update(params[:timeline_id], private: false)
+    end
+    redirect_to :back
+  end
+
+
   private
 
   def timeline_params
     params.require(:timeline).permit(:name, :binary, :frame, :binary_left,
                                      :binary_right, :img_timeline_id,
-                                     :delete_picture, :has_picture, :source )
+                                     :delete_picture, :has_picture, :source, :private )
   end
 end

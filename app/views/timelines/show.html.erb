@@ -125,7 +125,7 @@
     </span> Ajouter une référence à cette controverse.".html_safe,
                     new_reference_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
-        <% if @timeline.user_id == current_user.id || current_user.admin %>
+        <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
                         timeline_path(@timeline), method: :delete,
                         data:                             {confirm: "Etes vous certain ?"},
@@ -136,6 +136,16 @@
 </div>
 
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
+<% if @timeline.private && logged_in? && current_user.private_timeline %>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <%= link_to "Cette controverse est privée. Souhaitez vous la rendre publique <span class=\"icon icon-lock normal\"></span>".html_safe,
+                    set_public_timelines_path(timeline_id: @timeline.id),
+                    data: {confirm: "Rendre la controverse publique est irréversible, êtes vous certain de votre choix ?"} %>
+      </div>
+    </div>
+<% end %>
+
 <div class="panel panel-default comment">
 <div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>); background-size: 100% auto;">
   <div class="content">

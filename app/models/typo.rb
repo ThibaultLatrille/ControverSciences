@@ -132,11 +132,15 @@ class Typo < ActiveRecord::Base
   private
 
   def increment_nb_notifs
-    User.increment_counter(:nb_notifs, self.target_user_id)
+    unless User.select(:private_timeline).find(self.target_user_id).private_timeline
+      User.increment_counter(:nb_notifs, self.target_user_id)
+    end
   end
 
   def decrement_nb_notifs
-    User.decrement_counter(:nb_notifs, self.target_user_id)
+    unless User.select(:private_timeline).find(self.target_user_id).private_timeline
+      User.decrement_counter(:nb_notifs, self.target_user_id)
+    end
   end
 
 end

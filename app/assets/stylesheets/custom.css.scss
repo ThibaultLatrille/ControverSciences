@@ -279,7 +279,7 @@ h6 {
   margin-top: 5px;
 }
 
-.red {
+.red, .static-red {
   color: $red-error;
   border-color: $red-error;
 }
@@ -288,7 +288,7 @@ h6 {
   background-color: $red-error;
 }
 
-.green {
+.green, .static-green {
   color: #5cb85c;
   border-color: #5cb85c;
 }

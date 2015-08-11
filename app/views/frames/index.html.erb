@@ -13,7 +13,7 @@
                 </span> Proposer une titre et un cadre".html_safe,
                           new_frame_path(timeline_id: @timeline.id),
                           :class => "list-group-item" %>
-          <% else %>
+          <% elsif !current_user.private_timeline %>
               <% if params[:filter] == "mine" %>
                   <%= link_to "<span class=\"icon-fork normal\" >
          </span> Modifier votre contribution".html_safe,

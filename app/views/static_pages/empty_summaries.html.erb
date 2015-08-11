@@ -14,7 +14,7 @@
                         empty_references_path(filter: "interest"),
                         class: "list-group-item" %>
             <%= link_to "<span class=\"icon-user normal\"></span>
-                                Enrichir mes controverses
+                                Enrichir vos controverses
                                 <span class=\"badge\">#{Timeline.where(user_id: current_user.id).where(nb_references: 0..3).count}</span>".html_safe,
                         empty_references_path(filter: "mine"),
                         class: "list-group-item" %>
@@ -33,7 +33,7 @@
                         empty_comments_path(filter: "interest"),
                         class: "list-group-item" %>
             <%= link_to "<span class=\"icon-user normal\"></span>
-                                Analyser mes références
+                                Analyser vos références
                                 <span class=\"badge\">#{Reference.where(user_id: current_user.id).where(title_fr: nil).count}</span>".html_safe,
                         empty_comments_path(filter: "mine"),
                         class: "list-group-item" %>
@@ -52,7 +52,7 @@
                         empty_summaries_path(filter: "interest"),
                         class: "list-group-item #{ (params[:filter] == "interest") ? "list-group-item-default cursor-not-allowed" : ""}" %>
             <%= link_to "<span class=\"icon-user normal\"></span>
-                                Synthètiser mes controverses
+                                Synthètiser vos controverses
                                 <span class=\"badge\">#{Timeline.where(user_id: current_user.id).where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
                         empty_summaries_path(filter: "mine"),
                         class: "list-group-item #{ (params[:filter] == "mine") ? "list-group-item-default cursor-not-allowed" : ""}" %>

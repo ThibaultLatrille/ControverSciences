@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150723144812) do
+ActiveRecord::Schema.define(version: 20150811164658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -661,6 +661,7 @@ ActiveRecord::Schema.define(version: 20150723144812) do
     t.text     "frame",           default: ""
     t.integer  "figure_id"
     t.string   "slug"
+    t.boolean  "private",         default: false
   end
 
   add_index "timelines", ["created_at"], name: "index_timelines_on_created_at", using: :btree
@@ -721,6 +722,7 @@ ActiveRecord::Schema.define(version: 20150723144812) do
     t.integer  "target_typos",      default: 0
     t.boolean  "can_switch_admin",  default: false
     t.string   "slug"
+    t.boolean  "private_timeline",  default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

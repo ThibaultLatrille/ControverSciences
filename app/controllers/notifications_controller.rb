@@ -103,7 +103,11 @@ class NotificationsController < ApplicationController
     frame_loss_ids = NotificationFrameSelectionLoss.where(user_id: current_user.id).pluck(:frame_id)
     @frame_losses  = Frame.select(:id, :timeline_id,
                                       :user_id).where(id: frame_loss_ids)
-    @typos = Typo.where( target_user_id: current_user.id )
+    if current_user.private_timeline
+      @typos = []
+    else
+      @typos = Typo.where( target_user_id: current_user.id )
+    end
   end
 
   def delete

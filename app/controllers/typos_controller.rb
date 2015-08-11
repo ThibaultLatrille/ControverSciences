@@ -37,7 +37,7 @@ class TyposController < ApplicationController
       @typo.target_user_id = Frame.select( :user_id ).find(typo_params[:frame_id]).user_id
     end
     @typo.user_id = current_user.id
-    if @typo.target_user_id == @typo.user_id || current_user.admin
+    if (@typo.target_user_id == @typo.user_id && !current_user.private_timeline) || current_user.admin
       if @typo.set_content(current_user.id, current_user.admin)
         respond_to do |format|
           format.js { render 'typos/mine', :content_type => 'text/javascript', :layout => false}
