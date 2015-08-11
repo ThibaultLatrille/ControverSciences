@@ -174,7 +174,7 @@
         <li class="list-group-item">
           <div class="bold">
             Les auteurs de l'étude :
-          </div> <%= @myreference.author %> </li>
+          </div> <%= @myreference.author.html_safe %> </li>
         <li class="list-group-item">
           <div class="bold">
             Année de publication :
@@ -182,7 +182,7 @@
         <li class="list-group-item">
           <div class="bold">
             Journal :
-          </div> <%= @myreference.journal %></li>
+          </div> <%= @myreference.journal.html_safe %></li>
         <% unless @myreference.abstract_markdown.blank? %>
             <li class="list-group-item">
               <div class="bold">
