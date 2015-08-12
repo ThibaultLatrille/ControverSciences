@@ -30,6 +30,12 @@
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir aux controverses".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order]),
                 class: "list-group-item" %>
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> Controverse précédente".html_safe,
+                previous_timeline_path(id: @timeline.id),
+                class: "list-group-item" %>
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Controverse suivante".html_safe,
+                next_timeline_path(id: @timeline.id),
+                class: "list-group-item" %>
     <% if logged_in? %>
         <%= link_to "<span class=\"glyphicon glyphicon-link\" >
                         </span>  Ajouter ou modifier les liens vers d'autres controverses".html_safe,
