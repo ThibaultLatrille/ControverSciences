@@ -18,6 +18,7 @@
                                                                              Timeline.find(@reference.timeline_id) %></h4>
         </div>
         <div class="panel-body">
+          <div class="clearfix">
           <%= form_for(@reference) do |f| %>
               <%= render 'shared/error_messages', object: f.object %>
               <%= f.label "Titre original" %>
@@ -56,6 +57,8 @@
                            class: 'btn btn-success btn-lg pull-right',
                            data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
           <% end %>
+        </div>
+        <b>*</b> : champs obligatoires.
         </div>
       </div>
     </div>
