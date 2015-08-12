@@ -77,14 +77,14 @@
                                       <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
                                               data-category="<%= category %>"
                                               data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                              title="Vous et <%= (reference_edge.plus_count(category) - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                                              title="Vous et <%= (reference_edge.plus_count(category) - 1).to_s + ( (reference_edge.plus_count(category) - 1) > 1 ? " autres contributeurs trouvent" : " autre contributeur trouve") + " ce lien pertinent." %>">
                                         <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category) %></span>
                                       </button>
                                   <% else %>
                                       <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
                                               data-category="<%= category %>"
                                               data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                              title="<%= reference_edge.plus_count(category).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                                              title="<%= reference_edge.plus_count(category).to_s + ( reference_edge.plus_count(category) > 1 ? " contributeurs trouvent" : " contributeur trouve") + " ce lien pertinent." %>">
                                         <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category) %></span>
                                       </button>
                                   <% end %>
@@ -93,14 +93,14 @@
                                       <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
                                               data-category="<%= category %>"
                                               data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                              title="Vous et <%= (reference_edge.minus_count(category) - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
+                                              title="Vous et <%= (reference_edge.minus_count(category) - 1).to_s + ( (reference_edge.minus_count(category) - 1) > 1 ? " autres contributeurs ne trouvent" : " autre contributeur ne trouve") + " pas ce lien pertinent." %>">
                                         <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category) %></span>
                                       </button>
                                   <% else %>
                                       <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
                                               data-category="<%= category %>"
                                               data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                              title="<%= reference_edge.minus_count(category).to_s + " contributeurs en sont pas d'accord avec ce lien" %>">
+                                              title="<%= reference_edge.minus_count(category).to_s + ( reference_edge.minus_count(category) > 1 ? " contributeurs ne trouvent" : " contributeur ne trouve") + " pas ce lien pertinent." %>">
                                         <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category) %></span>
                                       </button>
                                   <% end %>

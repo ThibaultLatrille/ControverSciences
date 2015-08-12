@@ -29,26 +29,26 @@
                         <% if @my_vote_likes && @my_vote_likes.include?(edge.id) %>
                             <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="Vous et <%= (edge.plus - 1).to_s + " contributeurs sont d'accord avec ce lien" %>">
+                                    title="Vous et <%= (edge.plus - 1).to_s + ( (edge.plus - 1) > 1 ? " autres contributeurs trouvent" : " autre contributeur trouve") + " ce lien pertinent." %>">
                               <span class="icon icon-4 font16"> <%= edge.plus %></span>
                             </button>
                         <% else %>
                             <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="<%= edge.plus.to_s + " contributeurs sont d'accord avec ce lien" %>">
+                                    title="<%= edge.plus.to_s + ( edge.plus > 1 ? " contributeurs trouvent" : " contributeur trouve") + " ce lien pertinent." %>">
                               <span class="icon icon-4 font16"> <%= edge.plus %></span>
                             </button>
                         <% end %>
                         <% if @my_vote_dislikes && @my_vote_dislikes.include?(edge.id) %>
                             <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="Vous et <%= (edge.minus - 1).to_s + " contributeurs ne sont pas d'accord avec ce lien" %>">
+                                    title="Vous et <%= (edge.minus - 1).to_s + ( (edge.minus - 1) > 1 ? " autres contributeurs ne trouvent" : " autre contributeur ne trouve") + " pas ce lien pertinent." %>">
                               <span class="icon icon-2 font16"> <%= edge.minus %></span>
                             </button>
                         <% else %>
                             <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="<%= edge.minus.to_s + " contributeurs en sont pas d'accord avec ce lien" %>">
+                                    title="<%= edge.minus.to_s + ( edge.minus > 1 ? " contributeurs ne trouvent" : " contributeur ne trouve") + " pas ce lien pertinent." %>">
                               <span class="icon icon-2 font16"> <%= edge.minus %></span>
                             </button>
                         <% end %>
