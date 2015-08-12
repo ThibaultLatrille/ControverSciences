@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                       <td  class="w520" width="520" >
-                        <h1 style="font-size:30px;line-height:45px;"> Bonjour <%= @invitation.target_name %>,
+                        <h1 style="font-size:30px;line-height:45px;"> Bonjour<%= " " + @invitation.target_name %>,
                         </h1>
                       </td>
                     </tr>
@@ -62,15 +62,15 @@
                       <td class="w520" width="520" style="line-height:30px">
                         <div>
                           <p>
-                            <%= @invitation.user_name %> vous invitent à découvrir <%= link_to "ControverSciences", root_url %> et en particulier la
+                            <%= @invitation.user_name %> et <%= link_to "ControverSciences", root_url %> vous invitent à découvrir la 
                             <% if @invitation.timeline_id %>
                                 controverse <%= link_to @invitation.timeline.name.html_safe, timeline_url(@invitation.timeline_id) %>
                             <% elsif @invitation.reference_id %>
                                 référence <%= link_to @invitation.reference.title_display.html_safe, reference_url(@invitation.reference_id) %>
                             <% end %>
-                            <% if @message && @message.strip != "" %>
+                            <% if @invitation.message && @invitation.message.strip != "" %>
                                 <br/>
-                                <%= @invitation.user_name %> vous a écrit le message suivant: <br/> <%= @message %>
+                                <%= @invitation.user_name %> vous a écrit le message suivant: <br/> <%= @invitation.message %>
                             <% end %>
                           </p>
                         </div>
