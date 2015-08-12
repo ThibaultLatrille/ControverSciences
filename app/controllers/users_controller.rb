@@ -72,7 +72,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = "Modification de profil enregistrée."
+      flash[:success] = "Les modifications apportées à votre profil ont été enregistrées."
       redirect_to @user
     else
       @user_detail = UserDetail.find_by_user_id( params[:id] )
