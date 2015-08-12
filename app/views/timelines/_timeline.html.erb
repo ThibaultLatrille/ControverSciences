@@ -17,13 +17,13 @@
           <% if my_likes && my_likes.include?(timeline.id) %>
               <button type="button" class="btn btn-success" data-placement="left"
                       data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
-                      title="Vous et <%= (timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
+                      title="Vous et <%= (timeline.nb_likes - 1).to_s + ( (timeline.nb_likes - 1) > 1 ? " autres contributeurs s'intéressent" : " autre contributeur s'intéresse" ) + " à cette controverse" %>">
                 <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
               </button>
           <% else %>
               <button type="button" class="btn btn-default green" data-placement="left"
                       data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
-                      title="<%= timeline.nb_likes.to_s + " contributeurs s'intéressent à cette controverse" %>">
+                      title="<%= timeline.nb_likes.to_s + ( timeline.nb_likes > 1 ? " contributeurs s'intéressent" : " contributeur s'intéresse" ) + " à cette controverse" %>">
                 <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
               </button>
           <% end %>
