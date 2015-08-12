@@ -165,7 +165,7 @@
           <%= render @best_comment %>
       <% else %>
           <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-            </span> Il n'y a pas d'analyse à cette référence, soyez le premier ! ".html_safe,
+            </span> Il n'y a pas encore d'analyse à cette référence, soyez le premier ! ".html_safe,
                       new_comment_path(reference_id: @reference.id), class: "btn btn-primary" %>
       <% end %>
   <% end %>
