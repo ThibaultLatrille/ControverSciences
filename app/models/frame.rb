@@ -10,8 +10,7 @@ class Frame < ActiveRecord::Base
   has_many :frame_credits, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :typos, dependent: :destroy
-  has_many :notification_frame_selection_wins, dependent: :destroy
-  has_many :notification_frame_selection_losses, dependent: :destroy
+  has_many :notification_selections, dependent: :destroy
 
   after_create :cascading_create_frame
   before_create :to_markdown
@@ -78,8 +77,10 @@ class Frame < ActiveRecord::Base
 
   def selection_update(best_frame = nil)
     if best_frame
-      NotificationFrameSelectionLoss.create(user_id: best_frame.user_id,
-                                              frame_id: best_frame.id)
+      Notification.where(timeline_id: self.timeline_id, category: 9).destroy_all
+
+      NotificationSelection.create(user_id: best_frame.user_id, timeline_id: self.timeline_id,
+                                              frame_id: best_frame.id, win: false )
       best_frame.update_columns(best: false)
       notifications = []
       Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
@@ -91,7 +92,8 @@ class Frame < ActiveRecord::Base
       end
       Notification.import notifications
 
-      NotificationFrameSelectionWin.create(user_id: self.user_id, frame_id: self.id)
+      NotificationSelection.create(user_id: self.user_id, timeline_id: self.timeline_id,
+                                           frame_id: self.id, win: true)
     end
     tim = self.timeline
     tim.name = self.name_markdown
@@ -104,9 +106,19 @@ class Frame < ActiveRecord::Base
   def refill_best_frame
     best_frame = Frame.find_by(timeline_id: self.timeline_id, best: true)
     unless best_frame
-      most = Frame.where(timeline_id: self.timeline_id).order(:score => :desc).first
+      most = Frame.where(timeline_id: self.timeline_id).order(:balance => :desc).first
       if most
         most.selection_update
+      end
+    end
+  end
+
+  def update_best_frame
+    most_frame = Frame.where(timeline_id: self.timeline_id).order(balance: :desc).first
+    best_frame = Frame.find_by(timeline_id: self.timeline_id, best: true)
+    if most_frame
+      if (most_frame.id != best_frame.id) && (most_frame.balance != 0)
+        most_frame.selection_update(best_frame)
       end
     end
   end

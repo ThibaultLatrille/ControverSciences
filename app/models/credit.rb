@@ -31,6 +31,10 @@ class Credit < ActiveRecord::Base
     end
   end
 
+  def update_summary
+    self.summary.update_best_summary
+  end
+
   private
 
   def cascading_destroy_credit

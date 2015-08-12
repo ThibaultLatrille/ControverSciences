@@ -11,8 +11,7 @@ class Comment < ActiveRecord::Base
   has_many :links, dependent: :destroy
 
   has_many :notifications, dependent: :destroy
-  has_many :notification_selection_losses, dependent: :destroy
-  has_many :notification_selection_wins, dependent: :destroy
+  has_many :notification_selections, dependent: :destroy
   has_many :comment_joins, dependent: :destroy
   has_many :typos, dependent: :destroy
 
@@ -99,9 +98,9 @@ class Comment < ActiveRecord::Base
   def get_most_comment(field)
     ids = CommentJoin.where(reference_id: self.reference_id, field: field).pluck(:comment_id)
     if field == 6
-      most = Comment.select(:id, :reference_id, :timeline_id, :title_markdown, :user_id).where(id: ids).order(:f_6_score => :desc).first
+      most = Comment.select(:id, :reference_id, :timeline_id, :title_markdown, :user_id, :f_6_balance).where(id: ids).order(:f_6_balance => :desc).first
     else
-      most = Comment.select(:id, :reference_id, :timeline_id, :user_id).where(id: ids).order("f_#{field}_score".to_sym => :desc).first
+      most = Comment.select(:id, :reference_id, :timeline_id, :user_id, "f_#{field}_balance".to_sym).where(id: ids).order("f_#{field}_balance".to_sym => :desc).first
     end
     most
   end
@@ -201,11 +200,17 @@ class Comment < ActiveRecord::Base
 
   def selection_update(best_comment = nil, comment_id = nil, user_id = nil, field = nil, only_win = false)
     if user_id
+      Notification.where(timeline_id: self.timeline_id,
+                         reference_id: self.reference_id, field: field, category: 6).destroy_all
+
       unless only_win
-        NotificationSelectionLoss.create(user_id:    user_id,
-                                         comment_id: comment_id, field: field)
+        NotificationSelection.create(user_id:    user_id, timeline_id: self.timeline_id,
+                                     reference_id: self.reference_id,
+                                         comment_id: comment_id, field: field, win: false)
       end
-      NotificationSelectionWin.create(user_id: self.user_id, comment_id: self.id, field: field)
+      NotificationSelection.create(user_id: self.user_id, timeline_id: self.timeline_id,
+                                      reference_id: self.reference_id,
+                                      comment_id: self.id, field: field, win: true)
       notifications = []
       Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |like_user_id|
         unless self.user_id == like_user_id || user_id == like_user_id
@@ -285,6 +290,21 @@ class Comment < ActiveRecord::Base
       end
     end
     best_comment.save
+  end
+
+  def update_best_field(field)
+    best_comment = BestComment.find_by(reference_id: self.reference_id)
+    unless best_comment
+      best_comment = BestComment.new(reference_id: self.reference_id)
+    end
+    most = get_most_comment(field)
+    if most
+      if (most.id != best_comment["f_#{field}_comment_id".to_sym]) && (most["f_#{field}_balance"] != 0)
+        most.selection_update(best_comment,
+                              best_comment["f_#{field}_comment_id".to_sym],
+                              best_comment["f_#{field}_user_id".to_sym], field).save
+      end
+    end
   end
 
   def update_comment_join

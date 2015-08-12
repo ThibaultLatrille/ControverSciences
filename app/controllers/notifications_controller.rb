@@ -3,9 +3,7 @@ class NotificationsController < ApplicationController
                                         :delete_all_important, :summary,
                                         :summary_selection, :selection, :timeline,
                                         :reference, :comment, :suggestions,
-                                        :selection_win, :summary_selection_win,
-                                        :frame_selection_win, :frame_selection_loss,
-                                        :selection_loss, :summary_selection_loss, :suggestion]
+                                        :selection_redirect, :suggestion]
 
   def index
     if params[:filter]
@@ -88,21 +86,8 @@ class NotificationsController < ApplicationController
   end
 
   def important
-    @wins            = NotificationSelectionWin.where(user_id: current_user.id)
-    @losses          = NotificationSelectionLoss.where(user_id: current_user.id)
-    summary_win_ids  = NotificationSummarySelectionWin.where(user_id: current_user.id).pluck(:summary_id)
-    @summary_wins    = Summary.select(:id, :timeline_id,
-                                      :user_id).where(id: summary_win_ids)
-    summary_loss_ids = NotificationSummarySelectionLoss.where(user_id: current_user.id).pluck(:summary_id)
-    @summary_losses  = Summary.select(:id, :timeline_id,
-                                      :user_id).where(id: summary_loss_ids)
-    @suggestions     = NotificationSuggestion.where(user_id: current_user.id)
-    frame_win_ids  = NotificationFrameSelectionWin.where(user_id: current_user.id).pluck(:frame_id)
-    @frame_wins    = Frame.select(:id, :timeline_id,
-                                      :user_id).where(id: frame_win_ids)
-    frame_loss_ids = NotificationFrameSelectionLoss.where(user_id: current_user.id).pluck(:frame_id)
-    @frame_losses  = Frame.select(:id, :timeline_id,
-                                      :user_id).where(id: frame_loss_ids)
+    @notification_selections = NotificationSelection.where(user_id: current_user.id).group_by{ |notif| notif.win }
+    puts @notification_selections
     if current_user.private_timeline
       @typos = []
     else
@@ -195,13 +180,8 @@ class NotificationsController < ApplicationController
   end
 
   def delete_all_important
-    NotificationSummarySelectionWin.where(user_id: current_user.id).destroy_all
-    NotificationSummarySelectionLoss.where(user_id: current_user.id).destroy_all
-    NotificationSelectionWin.where(user_id: current_user.id).destroy_all
-    NotificationSelectionLoss.where(user_id: current_user.id).destroy_all
+    NotificationSelection.where(user_id: current_user.id).destroy_all
     NotificationSuggestion.where(user_id: current_user.id).destroy_all
-    NotificationFrameSelectionLoss.where(user_id: current_user.id).destroy_all
-    NotificationFrameSelectionWin.where(user_id: current_user.id).destroy_all
     redirect_to notifications_important_path
   end
 
@@ -260,42 +240,16 @@ class NotificationsController < ApplicationController
     redirect_to frame_path(notification_params)
   end
 
-  def selection_win
-    NotificationSelectionWin.find_by(user_id:    current_user.id,
-                                             comment_id: notification_params,
-                                             field:      field_params).destroy
-    redirect_to comment_path(notification_params)
-  end
-
-  def summary_selection_win
-    NotificationSummarySelectionWin.find_by(user_id:    current_user.id,
-                                                    summary_id: notification_params).destroy
-    redirect_to summary_path(notification_params)
-  end
-
-  def selection_loss
-    NotificationSelectionLoss.find_by(user_id:    current_user.id,
-                                              comment_id: notification_params,
-                                              field:      field_params).destroy
-    redirect_to comment_path(notification_params)
-  end
-
-  def summary_selection_loss
-    NotificationSummarySelectionLoss.find_by(user_id:    current_user.id,
-                                                     summary_id: notification_params).destroy
-    redirect_to summary_path(notification_params)
-  end
-
-  def frame_selection_loss
-    NotificationFrameSelectionLoss.find_by(user_id:    current_user.id,
-                                      frame_id: notification_params).destroy
-    redirect_to frame_path(notification_params)
-  end
-
-  def frame_selection_win
-    NotificationFrameSelectionWin.find_by(user_id:    current_user.id,
-                                             frame_id: notification_params).destroy
-    redirect_to frame_path(notification_params)
+  def selection_redirect
+    notif = NotificationSelection.find( notification_params )
+    notif.destroy
+    if notif.frame_id
+      redirect_to frame_path(notif.frame_id)
+    elsif notif.comment_id
+      redirect_to comment_path(notif.comment_id)
+    else
+      redirect_to summary_path(notif.summary_id)
+    end
   end
 
   def suggestion

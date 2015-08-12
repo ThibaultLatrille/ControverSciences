@@ -8,6 +8,7 @@ class CreditsController < ApplicationController
                          timeline_id: params[:timeline_id],
                          summary_id:  params[:summary_id]})
     if credit.save
+      credit.update_summary
       flash[:success] = "Votre vote a été pris en compte"
     else
       flash[:danger] = "Impossible d'effectuer cette action."
@@ -19,6 +20,7 @@ class CreditsController < ApplicationController
     credit = Credit.find(params[:id])
     if credit.user_id == current_user.id ||current_user.admin
       credit.destroy
+      credit.update_summary
     end
     redirect_to :back
   end

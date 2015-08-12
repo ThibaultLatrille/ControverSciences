@@ -13,8 +13,7 @@ class Summary < ActiveRecord::Base
   has_one :summary_best, dependent: :destroy
 
   has_many :notifications, dependent: :destroy
-  has_many :notification_summary_selection_wins, dependent: :destroy
-  has_many :notification_summary_selection_losses, dependent: :destroy
+  has_many :notification_selections, dependent: :destroy
   has_many :typos, dependent: :destroy
 
   after_create :cascading_save_summary
@@ -134,8 +133,10 @@ class Summary < ActiveRecord::Base
 
   def selection_update(best_summary = nil)
     if best_summary
-      NotificationSummarySelectionLoss.create(user_id: best_summary.user_id,
-                                              summary_id: best_summary.summary_id)
+      Notification.where(timeline_id: self.timeline_id, category: 4).destroy_all
+
+      NotificationSelection.create(user_id: best_summary.user_id, timeline_id: self.timeline_id,
+                                              summary_id: best_summary.summary_id, win: false)
       notifications = []
       Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
         unless self.user_id == user_id || best_summary.user_id == user_id
@@ -146,7 +147,8 @@ class Summary < ActiveRecord::Base
       Notification.import notifications
       Summary.where(id: best_summary.summary_id).update_all(best: false)
       best_summary.update_attributes(user_id: self.user_id, summary_id: self.id)
-      NotificationSummarySelectionWin.create(user_id: self.user_id, summary_id: self.id)
+      NotificationSelection.create(user_id: self.user_id,  timeline_id: self.timeline_id,
+                                   summary_id: self.id, win: true)
     else
       SummaryBest.create(user_id: self.user_id,
                          summary_id: self.id, timeline_id: self.timeline_id)
@@ -157,9 +159,19 @@ class Summary < ActiveRecord::Base
   def refill_best_summary
     best_summary = SummaryBest.find_by(timeline_id: self.timeline_id)
     unless best_summary
-      most = Summary.select(:id, :timeline_id, :user_id).where(timeline_id: self.timeline_id).order(:score => :desc).first
+      most = Summary.select(:id, :timeline_id, :user_id).where(timeline_id: self.timeline_id).order(:balance => :desc).first
       if most
         most.selection_update
+      end
+    end
+  end
+
+  def update_best_summary
+    most         = Summary.where(timeline_id: self.timeline_id, public: true).order(balance: :desc).first
+    best_summary = SummaryBest.find_by(timeline_id: self.timeline_id)
+    if most
+      if (most.id != best_summary.summary_id) && (most.balance != 0)
+        most.selection_update(best_summary)
       end
     end
   end

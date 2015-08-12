@@ -1,61 +1,68 @@
 <% provide(:title, "Notifications") %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+<% if @typos.any? %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+<% end %>
 <div id="my-container" class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-lg-8 col-lg-offset-2">
       <div class="panel panel-primary">
-      <% if @typos.any? %>
-          <br/>
-          <br/>
-          &nbsp  &nbsp  &nbsp <span class="blue" style="font-size: 2em;"><span class="fat icon-bug-<%= rand(18) %>"></span>
+        <% if @typos.any? %>
+            <br/>
+            <br/>
+            &nbsp &nbsp
+            &nbsp <span class="blue" style="font-size: 2em;"><span class="fat icon-bug-<%= rand(18) %>"></span>
                     Les corrections que vous ont apporté les contributeurs </span>
-          <div class="row">
-            <div class="col-xs-10 col-xs-offset-1">
-              <% @typos.each do |typo| %>
-                  <hr style="margin: 1em 3em 1em 3em ">
-                  <div class="panel panel-default">
-                    <div class="panel-body">
-                      <b>
-                      <% if typo.comment_id %>
-                          <%= category_hash[typo.comment_short.reference.category][typo.field] %> de la référence
-                            <%= link_to typo.comment_short.reference.title, reference_path(typo.comment_short.reference_id) %> dans la controverse
-                            <%= link_to typo.comment_short.timeline_name.html_safe, timeline_path(typo.comment_short.timeline_id ) %>
-                      <% elsif typo.summary_id %>
-                          Votre synthèse de la controverse
-                          <%= link_to typo.summary_short.timeline_name.html_safe, timeline_path(typo.summary_short.timeline_id )  %>
-                    <% elsif typo.frame_id %>
-                            <%= link_to typo.field == 0 ? "Le titre" : "Le cadre",
-                                        frame_path(typo.frame_id) %> de la controverse
-                            <%= link_to typo.frame_short.timeline_name.html_safe, timeline_path(typo.frame_short.timeline_id ) %>
-                    <% end %>
-                      </b>
-                      <br/>
-                      <br/>
-                      <div class="pretty">
-                        <div id="original" style="display: none"><%= typo.old_content %></div>
-                        <div id="changed" style="display: none"><%= typo.content %></div>
-                        <div id="diff"></div>
-                      </div>
-                      <br/>
-                      <div class="pull-right">
-                        <%= link_to "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Refuser la correction".html_safe,
-                                    typo_path( id: typo.id ), method: :delete,
-                                    class: "btn btn-danger",
-                                    data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
-                                    &nbsp Suppression en cours"}%>
-                        <%= link_to "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> Accepter la correction".html_safe,
-                                    typos_accept_path( id: typo.id ),
-                                    class: "btn btn-success",
-                                    data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
-                                    &nbsp Enregistrement en cours "}%>
+
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <% @typos.each do |typo| %>
+                    <hr style="margin: 1em 3em 1em 3em ">
+                    <div class="panel panel-default">
+                      <div class="panel-body">
+                        <b>
+                          <% if typo.comment_id %>
+                              <%= category_hash[typo.comment_short.reference.category][typo.field] %> de la référence
+                              <%= link_to typo.comment_short.reference.title, reference_path(typo.comment_short.reference_id) %>
+                              dans la controverse
+                              <%= link_to typo.comment_short.timeline_name.html_safe, timeline_path(typo.comment_short.timeline_id) %>
+                          <% elsif typo.summary_id %>
+                              Votre synthèse de la controverse
+                              <%= link_to typo.summary_short.timeline_name.html_safe, timeline_path(typo.summary_short.timeline_id) %>
+                          <% elsif typo.frame_id %>
+                              <%= link_to typo.field == 0 ? "Le titre" : "Le cadre",
+                                          frame_path(typo.frame_id) %> de la controverse
+                              <%= link_to typo.frame_short.timeline_name.html_safe, timeline_path(typo.frame_short.timeline_id) %>
+                          <% end %>
+                        </b>
+                        <br/>
+                        <br/>
+
+                        <div class="pretty">
+                          <div id="original" style="display: none"><%= typo.old_content %></div>
+                          <div id="changed" style="display: none"><%= typo.content %></div>
+                          <div id="diff"></div>
+                        </div>
+                        <br/>
+
+                        <div class="pull-right">
+                          <%= link_to "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Refuser la correction".html_safe,
+                                      typo_path(id: typo.id), method: :delete,
+                                      class:                          "btn btn-danger",
+                                      data:                           {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
+                                    &nbsp Suppression en cours"} %>
+                          <%= link_to "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> Accepter la correction".html_safe,
+                                      typos_accept_path(id: typo.id),
+                                      class: "btn btn-success",
+                                      data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
+                                    &nbsp Enregistrement en cours "} %>
+                        </div>
                       </div>
                     </div>
-                  </div>
-              <% end %>
+                <% end %>
+              </div>
             </div>
-          </div>
-          <hr style="margin: 0 3em 2em 3em ">
-      <% end %>
+            <hr style="margin: 0 3em 2em 3em ">
+        <% end %>
         <% if current_user.nb_notifs == 0 %>
             <div class="panel-body">
           <span style="font-size: 1.5em;">
@@ -68,209 +75,85 @@
           Notifications
           </span>
             </div>
-            <% if @summary_wins.any? || @wins.any? || @frame_wins.any? %>
+            <% unless @notification_selections[true].blank? %>
                 <hr style="margin: 0 3em 2em 3em ">
                 &nbsp <span class="green" style="font-size: 2em;"><span class="glyphicon glyphicon-arrow-up"></span> Vos contributions qui ont pris la première place</span>
-            <% end %>
-          <% if @frame_wins.any? %>
-              <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                  <th class="col-xs-1 center"></th>
-                  <th class="col-xs-7">Votre</th>
-                  <th class="col-xs-4">De la controverse</th>
-                </tr>
-                </thead>
-                <tbody class="page">
-                <% @frame_wins.each do |com| %>
-                    <tr>
-                      <td><span class="icon-5 green center" style="font-size: 2em;"></span></td>
-                      <td>
-                        <%= link_to "Proposition de formulation", notifications_frame_selection_win_path(id: com.id), class: "btn btn-primary" %>
-                      </td>
-                      <td>
-                        <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>
-                      </td>
-                    </tr>
-                <% end %>
-                </tbody>
-              </table>
-          <% end %>
-            <% if @summary_wins.any? %>
+
                 <table class="table table-striped table-hover">
                   <thead>
                   <tr>
-                    <th class="col-xs-1 center"></th>
+                    <th class="col-xs-2"> <span class="glyphicon glyphicon-time"></span></th>
                     <th class="col-xs-7">Votre</th>
-                    <th class="col-xs-4">De la controverse</th>
+                    <th class="col-xs-3">Dans controverse</th>
                   </tr>
                   </thead>
                   <tbody class="page">
-                  <% @summary_wins.each do |com| %>
+                  <% @notification_selections[true].each do |notif| %>
                       <tr>
-                        <td><span class="icon-5 green center" style="font-size: 2em;"></span></td>
+                        <td> Il y a <%= time_ago_in_words(notif.created_at) %> </td>
                         <td>
-                          <%= link_to "synthèse", notifications_summary_selection_win_path(id: com.id), class: "btn btn-primary" %>
+                          <% if notif.frame_id %>
+                              <%= link_to "Proposition de formulation", notifications_selection_redirect_path(id: notif.id) %>
+                          <% elsif notif.comment_id %>
+                              <%= link_to category_hash[notif.reference_short.category][notif.field],
+                                          notifications_selection_redirect_path(id: notif.id) %>
+                              de la référence
+                               <%= link_to notif.reference_short.title, reference_path(notif.reference_short) %>
+                          <% elsif notif.summary_id %>
+                              <%= link_to "Synthèse", notifications_selection_redirect_path(id: notif.id) %>
+                          <% end %>
                         </td>
                         <td>
-                          <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>
+                          <%= link_to notif.timeline_short.name.html_safe, timeline_path(notif.timeline_short) %>
                         </td>
                       </tr>
                   <% end %>
                   </tbody>
                 </table>
             <% end %>
-            <% if @wins.any? %>
-                <table class="table table-striped table-hover">
-                  <thead>
-                  <tr>
-                    <th class="col-xs-1 center"></th>
-                    <th class="col-xs-3">Votre</th>
-                    <th class="col-xs-4">De la référence</th>
-                    <th class="col-xs-4">Dans la controverse</th>
-                  </tr>
-                  </thead>
-                  <tbody class="page">
-                  <% @wins.each do |notif| %>
-                      <tr>
-                        <td><span class="icon-5 green center" style="font-size: 2em;"></span></td>
-                        <td>
-                          <%= link_to category_hash[ notif.reference.category][notif.field],
-                                      notifications_selection_win_path(id:    notif.comment_id,
-                                                                       field: notif.field), class: "btn btn-primary" %>
-                        </td>
-                        <td><%= link_to notif.reference.title, reference_path(notif.reference.id), class: "btn btn-primary" %>
-                        </td>
-                        <td>
-                          <%= link_to notif.timeline.name.html_safe, timeline_path(notif.timeline.id), class: "btn btn-primary" %>
-                        </td>
-                      </tr>
-                  <% end %>
-                  </tbody>
-                </table>
-            <% end %>
-            <% if @summary_losses.any? || @losses.any? || @frame_losses.any? %>
+            <% unless @notification_selections[false].blank? %>
                 <hr style="margin: 0 3em 2em 3em ">
                 &nbsp <span class="red" style="font-size: 2em;"><span class="glyphicon glyphicon-arrow-down"></span> Vos contributions qui ont perdu la première place</span>
-            <% end %>
-              <% if @frame_losses.any? %>
-
-                  <table class="table table-striped table-hover">
-                    <thead>
-                    <tr>
-                      <th class="col-xs-1 center"></th>
-                      <th class="col-xs-7">Votre</th>
-                      <th class="col-xs-4">De la controverse</th>
-                    </tr>
-                    </thead>
-                    <tbody class="page">
-                    <% @frame_losses.each do |com| %>
-                        <tr>
-                          <td><span class="icon-1 red" style="font-size: 2em;"></span></td>
-                          <td>
-                            <%= link_to "Proposition de formulation", notifications_frame_selection_loss_path(id: com.id), class: "btn btn-primary" %>
-                          </td>
-                          <td>
-                            <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>
-                          </td>
-                        </tr>
-                    <% end %>
-                    </tbody>
-                  </table>
-              <% end %>
-            <% if @summary_losses.any? %>
-
                 <table class="table table-striped table-hover">
                   <thead>
                   <tr>
-                    <th class="col-xs-1 center"></th>
+                    <th class="col-xs-2"> <span class="glyphicon glyphicon-time"></span></th>
                     <th class="col-xs-7">Votre</th>
-                    <th class="col-xs-4">De la controverse</th>
+                    <th class="col-xs-3">Dans controverse</th>
                   </tr>
                   </thead>
                   <tbody class="page">
-                  <% @summary_losses.each do |com| %>
+                  <% @notification_selections[false].each do |notif| %>
                       <tr>
-                        <td><span class="icon-1 red" style="font-size: 2em;"></span></td>
+                        <td> Il y a <%= time_ago_in_words(notif.created_at) %> </td>
                         <td>
-                          <%= link_to "synthèse", notifications_summary_selection_loss_path(id: com.id), class: "btn btn-primary" %>
+                          <% if notif.frame_id %>
+                              <%= link_to "Proposition de formulation", notifications_selection_redirect_path(id: notif.id) %>
+                          <% elsif notif.comment_id %>
+                              <%= link_to category_hash[notif.reference_short.category][notif.field],
+                                          notifications_selection_redirect_path(id: notif.id) %> de la référence
+                              <%= link_to notif.reference_short.title, reference_path(notif.reference_short) %>
+                          <% elsif notif.summary_id %>
+                              <%= link_to "Synthèse", notifications_selection_redirect_path(id: notif.id) %>
+                          <% end %>
                         </td>
                         <td>
-                          <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>
+                          <%= link_to notif.timeline_short.name.html_safe, timeline_path(notif.timeline_short) %>
                         </td>
-                      </tr>
-                  <% end %>
-                  </tbody>
-                </table>
-            <% end %>
-            <% if @losses.any? %>
-                <table class="table table-striped table-hover">
-                  <thead>
-                  <tr>
-                    <th class="col-xs-1 center"></th>
-                    <th class="col-xs-3">Votre</th>
-                    <th class="col-xs-4">De la référence</th>
-                    <th class="col-xs-4">Dans la controverse</th>
-                  </tr>
-                  </thead>
-                  <tbody class="page">
-                  <% @losses.each do |notif| %>
-                      <tr>
-                        <td><span class="icon-1 red center" style="font-size: 2em;"></span></td>
-                        <td>
-                          <%= link_to category_hash[ notif.reference.category][notif.field],
-                                      notifications_selection_loss_path(id:    notif.comment_id,
-                                                                        field: notif.field), class: "btn btn-primary" %>
-                        </td>
-                        <td>
-                          <%= link_to notif.reference.title, reference_path(notif.reference.id), class: "btn btn-primary" %>
-                        </td>
-                        <td>
-                          <%= link_to notif.timeline.name.html_safe, timeline_path(notif.timeline), class: "btn btn-primary" %>
-
-                        </td>
-                      </tr>
-                  <% end %>
-                  </tbody>
-                </table>
-            <% end %>
-            <% if @suggestions.any? %>
-                <hr style="margin: 0 3em 2em 3em ">
-                &nbsp <span class="blue" style="font-size: 2em;"><span class="glyphicon glyphicon-comment"></span> Nouvelles réponses dans les discussions
-                auxquelles vous participez </span>
-                <table class="table table-striped table-hover">
-                  <thead>
-                  <tr>
-                    <th class="col-xs-1 center"></th>
-                    <th class="col-xs-5">La discussion</th>
-                    <th class="col-xs-4">La réponse</th>
-                    <th class="col-xs-2">Par</th>
-                  </tr>
-                  </thead>
-                  <tbody class="page">
-                  <% @suggestions.each do |notif| %>
-                      <tr>
-                        <td><span class="icon-4 blue center" style="font-size: 2em;"></span></td>
-                        <td> <%= link_to truncate(notif.suggestion.comment, length: 140, separator: ' '),
-                                         notifications_suggestion_path(id: notif.suggestion_child_id) %> </td>
-                        <td> <%= link_to truncate(notif.suggestion_child.comment, length: 140, separator: ' '),
-                                         notifications_suggestion_path(id: notif.suggestion_child_id) %> </td>
-                        <td> <%= link_to "#{notif.suggestion_child.user_name}",
-                                         user_path(id: notif.suggestion_child.user_id) %> </td>
                       </tr>
                   <% end %>
                   </tbody>
                 </table>
             <% end %>
             <% unless current_user.nb_notifs == @typos.length %>
-            <div class="panel-body">
-              <div class="pull-right">
-                <%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>&nbsp Supprimer ces notifications".html_safe,
-                            notifications_delete_all_important_path,
-                            class: 'btn btn-danger btn-lg',
-                            data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Suppression en cours "} %>
-              </div>
-            </div>
+                <div class="panel-body">
+                  <div class="pull-right">
+                    <%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>&nbsp Supprimer ces notifications".html_safe,
+                                notifications_delete_all_important_path,
+                                class: 'btn btn-danger btn-lg',
+                                data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Suppression en cours "} %>
+                  </div>
+                </div>
             <% end %>
         <% end %>
       </div>
@@ -278,11 +161,13 @@
   </div>
 </div>
 
-<script type="text/javascript">
-    $(".pretty").prettyTextDiff({
-        cleanup: true,
-        originalContainer: "#original",
-        changedContainer: "#changed",
-        diffContainer: "#diff"
-    });
-</script>
+<% if @typos.any? %>
+    <script type="text/javascript">
+        $(".pretty").prettyTextDiff({
+            cleanup: true,
+            originalContainer: "#original",
+            changedContainer: "#changed",
+            diffContainer: "#diff"
+        });
+    </script>
+<% end %>

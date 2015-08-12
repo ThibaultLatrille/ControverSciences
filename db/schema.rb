@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811164658) do
+ActiveRecord::Schema.define(version: 20150812120123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -277,47 +277,25 @@ ActiveRecord::Schema.define(version: 20150811164658) do
     t.datetime "updated_at"
   end
 
-  create_table "notification_frame_selection_losses", force: true do |t|
+  create_table "notification_selections", force: true do |t|
+    t.integer  "timeline_id"
+    t.integer  "reference_id"
     t.integer  "frame_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notification_frame_selection_losses", ["frame_id"], name: "index_notification_frame_selection_losses_on_frame_id", using: :btree
-  add_index "notification_frame_selection_losses", ["user_id"], name: "index_notification_frame_selection_losses_on_user_id", using: :btree
-
-  create_table "notification_frame_selection_wins", force: true do |t|
-    t.integer  "frame_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notification_frame_selection_wins", ["frame_id"], name: "index_notification_frame_selection_wins_on_frame_id", using: :btree
-  add_index "notification_frame_selection_wins", ["user_id"], name: "index_notification_frame_selection_wins_on_user_id", using: :btree
-
-  create_table "notification_selection_losses", force: true do |t|
-    t.integer  "user_id"
     t.integer  "comment_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "field"
-  end
-
-  add_index "notification_selection_losses", ["comment_id"], name: "index_notification_selection_losses_on_comment_id", using: :btree
-  add_index "notification_selection_losses", ["user_id"], name: "index_notification_selection_losses_on_user_id", using: :btree
-
-  create_table "notification_selection_wins", force: true do |t|
+    t.integer  "summary_id"
     t.integer  "user_id"
-    t.integer  "comment_id"
+    t.boolean  "win"
+    t.integer  "field"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "field"
   end
 
-  add_index "notification_selection_wins", ["comment_id"], name: "index_notification_selection_wins_on_comment_id", using: :btree
-  add_index "notification_selection_wins", ["user_id"], name: "index_notification_selection_wins_on_user_id", using: :btree
+  add_index "notification_selections", ["comment_id"], name: "index_notification_selections_on_comment_id", using: :btree
+  add_index "notification_selections", ["frame_id"], name: "index_notification_selections_on_frame_id", using: :btree
+  add_index "notification_selections", ["reference_id"], name: "index_notification_selections_on_reference_id", using: :btree
+  add_index "notification_selections", ["summary_id"], name: "index_notification_selections_on_summary_id", using: :btree
+  add_index "notification_selections", ["timeline_id"], name: "index_notification_selections_on_timeline_id", using: :btree
+  add_index "notification_selections", ["user_id"], name: "index_notification_selections_on_user_id", using: :btree
 
   create_table "notification_suggestions", force: true do |t|
     t.integer  "user_id"
@@ -330,26 +308,6 @@ ActiveRecord::Schema.define(version: 20150811164658) do
   add_index "notification_suggestions", ["suggestion_child_id"], name: "index_notification_suggestions_on_suggestion_child_id", using: :btree
   add_index "notification_suggestions", ["suggestion_id"], name: "index_notification_suggestions_on_suggestion_id", using: :btree
   add_index "notification_suggestions", ["user_id"], name: "index_notification_suggestions_on_user_id", using: :btree
-
-  create_table "notification_summary_selection_losses", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "summary_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notification_summary_selection_losses", ["summary_id"], name: "index_notification_summary_selection_losses_on_summary_id", using: :btree
-  add_index "notification_summary_selection_losses", ["user_id"], name: "index_notification_summary_selection_losses_on_user_id", using: :btree
-
-  create_table "notification_summary_selection_wins", force: true do |t|
-    t.integer  "summary_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "notification_summary_selection_wins", ["summary_id"], name: "index_notification_summary_selection_wins_on_summary_id", using: :btree
-  add_index "notification_summary_selection_wins", ["user_id"], name: "index_notification_summary_selection_wins_on_user_id", using: :btree
 
   create_table "notifications", force: true do |t|
     t.integer  "user_id"

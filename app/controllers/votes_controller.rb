@@ -10,6 +10,7 @@ class VotesController < ApplicationController
                          comment_id: params[:comment_id],
                          reference_id:  params[:reference_id]})
     if vote.save
+      vote.update_comment
       flash[:success] = "Votre vote a été pris en compte"
     else
       flash[:danger] = "Impossible d'effectuer cette action."
@@ -21,6 +22,7 @@ class VotesController < ApplicationController
     vote = Vote.find(params[:id])
     if vote.user_id == current_user.id ||current_user.admin
       vote.destroy
+      vote.update_comment
     end
     redirect_to :back
   end

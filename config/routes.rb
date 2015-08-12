@@ -70,12 +70,7 @@ Rails.application.routes.draw do
   get 'notifications/selection'
   get 'notifications/summary_selection'
   get 'notifications/frame_selection'
-  get 'notifications/selection_win'
-  get 'notifications/summary_selection_win'
-  get 'notifications/frame_selection_win'
-  get 'notifications/selection_loss'
-  get 'notifications/summary_selection_loss'
-  get 'notifications/frame_selection_loss'
+  get 'notifications/selection_redirect'
   get 'notifications/suggestion'
   get 'notifications/suggestions'
 

@@ -31,6 +31,10 @@ class FrameCredit < ActiveRecord::Base
     end
   end
 
+  def update_frame
+    self.frame.update_best_frame
+  end
+
   private
 
   def cascading_destroy_credit
