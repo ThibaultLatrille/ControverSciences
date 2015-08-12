@@ -82,7 +82,7 @@
                           <% (1..8).each do |n| %>
                           "<%= (0.5 + Float(@user_detail.profil[n.to_s])).round(2) %>",
                           <% end %>
-                          "<%= (0.5 + 0.5 + Float(@user_detail.profil["9"])).round(2) %>"
+                          "<%= (0.5 + Float(@user_detail.profil["9"])).round(2) %>"
                       ]
                   }
               ]
