@@ -134,7 +134,7 @@
         <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
                         timeline_path(@timeline), method: :delete,
-                        data:                             {confirm: "Etes vous certain ?"},
+                        data:                             {confirm: "Êtes-vous certain ?"},
                         class:                            "list-group-item list-group-item-danger" %>
         <% end %>
       </div>
@@ -219,7 +219,7 @@
                         class: "btn btn-primary" %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                         frame_path(@improve_frame.id), method: :delete,
-                        data:                                  {confirm: "Etes vous certain ?"},
+                        data:                                  {confirm: "Êtes-vous certain ?"},
                         class:                                 "btn btn-danger" %>
           </div>
       <% end %>
@@ -336,7 +336,7 @@
                                 class: "btn btn-primary" %>
                     <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                                 summary_path(@summary.id), method: :delete,
-                                data:                              {confirm: "Etes vous certain ?"},
+                                data:                              {confirm: "Êtes-vous certain ?"},
                                 class:                             "btn btn-danger" %>
                 <% end %>
               </div>
