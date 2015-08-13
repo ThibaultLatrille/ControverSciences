@@ -25,8 +25,8 @@
               <%= f.text_area :title, {:rows => 2,
                                        :class => "form-control textarea"} %>
               <br/>
-              <%= f.label "Article, Review, Meta-analyse ou Livre*" %>
-              <%= f.select :category, [["Article", 0],["Review", 1],["Meta-analyse", 2],["Livre", 3]], {}, {class: 'form-control myforms'} %>
+              <%= f.label "Article, Review, Méta-analyse ou Livre*" %>
+              <%= f.select :category, [["Article", 0],["Review", 1],["Méta-analyse", 2],["Livre", 3]], {}, {class: 'form-control myforms'} %>
               <br/>
               <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
               <%= f.label :open_access do %>
