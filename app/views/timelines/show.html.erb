@@ -139,21 +139,31 @@
                     <br/>
                   </div>
                   <div class="modal-body">
-                    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> BibTeX".html_safe,
-                                timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
-                                class: "list-group-item" %>
-                    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> XML".html_safe,
-                                timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
-                                class: "list-group-item" %>
-                    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> JSON".html_safe,
-                                timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
-                                class: "list-group-item" %>
-                    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> YAML".html_safe,
-                                timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
-                                class: "list-group-item" %>
+                    <div class="row">
+                      <div class="col-xs-12 col-md-3">
+                        <%= link_to image_tag("bib.png", alt: "Synthétiser", :class => "img-responsive"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
+                                    class: "hvr-grow" %>
+                      </div>
+                      <div class="col-xs-12 col-md-3">
+                        <%= link_to image_tag("xml.png", alt: "Synthétiser", :class => "img-responsive"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
+                                    class: "hvr-grow" %>
+                      </div>
+                      <div class="col-xs-12 col-md-3">
+                        <%= link_to image_tag("json.png", alt: "Synthétiser", :class => "img-responsive"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
+                                    class: "hvr-grow" %>
+                      </div>
+                      <div class="col-xs-12 col-md-3">
+                        <%= link_to image_tag("yaml.png", alt: "Synthétiser", :class => "img-responsive"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
+                                    class: "hvr-grow" %>
+                      </div>
+                    </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> Fermer</button>
                   </div>
                 </div>
               </div>
