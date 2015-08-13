@@ -169,7 +169,41 @@ class TimelinesController < ApplicationController
     redirect_to timeline_path(timelines[i])
   end
 
+  def download_bibtex
+    references= Reference.where(timeline_id: params[:timeline_id])
+    if params[:format] == "json"
+      data = generate_bibtex(references).to_json
+    elsif params[:format] == "yaml"
+      data = generate_bibtex(references).to_yaml
+    elsif params[:format] == "xml"
+      data = generate_bibtex(references).to_xml
+    else
+      params[:format] = "xml"
+      data = generate_bibtex(references).to_s
+    end
+    send_data data,
+              filename: "#{Timeline.select(:slug).find(params[:timeline_id]).slug}.#{params[:format]}",
+              type: "application/bib"
+  end
+
   private
+
+  def generate_bibtex(references)
+    bib = BibTeX::Bibliography.new
+    references.each do |reference|
+      bib << BibTeX::Entry.new({:bibtex_type      => :article,
+                                :author   => reference.author,
+                                :doi       => reference.doi,
+                                :journal   => reference.journal,
+                                :title     => reference.title,
+                                :publisher => reference.publisher,
+                                :url       => reference.url,
+                                :year      => reference.year,
+                                :abstract  => reference.abstract
+                                })
+    end
+    bib
+  end
 
   def timeline_params
     params.require(:timeline).permit(:name, :binary, :frame, :binary_left,

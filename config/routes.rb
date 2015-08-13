@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   get '/from_reference' => 'references#from_reference', as: 'from_reference'
   get 'references_graph' => 'references#graph'
   get 'references_network' => 'references#network'
+  get 'timelines_download_bibtex' => 'timelines#download_bibtex'
   get 'assistant' => 'assistant#view'
   get 'assistant/users' => 'assistant#users'
   get 'assistant/index' => 'assistant#index'
