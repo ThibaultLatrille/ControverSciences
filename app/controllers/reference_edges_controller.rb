@@ -31,7 +31,7 @@ class ReferenceEdgesController < ApplicationController
            params[:reference_id])
     reference_ids = @reference_edges.map{ |e| [e.target, e.reference_id] }
     reference_ids << params[:reference_id].to_i
-    @reference_names = Reference.order(:title).where( timeline_id: params[:timeline_id] )
+    @reference_names = Reference.order(year: :desc).where( timeline_id: params[:timeline_id] )
     .where.not( id: reference_ids.flatten.uniq )
     .pluck(:title, :id)
     @my_vote_likes = ReferenceEdgeVote.where(user_id: current_user.id, value: true,

@@ -9,7 +9,7 @@ class SummariesController < ApplicationController
       @summary             = Summary.new
       @summary.timeline_id = params[:timeline_id]
       @my_timeline         = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
-      @list                = Reference.where(timeline_id: @summary.timeline_id).pluck(:title, :id)
+      @list                = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id).pluck(:title, :id)
       @tim_list            = Timeline.where(id: Edge.where(timeline_id:
                                                                @summary.timeline_id).pluck(:target)).pluck(:name, :id)
     end
@@ -29,7 +29,7 @@ class SummariesController < ApplicationController
       flash[:success] = "Synthèse enregistrée."
       redirect_to summaries_path(filter: "mine", timeline_id: @summary.timeline_id)
     else
-      @list        = Reference.where(timeline_id: summary_params[:timeline_id]).pluck(:title, :id)
+      @list        = Reference.order(year: :desc).where(timeline_id: summary_params[:timeline_id]).pluck(:title, :id)
       @tim_list    = Timeline.where(id: Edge.where(timeline_id:
                                                        summary_params[:timeline_id]).pluck(:target)).pluck(:name, :id)
       @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
@@ -40,7 +40,7 @@ class SummariesController < ApplicationController
   def edit
     @summary     = Summary.find(params[:id])
     @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
-    @list        = Reference.where(timeline_id: @summary.timeline_id).pluck(:title, :id)
+    @list        = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id).pluck(:title, :id)
     @tim_list    = Timeline.where(id: Edge.where(timeline_id:
                                                      @summary.timeline_id).pluck(:target)).pluck(:name, :id)
   end
@@ -63,7 +63,7 @@ class SummariesController < ApplicationController
         redirect_to @summary
       else
         @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
-        @list        = Reference.where(timeline_id: @summary.timeline_id).pluck(:title, :id)
+        @list        = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id).pluck(:title, :id)
         @tim_list    = Timeline.where(id: Edge.where(timeline_id:
                                                          @summary.timeline_id).pluck(:target)).pluck(:name, :id)
         render 'edit'
