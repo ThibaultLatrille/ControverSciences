@@ -123,14 +123,41 @@
   <% if logged_in? %>
       <div class="list-group">
         <% if @timeline.nb_references > 1 %>
-        <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les références de cette controverse".html_safe,
+        <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les références".html_safe,
                     references_graph_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
         <% end %>
         <% if @timeline.nb_references > 0 %>
-            <%= link_to "Télécharger BibTeX".html_safe,
-                        timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
+            <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> Télécharger la bibliographie".html_safe,
+                        '#download-biblio', 'data-toggle' => 'modal',
                         class: "list-group-item" %>
+            <div class="modal fade" id="download-biblio" tabindex="-1" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <br/>
+                  </div>
+                  <div class="modal-body">
+                    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> BibTeX".html_safe,
+                                timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
+                                class: "list-group-item" %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> XML".html_safe,
+                                timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
+                                class: "list-group-item" %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> JSON".html_safe,
+                                timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
+                                class: "list-group-item" %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> YAML".html_safe,
+                                timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
+                                class: "list-group-item" %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
+                  </div>
+                </div>
+              </div>
+            </div>
         <% end %>
         <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
     </span> Ajouter une référence à cette controverse.".html_safe,

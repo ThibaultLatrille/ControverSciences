@@ -178,7 +178,7 @@ class TimelinesController < ApplicationController
     elsif params[:format] == "xml"
       data = generate_bibtex(references).to_xml
     else
-      params[:format] = "xml"
+      params[:format] = "bib"
       data = generate_bibtex(references).to_s
     end
     send_data data,
