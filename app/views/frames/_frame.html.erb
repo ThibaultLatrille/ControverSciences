@@ -59,7 +59,7 @@
   <% if logged_in? %>
       <div class="panel-heading">
         <div class="clearfix">
-          <% if current_user.id != frame.user_id %>
+          <% if current_user.id != frame.user_id && !@only_one_frame %>
               <% if @my_frame_credit && @my_frame_credit.frame_id == frame.id %>
                   <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
                               frame_credit_path(@my_frame_credit.id),

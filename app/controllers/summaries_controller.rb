@@ -78,8 +78,9 @@ class SummariesController < ApplicationController
                               :markdown, :balance, :best, :figure_id, :caption_markdown,
                               :created_at).find(params[:id])
     if logged_in?
-      @improve   = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id).count == 1 ? false : true
-      @my_credit = Credit.find_by(user_id: current_user.id, timeline_id: params[:timeline_id])
+      @improve   = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id ).count == 1 ? false : true
+      @my_credit = Credit.find_by(user_id: current_user.id, timeline_id: @summary.timeline_id )
+      @only_one_summary = Summary.where(public: true, timeline_id: @summary.timeline_id ).count == 1
     end
     @timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
   end

@@ -27,7 +27,7 @@
   <% if logged_in? %>
       <div class="panel-heading">
         <div class="clearfix">
-          <% if current_user.id != summary.user_id %>
+          <% if current_user.id != summary.user_id && !@only_one_summary %>
               <% if @my_credit && @my_credit.summary_id == summary.id %>
                   <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
                               credit_path(@my_credit.id),
