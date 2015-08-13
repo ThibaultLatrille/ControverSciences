@@ -64,6 +64,9 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 
+# Generate and bing sitemap
+gem 'sitemap_generator'
+
 # Friendly id for SEO
 gem 'friendly_id', '~> 5.0.0'
 
