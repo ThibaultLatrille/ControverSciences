@@ -76,7 +76,7 @@
           <div id="characterLeft6"></div>
 
           <%= f.text_area :title, {rows:          4, :class => "form-control textarea",
-                                   id:            "description7",
+                                   id:            "description6",
                                    "data-provide" => "markdown"} %>
           <div class="panel panel-info">
             <div class="panel-heading">
@@ -122,11 +122,12 @@
 
                 <div id="characterLeft7"></div>
                 <%= f.text_area :caption, {rows:          3,
-                                           :class         => "form-control textarea", id: "description6",
+                                           :class         => "form-control textarea", id: "description7",
                                            "data-provide" => "markdown"} %>
-                <div class="panel panel-info">
+                <div class="panel panel-danger">
                   <div class="panel-heading">
-                    La légende de votre figure, facultative mais vivement recommandée.
+                    <span class="glyphicon glyphicon-warning-sign"></span>
+                    La source de la figure est requise pour des raisons évidentes de droit d'auteur.
                   </div>
                 </div>
               </div>
