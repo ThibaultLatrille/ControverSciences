@@ -26,12 +26,12 @@
                  <li><%= link_to "<b><span class=\"glyphicon glyphicon-envelope font12\" ></span> &nbsp Bulletins d'information</b>".html_safe, newsletter_path %></li>
                  <li class="divider"></li>
                  <li><%= link_to '<b><span class="icon-users bigger" ></span> Qui sont les contributeurs</b>'.html_safe, users_path %> </li>
-                 <li><%= link_to '<b><span class="icon-graph bigger" ></span> Évolution des contributions</b>'.html_safe, contributions_path %> </li>
-                 <li><%= link_to '<b><span class="icon-graph bigger" ></span> Nouvelles contributions</b>'.html_safe, contributions_path(filter: "freq") %> </li>
+                 <li><%= link_to '<b><span class="icon-graph-int bigger" ></span> Évolution des contributions</b>'.html_safe, contributions_path %> </li>
+                 <li><%= link_to '<b><span class="icon-graph-diff bigger" ></span> Nouvelles contributions</b>'.html_safe, contributions_path(filter: "freq") %> </li>
                  <li class="divider"></li>
-                 <li><%= link_to '<b><span class="icon-4 bigger" ></span> Enrichir</b>'.html_safe, empty_references_path %></li>
-                 <li><%= link_to '<b><span class="icon-4 bigger" ></span> Analyser</b>'.html_safe, empty_comments_path %></li>
-                 <li><%= link_to '<b><span class="icon-4 bigger" ></span> Synthétiser</b>'.html_safe, empty_summaries_path %></li>
+                 <li><%= link_to '<b><span class="icon-reference bigger" ></span> Enrichir</b>'.html_safe, empty_references_path %></li>
+                 <li><%= link_to '<b><span class="icon-comment bigger" ></span> Analyser</b>'.html_safe, empty_comments_path %></li>
+                 <li><%= link_to '<b><span class="icon-summary bigger" ></span> Synthétiser</b>'.html_safe, empty_summaries_path %></li>
                </ul>
              </li>
          <% if logged_in? %>
