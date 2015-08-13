@@ -42,7 +42,7 @@ class Figure < ActiveRecord::Base
         end
       elsif self.reference_id ||self.timeline_id
         unless image[:width] > 640 && image[:height] > 640
-          errors.add :picture, 'Doit faire au moins 1280px*1280px'
+          errors.add :picture, 'Doit faire au moins 640px*640px'
         end
       else
         unless image[:width] > 250 && image[:height] > 250
