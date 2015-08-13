@@ -1,4 +1,12 @@
 <header id="top" class="navbar navbar-fixed-top bs-docs-nav" role="banner">
+  <div class="pull-right" style="padding: 8px 8px 0 0">
+    <a href="https://twitter.com/ControverSci" class="hvr-grow">
+      <%= image_tag("link_1.png", :height => "30px") %>
+    </a>
+    <a href="https://www.facebook.com/ControverSciences" class="hvr-grow">
+      <%= image_tag("link_2.png", :height => "30px") %>
+    </a>
+  </div>
   <div class="container">
     <div class="navbar-header">
       <button class="navbar-toggle collapsed" data-target=".bs-navbar-collapse" 
@@ -8,7 +16,7 @@
 	 <span class="icon-bar"></span>
 	 <span class="icon-bar"></span>
       </button>
-      <%= link_to image_tag("logo_title.svg", alt: "logo", height: "64px"), root_path %>
+      <%= link_to image_tag("logo_title.svg", alt: "logo", height: "64px"), root_path, id: "logo-header" %>
     </div>
     <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;">
        <ul class="nav navbar-nav navbar-right">
