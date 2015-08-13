@@ -125,64 +125,6 @@
     </div>
   </div>
 </div>
-
-<div class="col-md-10 col-md-offset-1">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title clearfix">
-        <a data-toggle="collapse" href="#collapseTwo" class="pull-right glyphicon <%= @summaries.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
-        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Vos synthèses (<%= @summaries.length %>)
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse <%= @summaries.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingTwo">
-      <table id="notification-summaries" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-1 center"> Crédits </th>
-        <th class="col-xs-4"> Synthèse </th>
-        <th class="col-xs-4"> De la controverse </th>
-        <th class="col-xs-1 center"> Publique </th>
-        <th class="col-xs-1 center"> Modifier </th>
-        <th class="col-xs-1 center"> Supprimer </th>
-      </tr>
-      </thead>
-
-      <tbody class="page">
-      <% if !@summaries.any? %>
-          <tr class="notification-summary">
-            <td> </td>
-            <td> Pas encore de synthèses ajoutées </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-          </tr>
-      <% else %>
-          <% @summaries.each do |com| %>
-              <tr class="notification-summary">
-                <td class="center"> <%= com.balance %>   </td>
-                <td> <%= link_to "Voir la synthèse",
-                                 summaries_path(timeline_id: com.timeline_id, filter: "mine" ),
-                                 class: "btn btn-primary" %>   </td>
-                <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>
-                <td class="center"> <%= com.public ? "<span class=\"icon icon-lock normal static-green\"> </span>".html_safe :
-                                                "<span class=\"icon icon-locked normal static-red\"> </span>".html_safe %>  </td>
-                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
-                                                edit_summary_path( com.id ) %>  </td>
-                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                                summary_path( com.id ), method: :delete,
-                                                data: { confirm: "Êtes-vous certain ?" } %>  </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-  </div>
-</div>
-
 <div class="col-md-10 col-md-offset-1">
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="headingThree">
@@ -288,6 +230,64 @@
     </div>
   </div>
 </div>
+
+<div class="col-md-10 col-md-offset-1">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h4 class="panel-title clearfix">
+        <a data-toggle="collapse" href="#collapseTwo" class="pull-right glyphicon <%= @summaries.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
+        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Vos synthèses (<%= @summaries.length %>)
+        </a>
+      </h4>
+    </div>
+    <div id="collapseTwo" class="panel-collapse collapse <%= @summaries.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingTwo">
+      <table id="notification-summaries" class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th class="col-xs-1 center"> Crédits </th>
+          <th class="col-xs-4"> Synthèse </th>
+          <th class="col-xs-4"> De la controverse </th>
+          <th class="col-xs-1 center"> Publique </th>
+          <th class="col-xs-1 center"> Modifier </th>
+          <th class="col-xs-1 center"> Supprimer </th>
+        </tr>
+        </thead>
+
+        <tbody class="page">
+        <% if !@summaries.any? %>
+            <tr class="notification-summary">
+              <td> </td>
+              <td> Pas encore de synthèses ajoutées </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+        <% else %>
+            <% @summaries.each do |com| %>
+                <tr class="notification-summary">
+                  <td class="center"> <%= com.balance %>   </td>
+                  <td> <%= link_to "Voir la synthèse",
+                                   summaries_path(timeline_id: com.timeline_id, filter: "mine" ),
+                                   class: "btn btn-primary" %>   </td>
+                  <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>
+                  <td class="center"> <%= com.public ? "<span class=\"icon icon-lock normal static-green\"> </span>".html_safe :
+                                                  "<span class=\"icon icon-locked normal static-red\"> </span>".html_safe %>  </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
+                                                  edit_summary_path( com.id ) %>  </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                  summary_path( com.id ), method: :delete,
+                                                  data: { confirm: "Êtes-vous certain ?" } %>  </td>
+                </tr>
+            <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <script type="text/javascript">
