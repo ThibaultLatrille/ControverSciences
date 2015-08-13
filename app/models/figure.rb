@@ -32,10 +32,23 @@ class Figure < ActiveRecord::Base
   # Validates the size of an uploaded picture.
   def picture_size
     if picture.size > 5.megabytes
-      errors.add(:picture, 'Taille de la figure supérieure à 5 Mo, veuillez réduire la taille de celle-ci.')
+      errors.add(:picture, 'Taille de la figure supérieure à 5 Mo.')
     end
-    if picture.size < 30.kilobytes
-      errors.add(:picture, 'Taille de la figure inférieur à 30 Ko, veuillez fournir une image de meilleur qualité.')
+    unless picture.file.extension == 'svg'
+      image = MiniMagick::Image.open(picture.path)
+      if self.img_timeline_id
+        unless image[:width] > 1280 && image[:height] > 1280
+          errors.add :picture, 'Doit faire au moins 1280px*1280px'
+        end
+      elsif self.reference_id ||self.timeline_id
+        unless image[:width] > 640 && image[:height] > 640
+          errors.add :picture, 'Doit faire au moins 1280px*1280px'
+        end
+      else
+        unless image[:width] > 250 && image[:height] > 250
+          errors.add :picture, 'Doit faire au moins 250px*250px'
+        end
+      end
     end
   end
 end
