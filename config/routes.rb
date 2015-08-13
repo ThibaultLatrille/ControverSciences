@@ -61,6 +61,8 @@ Rails.application.routes.draw do
   get '/previous' => 'references#previous', as: 'previous_reference'
   get '/next_timeline' => 'timelines#next', as: 'next_timeline'
   get '/previous_timeline' => 'timelines#previous', as: 'previous_timeline'
+  get '/next_user' => 'users#next', as: 'next_user'
+  get '/previous_user' => 'users#previous', as: 'previous_user'
   get '/from_timeline' => 'references#from_timeline', as: 'from_timeline'
   get '/from_reference' => 'references#from_reference', as: 'from_reference'
   get 'references_graph' => 'references#graph'

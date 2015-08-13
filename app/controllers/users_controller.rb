@@ -101,6 +101,28 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def previous
+    users = User.select(:id, :slug, :score).order(score: :desc).where( activated: true )
+    i = users.index{|x| x.id == params[:id].to_i }
+    if i == 0
+      i = users.length-1
+    else
+      i-=1
+    end
+    redirect_to user_path(users[i])
+  end
+
+  def next
+    users = User.select(:id, :slug, :score).order(score: :desc).where( activated: true )
+    i = users.index{|x| x.id == params[:id].to_i }
+    if i == users.length-1
+      i = 0
+    else
+      i += 1
+    end
+    redirect_to user_path(users[i])
+  end
+
   private
 
   def user_params

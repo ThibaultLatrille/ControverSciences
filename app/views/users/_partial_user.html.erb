@@ -97,7 +97,7 @@
           Chart.defaults.global.scaleStartValue = 0;
           var canvas = $("#myChart").get(0),
               ctx = canvas.getContext('2d'),
-              myRadarChart = new Chart(ctx).Radar(data, {});
+              myRadarChart = new Chart(ctx).Radar(data, {pointLabelFontSize : 14, pointLabelFontStyle : "bold"});
           $.each(myRadarChart.datasets[0].points, function( key, point ) {
               point.toolLabel = labels[key];
           });
