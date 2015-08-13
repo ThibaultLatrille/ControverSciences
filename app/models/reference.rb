@@ -11,6 +11,7 @@ class Reference < ActiveRecord::Base
   belongs_to :user
   belongs_to :timeline
   has_many :links, dependent: :destroy
+  has_many :summary_links, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :ratings, dependent: :destroy

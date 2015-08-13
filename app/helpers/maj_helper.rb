@@ -1,5 +1,13 @@
 module MajHelper
 
+  def maj_v_10
+    ActiveRecord::Base.transaction do
+      Summary.find_each do |summary|
+        summary.save_with_markdown
+      end
+    end
+  end
+
   def maj_v_9
     ActiveRecord::Base.transaction do
       User.find_each do |user|

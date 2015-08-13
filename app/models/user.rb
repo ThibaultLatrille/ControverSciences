@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :summaries, dependent: :destroy
   has_many :links, dependent: :destroy
+  has_many :summary_links, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :credits, dependent: :destroy
   has_many :timeline_contributors, dependent: :destroy

@@ -364,9 +364,18 @@
             </div>
         <% end %>
         <div class="justify">
-          <span class="content<%= @summary.id %>">
+          <div class="content<%= @summary.id %>">
               <%= @summary.markdown.html_safe %>
-           </span>
+
+            <% if @summary.summary_links.count > 0 %>
+            Cette synthèse se base sur <%= @summary.summary_links.count.to_s + " référence" + (@summary.summary_links.count > 1 ? "s" : "") %> :
+            <ul>
+              <% @summary.summary_links.each do |link| %>
+              <li><%= link_to link.reference.title_display, reference_path(link.reference), class: "linked-ref", "data-ref" => link.reference_id %></li>
+              <% end %>
+            </ul>
+            <% end %>
+           </div>
           <% if logged_in? %>
               <div class="pull-right">
                 <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
@@ -587,12 +596,12 @@
 
             //hide timeline blocks which are outside the viewport
             $timeline_block.each(function () {
-                $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden');
+                $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
             });
 
             $timeline_block.each(function () {
                 if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95) {
-                    $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').removeClass('bounce-in');
+                    $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden').removeClass('bounce-in');
                 }
             });
 
@@ -600,7 +609,7 @@
             $(window).on('scroll', function () {
                 $timeline_block.each(function () {
                     if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
-                        $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').removeClass('bounce-in');
+                        $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
                     }
                 });
             });

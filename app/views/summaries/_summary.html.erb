@@ -14,6 +14,14 @@
       <% end %>
       <div class="text-justify content<%= summary.id %>">
         <%= summary.markdown.html_safe %>
+        <% if summary.summary_links.count > 0 %>
+            Cette synthèse se base sur <%= summary.summary_links.count.to_s + " référence" + (summary.summary_links.count > 1 ? "s" : "") %> :
+            <ul>
+              <% summary.summary_links.each do |link| %>
+                  <li><%= link_to link.reference.title_display, reference_path(link.reference) %></li>
+              <% end %>
+            </ul>
+        <% end %>
       </div>
     </div>
     <% unless logged_in? %>
