@@ -33,6 +33,7 @@ postgres=# create role controversciences login createdb password 'password';
 postgres=# \q
 ```
 
+
 ### Install the gems
 
 ```
@@ -45,6 +46,15 @@ $ bundle install
 $ rake db:create
 $ sh ./dump/pg_restore
 ```
+
+If you get an error at this step, as the following:
+
+```
+could not connect to server: Connection refused Is the server running on host "localhost" (::1) and accepting TCP/IP connections on port 5432?
+could not connect to server: Connection refused Is the server running on host "localhost" (127.0.0.1) and accepting TCP/IP connections on port 5432? 
+```
+
+It may be because the postgresql port is not well defined. Please check in the config file `/etc/postgresql/9.4/main/postgresql.conf` that `port=5432`.
 
 ### Run local webserver
 
