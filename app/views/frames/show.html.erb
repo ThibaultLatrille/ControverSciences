@@ -14,13 +14,13 @@
                         frames_path(timeline_id: @frame.timeline_id),
                         class: "list-group-item" %>
         <% end %>
-        <% if logged_in? && @frame.user_id == current_user.id %>
-            <%= link_to "<span class=\"icon-fork normal\"></span> Modifier ma contribution".html_safe,
+        <% if logged_in? && @frame.user_id == current_user.id && !current_user.private_timeline %>
+            <%= link_to "<span class=\"icon-fork normal\"></span> Modifier votre contribution".html_safe,
                         edit_frame_path(@frame.id),
                         class: "list-group-item" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer ma contribution".html_safe,
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre contribution".html_safe,
                         frame_path(@frame.id), method: :delete,
-                        data:                          {confirm: "Etes vous certain ?"},
+                        data:                          {confirm: "Êtes-vous certain ?"},
                         class:                         "list-group-item list-group-item-danger" %>
         <% end %>
       </div>

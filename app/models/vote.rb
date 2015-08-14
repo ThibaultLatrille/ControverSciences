@@ -38,6 +38,10 @@ class Vote < ActiveRecord::Base
     end
   end
 
+  def update_comment
+    self.comment.update_best_field(self.field)
+  end
+
   private
 
   def cascading_save_vote

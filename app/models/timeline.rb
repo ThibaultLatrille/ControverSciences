@@ -25,6 +25,7 @@ class Timeline < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :links, dependent: :destroy
+  has_many :summary_links, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :edges, dependent: :destroy
   has_many :edges_from, class_name: "Edge",

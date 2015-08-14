@@ -32,7 +32,7 @@ module StaticPagesHelper
     if page_title.empty?
       site_name
     else
-      ActionView::Base.full_sanitizer.sanitize "#{page_title} | #{site_name}"
+      ActionView::Base.full_sanitizer.sanitize page_title
     end
   end
 end

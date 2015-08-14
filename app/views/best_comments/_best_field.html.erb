@@ -29,11 +29,14 @@
           <div class="panel-heading clearfix">
               <% if current_user.id != comment.user_id %>
                   <% if @my_votes && (@my_votes.map{ |c| c.comment_id}.include? comment.id) %>
-                      &nbsp
-                <span class="icon-frog-laurel big"
-                      title="Vous avez selectionné cette analyse comme votre favorite"
-                      data-placement="right"
-                      data-toggle="tooltip"></span>
+                    <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
+                                vote_path(@my_votes.detect{ |v| v.comment_id == comment.id }),
+                                "data-toggle"    => "tooltip",
+                                "data-placement" => "right",
+                                title:           "Selectionner cette analyse comme votre favorite",
+                                method:          :delete,
+                                class:           "btn btn-success",
+                                :style           => "padding: 8px; margin-left: 8px" %>
                   <% else %>
                       <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
                                   votes_path(timeline_id: params[:timeline_id],
@@ -44,7 +47,7 @@
                                   "data-placement" => "right",
                                   title:           "Selectionner cette analyse comme votre favorite",
                                   method:          :post,
-                                  class:           "btn btn-success",
+                                  class:           "btn btn-default green",
                                   :style           => "padding: 8px; margin-left: 8px" %>
                   <% end %>
               <% end %>
@@ -63,7 +66,7 @@
                   <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                               comment_path(id: comment.id),
                               method: :delete,
-                              data:   {confirm: "Etes vous certain ?"},
+                              data:   {confirm: "Êtes-vous certain ?"},
                               class:  "btn btn-danger",
                               :style  => "margin-right: 8px" %>
               <% end %>

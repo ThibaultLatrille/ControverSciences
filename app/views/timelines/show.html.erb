@@ -30,22 +30,38 @@
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir aux controverses".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order]),
                 class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Envoyer une invitation à participer à la controverse".html_safe,
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> Controverse précédente".html_safe,
+                previous_timeline_path(id: @timeline.id),
+                class: "list-group-item" %>
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Controverse suivante".html_safe,
+                next_timeline_path(id: @timeline.id),
+                class: "list-group-item" %>
+    <% if logged_in? %>
+        <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+                        </span>  Ajouter ou modifier les liens vers d'autres controverses".html_safe,
+                    edges_path(timeline_id: @timeline.id),
+                    class: "list-group-item" %>
+    <% end %>
+  </div>
+  <div class="list-group">
+    <div class="list-group-item">
+      <a href="https://twitter.com/share"
+         class="twitter-share-button"
+         data-text="<%= CGI::unescapeHTML(@timeline.name) %>"
+         data-via="ControverSci">
+        Tweet
+      </a>
+    </div>
+    <div class="list-group-item">
+      <div class="fb-share-button"
+           data-href="<%= timeline_path @timeline %>"
+           data-layout="button_count">
+      </div>
+    </div>
+    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Envoyer une invitation à découvrir la controverse".html_safe,
                 new_invitation_path(timeline_id: @timeline.id),
                 remote: true,
                 class:  "list-group-item" %>
-    <% if logged_in? %>
-        <%= link_to "<span class=\"glyphicon glyphicon-link\" >
-                        </span> Ajouter des liens vers d'autres controverses".html_safe,
-                    edges_path(timeline_id: @timeline.id),
-                    class: "list-group-item" %>
-        <% if @timeline.user_id == current_user.id || current_user.admin %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
-                        timeline_path(@timeline), method: :delete,
-                        data:                             {confirm: "Etes vous certain ?"},
-                        class:                            "list-group-item list-group-item-danger" %>
-        <% end %>
-    <% end %>
   </div>
   <div class="list-group">
     <% if @timeline.nb_frames > 1 %>
@@ -55,13 +71,13 @@
                     class: "list-group-item" %>
     <% elsif logged_in? && !@my_frame %>
         <%= link_to "<span class=\"icon-fork normal\" >
-                                </span> Proposer un amélioration de titre et de cadre".html_safe,
+                                </span> Proposer une amélioration de titre et de cadre".html_safe,
                     new_frame_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
     <% end %>
     <% if logged_in? && @my_frame %>
         <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
-                                </span> Ma proposition de titre et de cadre".html_safe,
+                                </span> Votre proposition de titre et de cadre".html_safe,
                     frames_path(timeline_id: @timeline.id, filter: "mine"),
                     :class => "list-group-item" %>
     <% end %>
@@ -84,7 +100,7 @@
                                 :class => "list-group-item" %>
                 <% else %>
                     <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
-                  Ma synthèse".html_safe,
+                  Votre synthèse".html_safe,
                                 summaries_path(timeline_id: @timeline.id, filter: "mine"),
                                 :class => "list-group-item" %>
                 <% end %>
@@ -106,18 +122,78 @@
   <% end %>
   <% if logged_in? %>
       <div class="list-group">
+        <% if @timeline.nb_references > 1 %>
+        <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les références".html_safe,
+                    references_graph_path(timeline_id: @timeline.id),
+                    class: "list-group-item" %>
+        <% end %>
+        <% if @timeline.nb_references > 0 %>
+            <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> Télécharger la bibliographie".html_safe,
+                        '#download-biblio', 'data-toggle' => 'modal',
+                        class: "list-group-item" %>
+            <div class="modal fade" id="download-biblio" tabindex="-1" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <br/>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-xs-12 col-md-3">
+                        <%= link_to image_tag("bib.png", alt: "Synthétiser", :class => "img-responsive"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
+                                    class: "hvr-grow" %>
+                      </div>
+                      <div class="col-xs-12 col-md-3">
+                        <%= link_to image_tag("xml.png", alt: "Synthétiser", :class => "img-responsive"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
+                                    class: "hvr-grow" %>
+                      </div>
+                      <div class="col-xs-12 col-md-3">
+                        <%= link_to image_tag("json.png", alt: "Synthétiser", :class => "img-responsive"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
+                                    class: "hvr-grow" %>
+                      </div>
+                      <div class="col-xs-12 col-md-3">
+                        <%= link_to image_tag("yaml.png", alt: "Synthétiser", :class => "img-responsive"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
+                                    class: "hvr-grow" %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> Fermer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
         <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
     </span> Ajouter une référence à cette controverse.".html_safe,
                     new_reference_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
-        <%= link_to "<span class=\"icon-network normal\"></span> Le graphe des références".html_safe,
-                    references_graph_path(timeline_id: @timeline.id),
-                    class: "list-group-item" %>
+        <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
+                        timeline_path(@timeline), method: :delete,
+                        data:                             {confirm: "Êtes-vous certain ?"},
+                        class:                            "list-group-item list-group-item-danger" %>
+        <% end %>
       </div>
   <% end %>
 </div>
 
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
+<% if @timeline.private && logged_in? && current_user.private_timeline %>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <%= link_to "Cette controverse est privée. Souhaitez vous la rendre publique <span class=\"icon icon-lock normal\"></span>".html_safe,
+                    set_public_timelines_path(timeline_id: @timeline.id),
+                    data: {confirm: "Rendre la controverse publique est irréversible, êtes vous certain de votre choix ?"} %>
+      </div>
+    </div>
+<% end %>
+
 <div class="panel panel-default comment">
 <div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>); background-size: 100% auto;">
   <div class="content">
@@ -137,13 +213,13 @@
         <% if logged_in? && (@my_likes.include? @timeline.id) %>
             <button type="button" class="btn btn-success" data-placement="left"
                     data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                    title="Vous et <%= (@timeline.nb_likes - 1).to_s + " contributeurs s'intéressent à cette controverse" %>">
+                    title="Vous et <%= (@timeline.nb_likes - 1).to_s + ( (@timeline.nb_likes - 1) > 1 ? " autres contributeurs s'intéressent" : " autre contributeur s'intéresse" ) +" à cette controverse" %>">
               <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
             </button>
         <% else %>
             <button type="button" class="btn btn-default green" data-placement="left"
                     data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                    title="<%= @timeline.nb_likes.to_s + " contributeurs s'intéressent à cette controverse" %>">
+                    title="<%= @timeline.nb_likes.to_s + ( @timeline.nb_likes > 1 ? " contributeurs s'intéressent" : " contributeur s'intéresse" ) + " à cette controverse" %>">
               <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
             </button>
         <% end %>
@@ -185,7 +261,7 @@
                         class: "btn btn-primary" %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                         frame_path(@improve_frame.id), method: :delete,
-                        data:                                  {confirm: "Etes vous certain ?"},
+                        data:                                  {confirm: "Êtes-vous certain ?"},
                         class:                                 "btn btn-danger" %>
           </div>
       <% end %>
@@ -198,14 +274,15 @@
           <%= f.hidden_field :has_picture, value: @timeline.picture? %>
           <%= f.hidden_field :delete_picture, value: false %>
           <%= f.hidden_field :img_timeline_id, value: @timeline.id %>
-          <%= f.text_field :source, value: (@timeline.figure_id.blank? ? nil: @timeline.figure.source ), placeholder: "La source de l'image", class: 'form-control' %>
+          <%= f.text_field :source, value: (@timeline.figure_id.blank? ? nil : @timeline.figure.source), placeholder: "La source de l'image", class: 'form-control' %>
           <br/>
+
           <div id="size-warning" class="row" style="display: none">
             <div class="col-xs-10 col-xs-offset-1">
               <div class="alert alert-danger alert-dismissible" role="alert">
                 <strong>
                   <span class="glyphicon glyphicon-warning-sign"></span>
-                  Cette image est de trop petite résolution, ou bien est trop grande (>5Mo)
+                  Cette image est de trop petite résolution (minimum 1280px*1280px), ou bien elle est trop grande (> 5Mo).
                 </strong>
               </div>
             </div>
@@ -287,9 +364,18 @@
             </div>
         <% end %>
         <div class="justify">
-          <span class="content<%= @summary.id %>">
+          <div class="content<%= @summary.id %>">
               <%= @summary.markdown.html_safe %>
-           </span>
+
+            <% if @summary.summary_links.count > 0 %>
+            Cette synthèse se base sur <%= @summary.summary_links.count.to_s + " référence" + (@summary.summary_links.count > 1 ? "s" : "") %> :
+            <ul>
+              <% @summary.summary_links.each do |link| %>
+              <li><%= link_to link.reference.title_display, reference_path(link.reference), class: "linked-ref", "data-ref" => link.reference_id %></li>
+              <% end %>
+            </ul>
+            <% end %>
+           </div>
           <% if logged_in? %>
               <div class="pull-right">
                 <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
@@ -301,7 +387,7 @@
                                 class: "btn btn-primary" %>
                     <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                                 summary_path(@summary.id), method: :delete,
-                                data:                              {confirm: "Etes vous certain ?"},
+                                data:                              {confirm: "Êtes-vous certain ?"},
                                 class:                             "btn btn-danger" %>
                 <% end %>
               </div>
@@ -335,9 +421,10 @@
       <div class="col-xs-offset-1 col-xs-10">
         <div class="panel panel-default">
           <br/><br/>
+
           <div class="row">
             <div class="col-xs-12 col-sm-offset-3 col-sm-6">
-                <canvas id="myChart"></canvas>
+              <canvas id="myChart"></canvas>
             </div>
           </div>
           <div class="center">
@@ -354,11 +441,11 @@
         $(document).ready(function () {
             var data = {
                 labels: [
-                    "Fermement "+$('#versus-left').text().toLowerCase(),
+                            "Fermement " + $('#versus-left').text().toLowerCase(),
                     $('#versus-left').text(),
                     "Neutre",
                     $('#versus-right').text(),
-                    "Fermement "+$('#versus-right').text().toLowerCase()],
+                            "Fermement " + $('#versus-right').text().toLowerCase()],
                 datasets: [
                     {
                         label: "My First dataset",
@@ -371,29 +458,29 @@
                 ]
             };
             var colors = {
-                    1: 'rgba(112,43,217,0.0)',
-                    2: 'rgba(50,45,227,0.0)',
-                    3: 'rgba(51,102,204,0.0)',
-                    4: 'rgba(45,171,227,0.0)',
-                    5: 'rgba(43,217,207,0.0)'},
-                labels = {
-                1: '<%= @timeline.binary_explanation(1) -%>',
-                2: '<%= @timeline.binary_explanation(2) -%>',
-                3: '<%= @timeline.binary_explanation(3) -%>',
-                4: '<%= @timeline.binary_explanation(4) -%>',
-                5: '<%= @timeline.binary_explanation(5) -%>'};
+                        1: 'rgba(112,43,217,0.0)',
+                        2: 'rgba(50,45,227,0.0)',
+                        3: 'rgba(51,102,204,0.0)',
+                        4: 'rgba(45,171,227,0.0)',
+                        5: 'rgba(43,217,207,0.0)'},
+                    labels = {
+                        1: '<%= @timeline.binary_explanation(1) -%>',
+                        2: '<%= @timeline.binary_explanation(2) -%>',
+                        3: '<%= @timeline.binary_explanation(3) -%>',
+                        4: '<%= @timeline.binary_explanation(4) -%>',
+                        5: '<%= @timeline.binary_explanation(5) -%>'};
             Chart.defaults.global.responsive = true;
             Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%> : <%%}%><%%= value %>";
-            (function(){
+            (function () {
                 var helpers = Chart.helpers,
                         canvas = $("#myChart").get(0),
                         ctx = canvas.getContext('2d'),
                         microBar = new Chart(ctx).Bar(data, {
                         });
 
-                helpers.addEvent(canvas, 'mousemove', function(evt){
-                    var bars =microBar.getBarsAtEvent(evt);
-                    if (bars.length > 0){
+                helpers.addEvent(canvas, 'mousemove', function (evt) {
+                    var bars = microBar.getBarsAtEvent(evt);
+                    if (bars.length > 0) {
                         canvas.style.cursor = "pointer";
                     }
                     else {
@@ -401,13 +488,13 @@
                     }
                 });
 
-                helpers.addEvent(canvas, 'click', function(evt){
+                helpers.addEvent(canvas, 'click', function (evt) {
                     microBar.options.animation = true;
-                    microBar.options.onAnimationComplete = function(){
+                    microBar.options.onAnimationComplete = function () {
                         this.showTooltip(this.activeElements, true);
                     };
                     var bars = microBar.getBarsAtEvent(evt);
-                    helpers.each(bars, function(bar){
+                    helpers.each(bars, function (bar) {
                         if (bar.active) {
                             $(bar.references).hide(500);
                             bar.active = false;
@@ -418,20 +505,20 @@
                             bar.fillColor = bar.baseColor.replace('.0)', '.5)');
                         }
                     });
-                    if (bars.length > 0){
+                    if (bars.length > 0) {
                         microBar.update();
                     }
                 });
 
-                $.each(microBar.datasets[0].bars, function( key, bar ) {
+                $.each(microBar.datasets[0].bars, function (key, bar) {
                     bar.active = true;
                     bar.references = ".binary" + (key + 1).toString();
-                    bar.toolLabel = labels[key+1];
-                    bar.baseColor = colors[key+1];
-                    bar.fillColor = colors[key+1].replace('.0)', '.5)');
-                    bar.strokeColor = colors[key+1].replace('.0)', '.75)');
-                    bar.highlightFill = colors[key+1].replace('.0)', '.75)');
-                    bar.highlightStroke = colors[key+1].replace('.0)', '.95)');
+                    bar.toolLabel = labels[key + 1];
+                    bar.baseColor = colors[key + 1];
+                    bar.fillColor = colors[key + 1].replace('.0)', '.5)');
+                    bar.strokeColor = colors[key + 1].replace('.0)', '.75)');
+                    bar.highlightFill = colors[key + 1].replace('.0)', '.75)');
+                    bar.highlightStroke = colors[key + 1].replace('.0)', '.95)');
                 });
             })();
         });
@@ -509,12 +596,12 @@
 
             //hide timeline blocks which are outside the viewport
             $timeline_block.each(function () {
-                $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden');
+                $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
             });
 
             $timeline_block.each(function () {
                 if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95) {
-                    $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').removeClass('bounce-in');
+                    $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden').removeClass('bounce-in');
                 }
             });
 
@@ -522,7 +609,7 @@
             $(window).on('scroll', function () {
                 $timeline_block.each(function () {
                     if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
-                        $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').removeClass('bounce-in');
+                        $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
                     }
                 });
             });
@@ -580,45 +667,45 @@
 </div>
 
 <% if logged_in? %>
-<script type="text/javascript">
-    $(function () {
-        $('[data-validate]').click(function () {
-            var self = $(this);
-            self.hide();
-            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-            $.ajax(self.data('validate'), {
-                url: self.data('validate'),
-                data: {id: self.val()},
-                method: 'POST',
-                statusCode: {
-                    201: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.glyphicon', self);
-                        self.addClass('btn-success');
-                        self.removeClass('btn-default');
-                        self.removeClass('green');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
-                        like.text(' ' + (parseInt(like.text()) + 1));
-                    },
-                    204: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.glyphicon', self);
-                        self.removeClass('btn-success');
-                        self.addClass('btn-default');
-                        self.addClass('green');
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
-                        like.text(' ' + (parseInt(like.text()) - 1));
-                    },
-                    401: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        $('#iptaken').modal('show');
+    <script type="text/javascript">
+        $(function () {
+            $('[data-validate]').click(function () {
+                var self = $(this);
+                self.hide();
+                self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
+                $.ajax(self.data('validate'), {
+                    url: self.data('validate'),
+                    data: {id: self.val()},
+                    method: 'POST',
+                    statusCode: {
+                        201: function (response) {
+                            $('.loader-like').remove();
+                            self.show();
+                            var like = $('.glyphicon', self);
+                            self.addClass('btn-success');
+                            self.removeClass('btn-default');
+                            self.removeClass('green');
+                            self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                            like.text(' ' + (parseInt(like.text()) + 1));
+                        },
+                        204: function (response) {
+                            $('.loader-like').remove();
+                            self.show();
+                            var like = $('.glyphicon', self);
+                            self.removeClass('btn-success');
+                            self.addClass('btn-default');
+                            self.addClass('green');
+                            self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                            like.text(' ' + (parseInt(like.text()) - 1));
+                        },
+                        401: function (response) {
+                            $('.loader-like').remove();
+                            self.show();
+                            $('#iptaken').modal('show');
+                        }
                     }
-                }
-            })
+                })
+            });
         });
-    });
-</script>
+    </script>
 <% end %>

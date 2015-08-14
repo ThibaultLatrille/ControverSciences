@@ -14,6 +14,14 @@
       <% end %>
       <div class="text-justify content<%= summary.id %>">
         <%= summary.markdown.html_safe %>
+        <% if summary.summary_links.count > 0 %>
+            Cette synthèse se base sur <%= summary.summary_links.count.to_s + " référence" + (summary.summary_links.count > 1 ? "s" : "") %> :
+            <ul>
+              <% summary.summary_links.each do |link| %>
+                  <li><%= link_to link.reference.title_display, reference_path(link.reference) %></li>
+              <% end %>
+            </ul>
+        <% end %>
       </div>
     </div>
     <% unless logged_in? %>
@@ -27,13 +35,16 @@
   <% if logged_in? %>
       <div class="panel-heading">
         <div class="clearfix">
-          <% if current_user.id != summary.user_id %>
+          <% if current_user.id != summary.user_id && !@only_one_summary %>
               <% if @my_credit && @my_credit.summary_id == summary.id %>
-                  &nbsp
-                <span class="icon-frog-laurel big"
-                      title="Vous avez selectionné cette synthèse comme votre favorite"
-                      data-placement="right"
-                      data-toggle="tooltip"></span>
+                  <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
+                              credit_path(@my_credit.id),
+                              "data-toggle"    => "tooltip",
+                              "data-placement" => "right",
+                              title:           "Vous avez selectionné cette synthèse comme votre favorite",
+                              method:          :delete,
+                              class:           "btn btn-success",
+                              :style           => "padding: 8px; margin-left: 8px" %>
               <% else %>
                   <%= link_to "<span class=\"icon-frog-laurel fatter\"></span>".html_safe,
                               credits_path(timeline_id: summary.timeline_id, summary_id: summary.id),
@@ -41,7 +52,7 @@
                               "data-placement" => "right",
                               title:           "Selectionner cette synthèse comme votre favorite",
                               method:          :post,
-                              class:           "btn btn-success",
+                              class:           "btn btn-default green",
                               :style           => "padding: 8px; margin-left: 8px" %>
               <% end %>
           <% end %>
@@ -60,7 +71,7 @@
                 <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                             summary_path(id: summary.id),
                             method: :delete,
-                            data:   {confirm: "Etes vous certain ?"},
+                            data:   {confirm: "Êtes-vous certain ?"},
                             class:  "btn btn-danger",
                             :style  => "margin-right: 8px" %>
             <% end %>

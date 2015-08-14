@@ -16,16 +16,16 @@
             <% else %>
                 <% if params[:filter] == "mine" %>
                     <%= link_to "<span class=\"icon-fork normal\" >
-             </span> Modifier ma synthèse".html_safe,
+             </span> Modifier votre synthèse".html_safe,
                                 edit_summary_path(@summaries.first.id),
                                 class: "list-group-item" %>
-                    <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer ma synthèse".html_safe,
+                    <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre synthèse".html_safe,
                                 summary_path(@summaries.first.id), method: :delete,
-                                data:                                      {confirm: "Etes vous certain ?"},
+                                data:                                      {confirm: "Êtes-vous certain ?"},
                                 class:                                     "list-group-item list-group-item-danger" %>
                 <% else %>
                     <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
-                  Ma synthèse".html_safe,
+                  Votre synthèse".html_safe,
                                 summaries_path(timeline_id: @timeline.id, filter: "mine"),
                                 :class => "list-group-item" %>
                 <% end %>

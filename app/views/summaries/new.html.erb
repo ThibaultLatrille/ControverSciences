@@ -82,9 +82,10 @@
                     <%= f.text_area :caption, {rows:          3, :placeholder => "Légende de la figure",
                                                :class         => "form-control textarea", id: "description1",
                                                "data-provide" => "markdown"} %>
-                    <div class="panel panel-info">
+                    <div class="panel panel-danger">
                       <div class="panel-heading">
-                        La légende de votre figure, facultative mais vivement recommandée.
+                        <span class="glyphicon glyphicon-warning-sign"></span>
+                        La source de la figure est requise pour des raisons évidentes de droit d'auteur.
                       </div>
                     </div>
                   </div>
@@ -95,7 +96,7 @@
                   <div class="alert alert-danger alert-dismissible" role="alert">
                     <strong>
                       <span class="glyphicon glyphicon-warning-sign"></span>
-                      Cette image est de trop petite résolution, ou bien est trop grande (>5Mo)
+                      Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo).
                     </strong>
                   </div>
                 </div>

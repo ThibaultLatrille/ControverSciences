@@ -51,6 +51,12 @@ fr:
         comment: "Le message"
       summary:
         content: "La synthèse"
+      reference_edge:
+        direction: "Sens du lien"
+        category: "Type de lien"
+        target: "Avec la référence"
+      edge:
+        target: "Avec la controverse"
   date:
     abbr_day_names:
       - dim

@@ -11,13 +11,13 @@
         <%= render 'shared/error_messages', object: f.object %>
 
         <%= f.label :name %>
-        <%= f.text_field :name, class: 'form-control', placeholder: "p. ex.  C. Darwin" %>
+        <%= f.text_field :name, class: 'form-control', placeholder: "C. Darwin" %>
             <br/>
         <%= f.label :email %>
-        <%= f.text_field :email, class: 'form-control', placeholder: "p. ex. Charles.darwin@univ-montp2.fr",
+        <%= f.text_field :email, class: 'form-control', placeholder: "Charles.darwin@cnrs.fr",
                :'data-validate' => '/users/checkemail' %>
         <div id="fetch" style="display: none; margin-left: 30px; margin-top: 20px">
-          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
             <rect x="0" y="0" width="4" height="10" fill="#FF6700">
               <animateTransform attributeType="xml"
@@ -68,7 +68,7 @@
                 <span> J'ai lu et j'accepte <%= link_to "les conditions générales d'utilisation", terms_path %>. </span>
             <% end %>
        <br/>
-        <%= f.button "Créer mon compte &nbsp <span class=\"icon-frog fat\" aria-hidden=\"true\"></span>".html_safe, id: "submit",
+        <%= f.button "Créer votre compte &nbsp <span class=\"icon-frog fat\" aria-hidden=\"true\"></span>".html_safe, id: "submit",
                      class: 'btn btn-success pull-right',
                      data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Création en cours "}%>
         <% end %>

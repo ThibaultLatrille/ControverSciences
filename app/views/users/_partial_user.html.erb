@@ -4,7 +4,7 @@
   <div class="panel-heading clearfix">
     <% if logged_in? && current_user.id == @user.id %>
         <div class="pull-right">
-          <%= link_to "<span class=\"fat icon-techno\"></span> Editer mon profil".html_safe,
+          <%= link_to "<span class=\"fat icon-techno\"></span> Editer votre profil".html_safe,
                       edit_user_path(@user.id) ,class: "btn btn-default" %>
         </div>
     <% end %>
@@ -31,28 +31,26 @@
                             @user,
                             method: :delete,
                             class:  "pull-right btn btn-danger",
-                            data:   {confirm: "Etes vous certain ?"} %>
+                            data:   {confirm: "Êtes-vous certain ?"} %>
           </div>
         </div>
     <% end %>
     <% if @user_detail && @user_detail.id && @user_detail.job != "" %>
-        <% if @user_detail.institution != "" %>
-            <%= @user.name %> est <%= @user_detail.job  %>
-            <br/>
-            <b> Institution : <%= @user_detail.institution %></b><br/>
-        <% else %>
-            <%= @user.name %> est <%= @user_detail.job  %><br/>
-        <% end %>
-    <% elsif @user_detail && @user_detail.id && @user_detail.institution != "" %>
-            <%= @user.name %>
-        <br/>
-        <b> Institution : <%= @user_detail.institution %></b><br/>
+      <b> Fonction/métier : </b><br/>
+            <%= @user_detail.job  %>
+        <br/><br/>
+    <% end %>
+    <% if @user_detail && @user_detail.id && @user_detail.institution != "" %>
+        <b> Institution : </b> <br/>
+      <%= @user_detail.institution %>
+      <br/><br/>
     <% end %>
     <% if  @user_detail && @user_detail.id && @user_detail.biography != "" %>
         <b> Biographie : </b> <%= @user_detail.content_markdown.html_safe %> <br/>
     <% end %>
     <% if  @user_detail && @user_detail.id && @user_detail.website != "" %>
-        <%= @user.name %> a même un site personnel : <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %> <br/>
+      <b> Site web : </b><br/>
+      <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %> <br/><br/>
     <% end %>
     <br/>
     <% if @user_detail && !@user_detail.profil.blank? %>
@@ -82,7 +80,7 @@
                           <% (1..8).each do |n| %>
                           "<%= (0.5 + Float(@user_detail.profil[n.to_s])).round(2) %>",
                           <% end %>
-                          "<%= (0.5 + 0.5 + Float(@user_detail.profil["9"])).round(2) %>"
+                          "<%= (0.5 + Float(@user_detail.profil["9"])).round(2) %>"
                       ]
                   }
               ]
@@ -99,7 +97,7 @@
           Chart.defaults.global.scaleStartValue = 0;
           var canvas = $("#myChart").get(0),
               ctx = canvas.getContext('2d'),
-              myRadarChart = new Chart(ctx).Radar(data, {});
+              myRadarChart = new Chart(ctx).Radar(data, {pointLabelFontSize : 14, pointLabelFontStyle : "bold"});
           $.each(myRadarChart.datasets[0].points, function( key, point ) {
               point.toolLabel = labels[key];
           });

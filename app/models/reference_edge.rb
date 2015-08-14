@@ -5,10 +5,14 @@ class ReferenceEdge < ActiveRecord::Base
   belongs_to :user
   has_many :reference_edge_votes, dependent: :destroy
 
+  attr_accessor :direction
+
   validates :user_id, presence: true
   validates :reference_id, presence: true
   validates :timeline_id, presence: true
   validates :target, presence: true
+  validates :category, presence: true, :if => Proc.new { |c| not c.direction.blank? }
+  validates :direction, presence: true
   validates :weight, presence: true, inclusion: { in: 1..12 }
   validates_uniqueness_of :category, :scope => [:target, :reference_id]
   validate :uniqueness_validation

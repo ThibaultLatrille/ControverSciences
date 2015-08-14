@@ -8,10 +8,10 @@
         <%= link_to "<span class=\"icon-users normal\"></span> Qui sont les contributeurs".html_safe,
                     users_path,
                     class: "list-group-item" %>
-        <%= link_to "<span class=\"icon-graph normal\"></span> Évolution des contributions".html_safe,
+        <%= link_to "<span class=\"icon-graph-int normal\"></span> Évolution des contributions".html_safe,
                     contributions_path,
                     class: "list-group-item #{ (params[:filter] != "freq") ? "list-group-item-default cursor-not-allowed" : ""}" %>
-        <%= link_to "<span class=\"icon-graph normal\"></span> Nouvelles contributions".html_safe,
+        <%= link_to "<span class=\"icon-graph-diff normal\"></span> Nouvelles contributions".html_safe,
                     contributions_path(filter: "freq"),
                     class: "list-group-item #{ (params[:filter] == "freq") ? "list-group-item-default cursor-not-allowed" : ""}" %>
       </div>

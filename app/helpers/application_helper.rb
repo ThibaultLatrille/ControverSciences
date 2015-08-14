@@ -32,7 +32,7 @@ module ApplicationHelper
   def category_names
     {0 => "Article",
      1 => "Review",
-     2 => "Meta-analyse",
+     2 => "Méta-analyse",
      3 => "Livre"}
   end
 
@@ -51,13 +51,13 @@ module ApplicationHelper
            5 => "Remarque(s) sur la review",
            6 => "Titre de la review",
            7 => "Figure"},
-     2 => {0 => "Introduction à la meta-analyse",
-           1 => "Expériences de la meta-analyse",
-           2 => "Résultats de la meta-analyse",
-           3 => "Limites de la meta-analyse",
-           4 => "Ce que cette meta-analyse apporte au débat",
-           5 => "Remarque(s) sur la meta-analyse",
-           6 => "Titre de la meta-analyse",
+     2 => {0 => "Introduction à la méta-analyse",
+           1 => "Expériences de la méta-analyse",
+           2 => "Résultats de la méta-analyse",
+           3 => "Limites de la méta-analyse",
+           4 => "Ce que cette méta-analyse apporte au débat",
+           5 => "Remarque(s) sur la méta-analyse",
+           6 => "Titre de la méta-analyse",
            7 => "Figure"},
      3 => {0 => "Introduction au livre",
            1 => "Résumé et résultats du livre",
@@ -76,8 +76,8 @@ module ApplicationHelper
            3 => 1000,
            4 => 1000,
            5 => 1000,
-           6 => 1000,
-           7 => 180},
+           6 => 180,
+           7 => 1000},
      1 => {0 => 4000,
            3 => 1000,
            4 => 1000,
@@ -125,16 +125,16 @@ module ApplicationHelper
                           Cela peut être sur les affiliations ou les financements douteux de la review.
                           Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
                           subjective."},
-     2 => {0 => "L'introduction permet au lecteur de situer cette meta-analyse dans
+     2 => {0 => "L'introduction permet au lecteur de situer cette méta-analyse dans
                               la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.",
-           1 => "Résumé de l'expérience (ou des expériences) réalisé dans cette meta-analyse.",
+           1 => "Résumé de l'expérience (ou des expériences) réalisé dans cette méta-analyse.",
            2 => "Résumé du résultat (ou des résultats) de l’expérience (ou des expériences).",
-           3 => "Un résumé des limites de la meta-analyse, que ce soit méthodologique, conceptuelle ou
+           3 => "Un résumé des limites de la méta-analyse, que ce soit méthodologique, conceptuelle ou
                           philosophique. Toute étude à ses limites.",
-           4 => "Ce que cette meta-analyse apporte de plus et comment elle permet d'éclairer
+           4 => "Ce que cette méta-analyse apporte de plus et comment elle permet d'éclairer
                           la controverse.",
            5 => "Toutes les remarques qui ne rentrent pas dans les champs précédents.
-                          Cela peut être sur les affiliations ou les financements douteux de la meta-analyse .
+                          Cela peut être sur les affiliations ou les financements douteux de la méta-analyse .
                           Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
                           subjective."},
      3 => {0 => "L'introduction permet au lecteur de situer ce livre dans
@@ -167,9 +167,9 @@ module ApplicationHelper
   def user_profil_info
     ["A créé des controverses qui sont bien classées.",
      "A écrit des propositions de formulation qui sont bien classées.",
-     "A écrit des synthèses qui sont bien notées dans des controverses bien classées.",
+     "A écrit des synthèses qui sont bien classées",
      "A ajouté des références qui sont bien classées.",
-     "A Ajouté des analyses qui sont bien classées.",
+     "A ajouté des analyses qui sont bien classées.",
      "S'intéresse à des thèmes variés.",
      "A reçu des crédits par les autres contributeurs.",
      "A donné des crédits aux autres contributeurs.",
@@ -193,7 +193,7 @@ module ApplicationHelper
   end
 
   def edges_category
-    [[1, "A une lettre de réponse :"],
+    [[1, "À une lettre de réponse"],
      [2, "Est une lettre de réponse à"],
      [3, "Précise"],
      [4, "Est précisée par"],

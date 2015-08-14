@@ -84,7 +84,8 @@ class FramesController < ApplicationController
     @frame = Frame.find(params[:id])
     if logged_in?
       @improve         = Frame.where(user_id: current_user.id, timeline_id: @frame.timeline_id).count == 1 ? false : true
-      @my_frame_credit = FrameCredit.find_by(user_id: current_user.id, timeline_id: params[:timeline_id])
+      @my_frame_credit = FrameCredit.find_by(user_id: current_user.id, timeline_id: @frame.timeline_id)
+      @only_one_frame = Frame.where( timeline_id: @frame.timeline_id ).count == 1
     end
     @timeline = Timeline.select(:id, :slug, :user_id, :nb_frames, :name).find(@frame.timeline_id)
   end

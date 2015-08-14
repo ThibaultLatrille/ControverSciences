@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
       reference = Reference.select(:id, :slug, :timeline_id).find( params[:reference_id] )
       @comment.reference_id = reference.id
       @comment.timeline_id = reference.timeline_id
-      @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
+      @list = Reference.order(year: :desc).where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
       @tim_list = Timeline.where( id: Edge.where(timeline_id:
                 @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )
       @myreference = Reference.find( @comment.reference_id )
@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
       redirect_to reference_path( @comment.reference_id, filter: :mine )
     else
       @myreference = Reference.find( @comment.reference_id )
-      @list = Reference.where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
+      @list = Reference.order(year: :desc).where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
       @tim_list = Timeline.where( id: Edge.where(timeline_id:
                                                      comment_params[:timeline_id] ).pluck(:target) ).pluck( :name, :id )
       render 'new'
@@ -43,7 +43,7 @@ class CommentsController < ApplicationController
   def edit
     @comment = Comment.find( params[:id] )
     @myreference = Reference.find( @comment.reference_id )
-    @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
+    @list = Reference.order(year: :desc).where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
     @tim_list = Timeline.where( id: Edge.where(timeline_id:
                                                    @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )
   end
@@ -68,7 +68,7 @@ class CommentsController < ApplicationController
         redirect_to reference_path( @comment.reference_id, filter: :mine )
       else
         @myreference = Reference.find( @comment.reference_id )
-        @list = Reference.where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
+        @list = Reference.order(year: :desc).where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
         @tim_list = Timeline.where( id: Edge.where(timeline_id:
                                                        @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )
         render 'edit'
@@ -94,7 +94,7 @@ class CommentsController < ApplicationController
     comment = Comment.find(params[:id])
     if comment.user_id == current_user.id || current_user.admin
       comment.destroy_with_counters
-      redirect_to my_items_items_path
+      redirect_to reference_path(comment.reference_id)
     else
       flash[:danger] = "Vous ne pouvez pas supprimer une analyse qui ne vous appartient pas."
       redirect_to comment_path(params[:id])

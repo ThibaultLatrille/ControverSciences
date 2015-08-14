@@ -33,41 +33,59 @@
     <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Référence suivante".html_safe,
                 next_reference_path(timeline_id: @reference.timeline_id, id: @reference.id),
                 class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Envoyer une invitation à participer à la référence".html_safe,
+    <% if logged_in? && @reference.timeline.nb_references > 1 %>
+    <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+        </span> Ajouter ou modifier les liens vers d'autres références".html_safe,
+                reference_edges_path(timeline_id:  @reference.timeline_id,
+                                     reference_id: @reference.id),
+                class: "list-group-item" %>
+    <% end %>
+  </div>
+  <div class="list-group">
+    <div class="list-group-item">
+      <a href="https://twitter.com/share"
+         class="twitter-share-button"
+         data-text="<%= @reference.title_display %>"
+         data-via="ControverSci">
+        Tweet
+      </a>
+    </div>
+    <div class="list-group-item">
+      <div class="fb-share-button"
+           data-href="<%= reference_path @reference %>"
+           data-layout="button_count">
+      </div>
+    </div>
+    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Envoyer une invitation à découvrir la référence".html_safe,
                 new_invitation_path(reference_id: @reference.id),
                 remote: true,
                 class: "list-group-item" %>
   </div>
   <% if logged_in? %>
       <div class="list-group">
-        <%= link_to "<span class=\"glyphicon glyphicon-link\" >
-        </span> Ajouter des liens vers d'autres références".html_safe,
-                    reference_edges_path(timeline_id:  @reference.timeline_id,
-                                         reference_id: @reference.id),
-                    class: "list-group-item" %>
         <% if @reference.user_id == current_user.id || current_user.admin %>
             <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette référence".html_safe,
                         edit_reference_path(@reference),
                         class: "list-group-item" %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette référence".html_safe,
                         reference_path(@reference), method: :delete,
-                        data:                                  {confirm: "Etes vous certain ?"},
+                        data:                                  {confirm: "Êtes-vous certain ?"},
                         class:                                 "list-group-item list-group-item-danger" %>
         <% end %>
       </div>
       <div class="list-group">
         <% if @comment && params[:filter] == "mine" %>
             <%= link_to "<span class=\"icon-fork normal\" >
-             </span> Modifier mon analyse".html_safe,
+             </span> Modifier votre analyse".html_safe,
                         edit_comment_path(@comment.id),
                         class: "list-group-item" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer mon analyse".html_safe,
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre analyse".html_safe,
                         comment_path(@comment.id), method: :delete,
-                        data:                              {confirm: "Etes vous certain ?"},
+                        data:                              {confirm: "Êtes-vous certain ?"},
                         class:                             "list-group-item list-group-item-danger" %>
         <% elsif @comment %>
             <%= link_to "<span class=\"glyphicon glyphicon-eye-open\" >
-             </span> Mon analyse".html_safe,
+             </span> Votre analyse".html_safe,
                         reference_path(reference_id: @reference.id, filter: "mine"),
                         class: "list-group-item" %>
         <% else %>
@@ -86,7 +104,7 @@
           <div class="clearfix">
             <% if @comment %>
                 <div class="btn-group">
-                  <%= link_to "Mon analyse".html_safe,
+                  <%= link_to "Votre analyse".html_safe,
                               reference_path(:filter => 'mine'),
                               class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
                 </div>
@@ -98,7 +116,7 @@
             </div>
             <% if @my_votes.any? %>
                 <div class="btn-group">
-                  <%= link_to "Mon analyse favorite".html_safe,
+                  <%= link_to "Votre analyse favorite".html_safe,
                               reference_path(:filter => 'my-vote'),
                               class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
                 </div>
@@ -147,7 +165,7 @@
           <%= render @best_comment %>
       <% else %>
           <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-            </span> Il n'y a pas d'analyse à cette référence, soyez le premier ! ".html_safe,
+            </span> Il n'y a pas encore d'analyse à cette référence, soyez le premier ! ".html_safe,
                       new_comment_path(reference_id: @reference.id), class: "btn btn-primary" %>
       <% end %>
   <% end %>
@@ -173,7 +191,7 @@
       <li class="list-group-item">
         <div class="bold">
           Les auteurs de l'étude :
-        </div> <%= @reference.author %> </li>
+        </div> <%= @reference.author.html_safe %> </li>
       <li class="list-group-item">
         <div class="bold">
           Année de publication :
@@ -181,7 +199,7 @@
       <li class="list-group-item">
         <div class="bold">
           Journal :
-        </div> <%= @reference.journal %>
+        </div> <%= @reference.journal.html_safe %>
       </li>
       <% unless @reference.abstract_markdown.blank? %>
           <li class="list-group-item">
@@ -269,7 +287,7 @@
                       <div class="btn-group-justified" data-toggle="buttons">
                         <% unless @user_binary.nil? %>
                             <label class="btn btn-default"
-                                   title="Retirer mon avis" data-toggle="tooltip">
+                                   title="Retirer votre avis" data-toggle="tooltip">
                               <%= f.radio_button :value, checked_value = "none",
                                                  {id: "none", autocomplete: "off"} %>
                               <span class="icon-no"></span>
@@ -346,7 +364,7 @@
                 <div class="btn-group-justified" data-toggle="buttons">
                   <% unless @user_rating.nil? %>
                       <label class="btn btn-default btn-select"
-                             title="Retirer mon avis" data-toggle="tooltip">
+                             title="Retirer votre avis" data-toggle="tooltip">
                         <%= f.radio_button :value, checked_value = "none",
                                            {id: "none", autocomplete: "off"} %>
                         <span class="icon-no"></span>

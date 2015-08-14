@@ -69,9 +69,12 @@
 }
 
 .icon-summary:before,
-.icon-frame:before,
-.icon-comment:before {
+.icon-frame:before{
 	content: "\e603";
+}
+
+.icon-comment:before {
+    content: "\e628";
 }
 
 .icon-chromosome:before {
@@ -138,12 +141,6 @@
 	content: "\e613";
 }
 
-.icon-frame_selection:before,
-.icon-summary_selection:before,
-.icon-selection:before {
-	content: "\e614";
-}
-
 .icon-search:before {
 	content: "\e615";
 }
@@ -164,10 +161,6 @@
 	content: "\e61a";
 }
 
-.icon-plant:before {
-	content: "\e61b";
-}
-
 .icon-planet:before {
 	content: "\e61c";
 }
@@ -182,14 +175,6 @@
 
 .icon-pharmacy:before {
 	content: "\e61f";
-}
-
-.icon-parent:before {
-	content: "\e620";
-}
-
-.icon-no-parent:before {
-	content: "\e621";
 }
 
 .icon-neuro:before {
@@ -214,18 +199,6 @@
 
 .icon-linguistic:before {
 	content: "\e627";
-}
-
-.icon-like:before {
-	content: "\e628";
-}
-
-.icon-laurel-2:before {
-	content: "\e629";
-}
-
-.icon-laurel:before {
-	content: "\e62a";
 }
 
 .icon-informatics:before {
@@ -339,10 +312,9 @@
     content: "\e640";
 }
 
-.icon-frog-laurel-2:before {
-    content: "\e643";
-}
-
+.icon-frame_selection:before,
+.icon-summary_selection:before,
+.icon-selection:before,
 .icon-frog-laurel:before {
     content: "\e642";
 }
@@ -351,6 +323,11 @@
     content: "\e644";
 }
 
-.icon-graph:before {
-    content: "\e645";
+.icon-graph-int:before {
+    content: "\e629";
 }
+
+.icon-graph-diff:before {
+    content: "\e62a";
+}
+

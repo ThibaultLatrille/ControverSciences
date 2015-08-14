@@ -13,8 +13,7 @@ class Summary < ActiveRecord::Base
   has_one :summary_best, dependent: :destroy
 
   has_many :notifications, dependent: :destroy
-  has_many :notification_summary_selection_wins, dependent: :destroy
-  has_many :notification_summary_selection_losses, dependent: :destroy
+  has_many :notification_selections, dependent: :destroy
   has_many :typos, dependent: :destroy
 
   after_create :cascading_save_summary
@@ -58,23 +57,12 @@ class Summary < ActiveRecord::Base
 
   def to_markdown
     render_options = {
-        # will remove from the output HTML tags inputted by user
         filter_html: true,
-        # will insert <br /> tags in paragraphs where are newlines
-        # (ignored by default)
         hard_wrap: true,
-        # hash for extra link options, for example 'nofollow'
         link_attributes: {rel: 'nofollow'},
-        # more
-        # will remove <img> tags from output
         no_images: true,
-        # will remove <a> tags from output
-        # no_links: true
-        # will remove <style> tags from output
         no_styles: true,
-        # generate links for only safe protocols
         safe_links_only: true
-        # and more ... (prettify, with_toc_data, xhtml)
     }
 
     renderer = HTMLlinks.new(render_options)
@@ -86,24 +74,12 @@ class Summary < ActiveRecord::Base
     end
 
     extensions = {
-        #will parse links without need of enclosing them
         autolink: true,
-        # blocks delimited with 3 ` or ~ will be considered as code block.
-        # No need to indent.  You can provide language name too.
-        # ```ruby
-        # block of code
-        # ```
-        #fenced_code_blocks: true,
-        # will ignore standard require for empty lines surrounding HTML blocks
         lax_spacing: true,
-        # will not generate emphasis inside of words, for example no_emph_no
         no_intra_emphasis: true,
-        # will parse strikethrough from ~~, for example: ~~bad~~
         strikethrough: true,
         # will parse superscript after ^, you can wrap superscript in ()
         superscript: true
-        # will require a space after # in defining headers
-        # space_after_headers: true
     }
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     self.markdown = redcarpet.render(self.content)
@@ -114,11 +90,11 @@ class Summary < ActiveRecord::Base
   def save_with_markdown
     links = self.to_markdown
     if self.save
-      reference_ids = Reference.where(timeline_id: self.id).pluck(:id)
+      reference_ids = Reference.where(timeline_id: self.timeline_id).pluck(:id)
       links.each do |link|
         if reference_ids.include? link
           SummaryLink.create({summary_id: self.id, user_id: self.user_id,
-                              reference_id: link, timeline_id: self.id})
+                              reference_id: link, timeline_id: self.timeline_id})
         end
       end
       true
@@ -134,8 +110,10 @@ class Summary < ActiveRecord::Base
 
   def selection_update(best_summary = nil)
     if best_summary
-      NotificationSummarySelectionLoss.create(user_id: best_summary.user_id,
-                                              summary_id: best_summary.summary_id)
+      Notification.where(timeline_id: self.timeline_id, category: 4).destroy_all
+
+      NotificationSelection.create(user_id: best_summary.user_id, timeline_id: self.timeline_id,
+                                              summary_id: best_summary.summary_id, win: false)
       notifications = []
       Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
         unless self.user_id == user_id || best_summary.user_id == user_id
@@ -146,7 +124,8 @@ class Summary < ActiveRecord::Base
       Notification.import notifications
       Summary.where(id: best_summary.summary_id).update_all(best: false)
       best_summary.update_attributes(user_id: self.user_id, summary_id: self.id)
-      NotificationSummarySelectionWin.create(user_id: self.user_id, summary_id: self.id)
+      NotificationSelection.create(user_id: self.user_id,  timeline_id: self.timeline_id,
+                                   summary_id: self.id, win: true)
     else
       SummaryBest.create(user_id: self.user_id,
                          summary_id: self.id, timeline_id: self.timeline_id)
@@ -157,9 +136,19 @@ class Summary < ActiveRecord::Base
   def refill_best_summary
     best_summary = SummaryBest.find_by(timeline_id: self.timeline_id)
     unless best_summary
-      most = Summary.select(:id, :timeline_id, :user_id).where(timeline_id: self.timeline_id).order(:score => :desc).first
+      most = Summary.select(:id, :timeline_id, :user_id).where(timeline_id: self.timeline_id).order(:balance => :desc).first
       if most
         most.selection_update
+      end
+    end
+  end
+
+  def update_best_summary
+    most         = Summary.where(timeline_id: self.timeline_id, public: true).order(balance: :desc).first
+    best_summary = SummaryBest.find_by(timeline_id: self.timeline_id)
+    if most
+      if (most.id != best_summary.summary_id) && (most.balance != 0)
+        most.selection_update(best_summary)
       end
     end
   end

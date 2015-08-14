@@ -11,6 +11,7 @@ class Reference < ActiveRecord::Base
   belongs_to :user
   belongs_to :timeline
   has_many :links, dependent: :destroy
+  has_many :summary_links, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :ratings, dependent: :destroy
@@ -98,10 +99,10 @@ class Reference < ActiveRecord::Base
   end
 
   def title_display
-    if self.title_fr && !self.title_fr.blank?
-      self.title_fr.strip[3..-5].html_safe
-    else
+    if self.title_fr.blank?
       self.title.html_safe
+    else
+      self.title_fr.strip[3..-5].html_safe
     end
   end
 

@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
       mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
       names = []
       users.each do |user|
-        if (user.notifications_all_important + user.notifications_all ) > 4
+        if (user.nb_notifs + user.notifications_all ) > 4
           @user_notif = user
           names << "#{user.email}: #{user.name} || "
           message = {

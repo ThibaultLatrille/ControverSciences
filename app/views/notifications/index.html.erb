@@ -14,7 +14,7 @@
            reference: "Références",
            comment: "Analyses"}.each do |key, value| %>
           <%= link_to "<span class=\"badge\">#{current_user.send( "notifications_#{key}")}</span>
-          <span class=\"icon-#{key} normal\"></span> &nbsp ".html_safe+value,
+          <span class=\"icon-#{key} font16\"></span> &nbsp ".html_safe+value,
                       notifications_index_path(filter: key),
                       class: "list-group-item" %>
       <% end %>
@@ -29,7 +29,7 @@
          selection: "Analyses"
          }.each do |key, value| %>
         <%= link_to "<span class=\"badge\">#{current_user.send( "notifications_#{key}")}</span>
-                    <span class=\"icon-#{key} normal\"></span> &nbsp ".html_safe+value,
+                    <span class=\"icon-#{key} font16\"></span> &nbsp ".html_safe+value,
                     notifications_index_path(filter: key),
                     class: "list-group-item" %>
     <% end %>
@@ -345,12 +345,12 @@
 </div>
 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
   <div class="list-group">
-    <%= f.button "<span class=\"glyphicon glyphicon-trash\"></span>&nbsp
+    <%= f.button "<span class=\"glyphicon glyphicon-trash bigger\"></span>&nbsp
     Supprimer les notifications sélectionnées".html_safe,
                  class: 'list-group-item list-group-item-danger hover-red',
                  data: {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp Suppression en cours "}%>
     <%= link_to "<span class=\"badge badge-li\">#{current_user.send( "notifications_#{@filter}")}</span>
-                    <span class=\"icon-#{@filter} normal\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications sur cette page",
+                    <span class=\"icon-#{@filter} font16\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications sur cette page",
                 notifications_delete_all_path(filter: @filter),
                 class: "list-group-item list-group-item-danger" %>
   </div>

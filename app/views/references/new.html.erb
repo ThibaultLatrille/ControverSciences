@@ -17,6 +17,7 @@
           </h4>
         </div>
         <div class="panel-body">
+          <div class="clearfix">
           <%= form_for(@reference) do |f| %>
               <%= render 'shared/error_messages', object: f.object %>
               <%= f.label "Titre original*" %>
@@ -29,8 +30,8 @@
                 <%= f.text_field :title, class: 'form-control myforms' %>
               </div>
               <br/>
-              <%= f.label "Article, Review, Meta-analyse ou Livre*" %>
-              <%= f.select :category, [["Article", 0],["Review", 1],["Meta-analyse", 2],["Livre", 3]], {}, {class: 'form-control myforms'} %>
+              <%= f.label "Article, Review, Méta-analyse ou Livre*" %>
+              <%= f.select :category, [["Article", 0],["Review", 1],["Méta-analyse", 2],["Livre", 3]], {}, {class: 'form-control myforms'} %>
               <br/>
               <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
               <%= f.label :open_access do %>
@@ -78,6 +79,8 @@
                            data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
 
           <% end %>
+          </div>
+          <b>*</b> : champs obligatoires.
         </div>
       </div>
     </div>

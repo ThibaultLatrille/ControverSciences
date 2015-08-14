@@ -17,12 +17,11 @@ class UserDetailsController < ApplicationController
       @user_detail.user_id = user_id
       if user_detail_params[:has_picture] == 'true' && user_detail_params[:delete_picture] == 'false'
         @user_detail.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
-                                                                reference_id: @user_detail.reference_id ).last.id
-        @user_detail.caption = user_detail_params[:caption]
+                                                                    profil: true ).last.id
       end
     end
     if @user_detail.save
-      flash[:info] = "Modification de profil enregistrée."
+      flash[:info] = "Les modifications apportées à votre profil ont été enregistrées."
       redirect_to user_path(id: user_id )
     else
       @user = User.find( user_id )

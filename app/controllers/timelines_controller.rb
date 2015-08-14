@@ -3,7 +3,7 @@ class TimelinesController < ApplicationController
 
   def index
     query = Timeline.order(params[:sort].blank? ? :score : params[:sort].to_sym =>
-                               params[:order].blank? ? :desc : params[:order].to_sym)
+                               params[:order].blank? ? :desc : params[:order].to_sym).where.not(private: true)
     unless params[:tag].blank? || params[:tag] == 'all'
       query = query.tagged_with(params[:tag])
     end
@@ -25,6 +25,9 @@ class TimelinesController < ApplicationController
     @timeline        = Timeline.new
     @timeline.binary = true
     @tag_list        = []
+    if current_user.private_timeline
+      @timeline.private = true
+    end
   end
 
   def edit
@@ -34,7 +37,9 @@ class TimelinesController < ApplicationController
 
   def create
     @timeline = Timeline.new(user_id: current_user.id, frame: timeline_params[:frame],
-                             name: timeline_params[:name], debate: true)
+                             name: timeline_params[:name],
+                             private: timeline_params[:private],
+                             debate: true)
     if timeline_params[:binary] == "1"
       @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
     else
@@ -91,9 +96,9 @@ class TimelinesController < ApplicationController
 
   def destroy
     timeline = Timeline.find(params[:id])
-    if timeline.user_id == current_user.id || current_user.admin
+    if (timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin
       timeline.destroy
-      redirect_to my_items_items_path
+      redirect_to timelines_path
     end
   end
 
@@ -126,11 +131,83 @@ class TimelinesController < ApplicationController
                 .uniq{ |e| [e.timeline_id,e.target].sort }
   end
 
+  def set_public
+    if current_user.private_timeline
+      Timeline.update(params[:timeline_id], private: false)
+    end
+    redirect_to :back
+  end
+
+
+  def previous
+    query = Timeline.select(:id, :slug, :score).order(score: :desc).where.not(private: true)
+    unless logged_in?
+      query = query.where.not(nb_comments: 0)
+    end
+    timelines = query
+    i = timelines.index{|x| x.id == params[:id].to_i }
+    if i == 0
+      i = timelines.length-1
+    else
+      i-=1
+    end
+    redirect_to timeline_path(timelines[i])
+  end
+
+  def next
+    query = Timeline.select(:id, :slug, :score).order(score: :desc).where.not(private: true)
+    unless logged_in?
+      query = query.where.not(nb_comments: 0)
+    end
+    timelines = query
+    i = timelines.index{|x| x.id == params[:id].to_i }
+    if i == timelines.length-1
+      i = 0
+    else
+      i += 1
+    end
+    redirect_to timeline_path(timelines[i])
+  end
+
+  def download_bibtex
+    references= Reference.where(timeline_id: params[:timeline_id])
+    if params[:format] == "json"
+      data = generate_bibtex(references).to_json
+    elsif params[:format] == "yaml"
+      data = generate_bibtex(references).to_yaml
+    elsif params[:format] == "xml"
+      data = generate_bibtex(references).to_xml
+    else
+      params[:format] = "bib"
+      data = generate_bibtex(references).to_s
+    end
+    send_data data,
+              filename: "#{Timeline.select(:slug).find(params[:timeline_id]).slug}.#{params[:format]}",
+              type: "application/bib"
+  end
+
   private
+
+  def generate_bibtex(references)
+    bib = BibTeX::Bibliography.new
+    references.each do |reference|
+      bib << BibTeX::Entry.new({:bibtex_type      => :article,
+                                :author   => reference.author,
+                                :doi       => reference.doi,
+                                :journal   => reference.journal,
+                                :title     => reference.title,
+                                :publisher => reference.publisher,
+                                :url       => reference.url,
+                                :year      => reference.year,
+                                :abstract  => reference.abstract
+                                })
+    end
+    bib
+  end
 
   def timeline_params
     params.require(:timeline).permit(:name, :binary, :frame, :binary_left,
                                      :binary_right, :img_timeline_id,
-                                     :delete_picture, :has_picture, :source )
+                                     :delete_picture, :has_picture, :source, :private )
   end
 end
