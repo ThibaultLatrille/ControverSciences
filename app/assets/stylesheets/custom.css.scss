@@ -227,25 +227,6 @@ h1 {
   text-shadow: 2px 2px lightgray;
 }
 
-.shadowed {
-  letter-spacing: 0px;
-  font-weight: bold;
-  text-shadow: 2px 2px 1px  rgba(255, 255, 255, 0.8),
-    -2px 2px 1px  rgba(255, 255, 255, 0.8),
-    -2px -2px 1px  rgba(255, 255, 255, 0.8),
-    2px -2px 1px  rgba(255, 255, 255, 0.8);
-}
-.cadre {
-  padding: 10px 18px;
-  border-radius: 3px;
-  border: 1px solid lightgrey;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-.fatter{
-  font-size: 3em;
-}
-
 h2 {
   font-size: 1.8em;
   letter-spacing: -2px;
@@ -275,6 +256,50 @@ h6 {
   font-weight: bold;
   line-height: 1;
 }
+.shadowed {
+  letter-spacing: 0px;
+  font-weight: bold;
+  text-shadow: 2px 2px 1px  rgba(255, 255, 255, 0.8),
+  -2px 2px 1px  rgba(255, 255, 255, 0.8),
+  -2px -2px 1px  rgba(255, 255, 255, 0.8),
+  2px -2px 1px  rgba(255, 255, 255, 0.8);
+}
+.cadre {
+  margin-top: 10px;
+  padding: 10px 18px;
+  border-radius: 3px;
+  font-size: 0.9em;
+  border: 1px solid lightgrey;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.transparent {
+  display: flex;
+  padding: 6px 6px;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.flex {
+  display: flex;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.transparent h3 {
+  margin: 10px;
+  font-size: 1.5em;
+  letter-spacing: -1px;
+}
+
+.fatter{
+  font-size: 3em;
+}
+
 .construct {
   color: darkseagreen;
   font-size: 0.8em;

@@ -6,11 +6,9 @@ $(document).ready(function () {
         itemSelector: "#timelines div.timeline"
     }, function (arrayOfNewElems) {
         $('.timeline-name', arrayOfNewElems).responsiveEqualHeightGrid();
+        $('.timeline-frame', arrayOfNewElems).responsiveEqualHeightGrid();
         $('.timeline-body', arrayOfNewElems).responsiveEqualHeightGrid();
         $('[data-toggle="tooltip"]', arrayOfNewElems).tooltip({container: 'body'});
-        $('.collapse', arrayOfNewElems).on('shown.bs.collapse', function () {
-            $(".timeline-body", arrayOfNewElems).responsiveEqualHeightGrid();
-        });
         $(function () {
             $('[data-validate]', arrayOfNewElems).click(function () {
                 var self = $(this);

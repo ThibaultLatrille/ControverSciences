@@ -31,7 +31,7 @@
     box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
 }
 
-.hvr-grow {
+.hvr-grow, .hvr-grow1, .hvr-grow2 {
     display: inline-block;
     vertical-align: middle;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);
@@ -44,17 +44,6 @@
 .hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
-}
-
-.hvr-grow1 {
-    display: inline-block;
-    vertical-align: middle;
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-transition-duration: 0.6s;
-    transition-duration: 0.6s;
 }
 .hvr-grow1:hover, .hvr-grow1:focus, .hvr-grow1:active {
     color: #24597E;

@@ -4,15 +4,15 @@
     <div class="col-xs-12 col-lg-2">
       <% if logged_in? %>
           <% if @my_likes.count > 1 %>
-          <div class="list-group">
-            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui vous intéressent" :
-                    "Afficher toutes les controverses"}".html_safe, timelines_path(:sort     => params[:sort],
-                                                                                   :order    => params[:order],
-                                                                                   :tag      => params[:tag],
-                                                                                   :filter   => params[:filter],
-                                                                                   :interest => params[:interest].blank? ? "true" : ""),
-                                                                    class: "list-group-item" %>
-          </div>
+              <div class="list-group">
+                <%= link_to                                             "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui vous intéressent" :
+                        "Afficher toutes les controverses"}".html_safe, timelines_path(:sort     => params[:sort],
+                                                                                       :order    => params[:order],
+                                                                                       :tag      => params[:tag],
+                                                                                       :filter   => params[:filter],
+                                                                                       :interest => params[:interest].blank? ? "true" : ""),
+                                                                        class: "list-group-item" %>
+              </div>
           <% end %>
           <div class="list-group">
             <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les controverses".html_safe, timelines_graph_path,
@@ -25,22 +25,22 @@
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-offset-0 col-lg-8">
-                 <div>
-             <%= form_tag(:timelines, method: "get", class: "search-box") do %>
-                 <div class="input-group">
+      <div>
+        <%= form_tag(:timelines, method: "get", class: "search-box") do %>
+            <div class="input-group">
                   <span class="input-group-btn">
                     <%= button_tag(:class => "btn btn-primary submit-search") do %>
                     <span class="icon icon-search bigger"></span>
                 <% end %>
                     </span>
-                   <%= text_field_tag(:filter, params[:filter], placeholder: " Rechercher") %>
-                 </div>
-                       <%= hidden_field_tag(:tag, params[:tag]) %>
-                       <%= hidden_field_tag(:sort, params[:sort]) %>
-                       <%= hidden_field_tag(:order, params[:order]) %>
-                       <%= hidden_field_tag(:interest, params[:interest]) %>
-             <% end %>
-           </div>
+              <%= text_field_tag(:filter, params[:filter], placeholder: " Rechercher") %>
+            </div>
+            <%= hidden_field_tag(:tag, params[:tag]) %>
+            <%= hidden_field_tag(:sort, params[:sort]) %>
+            <%= hidden_field_tag(:order, params[:order]) %>
+            <%= hidden_field_tag(:interest, params[:interest]) %>
+        <% end %>
+      </div>
       <div class="center">
         <div class="btn-group">
           <button class="btn btn-default dropdown-toggle" type="button"
@@ -127,6 +127,10 @@
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-lg-offset-1 col-lg-10">
+    <div class="row">
       <div id="timelines">
         <div class="row page">
           <% if @timelines.count > 0 %>
@@ -135,7 +139,8 @@
               <% else %>
                   <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil, full_width: false} %>
               <% end %>
-              <%= paginate @timelines %>
+                <%= paginate @timelines %>
+
           <% else %>
               <h1 style="font-size: 2.8em;">
                 Aucune controverse ne correspond à ces critères de sélection
@@ -169,7 +174,6 @@
           <br/>
       <% end %>
     </div>
-
   </div>
 </div>
 <div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
@@ -201,11 +205,11 @@
 </div>
 
 <script type="text/javascript">
-    $('.timeline-name').responsiveEqualHeightGrid();
-    $('.timeline-body').responsiveEqualHeightGrid();
-    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    $('.collapse').on('shown.bs.collapse', function () {
-        $(".timeline-body").responsiveEqualHeightGrid();
+    $(document).ready(function () {
+        $('.timeline-name').responsiveEqualHeightGrid();
+        $('.timeline-frame').responsiveEqualHeightGrid();
+        $('.timeline-body').responsiveEqualHeightGrid();
+        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     });
     $(function () {
         $('[data-validate]').click(function () {

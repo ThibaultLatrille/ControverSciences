@@ -335,11 +335,11 @@
 
 
 <script type="text/javascript">
-    $('.timeline-name').responsiveEqualHeightGrid();
-    $('.timeline-body').responsiveEqualHeightGrid();
-    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    $('.collapse').on('shown.bs.collapse', function () {
-        $(".timeline-body").responsiveEqualHeightGrid();
+    $(document).ready(function () {
+        $('.timeline-name').responsiveEqualHeightGrid();
+        $('.timeline-frame').responsiveEqualHeightGrid();
+        $('.timeline-body').responsiveEqualHeightGrid();
+        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     });
     $(function () {
         $('[data-validate]').click(function () {
