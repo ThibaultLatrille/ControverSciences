@@ -5,11 +5,13 @@ class PictureUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
-  process resize_to_limit: [1600, 1600], :if => :is_picture?
+  process resize_to_fill: [640, 640], :if => :is_profil_picture?
+  process :fit_size
+  process :store_dimensions
 
   def filename
     if model.picture.file
-      "#{model.file_name}.#{model.picture.file.extension}"
+      "#{model.file_name}.#{file.extension}"
     end
   end
 
@@ -29,41 +31,55 @@ class PictureUploader < CarrierWave::Uploader::Base
     end
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  # def default_url
-  #   # For Rails 3.1+ asset pipeline compatibility:
-  #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-  #
-  #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-  # end
-
-  # Process files as they are uploaded:
-  # process :scale => [200, 300]
-  #
-  # def scale(width, height)
-  #   # do something
-  # end
-
-   version :thumb do
-     process :resize_to_fit => [250, 250]
+   version :medium do
+     process :quality => 50
    end
 
-  # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
   def extension_white_list
     %w(jpg jpeg gif png svg)
   end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  private
+
+  def store_dimensions
+    if file && model
+      model.file_size = file.size
+      if is_image?(self)
+        model.is_image = true
+        model.width, model.height = ::MiniMagick::Image.open(file.file)[:dimensions]
+      else
+        model.is_image = false
+      end
+    end
+  end
+
+  def fit_size
+    if is_image?(self)
+      if size > 3.megabytes
+        quality(60)
+      elsif size > 2.megabytes
+        quality(70)
+      elsif size > 1500.kilobytes
+        quality(80)
+      elsif size > 1000.kilobytes
+        quality(85)
+      elsif size > 750.kilobytes
+        quality(90)
+      elsif size > 500.kilobytes
+        quality(95)
+      end
+    end
+  end
 
   protected
 
-  def is_picture?(picture)
+  def is_image?(picture)
     return false if picture.content_type.include?('svg')
     picture.content_type.include?('image')
   end
+
+  def is_profil_picture?(picture)
+    model.profil
+  end
+
 end
