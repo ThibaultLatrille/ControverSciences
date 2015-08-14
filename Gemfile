@@ -64,6 +64,9 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
 
+# Truncate HTML and close tags
+gem 'truncate_html'
+
 # Generate and bing sitemap
 gem 'sitemap_generator'
 
