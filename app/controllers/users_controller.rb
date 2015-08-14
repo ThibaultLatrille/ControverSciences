@@ -25,7 +25,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @user_detail = @user.user_detail
-    @timelines = Timeline.select(:id, :slug, :name).where(user_id: @user.id)
+    @timelines = Timeline.select(:id, :slug, :name).where(user_id: @user.id).where.not(private: true)
     @references = Reference.select(:id, :slug, :timeline_id, :title).where(user_id: @user.id)
     @comments = Comment.select(:id, :reference_id, :title_markdown ).where(user_id: @user.id)
     @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: @user.id)
