@@ -37,8 +37,6 @@ class Figure < ActiveRecord::Base
       errors.add(:picture, 'Taille de la figure supérieure à 5 Mo.')
     end
     if is_image
-      puts "Width: #{width}"
-      puts "Height: #{height}"
       if self.img_timeline_id
         unless width > 1280 && height > 1280
           errors.add :picture, 'Doit faire au moins 1280px*1280px'
