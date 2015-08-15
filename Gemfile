@@ -70,6 +70,10 @@ gem 'truncate_html'
 # Generate and bing sitemap
 gem 'sitemap_generator'
 
+# Intercept and send exception to a third service
+gem 'exception_notification'
+gem 'slack-notifier'
+
 # Friendly id for SEO
 gem 'friendly_id', '~> 5.0.0'
 
