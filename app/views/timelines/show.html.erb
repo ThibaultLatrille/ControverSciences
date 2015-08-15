@@ -591,28 +591,6 @@
                     $(this).parent().parent().parent().find('.ref').hide(500)
                 }
             });
-            $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-            var $timeline_block = $('.cd-timeline-block');
-
-            //hide timeline blocks which are outside the viewport
-            $timeline_block.each(function () {
-                $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
-            });
-
-            $timeline_block.each(function () {
-                if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95) {
-                    $(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden').removeClass('bounce-in');
-                }
-            });
-
-            //on scolling, show/animate timeline blocks when enter the viewport
-            $(window).on('scroll', function () {
-                $timeline_block.each(function () {
-                    if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.95 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
-                        $(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
-                    }
-                });
-            });
         });
     </script>
 <% end %>
@@ -707,3 +685,9 @@
         });
     </script>
 <% end %>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    });
+</script>
