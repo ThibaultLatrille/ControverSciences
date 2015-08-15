@@ -107,6 +107,9 @@ group :development do
   # Better error page for Rack apps
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  # Support from chrome extension RailsPanel (https://github.com/dejan/rails_panel)
+  gem 'meta_request'
 end
 
 group :production do
