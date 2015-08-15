@@ -93,6 +93,8 @@ group :development do
   gem 'quiet_assets'
   # Model and controller UML class diagram generator, run: 'rake diagram:all'
   gem 'railroady'
+  # reek is a tool that examines Ruby classes, modules and methods and reports any Code Smells it finds.
+  gem 'reek'
 end
 
 group :production do
