@@ -517,6 +517,17 @@ section h1{
       background-color: #6682b5;
     }
   }
+  li{
+    a{
+      &:focus {
+        background-color: $nav_back;
+      }
+      &:hover {
+        background-color: $nav_hover;
+        color: white;
+      }
+    }
+  }
 }
 
 .selectwidthauto

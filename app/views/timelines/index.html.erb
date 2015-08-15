@@ -14,58 +14,24 @@
                                                                         class: "list-group-item" %>
               </div>
           <% end %>
-          <div class="list-group">
-            <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les controverses".html_safe, timelines_graph_path,
-                        class: "list-group-item" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
-                       </span> Ajouter une controverse".html_safe,
-                        new_timeline_path,
-                        class: "list-group-item" %>
-          </div>
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-offset-0 col-lg-8">
-      <div>
-        <%= form_tag(:timelines, method: "get", class: "search-box") do %>
-            <div class="input-group">
-                  <span class="input-group-btn">
-                    <%= button_tag(:class => "btn btn-primary submit-search") do %>
-                    <span class="icon icon-search bigger"></span>
-                <% end %>
-                    </span>
-              <%= text_field_tag(:filter, params[:filter], placeholder: " Rechercher") %>
-            </div>
-            <%= hidden_field_tag(:tag, params[:tag]) %>
-            <%= hidden_field_tag(:sort, params[:sort]) %>
-            <%= hidden_field_tag(:order, params[:order]) %>
-            <%= hidden_field_tag(:interest, params[:interest]) %>
-        <% end %>
-      </div>
-      <div class="center">
+      <div class="pull-right">
         <div class="btn-group">
-          <button class="btn btn-default dropdown-toggle" type="button"
-                  id="dropdownMenuTag" data-toggle="dropdown">
-            <% if params[:tag].blank? || params[:tag]=='all' %>
+          <% if params[:tag].blank? || (params[:tag].include? 'all') %>
+              <div class="btn btn-default active">
                 Tous les thèmes
-            <% else %>
-                <%= "<span class=\"normal icon-#{params[:tag]}\"></span> ".html_safe+ tags_hash[params[:tag]] %>
-            <% end %>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li <%= params[:tag]=='all' || params[:tag].nil? ? "class=selected" : nil %> >
-              <%= link_to 'Tous (par défaut)', timelines_path(:sort  => params[:sort], :interest => params[:interest],
-                                                              :order => params[:order], :tag => 'all') %>
-            </li>
-            <% tags_hash.each do |key, value| %>
-
-                <li <%= params[:tag]==key ? "class=selected" : nil %> >
-                  <%= link_to "<span class=\"icon-#{key} hvr-grow\"></span> ".html_safe+value,
-                              timelines_path(:sort     => params[:sort], :order => params[:order],
-                                             :interest => params[:interest], :tag => key) %>
-                </li>
-            <% end %>
-          </ul>
+              </div>
+          <% else %>
+              <a href="<%= timelines_path(:sort => params[:sort],
+                                          :order => params[:order],
+                                          :interest => params[:interest],
+                                          :tag => 'all' ) %>"
+                 class="btn btn-default">
+                  Tous les thèmes
+              </a>
+          <% end %>
         </div>
         <div class="btn-group">
           <button class="btn btn-default dropdown-toggle" type="button"
@@ -127,6 +93,55 @@
           </ul>
         </div>
       </div>
+      <div>
+        <%= form_tag(:timelines, method: "get", class: "search-box") do %>
+            <div class="input-group">
+                  <span class="input-group-btn">
+                    <%= button_tag(:class => "btn btn-primary submit-search") do %>
+                    <span class="icon icon-search bigger"></span>
+                <% end %>
+                    </span>
+              <%= text_field_tag(:filter, params[:filter], placeholder: " Rechercher") %>
+            </div>
+            <%= hidden_field_tag(:tag, params[:tag]) %>
+            <%= hidden_field_tag(:sort, params[:sort]) %>
+            <%= hidden_field_tag(:order, params[:order]) %>
+            <%= hidden_field_tag(:interest, params[:interest]) %>
+        <% end %>
+      </div>
+      <div class="row">
+        <br/>
+        <div class="container-fluid">
+          <div class="row" >
+            <% tags_hash.each do |key, value| %>
+                <a href="<%= timelines_path(:sort => params[:sort],
+                                            :order => params[:order],
+                                            :interest => params[:interest],
+                                            :tag => (params[:tag].blank? || (params[:tag].include? 'all') ) ?
+                                                    [key] :
+                                                    (params[:tag].include? key ) ? params[:tag].reject{|e| e == key } : [key].push(params[:tag]).flatten
+                             ) %>"
+                   class="btn btn-default col-xs-6 col-sm-4 col-lg-3 <%= (params[:tag].blank? || (params[:tag].include? 'all')) ? nil : ( (params[:tag].include? key ) ? "active" : nil) %>">
+                    <div class="my-btn">
+                      <%= "<span class=\"icon-#{key}\"></span> ".html_safe+value %>
+                  </div>
+                </a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-lg-2">
+      <% if logged_in? %>
+          <div class="list-group">
+            <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les controverses".html_safe, timelines_graph_path,
+                        class: "list-group-item" %>
+            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+                       </span> Ajouter une controverse".html_safe,
+                        new_timeline_path,
+                        class: "list-group-item" %>
+          </div>
+      <% end %>
     </div>
   </div>
   <div class="col-xs-12 col-lg-offset-1 col-lg-10">

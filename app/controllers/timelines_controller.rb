@@ -5,7 +5,8 @@ class TimelinesController < ApplicationController
     query = Timeline.order(params[:sort].blank? ? :score : params[:sort].to_sym =>
                                params[:order].blank? ? :desc : params[:order].to_sym).where.not(private: true)
     unless params[:tag].blank? || params[:tag] == 'all'
-      query = query.tagged_with(params[:tag])
+      # This is just disgusting but do the job !!! refactor needed !!!
+      query = query.where( id: Tagging.where(tag_id: Tag.where(name: params[:tag]).pluck(:id)).pluck(:timeline_id))
     end
     unless params[:filter].blank?
       query = query.search_by_name(params[:filter])
@@ -19,6 +20,7 @@ class TimelinesController < ApplicationController
       query = query.where.not(nb_comments: 0)
     end
     @timelines = query.page(params[:page]).per(24)
+    params[:tag] = [params[:tag]].flatten
   end
 
   def new

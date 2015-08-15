@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    @timelines = Timeline.order(:score => :desc).first(8)
+    @timelines = Timeline.order(:score => :desc).first(4)
     if logged_in?
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
     end
