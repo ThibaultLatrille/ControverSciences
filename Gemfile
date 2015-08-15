@@ -94,11 +94,19 @@ group :development do
   gem 'faker',                '1.4.2'
   gem 'spring',  '1.1.3'
   gem 'quiet_assets'
+
   # Model and controller UML class diagram generator, run: 'rake diagram:all'
   gem 'railroady'
-  # reek is a tool that examines Ruby classes, modules and methods and reports any Code Smells it finds.
+
+  # Reek is a tool that examines Ruby classes, modules and methods and reports any Code Smells it finds.
   gem 'reek'
+
+  # Seek and alert for N+1 queries
   gem 'bullet'
+
+  # Better error page for Rack apps
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :production do
