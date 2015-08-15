@@ -98,7 +98,5 @@ Rails.application.routes.draw do
     get '/public/uploads/:file', to: redirect { |path_params, req|
       "/uploads/#{path_params[:file]}.#{path_params[:format]}"
     }
-
   end
-  mount Peek::Railtie => '/peek' if defined?(Peek)
 end

@@ -6,7 +6,3 @@ Rails.application.config.assets.version = '3.3'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.conf*ig.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( chart.js )
-
-if PeekBar.available?
-  Rails.application.config.assets.precompile += %w(peek_bar.css peek_bar.js)
-end
