@@ -95,6 +95,7 @@ group :development do
   gem 'railroady'
   # reek is a tool that examines Ruby classes, modules and methods and reports any Code Smells it finds.
   gem 'reek'
+  gem 'bullet'
 end
 
 group :production do
