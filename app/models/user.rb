@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   has_one :user_detail, dependent: :destroy
   has_many :invitations, dependent: :destroy
   has_many :figures, dependent: :destroy
+  has_many :binaries, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
   before_save :downcase_email
