@@ -25,10 +25,14 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @user_detail = @user.user_detail
-    @timelines = Timeline.select(:id, :slug, :name).where(user_id: @user.id).where.not(private: true)
+    query = Timeline.select(:id, :slug, :name).where(user_id: @user.id).where.not(private: true)
+    unless logged_in?
+      query = query.where.not(nb_comments: 0)
+    end
+    @timelines = query
     @references = Reference.select(:id, :slug, :timeline_id, :title).where(user_id: @user.id)
-    @comments = Comment.select(:id, :reference_id, :title_markdown ).where(user_id: @user.id)
-    @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: @user.id)
+    @comments = Comment.select(:id, :reference_id, :title_markdown ).where(user_id: @user.id).where(public: true)
+    @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: @user.id).where(public: true)
   end
 
   def edit
