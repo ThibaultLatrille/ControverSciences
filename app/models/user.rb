@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_many :suggestion_votes, dependent: :destroy
   has_many :suggestion_child_votes, dependent: :destroy
   has_many :typos, dependent: :destroy
-  has_many :received_typos, class_name: "Typo", foreign_key: "target_user_id"
+  has_many :received_typos, class_name: "Typo", foreign_key: "target_user_id", dependent: :destroy
   has_many :frames, dependent: :destroy
   has_many :frame_credits, dependent: :destroy
   has_many :edges, dependent: :destroy
@@ -33,6 +33,9 @@ class User < ActiveRecord::Base
   has_many :reference_edge_votes, dependent: :destroy
   has_many :reference_user_tags, dependent: :destroy
   has_one :user_detail, dependent: :destroy
+  has_one :pending_user, dependent: :destroy
+  has_one :user_detail, dependent: :destroy
+  has_many :invitations, dependent: :destroy
   has_many :figures, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
