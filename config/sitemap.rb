@@ -13,11 +13,14 @@ SitemapGenerator::Sitemap.sitemaps_path = 'sitemaps/'
 
 SitemapGenerator::Sitemap.create do
   add '/about', changefreq: 'weekly'
-  Timeline.find_each do |timeline|
+  Timeline.where(private: false).where.not(nb_comments: 0).find_each do |timeline|
     add timeline_path(timeline), lastmod: timeline.updated_at
   end
   Reference.find_each do |reference|
     add reference_path(reference), lastmod: reference.updated_at
+  end
+  User.where(activated: true).find_each do |user|
+    add user_path(user), lastmod: user.updated_at
   end
 end
 
