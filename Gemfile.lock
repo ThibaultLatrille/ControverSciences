@@ -38,6 +38,9 @@ GEM
     ansi (1.5.0)
     arel (5.0.1.20140414130214)
     ast (2.1.0)
+    autoprefixer-rails (5.2.1.2)
+      execjs
+      json
     awesome_print (1.6.1)
     bcrypt (3.1.7)
     better_errors (2.1.1)
@@ -61,13 +64,6 @@ GEM
     celluloid (0.16.0)
       timers (~> 4.0.0)
     coderay (1.1.0)
-    coffee-rails (4.1.0)
-      coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.0)
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.9.1.1)
     concord (0.1.5)
       adamantium (~> 0.2.0)
       equalizer (~> 0.0.9)
@@ -378,6 +374,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-import
+  autoprefixer-rails
   awesome_print
   bcrypt (= 3.1.7)
   better_errors
@@ -386,7 +383,6 @@ DEPENDENCIES
   browser
   bullet
   carrierwave
-  coffee-rails
   email_validator
   exception_notification
   execjs

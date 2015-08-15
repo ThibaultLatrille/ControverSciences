@@ -15,14 +15,14 @@ gem 'bcrypt',               '3.1.7'
 # Pagination and infinit scrolling
 gem 'kaminari'
 
+
+## Assets compilation and processing
 # Use SCSS for stylesheets
 gem 'sass-rails'
-
+# Autoprefixer for Ruby and Ruby on Rails
+gem 'autoprefixer-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
-
-# Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails'
 
 # Produce JSON output
 gem 'rabl'
