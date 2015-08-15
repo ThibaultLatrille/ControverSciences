@@ -2,60 +2,60 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
       <div class="list-group">
-        <%= link_to "<span class=\"icon-frog normal\"></span>
+        <%= link_to "<span class=\"icon-reference bigger\"></span>
                                     Enrichir les controverses
                                     <span class=\"badge\">#{Timeline.where(nb_references: 0..3).count}</span>".html_safe,
                     empty_references_path,
-                    class: "list-group-item" %>
+                    class: "list-group-item clearfix" %>
         <% if logged_in? %>
-            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up normal\"></span>
+            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up bigger\"></span>
                         Enrichir les controverses qui m'intéressent
                         <span class=\"badge\">#{Timeline.where(id: @like_ids).where(nb_references: 0..3).count}</span>".html_safe,
                         empty_references_path(filter: "interest"),
-                        class: "list-group-item" %>
-            <%= link_to "<span class=\"icon-user normal\"></span>
+                        class: "list-group-item clearfix" %>
+            <%= link_to "<span class=\"icon-user bigger\"></span>
                                 Enrichir vos controverses
                                 <span class=\"badge\">#{Timeline.where(user_id: current_user.id).where(nb_references: 0..3).count}</span>".html_safe,
                         empty_references_path(filter: "mine"),
-                        class: "list-group-item" %>
+                        class: "list-group-item clearfix" %>
         <% end %>
       </div>
       <div class="list-group">
-        <%= link_to "<span class=\"icon-reference normal\"></span>
+        <%= link_to "<span class=\"icon-comment bigger\"></span>
                                     Analyser les références
                                     <span class=\"badge\">#{Reference.where(title_fr: nil).count}</span>".html_safe,
                     empty_comments_path,
-                    class: "list-group-item" %>
+                    class: "list-group-item clearfix" %>
         <% if logged_in? %>
-            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up normal\"></span>
+            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up bigger\"></span>
                         Analyser les références qui m'intéressent
                         <span class=\"badge\">#{Reference.where(timeline_id: @like_ids).where(title_fr: nil).count}</span>".html_safe,
                         empty_comments_path(filter: "interest"),
-                        class: "list-group-item" %>
-            <%= link_to "<span class=\"icon-user normal\"></span>
+                        class: "list-group-item clearfix" %>
+            <%= link_to "<span class=\"icon-user bigger\"></span>
                                 Analyser vos références
                                 <span class=\"badge\">#{Reference.where(user_id: current_user.id).where(title_fr: nil).count}</span>".html_safe,
                         empty_comments_path(filter: "mine"),
-                        class: "list-group-item" %>
+                        class: "list-group-item clearfix" %>
         <% end %>
       </div>
       <div class="list-group">
-        <%= link_to "<span class=\"icon-frog normal\"></span>
+        <%= link_to "<span class=\"icon-summary bigger\"></span>
                                     Synthètiser les controverses
                                     <span class=\"badge\">#{Timeline.where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
                     empty_summaries_path,
-                    class: "list-group-item #{ ((!logged_in?)||(params[:filter].blank?)) ? "list-group-item-default cursor-not-allowed" : ""}" %>
+                    class: "list-group-item clearfix #{ ((!logged_in?)||(params[:filter].blank?)) ? "list-group-item-default cursor-not-allowed" : ""}" %>
         <% if logged_in? %>
-            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up normal\"></span>
+            <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up bigger\"></span>
                         Synthètiser les controverses qui m'intéressent
                         <span class=\"badge\">#{Timeline.where(id: @like_ids).where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
                         empty_summaries_path(filter: "interest"),
-                        class: "list-group-item #{ (params[:filter] == "interest") ? "list-group-item-default cursor-not-allowed" : ""}" %>
-            <%= link_to "<span class=\"icon-user normal\"></span>
+                        class: "list-group-item clearfix #{ (params[:filter] == "interest") ? "list-group-item-default cursor-not-allowed" : ""}" %>
+            <%= link_to "<span class=\"icon-user bigger\"></span>
                                 Synthètiser vos controverses
                                 <span class=\"badge\">#{Timeline.where(user_id: current_user.id).where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
                         empty_summaries_path(filter: "mine"),
-                        class: "list-group-item #{ (params[:filter] == "mine") ? "list-group-item-default cursor-not-allowed" : ""}" %>
+                        class: "list-group-item clearfix #{ (params[:filter] == "mine") ? "list-group-item-default cursor-not-allowed" : ""}" %>
         <% end %>
       </div>
     </div>

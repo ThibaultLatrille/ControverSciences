@@ -171,9 +171,9 @@ module ApplicationHelper
      "A ajouté des références qui sont bien classées.",
      "A ajouté des analyses qui sont bien classées.",
      "S'intéresse à des thèmes variés.",
-     "A reçu des crédits par les autres contributeurs.",
+     "A recu des crédits de la part des autres contributeurs.",
      "A donné des crédits aux autres contributeurs.",
-     "A corrigé des fautes d'orthographes."]
+     "A corrigé des fautes d'orthographe."]
   end
 
   def star_hash

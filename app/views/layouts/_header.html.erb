@@ -33,7 +33,7 @@
                  <li><%= link_to '<b><span class="glyphicon glyphicon-question-sign font12" ></span> &nbsp FAQ</b>'.html_safe, faq_path %></li>
                  <li><%= link_to "<b><span class=\"glyphicon glyphicon-envelope font12\" ></span> &nbsp Bulletins d'information</b>".html_safe, newsletter_path %></li>
                  <li class="divider"></li>
-                 <li><%= link_to '<b><span class="icon-users bigger" ></span> Qui sont les contributeurs</b>'.html_safe, users_path %> </li>
+                 <li><%= link_to '<b><span class="icon-users bigger" ></span> Les contributeurs</b>'.html_safe, users_path %> </li>
                  <li><%= link_to '<b><span class="icon-graph-int bigger" ></span> Évolution des contributions</b>'.html_safe, contributions_path %> </li>
                  <li><%= link_to '<b><span class="icon-graph-diff bigger" ></span> Nouvelles contributions</b>'.html_safe, contributions_path(filter: "freq") %> </li>
                  <li class="divider"></li>
@@ -87,7 +87,7 @@
                     </li>
                 <% end %>
                 <li class="divider"></li>
-                <li><%= link_to "<b><span class='icon-comment'></span> Vos contributions</b>".html_safe,
+                <li><%= link_to "<b><span class='icon-summary'></span> Vos contributions</b>".html_safe,
                                 my_items_items_path %> </li>
                 <li> <%= link_to "<b><span class=\"badge #{current_user.nb_notifs > 0 ? "badge-li" : nil }\">
                 #{current_user.nb_notifs}</span> Notifications </b>".html_safe,
