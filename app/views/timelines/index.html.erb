@@ -19,21 +19,6 @@
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-offset-0 col-lg-8">
       <div class="pull-right">
         <div class="btn-group">
-          <% if params[:tag].blank? || (params[:tag].include? 'all') %>
-              <div class="btn btn-default active">
-                Tous les thèmes
-              </div>
-          <% else %>
-              <a href="<%= timelines_path(:sort => params[:sort],
-                                          :order => params[:order],
-                                          :interest => params[:interest],
-                                          :tag => 'all' ) %>"
-                 class="btn btn-default">
-                  Tous les thèmes
-              </a>
-          <% end %>
-        </div>
-        <div class="btn-group">
           <button class="btn btn-default dropdown-toggle" type="button"
                   id="dropdownMenuTri" data-toggle="dropdown">
             <% if params[:sort].blank? || params[:sort]=='score' %>
@@ -46,6 +31,7 @@
                 <%= params[:sort]=='nb_references' ? "nombre de références" : nil %>
                 <%= params[:sort]=='nb_comments' ? "Nombre d'analyses" : nil %>
                 <%= params[:sort]=='nb_summaries' ? "Nombre de synthèses" : nil %>
+                <%= params[:sort]=='nb_likes' ? "Nombre de <span class=\"glyphicon glyphicon-thumbs-up\"></span>".html_safe : nil %>
             <% end %>
             <span class="caret"></span>
           </button>
@@ -70,6 +56,10 @@
                                                               :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_summaries' ? "class=selected" : nil %> >
               <%= link_to "Nombre de synthèses", timelines_path(:sort  => 'nb_summaries', :interest => params[:interest],
+                                                                :order => params[:order], :tag => params[:tag]) %> </li>
+            <li <%= params[:sort]=='nb_likes' ? "class=selected" : nil %> >
+              <%= link_to "Nombre de <span class=\"glyphicon glyphicon-thumbs-up\"></span>".html_safe,
+                                                                timelines_path(:sort  => 'nb_likes', :interest => params[:interest],
                                                                 :order => params[:order], :tag => params[:tag]) %> </li>
           </ul>
         </div>
@@ -109,26 +99,35 @@
             <%= hidden_field_tag(:interest, params[:interest]) %>
         <% end %>
       </div>
-      <div class="row">
+      <div class="row center">
         <br/>
-        <div class="container-fluid">
-          <div class="row" >
-            <% tags_hash.each do |key, value| %>
-                <a href="<%= timelines_path(:sort => params[:sort],
-                                            :order => params[:order],
-                                            :interest => params[:interest],
-                                            :tag => (params[:tag].blank? || (params[:tag].include? 'all') ) ?
-                                                    [key] :
-                                                    (params[:tag].include? key ) ? params[:tag].reject{|e| e == key } : [key].push(params[:tag]).flatten
-                             ) %>"
-                   class="btn btn-default col-xs-6 col-sm-4 col-lg-3 <%= (params[:tag].blank? || (params[:tag].include? 'all')) ? nil : ( (params[:tag].include? key ) ? "active" : nil) %>">
-                    <div class="my-btn">
-                      <%= "<span class=\"icon-#{key}\"></span> ".html_safe+value %>
-                  </div>
-                </a>
-            <% end %>
-          </div>
-        </div>
+        <% if params[:tag].first.blank? || (params[:tag].include? 'all') %>
+            <div class="btn btn-default active" style="padding: 8px 8px;">
+              Tous les thèmes
+            </div>
+        <% else %>
+            <a href="<%= timelines_path(:sort => params[:sort],
+                                        :order => params[:order],
+                                        :interest => params[:interest],
+                                        :tag => 'all' ) %>"
+               class="btn btn-default" style="padding: 8px 8px;">
+              Tous les thèmes
+            </a>
+        <% end %>
+        <% tags_hash.each do |key, value| %>
+            <a href="<%= timelines_path(:sort => params[:sort],
+                                        :order => params[:order],
+                                        :interest => params[:interest],
+                                        :tag => (params[:tag].blank? || (params[:tag].include? 'all') ) ?
+                                                [key] :
+                                                (params[:tag].include? key ) ? params[:tag].reject{|e| e == key } : [key].push(params[:tag]).flatten
+                         ) %>"
+               class="btn btn-default <%= (params[:tag].blank? || (params[:tag].include? 'all')) ? nil : ( (params[:tag].include? key ) ? "active" : nil) %>"
+              title="<%= value %>"
+              data-toggle="tooltip">
+                  <%= "<span class=\"icon-#{key}\"></span> ".html_safe %>
+            </a>
+        <% end %>
       </div>
     </div>
     <div class="col-xs-12 col-lg-2">
