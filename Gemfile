@@ -59,6 +59,9 @@ gem 'browser'
 # Search toolbox for postgresql
 gem 'pg_search'
 
+# Email validation
+gem 'email_validator'
+
 # Image upload, resize and storing
 gem 'carrierwave'
 gem 'mini_magick'
