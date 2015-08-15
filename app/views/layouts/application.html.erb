@@ -11,7 +11,7 @@
           type="image/png"
           href="<%= path_to_image "favicon.png" %>">
     <title><%= full_title(yield(:title)).html_safe %></title>
-    <%= stylesheet_link_tag "application", 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
     <%= javascript_include_tag 'application' %>
     <% if Rails.env.production? %>
     <script>
@@ -23,6 +23,10 @@
         ga('create', 'UA-58277628-1', 'auto');
         ga('send', 'pageview');
     </script>
+    <% end %>
+    <% if peek_enabled? %>
+        <%= stylesheet_link_tag 'peek_bar', :media => "all" %>
+        <%= javascript_include_tag 'peek_bar' %>
     <% end %>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
     <div id="fb-root"></div>
@@ -38,7 +42,9 @@
   <%= render 'layouts/shim' %>
   </head>
   <body>
-
+  <% if peek_enabled? %>
+      <%= render 'peek/bar' %>
+  <% end %>
   <%= render 'layouts/header' %>
   <div id="error-container" class="container-fluid">
       <% flash.each do |message_type, message| %>

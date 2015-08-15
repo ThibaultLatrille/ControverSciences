@@ -18,6 +18,8 @@ gem 'kaminari'
 
 ## Assets compilation and processing
 # Use SCSS for stylesheets
+gem 'coffee-script'
+# Use SCSS for stylesheets
 gem 'sass-rails'
 # Autoprefixer for Ruby and Ruby on Rails
 gem 'autoprefixer-rails'
@@ -110,6 +112,12 @@ group :development do
 
   # Support from chrome extension RailsPanel (https://github.com/dejan/rails_panel)
   gem 'meta_request'
+
+  # Take a peek into your Rails application
+  gem 'peek'
+  gem 'peek-gc'
+  gem 'peek-performance_bar'
+  gem 'peek-pg'
 end
 
 group :production do
