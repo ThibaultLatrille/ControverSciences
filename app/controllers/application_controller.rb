@@ -6,6 +6,19 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include ReferencesHelper
 
+  before_filter :if_logged_in
+
+  def if_logged_in
+    if logged_in?
+      current_user.empty_references = Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count
+      current_user.empty_comments = Reference.where(user_id: current_user.id, title_fr: nil).count
+      current_user.empty_summaries = Timeline.where(user_id: current_user.id, nb_summaries: 0)
+                                             .where.not( nb_references: 0..3 )
+                                             .where.not(nb_comments: 0..3).count
+    end
+  end
+
+
   def send_notifications
     users = User.all.where.not( id: UserDetail.where( send_email: false).pluck(:user_id), activated: false )
     @empty_comments = Reference.where( title_fr: nil ).count
@@ -58,7 +71,11 @@ class ApplicationController < ActionController::Base
 
   # Confirms an admin user.
   def admin_user
-    flash[:danger] = "Uniquement les admins peuvent effectuer ces actions."
-    redirect_to(root_url) unless current_user.admin?
+    if current_user.admin?
+      flash.now[:danger] = "Vous êtes sur une page dedié aux admins."
+    else
+      flash[:danger] = "Uniquement les admins peuvent effectuer ces actions."
+      redirect_to(root_url) unless current_user.admin?
+    end
   end
 end

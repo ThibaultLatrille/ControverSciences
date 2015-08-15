@@ -55,32 +55,35 @@
                 <li><%= link_to "<b><span class='icon-user'></span> Accéder à votre profil</b>".html_safe,
                                 user_path(current_user) %> </li>
                 <% if current_user.admin && Typo.all.count > 0 %>
+                    <li class="divider"></li>
                     <li style="background-color: #d9534f">
                       <%= link_to "<span class=\"badge badge-header\"> #{Typo.all.count} </span> corrections en attente".html_safe,
                                   typos_path, style: "color: white;" %>
 
                     </li>
                 <% end %>
-                <% if Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count > 0 %>
+                <% if current_user.empty_references + current_user.empty_comments + current_user.empty_summaries > 0 %>
+                    <li class="divider"></li>
+                <% end %>
+                <% if current_user.empty_references > 0 %>
                     <li class="my-missing">
-                      <%= link_to "<span class=\"badge badge-header\"> #{Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count} </span>
+                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_references} </span>
                       Vos controverses à enrichir".html_safe,
                                   empty_references_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
                 <% end %>
-                <% if Reference.where(user_id: current_user.id, title_fr: nil).count > 0 %>
+                <% if current_user.empty_comments > 0 %>
                     <li class="my-missing">
-                      <%= link_to "<span class=\"badge badge-header\"> #{Reference.where(user_id: current_user.id, title_fr: nil).count} </span>
+                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_comments} </span>
                       Vos références à analyser".html_safe,
                                   empty_comments_path(filter: "mine"), style: "color: white;" %>
 
                     </li>
                 <% end %>
-                <% if Timeline.where(user_id: current_user.id, nb_summaries: 0 ).where.not( nb_references: 0..3 ).where.not(nb_comments: 0..3).count > 0 %>
+                <% if current_user.empty_summaries > 0 %>
                     <li class="my-missing">
-                      <%= link_to "<span class=\"badge badge-header\"> #{Timeline.where(user_id: current_user.id, nb_summaries: 0
-                      ).where.not( nb_references: 0..3 ).where.not(nb_comments: 0..3).count} </span>
+                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_summaries} </span>
                       Vos controverses à synthétiser".html_safe,
                                   empty_summaries_path(filter: "mine"), style: "color: white;" %>
 

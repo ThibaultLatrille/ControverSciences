@@ -39,7 +39,9 @@ class User < ActiveRecord::Base
   has_many :figures, dependent: :destroy
   has_many :binaries, dependent: :destroy
 
-  attr_accessor :remember_token, :activation_token, :reset_token, :why, :invalid_email, :terms_of_service
+  attr_accessor :remember_token, :activation_token, :reset_token, :why,
+                :invalid_email, :terms_of_service,
+                :empty_references, :empty_comments, :empty_summaries
   before_save :downcase_email
   before_create :create_activation_digest
 
