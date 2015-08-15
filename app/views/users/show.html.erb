@@ -11,6 +11,11 @@
       <%= link_to "Contributeur suivant <span class=\"glyphicon glyphicon-menu-right\"></span>".html_safe,
                   next_user_path(id: @user.id), class: "btn btn-primary" %>
     </div>
+    <div class="center">
+      <br/>
+      <%= link_to "<span class=\"icon-users\"></span> Tous les contributeurs".html_safe,
+                  users_path, class: "btn btn-primary" %>
+    </div>
     <br/>
     <br/>
   </div>
