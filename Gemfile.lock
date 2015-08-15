@@ -271,8 +271,6 @@ GEM
       railties (>= 3.0.0)
     peek-gc (0.0.2)
       peek
-    peek-performance_bar (1.1.6)
-      peek (>= 0.1.0)
     peek-pg (1.1.0)
       atomic (>= 1.0.0)
       peek
@@ -429,7 +427,6 @@ DEPENDENCIES
   oj
   peek
   peek-gc
-  peek-performance_bar
   peek-pg
   pg
   pg_search

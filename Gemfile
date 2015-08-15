@@ -116,7 +116,6 @@ group :development do
   # Take a peek into your Rails application
   gem 'peek'
   gem 'peek-gc'
-  gem 'peek-performance_bar'
   gem 'peek-pg'
 end
 
