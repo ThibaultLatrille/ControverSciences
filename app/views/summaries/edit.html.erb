@@ -13,7 +13,7 @@
                         summaries_path(timeline_id: @summary.timeline_id),
                         class: "list-group-item" %>
         <% end %>
-        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+        <%= link_to "<span class=\"icon-summary normal\"></span>
                   Votre synthèse".html_safe,
                     summaries_path(timeline_id: @my_timeline.id, filter: "mine"),
                     :class => "list-group-item" %>

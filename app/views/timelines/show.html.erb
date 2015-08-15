@@ -41,27 +41,13 @@
                         </span>  Ajouter ou modifier les liens vers d'autres controverses".html_safe,
                     edges_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
+        <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
+                        timeline_path(@timeline), method: :delete,
+                        data:                             {confirm: "Êtes-vous certain ?"},
+                        class:                            "list-group-item list-group-item-danger" %>
+        <% end %>
     <% end %>
-  </div>
-  <div class="list-group">
-    <div class="list-group-item">
-      <a href="https://twitter.com/share"
-         class="twitter-share-button"
-         data-text="<%= CGI::unescapeHTML(@timeline.name) %>"
-         data-via="ControverSci">
-        Tweet
-      </a>
-    </div>
-    <div class="list-group-item">
-      <div class="fb-share-button"
-           data-href="<%= timeline_path @timeline %>"
-           data-layout="button_count">
-      </div>
-    </div>
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Envoyer une invitation à découvrir la controverse".html_safe,
-                new_invitation_path(timeline_id: @timeline.id),
-                remote: true,
-                class:  "list-group-item" %>
   </div>
   <div class="list-group">
     <% if @timeline.nb_frames > 1 %>
@@ -76,7 +62,7 @@
                     class: "list-group-item" %>
     <% end %>
     <% if logged_in? && @my_frame %>
-        <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+        <%= link_to "<span class=\"icon-summary normal\"></span>
                                 </span> Votre proposition de titre et de cadre".html_safe,
                     frames_path(timeline_id: @timeline.id, filter: "mine"),
                     :class => "list-group-item" %>
@@ -99,7 +85,7 @@
                                 new_summary_path(timeline_id: @timeline.id),
                                 :class => "list-group-item" %>
                 <% else %>
-                    <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                    <%= link_to "<span class=\"icon-summary normal\"></span>
                   Votre synthèse".html_safe,
                                 summaries_path(timeline_id: @timeline.id, filter: "mine"),
                                 :class => "list-group-item" %>
@@ -122,15 +108,21 @@
   <% end %>
   <% if logged_in? %>
       <div class="list-group">
-        <% if @timeline.nb_references > 1 %>
-        <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les références".html_safe,
-                    references_graph_path(timeline_id: @timeline.id),
+        <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+            </span> Ajouter une référence à cette controverse.".html_safe,
+                    new_reference_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
-        <% end %>
-        <% if @timeline.nb_references > 0 %>
+      </div>
+      <% if @timeline.nb_references > 0 %>
+          <div class="list-group">
+            <% if @timeline.nb_references > 1 %>
+                <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les références".html_safe,
+                            references_graph_path(timeline_id: @timeline.id),
+                            class: "list-group-item" %>
+            <% end %>
             <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> Télécharger la bibliographie".html_safe,
                         '#download-biblio', 'data-toggle' => 'modal',
-                        class: "list-group-item" %>
+                        class:                            "list-group-item" %>
             <div class="modal fade" id="download-biblio" tabindex="-1" role="dialog">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -168,19 +160,28 @@
                 </div>
               </div>
             </div>
-        <% end %>
-        <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
-    </span> Ajouter une référence à cette controverse.".html_safe,
-                    new_reference_path(timeline_id: @timeline.id),
-                    class: "list-group-item" %>
-        <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
-                        timeline_path(@timeline), method: :delete,
-                        data:                             {confirm: "Êtes-vous certain ?"},
-                        class:                            "list-group-item list-group-item-danger" %>
-        <% end %>
-      </div>
+          </div>
+      <% end %>
   <% end %>
+  <div>
+    <a href="https://twitter.com/share"
+       class="twitter-share-button"
+       data-text="<%= CGI::unescapeHTML(@timeline.name) %>"
+       data-via="ControverSci">
+      Tweet
+    </a>
+  </div>
+  <div>
+    <div class="fb-share-button"
+         data-href="<%= timeline_path @timeline %>"
+         data-layout="button_count">
+    </div>
+  </div>
+    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>Inviter</b>".html_safe,
+                new_invitation_path(timeline_id: @timeline.id),
+                remote: true,
+                style: "padding: 1px 6px; margin-top: 5px;",
+                class:  "btn btn-sm btn-primary" %>
 </div>
 
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">

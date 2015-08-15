@@ -24,7 +24,7 @@
                                 data:                                      {confirm: "Êtes-vous certain ?"},
                                 class:                                     "list-group-item list-group-item-danger" %>
                 <% else %>
-                    <%= link_to "<span class=\"glyphicon glyphicon-eye-open\"></span>
+                    <%= link_to "<span class=\"icon-summary normal\"></span>
                   Votre synthèse".html_safe,
                                 summaries_path(timeline_id: @timeline.id, filter: "mine"),
                                 :class => "list-group-item" %>
