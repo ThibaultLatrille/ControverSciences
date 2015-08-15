@@ -74,6 +74,9 @@ gem 'sitemap_generator'
 gem 'exception_notification'
 gem 'slack-notifier'
 
+# Use 'ap User.last' for example for awesome print
+gem 'awesome_print', require: 'ap'
+
 # Friendly id for SEO
 gem 'friendly_id', '~> 5.0.0'
 
@@ -88,6 +91,8 @@ group :development do
   gem 'faker',                '1.4.2'
   gem 'spring',  '1.1.3'
   gem 'quiet_assets'
+  # Model and controller UML class diagram generator, run: 'rake diagram:all'
+  gem 'railroady'
 end
 
 group :production do
