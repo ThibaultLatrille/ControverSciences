@@ -67,33 +67,38 @@ class TimelinesController < ApplicationController
   end
 
   def show
-    @timeline    = Timeline.find(params[:id])
-    summary_best = SummaryBest.find_by(timeline_id: @timeline.id)
-    if summary_best
-      @summary = Summary.find(summary_best.summary_id)
-    else
-      @summary = nil
+    begin
+      @timeline    = Timeline.find(params[:id])
+      summary_best = SummaryBest.find_by(timeline_id: @timeline.id)
+      if summary_best
+        @summary = Summary.find(summary_best.summary_id)
+      else
+        @summary = nil
+      end
+      edges = Edge.where("timeline_id = ? OR target = ?",
+                         @timeline.id,
+                         @timeline.id)
+      timeline_ids = edges.map{ |e| [e.target, e.timeline_id] }
+      query = Timeline.includes(:tags).where( id: timeline_ids.flatten.uniq ).where.not( id: @timeline.id )
+      if logged_in?
+        @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
+        @improve = Summary.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? false : true
+        @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
+        @my_frame = Frame.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
+      else
+        query = query.where.not(nb_comments: 0)
+      end
+      @timelines =query
+      @titles     = Reference.where(timeline_id: @timeline.id, title_fr: [nil, ""]).count
+      ref_query = Reference.select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
+      unless logged_in?
+        ref_query = ref_query.where.not( title_fr: "" )
+      end
+      @references = ref_query
+    rescue ActiveRecord::RecordNotFound
+      flash[:danger] = "Cette controverse n'existe pas (ou plus)"
+      redirect_to timelines_path
     end
-    edges = Edge.where("timeline_id = ? OR target = ?",
-                       @timeline.id,
-                       @timeline.id)
-    timeline_ids = edges.map{ |e| [e.target, e.timeline_id] }
-    query = Timeline.includes(:tags).where( id: timeline_ids.flatten.uniq ).where.not( id: @timeline.id )
-    if logged_in?
-      @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
-      @improve = Summary.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? false : true
-      @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
-      @my_frame = Frame.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
-    else
-      query = query.where.not(nb_comments: 0)
-    end
-    @timelines =query
-    @titles     = Reference.where(timeline_id: @timeline.id, title_fr: [nil, ""]).count
-    ref_query = Reference.select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
-    unless logged_in?
-      ref_query = ref_query.where.not( title_fr: "" )
-    end
-    @references = ref_query
   end
 
   def destroy
