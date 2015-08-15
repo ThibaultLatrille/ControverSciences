@@ -2,7 +2,7 @@ class TimelinesController < ApplicationController
   before_action :logged_in_user, only: [:new, :edit, :update, :create, :destroy]
 
   def index
-    query = Timeline.order(params[:sort].blank? ? :score : params[:sort].to_sym =>
+    query = Timeline.includes(:tags).order(params[:sort].blank? ? :score : params[:sort].to_sym =>
                                params[:order].blank? ? :desc : params[:order].to_sym).where.not(private: true)
     unless params[:tag].blank? || params[:tag] == 'all' || params[:tag] == [""]
       # This is just disgusting but do the job !!! refactor needed !!!
@@ -78,7 +78,7 @@ class TimelinesController < ApplicationController
                        @timeline.id,
                        @timeline.id)
     timeline_ids = edges.map{ |e| [e.target, e.timeline_id] }
-    query = Timeline.where( id: timeline_ids.flatten.uniq ).where.not( id: @timeline.id )
+    query = Timeline.includes(:tags).where( id: timeline_ids.flatten.uniq ).where.not( id: @timeline.id )
     if logged_in?
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
       @improve = Summary.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? false : true

@@ -1,13 +1,13 @@
 class StaticPagesController < ApplicationController
   def home
-    @timelines = Timeline.order(:score => :desc).first(4)
+    @timelines = Timeline.includes(:tags).order(:score => :desc).first(4)
     if logged_in?
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
     end
   end
 
   def empty_comments
-    query = Reference.order(:created_at => :desc)
+    query = Reference.includes(:timeline).includes(:reference_user_tags).order(:created_at => :desc)
                     .where(title_fr: nil)
     if logged_in?
       @like_ids = Like.where(user_id: current_user.id).pluck(:timeline_id)

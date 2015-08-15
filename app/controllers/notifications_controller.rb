@@ -51,7 +51,7 @@ class NotificationsController < ApplicationController
     case @filter
       when :timeline
         timeline_ids = Notification.where(user_id: current_user.id, category: 1).pluck(:timeline_id)
-        @timelines   = Timeline.select(:id, :slug, :name,
+        @timelines   = Timeline.includes(:tags).select(:id, :slug, :name,
                                        :user_id).where(id: timeline_ids).page(params[:page]).per(20)
       when :frame
         frame_ids = Notification.where(user_id: current_user.id, category: 8).pluck(:frame_id )

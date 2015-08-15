@@ -19,13 +19,13 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.where( activated: true ).order(score: :desc ).page(params[:page]).per(24)
+    @users = User.includes(:user_detail).where( activated: true ).order(score: :desc ).page(params[:page]).per(24)
   end
 
   def show
     @user = User.find(params[:id])
     @user_detail = @user.user_detail
-    query = Timeline.select(:id, :slug, :name).where(user_id: @user.id).where.not(private: true)
+    query = Timeline.includes(:tags).select(:id, :slug, :name).where(user_id: @user.id).where.not(private: true)
     unless logged_in?
       query = query.where.not(nb_comments: 0)
     end

@@ -370,8 +370,8 @@
             <% if @summary.summary_links.count > 0 %>
             Cette synthèse se base sur <%= @summary.summary_links.count.to_s + " référence" + (@summary.summary_links.count > 1 ? "s" : "") %> :
             <ul>
-              <% @summary.summary_links.each do |link| %>
-              <li><%= link_to link.reference.title_display, reference_path(link.reference), class: "linked-ref", "data-ref" => link.reference_id %></li>
+              <% @summary.summary_links.includes(:reference).each do |link| %>
+              <li><%= link_to link.reference.title_display, reference_path(link.reference), class: "linked-ref", "data-ref" => link.reference.id %></li>
               <% end %>
             </ul>
             <% end %>
