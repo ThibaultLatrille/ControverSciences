@@ -63,6 +63,8 @@
               <% end %>
             </div>
           </div>
+      <% else %>
+          <%= f.hidden_field :private, value: false %>
       <% end %>
     <%= f.button "Créer la controverse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                  class: 'btn btn-success btn-lg pull-right',
