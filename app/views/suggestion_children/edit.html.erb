@@ -19,7 +19,7 @@
                       <div class="pull-right">
                         <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe,
                                     suggestion_path(@suggestion.id), method: :delete,
-                                    data:  {confirm: "Êtes-vous certain ?"},
+                                    data:  {confirm: t('views.default.confirm')},
                                     class: "btn btn-danger" %>
                         <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe,
                                     edit_suggestion_path(@suggestion.id),

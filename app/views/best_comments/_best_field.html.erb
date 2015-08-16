@@ -14,7 +14,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="caption">
-                  <b> Figure </b> :
+                  <b> <%= t('views.best_comments.caption') %> </b> :
                   <%= comment.caption_markdown.html_safe %>
                 </div>
               </div>
@@ -33,7 +33,7 @@
                                 vote_path(@my_votes.detect{ |v| v.comment_id == comment.id }),
                                 "data-toggle"    => "tooltip",
                                 "data-placement" => "right",
-                                title:           "Selectionner cette analyse comme votre favorite",
+                                title:           t('views.best_comments.downvote'),
                                 method:          :delete,
                                 class:           "btn btn-success",
                                 :style           => "padding: 8px; margin-left: 8px" %>
@@ -45,7 +45,7 @@
                                              reference_id: params[:reference_id]),
                                   "data-toggle"    => "tooltip",
                                   "data-placement" => "right",
-                                  title:           "Selectionner cette analyse comme votre favorite",
+                                  title:           t('views.best_comments.upvote'),
                                   method:          :post,
                                   class:           "btn btn-default green",
                                   :style           => "padding: 8px; margin-left: 8px" %>
@@ -57,7 +57,7 @@
                           remote:       true,
                           :class        => "btn btn-default",
                           "data-toggle" => "tooltip",
-                          title:        "Corriger une faute de français",
+                          title:        t('views.default.fix_typo'),
                           :style        => "padding: 8px; margin-right: 8px" %>
               <% if current_user.admin %>
                   <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
@@ -66,7 +66,7 @@
                   <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                               comment_path(id: comment.id),
                               method: :delete,
-                              data:   {confirm: "Êtes-vous certain ?"},
+                              data:   {confirm: t('views.default.confirm')},
                               class:  "btn btn-danger",
                               :style  => "margin-right: 8px" %>
               <% end %>

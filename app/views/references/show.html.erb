@@ -49,7 +49,7 @@
                     class: "list-group-item" %>
         <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette référence".html_safe,
                     reference_path(@reference), method: :delete,
-                    data:                                  {confirm: "Êtes-vous certain ?"},
+                    data:                                  {confirm: t('views.default.confirm')},
                     class:                                 "list-group-item list-group-item-danger" %>
       </div>
     <% end %>
@@ -61,7 +61,7 @@
                         class: "list-group-item" %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre analyse".html_safe,
                         comment_path(@comment.id), method: :delete,
-                        data:                              {confirm: "Êtes-vous certain ?"},
+                        data:                              {confirm: t('views.default.confirm')},
                         class:                             "list-group-item list-group-item-danger" %>
         <% elsif @comment %>
             <%= link_to "<span class=\"icon-comment normal\" >

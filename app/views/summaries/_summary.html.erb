@@ -63,7 +63,7 @@
                         remote:       true,
                         :class        => "btn btn-default",
                         "data-toggle" => "tooltip",
-                        title:        "Corriger une faute de français",
+                        title:        t('views.default.fix_typo'),
                         :style        => "padding: 8px; margin-right: 8px" %>
             <% if current_user.admin %>
                 <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
@@ -72,7 +72,7 @@
                 <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                             summary_path(id: summary.id),
                             method: :delete,
-                            data:   {confirm: "Êtes-vous certain ?"},
+                            data:   {confirm: t('views.default.confirm')},
                             class:  "btn btn-danger",
                             :style  => "margin-right: 8px" %>
             <% end %>

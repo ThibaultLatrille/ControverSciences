@@ -20,7 +20,7 @@
         <% if @summary.user_id == current_user.id || current_user.admin %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre synthèse".html_safe,
                         summary_path(@summary.id), method: :delete,
-                        data:                              {confirm: "Êtes-vous certain ?"},
+                        data:                              {confirm: t('views.default.confirm')},
                         class:                             "list-group-item list-group-item-danger" %>
         <% end %>
       </div>

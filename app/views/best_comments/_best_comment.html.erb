@@ -13,7 +13,7 @@
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="caption">
-                      <b> Légende </b> :
+                      <b> <%= t('views.best_comments.caption') %> </b> :
                       <%= best_comment.markdown(7).html_safe %>
                     </div>
                   </div>
@@ -35,7 +35,7 @@
                               remote:       true,
                               :class        => "btn btn-default",
                               "data-toggle" => "tooltip",
-                              title:        "Corriger une faute de français",
+                              title:        t('views.default.fix_typo'),
                               :style        => "padding: 6px; margin-right: 6px" %>
                 </div>
                 <% if current_user.admin %>
@@ -45,19 +45,19 @@
                     <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
                                 comment_path(best_comment["f_#{fi}_comment_id"]),
                                 method: :delete,
-                                data:   {confirm: "Êtes-vous certain ?"},
+                                data:   {confirm: t('views.default.confirm')},
                                 class:  "btn btn-danger" %>
                 <% end %>
             <% end %>
             <% if best_comment.comment_count(fi) > 1 %>
-                <%= link_to "<span class=\"badge\"> #{best_comment.comment_count(fi)}</span> Toutes les contributions".html_safe,
+                <%= link_to "<span class=\"badge\"> #{best_comment.comment_count(fi)}</span> #{t('views.best_comments.display_all')}".html_safe,
                             from_reference_path(:reference_id => @reference.id,
                                                 field:        fi),
                             class:  "btn btn-default ajax-btn button#{fi}",
                             :remote => true %>
                 <div id="show<%= fi %>" class="btn btn-default" style="display: none; padding: 6px">
                   <span class="badge"><%= best_comment.comment_count(fi) %></span>
-                  Toutes les contributions
+                  <%= t('views.best_comments.display_all') %>
                 </div>
             <% end %>
           </div>
