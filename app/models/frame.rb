@@ -124,8 +124,7 @@ class Frame < ActiveRecord::Base
   end
 
   def destroy_with_counters
-    tim_user_id = Timeline.select(:user_id).find(self.timeline_id ).user_id
-    if self.user_id == tim_user_id
+    if Frame.where(timeline_id: self.timeline_id).count == 1
       false
     else
       self.destroy
