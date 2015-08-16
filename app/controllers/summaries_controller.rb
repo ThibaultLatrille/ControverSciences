@@ -27,7 +27,7 @@ class SummariesController < ApplicationController
     @summary.user_id = current_user.id
     if @summary.save_with_markdown
       flash[:success] = "Synthèse enregistrée."
-      redirect_to summaries_path(filter: "mine", timeline_id: @summary.timeline_id)
+      redirect_to @summary
     else
       @list        = Reference.order(year: :desc).where(timeline_id: summary_params[:timeline_id]).pluck(:title, :id)
       @tim_list    = Timeline.where(id: Edge.where(timeline_id:

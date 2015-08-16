@@ -30,7 +30,7 @@ class CommentsController < ApplicationController
     end
     if @comment.save_with_markdown
       flash[:success] = "Analyse enregistrée."
-      redirect_to reference_path( @comment.reference_id, filter: :mine )
+      redirect_to @comment
     else
       @myreference = Reference.find( @comment.reference_id )
       @list = Reference.order(year: :desc).where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
