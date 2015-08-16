@@ -22,6 +22,12 @@ SitemapGenerator::Sitemap.create do
   User.where(activated: true).find_each do |user|
     add user_path(user), lastmod: user.updated_at
   end
+  Comment.where(public: true).find_each do |comment|
+    add comment_path(comment), lastmod: comment.updated_at
+  end
+  Summary.where(public: true).find_each do |summary|
+    add summary_path(summary), lastmod: summary.updated_at
+  end
 end
 
 SitemapGenerator::Sitemap.ping_search_engines

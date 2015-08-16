@@ -148,9 +148,6 @@ class TimelinesController < ApplicationController
 
   def previous
     timelines = Timeline.select(:id, :slug, :score).order(score: :desc).where.not(private: true)
-    unless logged_in?
-      timelines = timelines.where.not(nb_comments: 0)
-    end
     i = timelines.index{|x| x.id == params[:id].to_i }
     if i == 0
       i = timelines.length-1
@@ -162,9 +159,6 @@ class TimelinesController < ApplicationController
 
   def next
     timelines = Timeline.select(:id, :slug, :score).order(score: :desc).where.not(private: true)
-    unless logged_in?
-      timelines = timelines.where.not(nb_comments: 0)
-    end
     i = timelines.index{|x| x.id == params[:id].to_i }
     if i == timelines.length-1
       i = 0

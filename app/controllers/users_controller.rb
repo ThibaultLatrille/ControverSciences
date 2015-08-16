@@ -26,11 +26,7 @@ class UsersController < ApplicationController
     begin
       @user = User.find(params[:id])
       @user_detail = @user.user_detail
-      query = Timeline.includes(:tags).select(:id, :slug, :name).where(user_id: @user.id).where.not(private: true)
-      unless logged_in?
-        query = query.where.not(nb_comments: 0)
-      end
-      @timelines = query
+      @timelines = Timeline.includes(:tags).select(:id, :slug, :name).where(user_id: @user.id).where.not(private: true)
       @references = Reference.select(:id, :slug, :timeline_id, :title).where(user_id: @user.id)
       @comments = Comment.select(:id, :reference_id, :title_markdown ).where(user_id: @user.id).where(public: true)
       @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: @user.id).where(public: true)
