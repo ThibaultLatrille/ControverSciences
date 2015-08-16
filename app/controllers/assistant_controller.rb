@@ -1,7 +1,7 @@
 class AssistantController < ApplicationController
   include AssisstantHelper
 
-  before_action :admin_user, only: [:view, :index, :users, :timelines, :selection, :fitness, :profils]
+  before_action :admin_user, only: [:view, :index, :users, :timelines, :profils]
 
   def view
   end
@@ -23,18 +23,6 @@ class AssistantController < ApplicationController
   def timelines
     update_score_timelines
     flash[:success] = "Les valeurs sélectives des controverses sont à jour"
-    redirect_to assistant_path
-  end
-
-  def fitness
-    compute_fitness
-    flash[:success] = "Les valeurs sélectives des analyses sont à jour"
-    redirect_to assistant_path
-  end
-
-  def selection
-    selection_events
-    flash[:success] = "La sélection a opéré"
     redirect_to assistant_path
   end
 

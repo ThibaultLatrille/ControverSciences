@@ -1,0 +1,13 @@
+fr:
+  views:
+    pagination:
+      first: "&laquo; Première"
+      last: "Dernière &raquo;"
+      previous: "&lsaquo; Précédente"
+      next: "Suivante &rsaquo;"
+      truncate: "&hellip;"
+    assistant:
+      index: "Contributeurs en attentes"
+      timelines: "Mettre à jour les valeurs sélectives des controverses"
+      users: "Mettre à jour les valeurs sélectives des utilisateurs"
+      profils: "Mettre à jour les profils"

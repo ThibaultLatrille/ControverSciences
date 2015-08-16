@@ -5,6 +5,12 @@ ruby '2.1.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails',        '4.1.6'
 
+
+# Internationalization
+gem 'i18n'
+gem 'rails-i18n'
+
+
 # Execute js
 gem 'therubyracer'
 gem 'execjs'

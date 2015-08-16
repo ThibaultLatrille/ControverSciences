@@ -1,16 +1,12 @@
 <div id="my-container" class="container-fluid">
 <div class="col-md-6 col-md-offset-3">
-  <%= link_to "Contributeurs en attente", assistant_index_path,
+  <%= link_to t('views.assistant.index'), assistant_index_path,
               class: "btn btn-block btn-primary" %>
-<%= link_to "Mettre à jour les valeurs sélectives des controverses", assistant_timelines_path,
+<%= link_to t('views.assistant.timelines'), assistant_timelines_path,
         class: "btn btn-block btn-danger" %>
-<%= link_to "Mettre à jour les valeurs sélectives des utilisateurs", assistant_users_path,
+<%= link_to t('views.assistant.users'), assistant_users_path,
         class: "btn btn-block btn-danger" %>
-<%= link_to "Mettre à jour les valeurs sélectives des analyses", assistant_fitness_path,
-        class: "btn btn-block btn-danger" %>
-<%= link_to "Effectuer la sélection des analyses", assistant_selection_path,
-              class: "btn btn-block btn-danger" %>
-<%= link_to "Mettre à jour les profils", assistant_profils_path,
+<%= link_to t('views.assistant.profils'), assistant_profils_path,
               class: "btn btn-block btn-danger" %>
 </div>
 </div>
