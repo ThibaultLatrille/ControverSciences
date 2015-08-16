@@ -1,6 +1,6 @@
 class FiguresController < ApplicationController
   def create
-    figure = Figure.new( user_id: current_user.id )
+    figure = Figure.new
     flag = true
     if params[:reference_id]
       figure.reference_id = params[:reference_id]
@@ -13,6 +13,11 @@ class FiguresController < ApplicationController
       figure.profil = true
     else
       flag = false
+    end
+    if current_user.admin && !params[:user_id].blank?
+      figure.user_id = params[:user_id]
+    else
+      figure.user_id = current_user.id
     end
     figure.set_file_name
     figure.picture = params[:figure][:picture]

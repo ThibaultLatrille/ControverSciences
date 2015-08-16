@@ -120,7 +120,7 @@
               <br/>
               <%= f.button "Modifier votre synthèse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success btn-lg pull-right',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
           <% end %>
           <div>
             <div id="upload-btn" class="btn btn-default btn-lg fileinput-button">
@@ -250,7 +250,7 @@
         'use strict';
         // Change this to the location of your server-side upload handler:
         $('#fileupload').fileupload({
-            url: "<%= figures_url + "?timeline_id=" + @summary.timeline_id.to_s %>",
+            url: "<%= figures_url + "?timeline_id=" + @summary.timeline_id.to_s  + "&user_id=" +  @summary.user_id.to_s %>",
             type: 'POST',
             dataType: 'json',
             done: function (e, data) {
