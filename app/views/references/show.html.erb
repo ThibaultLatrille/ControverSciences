@@ -260,7 +260,7 @@
               <br/>
               <%= f.button "Enregistrer cet avis &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
                            class: 'btn btn-success pull-right',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp Modification en cours "} %>
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp #{t('views.buttons.editing')} "} %>
           <% end %>
         </li>
       <% end %>
@@ -312,7 +312,7 @@
                             <%= f.button "Enregistrer la modification &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
                                          class: "btn btn-success",
                                          name: "update",
-                                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
+                                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
                         <% end %>
                       </div>
                   <% end %>
@@ -389,7 +389,7 @@
                       <%= f.button "Enregistrer la modification &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
                                    class: "btn btn-success",
                                    name: "update",
-                                   data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Modification en cours "} %>
+                                   data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
                   <% end %>
                 </div>
             <% end %>
