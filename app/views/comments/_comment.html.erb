@@ -29,7 +29,7 @@
        <% end %>
     <% end %>
     <div class="pull-right">
-      Publiée il y a <%= time_ago_in_words(comment.created_at) %> par <%= link_to comment.user_name, user_path(comment.user_id ) %>
+      <%= "#{t('views.default.published')} #{time_ago_in_words(comment.created_at)} #{t('views.default.by')}" %> <%= link_to comment.user_name, user_path(comment.user_id ) %>
     </div>
   </span>
   </div>

@@ -4,19 +4,19 @@
 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
   <div class="list-group">
     <%= link_to "<span class=\"icon-arrow-left normal\"></span>
-    Revenir à la controverse".html_safe,
+    #{t('views.navigation.back_timeline')}".html_safe,
                 timeline_path(@comment.timeline_id),
                 class: "list-group-item" %>
     <%= link_to "<span class=\"icon-arrow-left normal\"></span>
-    Revenir à la référence".html_safe,
+    #{t('views.navigation.back_reference')}".html_safe,
                 reference_path(@comment.reference_id),
                 class: "list-group-item" %>
 
     <% if @myreference.user_id == current_user.id || current_user.admin %>
-          <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier la référence".html_safe,
+          <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> #{t('views.references.edit')}".html_safe,
                       edit_reference_path(@myreference),
                       class: "list-group-item" %>
-          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer la référence".html_safe,
+          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.references.delete')}".html_safe,
                       reference_path(@myreference), method: :delete,
                       data:                                    {confirm: t('views.default.confirm')},
                       class:                                   "list-group-item list-group-item-danger" %>
@@ -29,29 +29,21 @@
 <div class="col-xs-12 col-lg-7">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h2> Ecrire une analyse </h2>
+      <h2> <%= t('views.comments.new') %> </h2>
       <br/>
-      Pour la référence :
+      <%= t('views.comments.from_reference') %>:
 
       <%= link_to @myreference.title,
                   reference_url(@comment.reference_id) %> <br>
 
-      Dans la controverse :
+      <%= t('views.comments.from_timeline') %>:
       <%= link_to @comment.timeline_name.html_safe,
                   timeline_url(@comment.timeline_id) %>
     </div>
     <div class="panel-body">
       <div class="panel panel-info">
         <div class="panel-heading">
-          Il n'est pas nécessaire de remplir tous les champs pour publier l'analyse,
-          écrivez la en ne remplissant que les champs qui vous sont pertinents.
-          Vous pourrez de toute façon modifier cette analyse ultérieurement si nécessaire.
-          Plus votre analyse est concise est précise, mieux cela est pour les lecteurs.
-          <br/>
-          Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
-          De plus vous pouvez insérer des liens internes vers les références de cette controverse
-          (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
-          au lecteur une meilleure navigation entre les références de la controverse.
+          <%= t('views.comments.edit_help_html') %>
         </div>
       </div>
       <%= form_for(@comment, html: {multipart: true}) do |f| %>
@@ -59,25 +51,20 @@
           <div class="switcher pull-right">
             <p class="fieldset">
               <%= f.radio_button :public, true %>
-              <label for="comment_public_true">Publique</label>
+              <label for="comment_public_true"><%= t('views.default.public_f') %></label>
               <%= f.radio_button :public, false %>
-              <label for="comment_public_false">Privée</label>
+              <label for="comment_public_false"><%= t('views.default.private_f') %></label>
               <span class="switch"></span>
             </p>
           </div>
           <br/>
           <br/>
-          <%= f.label "Accroche" %>
+          <%= f.label category_hash[@myreference.category][6] %>
           <div id="characterLeft6"></div>
 
           <%= f.text_area :title, {rows:          4, :class => "form-control textarea",
                                    id:            "description6",
                                    "data-provide" => "markdown"} %>
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              L'accroche permet de situer en une phrase la référence dans la controverse.
-            </div>
-          </div>
           <br/>
           <% for fi in 0..5 %>
               <% if category_limit[@myreference.category].keys.include?(fi) %>
@@ -111,7 +98,7 @@
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
+                <strong> <%= t('views.edition.caption') %> </strong> <strong id="caption-name"></strong>
                 <br/>
 
                 <div id="characterLeft7"></div>
@@ -121,7 +108,7 @@
                 <div class="panel panel-info">
                   <div class="panel-heading">
                     <span class="glyphicon glyphicon-warning-sign"></span>
-                    La source de la figure est requise pour des raisons évidentes de droit d'auteur.
+                    <%= t('views.picture.source_figure') %>
                   </div>
                 </div>
               </div>
@@ -132,7 +119,7 @@
               <div class="alert alert-danger alert-dismissible" role="alert">
                 <strong>
                   <span class="glyphicon glyphicon-warning-sign"></span>
-                  Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo).
+                  <%= t('views.picture.invalid_figure') %>
                 </strong>
               </div>
             </div>
@@ -140,14 +127,14 @@
           <br/>
           <br/>
 
-          <%= f.button "Publier votre analyse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+          <%= f.button "#{ t('views.comments.publish') } &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                        class: 'pull-right btn btn-success btn-lg',
-                       data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
+                       data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{ t('views.buttons.publishing') } "} %>
       <% end %>
       <div>
         <div id="upload-btn" class="btn btn-default btn-lg fileinput-button">
           <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-          <span id="ajouter"> Ajouter une figure </span>
+          <span id="ajouter"> <%= t('views.picture.add_figure') %> </span>
           <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
         </div>
         <div id="progress" style="display: none">
@@ -159,7 +146,7 @@
         </div>
         <div id="delete" class="btn btn-danger btn-lg" style="display: none">
           <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-          Supprimer la figure
+          <%= t('views.picture.delete_figure') %>
         </div>
       </div>
     </div>
@@ -168,26 +155,26 @@
 <div class="col-xs-12 col-lg-5">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h6 class="panel-title"> <%= category_names[@myreference.category] %> : <%= @myreference.title %> </h6>
+      <h6 class="panel-title"><%= category_names[@myreference.category] %> : <%= @myreference.title %> </h6>
     </div>
     <div class="panel-body">
       <ul class="list-group">
         <li class="list-group-item">
           <div class="bold">
-            Les auteurs de l'étude :
+            <%= t('views.references.authors') %>:
           </div> <%= @myreference.author.html_safe %> </li>
         <li class="list-group-item">
           <div class="bold">
-            Année de publication :
+            <%= t('views.references.year') %>:
           </div> <%= @myreference.display_year %> </li>
         <li class="list-group-item">
           <div class="bold">
-            Journal :
+            <%= t('views.references.journal') %>:
           </div> <%= @myreference.journal.html_safe %></li>
         <% unless @myreference.abstract_markdown.blank? %>
             <li class="list-group-item">
               <div class="bold">
-                Abstract (dans sa langue originale) :
+                <%= t('views.references.abstract') %>:
               </div>
               <div class="justify">
                 <%= @myreference.abstract_markdown.html_safe %>
@@ -197,33 +184,32 @@
         <% unless @myreference.doi.blank? %>
             <li class="list-group-item">
               <div class="bold">
-                Identifiant unique :
+                <%= t('views.references.doi') %>:
               </div> <%= @myreference.doi %></li>
         <% end %>
         <li class="list-group-item">
           <div class="bold">
-            Lien vers la référence
-            <%= @myreference.open_access ? "(<span class=\"icon icon-lock normal\"></span> Accés libre)".html_safe : "" %>
+            <%= t('views.comments.reference_href') %>
+            <%= @myreference.open_access ? "(<span class=\"icon icon-lock normal\"></span> #{ t('views.references.open_access')}})".html_safe : "" %>
             :
-          </div> <%= link_to @myreference.url, @myreference.url, class: "break-word", target: "_blank" %>
-        </li>
+          </div> <%= link_to @myreference.url, @myreference.url, class: "break-word", target: "_blank" %></li>
       </ul>
     </div>
     <div class="panel-footer clearfix">
                 <span class="pull-right">
                   <br/>
-                  Référence ajoutée par <%= link_to @myreference.user_name, user_path(@myreference.user_id) %>
+                  <%= t('views.comments.reference_added_by') %> <%= link_to @myreference.user_name, user_path(@myreference.user_id) %>
                 </span>
 
       <div class="sticky" data-placement="left"
            data-toggle="tooltip"
-           title="<%= @myreference.nb_contributors.to_s + (@myreference.nb_contributors > 1 ? " contributeurs" : " contributeur") %>">
+           title="<%= t('views.pluralize.users', count: @myreference.nb_contributors ) %>">
         <span class="big icon-users"></span>
         <%= @myreference.nb_contributors %>
       </div>
       <div class="sticky" data-placement="top"
            data-toggle="tooltip"
-           title="<%= @myreference.nb_edits.to_s + (@myreference.nb_edits > 1 ? " analyses" : " analyse") %>">
+           title="<%= t('views.pluralize.comments', count: @myreference.nb_edits ) %>">
         <span class="big icon-comment"></span>
         <%= @myreference.nb_edits %>
       </div>
@@ -242,9 +228,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">
           <% if @tim_list.any? %>
-              Créer un lien vers une controverse
+              <%= t('views.edition.add_timeline_link') %>
           <% else %>
-              Opération impossible
+              <%= t('views.edition.imposible') %>
           <% end %>
         </h4>
       </div>
@@ -253,16 +239,16 @@
             <%= select("timeline", "timeline_id", @tim_list, {}, {id: "list-tim", class: 'form-control'}) %>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn"> Ajouter
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-tim"> <%= t('views.buttons.add') %>
             </button>
           </div>
       <% else %>
           <div class="modal-body">
-            La controverse sur laquelle vous vous trouvez n'est actuellement liée à aucune autre.
+            <%= t('views.edition.timeline_not_linked') %>
             <br/>
             <br/>
             <%= link_to "<span class=\"glyphicon glyphicon-link\" >
-        </span> Créer des liens entre cette controverse et d'autres".html_safe,
+        </span> #{t('views.edition.add_timeline_links')}".html_safe,
                         edges_path(timeline_id: @comment.timeline_id),
                         class: "btn btn-primary btn-block", target: "_blank" %>
             <br/>
@@ -278,13 +264,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Créer un lien vers une référence </h4>
+        <h4 class="modal-title" id="myModalLabel"> <%= t('views.edition.add_reference_link') %> </h4>
       </div>
       <div class="modal-body">
         <%= select("reference", "reference_id", @list, {}, {id: "list-ref", class: 'form-control'}) %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-tim"> Ajouter
+        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-tim"> <%= t('views.buttons.add') %>
         </button>
       </div>
     </div>
@@ -296,14 +282,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Ajouter un lien externe </h4>
+        <h4 class="modal-title" id="myModalLabel"> <%= t('views.edition.add_href') %> </h4>
       </div>
       <div class="modal-body">
         <input id="http-text" type="text" class="form-control" placeholder="http://">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-http">
-          Ajouter
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn-http">
+          <%= t('views.buttons.add') %>
         </button>
       </div>
     </div>
@@ -316,7 +302,7 @@
         if ($('#comment_has_picture').val() === 'true') {
             $('#caption').show();
             $('#delete').show();
-            $('#ajouter').text("Modifier la figure");
+            $('#ajouter').text("<%= t('views.picture.edit_figure') %>");
         }
     });
     $(function () {
@@ -350,7 +336,7 @@
     $('#delete').click(function () {
         $('#caption').hide(300);
         $('#delete').hide(300);
-        $('#ajouter').text("Ajouter une figure à cette analyse");
+        $('#ajouter').text("<%= t('views.picture.add_figure') %>");
         $('#comment_delete_picture').val('true');
     });
     $('#save-btn').on('click', function (event) {
@@ -373,11 +359,11 @@
             if (len >= max) {
                 var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
             } else {
                 var ch = max - len;
                 $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' caractères restants.');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
             }
         });
         $('#description' + value).keyup(function () {
@@ -385,11 +371,11 @@
             if (len >= max) {
                 var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
             } else {
                 var ch = max - len;
                 $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' caractères restants.');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
             }
         });
     });
