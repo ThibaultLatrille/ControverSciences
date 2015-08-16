@@ -3,12 +3,48 @@ fr:
     default:
       fix_typo: "Corriger une faute de français"
       confirm: "Êtes-vous certain ?"
+      published: "Publiée il y a"
+      by: "par"
+      public_f: "Publique"
+      private_f: "Privée"
+      warning: "Attention !"
+    navigation:
+      back_timeline: "Revenir à la controverse"
+      back_reference: "Revenir à la référence"
     pagination:
       first: "&laquo; Première"
       last: "Dernière &raquo;"
       previous: "&lsaquo; Précédente"
       next: "Suivante &rsaquo;"
       truncate: "&hellip;"
+    pluralize:
+      users:
+        one: "1 contributeur"
+        other: "%{count} contributeurs"
+      comments:
+        one: "1 analyse"
+        other: "%{count} analyses"
+    buttons:
+      editing: "Modification en cours"
+      publishing: "Publication en cours"
+      add: "Ajouter"
+    picture:
+      add_figure: "Ajouter une figure"
+      delete_figure: "Supprimer la figure"
+      edit_figure: "Modifier la figure"
+      invalid_figure: "Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo)."
+      source_figure: "La source de la figure est requise pour des raisons évidentes de droit d'auteur."
+    edition:
+      caption: "Légende de la figure"
+      add_timeline_link: "Créer un lien vers une controverse"
+      add_timeline_links: "Créer des liens entre cette controverse et d'autres"
+      imposible: "Opération impossible"
+      timeline_not_linked: "La controverse sur laquelle vous vous trouvez n'est actuellement liée à aucune autre."
+      add_reference_link: "Créer un lien vers une référence"
+      add_href: "Ajouter un lien externe"
+      make_private: "Rendre une contribution privée vous fera perdre tous les crédits qui lui ont été attribués."
+      character_much: "caractères en trop !"
+      character_left: "caractères restants."
     assistant:
       index: "Contributeurs en attentes"
       timelines: "Mettre à jour les valeurs sélectives des controverses"
@@ -19,3 +55,29 @@ fr:
       display_all: "Toutes les contributions"
       upvote: "Sélectionner cette analyse comme votre favorite"
       downvote: "Désélectionner cette analyse comme votre favorite"
+    comments:
+      show: "Analyse de la référence"
+      new: "Ecrire une analyse"
+      publish: "Publier votre analyse"
+      edit: "Modifier votre analyse"
+      delete: "Supprimer votre analyse"
+      from_reference: "De la référence "
+      from_timeline: "Dans la controverse "
+      edit_help_html: "Vous pouvez tout à fait laissez certains champs vides.
+                            Plus votre analyse est concise et précise, mieux cela est pour les lecteurs.
+                            <br/>
+                            Le <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown est supporté</a>.
+                            De plus vous pouvez insérer des liens internes vers les références de cette controverse
+                            (bouton <span class=\"icon-reference normal\"></span> dans la barre d'outils) afin de permettre
+                            au lecteur une meilleure navigation entre les références de la controverse."
+      reference_href: "Lien vers la référence"
+      reference_added_by: "Référence ajoutée par"
+    references:
+      edit: "Modifier votre référence"
+      delete: "Supprimer votre référence"
+      authors: "Les auteurs de l'étude "
+      year: "Année de publication "
+      journal: "Journal "
+      abstract: "Abstract (dans sa langue originale) "
+      doi: "Identifiant unique "
+      open_access: "Accés libre"
