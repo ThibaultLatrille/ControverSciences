@@ -8,6 +8,9 @@ fr:
       public_f: "Publique"
       private_f: "Privée"
       warning: "Attention !"
+      you_and: "Vous et "
+      to: "Vers"
+      from: "Depuis"
     navigation:
       back_timeline: "Revenir à la controverse"
       back_reference: "Revenir à la référence"
@@ -23,12 +26,13 @@ fr:
     model:
       users: "Les contributeurs"
       timelines: "Les controverses"
+      reference: "La référence"
       references: "Les références"
       comments: "Les analyses"
       summaries: "Les synthèses"
     pluralize:
       users:
-        one: "1 contributeur"
+        one: "%{count} contributeur"
         other: "%{count} contributeurs"
       comments:
         one: "1 analyse"
@@ -36,6 +40,7 @@ fr:
     buttons:
       editing: "Modification en cours"
       publishing: "Publication en cours"
+      creating: "Création en cours"
       add: "Ajouter"
     picture:
       add_figure: "Ajouter une figure"
@@ -90,3 +95,25 @@ fr:
       abstract: "Abstract (dans sa langue originale) "
       doi: "Identifiant unique "
       open_access: "Accés libre"
+    edges:
+      new_edge: "Créer un nouveau lien"
+      to_timeline: "Les liens concernant la controverse"
+      with_timeline: "Liens avec la controverse..."
+      with_timelines: "Liens avec les controverses "
+      add_edge: "Ajouter un lien"
+      impossible: "Opération impossible : vous avez précédemment émis un avis contraire sur ce sujet.
+                                 Annulez d'abord votre vote précédent (en cliquant à nouveau sur le bouton correspondant)."
+      upvote:
+        one: "%{count} contributeur trouve ce lien pertinent."
+        other: "%{count} contributeurs trouvent ce lien pertinent."
+      downvote:
+        one: "%{count} contributeur ne trouve pas ce lien pertinent."
+        other: "%{count} contributeurs ne trouvent pas ce lien pertinent."
+      not_counted: "Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs."
+    reference_edges:
+      to_reference: "Les liens concernant la référence"
+      no_edges: "n'a aucun lien vers d'autres références"
+      direction: "Sens du lien"
+      category: "Type de lien"
+      with_reference: "Avec la référence"
+      possible: "Les liens possibles entre ces deux références"

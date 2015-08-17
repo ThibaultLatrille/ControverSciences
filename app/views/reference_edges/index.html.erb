@@ -3,10 +3,10 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
       <div class="list-group">
-        <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la controverse".html_safe,
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
                     timeline_path(params[:timeline_id]),
                     class: "list-group-item" %>
-        <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la référence".html_safe,
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_reference')}".html_safe,
                     reference_path(params[:reference_id]),
                     class: "list-group-item" %>
       </div>
@@ -15,7 +15,7 @@
       <div class="panel panel-default clearfix">
         <div class="panel-heading clearfix">
           <h2>
-            Les liens concernant la référence
+            <%= t('views.reference_edges.to_reference') %>
             <%= link_to Reference.select(:title, :title_fr).find(params[:reference_id]).title_display.html_safe, reference_path(params[:reference_id]) %>
             <br/>
             <br/>
@@ -23,14 +23,17 @@
         </div>
         <div class="panel-body">
           <% if @reference_edges.any? %>
-              <h6><span class="glyphicon glyphicon-link"></span> La
-                référence <%= Reference.select(:title, :title_fr).find(params[:reference_id])
+              <h6><span class="glyphicon glyphicon-link"></span>
+                <%= t('views.model.reference') %>
+                <%= Reference.select(:title, :title_fr).find(params[:reference_id])
                               .title_display.html_safe %> </h6>
           <% else %>
-              <h6><span class="glyphicon glyphicon-link"></span> La
-                référence <%= Reference.select(:title, :title_fr).find(params[:reference_id])
-                              .title_display.html_safe %> n'a aucun lien vers
-                d'autres références
+              <h6><span class="glyphicon glyphicon-link"></span>
+                <%= t('views.model.reference') %>
+                <%= Reference.select(:title, :title_fr).find(params[:reference_id])
+                              .title_display.html_safe %>
+                <%= t('views.reference_edges.no_edges') %>
+
               </h6>
           <% end %>
           <% @reference_edges.each do |reference_edge| %>
@@ -54,7 +57,7 @@
                   </h4>
                   <% if reference_edge.balance < 0 %>
                       <div class="alert alert-danger">
-                        Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs.
+                        <%= t('views.edges.not_counted') %>
                       </div>
                   <% end %>
                   <div class="panel panel-default">
@@ -63,7 +66,7 @@
                         <a data-toggle="collapse" href="#Collapse<%= reference_edge.id %>" class="pull-right glyphicon glyphicon-chevron-down"></a>
                         <a data-toggle="collapse" href="#Collapse<%= reference_edge.id %>">
                           <span class="glyphicon glyphicon-link"></span>
-                          Les liens possibles entre ces deux références
+                          <%= t('views.reference_edges.possible') %>
                         </a>
                       </h4>
                     </div>
@@ -77,14 +80,14 @@
                                       <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
                                               data-category="<%= category %>"
                                               data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                              title="Vous et <%= (reference_edge.plus_count(category) - 1).to_s + ( (reference_edge.plus_count(category) - 1) > 1 ? " autres contributeurs trouvent" : " autre contributeur trouve") + " ce lien pertinent." %>">
+                                              title="<%= t('views.default.you_and') + t('views.edges.upvote', count: (reference_edge.plus_count(category)-1)) %>">
                                         <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category) %></span>
                                       </button>
                                   <% else %>
                                       <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
                                               data-category="<%= category %>"
                                               data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                              title="<%= reference_edge.plus_count(category).to_s + ( reference_edge.plus_count(category) > 1 ? " contributeurs trouvent" : " contributeur trouve") + " ce lien pertinent." %>">
+                                              title="<%= t('views.edges.upvote', count: reference_edge.plus_count(category)) %>">
                                         <span class="icon icon-4 font16"> <%= reference_edge.plus_count(category) %></span>
                                       </button>
                                   <% end %>
@@ -93,14 +96,14 @@
                                       <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
                                               data-category="<%= category %>"
                                               data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                              title="Vous et <%= (reference_edge.minus_count(category) - 1).to_s + ( (reference_edge.minus_count(category) - 1) > 1 ? " autres contributeurs ne trouvent" : " autre contributeur ne trouve") + " pas ce lien pertinent." %>">
+                                              title="<%=  t('views.default.you_and') + t('views.edges.downvote', count: (reference_edge.minus_count(category)-1)) %>">
                                         <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category) %></span>
                                       </button>
                                   <% else %>
                                       <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
                                               data-category="<%= category %>"
                                               data-toggle="tooltip" value="<%= reference_edge.id %>" data-validate="/reference_edge_votes"
-                                              title="<%= reference_edge.minus_count(category).to_s + ( reference_edge.minus_count(category) > 1 ? " contributeurs ne trouvent" : " contributeur ne trouve") + " pas ce lien pertinent." %>">
+                                              title="<%= t('views.edges.downvote', count: reference_edge.minus_count(category)) %>">
                                         <span class="icon icon-2 font16"> <%= reference_edge.minus_count(category) %></span>
                                       </button>
                                   <% end %>
@@ -110,7 +113,7 @@
                                       <%= backward_edges_category[category] %>
                                   <% else %>
                                       <%= forward_edges_category[category] %>
-                                  <% end %> la référence :
+                                  <% end %> <%= t('views.model.reference').downcase %>:
                                   <% if params[:reference_id].to_i == reference_edge.target %>
                                       <%= link_to "#{reference_edge.reference_title_fr.blank? ? "" : reference_edge.reference_title_fr.strip[3..-5].html_safe}
                                 <div style=\"margin-top: 5px; font-style: italic; font-size: 1em\"> #{reference_edge.reference_title.html_safe}</div>".html_safe,
@@ -135,8 +138,8 @@
           <% if @reference_names.length > 0 %>
           <div class="panel panel-success">
             <div class="panel-heading">
-              <h4><span class="glyphicon glyphicon-link"></span> Créer un nouveau lien
-
+              <h4><span class="glyphicon glyphicon-link"></span>
+                <%= t('views.edges.new_edge') %>
               </h4>
             </div>
             <div class="panel-body">
@@ -146,20 +149,20 @@
                   <%= f.hidden_field :reference_id, value: params[:reference_id] %>
                   <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
 
-                  <%= f.label "Sens du lien" %>
-                  <%= f.select :direction, [["Vers", "to"], ["Depuis", "from"]], {:prompt => "Sens du lien..."}, {class: 'form-control'} %>
+                  <%= f.label t('views.reference_edges.direction') %>
+                  <%= f.select :direction, [[t('views.default.to'), "to"], [t('views.default.from'), "from"]], {:prompt => "#{t('views.reference_edges.direction')}..."}, {class: 'form-control'} %>
                   <br/>
 
-                    <%= f.label "Type de lien" %>
-                    <%= f.select :category, [], {:prompt => "Type de lien..."}, {class: 'form-control'} %>
+                    <%= f.label t('views.reference_edges.category') %>
+                    <%= f.select :category, [], {:prompt => "#{t('views.reference_edges.category')}..."}, {class: 'form-control'} %>
                     <br/>
 
-                  <%= f.label "Avec la référence" %>
-                  <%= f.select :target, @reference_names.map { |t| [t[0].html_safe, t[1]] }, {:prompt => "Avec la référence..."}, {class: 'form-control'} %>
+                  <%= f.label t('views.reference_edges.with_reference') %>
+                  <%= f.select :target, @reference_names.map { |t| [t[0].html_safe, t[1]] }, {:prompt => "#{t('views.reference_edges.with_reference')}..."}, {class: 'form-control'} %>
                   <br/>
-                  <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Ajouter un lien".html_safe,
+                  <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp #{t('views.edges.add_edge')}".html_safe,
                                class: 'btn btn-success pull-right',
-                               data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Mise à jour"} %>
+                               data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')}"} %>
                   <br/>
                   <br/>
               <% end %>
@@ -179,8 +182,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <br/>
 
-        <h2 class="modal-title" id="myModalLabel">Opération impossible : vous avez précédemment émis un avis contraire sur ce sujet.
-          Annulez d'abord votre vote précédent (en cliquant à nouveau sur le bouton correspondant).</h2>
+        <h2 class="modal-title" id="myModalLabel"><%= t('views.edges.impossible') %>
+        </h2>
         <br/>
       </div>
       <div class="modal-footer">
@@ -197,7 +200,7 @@
         if (myvalue === "to"){
             referenceEdgeCategory.empty();
             referenceEdgeCategory.append($("<option></option>")
-                    .attr("value", "").text("Type de lien..."));
+                    .attr("value", "").text("<%= t('views.reference_edges.category') %>..."));
             $.each(selectList, function(key, value) {
                 if (value[1] % 2 === 1) {
                     referenceEdgeCategory.append($("<option></option>")
@@ -207,7 +210,7 @@
         } else if (myvalue === "from") {
             referenceEdgeCategory.empty();
             referenceEdgeCategory.append($("<option></option>")
-                    .attr("value", "").text("Type de lien..."));
+                    .attr("value", "").text("<%= t('views.reference_edges.category') %>..."));
             $.each(selectList, function(key, value) {
                 if (value[1] % 2 === 0) {
                     referenceEdgeCategory.append($("<option></option>")
@@ -252,7 +255,7 @@
                             self.addClass('btn-danger');
                         }
                         self.removeClass('btn-default');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                        self.attr('data-original-title', "<%= t('views.default.you_and')%>" + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
                     204: function (response) {
@@ -267,7 +270,7 @@
                             self.removeClass('btn-danger');
                             self.addClass('red');
                         }
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                        self.attr('data-original-title', self.attr('data-original-title').replace('<%= t('views.default.you_and')%>', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
                     401: function (response) {

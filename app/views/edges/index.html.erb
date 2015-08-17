@@ -3,7 +3,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
           <div class="list-group">
-            <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la controverse".html_safe,
+            <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
                         timeline_path(params[:timeline_id]),
                         class: "list-group-item" %>
           </div>
@@ -12,7 +12,7 @@
           <div class="panel panel-default clearfix">
             <div class="panel-heading clearfix">
               <h2>
-              Les liens concernant la controverse
+                <%= t('views.edges.to_timeline') %>
                 <%= link_to Timeline.select(:name).find(params[:timeline_id]).name.html_safe, timeline_path(params[:timeline_id]) %>
                 <br/>
                 <br/>
@@ -20,7 +20,7 @@
             </div>
             <div class="panel-body">
               <% if @edges.any? %>
-              <h6><span class="glyphicon glyphicon-link"></span> Liens avec les controverses : </h6>
+              <h6><span class="glyphicon glyphicon-link"></span> <%= t('views.edges.with_timelines') %>: </h6>
               <% end %>
               <% @edges.each do |edge| %>
                   <div class="panel <%= edge.balance >= 0 ? "panel-default" : "panel-danger" %>" >
@@ -29,26 +29,26 @@
                         <% if @my_vote_likes && @my_vote_likes.include?(edge.id) %>
                             <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="Vous et <%= (edge.plus - 1).to_s + ( (edge.plus - 1) > 1 ? " autres contributeurs trouvent" : " autre contributeur trouve") + " ce lien pertinent." %>">
+                                    title="<%= t('views.default.you_and') + t('views.edges.upvote', count: (edge.plus-1)) %>">
                               <span class="icon icon-4 font16"> <%= edge.plus %></span>
                             </button>
                         <% else %>
                             <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="<%= edge.plus.to_s + ( edge.plus > 1 ? " contributeurs trouvent" : " contributeur trouve") + " ce lien pertinent." %>">
+                                    title="<%= t('views.edges.upvote', count: edge.plus) %>">
                               <span class="icon icon-4 font16"> <%= edge.plus %></span>
                             </button>
                         <% end %>
                         <% if @my_vote_dislikes && @my_vote_dislikes.include?(edge.id) %>
                             <button type="button" class="btn btn-sm btn-danger" data-placement="right" data-value="false"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="Vous et <%= (edge.minus - 1).to_s + ( (edge.minus - 1) > 1 ? " autres contributeurs ne trouvent" : " autre contributeur ne trouve") + " pas ce lien pertinent." %>">
+                                    title="<%=  t('views.default.you_and') + t('views.edges.downvote', count: (edge.minus-1)) %>">
                               <span class="icon icon-2 font16"> <%= edge.minus %></span>
                             </button>
                         <% else %>
                             <button type="button" class="btn btn-sm btn-default red" data-placement="right" data-value="false"
                                     data-toggle="tooltip" value="<%= edge.id %>" data-validate="/edge_votes"
-                                    title="<%= edge.minus.to_s + ( edge.minus > 1 ? " contributeurs ne trouvent" : " contributeur ne trouve") + " pas ce lien pertinent." %>">
+                                    title="<%= t('views.edges.downvote', count: edge.minus) %>">
                               <span class="icon icon-2 font16"> <%= edge.minus %></span>
                             </button>
                         <% end %>
@@ -64,7 +64,7 @@
                       </h4>
                       <% if edge.balance < 0  %>
                           <div class="alert alert-danger">
-                            Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs.
+                            <%= t('views.edges.not_counted') %>
                           </div>
                       <% end  %>
                     </div>
@@ -72,7 +72,7 @@
               <% end %>
             <div class="panel panel-success">
               <div class="panel-heading">
-                <h4><span class="glyphicon glyphicon-link"></span> Créer un nouveau lien</h4>
+                <h4><span class="glyphicon glyphicon-link"></span> <%= t('views.edges.new_edge') %></h4>
               </div>
               <div class="panel-body">
                 <%= form_for(@edge) do |f| %>
@@ -81,12 +81,12 @@
 
 
                     <%= f.label "La controverse" %>
-                    <%= f.select :target, @timeline_names.map{ |t| [t[0].html_safe, t[1]]}, {:prompt => "Lien avec la controverse..."}, {class: 'form-control'} %>
+                    <%= f.select :target, @timeline_names.map{ |t| [t[0].html_safe, t[1]]}, {:prompt => "#{t('views.edges.with_timeline')}"}, {class: 'form-control'} %>
 
                     <br/>
-                    <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp Ajouter un lien".html_safe,
+                    <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp #{t('views.edges.add_edge')}".html_safe,
                                  class: 'btn btn-success pull-right',
-                                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Mise à jour"}%>
+                                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')}"}%>
                     <br/>
                     <br/>
                 <% end %>
@@ -105,8 +105,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <br/>
 
-            <h2 class="modal-title" id="myModalLabel">Opération impossible : vous avez précédemment émis un avis contraire sur ce sujet.
-              Annulez d'abord votre vote précédent (en cliquant à nouveau sur le bouton correspondant).</h2>
+            <h2 class="modal-title" id="myModalLabel">
+              <%= t('views.edges.impossible') %>
+            </h2>
         <br/>
       </div>
       <div class="modal-footer">
@@ -141,7 +142,7 @@
                             self.addClass('btn-danger');
                         }
                         self.removeClass('btn-default');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                        self.attr('data-original-title', "<%= t('views.default.you_and')%>" + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
                     204: function (response){
@@ -156,7 +157,7 @@
                             self.removeClass('btn-danger');
                             self.addClass('red');
                         }
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                        self.attr('data-original-title', self.attr('data-original-title').replace('<%= t('views.default.you_and')%>', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
                     401: function (response){
