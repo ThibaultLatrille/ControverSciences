@@ -1,4 +1,0 @@
-<%= t('views.sorting.') %>
-#{t('views.')}
-t('views.sorting')
-
