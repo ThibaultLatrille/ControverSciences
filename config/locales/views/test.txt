@@ -1,0 +1,4 @@
+<%= t('views.frames.') %>
+#{t('views.')}
+t('views.')
+

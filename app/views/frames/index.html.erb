@@ -10,22 +10,22 @@
       <% if logged_in? %>
           <% if @improve %>
               <%= link_to "<span class=\"icon-fork normal\" >
-                </span> Proposer une titre et un cadre".html_safe,
+                </span> #{t('views.frames.new')}".html_safe,
                           new_frame_path(timeline_id: @timeline.id),
                           :class => "list-group-item" %>
           <% elsif !current_user.private_timeline %>
               <% if params[:filter] == "mine" %>
                   <%= link_to "<span class=\"icon-fork normal\" >
-         </span> Modifier votre contribution".html_safe,
+         </span> #{t('views.frames.edit')}".html_safe,
                               edit_frame_path(@frames.first.id),
                               class: "list-group-item" %>
-                  <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre contribution".html_safe,
+                  <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.frames.delete')}".html_safe,
                               frame_path(@frames.first.id), method: :delete,
                               data:                                 {confirm: t('views.default.confirm')},
                               class:                                "list-group-item list-group-item-danger" %>
               <% else %>
                   <%= link_to "<span class=\"icon-summary normal\"></span>
-              Votre contribution".html_safe,
+              #{t('views.frames.mine')}".html_safe,
                               frames_path(timeline_id: @timeline.id, filter: "mine"),
                               :class => "list-group-item" %>
               <% end %>
@@ -42,19 +42,19 @@
             <% if logged_in? %>
                 <% unless @improve %>
                     <div class="btn-group">
-                      <%= link_to "Ma contribution (".html_safe + (@improve ? "0" : "1") + ")",
+                      <%= link_to "#{t('views.frames.mine')} (".html_safe + (@improve ? "0" : "1") + ")",
                                   frames_path(timeline_id: params[:timeline_id], :filter => 'mine'),
                                   class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
                     </div>
                 <% end %>
                 <div class="btn-group">
-                  <%= link_to "Toutes les contributions (#{@timeline.nb_frames})".html_safe,
+                  <%= link_to "#{t('views.frames.index')} (#{@timeline.nb_frames})".html_safe,
                               frames_path(timeline_id: params[:timeline_id]),
                               class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }" %>
                 </div>
                 <% if @my_credit %>
                     <div class="btn-group">
-                      <%= link_to "Ma contribution favorite".html_safe,
+                      <%= link_to t('views.frames.favorite'),
                                   frames_path(timeline_id: params[:timeline_id], :filter => 'my-vote'),
                                   class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
                     </div>
@@ -100,14 +100,14 @@
               <%= render @frames %>
           <% else %>
               <% if params[:filter] == "my-vote" %>
-                  Vous n'avez pas de contribution favorite
+                  <%= t('views.frames.no_favorite') %>
               <% elsif params[:filter] == "mine" %>
                   <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-        </span> Vous n'avez pas encore écrit de contribution ".html_safe,
+        </span> #{t('views.frames.no_mine')} ".html_safe,
                               new_frame_path(timeline_id: params[:timeline_id]),
                               class: "btn btn-primary" %>
               <% else %>
-                  Il n'y a pas de contribution autre que la votre
+                  <%= t('views.frames.no_other') %>
               <% end %>
           <% end %>
         </div>

@@ -10,13 +10,13 @@
         <% if logged_in? %>
             <% if @improve %>
                 <%= link_to "<span class=\"icon-fork normal\" >
-                    </span> Ecrire une synthèse".html_safe,
+                    </span> #{t('views.summaries.new')}".html_safe,
                             new_summary_path(timeline_id: @timeline.id),
                             :class => "list-group-item" %>
             <% else %>
                 <% if params[:filter] == "mine" %>
                     <%= link_to "<span class=\"icon-fork normal\" >
-             </span> Modifier votre synthèse".html_safe,
+             </span> #{t('views.summaries.edt')}".html_safe,
                                 edit_summary_path(@summaries.first.id),
                                 class: "list-group-item" %>
                     <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre synthèse".html_safe,

@@ -81,7 +81,7 @@
                 <% end %>
                 <% if @improve %>
                     <%= link_to "<span class=\"icon-fork normal\" >
-                    </span> Ecrire une synthèse".html_safe,
+                    </span> #{t('views.summaries.new')}".html_safe,
                                 new_summary_path(timeline_id: @timeline.id),
                                 :class => "list-group-item" %>
                 <% else %>
@@ -92,7 +92,7 @@
                 <% end %>
             <% else %>
                 <%= link_to "<span class=\"icon-fork normal\" >
-                    </span> Ecrire une synthèse".html_safe,
+                    </span> #{t('views.summaries.new')}".html_safe,
                             new_summary_path(timeline_id: @timeline.id),
                             class: "list-group-item" %>
             <% end %>
@@ -109,7 +109,7 @@
   <% if logged_in? %>
       <div class="list-group">
         <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
-            </span> Ajouter une référence à cette controverse.".html_safe,
+            </span> #{t('views.references.new')}".html_safe,
                     new_reference_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
       </div>

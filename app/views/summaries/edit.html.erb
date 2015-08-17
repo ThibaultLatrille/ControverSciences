@@ -29,7 +29,7 @@
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h2> Modifier votre synthèse </h2>
+          <h2> <%= t('views.summaries.edit') %> </h2>
           <br/>
           De la controverse :
           <%= link_to @my_timeline.name.html_safe,
@@ -118,7 +118,7 @@
               </div>
               <br/>
               <br/>
-              <%= f.button "Modifier votre synthèse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+              <%= f.button "#{t('views.summaries.edt')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success btn-lg pull-right',
                            data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
           <% end %>
