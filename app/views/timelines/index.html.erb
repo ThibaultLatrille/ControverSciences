@@ -22,43 +22,42 @@
           <button class="btn btn-default dropdown-toggle" type="button"
                   id="dropdownMenuTri" data-toggle="dropdown">
             <% if params[:sort].blank? || params[:sort]=='score' %>
-                Tri magique
+                <%= t('views.sorting.score_sort') %>
             <% else %>
-                Tri par
-                <%= params[:sort]=='score_recent' ? "activité récente" : nil %>
-                <%= params[:sort]=='created_at' ? "date de création" : nil %>
-                <%= params[:sort]=='nb_contributors' ? "Nombre de contributeurs" : nil %>
-                <%= params[:sort]=='nb_references' ? "nombre de références" : nil %>
-                <%= params[:sort]=='nb_comments' ? "Nombre d'analyses" : nil %>
-                <%= params[:sort]=='nb_summaries' ? "Nombre de synthèses" : nil %>
-                <%= params[:sort]=='nb_likes' ? "Nombre de <span class=\"glyphicon glyphicon-thumbs-up\"></span>".html_safe : nil %>
+                <%= params[:sort]=='score_recent' ? t('views.sorting.score_recent') : nil %>
+                <%= params[:sort]=='created_at' ? t('views.sorting.created_at') : nil %>
+                <%= params[:sort]=='nb_contributors' ? t('views.sorting.nb_contributors') : nil %>
+                <%= params[:sort]=='nb_references' ? t('views.sorting.nb_references') : nil %>
+                <%= params[:sort]=='nb_comments' ? t('views.sorting.nb_comments') : nil %>
+                <%= params[:sort]=='nb_summaries' ? t('views.sorting.nb_summaries') : nil %>
+                <%= params[:sort]=='nb_likes' ?  t('views.sorting.nb_likes_html') : nil %>
             <% end %>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
             <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-              <%= link_to "Magique (par défaut)", timelines_path(:sort  => 'score', :interest => params[:interest],
+              <%= link_to t('views.sorting.score'), timelines_path(:sort  => 'score', :interest => params[:interest],
                                                                  :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
-              <%= link_to "Les controverses du moment", timelines_path(:sort  => 'score_recent', :interest => params[:interest],
+              <%= link_to t('views.sorting.score_recent'), timelines_path(:sort  => 'score_recent', :interest => params[:interest],
                                                                        :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-              <%= link_to "Date de création", timelines_path(:sort  => 'created_at', :interest => params[:interest],
+              <%= link_to t('views.sorting.created_at'), timelines_path(:sort  => 'created_at', :interest => params[:interest],
                                                              :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_contributors' ? "class=selected" : nil %> >
-              <%= link_to "Nombre de contributeurs", timelines_path(:sort  => 'nb_contributors', :interest => params[:interest],
+              <%= link_to t('views.sorting.nb_contributors'), timelines_path(:sort  => 'nb_contributors', :interest => params[:interest],
                                                                     :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_references' ? "class=selected" : nil %> >
-              <%= link_to "Nombre de références", timelines_path(:sort  => 'nb_references', :interest => params[:interest],
+              <%= link_to t('views.sorting.nb_references'), timelines_path(:sort  => 'nb_references', :interest => params[:interest],
                                                                  :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_comments' ? "class=selected" : nil %> >
-              <%= link_to "Nombre d'analyses", timelines_path(:sort  => 'nb_comments', :interest => params[:interest],
+              <%= link_to t('views.sorting.nb_comments'), timelines_path(:sort  => 'nb_comments', :interest => params[:interest],
                                                               :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_summaries' ? "class=selected" : nil %> >
-              <%= link_to "Nombre de synthèses", timelines_path(:sort  => 'nb_summaries', :interest => params[:interest],
+              <%= link_to t('views.sorting.nb_summaries'), timelines_path(:sort  => 'nb_summaries', :interest => params[:interest],
                                                                 :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_likes' ? "class=selected" : nil %> >
-              <%= link_to "Nombre de <span class=\"glyphicon glyphicon-thumbs-up\"></span>".html_safe,
+              <%= link_to t('views.sorting.nb_likes_html'),
                                                                 timelines_path(:sort  => 'nb_likes', :interest => params[:interest],
                                                                 :order => params[:order], :tag => params[:tag]) %> </li>
           </ul>
@@ -66,19 +65,15 @@
         <div class="btn-group">
           <button class="btn btn-default dropdown-toggle" type="button"
                   id="dropdownMenuOrder" data-toggle="dropdown">
-            <% if params[:order] == 'desc' || params[:order].blank? %>
-                Ordre décroissant
-            <% else %>
-                Ordre croissant
-            <% end %>
+            <%= (params[:order]=='desc' || params[:order].blank? ) ? t('views.sorting.desc_sort') : t('views.sorting.asc_sort') %>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
             <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-              <%= link_to "Décroissant (par défaut)", timelines_path(:sort  => params[:sort], :interest => params[:interest],
+              <%= link_to t('views.sorting.desc'), timelines_path(:sort  => params[:sort], :interest => params[:interest],
                                                                      :order => 'desc', :tag => params[:tag]) %> </li>
             <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-              <%= link_to "Croissant", timelines_path(:sort  => params[:sort], :interest => params[:interest],
+              <%= link_to t('views.sorting.asc'), timelines_path(:sort  => params[:sort], :interest => params[:interest],
                                                       :order => 'asc', :tag => params[:tag]) %> </li>
           </ul>
         </div>

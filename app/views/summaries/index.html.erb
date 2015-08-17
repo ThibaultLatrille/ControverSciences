@@ -62,16 +62,16 @@
                 <div class="btn-group">
                   <button class="btn btn-default dropdown-toggle" type="button"
                           id="dropdownMenuTri" data-toggle="dropdown">
-                    <%= params[:sort]=='score' || params[:sort].nil? ? "Tri magique" : "Tri par date" %>
+                    <%= (params[:sort]=='score' || params[:sort].nil?) ? t('views.sorting.score_sort') : t('views.sorting.created_at_sort') %>
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
                     <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-                      <%= link_to "Magique (par défaut)", summaries_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.score'), summaries_path(timeline_id: params[:timeline_id],
                                                                          :sort        => 'score',
                                                                          :order       => params[:order]) %> </li>
                     <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-                      <%= link_to "Date de création", summaries_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.created_at'), summaries_path(timeline_id: params[:timeline_id],
                                                                      :sort        => 'created_at',
                                                                      :order       => params[:order]) %> </li>
                   </ul>
@@ -84,10 +84,10 @@
                   </button>
                   <ul class="dropdown-menu" role="menu">
                     <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-                      <%= link_to "Décroissant (par défaut)", summaries_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.desc'), summaries_path(timeline_id: params[:timeline_id],
                                                                              :sort        => params[:sort], :order => 'desc') %> </li>
                     <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-                      <%= link_to "Croissant", summaries_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.asc'), summaries_path(timeline_id: params[:timeline_id],
                                                               :sort        => params[:sort], :order => 'asc') %> </li>
                   </ul>
                 </div>

@@ -63,16 +63,16 @@
                 <div class="btn-group">
                   <button class="btn btn-default dropdown-toggle" type="button"
                           id="dropdownMenuTri" data-toggle="dropdown">
-                    <%= params[:sort]=='score' || params[:sort].nil? ? "Tri magique" : "Tri par date" %>
+                    <%= (params[:sort]=='score' || params[:sort].nil?) ? t('views.sorting.score_sort') : t('views.sorting.created_at_sort') %>
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
                     <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-                      <%= link_to "Magique (par défaut)", frames_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.score'), frames_path(timeline_id: params[:timeline_id],
                                                                       :sort        => 'score',
                                                                       :order       => params[:order]) %> </li>
                     <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-                      <%= link_to "Date de création", frames_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.created_at'), frames_path(timeline_id: params[:timeline_id],
                                                                   :sort        => 'created_at',
                                                                   :order       => params[:order]) %> </li>
                   </ul>
@@ -80,15 +80,15 @@
                 <div class="btn-group">
                   <button class="btn btn-default dropdown-toggle" type="button"
                           id="dropdownMenuOrder" data-toggle="dropdown">
-                    <%= params[:order]=='desc' || params[:order].nil? ? "Ordre décroissant" : "Ordre croissant" %>
+                    <%= (params[:order]=='desc' || params[:order].blank? ) ? t('views.sorting.desc_sort') : t('views.sorting.asc_sort') %>
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu">
                     <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-                      <%= link_to "Décroissant (par défaut)", frames_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.desc'), frames_path(timeline_id: params[:timeline_id],
                                                                           :sort        => params[:sort], :order => 'desc') %> </li>
                     <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-                      <%= link_to "Croissant", frames_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.asc'), frames_path(timeline_id: params[:timeline_id],
                                                            :sort        => params[:sort], :order => 'asc') %> </li>
                   </ul>
                 </div>
