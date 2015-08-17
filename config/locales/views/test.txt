@@ -1,4 +1,4 @@
-<%= t('views.frames.') %>
+<%= t('views.sorting.') %>
 #{t('views.')}
-t('views.')
+t('views.sorting')
 
