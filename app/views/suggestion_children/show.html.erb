@@ -12,7 +12,7 @@
               </div>
               <% if @suggestion.timeline_id && @suggestion.timeline_id > 0 %>
                   <br/>
-                  <%= link_to "<span class=\"icon-frog\"></span> Revenir à la controverse".html_safe,
+                  <%= link_to "<span class=\"icon-frog\"></span> #{t('views.navigation.back_timeline')}".html_safe,
                               timeline_path(@suggestion.timeline_id), class: "btn btn-primary pull-right" %>
               <% else %>
                   <% if logged_in? && (@suggestion.user_id == current_user.id || current_user.admin) %>

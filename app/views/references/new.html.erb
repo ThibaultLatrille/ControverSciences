@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
       <div class="list-group">
-      <%= link_to "<span class=\"icon-arrow-left normal\"> </span> Revenir à la controverse".html_safe,
+      <%= link_to "<span class=\"icon-arrow-left normal\"> </span> #{t('views.navigation.back_timeline')}".html_safe,
                   timeline_path(params[:timeline_id]),
                   class: "list-group-item" %>
       </div>
