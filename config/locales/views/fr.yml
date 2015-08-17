@@ -11,12 +11,21 @@ fr:
     navigation:
       back_timeline: "Revenir à la controverse"
       back_reference: "Revenir à la référence"
+      users: "Les contributeurs"
+      contributions: "Évolution des contributions"
+      new_contributions: "Nouvelles contributions"
     pagination:
       first: "&laquo; Première"
       last: "Dernière &raquo;"
       previous: "&lsaquo; Précédente"
       next: "Suivante &rsaquo;"
       truncate: "&hellip;"
+    model:
+      users: "Les contributeurs"
+      timelines: "Les controverses"
+      references: "Les références"
+      comments: "Les analyses"
+      summaries: "Les synthèses"
     pluralize:
       users:
         one: "1 contributeur"

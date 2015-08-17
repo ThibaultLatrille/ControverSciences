@@ -5,13 +5,13 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
       <div class="list-group">
-        <%= link_to "<span class=\"icon-users normal\"></span> Qui sont les contributeurs".html_safe,
+        <%= link_to "<span class=\"icon-users normal\"></span> #{t('views.navigation.users')}".html_safe,
                     users_path,
                     class: "list-group-item" %>
-        <%= link_to "<span class=\"icon-graph-int normal\"></span> Évolution des contributions".html_safe,
+        <%= link_to "<span class=\"icon-graph-int normal\"></span> #{t('views.navigation.contributions')}".html_safe,
                     contributions_path,
                     class: "list-group-item #{ (params[:filter] != "freq") ? "list-group-item-default cursor-not-allowed" : ""}" %>
-        <%= link_to "<span class=\"icon-graph-diff normal\"></span> Nouvelles contributions".html_safe,
+        <%= link_to "<span class=\"icon-graph-diff normal\"></span> #{t('views.navigation.new_contributions')}".html_safe,
                     contributions_path(filter: "freq"),
                     class: "list-group-item #{ (params[:filter] == "freq") ? "list-group-item-default cursor-not-allowed" : ""}" %>
       </div>
@@ -21,9 +21,9 @@
         <div class="panel-heading">
           <h3>
             <% if params[:filter] == "freq" %>
-                Les nouvelles contributions
+                <%= t('views.navigation.new_contributions') %>
             <% else %>
-                L'évolution des contributions sur ControverSciences
+                <%= t('views.navigation.contributions') %>
             <% end %>
           </h3>
         </div>
@@ -43,7 +43,7 @@
         labels: <%= raw @keys -%>,
         datasets: [
             {
-                label: "Les contributeurs",
+                label: "<%= t('views.model.users') -%>",
                 fillColor: "rgba(231,113,27,0.2)",
                 strokeColor: "rgba(231,113,27,1)",
                 pointColor: "rgba(231,113,27,1)",
@@ -53,7 +53,7 @@
                 data: <%= @contribs[0] -%>
             },
             {
-                label: "Les controverses",
+                label: "<%= t('views.model.timelines') -%>",
                 fillColor: "rgba(241,202,58,0.2)",
                 strokeColor: "rgba(241,202,58,1)",
                 pointColor: "rgba(241,202,58,1)",
@@ -63,7 +63,7 @@
                 data: <%= @contribs[1] -%>
             },
             {
-                label: "Les références",
+                label: "<%= t('views.model.references') -%>",
                 fillColor: "rgba(111,150,84,0.2)",
                 strokeColor: "rgba(111,150,84,1)",
                 pointColor: "rgba(111,150,84,1)",
@@ -73,7 +73,7 @@
                 data: <%= @contribs[2] -%>
             },
             {
-                label: "Les analyses",
+                label: "<%= t('views.model.comments') -%>",
                 fillColor: "rgba(28,145,192,0.2)",
                 strokeColor: "rgba(28,145,192,1)",
                 pointColor: "rgba(28,145,192,1)",
@@ -83,7 +83,7 @@
                 data: <%= @contribs[3] -%>
             },
             {
-                label: "Les synthèses",
+                label: "<%= t('views.model.summaries') -%>",
                 fillColor: "rgba(67,69,157,0.2)",
                 strokeColor: "rgba(67,69,157,1)",
                 pointColor: "rgba(67,69,157,1)",
