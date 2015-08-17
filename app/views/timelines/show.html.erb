@@ -295,7 +295,7 @@
       <div>
         <div id="upload-btn" class="btn btn-default fileinput-button">
           <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-          <span id="ajouter"> Ajouter une figure </span>
+          <span id="ajouter"> <%=t('views.picture.add_figure')%> </span>
           <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
         </div>
         <div id="progress" style="display: none">
@@ -345,7 +345,7 @@
             $('#delete').click(function () {
                 $('#delete').hide(300);
                 $('#uploaded').css("background", "white");
-                $('#ajouter').text("Ajouter une figure");
+                $('#ajouter').text("<%=t('views.picture.add_figure')%>");
                 $('#timeline_delete_picture').val('true');
             });
         });

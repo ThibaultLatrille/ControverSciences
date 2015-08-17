@@ -11,6 +11,7 @@ fr:
       you_and: "Vous et "
       to: "Vers"
       from: "Depuis"
+      at_least: "Au moins"
     navigation:
       back_timeline: "Revenir à la controverse"
       back_reference: "Revenir à la référence"
@@ -42,6 +43,8 @@ fr:
       publishing: "Publication en cours"
       creating: "Création en cours"
       add: "Ajouter"
+      add_timeline: "Ajouter une controverse"
+      add_reference: "Ajouter une référence à la controverse"
     picture:
       add_figure: "Ajouter une figure"
       delete_figure: "Supprimer la figure"
@@ -59,6 +62,7 @@ fr:
       make_private: "Rendre une contribution privée vous fera perdre tous les crédits qui lui ont été attribués."
       character_much: "caractères en trop !"
       character_left: "caractères restants."
+      character_miss: "caractères manquants !"
     assistant:
       index: "Contributeurs en attentes"
       timelines: "Mettre à jour les valeurs sélectives des controverses"
@@ -68,7 +72,7 @@ fr:
       caption: "Légende"
       display_all: "Toutes les contributions"
       upvote: "Sélectionner cette analyse comme votre favorite"
-      downvote: "Désélectionner cette analyse comme votre favorite"
+      downvote: "Vous avez selectionné cette analyse comme votre favorite"
     comments:
       show: "Analyse de la référence"
       new: "Ecrire une analyse"
@@ -117,3 +121,9 @@ fr:
       category: "Type de lien"
       with_reference: "Avec la référence"
       possible: "Les liens possibles entre ces deux références"
+    frames:
+      fix_typo_title: "Corriger une faute de français dans le titre"
+      fix_typo_frame: "Corriger une faute de français dans le cadre"
+      frame: "Cadre, focus et mise au point "
+      upvote: "Sélectionner cette analyse comme votre favorite"
+      downvote: "Vous avez selectionné cette analyse comme votre favorite"

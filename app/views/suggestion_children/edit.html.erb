@@ -137,11 +137,11 @@
         if (len >= max) {
             var ch = len - max;
             $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' caractères en trop !');
+            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
         } else {
             var ch = max - len;
             $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' caractères restants.');
+            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
         }
     });
     $('#markdown-textarea' ).keyup(function () {
@@ -150,11 +150,11 @@
         if (len >= max) {
             var ch = len - max;
             $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' caractères en trop !');
+            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
         } else {
             var ch = max - len;
             $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' caractères restants.');
+            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
         }
     });
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});

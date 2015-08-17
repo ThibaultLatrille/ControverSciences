@@ -110,7 +110,7 @@
           <div>
             <div id="upload-btn" class="btn btn-default btn-lg fileinput-button">
               <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-              <span id="ajouter"> Ajouter une figure </span>
+              <span id="ajouter"> <%=t('views.picture.add_figure')%> </span>
               <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
             </div>
             <div id="progress" style="display: none">
@@ -245,7 +245,7 @@
     $('#delete').click(function () {
         $('#caption').hide(300);
         $('#delete').hide(300);
-        $('#ajouter').text("Ajouter une figure à cette synthèse");
+        $('#ajouter').text("<%= t('views.picture.add_figure') %>");
         $('#summary_delete_picture').val('true');
     });
     $('#save-btn').on('click', function (event) {
@@ -268,11 +268,11 @@
             if (len >= max) {
                 var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
             } else {
                 var ch = max - len;
                 $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' caractères restants.');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
             }
         });
         $('#description' + value).keyup(function () {
@@ -285,11 +285,11 @@
             if (len >= max) {
                 var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
             } else {
                 var ch = max - len;
                 $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' caractères restants.');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
             }
         });
     });

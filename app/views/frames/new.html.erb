@@ -130,15 +130,15 @@
             if (len >= max) {
                 var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
             } else if (len <= min) {
                 var ch = min - len;
                 $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text('Au moins ' + ch + ' caractères manquants !');
+                $('#characterLeft' + value).text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
             } else {
                 var ch = max - len;
                 $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' caractères restants.');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
             }
         });
         $('#description' + value).keyup(function () {
@@ -152,15 +152,15 @@
             if (len >= max) {
                 var ch = len - max;
                 $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' caractères en trop !');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
             } else if (len <= min) {
                 var ch = min - len;
                 $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text('Au moins ' + ch + ' caractères manquants !');
+                $('#characterLeft' + value).text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
             } else {
                 var ch = max - len;
                 $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' caractères restants.');
+                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
             }
         });
     });
