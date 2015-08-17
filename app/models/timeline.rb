@@ -6,7 +6,7 @@ class Timeline < ActiveRecord::Base
   include ApplicationHelper
   include PgSearch
   pg_search_scope :search_by_name,
-                  :against => :name,
+                  :against => [:name, :frame],
                   :ignoring => :accents,
                   :using => {
                       :tsearch => {:prefix => true,
