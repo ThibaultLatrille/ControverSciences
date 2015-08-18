@@ -9,21 +9,20 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <p>
-              Si vous avez déniché un bug, une faute, ou si vous avez des remarques sur le site,
-              ne soyez pas égoïste, faites-le nous savoir, cette page est là pour ça ;-)
+	    <%= t('views.footer.issue') %>
             </p>
           </div>
         </div>
         <%= form_for(:issue, url: issues_path, remote: true,
                      html:        {role: :form, 'data-model' => 'issue'}) do |f| %>
             <div class="form-group">
-              <%= f.label :title, "Objet du bug", class: 'control-label' %>
+              <%= f.label :title, t('views.footer.issue_title'), class: 'control-label' %>
               <br>
               <%= f.text_field :title, class: 'form-control' %>
               <span class="help-block"></span>
             </div>
             <div class="form-group">
-              <%= f.label :body, "Description", class: 'control-label' %>
+              <%= f.label :body, t('views.footer.issue_body'), class: 'control-label' %>
               <br>
               <%= f.text_area :body, class: 'form-control textarea' %>
               <span class="help-block"></span>
@@ -32,11 +31,11 @@
             <%= f.label :labels, "Labels" %> </br>
             <div class="container-fluid">
               <div class="row" data-toggle="buttons">
-                <% {"amelioration"     => "Critique sur le fond", "idee" => "J'ai une idée !",
-                    "bug"              => "Bug", "design" => "Design (c'est pas beau)",
-                    "incompréhensible" => "C'est pas clair !",
-                    "orthographe"      => "Atenssion à la langue francaise !",
-                    "autre"            => "Autre", }.each do |label, value| %>
+                <% {"amelioration"     => t('views.footer.issue_amelioration'), "idee" => t('views.footer.issue_idea'),
+                    "bug"              => t('views.footer.issue_bug'), "design" =>t('views.footer.issue_design'),
+                    "incompréhensible" => t('views.footer.issue_unclear'),
+                    "orthographe"      => t('views.footer.issue_grammar'),
+                    "autre"            => t('views.footer.issue_other'), }.each do |label, value| %>
                     <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
                       <div class="my-btn">
                         <%= f.check_box :labels, {:multiple => true}, checked_value = label, unchecked_value = nil %>
@@ -49,8 +48,8 @@
             </br>
             <%= f.label :importance, "Importance" %> </br>
             <div class="btn-group-justified" data-toggle="buttons">
-              <% {"***** critic" => "Critique", "**** urgent" => "Urgent", "*** important" => "Important",
-                  "** to do"     => "A faire", "* negligible" => "Un détail"}.each do |key, value| %>
+              <% {"***** critic" => t('views.footer.issue_critic'), "**** urgent" => t('views.footer.issue_urgent'), "*** important" => t('views.footer.issue_important'),
+                  "** to do"     => t('views.footer.issue_to_do'), "* negligible" => t('views.footer.issue_negligible')}.each do |key, value| %>
                   <label class="btn btn-default"
                          title="<%= value %>" data-toggle="tooltip">
                     <%= f.radio_button :importance, checked_value = key,
@@ -61,7 +60,7 @@
             </div>
             </br>
             <div class="form-group">
-              <%= f.label :author, "Auteur (facultatif)", class: 'control-label' %>
+              <%= f.label :author, t('views.footer.issue_author'), class: 'control-label' %>
               <br>
               <% if logged_in? %>
                   <%= f.text_field :author, value: current_user.name, class: 'form-control' %>
@@ -73,9 +72,9 @@
             <input type="reset" style="display:none;"/>
 
             <div class="actions pull-right">
-              <%= f.button "Envoyer &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+		    <%= f.button "#{t('views.footer.send')} &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "} %>
+			   data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp #{t('views.footer.sending')} "} %>
             </div>
         <% end %>
       </div>
@@ -83,14 +82,11 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <p>
-              Si vous avez des questions, si vous souhaitez nous aider, ou si vous voulez nous inviter à prendre un
-              verre,
-              <a href="mailto:contact@controversciences.org">contactez-nous sans attendre</a>
-              ou spammez directement <a href="mailto:thibault.latrille@controversciences.org">le webmaster !</a>
-            </p>
+	    <%= t('views.footer.question_html') %>          
+	    </p>
           </div>
         </div>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
       </div>
     </div>
   </div>
@@ -112,7 +108,7 @@
     </div>
   </div>
   <div id="about-link">
-  <%= link_to "<span class=\"icon-frog normal\"></span>".html_safe + " A propos", about_path %>
+  <%= link_to "<span class=\"icon-frog normal\"></span>".html_safe + t('views.footer.about'), about_path %>
   </div>
 </footer>
 

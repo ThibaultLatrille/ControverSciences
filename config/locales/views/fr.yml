@@ -200,3 +200,34 @@ fr:
       target_name: Son nom
       thank: Merci !
       user_name: Votre nom*
+    footer:
+      about: " A propos"
+      close: Fermer
+      issue: |-
+        Si vous avez déniché un bug, une faute, ou si vous avez des remarques sur le site,
+                      ne soyez pas égoïste, faites-le nous savoir, cette page est là pour ça ;-)
+      issue_amelioration: Critique sur le fond
+      issue_author: Auteur (facultatif)
+      issue_body: Description
+      issue_bug: Bug
+      issue_critic: Critique
+      issue_design: Design (c'est pas beau)
+      issue_grammar: Atenssion à la langue francaise !
+      issue_idea: J'ai une idée !
+      issue_important: Important
+      issue_negligible: Un détail
+      issue_other: Autre
+      issue_title: Objet du bug
+      issue_to_do: A faire
+      issue_unclear: C'est pas clair !
+      issue_urgent: Urgent
+      question_html: |
+        Si vous avez des questions, si vous souhaitez nous aider, ou si vous voulez nous inviter à prendre un
+                      verre,
+                      <a href="mailto:contact@controversciences.org">contactez-nous sans attendre</a>
+                      ou spammez directement <a href="mailto:thibault.latrille@controversciences.org">le webmaster !</a>
+      send: Envoyer
+      sending: Envoi
+    issue:
+      taken_into_account: Votre remarque a été prise en compte !
+      thank: Merci !
