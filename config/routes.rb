@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     collection do
       get 'checkemail'
       get 'switch_admin'
+      get 'slack'
     end
   end
   resources :timelines, only: [:new, :create, :index, :show, :edit, :update, :destroy] do

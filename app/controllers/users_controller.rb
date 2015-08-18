@@ -100,6 +100,38 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
+  def slack
+    Slack.configure do |config|
+      config.token = ENV['SLACK_API_TOKEN']
+    end
+    client = Slack::Web::Client.new
+
+    if client.auth_test
+      if client.users_list["members"].index{ |user| user["profile"]["email"] == current_user.email }.blank?
+        if ["ens-lyon.fr","umontpellier.fr","controversciences.org","univ-montp2.fr"].include? current_user.email.partition("@")[2]
+          redirect_to "https://controversciences.slack.com/signup"
+        else
+          begin
+            client.post('users.admin.invite', {email: current_user.email, set_active: true })
+            flash[:success] = "Votre invitation a été envoyé à l'adresse #{current_user.email} !"
+            redirect_to current_user
+          rescue
+            admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
+            client.chat_postMessage(channel: admin_group['id'], text: "#{current_user.email} invitation needs to be resent !")
+            flash[:danger] = "Vous avez deja reçu l'invitation de Slack à l'adresse #{current_user.email}, mais vous n'avez pas encore activé votre compte.
+                                Veuillez contacter admin@controversciences.org si vous ne trouvez pas cet email"
+            redirect_to current_user
+          end
+        end
+      else
+        redirect_to "https://controversciences.slack.com/signin"
+      end
+    else
+      flash[:danger] = "Le serveur n'a pas pu se connecter à Slack"
+      redirect_to current_user
+    end
+  end
+
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "Utilisateur destroyed"

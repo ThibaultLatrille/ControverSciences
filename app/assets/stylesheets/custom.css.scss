@@ -267,10 +267,14 @@ h6 {
 .cadre {
   margin-top: 10px;
   padding: 10px 18px;
-  border-radius: 3px;
+  border-radius: 4px;
   font-size: 0.9em;
   border: 1px solid lightgrey;
   background-color: rgba(255, 255, 255, 0.7);
+}
+
+.cadre:hover {
+  text-decoration: none;
 }
 
 .transparent {

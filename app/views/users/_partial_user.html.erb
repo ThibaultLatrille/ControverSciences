@@ -5,7 +5,7 @@
     <% if logged_in? && current_user.id == @user.id %>
         <div class="pull-right">
           <%= link_to "<span class=\"fat icon-techno\"></span> Editer votre profil".html_safe,
-                      edit_user_path(@user.id) ,class: "btn btn-default" %>
+                      edit_user_path(@user.id) ,class: "cadre hvr-grow" %>
         </div>
     <% end %>
         <% if @user_detail && @user_detail.id && @user_detail.picture? %>
@@ -35,6 +35,14 @@
           </div>
         </div>
     <% end %>
+    <% if logged_in? && current_user.id == @user.id %>
+      <div class="pull-right">
+        <a href="<%= slack_users_path %>" class="cadre hvr-grow1">
+          <%= image_tag("slack.png", alt: "Slack", height: "48px")%>
+          <b style="font-size: 1.4em">Rejoindre l'équipe sur Slack !</b>
+        </a>
+      </div>
+  <% end %>
     <% if @user_detail && @user_detail.id && @user_detail.job != "" %>
       <b> Fonction/métier : </b><br/>
             <%= @user_detail.job  %>
