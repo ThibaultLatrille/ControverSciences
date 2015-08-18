@@ -91,6 +91,9 @@ gem 'awesome_print', require: 'ap'
 # Friendly id for SEO
 gem 'friendly_id', '~> 5.0.0'
 
+# Slack Api wrapper
+gem 'slack-ruby-client'
+
 group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace',     '0.1.3'
