@@ -4,12 +4,15 @@ class TimelinesController < ApplicationController
   def index
     query = Timeline.includes(:tags).order(params[:sort].blank? ? :score : params[:sort].to_sym =>
                                params[:order].blank? ? :desc : params[:order].to_sym).where.not(private: true)
+    unless params[:filter].blank?
+      query = query.search_by_name(params[:filter])
+      unless params[:tag].blank?
+        params[:tag] = params[:tag].split
+      end
+    end
     unless params[:tag].blank? || params[:tag] == 'all' || params[:tag] == [""] || params[:tag] == ["all"]
       # This is just disgusting but do the job !!! refactor needed !!!
       query = query.where( id: Tagging.where(tag_id: Tag.where(name: params[:tag]).pluck(:id)).pluck(:timeline_id))
-    end
-    unless params[:filter].blank?
-      query = query.search_by_name(params[:filter])
     end
     if logged_in?
       unless params[:interest].blank?

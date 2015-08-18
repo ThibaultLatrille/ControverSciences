@@ -36,25 +36,25 @@
           </button>
           <ul class="dropdown-menu" role="menu">
             <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-              <%= link_to t('views.sorting.score'), timelines_path(:sort  => 'score', :interest => params[:interest],
+              <%= link_to t('views.sorting.score'), timelines_path(:sort  => 'score', :filter => params[:filter], :interest => params[:interest],
                                                                  :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
-              <%= link_to t('views.sorting.score_recent'), timelines_path(:sort  => 'score_recent', :interest => params[:interest],
+              <%= link_to t('views.sorting.score_recent'), timelines_path(:sort  => 'score_recent', :filter => params[:filter], :interest => params[:interest],
                                                                        :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-              <%= link_to t('views.sorting.created_at'), timelines_path(:sort  => 'created_at', :interest => params[:interest],
+              <%= link_to t('views.sorting.created_at'), timelines_path(:sort  => 'created_at', :filter => params[:filter], :interest => params[:interest],
                                                              :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_contributors' ? "class=selected" : nil %> >
-              <%= link_to t('views.sorting.nb_contributors'), timelines_path(:sort  => 'nb_contributors', :interest => params[:interest],
+              <%= link_to t('views.sorting.nb_contributors'), timelines_path(:sort  => 'nb_contributors', :filter => params[:filter], :interest => params[:interest],
                                                                     :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_references' ? "class=selected" : nil %> >
-              <%= link_to t('views.sorting.nb_references'), timelines_path(:sort  => 'nb_references', :interest => params[:interest],
+              <%= link_to t('views.sorting.nb_references'), timelines_path(:sort  => 'nb_references', :filter => params[:filter], :interest => params[:interest],
                                                                  :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_comments' ? "class=selected" : nil %> >
-              <%= link_to t('views.sorting.nb_comments'), timelines_path(:sort  => 'nb_comments', :interest => params[:interest],
+              <%= link_to t('views.sorting.nb_comments'), timelines_path(:sort  => 'nb_comments', :filter => params[:filter], :interest => params[:interest],
                                                               :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_summaries' ? "class=selected" : nil %> >
-              <%= link_to t('views.sorting.nb_summaries'), timelines_path(:sort  => 'nb_summaries', :interest => params[:interest],
+              <%= link_to t('views.sorting.nb_summaries'), timelines_path(:sort  => 'nb_summaries', :filter => params[:filter], :interest => params[:interest],
                                                                 :order => params[:order], :tag => params[:tag]) %> </li>
             <li <%= params[:sort]=='nb_likes' ? "class=selected" : nil %> >
               <%= link_to t('views.sorting.nb_likes_html'),
@@ -70,10 +70,10 @@
           </button>
           <ul class="dropdown-menu" role="menu">
             <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-              <%= link_to t('views.sorting.desc'), timelines_path(:sort  => params[:sort], :interest => params[:interest],
+              <%= link_to t('views.sorting.desc'), timelines_path(:sort  => params[:sort], :filter => params[:filter], :interest => params[:interest],
                                                                      :order => 'desc', :tag => params[:tag]) %> </li>
             <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-              <%= link_to t('views.sorting.asc'), timelines_path(:sort  => params[:sort], :interest => params[:interest],
+              <%= link_to t('views.sorting.asc'), timelines_path(:sort  => params[:sort], :filter => params[:filter], :interest => params[:interest],
                                                       :order => 'asc', :tag => params[:tag]) %> </li>
           </ul>
         </div>
@@ -102,6 +102,7 @@
             </div>
         <% else %>
             <a href="<%= timelines_path(:sort => params[:sort],
+                                        :filter => params[:filter],
                                         :order => params[:order],
                                         :interest => params[:interest],
                                         :tag => 'all' ) %>"
@@ -111,6 +112,7 @@
         <% end %>
         <% tags_hash.each do |key, value| %>
             <a href="<%= timelines_path(:sort => params[:sort],
+                                        :filter => params[:filter],
                                         :order => params[:order],
                                         :interest => params[:interest],
                                         :tag => (params[:tag].blank? || (params[:tag].include? 'all') ) ?
