@@ -231,3 +231,7 @@ fr:
     issue:
       taken_into_account: Votre remarque a été prise en compte !
       thank: Merci !
+    likes:
+      clic_on: Cliquer sur les buttons
+      get_notified: pour être notifié des changements dans ces controverses.
+      index: Ces controverses vous intéressent :
