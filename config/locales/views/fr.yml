@@ -187,3 +187,16 @@ fr:
     timelines:
       new: "Ajouter une controverse"
       delete: ""
+    invitations:
+      for_reference: Envoyez une invitation à une personne intéressée par cette référence
+      for_timeline: Envoyez une invitation à une personne intéressée par cette controverse
+      message: Message
+      necessary: champs obligatoires.
+      send: Envoyer l'invitation
+      sending: Envoi
+      sent: Votre invitation a bien été envoyée.
+      server_error: Le serveur ne réponds pas
+      target_email: Son adresse email*
+      target_name: Son nom
+      thank: Merci !
+      user_name: Votre nom*
