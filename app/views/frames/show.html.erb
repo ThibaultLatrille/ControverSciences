@@ -10,15 +10,15 @@
                     class: "list-group-item" %>
         <% if @timeline.nb_frames > 1 %>
             <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_frames}</span>
-                  &nbsp Toutes les contributions de cette controverse".html_safe,
+                  &nbsp #{t('views.frames.index')}".html_safe,
                         frames_path(timeline_id: @frame.timeline_id),
                         class: "list-group-item" %>
         <% end %>
         <% if logged_in? && @frame.user_id == current_user.id && !current_user.private_timeline %>
-            <%= link_to "<span class=\"icon-fork normal\"></span> Modifier votre contribution".html_safe,
+            <%= link_to "<span class=\"icon-fork normal\"></span> #{t('views.frames.edit')}".html_safe,
                         edit_frame_path(@frame.id),
                         class: "list-group-item" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre contribution".html_safe,
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.frames.delete')}".html_safe,
                         frame_path(@frame.id), method: :delete,
                         data:                          {confirm: t('views.default.confirm')},
                         class:                         "list-group-item list-group-item-danger" %>
@@ -30,7 +30,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3>
-            Cette contribution appartient à la controverse
+            <%= t('views.frames.show_to') %>
             <%= link_to(@timeline.name.html_safe, timeline_path(@frame.timeline_id)) %>
           </h3>
         </div>

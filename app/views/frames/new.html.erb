@@ -9,7 +9,7 @@
                     class: "list-group-item" %>
         <% if @my_timeline.nb_frames > 1 %>
             <%= link_to "<span class=\"badge pull-left\">#{@my_timeline.nb_frames}</span>
-                  &nbsp Toutes les contributions de cette controverse".html_safe,
+                  &nbsp #{t('views.frames.index')}".html_safe,
                         frames_path(timeline_id: @frame.timeline_id),
                         class: "list-group-item" %>
         <% end %>
@@ -19,7 +19,7 @@
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h2> Proposer une nouvelle formulation de la controverse
+          <h2> <%= t('views.frames.new_to') %>
           </h2>
           <br/>
           <%= link_to @my_timeline.name.html_safe,
@@ -32,13 +32,13 @@
 
               <br/>
               <br/>
-              <b style="font-size: 1.4em">Titre de la controverse</b>
+              <b style="font-size: 1.4em"><%= t('views.frames.edit_title') %></b>
 
               <div id="characterLeft1"></div>
               <br/>
               <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
               </br>
-              <b style="font-size: 1.4em">Cadre, focus et mise au point de la controverse</b>
+              <b style="font-size: 1.4em"><%= t('views.frames.edit_frame') %></b>
 
               <div id="characterLeft0"></div>
               <br/>
@@ -46,10 +46,7 @@
               </br>
               <div class="panel panel-info">
                 <div class="panel-heading">
-                  Précisez le cadre de référence de la controverse.
-                  <br/>
-                  Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est
-                  supporté</a>.
+                  <%= t('views.frames.edit_info_html') %>
                 </div>
               </div>
               <br/>
@@ -58,7 +55,7 @@
                 <div class="panel-body">
                   <%= f.label :binary do %>
                       <%= f.check_box :binary, id: "check-box", value: true %>
-                      <span> Pour cette controverse, il existe deux réponses antagonistes </span>
+                      <%= t('views.frames.binary') %> </span>
                   <% end %>
                   <div id="binary-box">
                     <br/>
@@ -82,9 +79,7 @@
                   </div>
                   <div class="panel panel-info">
                     <div class="panel-heading">
-                      En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les
-                      références.
-                      Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse.
+                      <%= t('views.frames.binary_info') %>
                     </div>
                   </div>
                 </div>
@@ -92,9 +87,9 @@
               <%= f.hidden_field :timeline_id, value: @frame.timeline_id %>
               <br/>
               <br/>
-              <%= f.button "Publier la contribution &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+              <%= f.button "#{t('views.frames.create')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success btn-lg pull-right',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.publishing')} "} %>
           <% end %>
         </div>
       </div>

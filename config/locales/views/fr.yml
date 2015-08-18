@@ -155,8 +155,12 @@ fr:
     frames:
       mine: "Votre contribution"
       favorite: "Ma contribution favorite"
-      new: "Proposer une titre et un cadre"
-      edit: "Modifier votre formulation de la controverse"
+      new: "Proposer un titre et un cadre"
+      new_to: "Proposer un titre et un cadre à la controverse"
+      show_to: "Cette contribution appartient à la controverse"
+      create: "Publier votre contribution"
+      delete: "Supprimer votre titre et votre cadre"
+      edit: "Modifier votre titre et/ou votre cadre"
       edit_title: "Titre de la controverse"
       edit_frame: "Cadre, focus et mise au point de la controverse"
       edit_info_html: "Précisez le cadre de référence de la controverse.
@@ -167,7 +171,7 @@ fr:
       binary_info: "En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les références.
                                           Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse."
       delete: "Supprimer votre contribution"
-      index: "Toutes les contributions de cette controverse"
+      index: "Toutes les titres et cadres de cette controverse"
       fix_typo_title: "Corriger une faute de français dans le titre"
       fix_typo_frame: "Corriger une faute de français dans le cadre"
       frame: "Cadre, focus et mise au point "
