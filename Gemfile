@@ -122,6 +122,9 @@ group :development do
   # Support from chrome extension RailsPanel (https://github.com/dejan/rails_panel)
   gem 'meta_request'
 
+  # Internationalizer
+  gem 'i15r'
+  gem 'missing_t'
 end
 
 group :production do
