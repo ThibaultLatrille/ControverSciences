@@ -40,15 +40,12 @@ class ApplicationController < ActionController::Base
           mg_client.send_message "controversciences.org", message
         end
       end
-      User.where(admin: true).each do |admin|
-        message = {
-            :subject=> "#{names.count} emails ont été envoyé aux contributeurs",
-            :from=>"contact@controversciences.org",
-            :to => admin.email,
-            :html => names.join("")
-        }
-        mg_client.send_message "controversciences.org", message
+      Slack.configure do |config|
+        config.token = ENV['SLACK_API_TOKEN']
       end
+      client = Slack::Web::Client.new
+      admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
+      client.chat_postMessage(channel: admin_group['id'], text: "#{names.count} emails ont été envoyé aux contributeurs")
     end
   end
 

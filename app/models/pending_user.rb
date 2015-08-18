@@ -5,16 +5,12 @@ class PendingUser < ActiveRecord::Base
 
   def send_new_account_email
     if Rails.env.production?
-      mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-      User.where(admin: true).each do |admin|
-        message = {
-            :subject=> "En attente #{self.user.email} sur ControverSciences",
-            :from=>"pending.user@controversciences.org",
-            :to => admin.email,
-            :html => self.why
-        }
-        mg_client.send_message "controversciences.org", message
+      Slack.configure do |config|
+        config.token = ENV['SLACK_API_TOKEN']
       end
+      client = Slack::Web::Client.new
+      admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
+      client.chat_postMessage(channel: admin_group['id'], text: "En attente #{self.user.name} (#{self.user.email}) : #{self.why}")
     end
   end
 end
