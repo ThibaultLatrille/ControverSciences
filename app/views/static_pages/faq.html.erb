@@ -4,66 +4,39 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
       <div class="list-group">
-        <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
+        <%= link_to "<strong>#{t('views.model.timelines')}</strong>".html_safe, timelines_path,
                     class: "list-group-item", style: "font-size: 1.3em;" %>
-        <%= link_to "Découvrir ControverSciences", how_to_path,
+        <%= link_to t('views.navigation.how_to'), how_to_path,
                     class: "list-group-item" %>
-        <%= link_to "Contribuer à ControverSciences", how_to_edit_path,
+        <%= link_to t('views.navigation.how_to_edit'), how_to_edit_path,
                     class: "list-group-item" %>
         <div class="list-group-item list-group-item-default cursor-not-allowed">
-          Foire aux questions (FAQ)
+          <%= t('views.navigation.faq_long') %>
         </div>
       </div>
     </div>
     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3> Foire aux questions (FAQ) </h3>
+          <h3> <%= t('views.navigation.faq_long') %> </h3>
         </div>
         <div class="panel-body">
           <div class="row">
             <div class="col-xs-12">
               <div id="empties">
                 <div class="page">
-                  <%= render 'collapse', id: 34, title: "Quelle est la différence entre une analyse et une synthèse ?",
-                             content:        "Une analyse est la version vulgarisée en français d'une publication scientifique. Une synthèse est un bilan
-                 de l'ensemble des analyses, pour une controverse donnée." %>
-                  <%= render 'collapse', id: 23, title: "Je ne suis pas d'accord avec un contributeur, comment puis-je lui répondre ?",
-                             content:        "Vous ne pouvez tout simplement pas, et pas parce que le site est encore en construction !
-                 Ceci est absolument intentionnel, désolé pour la frustration.
-                 Nous souhaitons favoriser les approches constructives et ne voulons absolument pas
-                 que se déverse un torrent d'insultes (Youtube a de toute façon le quasi monopole dans ce domaine).
-                 Sur ControverSciences, on répond à une analyse (ou synthèse) par une autre analyse (ou synthèse).
-                 Les autres contributeurs s'occuperont alors de déterminer laquelle des ces analyses (ou synthèses) est la meilleure. <br/>
-                 <strong> Si vous trouvez qu'une analyse ou une synthèse est mauvaise, faites mieux !</strong>".html_safe %>
-                  <%= render 'collapse', id: 4, title: "Qu'advient-il des contenus de mauvaise qualité ?",
-                             content:        "Un algorithme s'occupe de nettoyer de temps en temps les contenus désuets qui ne sont pas accrédités." %>
-                  <%= render 'collapse', id: 1, title: "Comment sont évités les trolls sur le site ?",
-                             content:        "Deux homo erectus sont poursuivis par un lion dans la savane, l'un d'eux déclame au second : <br/>
-                 \"Mais ça ne sert à rien de courir car de toute façon il finira par nous rattraper.\" <br/>
-                 Ce à quoi le second répond :<br/> \"Je ne cherche pas à courir plus vite que le lion, mais plus vite que toi !\" <br/>
-                 Pour ControverSciences, c'est un peu la même chose : les contraintes permettent de dissuader une grosse majorité des trolls
-                 qui vont préférer troller d'autres sites moins contraignants.
-                 Pour les trolls de compétition, on supprime ce qui est nécessaire à la main.
-                 Pour finir de les dissuader, ça nous prend beaucoup moins de temps de les supprimer qu'à eux d'écrire.
-                 ".html_safe %>
-                  <%= render 'collapse', id: 7, title: "Qu'advient-il de mes contributions ?",
-                             content:        "Les contributions que vous déposez sur ControverSciences n'ont en premier lieu aucun copyright.
-                   Elles sont ensuite mises aux enchères et revendues à l'entreprise/entité la plus offrante qui
-               en disposera. Il se peut donc que celle-ci décide de mettre un copyright dessus afin que le texte ne puisse plus
-                être diffusé sans leur accord préalable. C'est sur ce <i>business model</i> novateur et très lucratif qu'est financé ControverSciences.
-                <br/>
-                Non, bien évidemment, les contributions sont dans le domaine public.
-                Plus précisement les contributions sont sous la license CC-BY-SA".html_safe %>
-                  <%= render 'collapse', id: 54, title: "Comment est financé ControverSciences ?",
-                             content:        "Pour l'instant le site ControverSciences est codé et maintenu par des bénévoles qui
-                 donc ne sont pas payés mais sont convaincus de la raison d'être de ce site. Les frais d'hébergement
-                 du site sont actuellement maigres (~30E/mois) mais vont
-                 évidemment changer dans le même sens que l'affluence du site. \n
-                <strong> Ce site ne sera jamais financé par de la pub. </strong> \n
-                Si vous trouvez l'initative intéressante et que vous n'avez pas donné tout votre argent pour préserver
-                les lamantins du golfe de Guinée vous pouvez nous aider (les dons seront bientôt possibles).
-                Si vous avez l'âme d'un mécène nous serons bien évidemment ravis !".html_safe %>
+                  <%= render 'collapse', id: 34, title: t('views.faq.dif_sum_com_q'),
+                             content:        t('views.faq.dif_sum_com_a') %>
+                  <%= render 'collapse', id: 23, title: t('views.faq.not_agree_q'),
+                             content:        t('views.faq.not_agree_a_html').html_safe %>
+                  <%= render 'collapse', id: 4, title: t('views.faq.bad_content_q'),
+                             content:        t('views.faq.bad_content_a') %>
+                  <%= render 'collapse', id: 1, title: t('views.faq.trolls_q'),
+                             content:        t('views.faq.trolls_a_html') %>
+                  <%= render 'collapse', id: 7, title: t('views.faq.license_q'),
+                             content:        t('views.faq.license_a_html') %>
+                  <%= render 'collapse', id: 54, title: t('views.faq.money_q'),
+                             content:        t('views.faq.money_a_html') %>
                 </div>
               </div>
             </div>
@@ -72,7 +45,7 @@
         <div class="clearfix">
           <div class="actions pull-right" style="margin-right: 15px">
             <%= link_to "<span class=\"glyphicon glyphicon-question-sign\">
-    </span> Poser une question".html_safe, '#newquestion',
+    </span> #{t('views.faq.ask')}".html_safe, '#newquestion',
                         'data-toggle' => 'modal', class: "btn btn-default" %>
             <br/>
             <br/>
@@ -96,33 +69,22 @@
         <%= form_for(:issue, url: issues_path, remote: true,
                      html:        {role: :form, 'data-model' => 'issue'}) do |f| %>
             <div class="form-group">
-              <%= f.label :title, "La question ?", class: 'control-label' %>
+              <%= f.label :title, t('views.faq.ask'), class: 'control-label' %>
               <br>
               <%= f.text_field :title, class: 'form-control' %>
               <span class="help-block"></span>
             </div>
             <div class="form-group">
-              <%= f.label :body, "Remarques", class: 'control-label' %>
+              <%= f.label :body, t('views.footer.issue_body'), class: 'control-label' %>
               <br>
               <%= f.text_area :body, class: 'form-control textarea' %>
               <span class="help-block"></span>
             </div>
             <%= f.hidden_field :url, value: request.original_url %>
             <%= f.hidden_field :labels, value: ["FAQ"] %>
-            <%= f.label :importance, "Importance" %> </br>
-            <div class="btn-group-justified" data-toggle="buttons">
-              <% {"***** critic" => "Critique", "**** urgent" => "Urgent", "*** important" => "Important", "** to do" => "A faire", "* negligible" => "Un détail"}.each do |key, value| %>
-                  <label class="btn btn-default"
-                         title="<%= value %>" data-toggle="tooltip">
-                    <%= f.radio_button :importance, checked_value = key,
-                                       {id: key, autocomplete: "off"} %>
-                    <%= value %>
-                  </label>
-              <% end %>
-            </div>
             </br>
             <div class="form-group">
-              <%= f.label :author, "Auteur (facultatif)", class: 'control-label' %>
+              <%= f.label :author, t('views.footer.issue_author'), class: 'control-label' %>
               <br>
               <% if logged_in? %>
                   <%= f.text_field :author, value: current_user.name, class: 'form-control' %>
@@ -132,14 +94,14 @@
               <span class="help-block"></span>
             </div>
             <div class="actions pull-right">
-              <%= f.button "Envoyer &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+              <%= f.button "#{t('views.buttons.send')} &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "} %>
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.sending')} "} %>
             </div>
         <% end %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
       </div>
     </div>
   </div>
