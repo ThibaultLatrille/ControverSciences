@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
           if Rails.env.production?
             mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
             message   = {
-                :subject => "Activation du compte sur ControverSciences",
+                :subject => t('controllers.activation_email'),
                 :from    => "activation@controversciences.org",
                 :to      => @user.email,
                 :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
@@ -36,7 +36,7 @@ class SessionsController < ApplicationController
     elsif user
       if user.activated?
         @email             = user.email
-        flash.now[:danger] = 'Mauvais mot de passe pour cette adresse email.'
+        flash.now[:danger] = t('controllers.wrong_pwd')
         render 'new'
       else
         if logged_in?
@@ -52,7 +52,7 @@ class SessionsController < ApplicationController
           if Rails.env.production?
             mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
             message   = {
-                :subject => "Activation du compte sur ControverSciences",
+                :subject => t('controllers.activation_email'),
                 :from    => "activation@controversciences.org",
                 :to      => @user.email,
                 :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
@@ -63,7 +63,7 @@ class SessionsController < ApplicationController
         end
       end
     else
-      flash.now[:danger] = 'Cette adresse email n\'est associée à aucun compte.'
+      flash.now[:danger] = t('controllers.no_account')
       render 'new'
     end
   end

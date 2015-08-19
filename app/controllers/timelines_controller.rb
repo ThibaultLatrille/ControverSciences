@@ -54,7 +54,7 @@ class TimelinesController < ApplicationController
       @timeline.set_tag_list(params[:timeline][:tag_list])
     end
     if @timeline.save
-      flash[:success] = "Controverse ajoutée !"
+      flash[:success] = t('controllers.timeline_added')
       redirect_to @timeline
     else
       @tag_list = @timeline.get_tag_list
@@ -99,7 +99,7 @@ class TimelinesController < ApplicationController
       end
       @references = ref_query
     rescue ActiveRecord::RecordNotFound
-      flash[:danger] = "Cette controverse n'existe pas (ou plus)"
+      flash[:danger] = t('controllers.timeline_record_not_found')
       redirect_to timelines_path
     end
   end

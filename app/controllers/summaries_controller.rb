@@ -26,7 +26,7 @@ class SummariesController < ApplicationController
     end
     @summary.user_id = current_user.id
     if @summary.save_with_markdown
-      flash[:success] = "Synthèse enregistrée."
+      flash[:success] = t('controllers.summary_added')
       redirect_to @summary
     else
       @list        = Reference.order(year: :desc).where(timeline_id: summary_params[:timeline_id]).pluck(:title, :id)
@@ -59,7 +59,7 @@ class SummariesController < ApplicationController
                                                              timeline_id: @summary.timeline_id).last.id
       end
       if @summary.update_with_markdown
-        flash[:success] = "Synthèse modifiée."
+        flash[:success] = t('controllers.summary_updated')
         redirect_to @summary
       else
         @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
@@ -130,7 +130,7 @@ class SummariesController < ApplicationController
       summary.destroy_with_counters
       redirect_to timeline_path(summary.timeline_id)
     else
-      flash[:danger] = "Cette synthèse est la meilleure et ne peut être supprimée."
+      flash[:danger] = t('controllers.summary_cannot_delete')
       redirect_to summary_path(params[:id])
     end
   end

@@ -30,7 +30,7 @@ class FramesController < ApplicationController
                                name:        frame_params[:name])
     @frame.user_id = current_user.id
     if @frame.save
-      flash[:success] = "Contribution enregistrée."
+      flash[:success] = t('controllers.frame_saved')
       redirect_to frames_path(filter: "mine", timeline_id: @frame.timeline_id)
     else
       if @frame.binary != ""
@@ -69,7 +69,7 @@ class FramesController < ApplicationController
       @frame.content = frame_params[:content]
       @frame.name    = frame_params[:name]
       if @frame.save_with_markdown
-        flash[:success] = "Contribution modifiée."
+        flash[:success] = t('controllers.frame_updated')
         redirect_to @frame
       else
         @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
@@ -132,14 +132,14 @@ class FramesController < ApplicationController
     frame = Frame.find(params[:id])
     if frame.user_id == current_user.id || current_user.admin
       if frame.destroy_with_counters
-        flash[:success] = "Contribution envoyée à la poubelle."
+        flash[:success] = t('controllers.frame_deleted')
         redirect_to timeline_path(frame.timeline_id)
       else
-        flash[:danger] = "Vous ne pouvez pas supprimer cette contribution."
+        flash[:danger] = t('controllers.frame_cannot_delete')
         redirect_to frame_path(params[:id])
       end
     else
-      flash[:danger] = "Vous ne pouvez pas supprimer cette contribution."
+      flash[:danger] = t('controllers.frame_cannot_delete')
       redirect_to frame_path(params[:id])
     end
   end

@@ -12,14 +12,14 @@ class PasswordResetsController < ApplicationController
         if Rails.env.production?
           mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
           message = {
-              :subject=> "Réinitialisation du mot de passe sur ControverSciences",
+              :subject=> t('controllers.reset_pwd_email'),
               :from=>"reinitialisation@controversciences.org",
               :to => @user.email,
               :html => render_to_string( :file => 'user_mailer/password_reset', layout: nil ).to_str
           }
           mg_client.send_message "controversciences.org", message
         end
-        flash[:info] = "Un email vous a été envoyé."
+        flash[:info] = t('controllers.email_sent')
         redirect_to root_url
       else
         if logged_in?
@@ -34,7 +34,7 @@ class PasswordResetsController < ApplicationController
           if Rails.env.production?
             mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
             message = {
-                :subject=> "Activation du compte sur ControverSciences",
+                :subject=> t('controllers.activation_email'),
                 :from=>"activation@controversciences.org",
                 :to => @user.email,
                 :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str
@@ -45,7 +45,7 @@ class PasswordResetsController < ApplicationController
         end
       end
     else
-      flash.now[:danger] = "Aucun compte n'est lié à cette adresse mail."
+      flash.now[:danger] = t('controllers.no_account_id')
       render 'new'
     end
   end
@@ -55,15 +55,15 @@ class PasswordResetsController < ApplicationController
 
   def update
     if @user.password_reset_expired?
-      flash[:danger] = "Réinitialisation de mot de passe expirée."
+      flash[:danger] = t('controllers.expired_reset')
       redirect_to new_password_reset_path
     elsif @user.update_attributes(user_params)
       if (params[:user][:password].blank? &&
           params[:user][:password_confirmation].blank?)
-        flash.now[:danger] = "Erreur de mot de passe ou de confirmation."
+        flash.now[:danger] = t('controllers.pwd_or_confirm_error')
         render 'edit'
       else
-        flash[:success] = "Mot de passe modifié."
+        flash[:success] = t('controllers.pwd_updated')
         log_in @user
         redirect_to @user
       end

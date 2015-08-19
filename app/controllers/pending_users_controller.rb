@@ -15,7 +15,7 @@ class PendingUsersController < ApplicationController
       if Rails.env.production?
         mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
         message = {
-            :subject=> "Activation du compte sur ControverSciences",
+            :subject=> t('controllers.activation_email'),
             :from=>"activation@controversciences.org",
             :to => @user.email,
             :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str

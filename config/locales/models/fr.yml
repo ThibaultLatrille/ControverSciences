@@ -6,7 +6,7 @@ fr:
         email: "L'adresse électronique"
         password: "Le mot de passe"
         password_confirmation: "La confirmation de mot de passe"
-        terms_of_service: "Les conditions générales d'utilisation"
+        terms_of_service: "Les conditions générales d'utilisations"
       timeline:
         name: "Le titre"
         frame: "Le cadre"
@@ -16,7 +16,7 @@ fr:
       invitation:
         target_name: "Son nom"
         target_email: "Son adresse électronique"
-        user_name: "Mon nom"
+        user_name: "Votre nom"
       comment:
         title: "Le titre"
         caption: "La légende"

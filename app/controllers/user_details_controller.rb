@@ -21,7 +21,7 @@ class UserDetailsController < ApplicationController
       end
     end
     if @user_detail.save
-      flash[:info] = "Les modifications apportées à votre profil ont été enregistrées."
+      flash[:info] = t('controllers.user_updated')
       redirect_to user_path(id: user_id )
     else
       @user = User.find( user_id )

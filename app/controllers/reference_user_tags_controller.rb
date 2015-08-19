@@ -7,10 +7,10 @@ class ReferenceUserTagsController < ApplicationController
                                                  timeline_id: reference_user_tag_params[:timeline_id])
     if ref_user_tag.set_tag_list(params[:reference_user_tag][:tag_list].blank? ? [] : params[:reference_user_tag][:tag_list])
       ref_user_tag.update_tags
-      flash[:success] = "Votre avis a été enregistré."
+      flash[:success] = t('controllers.vote_ok')
       redirect_to reference_path(reference_user_tag_params[:reference_id])
     else
-      flash[:danger] = "Votre avis n'a pas pu être enregistré."
+      flash[:danger] = t('controllers.no_vote_selected')
       redirect_to reference_path(reference_user_tag_params[:reference_id])
     end
   end

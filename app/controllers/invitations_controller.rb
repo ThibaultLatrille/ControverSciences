@@ -22,7 +22,7 @@ class InvitationsController < ApplicationController
       begin
         if Rails.env.production?
           mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-          subject = "#{@invitation.user_name} vous invite à découvrir la #{@invitation.timeline_id ? "controverse \"#{@invitation.timeline.name}\"" : "référence \"#{@invitation.reference.title_display}\""}"
+          subject = "#{@invitation.user_name} #{t('controllers.mailer_invitation')} #{@invitation.timeline_id ? "#{t('views.model.timeline').downcase} : #{@invitation.timeline.name}" : "#{t('views.model.reference').downcase} : #{@invitation.reference.title_display}"}"
           message = {
               :subject =>  (CGI.unescapeHTML subject),
               :from=>"#{@invitation.user_name} <invitation@controversciences.org>",

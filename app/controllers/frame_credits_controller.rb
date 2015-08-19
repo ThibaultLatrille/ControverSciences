@@ -9,9 +9,9 @@ class FrameCreditsController < ApplicationController
                          frame_id:  params[:frame_id]})
     if frame_credit.save
       frame_credit.update_frame
-      flash[:success] = "Votre vote a été pris en compte"
+      flash[:success] = t('controllers.vote_ok')
     else
-      flash[:danger] = "Impossible d'effectuer cette action."
+      flash[:danger] = t('controllers.impossible_action')
     end
     redirect_to frames_path( timeline_id: params[:timeline_id] )
   end

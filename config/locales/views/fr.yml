@@ -213,7 +213,7 @@ fr:
       category_1: Review
       category_2: Méta-analyse
       category_3: Livre
-      doi_fac: Identifiant unique : DOI, PMID, ou autre (facultatif)
+      doi_fac: "Identifiant unique : DOI, PMID, ou autre (facultatif)"
       edges: Ajouter ou modifier les liens vers d'autres références
       edit: Modifier la référence
       edit_from: Editer une référence appartenant à la controverse

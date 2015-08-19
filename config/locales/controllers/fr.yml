@@ -1,0 +1,55 @@
+fr:
+  controllers:
+    account_activated: "Compte activé avec succès ! Vous pouvez dès à présent contribuer à ControverSciences !"
+    action_impossible: Impossible d'effectuer cette action.
+    activation_email: Activation du compte sur ControverSciences
+    activation_invalid: Lien d'activation corrompu ou invalide.
+    admin_page: Vous êtes sur une page dedié aux admins.
+    comment_cannot_delete: Vous ne pouvez pas supprimer une analyse qui ne vous appartient pas.
+    comment_private: Cette analyse est privée.
+    comment_privated: Vous n'avez pas l'autorisation d'accéder à l'analyse, le contenu à été rendu privé par son auteur.
+    comment_saved: Analyse enregistrée.
+    comment_updated: Analyse modifiée.
+    email_sent: emails ont été envoyé aux contributeurs
+    expired_reset: Réinitialisation de mot de passe expirée.
+    frame_cannot_delete: Vous ne pouvez pas supprimer cette contribution.
+    frame_deleted: Contribution envoyée à la poubelle.
+    frame_saved: Contribution enregistrée.
+    frame_updated: Contribution modifiée.
+    impossible_action: Impossible d'effectuer cette action.
+    impossible_edit: Impossible d'effectuer cette modification.
+    mailer_invitation: et ControverSciences vous invite à découvrir
+    must_login: Vous devez vous connecter/inscrire pour explorer ce recoin de ControverSciences.
+    newsletter: Inscription à la newsletter ControverSciences
+    no_account: Cette adresse email n\'est associée à aucun compte.
+    no_account_id: Aucun compte n'est lié à cette adresse mail.
+    no_vote_selected: Vous n'avez pas sélectionné de vote.
+    notifs_news: les nouveautés qui vous intéressent sur ControverSciences
+    only_admins: Uniquement les admins peuvent effectuer ces actions.
+    pwd_or_confirm_error: Erreur de mot de passe ou de confirmation.
+    pwd_updated: Mot de passe modifié.
+    ref_added: Référence ajoutée avec succès.
+    ref_added_no_tags: Référence ajoutée, mais les thèmes n'ont pas été pris en compte.
+    ref_argument_error: Votre requête n'a rien donné de concluant.
+    ref_connexion_error: Impossible de se connecter aux serveurs qui délivrent les metadonnées.
+    ref_record_not_found: Cette référence n'existe pas (ou plus)
+    ref_same_doi: Cette référence a déjà été ajouté à cette controverse !
+    ref_standard_error: Une erreur que nous ne savons pas gérer est survenue inopinément !
+    ref_updated: Référence modifiée.
+    reset_pwd_email: Réinitialisation du mot de passe sur ControverSciences
+    same_parts: "Une ou plusieurs sous-parties de vos sont identiques à l'originale, elle n'ont pas été sauvegardé"
+    summary_added: Synthèse enregistrée.
+    summary_cannot_delete: Cette synthèse est la meilleure et ne peut être supprimée.
+    summary_updated: Synthèse modifiée.
+    timeline_added: Controverse ajoutée !
+    timeline_record_not_found: Cette controverse n'existe pas (ou plus)
+    updated_profils: Les profils ont été mis à jour
+    updated_score_timelines: Les valeurs sélectives des controverses sont à jour
+    updated_score_users: Les valeurs sélectives des utilisateurs sont à jour
+    user_deleted: Utilisateur destroyed
+    user_updated: Les modifications apportées à votre profil ont été enregistrées.
+    vote_ok: Votre vote a été pris en compte.
+    wrong_pwd: Mauvais mot de passe pour cette adresse email.
+    slack_already_invited: "Vous avez deja reçu l'invitation de Slack à l'adresse %{email}, mais vous n'avez pas encore activé votre compte. Veuillez contacter admin@controversciences.org si vous ne trouvez pas cet email"
+    slack_connexion_lost: Le serveur n'a pas pu se connecter à Slack
+    slack_invit: "Votre invitation a été envoyé à l'adresse %{email} !"

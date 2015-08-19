@@ -26,10 +26,10 @@ class CommentsController < ApplicationController
     end
     @comment.user_id = current_user.id
     if @comment.is_same_as_best
-      flash[:info] = "Une ou plusieurs sous-parties de vos sont identiques à l'originale, elle n'ont pas été sauvegardé"
+      flash[:info] = t('controllers.same_parts')
     end
     if @comment.save_with_markdown
-      flash[:success] = "Analyse enregistrée."
+      flash[:success] = t('controllers.comment_saved')
       redirect_to @comment
     else
       @myreference = Reference.find( @comment.reference_id )
@@ -64,7 +64,7 @@ class CommentsController < ApplicationController
           reference_id: @comment.reference_id ).last.id
       end
       if @comment.update_with_markdown
-        flash[:success] = "Analyse modifiée."
+        flash[:success] = t('controllers.comment_updated')
         redirect_to reference_path( @comment.reference_id, filter: :mine )
       else
         @myreference = Reference.find( @comment.reference_id )
@@ -82,9 +82,9 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     unless @comment.public
       if current_user && current_user.id == @comment.user_id
-        flash.now[:info] = "Cette analyse est privée."
+        flash.now[:info] = t('controllers.comment_private')
       else
-        flash[:danger] = "Vous n'avez pas l'autorisation d'accéder à l'analyse, le contenu à été rendu privé par son auteur."
+        flash[:danger] = t('controllers.comment_privated')
         redirect_to reference_path(@comment.reference_id)
       end
     end
@@ -96,7 +96,7 @@ class CommentsController < ApplicationController
       comment.destroy_with_counters
       redirect_to reference_path(comment.reference_id)
     else
-      flash[:danger] = "Vous ne pouvez pas supprimer une analyse qui ne vous appartient pas."
+      flash[:danger] = t('controllers.comment_cannot_delete')
       redirect_to comment_path(params[:id])
     end
   end

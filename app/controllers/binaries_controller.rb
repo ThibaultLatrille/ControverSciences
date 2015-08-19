@@ -6,13 +6,13 @@ class BinariesController < ApplicationController
       @binary = Binary.find_by(user_id: current_user.id,reference_id: binary_params[:reference_id])
       if binary_params[:value] == "none"
         @binary.destroy
-        flash[:info] = "Votre vote a été pris en compte."
+        flash[:info] = t('controllers.vote_ok')
         redirect_to controller: 'references', action: 'show', id: binary_params[:reference_id]
       elsif @binary.update( {value: binary_params[:value]})
-        flash[:info] = "Votre vote a été pris en compte."
+        flash[:info] = t('controllers.vote_ok')
         redirect_to controller: 'references', action: 'show', id: binary_params[:reference_id]
       else
-        flash[:danger] = "Impossible d'effectuer cette modification."
+        flash[:danger] = t('controllers.impossible_edit')
         redirect_to controller: 'references', action: 'show', id: binary_params[:reference_id]
       end
     else
@@ -20,10 +20,10 @@ class BinariesController < ApplicationController
                             timeline_id: binary_params[:timeline_id],
                             reference_id: binary_params[:reference_id], value: binary_params[:value]})
       if @binary.save
-        flash[:info] = "Votre vote a été pris en compte."
+        flash[:info] = t('controllers.vote_ok')
         redirect_to reference_url( binary_params[:reference_id] )
       else
-        flash[:info] = "Vous n'avez pas sélectionné de vote."
+        flash[:info] = t('controllers.no_vote_selected')
         redirect_to reference_url( binary_params[:reference_id] )
       end
     end

@@ -6,7 +6,7 @@ class NewslettersController < ApplicationController
           mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
           mg_client.post("/lists/newsletter@controversciences.org/members", {address: newsletter_params[:email]})
           message = {
-              :subject=> "Inscription à la newsletter ControverSciences",
+              :subject=> t('controllers.newsletter'),
               :from=>"contact@controversciences.org",
               :to => newsletter_params[:email],
               :html => render_to_string( :file => 'user_mailer/newsletter', layout: nil ).to_str

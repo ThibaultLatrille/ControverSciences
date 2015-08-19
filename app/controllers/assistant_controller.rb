@@ -16,19 +16,19 @@ class AssistantController < ApplicationController
 
   def users
     update_score_users
-    flash[:success] = "Les valeurs sélectives des utilisateurs sont à jour"
+    flash[:success] = t('controllers.updated_score_users')
     redirect_to assistant_path
   end
 
   def timelines
     update_score_timelines
-    flash[:success] = "Les valeurs sélectives des controverses sont à jour"
+    flash[:success] = t('controllers.updated_score_timelines')
     redirect_to assistant_path
   end
 
   def profils
     update_all_profils
-    flash[:success] = "Les profils ont été mis à jour"
+    flash[:success] = t('controllers.updated_profils')
     redirect_to assistant_path
   end
 end

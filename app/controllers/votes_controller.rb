@@ -11,9 +11,9 @@ class VotesController < ApplicationController
                          reference_id:  params[:reference_id]})
     if vote.save
       vote.update_comment
-      flash[:success] = "Votre vote a été pris en compte"
+      flash[:success] = t('controllers.vote_ok')
     else
-      flash[:danger] = "Impossible d'effectuer cette action."
+      flash[:danger] = t('controllers.action_impossible')
     end
     redirect_to reference_path(id: params[:reference_id], filter: "my-vote")
   end

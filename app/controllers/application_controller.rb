@@ -32,7 +32,7 @@ class ApplicationController < ActionController::Base
           @user_notif = user
           names << "#{user.email}: #{user.name} || "
           message = {
-              :subject=> "#{@user_notif.name}, les nouveautés qui vous intéressent sur ControverSciences",
+              :subject=> "#{@user_notif.name}, #{t('controllers.notifs_news')}",
               :from=>"contact@controversciences.org",
               :to => @user_notif.email,
               :html => render_to_string( :file => 'user_mailer/notifications', layout: nil ).to_str
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
       end
       client = Slack::Web::Client.new
       admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
-      client.chat_postMessage(channel: admin_group['id'], text: "#{names.count} emails ont été envoyé aux contributeurs")
+      client.chat_postMessage(channel: admin_group['id'], text: "#{names.count} #{t('controllers.email_sent')}")
     end
   end
 
@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   def logged_in_user
     unless logged_in?
       store_location
-      flash[:danger] = "Vous devez vous connecter/inscrire pour explorer ce recoin de ControverSciences."
+      flash[:danger] = t('controllers.must_login')
       redirect_to login_url
     end
   end
@@ -69,9 +69,9 @@ class ApplicationController < ActionController::Base
   # Confirms an admin user.
   def admin_user
     if current_user.admin?
-      flash.now[:danger] = "Vous êtes sur une page dedié aux admins."
+      flash.now[:danger] = t('controllers.admin_page')
     else
-      flash[:danger] = "Uniquement les admins peuvent effectuer ces actions."
+      flash[:danger] = t('controllers.only_admins')
       redirect_to(root_url) unless current_user.admin?
     end
   end

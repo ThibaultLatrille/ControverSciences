@@ -9,9 +9,9 @@ class CreditsController < ApplicationController
                          summary_id:  params[:summary_id]})
     if credit.save
       credit.update_summary
-      flash[:success] = "Votre vote a été pris en compte"
+      flash[:success] = t('controllers.vote_ok')
     else
-      flash[:danger] = "Impossible d'effectuer cette action."
+      flash[:danger] = t('controllers.impossible_action')
     end
     redirect_to summaries_path(timeline_id: params[:timeline_id])
   end

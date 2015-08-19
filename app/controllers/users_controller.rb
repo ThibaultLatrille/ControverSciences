@@ -61,7 +61,7 @@ class UsersController < ApplicationController
       else
         mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
         message = {
-            :subject=> "Activation du compte sur ControverSciences",
+            :subject=> t('controllers.activation_email'),
             :from=>"activation@controversciences.org",
             :to => @user.email,
             :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:success] = "Les modifications apportées à votre profil ont été enregistrées."
+      flash[:success] = t('controllers.user_updated')
       redirect_to @user
     else
       @user_detail = UserDetail.find_by_user_id( params[:id] )
@@ -107,34 +107,17 @@ class UsersController < ApplicationController
     client = Slack::Web::Client.new
 
     if client.auth_test
-      if client.users_list["members"].index{ |user| user["profile"]["email"] == current_user.email }.blank?
-        if ["ens-lyon.fr","umontpellier.fr","controversciences.org","univ-montp2.fr"].include? current_user.email.partition("@")[2]
-          redirect_to "https://controversciences.slack.com/signup"
-        else
-          begin
-            client.post('users.admin.invite', {email: current_user.email, set_active: true })
-            flash[:success] = "Votre invitation a été envoyé à l'adresse #{current_user.email} !"
-            redirect_to current_user
-          rescue
-            admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
-            client.chat_postMessage(channel: admin_group['id'], text: "#{current_user.email} invitation needs to be resent !")
-            flash[:danger] = "Vous avez deja reçu l'invitation de Slack à l'adresse #{current_user.email}, mais vous n'avez pas encore activé votre compte.
-                                Veuillez contacter admin@controversciences.org si vous ne trouvez pas cet email"
-            redirect_to current_user
-          end
-        end
-      else
-        redirect_to "https://controversciences.slack.com/signin"
-      end
+      flash[:danger] = t('controllers.slack_already_invited', email: current_user.email)
+      redirect_to current_user
     else
-      flash[:danger] = "Le serveur n'a pas pu se connecter à Slack"
+      flash[:danger] = t('controllers.slack_connexion_lost')
       redirect_to current_user
     end
   end
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "Utilisateur destroyed"
+    flash[:success] = t('controllers.user_deleted')
     redirect_to users_url
   end
 

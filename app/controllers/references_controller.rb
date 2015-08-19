@@ -77,11 +77,11 @@ class ReferencesController < ApplicationController
           @reference.category = reference_params[:category]
           @reference.open_access = reference_params[:open_access]
         rescue ArgumentError
-          flash.now[:danger] = "Votre requête n'a rien donné de concluant."
+          flash.now[:danger] = t('controllers.ref_argument_error')
         rescue ConnectionError
-          flash.now[:danger] = "Impossible de se connecter aux serveurs qui délivrent les metadonnées."
+          flash.now[:danger] = t('controllers.ref_connexion_error')
         rescue StandardError
-          flash.now[:danger] = "Une erreur que nous ne savons pas gérer est survenue inopinément !"
+          flash.now[:danger] = t('controllers.ref_standard_error')
         end
       end
       params[:timeline_id] = reference_params[:timeline_id]
@@ -89,7 +89,7 @@ class ReferencesController < ApplicationController
     else
       same = @reference.same_doi
       if same
-        flash[:danger] = "Cette référence a déjà été ajouté à cette controverse !"
+        flash[:danger] = t('controllers.ref_same_doi')
         redirect_to same
       else
         if @reference.save
@@ -97,9 +97,9 @@ class ReferencesController < ApplicationController
                                                               user_id: current_user.id,
                                                               timeline_id: @reference.timeline_id)
           if ref_user_tag.set_tag_list(params[:reference][:tag_list].blank? ? [] : params[:reference][:tag_list])
-            flash[:success] = "Référence ajoutée, mais les thèmes n'ont pas été pris en compte."
+            flash[:success] = t('controllers.ref_added_no_tags')
           else
-            flash[:success] = "Référence ajoutée avec succès."
+            flash[:success] = t('controllers.ref_added')
           end
           redirect_to new_comment_path( reference_id: @reference.id )
         else
@@ -119,7 +119,7 @@ class ReferencesController < ApplicationController
     @reference = Reference.find( params[:id] )
     if @reference.user_id == current_user.id || current_user.admin
       if @reference.update( reference_params )
-        flash[:success] = "Référence modifiée."
+        flash[:success] = t('controllers.ref_updated')
         redirect_to @reference
       else
         render 'edit'
@@ -172,7 +172,7 @@ class ReferencesController < ApplicationController
         @best_comment = BestComment.find_by_reference_id( @reference.id )
       end
     rescue ActiveRecord::RecordNotFound
-      flash[:danger] = "Cette référence n'existe pas (ou plus)"
+      flash[:danger] = t('controllers.ref_record_not_found')
       redirect_to timelines_path
     end
   end
