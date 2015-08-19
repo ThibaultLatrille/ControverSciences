@@ -27,7 +27,7 @@
                 <tr class="notification-reference">
                   <td class="center"> <%= vote.value %> </td>
                   <td> <%= link_to t('views.model.your_frame'), frame_path(vote.frame_id) %>
-                    par <%= link_to vote.frame_short.user_name, user_path(vote.frame_short.user_id) %>
+                    <%= t('views.default.by') %> <%= link_to vote.frame_short.user_name, user_path(vote.frame_short.user_id) %>
                   </td>
                   <td> <%= link_to vote.timeline_name.html_safe, timeline_path(vote.timeline_id) %>   </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
@@ -68,7 +68,7 @@
                 <tr class="notification-reference">
                   <td class="center"> <%= vote.value %> </td>
                   <td> <%= link_to t('views.model.your_summary'), summary_path(vote.summary_id) %>
-                    par <%= link_to vote.summary_short.user_name, user_path(vote.summary_short.user_id) %>
+                    <%= t('views.default.by') %> <%= link_to vote.summary_short.user_name, user_path(vote.summary_short.user_id) %>
                   </td>
                   <td><%= link_to vote.timeline_name.html_safe, timeline_path(vote.timeline_id) %>   </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
@@ -110,8 +110,8 @@
                   <td class="center"> <%= vote.value %> </td>
                   <td> <%= link_to category_hash[vote.reference.category][vote.field],
                                    comment_path(vote.comment_id) %>
-                    par <%= link_to vote.comment_short.user_name, user_path(vote.comment_short.user_id) %>
-                    de la référence
+                    <%= t('views.default.by') %> <%= link_to vote.comment_short.user_name, user_path(vote.comment_short.user_id) %>
+                    <%= t('views.model.of_reference') %>
                     <%= link_to vote.reference_title, reference_path(vote.reference_id) %>
                   </td>
                   <td> <%= link_to vote.timeline_name.html_safe, timeline_path(vote.timeline_id) %>   </td>
