@@ -111,7 +111,7 @@
                   <td> <%= link_to category_hash[vote.reference.category][vote.field],
                                    comment_path(vote.comment_id) %>
                     <%= t('views.default.by') %> <%= link_to vote.comment_short.user_name, user_path(vote.comment_short.user_id) %>
-                    <%= t('views.model.of_reference') %>
+                    <%= t('views.model.of_reference').downcase %>
                     <%= link_to vote.reference_title, reference_path(vote.reference_id) %>
                   </td>
                   <td> <%= link_to vote.timeline_name.html_safe, timeline_path(vote.timeline_id) %>   </td>

@@ -11,7 +11,7 @@
             <br/>
             &nbsp &nbsp
             &nbsp <span class="blue" style="font-size: 2em;"><span class="fat icon-bug-<%= rand(18) %>"></span>
-                    Les corrections que vous ont apporté les contributeurs </span>
+                    <%= t('views.notifications.typos') %> </span>
 
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
@@ -21,16 +21,16 @@
                       <div class="panel-body">
                         <b>
                           <% if typo.comment_id %>
-                              <%= category_hash[typo.comment_short.reference.category][typo.field] %> de la référence
+                              <%= category_hash[typo.comment_short.reference.category][typo.field] %> <%= t('views.model.of_reference').downcase %>
                               <%= link_to typo.comment_short.reference.title, reference_path(typo.comment_short.reference_id) %>
-                              dans la controverse
+                              <%= t('views.model.in_timeline') %>
                               <%= link_to typo.comment_short.timeline_name.html_safe, timeline_path(typo.comment_short.timeline_id) %>
                           <% elsif typo.summary_id %>
-                              Votre synthèse de la controverse
+                              <%= t('views.model.your_summary_of_timeline') %>
                               <%= link_to typo.summary_short.timeline_name.html_safe, timeline_path(typo.summary_short.timeline_id) %>
                           <% elsif typo.frame_id %>
-                              <%= link_to typo.field == 0 ? "Le titre" : "Le cadre",
-                                          frame_path(typo.frame_id) %> de la controverse
+                              <%= link_to typo.field == 0 ? t('views.model.frame_0') : t('views.model.frame_1'),
+                                          frame_path(typo.frame_id) %> <%= t('views.model.of_timeline') %>
                               <%= link_to typo.frame_short.timeline_name.html_safe, timeline_path(typo.frame_short.timeline_id) %>
                           <% end %>
                         </b>
@@ -66,7 +66,7 @@
         <% if current_user.nb_notifs == 0 %>
             <div class="panel-body">
           <span style="font-size: 1.5em;">
-          Vous n'avez aucune nouvelle notification
+          <%= t('views.notifications.no_notifs') %>
           </span>
             </div>
         <% else %>
@@ -77,30 +77,30 @@
             </div>
             <% unless @notification_selections[true].blank? %>
                 <hr style="margin: 0 3em 2em 3em ">
-                &nbsp <span class="static-green" style="font-size: 2em;"><span class="glyphicon glyphicon-arrow-up"></span> Vos contributions qui ont pris la première place</span>
+                &nbsp <span class="static-green" style="font-size: 2em;"><span class="glyphicon glyphicon-arrow-up"></span> <%= t('views.notifications.upvoted') %></span>
 
                 <table class="table table-striped table-hover">
                   <thead>
                   <tr>
                     <th class="col-xs-2"> <span class="glyphicon glyphicon-time"></span></th>
-                    <th class="col-xs-7">Votre</th>
-                    <th class="col-xs-3">Dans controverse</th>
+                    <th class="col-xs-7"><%= t('views.default.your') %></th>
+                    <th class="col-xs-3"><%= t('views.model.in_timeline') %></th>
                   </tr>
                   </thead>
                   <tbody class="page">
                   <% @notification_selections[true].each do |notif| %>
                       <tr>
-                        <td> Il y a <%= time_ago_in_words(notif.created_at) %> </td>
+                        <td> <%= t('views.default.ago') %> <%= time_ago_in_words(notif.created_at) %> </td>
                         <td>
                           <% if notif.frame_id %>
-                              <%= link_to "Proposition de formulation", notifications_selection_redirect_path(id: notif.id) %>
+                              <%= link_to t('views.model.frame'), notifications_selection_redirect_path(id: notif.id) %>
                           <% elsif notif.comment_id %>
                               <%= link_to category_hash[notif.reference_short.category][notif.field],
                                           notifications_selection_redirect_path(id: notif.id) %>
                               de la référence
                                <%= link_to notif.reference_short.title, reference_path(notif.reference_short) %>
                           <% elsif notif.summary_id %>
-                              <%= link_to "Synthèse", notifications_selection_redirect_path(id: notif.id) %>
+                              <%= link_to t('views.model.summary'), notifications_selection_redirect_path(id: notif.id) %>
                           <% end %>
                         </td>
                         <td>
@@ -113,28 +113,28 @@
             <% end %>
             <% unless @notification_selections[false].blank? %>
                 <hr style="margin: 0 3em 2em 3em ">
-                &nbsp <span class="static-red" style="font-size: 2em;"><span class="glyphicon glyphicon-arrow-down"></span> Vos contributions qui ont perdu la première place</span>
+                &nbsp <span class="static-red" style="font-size: 2em;"><span class="glyphicon glyphicon-arrow-down"></span> <%= t('views.notifications.downvoted') %></span>
                 <table class="table table-striped table-hover">
                   <thead>
                   <tr>
                     <th class="col-xs-2"> <span class="glyphicon glyphicon-time"></span></th>
-                    <th class="col-xs-7">Votre</th>
-                    <th class="col-xs-3">Dans controverse</th>
+                    <th class="col-xs-7"><%= t('views.default.your') %></th>
+                    <th class="col-xs-3"><%= t('views.model.in_timeline') %></th>
                   </tr>
                   </thead>
                   <tbody class="page">
                   <% @notification_selections[false].each do |notif| %>
                       <tr>
-                        <td> Il y a <%= time_ago_in_words(notif.created_at) %> </td>
+                        <td> <%= t('views.default.ago') %> <%= time_ago_in_words(notif.created_at) %> </td>
                         <td>
                           <% if notif.frame_id %>
-                              <%= link_to "Proposition de formulation", notifications_selection_redirect_path(id: notif.id) %>
+                              <%= link_to t('views.model.frame'), notifications_selection_redirect_path(id: notif.id) %>
                           <% elsif notif.comment_id %>
                               <%= link_to category_hash[notif.reference_short.category][notif.field],
                                           notifications_selection_redirect_path(id: notif.id) %> de la référence
                               <%= link_to notif.reference_short.title, reference_path(notif.reference_short) %>
                           <% elsif notif.summary_id %>
-                              <%= link_to "Synthèse", notifications_selection_redirect_path(id: notif.id) %>
+                              <%= link_to t('views.model.summary'), notifications_selection_redirect_path(id: notif.id) %>
                           <% end %>
                         </td>
                         <td>
@@ -148,10 +148,10 @@
             <% unless current_user.nb_notifs == @typos.length %>
                 <div class="panel-body">
                   <div class="pull-right">
-                    <%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>&nbsp Supprimer ces notifications".html_safe,
+			  <%= link_to "<span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>&nbsp #{t('views.notifications.delete')}".html_safe,
                                 notifications_delete_all_important_path,
                                 class: 'btn btn-danger btn-lg',
-                                data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Suppression en cours "} %>
+				data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.deleting')} "} %>
                   </div>
                 </div>
             <% end %>

@@ -1,18 +1,21 @@
 fr:
   views:
     default:
-      fix_typo: "Corriger une faute de français"
-      confirm: "Êtes-vous certain ?"
-      published: "Publiée il y a"
-      by: "par"
-      public_f: "Publique"
-      private_f: "Privée"
-      warning: "Attention !"
-      you_and: "Vous et "
-      to: "Vers"
-      from: "Depuis"
-      at_least: "Au moins"
+      fix_typo: Corriger une faute de français
+      confirm: Êtes-vous certain ?
+      published: Publiée il y a
+      by: par
+      by_cap: Par
+      public_f: Publique
+      private_f: Privée"
+      warning: Attention !
+      you_and: Vous et
+      to: Vers
+      from: Depuis
+      at_least: Au moins
       tags: Thèmes
+      ago: Il y a
+      your: Votre
     navigation:
       back_timeline: "Revenir à la controverse"
       back_reference: "Revenir à la référence"
@@ -26,13 +29,16 @@ fr:
       next: "Suivante &rsaquo;"
       truncate: "&hellip;"
     model:
-      users: "Les contributeurs"
-      timelines: "Les controverses"
-      reference: "La référence"
-      references: "Les références"
-      comments: "Les analyses"
-      summaries: "Les synthèses"
+      users: Les contributeurs
+      timelines: Les controverses
+      reference: La référence
+      references: Les références
+      comments: Les analyses
+      summaries: Les synthèses
       comment: L'analyse
+      frame: Proposition de formulation
+      frame_0: Le titre
+      frame_1: Le cadre
       credits: Les Crédits
       in_timeline: Dans la controverse
       of_reference: De la référence
@@ -47,6 +53,7 @@ fr:
       your_timelines: Vos controverses
       your_frame: Voir la proposition
       your_summary: Voir la synthèse
+      your_summary_of_timeline: Votre synthèse de la controverse
       your_comment: Votre analyse
       your_summary: Voir la synthèse
     pluralize:
@@ -63,6 +70,7 @@ fr:
       add: "Ajouter"
       delete: "Supprimer"
       edit: "Modifier"
+      deleting: Suppression en cours
     sorting:
       score: "Magique (par défaut)"
       score_sort: "Tri magique"
@@ -267,3 +275,22 @@ fr:
       credits_to_frames: Vos credits accordés aux propositions d'amélioration de controverse
       credits_to_summaries: Vos credits accordés aux synthèses
       no_credits: Pas encore de crédits accordés
+    notifications:
+      best_comments: Les analyses qui ont pris la première place
+      best_contrib: 'Ont pris la première place :'
+      best_frames: Les améliorations de controverses qui ont pris la première place
+      best_summaries: Les synthèses qui ont pris la première place
+      delete: Supprimer ces notifications
+      delete_all: Supprimer toutes les notifications sur cette page
+      delete_selected: Supprimer les notifications sélectionnées
+      downvoted: Vos contributions qui ont perdu la première place
+      new: 'Les nouvelles/nouveaux :'
+      new_comments: Les nouvelles analyses
+      new_frames: Les nouvelles améliorations de controverses
+      new_references: Les nouvelles références
+      new_summaries: Les nouvelles synthèses
+      new_timelines: Les nouvelles controverses
+      no_news: Pas de nouveautés
+      no_notifs: Vous n'avez aucune nouvelle notification
+      typos: Les corrections que vous ont apporté les contributeurs
+      upvoted: Vos contributions qui ont pris la première place

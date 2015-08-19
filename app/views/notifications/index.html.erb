@@ -6,13 +6,13 @@
 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
 <div class="list-group">
     <div class="list-group-item">
-  Les nouvelles/nouveaux :
+  <%= t('views.notifications.new') %>
   </div>
-      <% { timeline: "Controverses",
-           frame: "Améliorations de Controverses",
-           summary: "Synthèses",
-           reference: "Références",
-           comment: "Analyses"}.each do |key, value| %>
+      <% { timeline: t('views.model.timelines'),
+           frame: t('views.model.frames'),
+           summary: t('views.model.summaries'),
+           reference: t('views.model.references'),
+           comment: t('views.model.comments')}.each do |key, value| %>
           <%= link_to "<span class=\"badge\">#{current_user.send( "notifications_#{key}")}</span>
           <span class=\"icon-#{key} font16\"></span> &nbsp ".html_safe+value,
                       notifications_index_path(filter: key),
@@ -22,11 +22,11 @@
   <br/>
 <div class="list-group">
 <div class="list-group-item">
-  Ont pris la première place :
+  <%= t('views.notifications.best_contrib') %>
 </div>
-    <% { frame_selection: "Améliorations de Controverses",
-         summary_selection: "Synthèses",
-         selection: "Analyses"
+    <% { frame_selection: t('views.model.frames'),
+         summary_selection: t('views.model.summaries'),
+         selection: t('views.model.comments')
          }.each do |key, value| %>
         <%= link_to "<span class=\"badge\">#{current_user.send( "notifications_#{key}")}</span>
                     <span class=\"icon-#{key} font16\"></span> &nbsp ".html_safe+value,
@@ -40,22 +40,22 @@
 <div class="panel panel-default">
   <% if @filter == :timeline %>
   <div class="panel-heading">
-    Les nouvelles controverses (<%= @timelines.count %>)
+    <%= t('views.notifications.new_timelines') %> (<%= @timelines.count %>)
   </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> La controverse  </th>
-        <th class="col-xs-3"> Par  </th>
-        <th class="col-xs-4"> Thèmes </th>
+        <th class="col-xs-4"> <%= t('views.model.timeline') %>  </th>
+        <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
+        <th class="col-xs-4"> <%= t('views.default.tags') %> </th>
       </tr>
       </thead>
       <tbody class="page">
       <% if !@timelines.any? %>
           <tr class="notification-timeline">
             <td></td>
-            <td> Pas de nouveautés </td>
+            <td> <%= t('views.notifications.no_news') %> </td>
             <td></td>
           </tr>
       <% else %>
@@ -79,22 +79,22 @@
 
     <% elsif @filter == :frame %>
     <div class="panel-heading">
-      Les nouvelles améliorations de controverses (<%= @frames.count %>)
+      <%= t('views.notifications.new_frames') %> (<%= @frames.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> L'amélioration </th>
-        <th class="col-xs-3"> Par  </th>
-        <th class="col-xs-4"> Dans la controverse  </th>
+        <th class="col-xs-4"> <%= t('views.model.frame') %> </th>
+        <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
+        <th class="col-xs-4"> <%= t('views.model.of_timeline') %>  </th>
       </tr>
       </thead>
       <tbody class="page">
       <% if !@frames.any? %>
           <tr class="notification-summary">
             <td></td>
-            <td> Pas de nouveautés </td>
+            <td> <%= t('views.notifications.no_news') %> </td>
             <td></td>
             <td></td>
           </tr>
@@ -115,22 +115,22 @@
 
     <% elsif @filter == :summary %>
     <div class="panel-heading">
-      Les nouvelles synthèses (<%= @summaries.count %>)
+      <%= t('views.notifications.new_summaries') %> (<%= @summaries.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> Synthèse  </th>
-        <th class="col-xs-3"> Par  </th>
-        <th class="col-xs-4"> Dans la controverse  </th>
+        <th class="col-xs-4"> <%= t('views.model.summary') %>  </th>
+        <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
+        <th class="col-xs-4"> <%= t('views.model.in_timeline') %>  </th>
       </tr>
       </thead>
       <tbody class="page">
       <% if !@summaries.any? %>
           <tr class="notification-summary">
             <td></td>
-            <td> Pas de nouveautés </td>
+            <td> <%= t('views.notifications.no_news') %> </td>
             <td></td>
             <td></td>
           </tr>
@@ -151,22 +151,22 @@
         
     <% elsif @filter == :reference %>
     <div class="panel-heading">
-      Les nouvelles références (<%= @references.count %>)
+      <%= t('views.notifications.new_references') %> (<%= @references.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> Référence  </th>
-        <th class="col-xs-3"> Par  </th>
-        <th class="col-xs-4"> Dans la controverse </th>
+        <th class="col-xs-4"> <%= t('views.model.reference') %>  </th>
+        <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
+        <th class="col-xs-4"> <%= t('views.model.in_timeline') %> </th>
       </tr>
       </thead>
       <tbody class="page">
       <% if !@references.any? %>
           <tr class="notification-reference">
             <td></td>
-            <td> Pas de nouveautés </td>
+            <td> <%= t('views.notifications.no_news') %> </td>
             <td></td>
             <td></td>
           </tr>
@@ -188,23 +188,23 @@
         
   <% elsif @filter == :comment %>
     <div class="panel-heading">
-      Les nouvelles analyses (<%= @comments.count %>)
+      <%= t('views.notifications.new_comments') %> (<%= @comments.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-3"> Analyse </th>
-        <th class="col-xs-2"> Par </th>
-        <th class="col-xs-3"> De la référence </th>
-        <th class="col-xs-3"> De la controverse </th>
+        <th class="col-xs-3"> <%= t('views.model.comment') %> </th>
+        <th class="col-xs-2"> <%= t('views.default.by_cap') %> </th>
+        <th class="col-xs-3"> <%= t('views.model.of_reference') %> </th>
+        <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
       </tr>
       </thead>
       <tbody class="page">
       <% if !@comments.any? %>
           <tr class="notification-comment">
             <td></td>
-            <td> Pas de nouveautés </td>
+            <td> <%= t('views.notifications.no_news') %> </td>
             <td></td>
             <td></td>
             <td></td>
@@ -227,24 +227,24 @@
         
   <% elsif @filter == :selection %>
     <div class="panel-heading">
-      Les analyses qui ont pris la première place
+      <%= t('views.notifications.best_comments') %>
       (<%= @selections.count %>)
     </div>
   <table id="notification-timelines" class="table table-striped table-hover">
     <thead>
     <tr>
       <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-      <th class="col-xs-3"> Analyse </th>
-      <th class="col-xs-2"> Par </th>
-      <th class="col-xs-3"> De la référence </th>
-      <th class="col-xs-3"> De la controverse </th>
+      <th class="col-xs-3"> <%= t('views.model.comment') %> </th>
+      <th class="col-xs-2"> <%= t('views.default.by_cap') %> </th>
+      <th class="col-xs-3"> <%= t('views.model.of_reference') %> </th>
+      <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
     </tr>
     </thead>
     <tbody class="page">
     <% if !@selections.any? %>
         <tr class="notification-sel-comment">
           <td></td>
-          <td> Pas de nouveautés</td>
+          <td> <%= t('views.notifications.no_news') %></td>
           <td></td>
           <td></td>
           <td></td>
@@ -269,23 +269,23 @@
   <% elsif @filter == :frame_selection %>
 
     <div class="panel-heading">
-      Les améliorations de controverses qui ont pris la première place
+      <%= t('views.notifications.best_frames') %>
       (<%= @frame_selections.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-xs-1 col-sm-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-5 col-sm-4"> Synthèse </th>
-        <th class="col-xs-6 col-sm-3"> Par </th>
-        <th class="col-xs-6 col-sm-4"> De la controverse </th>
+        <th class="col-xs-5 col-sm-4"> <%= t('views.model.summary') %> </th>
+        <th class="col-xs-6 col-sm-3"> <%= t('views.default.by_cap') %> </th>
+        <th class="col-xs-6 col-sm-4"> <%= t('views.model.of_timeline') %> </th>
       </tr>
       </thead>
       <tbody class="page">
       <% if !@frame_selections.any? %>
           <tr class="notification-sel-summary">
             <td></td>
-            <td> Pas de nouveautés   </td>
+            <td> <%= t('views.notifications.no_news') %>   </td>
             <td></td>
             <td></td>
           </tr>
@@ -306,23 +306,23 @@
 
   <% elsif @filter == :summary_selection %>
     <div class="panel-heading">
-      Les synthèses qui ont pris la première place
+      <%= t('views.notifications.best_summaries') %>
       (<%= @summary_selections.count %>)
     </div>
     <table id="notification-timelines" class="table table-striped table-hover">
       <thead>
       <tr>
         <th class="col-xs-1 col-sm-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-5 col-sm-4"> Synthèse </th>
-        <th class="col-xs-6 col-sm-3"> Par </th>
-        <th class="col-xs-6 col-sm-4"> De la controverse </th>
+        <th class="col-xs-5 col-sm-4"> <%= t('views.model.summary') %> </th>
+        <th class="col-xs-6 col-sm-3"> <%= t('views.default.by_cap') %> </th>
+        <th class="col-xs-6 col-sm-4"> <%= t('views.model.of_timeline') %> </th>
       </tr>
       </thead>
       <tbody class="page">
       <% if !@summary_selections.any? %>
           <tr class="notification-sel-summary">
             <td></td>
-            <td> Pas de nouveautés   </td>
+            <td> <%= t('views.notifications.no_news') %>  </td>
             <td></td>
             <td></td>
           </tr>
@@ -346,11 +346,11 @@
 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
   <div class="list-group">
     <%= f.button "<span class=\"glyphicon glyphicon-trash bigger\"></span>&nbsp
-    Supprimer les notifications sélectionnées".html_safe,
+    #{t('views.notifications.delete_selected')}".html_safe,
                  class: 'list-group-item list-group-item-danger hover-red',
-                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp Suppression en cours "}%>
+		 data: {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp #{t('views.buttons.deleting')} "}%>
     <%= link_to "<span class=\"badge badge-li\">#{current_user.send( "notifications_#{@filter}")}</span>
-                    <span class=\"icon-#{@filter} font16\"></span> &nbsp ".html_safe+"Supprimer toutes les notifications sur cette page",
+                    <span class=\"icon-#{@filter} font16\"></span> &nbsp ".html_safe+t('views.notifications.delete_all'),
                 notifications_delete_all_path(filter: @filter),
                 class: "list-group-item list-group-item-danger" %>
   </div>
