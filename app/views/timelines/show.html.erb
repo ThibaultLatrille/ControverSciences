@@ -27,7 +27,7 @@
         <%= @timeline.nb_edits %>
       </div>
     </div>
-    <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
+    <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timelines')}".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order]),
                 class: "list-group-item" %>
     <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> #{t('views.timelines.previous')}".html_safe,

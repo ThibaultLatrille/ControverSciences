@@ -20,6 +20,7 @@ fr:
       close: Fermer
     navigation:
       back_timeline: "Revenir à la controverse"
+      back_timelines: "Revenir aux controverses"
       back_reference: "Revenir à la référence"
       users: "Les contributeurs"
       contributions: "Évolution des contributions"
@@ -324,7 +325,7 @@ fr:
       login: Identifiez vous pour voir les controverses en construction
       make_public: Cette controverse est privée. Souhaitez vous la rendre publique
       neutral: Neutre
-      new: Ajouter une controverse
+      new: Créer une nouvelle controverse
       new_edges: Ajouter ou modifier les liens vers d'autres controverses
       new_frame: Proposer une amélioration de titre et de cadre
       none_params: Aucune controverse ne correspond à ces critères de sélection
