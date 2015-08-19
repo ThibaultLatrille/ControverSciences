@@ -8,3 +8,157 @@ fr:
           other: "Affichage des <b>%{count}</b> %{entry_name}"
       more_pages:
         display_entries: "%{entry_name} <b>%{first}</b> à <b>%{last}</b> affiché(e)s sur <b>%{total}</b> au total"
+    binary_hash_1: très fermement
+    binary_hash_2: modérément
+    binary_hash_3: cette référence est neutre.
+    binary_hash_4: modérément
+    binary_hash_5: très fermement
+    binary_value_1: 'très fermement du coté '
+    binary_value_2: 'du coté '
+    binary_value_3: neutre.
+    binary_value_4: 'du coté '
+    binary_value_5: 'très fermement du coté '
+    binary_value_text: 'Cette référence est '
+    category_explanation_0_0: |-
+      L'introduction permet au lecteur de situer cet article dans
+                                    la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
+    category_explanation_0_1: Résumé de l'expérience (ou des expériences) réalisé dans cette étude.
+    category_explanation_0_2: Résumé du résultat (ou des résultats) de l’expérience (ou des expériences)
+    category_explanation_0_3: |-
+      Un résumé des limites de l’étude, que ce soit méthodologique, conceptuelle ou
+                                philosophique. Toute étude à ses limites.
+    category_explanation_0_4: Ce que cette étude apporte de plus et comment elle permet d'éclairer la controverse.
+    category_explanation_0_5: |-
+      Toutes les remarques qui ne rentrent pas dans les champs précédents.
+                                Cela peut être sur les affiliations ou les financements douteux de l'étude.
+                                Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
+                                subjective.
+    category_explanation_1_0: |-
+      Le résumé de la review permet au lecteur de
+                        comprendre cette étude dans le cadre de cette controverse.
+    category_explanation_1_3: |-
+      Un résumé des limites de la review, que ce soit méthodologique, conceptuelle ou
+                                philosophique. Toute étude à ses limites.
+    category_explanation_1_4: |-
+      Ce que cette review apporte de plus et comment elle permet d'éclairer
+                                la controverse.
+    category_explanation_1_5: |-
+      Toutes les remarques qui ne rentrent pas dans les champs précédents.
+                                Cela peut être sur les affiliations ou les financements douteux de la review.
+                                Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
+                                subjective.
+    category_explanation_2_0: |-
+      L'introduction permet au lecteur de situer cette méta-analyse dans
+                                    la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
+    category_explanation_2_1: Résumé de l'expérience (ou des expériences) réalisé
+      dans cette méta-analyse.
+    category_explanation_2_2: Résumé du résultat (ou des résultats) de l’expérience
+      (ou des expériences).
+    category_explanation_2_3: |-
+      Un résumé des limites de la méta-analyse, que ce soit méthodologique, conceptuelle ou
+                                philosophique. Toute étude à ses limites.
+    category_explanation_2_4: |-
+      Ce que cette méta-analyse apporte de plus et comment elle permet d'éclairer
+                                la controverse.
+    category_explanation_2_5: |-
+      Toutes les remarques qui ne rentrent pas dans les champs précédents.
+                                Cela peut être sur les affiliations ou les financements douteux de la méta-analyse.
+                                Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
+                                subjective.
+    category_explanation_3_0: |-
+      L'introduction permet au lecteur de situer ce livre dans
+                                    la controverse et d'amorcer en douceur les résultats du livre.
+    category_explanation_3_1: |-
+      Le résumé et les résultats du livre permet au lecteur de
+                        comprendre cette étude dans le cadre de cette controverse.
+    category_explanation_3_3: |-
+      Un résumé des limites du livre, que ce soit méthodologique, conceptuelle ou
+                                philosophique. Toute étude à ses limites.
+    category_explanation_3_4: |-
+      Ce que ce livre apporte de plus et comment il permet d'éclairer
+                                la controverse.
+    category_explanation_3_5: |-
+      Toutes les remarques qui ne rentrent pas dans les champs précédents.
+                                Cela peut être sur les affiliations ou les financements douteux du livre.
+                                Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
+                                subjective.
+    category_hash_0_0: Introduction à l'article
+    category_hash_0_1: Expériences de l'article
+    category_hash_0_2: Résultats de l'article
+    category_hash_0_3: Limites de l'article
+    category_hash_0_4: Ce que cet article apporte au débat
+    category_hash_0_5: Remarque(s) sur l'article
+    category_hash_0_6: Titre de l'article
+    category_hash_0_7: Figure
+    category_hash_1_0: Résumé de la review
+    category_hash_1_3: Limites de la review
+    category_hash_1_4: Ce que cette review apporte au débat
+    category_hash_1_5: Remarque(s) sur la review
+    category_hash_1_6: Titre de la review
+    category_hash_1_7: Figure
+    category_hash_2_0: Introduction à la méta-analyse
+    category_hash_2_1: Expériences de la méta-analyse
+    category_hash_2_2: Résultats de la méta-analyse
+    category_hash_2_3: Limites de la méta-analyse
+    category_hash_2_4: Ce que cette méta-analyse apporte au débat
+    category_hash_2_5: Remarque(s) sur la méta-analyse
+    category_hash_2_6: Titre de la méta-analyse
+    category_hash_2_7: Figure
+    category_hash_3_0: Introduction au livre
+    category_hash_3_1: Résumé et résultats du livre
+    category_hash_3_3: Limites du livre
+    category_hash_3_4: Ce que ce livre apporte au débat
+    category_hash_3_5: Remarque(s) sur le livre
+    category_hash_3_6: Titre du Livre
+    category_hash_3_7: Figure
+    edges_category_1: A une lettre de réponse
+    edges_category_2: Est une lettre de réponse à
+    edges_category_3: Précise
+    edges_category_4: Est précisée par
+    edges_category_5: Infirme
+    edges_category_6: Est infirmée par
+    edges_category_7: Confirme
+    edges_category_8: Est confirmée par
+    meta_description: ControverSciences est un portail collaboratif et indépendant
+      qui rassemble les publications scientifiques autour de questions controversées,
+      en les rendant accessible à tous.
+    meta_keywords: controverse scientifique débat discussion interpretation polémique
+    star_hash_1: Cette référence est peu rigoureuse et n'est pas importante pour comprendre la controverse.
+    star_hash_2: Cette référence est rigoureuse mais pas importante pour comprendre la controverse.
+    star_hash_3: Cette référence est peu rigoureuse mais est importante pour comprendre la controverse.
+    star_hash_4: Cette référence est rigoureuse et est importante pour comprendre la controverse.
+    star_hash_5: Cette référence est à lire absolument dans le cadre de cette controverse !
+    tags_hash_0: Archéologie
+    tags_hash_1: Biologie
+    tags_hash_10: Mathématiques
+    tags_hash_11: Médecine et santé
+    tags_hash_12: Physique
+    tags_hash_13: Psychologie
+    tags_hash_14: Sociologie
+    tags_hash_15: Technologie
+    tags_hash_2: Chimie
+    tags_hash_3: Ecologie
+    tags_hash_4: Epistémologie
+    tags_hash_5: Géographie
+    tags_hash_6: Géologie
+    tags_hash_7: Histoire
+    tags_hash_8: Informatique
+    tags_hash_9: Linguistique
+    user_profils_1: Dilemnatique
+    user_profils_2: Reformulateur
+    user_profils_3: Ecrivain
+    user_profils_4: Encyclopédiste
+    user_profils_5: Analyste
+    user_profils_6: Passionné
+    user_profils_7: Adulé
+    user_profils_8: Fanatique
+    user_profils_9: Bienveillant
+    user_profils_info_1: A créé des controverses qui sont bien classées.
+    user_profils_info_2: A écrit des propositions de formulation qui sont bien classées.
+    user_profils_info_3: A écrit des synthèses qui sont bien classées
+    user_profils_info_4: A ajouté des références qui sont bien classées.
+    user_profils_info_5: A ajouté des analyses qui sont bien classées.
+    user_profils_info_6: S'intéresse à des thèmes variés.
+    user_profils_info_7: A recu des crédits de la part des autres contributeurs.
+    user_profils_info_8: A donné des crédits aux autres contributeurs.
+    user_profils_info_9: A corrigé des fautes d'orthographe.

@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
     @question = Question.find( params[:id] )
     @question.update(question_params)
     if @question.save
-      flash[:success] = "Changements sauvegardés !"
+      flash[:success] = t('controllers.question_updated')
       redirect_to faq_path
     else
       render 'edit'
@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
     @question.user_id = current_user.id
     if @question.save
-      flash[:success] = "Q&A ajoutée !"
+      flash[:success] = t('controllers.question_added')
       redirect_to faq_path
     else
       redirect_to faq_path

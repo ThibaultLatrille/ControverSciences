@@ -10,62 +10,62 @@ module ApplicationHelper
   end
 
   def tags_hash
-    {"archeology"   => "Archéologie",
-     "biology"      => "Biologie",
-     "chemistry"    => "Chimie",
-     "planet"       => "Ecologie",
-     "epistemology" => "Epistémologie",
-     "geography"    => "Géographie",
-     "geology"      => "Géologie",
-     "history"      => "Histoire",
-     "informatics"  => "Informatique",
-     "linguistic"   => "Linguistique",
-     "pie"          => "Mathématiques",
-     "medicine"     => "Médecine et santé",
-     "physics"      => "Physique",
-     "psycho"       => "Psychologie",
-     "socio"        => "Sociologie",
-     "techno"       => "Technologie"
+    {"archeology"   => t('helpers.tags_hash_0'),
+     "biology"      => t('helpers.tags_hash_1'),
+     "chemistry"    => t('helpers.tags_hash_2'),
+     "planet"       => t('helpers.tags_hash_3'),
+     "epistemology" => t('helpers.tags_hash_4'),
+     "geography"    => t('helpers.tags_hash_5'),
+     "geology"      => t('helpers.tags_hash_6'),
+     "history"      => t('helpers.tags_hash_7'),
+     "informatics"  => t('helpers.tags_hash_8'),
+     "linguistic"   => t('helpers.tags_hash_9'),
+     "pie"          => t('helpers.tags_hash_10'),
+     "medicine"     => t('helpers.tags_hash_11'),
+     "physics"      => t('helpers.tags_hash_12'),
+     "psycho"       => t('helpers.tags_hash_13'),
+     "socio"        => t('helpers.tags_hash_14'),
+     "techno"       => t('helpers.tags_hash_15')
     }
   end
 
   def category_names
-    {0 => "Article",
-     1 => "Review",
-     2 => "Méta-analyse",
-     3 => "Livre"}
+    {0 => t('views.references.category_0'),
+     1 => t('views.references.category_1'),
+     2 => t('views.references.category_2'),
+     3 => t('views.references.category_3')}
   end
 
   def category_hash
-    {0 => {0 => "Introduction à l'article",
-           1 => "Expériences de l'article",
-           2 => "Résultats de l'article",
-           3 => "Limites de l'article",
-           4 => "Ce que cet article apporte au débat",
-           5 => "Remarque(s) sur l'article",
-           6 => "Titre de l'article",
-           7 => "Figure"},
-     1 => {0 => "Résumé de la review",
-           3 => "Limites de la review",
-           4 => "Ce que cette review apporte au débat",
-           5 => "Remarque(s) sur la review",
-           6 => "Titre de la review",
-           7 => "Figure"},
-     2 => {0 => "Introduction à la méta-analyse",
-           1 => "Expériences de la méta-analyse",
-           2 => "Résultats de la méta-analyse",
-           3 => "Limites de la méta-analyse",
-           4 => "Ce que cette méta-analyse apporte au débat",
-           5 => "Remarque(s) sur la méta-analyse",
-           6 => "Titre de la méta-analyse",
-           7 => "Figure"},
-     3 => {0 => "Introduction au livre",
-           1 => "Résumé et résultats du livre",
-           3 => "Limites du livre",
-           4 => "Ce que ce livre apporte au débat",
-           5 => "Remarque(s) sur le livre",
-           6 => "Titre du Livre",
-           7 => "Figure"}
+    {0 => {0 => t('helpers.category_hash_0_0'),
+           1 => t('helpers.category_hash_0_1'),
+           2 => t('helpers.category_hash_0_2'),
+           3 => t('helpers.category_hash_0_3'),
+           4 => t('helpers.category_hash_0_4'),
+           5 => t('helpers.category_hash_0_5'),
+           6 => t('helpers.category_hash_0_6'),
+           7 => t('helpers.category_hash_0_7')},
+     1 => {0 => t('helpers.category_hash_1_0'),
+           3 => t('helpers.category_hash_1_3'),
+           4 => t('helpers.category_hash_1_4'),
+           5 => t('helpers.category_hash_1_5'),
+           6 => t('helpers.category_hash_1_6'),
+           7 => t('helpers.category_hash_1_7')},
+     2 => {0 => t('helpers.category_hash_2_0'),
+           1 => t('helpers.category_hash_2_1'),
+           2 => t('helpers.category_hash_2_2'),
+           3 => t('helpers.category_hash_2_3'),
+           4 => t('helpers.category_hash_2_4'),
+           5 => t('helpers.category_hash_2_5'),
+           6 => t('helpers.category_hash_2_6'),
+           7 => t('helpers.category_hash_2_7')},
+     3 => {0 => t('helpers.category_hash_3_0'),
+           1 => t('helpers.category_hash_3_1'),
+           3 => t('helpers.category_hash_3_3'),
+           4 => t('helpers.category_hash_3_4'),
+           5 => t('helpers.category_hash_3_5'),
+           6 => t('helpers.category_hash_3_6'),
+           7 => t('helpers.category_hash_3_7')}
     }
   end
 
@@ -103,104 +103,79 @@ module ApplicationHelper
   end
 
   def category_explanation
-    {0 => {0 => "L'introduction permet au lecteur de situer cet article dans
-                              la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.",
-           1 => "Résumé de l'expérience (ou des expériences) réalisé dans cette étude.",
-           2 => "Résumé du résultat (ou des résultats) de l’expérience (ou des expériences)",
-           3 => "Un résumé des limites de l’étude, que ce soit méthodologique, conceptuelle ou
-                          philosophique. Toute étude à ses limites.",
-           4 => "Ce que cette étude apporte de plus et comment elle permet d'éclairer
-                          la controverse.",
-           5 => "Toutes les remarques qui ne rentrent pas dans les champs précédents.
-                          Cela peut être sur les affiliations ou les financements douteux de l'étude.
-                          Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
-                          subjective."},
-     1 => {0 => "Le résumé de la review permet au lecteur de
-                  comprendre cette étude dans le cadre de cette controverse.",
-           3 => "Un résumé des limites de la review, que ce soit méthodologique, conceptuelle ou
-                          philosophique. Toute étude à ses limites.",
-           4 => "Ce que cette review apporte de plus et comment elle permet d'éclairer
-                          la controverse.",
-           5 => "Toutes les remarques qui ne rentrent pas dans les champs précédents.
-                          Cela peut être sur les affiliations ou les financements douteux de la review.
-                          Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
-                          subjective."},
-     2 => {0 => "L'introduction permet au lecteur de situer cette méta-analyse dans
-                              la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.",
-           1 => "Résumé de l'expérience (ou des expériences) réalisé dans cette méta-analyse.",
-           2 => "Résumé du résultat (ou des résultats) de l’expérience (ou des expériences).",
-           3 => "Un résumé des limites de la méta-analyse, que ce soit méthodologique, conceptuelle ou
-                          philosophique. Toute étude à ses limites.",
-           4 => "Ce que cette méta-analyse apporte de plus et comment elle permet d'éclairer
-                          la controverse.",
-           5 => "Toutes les remarques qui ne rentrent pas dans les champs précédents.
-                          Cela peut être sur les affiliations ou les financements douteux de la méta-analyse .
-                          Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
-                          subjective."},
-     3 => {0 => "L'introduction permet au lecteur de situer ce livre dans
-                              la controverse et d'amorcer en douceur les résultats du livre.",
-           1 => "Le résumé et les résultats du livre permet au lecteur de
-                  comprendre cette étude dans le cadre de cette controverse.",
-           3 => "Un résumé des limites du livre, que ce soit méthodologique, conceptuelle ou
-                          philosophique. Toute étude à ses limites.",
-           4 => "Ce que ce livre apporte de plus et comment il permet d'éclairer
-                          la controverse.",
-           5 => "Toutes les remarques qui ne rentrent pas dans les champs précédents.
-                          Cela peut être sur les affiliations ou les financements douteux du livre.
-                          Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
-                          subjective."}
+    {0 => {0 => t('helpers.category_explanation_0_0'),
+           1 => t('helpers.category_explanation_0_1'),
+           2 => t('helpers.category_explanation_0_2'),
+           3 => t('helpers.category_explanation_0_3'),
+           4 => t('helpers.category_explanation_0_4'),
+           5 => t('helpers.category_explanation_0_5')},
+     1 => {0 => t('helpers.category_explanation_1_0'),
+           3 => t('helpers.category_explanation_1_3'),
+           4 => t('helpers.category_explanation_1_4'),
+           5 => t('helpers.category_explanation_1_5')},
+     2 => {0 => t('helpers.category_explanation_2_0'),
+           1 => t('helpers.category_explanation_2_1'),
+           2 => t('helpers.category_explanation_2_2'),
+           3 => t('helpers.category_explanation_2_3'),
+           4 => t('helpers.category_explanation_2_4'),
+           5 => t('helpers.category_explanation_2_5')},
+     3 => {0 => t('helpers.category_explanation_3_0'),
+           1 => t('helpers.category_explanation_3_1'),
+           3 => t('helpers.category_explanation_3_3'),
+           4 => t('helpers.category_explanation_3_4'),
+           5 => t('helpers.category_explanation_3_5')}
     }
   end
 
   def user_profils
-    {1 => "Dilemnatique",
-     2 => "Reformulateur",
-     3 => "Ecrivain",
-     4 => "Encyclopédiste",
-     5 => "Analyste",
-     6 => "Passionné",
-     7 => "Adulé",
-     8 => "Fanatique",
-     9 => "Bienveillant"}
+    {1 => t('helpers.user_profils_1'),
+     2 => t('helpers.user_profils_2'),
+     3 => t('helpers.user_profils_3'),
+     4 => t('helpers.user_profils_4'),
+     5 => t('helpers.user_profils_5'),
+     6 => t('helpers.user_profils_6'),
+     7 => t('helpers.user_profils_7'),
+     8 => t('helpers.user_profils_8'),
+     9 => t('helpers.user_profils_9')}
   end
 
   def user_profil_info
-    ["A créé des controverses qui sont bien classées.",
-     "A écrit des propositions de formulation qui sont bien classées.",
-     "A écrit des synthèses qui sont bien classées",
-     "A ajouté des références qui sont bien classées.",
-     "A ajouté des analyses qui sont bien classées.",
-     "S'intéresse à des thèmes variés.",
-     "A recu des crédits de la part des autres contributeurs.",
-     "A donné des crédits aux autres contributeurs.",
-     "A corrigé des fautes d'orthographe."]
+    [t('helpers.user_profils_info_1'),
+     t('helpers.user_profils_info_2'),
+     t('helpers.user_profils_info_3'),
+     t('helpers.user_profils_info_4'),
+     t('helpers.user_profils_info_5'),
+     t('helpers.user_profils_info_6'),
+     t('helpers.user_profils_info_7'),
+     t('helpers.user_profils_info_8'),
+     t('helpers.user_profils_info_9')]
   end
 
   def star_hash
-    {1 => "Cette référence est peu rigoureuse et n'est pas importante pour comprendre la controverse.",
-     2 => "Cette référence est rigoureuse mais pas importante pour comprendre la controverse.",
-     3 => "Cette référence est peu rigoureuse mais est importante pour comprendre la controverse.",
-     4 => "Cette référence est rigoureuse et est importante pour comprendre la controverse.",
-     5 => "Cette référence est à lire absolument dans le cadre de cette controverse !"}
+    {1 => t('helpers.star_hash_1'),
+     2 => t('helpers.star_hash_2'),
+     3 => t('helpers.star_hash_3'),
+     4 => t('helpers.star_hash_4'),
+     5 => t('helpers.star_hash_5')}
   end
 
   def binary_hash
-    {1 => "très fermement",
-     2 => "modérément",
-     3 => "cette référence est neutre.",
-     4 => "modérément",
-     5 => "très fermement"}
+    {1 => t('helpers.binary_hash_1'),
+     2 => t('helpers.binary_hash_2'),
+     3 => t('helpers.binary_hash_3'),
+     4 => t('helpers.binary_hash_4'),
+     5 => t('helpers.binary_hash_5')}
   end
 
   def edges_category
-    [[1, "A une lettre de réponse"],
-     [2, "Est une lettre de réponse à"],
-     [3, "Précise"],
-     [4, "Est précisée par"],
-     [5, "Infirme"],
-     [6, "Est infirmée par"],
-     [7, "Confirme"],
-     [8, "Est confirmée par"]]
+    [[1, t('helpers.edges_category_1')],
+     [2, t('helpers.edges_category_2')],
+     [3, t('helpers.edges_category_3')],
+     [4, t('helpers.edges_category_4')],
+     [5, t('helpers.edges_category_5')],
+     [6, t('helpers.edges_category_6')],
+     [7, t('helpers.edges_category_7')],
+     [8, t('helpers.edges_category_8')]]
   end
 
   def forward_edges_category
@@ -218,18 +193,18 @@ module ApplicationHelper
   end
 
   def binary_value_explanation(binary, value)
-    text = "Cette référence est "
+    text = t('helpers.binary_value_text')
     case value
       when 1
-        return text + "très fermement du coté " + binary.split('&&')[0].downcase + "."
+        return text + t('helpers.binary_value_1') + binary.split('&&')[0].downcase + "."
       when 2
-        return text + "du coté " + binary.split('&&')[0].downcase + "."
+        return text + t('helpers.binary_value_2') + binary.split('&&')[0].downcase + "."
       when 3
-        return text + "neutre."
+        return text + t('helpers.binary_value_3')
       when 4
-        return text + "du coté " + binary.split('&&')[1].downcase + "."
+        return text + t('helpers.binary_value_4') + binary.split('&&')[1].downcase + "."
       when 5
-        return text + "très fermement du coté " + binary.split('&&')[1].downcase + "."
+        return text + t('helpers.binary_value_5') + binary.split('&&')[1].downcase + "."
       else
         return ""
     end

@@ -6,9 +6,9 @@ module StaticPagesHelper
 
   def site_url
     if Rails.env.production?
-      "http://www.controversciences.org"
+      "https://controversciences.org"
     else
-      "http://localhost:3000"
+      "http://127.0.0.1:3000"
     end
   end
 
@@ -18,14 +18,14 @@ module StaticPagesHelper
 
   def meta_description(meta_descri)
     if meta_descri.blank?
-      "ControverSciences est un portail collaboratif et indépendant qui rassemble les publications scientifiques autour de questions controversées, en les rendant accessible à tous."
+      t('helpers.meta_description')
     else
       ActionView::Base.full_sanitizer.sanitize meta_descri
     end
   end
 
   def meta_keywords
-    "controverse scientifique débat discussion interpretation polémique"
+    t('helpers.meta_keywords')
   end
 
   def full_title(page_title)
