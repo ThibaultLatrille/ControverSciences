@@ -18,5 +18,5 @@ public/uploads/
 /uploads
 
 *~
-
+*.swp
 .idea
