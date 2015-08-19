@@ -262,11 +262,30 @@ fr:
       no_mine: "Vous n'avez pas encore écrit de contribution"
       no_other: "Il n'y a pas de contribution autre que la votre"
     summaries:
-      new: "Ecrire une synthèse"
-      edit: "Modifier votre synthèse"
-      delete: ""
+      new: Ecrire une synthèse
+      edit: Modifier votre synthèse
+      delete: Supprimer votre synthèse
+      index: Toutes les synthèses de cette controverse
+      favorite: Votre synthèse favorite
+      create: Publier la synthèse
+      downvote: Vous avez selectionné cette synthèse comme votre favorite
+      from_timeline: Cette synthèse appartient à la controverse
+      info: |-
+        La synthèse est un résumé général de la controverse. Son objectif\
+                          est d'intégrer l'ensemble des références analysées, et donc de donner un bilan de la controverse basé
+                          sur des résultats scientifiques.
+                          <br/>
+                          Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est
+                          supporté</a>.
+                          De plus vous pouvez insérer des liens internes vers les références de cette controverse
+                          (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
+                          au lecteur une meilleure navigation dans la controverse.
+      no_favorite: Vous n'avez pas de synthèse favorite
+      no_other: Il n'y a pas de synthèse autre que la votre
+      no_summary: Vous n'avez pas encore écrit de synthèse
+      upvote: Selectionner cette synthèse comme votre favorite
     timelines:
-      new: "Ajouter une controverse"
+      new: Ajouter une controverse
       delete: ""
     invitations:
       for_reference: Envoyez une invitation à une personne intéressée par cette référence

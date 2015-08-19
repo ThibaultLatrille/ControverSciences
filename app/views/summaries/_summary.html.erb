@@ -16,8 +16,8 @@
         <%= summary.markdown.html_safe %>
         <% unless logged_in? %>
             <div class="pull-right">
-              Publiée il y a <%= time_ago_in_words(summary.created_at) %>
-              par <%= link_to summary.user_name, user_path(summary.user_id) %>
+              <%= "#{t('views.default.published')} #{time_ago_in_words(summary.created_at)} #{t('views.default.by')}" %>
+              <%= link_to summary.user_name, user_path(summary.user_id) %>
             </div>
         <% end %>
         <% if summary.summary_links.count > 0 %>
@@ -42,7 +42,7 @@
                               credit_path(@my_credit.id),
                               "data-toggle"    => "tooltip",
                               "data-placement" => "right",
-                              title:           "Vous avez selectionné cette synthèse comme votre favorite",
+                              title:           t('views.summaries.downvote'),
                               method:          :delete,
                               class:           "btn btn-success",
                               :style           => "padding: 8px; margin-left: 8px" %>
@@ -51,7 +51,7 @@
                               credits_path(timeline_id: summary.timeline_id, summary_id: summary.id),
                               "data-toggle"    => "tooltip",
                               "data-placement" => "right",
-                              title:           "Selectionner cette synthèse comme votre favorite",
+                              title:           t('views.summaries.upvote'),
                               method:          :post,
                               class:           "btn btn-default green",
                               :style           => "padding: 8px; margin-left: 8px" %>

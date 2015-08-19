@@ -9,16 +9,16 @@
                     class: "list-group-item" %>
         <% if @my_timeline.nb_summaries > 1 %>
             <%= link_to "<span class=\"badge pull-left\">#{@my_timeline.nb_summaries}</span>
-                  &nbsp Toutes les synthèses de cette controverse".html_safe,
+                  &nbsp #{t('views.summaries.index')}".html_safe,
                         summaries_path(timeline_id: @summary.timeline_id),
                         class: "list-group-item" %>
         <% end %>
         <%= link_to "<span class=\"icon-summary normal\"></span>
-                  Votre synthèse".html_safe,
+                  #{t('views.model.your_summary')}".html_safe,
                     summaries_path(timeline_id: @my_timeline.id, filter: "mine"),
                     :class => "list-group-item" %>
         <% if @summary.user_id == current_user.id || current_user.admin %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre synthèse".html_safe,
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.summaries.delete')}".html_safe,
                         summary_path(@summary.id), method: :delete,
                         data:                              {confirm: t('views.default.confirm')},
                         class:                             "list-group-item list-group-item-danger" %>
@@ -31,7 +31,7 @@
         <div class="panel-heading">
           <h2> <%= t('views.summaries.edit') %> </h2>
           <br/>
-          De la controverse :
+          <%= t('views.model.of_timeline') %> :
           <%= link_to @my_timeline.name.html_safe,
                       timeline_url(@summary.timeline_id) %>
         </div>
@@ -42,33 +42,25 @@
               <div class="switcher pull-right">
                 <p class="fieldset">
                   <%= f.radio_button :public, true %>
-                  <label for="summary_public_true">Publique</label>
+                  <label for="summary_public_true"><%= t('views.default.public_f') %></label>
                   <%= f.radio_button :public, false %>
-                  <label for="summary_public_false">Privée</label>
+                  <label for="summary_public_false"><%= t('views.default.private_f') %></label>
                   <span class="switch"></span>
                 </p>
               </div>
               <br/>
               <br/>
 
-              <%= f.label "Synthèse" %>
+              <%= f.label t('views.model.summary') %>
               <div id="characterLeft0"></div>
 
-              <%= f.text_area :content, {rows:          3, :placeholder => "synthèse",
+              <%= f.text_area :content, {rows:          3, :placeholder => t('views.model.summary'),
                                          :class         => "form-control textarea",
                                          id:            "description0",
                                          "data-provide" => "markdown"} %>
               <div class="panel panel-info">
                 <div class="panel-heading">
-                  La synthèse est un résumé général de la controverse. Son objectif
-                  est d'intégrer l'ensemble des références analysées, et donc de donner un bilan de la controverse basé
-                  sur des résultats scientifiques.
-                  <br/>
-                  Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est
-                  supporté</a>.
-                  De plus vous pouvez insérer des liens internes vers les références de cette controverse
-                  (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
-                  au lecteur une meilleure navigation dans la controverse.
+			<%= t('views.summaries.info') %>
                 </div>
               </div>
               <br/>
@@ -90,17 +82,17 @@
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-6">
-                    <strong> Légende de la figure </strong> <strong id="caption-name"></strong>
+                    <strong> <%= t('views.edition.caption') %> </strong> <strong id="caption-name"></strong>
                     <br/>
 
                     <div id="characterLeft1"></div>
-                    <%= f.text_area :caption, {rows:          3, :placeholder => "Légende de la figure",
+                    <%= f.text_area :caption, {rows:          3, :placeholder => t('views.edition.caption'),
                                                :class         => "form-control textarea", id: "description1",
                                                "data-provide" => "markdown"} %>
                     <div class="panel panel-danger">
                       <div class="panel-heading">
                         <span class="glyphicon glyphicon-warning-sign"></span>
-                        La source de la figure est requise pour des raisons évidentes de droit d'auteur.
+                        <%= t('views.picture.source_figure') %>
                       </div>
                     </div>
                   </div>
@@ -111,14 +103,14 @@
                   <div class="alert alert-danger alert-dismissible" role="alert">
                     <strong>
                       <span class="glyphicon glyphicon-warning-sign"></span>
-                      Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo).
+                      <%= t('views.picture.invalid_figure') %>
                     </strong>
                   </div>
                 </div>
               </div>
               <br/>
               <br/>
-              <%= f.button "#{t('views.summaries.edt')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+              <%= f.button "#{t('views.summaries.edit')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success btn-lg pull-right',
                            data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
           <% end %>
@@ -137,7 +129,7 @@
             </div>
             <div id="delete" class="btn btn-danger btn-lg" style="display: none">
               <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-              Supprimer la figure
+              <%= t('views.picture.delete_figure') %>
             </div>
           </div>
         </div>
@@ -153,9 +145,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">
           <% if @tim_list.any? %>
-              Créer un lien vers une controverse
+              <%= t('views.edition.add_timeline_link') %>
           <% else %>
-              Opération impossible
+              <%= t('views.edition.imposible') %>
           <% end %>
         </h4>
       </div>
@@ -164,16 +156,16 @@
             <%= select("timeline", "timeline_id", @tim_list, {}, {id: "list-tim", class: 'form-control'}) %>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-tim"> Ajouter
+            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-tim"> <%= t('views.buttons.add') %>
             </button>
           </div>
       <% else %>
           <div class="modal-body">
-            La controverse sur laquelle vous vous trouvez n'est actuellement liée à aucune autre.
+            <%= t('views.edition.timeline_not_linked') %>
             <br/>
             <br/>
             <%= link_to "<span class=\"glyphicon glyphicon-link\" >
-        </span> Créer des liens entre cette controverse et d'autres".html_safe,
+        </span> #{t('views.edition.add_timeline_links')}".html_safe,
                         edges_path(timeline_id: @summary.timeline_id),
                         class: "btn btn-primary btn-block", target: "_blank" %>
             <br/>
@@ -189,13 +181,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Créer un lien vers une référence </h4>
+        <h4 class="modal-title" id="myModalLabel"> <%= t('views.edition.add_reference_link') %> </h4>
       </div>
       <div class="modal-body">
         <%= select("reference", "reference_id", @list, {}, {id: "list-ref", class: 'form-control'}) %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn"> Ajouter
+        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn"> <%= t('views.buttons.add') %>
         </button>
       </div>
     </div>
@@ -207,14 +199,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Ajouter un lien externe </h4>
+        <h4 class="modal-title" id="myModalLabel"> <%= t('views.edition.add_href') %> </h4>
       </div>
       <div class="modal-body">
         <input id="http-text" type="text" class="form-control" placeholder="http://">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn-http">
-          Ajouter
+          <%= t('views.buttons.add') %>
         </button>
       </div>
     </div>
@@ -226,10 +218,10 @@
     <div class="modal-content panel-warning">
       <div class="modal-header panel-heading">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title"> Attention </h4>
+        <h4 class="modal-title"> <%= t('views.default.warning') %> </h4>
       </div>
       <div class="modal-body">
-        Rendre une contribution privé vous fera perdre tous les crédits qui lui ont été attribués.
+        <%= t('views.edition.make_private') %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
@@ -243,7 +235,7 @@
         if ($('#summary_has_picture').val() === 'true') {
             $('#caption').show();
             $('#delete').show();
-            $('#ajouter').text("Modifier la figure");
+            $('#ajouter').text("<%= t('views.picture.edit_figure') %>");
         }
     });
     $(function () {

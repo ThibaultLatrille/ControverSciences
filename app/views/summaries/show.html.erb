@@ -10,15 +10,15 @@
                     class: "list-group-item" %>
         <% if @timeline.nb_summaries > 1 %>
             <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
-                  &nbsp Toutes les synthèses de cette controverse".html_safe,
+                  &nbsp #{t('views.summaries.delete')}".html_safe,
                         summaries_path(timeline_id: @summary.timeline_id),
                         class: "list-group-item" %>
         <% end %>
         <% if logged_in? && @summary.user_id == current_user.id %>
-            <%= link_to "<span class=\"icon-frog normal\"></span> #{t('views.summaries.edt')}".html_safe,
+            <%= link_to "<span class=\"icon-frog normal\"></span> #{t('views.summaries.edit')}".html_safe,
                         edit_summary_path(@summary.id),
                         class: "list-group-item" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre synthèse".html_safe,
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.summaries.delete')}".html_safe,
                         summary_path(@summary.id), method: :delete,
                         data:                              {confirm: t('views.default.confirm')},
                         class:                             "list-group-item list-group-item-danger" %>
@@ -30,7 +30,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3>
-            Cette synthèse appartient à la controverse
+            <%= t('views.summaries.from_timeline') %>
             <%= link_to(@summary.timeline_name.html_safe, timeline_path(@summary.timeline_id)) %>
           </h3>
         </div>
