@@ -5,28 +5,28 @@
     <div class="panel panel-default">
       <div class="panel-heading clearfix">
         <div class="pull-right">
-          <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
+          <%= link_to t('views.sessions.new_user'), signup_path, class: "btn btn-lg btn-primary" %>
         </div>
       </div>
       <div class="panel-body">
-        <h3> Identifiants de connexion : </h3>
+        <h3> <%= t('views.sessions.connect') %> </h3>
         <%= form_for(:session, url: sessions_path) do |f| %>
             <%= f.label :email %>
             <%= f.text_field :email, class: "form-control", value: ( @email ? @email : "" ) %>
             <br/>
-            <%= f.label :password, 'Mot de passe' %>
-            <%= link_to "(Trou de mémoire ?)", new_password_reset_path %>
+            <%= f.label :password, t('views.model.password') %>
+            <%= link_to t('views.sessions.forgot'), new_password_reset_path %>
             <%= f.password_field :password, class: "form-control" %>
             <br/>
             <%= f.label :remember_me, class: "checkbox inline" do %>
                 <%= f.check_box :remember_me %>
-                <span>Se souvenir de moi pour mes prochaines visite.</span>
+                <span><%= t('views.sessions.remember_me') %></span>
             <% end %>
 
             <div class="pull-right">
-              <%= f.button "Rentrer dans l'arène &nbsp <span class=\"icon-frog fat\" aria-hidden=\"true\"></span>".html_safe,
+		    <%= f.button "#{t('views.sessions.login')} &nbsp <span class=\"icon-frog fat\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success',
-                           data: {disable_with: "<span class=\"glyphicon glyphicon-transfer\" aria-hidden=\"true\"></span> &nbsp Connexion "}%>
+			   data: {disable_with: "<span class=\"glyphicon glyphicon-transfer\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.connecting')} "}%>
             </div>
         <% end %>
         <br/>

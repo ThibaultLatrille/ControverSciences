@@ -71,7 +71,7 @@ fr:
       editing: Modification en cours
       publishing: Publication en cours
       creating: Création en cours
-      add: Ajouter"
+      add: Ajouter
       delete: Supprimer
       edit: Modifier
       deleting: Suppression en cours
@@ -79,6 +79,7 @@ fr:
       sending: Envoi en cours
       saving: Enregistrement en cours
       save_edit: Enregistrer la modification
+      connecting: Connexion en cours
     sorting:
       score: "Magique (par défaut)"
       score_sort: "Tri magique"
@@ -344,3 +345,9 @@ fr:
       reinit: Réinitialiser votre mot de passe
       reset: Mot de passe oublié
       save_new: Enregistrer le nouveau mot de passe
+    sessions:
+      connect: 'Identifiants de connexion :'
+      forgot: "(Trou de mémoire ?)"
+      login: Rentrer dans l'arène
+      new_user: Créer un compte
+      remember_me: Se souvenir de moi pour mes prochaines visite.
