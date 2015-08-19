@@ -5,15 +5,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Création confirmée </h4>
+        <h4 class="modal-title" id="myModalLabel"> <%= t('views.default.creation_confirmed') %> </h4>
       </div>
       <div class="modal-body clearfix">
-        Vous devez activer votre compte avant de continuer.
-        Le lien pour activer votre compte doit être parvenu à votre boîte mail,
-        à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet.
+        <%= t('views.users.created') %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-info" data-dismiss="modal"><%= t('views.default.close') %></button>
       </div>
     </div>
   </div>

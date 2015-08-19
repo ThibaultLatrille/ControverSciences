@@ -4,7 +4,7 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3> Créer un compte </h3>
+        <h3> <%= t('views.sessions.new_user') %> </h3>
       </div>
       <div class="panel-body">
     <%= form_for @user do |f| %>
@@ -43,13 +43,7 @@
           <br/>
           <div class="panel panel-info">
             <div class="panel-heading">
-              Si vous disposez d'une adresse électronique appartenant à une institution scientifique, votre validation sera automatique.
-              <br/>
-              <br/>
-              Si vous ne disposez pas d'une telle adresse, votre validation sera manuelle. Veuillez s’il vous plaît écrire quelques mots montrant
-              votre motivation, les administrateurs valideront le compte d'autant plus rapidement que vous vous montrez motivé !
-              <br/>
-              Une fois le compte validé, vous recevrez un mail contenant un lien permettant de valider le compte.
+              <%= t('views.users.email_invalid') %>
             </div>
             <div class="panel-body">
             <%= f.text_area :why, class: 'form-control textarea' %>
@@ -65,12 +59,12 @@
         <br/>
             <%= f.label :terms_of_service do %>
                 <%= f.check_box :terms_of_service %>
-                <span> J'ai lu et j'accepte <%= link_to "les conditions générales d'utilisation", terms_path %>. </span>
+                <span> <%= t('views.users.i_have_read') %> <%= link_to t('views.users.terms'), terms_path %>. </span>
             <% end %>
        <br/>
-        <%= f.button "Créer votre compte &nbsp <span class=\"icon-frog fat\" aria-hidden=\"true\"></span>".html_safe, id: "submit",
+       <%= f.button "#{t('views.users.create')} &nbsp <span class=\"icon-frog fat\" aria-hidden=\"true\"></span>".html_safe, id: "submit",
                      class: 'btn btn-success pull-right',
-                     data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Création en cours "}%>
+		     data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')} "}%>
         <% end %>
       </div>
     </div>

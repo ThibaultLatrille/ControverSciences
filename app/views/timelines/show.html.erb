@@ -63,7 +63,7 @@
     <% end %>
     <% if logged_in? && @my_frame %>
         <%= link_to "<span class=\"icon-summary normal\"></span>
-                                </span> #{t('views.model.your_frames')}".html_safe,
+                                </span> #{t('views.model.your_frame')}".html_safe,
                     frames_path(timeline_id: @timeline.id, filter: "mine"),
                     :class => "list-group-item" %>
     <% end %>

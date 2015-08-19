@@ -12,27 +12,27 @@
             <%= image_tag '', class: "img-rounded", height: "80px" %>
           </span>
         </span>
-            <span style="font-size: 2em"> &nbsp Modifier vos informations </span>
+            <span style="font-size: 2em"> <%= t('views.users.edit') %> </span>
       </div>
       <div class="panel-body">
         <%= form_for(@user_detail, html: {multipart: true}, url: user_details_path, method: :post) do |f| %>
             <%= render 'shared/error_messages', object: f.object %>
 
-            <%= f.label :job, "Fonction/métier" %>
-            <%= f.text_field :job, placeholder: "Votre fonction/métier", class: 'form-control' %>
+            <%= f.label :job, t('views.users.job') %>
+            <%= f.text_field :job, placeholder: "", class: 'form-control' %>
             <br/>
-            <%= f.label :institution, "Institution" %>
-            <%= f.text_field :institution, placeholder: "Où vous travaillez", class: 'form-control' %>
+            <%= f.label :institution, t('views.users.institution') %>
+            <%= f.text_field :institution, placeholder: "", class: 'form-control' %>
             <br/>
-            <%= f.label :website, "Site personnel" %>
+            <%= f.label :website, t('views.users.website') %>
             <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
             <br/>
             <%= f.check_box :send_email %>
-            <%= f.label :send_email, "Etre notifié par email si j'ai des notifications non lues (une fois par semaine)".html_safe %>
+            <%= f.label :send_email, t('views.users.send_email') %>
             <br/>
             <br/>
-            <%= f.label :biography, "Biographie" %>
-            <%= f.text_area :biography, placeholder: "Votre biographie", :id => "markdown-textarea", class: 'form-control textarea' %>
+            <%= f.label :biography, t('views.users.biography') %>
+            <%= f.text_area :biography, placeholder: "", :id => "markdown-textarea", class: 'form-control textarea' %>
             <br/>
             <%= f.hidden_field :has_picture, value: @user_detail.picture? %>
             <%= f.hidden_field :delete_picture, value: false %>
@@ -41,21 +41,21 @@
                 <div class="alert alert-danger alert-dismissible" role="alert">
                   <strong>
                     <span class="glyphicon glyphicon-warning-sign"></span>
-                    Cette image est de trop petite résolution (minimum 250px*250px), ou bien elle est trop grande (> 5Mo).
+                    <%= t('views.picture.invalid_profil') %>
                   </strong>
                 </div>
               </div>
             </div>
             <br/>
             <br/>
-            <%= f.button "Enregistrer les changements &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+            <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                          class: 'btn btn-success pull-right',
-                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
+                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "}%>
         <% end %>
         <div>
           <div id="upload-btn" class="btn btn-default fileinput-button">
             <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-            <span id="ajouter"> Ajouter une photo de profil </span>
+            <span id="ajouter"> <%= t('views.picture.add_profil') %> </span>
             <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
           </div>
           <div id="progress" style="display: none">
@@ -67,7 +67,7 @@
           </div>
           <div id="delete" class="btn btn-danger" style="display: none">
             <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-            Supprimer la photo de profil
+            <%= t('views.picture.delete_profil') %>
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@
   <div class="col-xs-12 col-md-5">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3> Modifier votre profil </h3>
+        <h3> <%= t('views.users.edit') %> </h3>
       </div>
       <div class="panel-body">
         <%= form_for(@user) do |f| %>
@@ -89,15 +89,15 @@
             <%= f.label :email %>
             <%= f.text_field :email, class: 'form-control' %>
             <br/>
-            <%= f.label :password, "Mot de passe" %>
+            <%= f.label :password, t('views.model.password') %>
             <%= f.password_field :password, class: 'form-control' %>
             <br/>
-            <%= f.label :password_confirmation, "Confirmation de mot de passe" %>
+            <%= f.label :password_confirmation, t('views.model.password_confirm') %>
             <%= f.password_field :password_confirmation, class: 'form-control' %>
             <br/>
-            <%= f.button "Enregistrer les changements &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+            <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                          class: 'btn btn-success pull-right',
-                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "}%>
+                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "}%>
         <% end %>
       </div>
     </div>
@@ -112,7 +112,7 @@
         if ($('#user_detail_has_picture').val() === 'true') {
             $('#caption').show();
             $('#delete').show();
-            $('#ajouter').text("Modifier la photo de profil");
+            $('#ajouter').text("<%= t('views.picture.edit_profil') %>");
         }
     });
     $(function () {
@@ -146,7 +146,7 @@
     $('#delete').click(function () {
         $('#caption').hide(300);
         $('#delete').hide(300);
-        $('#ajouter').text("Ajouter une photo de profil");
+        $('#ajouter').text("<%= t('views.picture.add_profil') %>");
         $('#user_detail_delete_picture').val('true');
     });
 </script>

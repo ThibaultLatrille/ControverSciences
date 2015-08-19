@@ -6,14 +6,14 @@
   <div class="col-xs-12 col-md-6">
     <%= render 'users/partial_user' %>
     <div class="center">
-      <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> Contributeur précédent".html_safe,
+      <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> #{t('views.users.previous')}}".html_safe,
                   previous_user_path(id: @user.id), class: "btn btn-primary" %>
-      <%= link_to "Contributeur suivant <span class=\"glyphicon glyphicon-menu-right\"></span>".html_safe,
+      <%= link_to "#{t('views.users.next')}} <span class=\"glyphicon glyphicon-menu-right\"></span>".html_safe,
                   next_user_path(id: @user.id), class: "btn btn-primary" %>
     </div>
     <div class="center">
       <br/>
-      <%= link_to "<span class=\"icon-users\"></span> Tous les contributeurs".html_safe,
+      <%= link_to "<span class=\"icon-users\"></span> #{t('views.users.all')}}".html_safe,
                   users_path, class: "btn btn-primary" %>
     </div>
     <br/>

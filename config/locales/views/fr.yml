@@ -18,13 +18,14 @@ fr:
       your: Votre
       search: Rechercher
       close: Fermer
+      creation_confirmed: Création confirmée
     navigation:
-      back_timeline: "Revenir à la controverse"
-      back_timelines: "Revenir aux controverses"
-      back_reference: "Revenir à la référence"
-      users: "Les contributeurs"
-      contributions: "Évolution des contributions"
-      new_contributions: "Nouvelles contributions"
+      back_timeline: Revenir à la controverse
+      back_timelines: Revenir aux controverses
+      back_reference: Revenir à la référence
+      users: Les contributeurs"
+      contributions: Évolution des contributions
+      new_contributions: Nouvelles contributions
     pagination:
       first: "&laquo; Première"
       last: "Dernière &raquo;"
@@ -52,15 +53,15 @@ fr:
       summary: La synthèse
       timeline: La Controverse
       your_comments: Vos analyses
-      your_frames: Votre proposition de titre et de cadre
+      your_frames: Vos propositions de titre et de cadre
       your_references: Vos références
       your_summaries: Vos synthèses
       your_timelines: Vos controverses
-      your_frame: Voir la proposition
+      your_frame: Votre proposition de titre et de cadre
       your_summary: Voir la synthèse
       your_summary_of_timeline: Votre synthèse de la controverse
       your_comment: Votre analyse
-      your_summary: Voir la synthèse
+      your_summary: Votre synthèse
       password: Mot de passe
       password_confirm: Confirmation de mot de passe
       errors:
@@ -76,15 +77,21 @@ fr:
       likes:
         one: "%{count} contributeur est intéressé par cette controverse"
         other: "%{count} contributeurs sont intéressés par cette controverse"
-      references:
-        one: "%{count} n'a pas d'analyse"
-        other: "%{count} références n'ont pas d'analyse"
       reference_no_comment:
+        one: "%{count} référence n'a pas d'analyse"
+        other: "%{count} références n'ont pas d'analyse"
+      references:
         one: "%{count} référence scientifique"
         other: "%{count} références scientifiques"
       edits:
         one: "%{count} contribution"
         other: "%{count} contributions"
+      timelines:
+        one: "%{count} controverse"
+        other: "%{count} controverses"
+      summaries:
+        one: "%{count} synthèse"
+        other: "%{count} synthèses"
     buttons:
       invit: Inviter
       advise: Enregister cet avis
@@ -100,76 +107,81 @@ fr:
       sending: Envoi en cours
       saving: Enregistrement en cours
       save_edit: Enregistrer la modification
+      save_changes: Enregistrer les changements
       connecting: Connexion en cours
     sorting:
-      score: "Magique (par défaut)"
-      score_sort: "Tri magique"
-      score_recent: "Activité récente"
-      created_at: "Date de création"
-      created_at_sort: "Tri par date"
-      nb_contributors: "Nombre de contributeurs"
-      nb_references: "Nombre de références"
-      nb_comments: "Nombre d'analyses"
-      nb_summaries: "Nombre de synthèses"
+      score: Magique (par défaut)
+      score_sort: Tri magique
+      score_recent: Activité récente
+      created_at: Date de création
+      created_at_sort: Tri par date
+      nb_contributors: Nombre de contributeurs
+      nb_references: Nombre de références
+      nb_comments: Nombre d'analyses
+      nb_summaries: Nombre de synthèses
       nb_likes_html: "Nombre de &nbsp<span class=\"glyphicon glyphicon-thumbs-up\"></span>"
-      asc: "Croissant"
-      asc_sort: "Ordre croissant"
-      desc: "Décroissant (par défaut)"
-      desc_sort: "Ordre décroissant"
+      asc: Croissant
+      asc_sort: Ordre croissant
+      desc: Décroissant (par défaut)
+      desc_sort: Ordre décroissant
     tags:
-      archeology: "Archéologie"
-      biology: "Biologie"
-      chemistry: "Chimie"
-      planet: "planet"
-      epistemology: "Epistémologie"
-      geography: "Géographie"
-      geology: "Géologie"
-      history: "Histoire"
-      informatics: "Informatique"
-      linguistic: "Linguistique"
-      pie: "Mathématiques"
-      medicine: "Médecine et santé"
-      physics: "Physique"
-      psycho: "Psychologie"
-      socio: "Sociologie"
-      techno: "Technologie"
+      archeology: Archéologie
+      biology: Biologie
+      chemistry: Chimie
+      planet: Ecologie
+      epistemology: Epistémologie
+      geography: Géographie
+      geology: Géologie
+      history: Histoire
+      informatics: Informatique
+      linguistic: Linguistique
+      pie: Mathématiques
+      medicine: Médecine et santé
+      physics: Physique
+      psycho: Psychologie
+      socio: Sociologie
+      techno: Technologie
     picture:
       add_figure: Ajouter une figure
       delete_figure: Supprimer la figure
       edit_figure: Modifier la figure
       invalid_figure: Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo).
       invalid_banner: Cette image est de trop petite résolution (minimum 1280px*1280px), ou bien elle est trop grande (> 5Mo).
+      invalid_profil: Cette image est de trop petite résolution (minimum 250px*250px), ou bien elle est trop grande (> 5Mo).
       source_figure: La source de la figure est requise pour des raisons évidentes de droit d'auteur.
       source: La source de l'image
+      edit_profil: Modifier la photo de profil
+      add_profil: Ajouter une photo de profil
+      delete_profil: Supprimer la photo de profil
     edition:
       necessary: champs obligatoires.
-      caption: "Légende de la figure"
-      add_timeline_link: "Créer un lien vers une controverse"
-      add_timeline_links: "Créer des liens entre cette controverse et d'autres"
-      imposible: "Opération impossible"
-      timeline_not_linked: "La controverse sur laquelle vous vous trouvez n'est actuellement liée à aucune autre."
-      add_reference_link: "Créer un lien vers une référence"
-      add_href: "Ajouter un lien externe"
-      make_private: "Rendre une contribution privée vous fera perdre tous les crédits qui lui ont été attribués."
-      character_much: "caractères en trop !"
-      character_left: "caractères restants."
-      character_miss: "caractères manquants !"
+      caption: Légende de la figure
+      add_timeline_link: Créer un lien vers une controverse
+      add_timeline_links: Créer des liens entre cette controverse et d'autres
+      imposible: Opération impossible
+      timeline_not_linked: La controverse sur laquelle vous vous trouvez n'est actuellement liée à aucune autre.
+      add_reference_link: Créer un lien vers une référence
+      add_href: Ajouter un lien externe
+      make_private: Rendre une contribution privée vous fera perdre tous les crédits qui lui ont été attribués.
+      character_much: caractères en trop !
+      character_left: caractères restants.
+      character_miss: caractères manquants !
     assistant:
-      index: "Contributeurs en attentes"
-      timelines: "Mettre à jour les valeurs sélectives des controverses"
-      users: "Mettre à jour les valeurs sélectives des utilisateurs"
-      profils: "Mettre à jour les profils"
+      index: Contributeurs en attentes
+      timelines: Mettre à jour les valeurs sélectives des controverses
+      users: Mettre à jour les valeurs sélectives des utilisateurs
+      profils: Mettre à jour les profils
     best_comments:
-      caption: "Légende"
-      display_all: "Toutes les contributions"
-      upvote: "Sélectionner cette analyse comme votre favorite"
-      downvote: "Vous avez selectionné cette analyse comme votre favorite"
+      caption: Légende
+      display_all: Toutes les contributions
+      upvote: Sélectionner cette analyse comme votre favorite
+      downvote: Vous avez selectionné cette analyse comme votre favorite
     comments:
-      show: "Analyse de la référence"
-      new: "Ecrire une analyse"
-      publish: "Publier votre analyse"
-      edit: "Modifier votre analyse"
-      delete: "Supprimer votre analyse"
+      show: Analyse de la référence
+      new: Ecrire une analyse
+      publish: Publier votre analyse
+      edit: Modifier votre analyse
+      delete: Supprimer votre analyse
       from_reference: "De la référence "
       from_timeline: "Dans la controverse "
       edit_help_html: "Vous pouvez tout à fait laissez certains champs vides.
@@ -179,18 +191,18 @@ fr:
                             De plus vous pouvez insérer des liens internes vers les références de cette controverse
                             (bouton <span class=\"icon-reference normal\"></span> dans la barre d'outils) afin de permettre
                             au lecteur une meilleure navigation entre les références de la controverse."
-      reference_href: "Lien vers la référence"
-      reference_added_by: "Référence ajoutée par"
+      reference_href: Lien vers la référence
+      reference_added_by: Référence ajoutée par
     references:
-      new: "Ajouter une référence à cette controverse"
-      edit: "Modifier votre référence"
-      delete: "Supprimer votre référence"
+      new: Ajouter une référence à cette controverse
+      edit: Modifier votre référence
+      delete: Supprimer votre référence
       author: "Les auteurs de l'étude "
       year: "Année de publication "
       journal: "Journal "
       abstract: "Abstract (dans sa langue originale) "
       doi: "Identifiant unique "
-      open_access: "Accés libre"
+      open_access: Accés libre
       abstract_fac: Abstract en langue originale (Facultatif)
       appear_in_timeline: Apparait dans la controverse
       add: Ajouter la référence
@@ -201,7 +213,7 @@ fr:
       category_1: Review
       category_2: Méta-analyse
       category_3: Livre
-      doi_fac: 'Identifiant unique : DOI, PMID, ou autre (facultatif)'
+      doi_fac: Identifiant unique : DOI, PMID, ou autre (facultatif)
       edges: Ajouter ou modifier les liens vers d'autres références
       edit: Modifier la référence
       edit_from: Editer une référence appartenant à la controverse
@@ -232,11 +244,11 @@ fr:
       maybe_you_changed: Mais vous avez peut être changé d'avis ?
       you_think: Vous pensez que
     edges:
-      new_edge: "Créer un nouveau lien"
-      to_timeline: "Les liens concernant la controverse"
-      with_timeline: "Liens avec la controverse..."
-      with_timelines: "Liens avec les controverses "
-      add_edge: "Ajouter un lien"
+      new_edge: Créer un nouveau lien
+      to_timeline: Les liens concernant la controverse
+      with_timeline: Liens avec la controverse...
+      with_timelines: Liens avec les controverses
+      add_edge: Ajouter un lien
       impossible: "Opération impossible : vous avez précédemment émis un avis contraire sur ce sujet.
                                  Annulez d'abord votre vote précédent (en cliquant à nouveau sur le bouton correspondant)."
       upvote:
@@ -245,42 +257,42 @@ fr:
       downvote:
         one: "%{count} contributeur ne trouve pas ce lien pertinent."
         other: "%{count} contributeurs ne trouvent pas ce lien pertinent."
-      not_counted: "Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs."
+      not_counted: Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs.
     reference_edges:
-      to_reference: "Les liens concernant la référence"
-      no_edges: "n'a aucun lien vers d'autres références"
-      direction: "Sens du lien"
-      category: "Type de lien"
-      with_reference: "Avec la référence"
-      possible: "Les liens possibles entre ces deux références"
+      to_reference: Les liens concernant la référence
+      no_edges: n'a aucun lien vers d'autres références
+      direction: Sens du lien
+      category: Type de lien
+      with_reference: Avec la référence
+      possible: Les liens possibles entre ces deux références
     frames:
-      mine: "Votre proposition de titre et de cadre"
-      favorite: "Votre proposition de titre et de cadre favorite"
-      new: "Proposer un titre et un cadre"
-      new_to: "Proposer un titre et un cadre à la controverse"
-      show_to: "Cette contribution appartient à la controverse"
-      create: "Publier votre proposition de titre et de cadre"
-      delete: "Supprimer votre titre et votre cadre"
-      edit: "Modifier votre titre et/ou votre cadre"
-      edit_title: "Titre de la controverse"
-      edit_frame: "Cadre, focus et mise au point de la controverse"
+      mine: Votre proposition de titre et de cadre
+      favorite: Votre proposition de titre et de cadre favorite
+      new: Proposer un titre et un cadre"
+      new_to: Proposer un titre et un cadre à la controverse
+      show_to: Cette contribution appartient à la controverse
+      create: Publier votre proposition de titre et de cadre
+      delete: Supprimer votre titre et votre cadre
+      edit: Modifier votre titre et/ou votre cadre
+      edit_title: Titre de la controverse
+      edit_frame: Cadre, focus et mise au point de la controverse
       edit_info_html: "Précisez le cadre de référence de la controverse.
                                          <br/>
                                          Le <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown est
                                          supporté</a>"
-      binary: "Pour cette controverse, il existe deux réponses antagonistes"
+      binary: Pour cette controverse, il existe deux réponses antagonistes
       binary_info: "En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les références.
                                           Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse."
-      delete: "Supprimer votre contribution"
-      index: "Toutes les titres et cadres de cette controverse"
-      fix_typo_title: "Corriger une faute de français dans le titre"
-      fix_typo_frame: "Corriger une faute de français dans le cadre"
-      frame: "Cadre, focus et mise au point "
-      upvote: "Sélectionner cette analyse comme votre favorite"
-      downvote: "Vous avez selectionné cette analyse comme votre favorite"
-      no_favorite: "Vous n'avez pas de contribution favorite"
-      no_mine: "Vous n'avez pas encore écrit de contribution"
-      no_other: "Il n'y a pas de contribution autre que la votre"
+      delete: Supprimer votre contribution
+      index: Toutes les titres et cadres de cette controverse
+      fix_typo_title: Corriger une faute de français dans le titre
+      fix_typo_frame: Corriger une faute de français dans le cadre
+      frame: Cadre, focus et mise au point
+      upvote: Sélectionner cette analyse comme votre favorite
+      downvote: Vous avez selectionné cette analyse comme votre favorite
+      no_favorite: Vous n'avez pas de contribution favorite
+      no_mine: Vous n'avez pas encore écrit de contribution
+      no_other: Il n'y a pas de contribution autre que la votre
       versus_placeholder_left: Oui/Blanc/Inné/...
       versus_placeholder_right: Non/Noir/Acquis/...
     summaries:
@@ -466,3 +478,37 @@ fr:
       sent_this_message: 'vous a écrit le message suivant:'
       the_team: L'équipe ControverSciences
       welcome: Bienvenue sur ControverSciences, il ne vous reste plus qu'à cliquer sur le lien suivant pour commencer à contribuer au projet.
+    users:
+      edit: Editer votre profil
+      added: 'a ajouté '
+      all: Tous les contributeurs
+      biography: 'Biographie :'
+      connect_as: Se connecter en tant que
+      create: Créer votre compte
+      created: |-
+        Vous devez activer votre compte avant de continuer.\
+                Le lien pour activer votre compte doit être parvenu à votre boîte mail,\
+                à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet.
+      delete: Supprimer ce contributeur
+      email_invalid: |-
+        Si vous disposez d'une adresse électronique appartenant à une institution scientifique, votre validation sera automatique.\
+                      <br/>\
+                      <br/>\
+                      Si vous ne disposez pas d'une telle adresse, votre validation sera manuelle. Veuillez s’il vous plaît écrire quelques mots montrant\
+                      votre motivation, les administrateurs valideront le compte d'autant plus rapidement que vous vous montrez motivé !\
+                      <br/>\
+                      Une fois le compte validé, vous recevrez un mail contenant un lien permettant de valider le compte.
+      for_admins: Pour les admins seulement
+      i_have_read: J'ai lu et j'accepte
+      institution: 'Institution :'
+      job: 'Fonction/métier :'
+      join_slack: Rejoindre l'équipe sur Slack !
+      next: Contributeur suivant
+      pending: Votre incription est en cours de traitement, un email vous sera envoyé
+        dès que la demande sera acceptée.
+      pending_confirm: Confirmation en attente
+      previous: Contributeur précédent
+      send_email: Etre notifié par email si vous avez des notifications non lues (une fois par semaine)
+      terms: les conditions générales d'utilisation
+      website: 'Site web :'
+      wrote: a écrit
