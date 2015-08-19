@@ -23,9 +23,16 @@ fr:
       back_timeline: Revenir à la controverse
       back_timelines: Revenir aux controverses
       back_reference: Revenir à la référence
-      users: Les contributeurs"
+      users: Les contributeurs
       contributions: Évolution des contributions
       new_contributions: Nouvelles contributions
+      empty_comments: Analyser
+      empty_ref: Enrichir
+      empty_summaries: Synthétiser
+      faq: FAQ
+      how_to: Découvrir ControverSciences
+      how_to_edit: Contribuer à ControverSciences
+      newsletter: Bulletins d'information
     pagination:
       first: "&laquo; Première"
       last: "Dernière &raquo;"
@@ -359,6 +366,16 @@ fr:
       user_name: Votre nom*
     header:
       login: S'identifier
+      typos: corrections en attente
+      user: Accéder à votre profil
+      empty_comments: Vos références à analyser
+      empty_ref: Vos controverses à enrichir
+      empty_summaries: Vos controverses à synthétiser
+      my_items: Vos contributions
+      notifs: Notifications
+      likes: Les controverses qui vous intéressent
+      logout: Se déconnecter
+      news: Nouveautés
     footer:
       about: " A propos"
       close: Fermer
