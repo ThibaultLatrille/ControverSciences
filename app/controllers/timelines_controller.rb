@@ -2,6 +2,9 @@ class TimelinesController < ApplicationController
   before_action :logged_in_user, only: [:new, :edit, :update, :create, :destroy]
 
   def index
+    if params[:sort] == "nb_edits"
+      params[:sort] = :nb_comments
+    end
     query = Timeline.includes(:tags).order(params[:sort].blank? ? :score : params[:sort].to_sym =>
                                params[:order].blank? ? :desc : params[:order].to_sym).where.not(private: true)
     unless params[:filter].blank?
