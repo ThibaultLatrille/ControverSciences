@@ -56,6 +56,8 @@ fr:
       your_summary_of_timeline: Votre synthèse de la controverse
       your_comment: Votre analyse
       your_summary: Voir la synthèse
+      password: Mot de passe
+      password_confirm: Confirmation de mot de passe
     pluralize:
       users:
         one: "%{count} contributeur"
@@ -64,13 +66,16 @@ fr:
         one: "%{count} analyse"
         other: "%{count} analyses"
     buttons:
-      editing: "Modification en cours"
-      publishing: "Publication en cours"
-      creating: "Création en cours"
-      add: "Ajouter"
-      delete: "Supprimer"
-      edit: "Modifier"
+      editing: Modification en cours
+      publishing: Publication en cours
+      creating: Création en cours
+      add: Ajouter"
+      delete: Supprimer
+      edit: Modifier
       deleting: Suppression en cours
+      send: Envoyer
+      sending: Envoi en cours
+      saving: Enregistrement en cours
     sorting:
       score: "Magique (par défaut)"
       score_sort: "Tri magique"
@@ -221,7 +226,6 @@ fr:
       message: Message
       necessary: champs obligatoires.
       send: Envoyer l'invitation
-      sending: Envoi
       sent: Votre invitation a bien été envoyée.
       server_error: Le serveur ne réponds pas
       target_email: Son adresse email*
@@ -254,8 +258,6 @@ fr:
                       verre,
                       <a href="mailto:contact@controversciences.org">contactez-nous sans attendre</a>
                       ou spammez directement <a href="mailto:thibault.latrille@controversciences.org">le webmaster !</a>
-      send: Envoyer
-      sending: Envoi
     issue:
       taken_into_account: Votre remarque a été prise en compte !
       thank: Merci !
@@ -294,3 +296,8 @@ fr:
       no_notifs: Vous n'avez aucune nouvelle notification
       typos: Les corrections que vous ont apporté les contributeurs
       upvoted: Vos contributions qui ont pris la première place
+    password:
+      new: Demander un nouveau mot de passe
+      reinit: Réinitialiser votre mot de passe
+      reset: Mot de passe oublié
+      save_new: Enregistrer le nouveau mot de passe
