@@ -10,19 +10,19 @@
       <div class="list-group">
         <div class="list-group-item center">
           <div class="sticky" data-placement="left"
-               title="<%= empty_summary.nb_contributors.to_s + (empty_summary.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
+               title="<%= t('views.pluralize.users', count: empty_summary.nb_contributors ) %>"
                data-toggle="tooltip">
             <span class="fatter icon-users"></span>
             <%= empty_summary.nb_contributors %>
           </div>
           <div class="sticky" data-placement="bottom"
-               title="<%= empty_summary.nb_references.to_s + (empty_summary.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
+               title="<%= t('views.pluralize.references', count: empty_summary.nb_references ) %>"
                data-toggle="tooltip">
             <span class="fatter icon-reference"></span>
             <%= empty_summary.nb_references %>
           </div>
           <div class="sticky" data-placement="right"
-               title="<%= empty_summary.nb_edits.to_s + (empty_summary.nb_edits > 1 ? " contributions" : " contribution") %>"
+               title="<%= t('views.pluralize.comments', count: empty_summary.nb_edits ) %>"
                data-toggle="tooltip">
             <span class="fatter icon-comment"></span>
             <%= empty_summary.nb_edits %>
@@ -31,7 +31,7 @@
       </div>
       <% if empty_summary.frame != "" %>
           <div class="cadre text-justify">
-            <b style="font-size: 1.4em">Cadre, focus et mise au point :</b><br/>
+            <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
             <%= empty_summary.frame.html_safe %>
           </div>
       <% end %>

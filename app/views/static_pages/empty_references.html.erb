@@ -3,18 +3,18 @@
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
       <div class="list-group">
         <%= link_to "<span class=\"icon-reference bigger\"></span>
-                                    Enrichir les controverses
+                                    #{t('views.empty.references')}
                                     <span class=\"badge\">#{Timeline.where(nb_references: 0..3).count}</span>".html_safe,
                     empty_references_path,
                     class: "list-group-item clearfix #{ ((!logged_in?)||(params[:filter].blank?)) ? "list-group-item clearfix-default cursor-not-allowed" : ""}" %>
         <% if logged_in? %>
             <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up bigger\"></span>
-                        Enrichir les controverses qui m'intéressent
+                        #{t('views.empty.my_references')}
                         <span class=\"badge\">#{Timeline.where(id: @like_ids).where(nb_references: 0..3).count}</span>".html_safe,
                         empty_references_path(filter: "interest"),
                         class: "list-group-item clearfix #{ (params[:filter] == "interest") ? "list-group-item clearfix-default cursor-not-allowed" : ""}" %>
             <%= link_to "<span class=\"icon-user bigger\"></span>
-                                Enrichir vos controverses
+                                #{t('views.header.empty_ref')}
                                 <span class=\"badge\">#{Timeline.where(user_id: current_user.id).where(nb_references: 0..3).count}</span>".html_safe,
                         empty_references_path(filter: "mine"),
                         class: "list-group-item clearfix #{ (params[:filter] == "mine") ? "list-group-item clearfix-default cursor-not-allowed" : ""}" %>
@@ -22,18 +22,18 @@
       </div>
       <div class="list-group">
         <%= link_to "<span class=\"icon-comment bigger\"></span>
-                                    Analyser les références
+                                    #{t('views.empty.comments')}
                                     <span class=\"badge\">#{Reference.where(title_fr: nil).count}</span>".html_safe,
                     empty_comments_path,
                     class: "list-group-item clearfix" %>
         <% if logged_in? %>
             <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up bigger\"></span>
-                        Analyser les références qui m'intéressent
+                        #{t('views.empty.my_comments')}
                         <span class=\"badge\">#{Reference.where(timeline_id: @like_ids).where(title_fr: nil).count}</span>".html_safe,
                         empty_comments_path(filter: "interest"),
                         class: "list-group-item clearfix" %>
             <%= link_to "<span class=\"icon-user bigger\"></span>
-                                Analyser vos références
+                                #{t('views.header.empty_comments')}
                                 <span class=\"badge\">#{Reference.where(user_id: current_user.id).where(title_fr: nil).count}</span>".html_safe,
                         empty_comments_path(filter: "mine"),
                         class: "list-group-item clearfix" %>
@@ -41,18 +41,18 @@
       </div>
       <div class="list-group">
         <%= link_to "<span class=\"icon-summary bigger\"></span>
-                                    Synthètiser les controverses
+                                    #{t('views.empty.summaries')}
                                     <span class=\"badge\">#{Timeline.where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
                     empty_summaries_path,
                     class: "list-group-item clearfix" %>
         <% if logged_in? %>
             <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up bigger\"></span>
-                        Synthètiser les controverses qui m'intéressent
+                        #{t('views.empty.my_summaries')}
                         <span class=\"badge\">#{Timeline.where(id: @like_ids).where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
                         empty_summaries_path(filter: "interest"),
                         class: "list-group-item clearfix" %>
             <%= link_to "<span class=\"icon-user bigger\"></span>
-                                Synthètiser vos controverses
+                                #{t('views.header.empty_summaries')}
                                 <span class=\"badge\">#{Timeline.where(user_id: current_user.id).where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).count}</span>".html_safe,
                         empty_summaries_path(filter: "mine"),
                         class: "list-group-item clearfix" %>
@@ -67,15 +67,15 @@
         <% if @empty_references.any? %>
             <div class="panel-heading">
               <h3>
-                Ces controverses
+                <%= t('views.empty.these_timelines') %>
                 <% if logged_in? %>
                     <% if params[:filter] == "mine" %>
-                        que vous avez ajoutées
+                        <%= t('views.empty.you_added') %>
                     <% elsif params[:filter] == "interest" %>
-                        qui vous intéressent
+                        <%= t('views.empty.you_like') %>
                     <% end %>
                 <% end %>
-                ont besoin de références scientifiques, venez les enrichir !
+                <%= t('views.empty.need_references') %>
               </h3>
             </div>
             <div class="panel-body">
@@ -94,17 +94,17 @@
             <div class="panel-heading">
               <h3>
                 <span class="icon-4 pull-right" style="margin-right: 15px"></span>
-                Toutes les controverses
+                <%= t('views.empty.all_timelines') %>
                 <% if logged_in? %>
                     <% if params[:filter] == "mine" %>
-                        que vous avez ajoutées
+                        <%= t('views.empty.you_added') %>
                     <% elsif params[:filter] == "interest" %>
-                        qui vous intéressent
+                        <%= t('views.empty.you_like') %>
                     <% end %>
                 <% end %>
-                ont actuellement au moins une référence.
+                <%= t('views.empty.have_references') %>
               </h3>
-              <%= link_to "<span class=\"icon-frog fat\"></span> Créer une controverse".html_safe, new_timeline_path, class: "btn btn-primary btn-lg pull-right" %>
+              <%= link_to "<span class=\"icon-frog fat\"></span> #{t('views.timelines.new')}".html_safe, new_timeline_path, class: "btn btn-primary btn-lg pull-right" %>
             </div>
         <% end %>
       </div>

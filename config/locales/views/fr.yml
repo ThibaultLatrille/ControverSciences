@@ -369,9 +369,9 @@ fr:
       login: S'identifier
       typos: corrections en attente
       user: Accéder à votre profil
-      empty_comments: Vos références à analyser
-      empty_ref: Vos controverses à enrichir
-      empty_summaries: Vos controverses à synthétiser
+      empty_comments: Analyser vos références
+      empty_ref: Enrichir vos controverses
+      empty_summaries: Synthètiser vos controverses
       my_items: Vos contributions
       notifs: Notifications
       likes: Les controverses qui vous intéressent
@@ -617,3 +617,10 @@ fr:
       two_body_link_2: sur vos intérêts
       three_head: Vous disposez de crédits limités à distribuer entre les différentes contributions.
       two_head: Vous pouvez être tenu au courant des contributions.
+    empty:
+      references: Enrichir les controverses
+      comments: Analyser les références
+      summaries: Synthètiser les controverses
+      my_references: Enrichir les controverses qui vous intéressent
+      my_comments: Analyser les références qui vous intéressent
+      my_summaries: Synthètiser les controverses qui m'intéressent
