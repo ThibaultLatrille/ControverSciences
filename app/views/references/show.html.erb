@@ -403,7 +403,7 @@
               <% star_hash.each do |key, value| %>
                   <div class="col-xs-2">
                     <div class="cursor-default"
-                         title="<<%= t('views.references.user_binary', count: @reference["star_#{key}".to_sym] -%> <%= value.downcase %>" data-toggle="tooltip">
+                         title="<<%= t('views.references.user_binary', count: @reference["star_#{key}".to_sym]) -%> <%= value.downcase %>" data-toggle="tooltip">
                         <span class="icon-<%= key %>" style="font-size: <%= @reference.star_font_size( key ) -%>em;">
                         <%= @reference["star_#{key}".to_sym] -%>
                     </span>
