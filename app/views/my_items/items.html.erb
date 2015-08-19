@@ -212,7 +212,7 @@
           <% @comments.each do |com| %>
               <tr class="notification-comment">
                 <td class="center"> <%= com.balance %>  </td>
-                <td> <%= link_to t('views.my_items.to_comment'), reference_path(com.reference_id, filter: :mine ), class: "btn btn-primary" %>   </td>
+                <td> <%= link_to t('views.model.your_comment'), reference_path(com.reference_id, filter: :mine ), class: "btn btn-primary" %>   </td>
                 <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
                 <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>
                 <td class="center"> <%= com.public ? "<span class=\"icon icon-lock normal static-green\"> </span>".html_safe :
@@ -268,7 +268,7 @@
             <% @summaries.each do |com| %>
                 <tr class="notification-summary">
                   <td class="center"> <%= com.balance %>   </td>
-                  <td> <%= link_to t('views.my_items.to_summary'),
+                  <td> <%= link_to t('views.model.your_summary'),
                                    summaries_path(timeline_id: com.timeline_id, filter: "mine" ),
                                    class: "btn btn-primary" %>   </td>
                   <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>

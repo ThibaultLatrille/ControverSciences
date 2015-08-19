@@ -45,6 +45,10 @@ fr:
       your_references: Vos références
       your_summaries: Vos synthèses
       your_timelines: Vos controverses
+      your_frame: Voir la proposition
+      your_summary: Voir la synthèse
+      your_comment: Votre analyse
+      your_summary: Voir la synthèse
     pluralize:
       users:
         one: "%{count} contributeur"
@@ -259,5 +263,7 @@ fr:
       no_summaries: Pas encore de synthèses ajoutées
       set_public_timeline: Rendre la controverse publique est irréversible, êtes vous
         certain de votre choix ?
-      to_comment: Votre analyse
-      to_summary: Voir la synthèse
+      credits_to_comments: Vos credits accordés aux analyses
+      credits_to_frames: Vos credits accordés aux propositions d'amélioration de controverse
+      credits_to_summaries: Vos credits accordés aux synthèses
+      no_credits: Pas encore de crédits accordés

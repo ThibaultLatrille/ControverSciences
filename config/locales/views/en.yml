@@ -1,3 +1,19 @@
 ---
 fr:
   views:
+    model:
+      comment: Analyse
+      credits: Crédits
+      frame: Proposition
+      in_timeline: Dans la controverse
+      of_reference: de la référence
+      of_timeline: De la controverse
+      summary: Synthèse
+      your_frame: Voir la proposition
+      your_summary: Voir la synthèse
+    my_items:
+      credits_to_comments: Vos credits accordés aux analyses
+      credits_to_frames: |
+        Vos credits accordés aux propositions d'amélioration de controverse\
+      credits_to_summaries: Vos credits accordés aux synthèses
+      no_credits: Pas encore de crédits accordés
