@@ -74,15 +74,20 @@ class SummariesController < ApplicationController
   end
 
   def show
-    @summary = Summary.select(:id, :user_id, :timeline_id,
-                              :markdown, :balance, :best, :figure_id, :caption_markdown,
-                              :created_at).find(params[:id])
-    if logged_in?
-      @improve   = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id ).count == 1 ? false : true
-      @my_credit = Credit.find_by(user_id: current_user.id, timeline_id: @summary.timeline_id )
-      @only_one_summary = Summary.where(public: true, timeline_id: @summary.timeline_id ).count == 1
+    begin
+      @summary = Summary.select(:id, :user_id, :timeline_id,
+                                :markdown, :balance, :best, :figure_id, :caption_markdown,
+                                :created_at).find(params[:id])
+      if logged_in?
+        @improve   = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id ).count == 1 ? false : true
+        @my_credit = Credit.find_by(user_id: current_user.id, timeline_id: @summary.timeline_id )
+        @only_one_summary = Summary.where(public: true, timeline_id: @summary.timeline_id ).count == 1
+      end
+      @timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
+    rescue ActiveRecord::RecordNotFound
+      flash[:danger] = t('controllers.summary_record_not_found')
+      redirect_to timelines_path
     end
-    @timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
   end
 
   def index

@@ -79,14 +79,19 @@ class CommentsController < ApplicationController
   end
 
   def show
-    @comment = Comment.find(params[:id])
-    unless @comment.public
-      if current_user && current_user.id == @comment.user_id
-        flash.now[:info] = t('controllers.comment_private')
-      else
-        flash[:danger] = t('controllers.comment_privated')
-        redirect_to reference_path(@comment.reference_id)
+    begin
+      @comment = Comment.find(params[:id])
+      unless @comment.public
+        if current_user && current_user.id == @comment.user_id
+          flash.now[:info] = t('controllers.comment_private')
+        else
+          flash[:danger] = t('controllers.comment_privated')
+          redirect_to reference_path(@comment.reference_id)
+        end
       end
+    rescue ActiveRecord::RecordNotFound
+      flash[:danger] = t('controllers.comment_record_not_found')
+      redirect_to timelines_path
     end
   end
 
