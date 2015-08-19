@@ -8,13 +8,13 @@
             <% if my_likes && my_likes.include?(timeline.id) %>
                 <button type="button" class="btn btn-success" data-placement="left"
                         data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
-                        title="Vous et <%= (timeline.nb_likes - 1).to_s + ((timeline.nb_likes - 1) > 1 ? " autres contributeurs s'intéressent" : " autre contributeur s'intéresse") + " à cette controverse" %>">
+                        title="<%= t('views.default.you_and' ) + " " + t('views.pluralize.likes', count: timeline.nb_likes - 1 ) %>">
                   <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
                 </button>
             <% else %>
                 <button type="button" class="btn btn-default green" data-placement="left"
                         data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
-                        title="<%= timeline.nb_likes.to_s + (timeline.nb_likes > 1 ? " contributeurs s'intéressent" : " contributeur s'intéresse") + " à cette controverse" %>">
+                        title="<%= t('views.pluralize.likes', count: timeline.nb_likes ) %>">
                   <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
                 </button>
             <% end %>
@@ -49,19 +49,19 @@
         </div>
           <div class="transparent inline-block">
               <div class="sticky" data-placement="top"
-                   title="<%= timeline.nb_contributors.to_s + (timeline.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
+                   title="<%= t('views.pluralize.users', count: timeline.nb_contributors ) %>"
                    data-toggle="tooltip">
                 <span class="fat icon-users"></span>
                 <span class="badge"><%= timeline.nb_contributors %></span>
               </div>
               <div class="sticky" data-placement="top"
-                   title="<%= timeline.nb_references.to_s + (timeline.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
+                   title="<%= t('views.pluralize.references', count: timeline.nb_references ) %>"
                    data-toggle="tooltip">
                 <span class="fat icon-reference"></span>
                 <span class="badge"><%= timeline.nb_references %></span>
               </div>
               <div class="sticky" data-placement="right"
-                   title="<%= timeline.nb_edits.to_s + (timeline.nb_edits > 1 ? " contributions" : " contribution") %>"
+                   title="<%= t('views.pluralize.edits', count: timeline.nb_edits ) %>"
                    data-toggle="tooltip">
                 <span class="fat icon-summary"></span>
                 <span class="badge"><%= timeline.nb_edits %></span>

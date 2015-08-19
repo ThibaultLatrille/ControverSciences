@@ -16,6 +16,8 @@ fr:
       tags: Thèmes
       ago: Il y a
       your: Votre
+      search: Rechercher
+      close: Fermer
     navigation:
       back_timeline: "Revenir à la controverse"
       back_reference: "Revenir à la référence"
@@ -35,10 +37,12 @@ fr:
       references: Les références
       comments: Les analyses
       summaries: Les synthèses
+      summaries_of: Les synthèses de cette controverse
       comment: L'analyse
-      frame: Proposition de formulation
+      frame: La proposition de titre et de cadres
       frame_0: Le titre
       frame_1: Le cadre
+      frames: Les proposition de titre et de cadres
       credits: Les Crédits
       in_timeline: Dans la controverse
       of_reference: De la référence
@@ -47,7 +51,7 @@ fr:
       summary: La synthèse
       timeline: La Controverse
       your_comments: Vos analyses
-      your_frames: Vos propositions d'amélioration de controverses
+      your_frames: Votre proposition de titre et de cadre
       your_references: Vos références
       your_summaries: Vos synthèses
       your_timelines: Vos controverses
@@ -68,6 +72,18 @@ fr:
       comments:
         one: "%{count} analyse"
         other: "%{count} analyses"
+      likes:
+        one: "%{count} contributeur est intéressé par cette controverse"
+        other: "%{count} contributeurs sont intéressés par cette controverse"
+      references:
+        one: "%{count} n'a pas d'analyse"
+        other: "%{count} références n'ont pas d'analyse"
+      reference_no_comment:
+        one: "%{count} référence scientifique"
+        other: "%{count} références scientifiques"
+      edits:
+        one: "%{count} contribution"
+        other: "%{count} contributions"
     buttons:
       invit: Inviter
       advise: Enregister cet avis
@@ -75,6 +91,7 @@ fr:
       publishing: Publication en cours
       creating: Création en cours
       add: Ajouter
+      save: Sauvegarder
       delete: Supprimer
       edit: Modifier
       deleting: Suppression en cours
@@ -93,7 +110,7 @@ fr:
       nb_references: "Nombre de références"
       nb_comments: "Nombre d'analyses"
       nb_summaries: "Nombre de synthèses"
-      nb_likes_html: "Nombre de &nbsp <span class=\"glyphicon glyphicon-thumbs-up\"></span>"
+      nb_likes_html: "Nombre de &nbsp<span class=\"glyphicon glyphicon-thumbs-up\"></span>"
       asc: "Croissant"
       asc_sort: "Ordre croissant"
       desc: "Décroissant (par défaut)"
@@ -116,11 +133,13 @@ fr:
       socio: "Sociologie"
       techno: "Technologie"
     picture:
-      add_figure: "Ajouter une figure"
-      delete_figure: "Supprimer la figure"
-      edit_figure: "Modifier la figure"
-      invalid_figure: "Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo)."
-      source_figure: "La source de la figure est requise pour des raisons évidentes de droit d'auteur."
+      add_figure: Ajouter une figure
+      delete_figure: Supprimer la figure
+      edit_figure: Modifier la figure
+      invalid_figure: Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo).
+      invalid_banner: Cette image est de trop petite résolution (minimum 1280px*1280px), ou bien elle est trop grande (> 5Mo).
+      source_figure: La source de la figure est requise pour des raisons évidentes de droit d'auteur.
+      source: La source de l'image
     edition:
       necessary: champs obligatoires.
       caption: "Légende de la figure"
@@ -234,12 +253,12 @@ fr:
       with_reference: "Avec la référence"
       possible: "Les liens possibles entre ces deux références"
     frames:
-      mine: "Votre contribution"
-      favorite: "Ma contribution favorite"
+      mine: "Votre proposition de titre et de cadre"
+      favorite: "Votre proposition de titre et de cadre favorite"
       new: "Proposer un titre et un cadre"
       new_to: "Proposer un titre et un cadre à la controverse"
       show_to: "Cette contribution appartient à la controverse"
-      create: "Publier votre contribution"
+      create: "Publier votre proposition de titre et de cadre"
       delete: "Supprimer votre titre et votre cadre"
       edit: "Modifier votre titre et/ou votre cadre"
       edit_title: "Titre de la controverse"
@@ -261,6 +280,8 @@ fr:
       no_favorite: "Vous n'avez pas de contribution favorite"
       no_mine: "Vous n'avez pas encore écrit de contribution"
       no_other: "Il n'y a pas de contribution autre que la votre"
+      versus_placeholder_left: Oui/Blanc/Inné/...
+      versus_placeholder_right: Non/Noir/Acquis/...
     summaries:
       new: Ecrire une synthèse
       edit: Modifier votre synthèse
@@ -285,8 +306,33 @@ fr:
       no_summary: Vous n'avez pas encore écrit de synthèse
       upvote: Selectionner cette synthèse comme votre favorite
     timelines:
+      previous: Controverse précédente
+      next: Controverse suivante
+      new: Créer une controverse
+      delete: Supprimer votre controverse
+      based_on: Cette synthèse se base sur
+      confirm: Rendre la controverse publique est irréversible, êtes vous certain
+        de votre choix ?
+      create: Créer la controverse
+      display_all: Afficher toutes les controverses
+      dl_bib: Télécharger la bibliographie
+      edges: Liens entre les controverses
+      edges_ref: Liens entre les références
+      fix_typo_summary: Corriger une faute de français dans la synthèse
+      hide_show: Cliquer pour l'afficher/masquer
+      is_private: Cette controverse est privée, et ne sera pas visible sans le lien.
+      login: Identifiez vous pour voir les controverses en construction
+      make_public: Cette controverse est privée. Souhaitez vous la rendre publique
+      neutral: Neutre
       new: Ajouter une controverse
-      delete: ""
+      new_edges: Ajouter ou modifier les liens vers d'autres controverses
+      new_frame: Proposer une amélioration de titre et de cadre
+      none_params: Aucune controverse ne correspond à ces critères de sélection
+      only_liked: Afficher uniquement les controverses qui vous intéressent
+      read_less: Réduire le texte
+      read_more: Continuer la lecture
+      source_necessary: La source est nécessaire
+      strongly: Fermement
     invitations:
       for_reference: Envoyez une invitation à une personne intéressée par cette référence
       for_timeline: Envoyez une invitation à une personne intéressée par cette controverse
@@ -298,6 +344,8 @@ fr:
       target_name: Son nom
       thank: Merci !
       user_name: Votre nom*
+    header:
+      login: S'identifier
     footer:
       about: " A propos"
       close: Fermer
@@ -373,3 +421,6 @@ fr:
       login: Rentrer dans l'arène
       new_user: Créer un compte
       remember_me: Se souvenir de moi pour mes prochaines visite.
+      action_login: Veuillez vous identifier afin d'effectuer cette action
+      new_user: Créer un compte
+      server_dead: Le serveur ne répond pas

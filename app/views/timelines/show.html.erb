@@ -9,40 +9,40 @@
   <div class="list-group">
     <div class="list-group-item center">
       <div class="sticky" data-placement="bottom"
-           title="<%= @timeline.nb_contributors.to_s + (@timeline.nb_contributors > 1 ? " contributeurs" : " contributeur") %>"
+           title="<%= t('views.pluralize.users', count: @timeline.nb_contributors ) %>"
            data-toggle="tooltip">
         <span class="fat icon-users"></span>
         <%= @timeline.nb_contributors %>
       </div>
       <div class="sticky" data-placement="bottom"
-           title="<%= @timeline.nb_references.to_s + (@timeline.nb_references > 1 ? " références scientifiques" : " référence scientifique") %>"
+           title="<%= t('views.pluralize.references', count: @timeline.nb_references ) %>"
            data-toggle="tooltip">
         <span class="fat icon-reference"></span>
         <%= @timeline.nb_references %>
       </div>
       <div class="sticky" data-placement="right"
-           title="<%= @timeline.nb_edits.to_s + (@timeline.nb_edits > 1 ? " contributions" : " contribution") %>"
+           title="<%= t('views.pluralize.edits', count: @timeline.nb_edits ) %>"
            data-toggle="tooltip">
         <span class="fat icon-summary"></span>
         <%= @timeline.nb_edits %>
       </div>
     </div>
-    <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir aux controverses".html_safe,
+    <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order]),
                 class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> Controverse précédente".html_safe,
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> #{t('views.timelines.previous')}".html_safe,
                 previous_timeline_path(id: @timeline.id),
                 class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Controverse suivante".html_safe,
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> #{t('views.timelines.next')}".html_safe,
                 next_timeline_path(id: @timeline.id),
                 class: "list-group-item" %>
     <% if logged_in? %>
         <%= link_to "<span class=\"glyphicon glyphicon-link\" >
-                        </span>  Ajouter ou modifier les liens vers d'autres controverses".html_safe,
+			</span>  #{t('views.timelines.new_edges')}".html_safe,
                     edges_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
         <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette controverse".html_safe,
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.timelines.delete')}".html_safe,
                         timeline_path(@timeline), method: :delete,
                         data:                             {confirm: t('views.default.confirm')},
                         class:                            "list-group-item list-group-item-danger" %>
@@ -52,18 +52,18 @@
   <div class="list-group">
     <% if @timeline.nb_frames > 1 %>
         <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_frames}</span>
-              &nbsp Les proposition de titre et de cadres des contributeurs ".html_safe,
+	      &nbsp #{t('views.model.frames')}".html_safe,
                     frames_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
     <% elsif logged_in? && !@my_frame %>
         <%= link_to "<span class=\"icon-fork normal\" >
-                                </span> Proposer une amélioration de titre et de cadre".html_safe,
+				</span> #{t('views.timelines.new_frame')}".html_safe,
                     new_frame_path(timeline_id: @timeline.id),
                     class: "list-group-item" %>
     <% end %>
     <% if logged_in? && @my_frame %>
         <%= link_to "<span class=\"icon-summary normal\"></span>
-                                </span> Votre proposition de titre et de cadre".html_safe,
+                                </span> #{t('views.model.your_frames')}".html_safe,
                     frames_path(timeline_id: @timeline.id, filter: "mine"),
                     :class => "list-group-item" %>
     <% end %>
@@ -75,7 +75,7 @@
             <% if @summary %>
                 <% if @timeline.nb_summaries > 1 %>
                     <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
-                  &nbsp Les synthèses de cette controverse ".html_safe,
+                  &nbsp #{t('views.model.summaries_of')} ".html_safe,
                                 summaries_path(timeline_id: @timeline.id),
                                 class: "list-group-item" %>
                 <% end %>
@@ -86,7 +86,7 @@
                                 :class => "list-group-item" %>
                 <% else %>
                     <%= link_to "<span class=\"icon-summary normal\"></span>
-                  Votre synthèse".html_safe,
+                  #{t('views.model.your_summary')}".html_safe,
                                 summaries_path(timeline_id: @timeline.id, filter: "mine"),
                                 :class => "list-group-item" %>
                 <% end %>
@@ -100,7 +100,7 @@
       <% elsif @timeline.nb_summaries > 1 %>
           <div class="list-group">
             <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
-              &nbsp Les synthèses de cette controverse ".html_safe,
+              &nbsp #{t('views.model.summaries_of')} ".html_safe,
                         summaries_path(timeline_id: @timeline.id),
                         class: "list-group-item" %>
           </div>
@@ -116,11 +116,11 @@
       <% if @timeline.nb_references > 0 %>
           <div class="list-group">
             <% if @timeline.nb_references > 1 %>
-                <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les références".html_safe,
+		    <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges_ref')}".html_safe,
                             references_graph_path(timeline_id: @timeline.id),
                             class: "list-group-item" %>
             <% end %>
-            <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> Télécharger la bibliographie".html_safe,
+	    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> #{t('views.timelines.dl_bib')}".html_safe,
                         '#download-biblio', 'data-toggle' => 'modal',
                         class:                            "list-group-item" %>
             <div class="modal fade" id="download-biblio" tabindex="-1" role="dialog">
@@ -133,29 +133,29 @@
                   <div class="modal-body">
                     <div class="row">
                       <div class="col-xs-12 col-md-3">
-                        <%= link_to image_tag("bib.png", alt: "Synthétiser", :class => "img-responsive"),
+                        <%= link_to image_tag("bib.png", alt: "Bibtex", :class => "img-responsive"),
                                     timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
                                     class: "hvr-grow" %>
                       </div>
                       <div class="col-xs-12 col-md-3">
-                        <%= link_to image_tag("xml.png", alt: "Synthétiser", :class => "img-responsive"),
+                        <%= link_to image_tag("xml.png", alt: "Xml", :class => "img-responsive"),
                                     timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
                                     class: "hvr-grow" %>
                       </div>
                       <div class="col-xs-12 col-md-3">
-                        <%= link_to image_tag("json.png", alt: "Synthétiser", :class => "img-responsive"),
+                        <%= link_to image_tag("json.png", alt: "json", :class => "img-responsive"),
                                     timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
                                     class: "hvr-grow" %>
                       </div>
                       <div class="col-xs-12 col-md-3">
-                        <%= link_to image_tag("yaml.png", alt: "Synthétiser", :class => "img-responsive"),
+                        <%= link_to image_tag("yaml.png", alt: "yaml", :class => "img-responsive"),
                                     timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
                                     class: "hvr-grow" %>
                       </div>
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> Fermer</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> <%= t('views.default.close') %> </button>
                   </div>
                 </div>
               </div>
@@ -177,7 +177,7 @@
          data-layout="button_count">
     </div>
   </div>
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>Inviter</b>".html_safe,
+    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>#{t('views.buttons.invit')}</b>".html_safe,
                 new_invitation_path(timeline_id: @timeline.id),
                 remote: true,
                 style: "padding: 1px 6px; margin-top: 5px;",
@@ -188,9 +188,9 @@
 <% if @timeline.private && logged_in? && current_user.private_timeline %>
     <div class="panel panel-info">
       <div class="panel-heading">
-        <%= link_to "Cette controverse est privée. Souhaitez vous la rendre publique <span class=\"icon icon-lock normal\"></span>".html_safe,
+	      <%= link_to "#{t('views.timelines.make_public')} <span class=\"icon icon-lock normal\"></span>".html_safe,
                     set_public_timelines_path(timeline_id: @timeline.id),
-                    data: {confirm: "Rendre la controverse publique est irréversible, êtes vous certain de votre choix ?"} %>
+                    data: {confirm: t('views.timelines.confirm')} %>
       </div>
     </div>
 <% end %>
@@ -206,7 +206,7 @@
                         new_typo_path(frame_id: @improve_frame.id, field: 0),
                         remote: true,
                         class:  "btn btn-default", "data-toggle" => "tooltip",
-                        title:  "Corriger une faute de français dans le titre",
+                        title:  t('views.frames.fix_typo_title'),
                         style:  "padding: 8px; margin: 0px 8px;" %>
           </div>
       <% end %>
@@ -214,13 +214,13 @@
         <% if logged_in? && (@my_likes.include? @timeline.id) %>
             <button type="button" class="btn btn-success" data-placement="left"
                     data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                    title="Vous et <%= (@timeline.nb_likes - 1).to_s + ( (@timeline.nb_likes - 1) > 1 ? " autres contributeurs s'intéressent" : " autre contributeur s'intéresse" ) +" à cette controverse" %>">
+                    title="<%= t('views.default.you_and' ) + " " + t('views.pluralize.likes', count: @timeline.nb_likes - 1 ) %>">
               <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
             </button>
         <% else %>
             <button type="button" class="btn btn-default green" data-placement="left"
                     data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                    title="<%= @timeline.nb_likes.to_s + ( @timeline.nb_likes > 1 ? " contributeurs s'intéressent" : " contributeur s'intéresse" ) + " à cette controverse" %>">
+                    title="<%= t('views.pluralize.likes', count: @timeline.nb_likes ) %>">
               <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
             </button>
         <% end %>
@@ -243,12 +243,12 @@
                 <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                             new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
                             :class                                                        => "btn btn-default", "data-toggle" => "tooltip",
-                            title:                                                        "Corriger une faute de français dans le cadre",
+                            title:                                                        t('views.frames.fix_typo_frame'),
                             :style                                                        => "padding: 8px; margin: 8px" %>
               </div>
           <% end %>
           <div class="cadre text-justify">
-            <b style="font-size: 1.4em">Cadre, focus et mise au point :</b><br/>
+            <b style="font-size: 1.4em"><%= t('views.frames.frame') %>:</b><br/>
             <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 1 %>">
               <%= @timeline.frame.html_safe %>
            </span>
@@ -275,7 +275,7 @@
           <%= f.hidden_field :has_picture, value: @timeline.picture? %>
           <%= f.hidden_field :delete_picture, value: false %>
           <%= f.hidden_field :img_timeline_id, value: @timeline.id %>
-          <%= f.text_field :source, value: (@timeline.figure_id.blank? ? nil : @timeline.figure.source), placeholder: "La source de l'image", class: 'form-control' %>
+          <%= f.text_field :source, value: (@timeline.figure_id.blank? ? nil : @timeline.figure.source), placeholder: t('views.picture.source'), class: 'form-control' %>
           <br/>
 
           <div id="size-warning" class="row" style="display: none">
@@ -283,12 +283,12 @@
               <div class="alert alert-danger alert-dismissible" role="alert">
                 <strong>
                   <span class="glyphicon glyphicon-warning-sign"></span>
-                  Cette image est de trop petite résolution (minimum 1280px*1280px), ou bien elle est trop grande (> 5Mo).
-                </strong>
+                  <%= t('views.picture.invalid_banner') %>
+                  </strong>
               </div>
             </div>
           </div>
-          <%= f.button "Sauvegarder &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+          <%= f.button "#{t('views.buttons.save')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                        class: 'btn btn-success pull-right',
                        data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
       <% end %>
@@ -307,7 +307,7 @@
         </div>
         <div id="delete" class="btn btn-danger" style="display: none">
           <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-          Supprimer la figure
+          <%= t('views.picture.delete_figure') %>
         </div>
       </div>
     </div>
@@ -315,7 +315,7 @@
         $(document).ready(function () {
             if ($('#timeline_has_picture').val() === 'true') {
                 $('#delete').show();
-                $('#ajouter').text("Modifier la figure");
+                $('#ajouter').text("<%= t('views.picture.edit_figure') %>");
             }
             $(function () {
                 'use strict';
@@ -377,7 +377,7 @@
                 <div class="pull-right">
                   <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                               new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
-                              title:                                          "Corriger une faute de français dans la synthèse", :style => "padding: 6px; margin-right: 6px" %>
+                              title:                                          t('views.timelines.fix_typo_summary'), :style => "padding: 6px; margin-right: 6px" %>
                   <% if current_user.admin %>
                       <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
                                   edit_summary_path(@summary.id),
@@ -394,7 +394,7 @@
             <% end %>
             <% if @summary.summary_links.count > 0 %>
                 <hr/>
-            Cette synthèse se base sur <%= @summary.summary_links.count.to_s + " référence" + (@summary.summary_links.count > 1 ? "s" : "") %> :
+            <%= t('views.timelines.based_on') %> <%= @summary.summary_links.count.to_s + " référence" + (@summary.summary_links.count > 1 ? "s" : "") %> :
             <ul>
               <% @summary.summary_links.includes(:reference).each do |link| %>
               <li><%= link_to link.reference.title_display, reference_path(link.reference), class: "linked-ref", "data-ref" => link.reference.id %></li>
@@ -413,8 +413,8 @@
                 speed: 750,
                 embedCSS: false,
                 collapsedHeight: 450,
-                moreLink: '<a href="#" class="btn btn-default">Continuer la lecture</a>',
-                lessLink: '<a href="#" class="btn btn-default">Réduire le texte</a>'
+                moreLink: '<a href="#" class="btn btn-default"><%= t('views.timelines.read_more') %></a>',
+                lessLink: '<a href="#" class="btn btn-default"><%= t('views.timelines.read_less') %></a>'
             });
         });
     </script>
@@ -446,14 +446,14 @@
         $(document).ready(function () {
             var data = {
                 labels: [
-                            "Fermement " + $('#versus-left').text().toLowerCase(),
+                            "<%= t('views.timelines.strongly') %> " + $('#versus-left').text().toLowerCase(),
                     $('#versus-left').text(),
-                    "Neutre",
+                    "<%= t('views.timelines.neutral') %>",
                     $('#versus-right').text(),
-                            "Fermement " + $('#versus-right').text().toLowerCase()],
+                            "<%= t('views.timelines.strongly') %> " + $('#versus-right').text().toLowerCase()],
                 datasets: [
                     {
-                        label: "My First dataset",
+                        label: "",
                         data: [$('.binary1').length,
                             $('.binary2').length,
                             $('.binary3').length,
@@ -536,15 +536,15 @@
           <% if @titles == 1 %>
               <br/>
               <label class="btn <%= logged_in? ? "active" : nil %> btn-comment grey cd-color-orange" style="font-size: 16px;"
-                     title="1 référence n'a pas d'analyse(s). Cliquer pour l'afficher/masquer." data-toggle="tooltip">
-                &nbsp <span class="glyphicon glyphicon-eye-<%= logged_in? ? "open" : "close" %>"></span> &nbsp 1
-                référence n'a pas d'analyse.
+                     title="<%= t('views.pluralize.reference_no_comment', count: 1 ) %>. <%= t('views.timelines.hide_show') %>." data-toggle="tooltip">
+                &nbsp <span class="glyphicon glyphicon-eye-<%= logged_in? ? "open" : "close" %>"></span> &nbsp
+                <%= t('views.pluralize.reference_no_comment', count: 1 ) %>
               </label>
           <% else %>
               <label class="btn <%= logged_in? ? "active" : nil %> btn-comment grey cd-color-orange" style="font-size: 16px;"
-                     title="<%= @titles -%> références n'ont pas d'analyse(s). Cliquer pour les afficher/masquer." data-toggle="tooltip">
+                     title="<%= t('views.pluralize.reference_no_comment', count: @titles ) %>. <%= t('views.timelines.hide_show') %>." data-toggle="tooltip">
                 &nbsp <span class="glyphicon glyphicon-eye-<%= logged_in? ? "open" : "close" %>"></span>
-                &nbsp <%= @titles -%> références n'ont pas d'analyse
+                &nbsp <%= t('views.pluralize.reference_no_comment', count: @titles ) %>
               </label>
           <% end %>
         </div>
@@ -626,16 +626,16 @@
         <% if logged_in? %>
             <br/>
 
-            <h2 class="modal-title" id="myModalLabel"> Le serveur ne répond pas</h2>
+            <h2 class="modal-title" id="myModalLabel"> <%= t('views.sessions.server_dead') %> </h2>
         <% else %>
             <br/>
 
-            <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette
-              action</h2>
+            <h2 class="modal-title" id="myModalLabel"> <%= t('views.sessions.action_login') %>
+            </h2>
             <br/>
-            <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
+            <%= link_to t('views.header.login'), login_path, class: "btn btn-lg btn-primary" %>
             <div class="pull-right">
-              <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
+              <%= link_to t('views.sessions.new_user'), signup_path, class: "btn btn-lg btn-primary" %>
             </div>
         <% end %>
         <br/>
@@ -666,7 +666,7 @@
                             self.addClass('btn-success');
                             self.removeClass('btn-default');
                             self.removeClass('green');
-                            self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                            self.attr('data-original-title', "<%= t('views.default.you_and')%> " + self.attr('data-original-title'));
                             like.text(' ' + (parseInt(like.text()) + 1));
                         },
                         204: function (response) {
@@ -676,7 +676,7 @@
                             self.removeClass('btn-success');
                             self.addClass('btn-default');
                             self.addClass('green');
-                            self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                            self.attr('data-original-title', self.attr('data-original-title').replace('<%= t('views.default.you_and')%> ', ''));
                             like.text(' ' + (parseInt(like.text()) - 1));
                         },
                         401: function (response) {

@@ -55,7 +55,7 @@
                 <div class="panel-body">
                   <%= f.label :binary do %>
                       <%= f.check_box :binary, id: "check-box", value: true %>
-                      <%= t('views.frames.binary') %> </span>
+                      <span> <%= t('views.frames.binary') %> </span>
                   <% end %>
                   <div id="binary-box">
                     <br/>
@@ -63,7 +63,7 @@
                     <div class="row">
                       <div class="col-xs-4">
                         <br/>
-                        <%= f.text_field :binary_left, class: 'form-control', placeholder: "Oui/Blanc/Inné/..." %>
+                        <%= f.text_field :binary_left, class: 'form-control', placeholder: t('views.frames.versus_placeholder_left') %>
                         <br/>
                       </div>
                       <div class="col-xs-4 center">
@@ -71,7 +71,7 @@
                       </div>
                       <div class="col-xs-4">
                         <br/>
-                        <%= f.text_field :binary_right, class: 'form-control', placeholder: "Non/Noir/Acquis/..." %>
+                        <%= f.text_field :binary_right, class: 'form-control', placeholder: t('views.frames.versus_placeholder_right') %>
                         <br/>
                       </div>
                     </div>

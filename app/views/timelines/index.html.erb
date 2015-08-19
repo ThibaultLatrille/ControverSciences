@@ -5,8 +5,8 @@
       <% if logged_in? %>
           <% if @my_likes.count > 1 %>
               <div class="list-group">
-                <%= link_to                                             "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? "Afficher uniquement les controverses qui vous intéressent" :
-                        "Afficher toutes les controverses"}".html_safe, timelines_path(:sort     => params[:sort],
+                <%= link_to                                             "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? t('views.timelines.only_liked') :
+                        t('views.timelines.display_all')}".html_safe, timelines_path(:sort     => params[:sort],
                                                                                        :order    => params[:order],
                                                                                        :tag      => params[:tag],
                                                                                        :filter   => params[:filter],
@@ -86,7 +86,7 @@
                     <span class="icon icon-search bigger"></span>
                 <% end %>
                     </span>
-              <%= text_field_tag(:filter, params[:filter], placeholder: " Rechercher") %>
+              <%= text_field_tag(:filter, params[:filter], placeholder: " " + t('views.default.search')) %>
             </div>
             <%= hidden_field_tag(:tag, params[:tag]) %>
             <%= hidden_field_tag(:sort, params[:sort]) %>
@@ -130,10 +130,10 @@
     <div class="col-xs-12 col-lg-2">
       <% if logged_in? %>
           <div class="list-group">
-            <%= link_to "<span class=\"icon-network normal\"></span> Liens entre les controverses".html_safe, timelines_graph_path,
+		  <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges')}".html_safe, timelines_graph_path,
                         class: "list-group-item" %>
             <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
-                       </span> Ajouter une controverse".html_safe,
+		       </span> #{t('views.timelines.new')}".html_safe,
                         new_timeline_path,
                         class: "list-group-item" %>
           </div>
@@ -154,7 +154,7 @@
 
           <% else %>
               <h1 style="font-size: 2.8em;">
-                Aucune controverse ne correspond à ces critères de sélection
+                <%= t('views.timelines.none_params') %>
               </h1>
 
               <div class="row center">
@@ -163,7 +163,7 @@
                 </div>
               </div>
               <br/>
-              <%= link_to "<span class=\"icon icon-5\"> Voir toutes les controverses".html_safe, timelines_path(),
+	      <%= link_to "<span class=\"icon icon-5\"> #{t('views.timelines.display_all')}".html_safe, timelines_path,
                           class: "btn btn-block btn-primary" %>
               <br/>
               <br/>
@@ -174,10 +174,10 @@
       <% unless logged_in? %>
           <div class="center">
             <%= link_to "<span class=\"icon icon-4\" >
-                   </span> Identifiez vous pour voir les controverses en construction".html_safe,
+                   </span> #{t('views.timelines.login')}".html_safe,
                         login_path, class: "btn btn-block btn-primary" %>
             <%= link_to "<span class=\"icon icon-5\" >
-                   </span> Créer un compte".html_safe,
+		   </span> #{t('views.sessions.new_user')}".html_safe,
                         new_user_path, class: "btn btn-block btn-primary" %>
           </div>
 
@@ -195,15 +195,15 @@
         <% if logged_in? %>
             <br/>
 
-            <h2 class="modal-title" id="myModalLabel"> Le serveur ne répond pas</h2>
+            <h2 class="modal-title" id="myModalLabel"> <%= t('views.sessions.server_dead') %></h2>
         <% else %>
             <br/>
 
-            <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette action</h2>
+            <h2 class="modal-title" id="myModalLabel"> <%= t('views.sessions.action_login') %></h2>
             <br/>
-            <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
+            <%= link_to t('views.header.login'), login_path, class: "btn btn-lg btn-primary" %>
             <div class="pull-right">
-              <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
+              <%= link_to t('views.sessions.new_user'), signup_path, class: "btn btn-lg btn-primary" %>
             </div>
         <% end %>
         <br/>
@@ -239,7 +239,7 @@
                         self.addClass('btn-success');
                         self.removeClass('btn-default');
                         self.removeClass('green');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
+                        self.attr('data-original-title', "<%= t('views.default.you_and')%> " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
                     204: function (response) {
@@ -249,7 +249,7 @@
                         self.removeClass('btn-success');
                         self.addClass('btn-default');
                         self.addClass('green');
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
+                        self.attr('data-original-title', self.attr('data-original-title').replace('<%= t('views.default.you_and')%> ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
                     401: function (response) {

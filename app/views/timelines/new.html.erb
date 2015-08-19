@@ -4,7 +4,7 @@
 <div class="col-md-6 col-md-offset-3">
 <div class="panel panel-default">
 <div class="panel-heading">
-  <h3>Créer une nouvelle controverse</h3>
+  <h3><%= t('views.timelines.new') %></h3>
 </div>
 <div class="panel-body">
 <%= form_for(@timeline) do |f| %>
@@ -12,18 +12,30 @@
     <%= render 'shared/error_messages', object: f.object %>
     <br/>
     <br/>
-    <b style="font-size: 1.4em">Titre de la controverse</b><div id="characterLeft1"></div><br/>
+    <b style="font-size: 1.4em"><%= t('views.frames.edit_title') %></b>
+
+      <div id="characterLeft1"></div>
+      <br/>
     <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
     </br>
-    <b style="font-size: 1.4em">Cadre, focus et mise au point de la controverse</b><div id="characterLeft0"></div><br/>
+    <b style="font-size: 1.4em"><%= t('views.frames.edit_frame') %></b>
+
+      <div id="characterLeft0"></div>
+      <br/>
     <%= f.text_area :frame, class: 'form-control textarea', id: "description0" %>
     </br>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <%= t('views.frames.edit_info_html') %>
+        </div>
+      </div>
+      <br/>
 
     <div class="panel panel-default">
       <div class="panel-body">
         <%= f.label :binary do %>
             <%= f.check_box :binary, id: "check-box", value: true %>
-            <span> Pour cette controverse, il existe deux réponses antagonistes </span>
+            <span> <%= t('views.frames.binary') %> </span>
         <% end %>
         <div id="binary-box">
           <br/>
@@ -31,7 +43,7 @@
           <div class="row">
             <div class="col-xs-4">
               <br/>
-              <%= f.text_field :binary_left, class: 'form-control', value: "", placeholder: "Oui/Blanc/Inné/..." %>
+              <%= f.text_field :binary_left, class: 'form-control', value: "", placeholder: t('views.frames.versus_placeholder_left') %>
               <br/>
             </div>
             <div class="col-xs-4 center">
@@ -39,7 +51,7 @@
             </div>
             <div class="col-xs-4">
               <br/>
-              <%= f.text_field :binary_right, class: 'form-control', value: "", placeholder: "Non/Noir/Acquis/..." %>
+              <%= f.text_field :binary_right, class: 'form-control', value: "", placeholder: t('views.frames.versus_placeholder_right') %>
               <br/>
             </div>
           </div>
@@ -47,9 +59,7 @@
         </div>
         <div class="panel panel-info">
           <div class="panel-heading">
-            En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les
-            références.
-            Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse.
+            <%= t('views.frames.binary_info') %>
           </div>
         </div>
       </div>
@@ -59,16 +69,16 @@
             <div class="panel-heading">
               <%= f.label :private do %>
                   <%= f.check_box :private %>
-                  <span class="icon icon-locked normal"></span> <span>Cette controverse est privée, et ne sera pas visible sans le lien. </span>
+                  <span class="icon icon-locked normal"></span> <span><%= t('views.timelines.is_private') %> </span>
               <% end %>
             </div>
           </div>
       <% else %>
           <%= f.hidden_field :private, value: false %>
       <% end %>
-    <%= f.button "Créer la controverse &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+      <%= f.button "#{t('views.timelines.create')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                  class: 'btn btn-success btn-lg pull-right',
-                 data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Création en cours "} %>
+		 data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')} "} %>
 <% end %>
 </div>
 </div>
