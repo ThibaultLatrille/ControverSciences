@@ -26,7 +26,7 @@
                               <%= t('views.model.in_timeline') %>
                               <%= link_to typo.comment_short.timeline_name.html_safe, timeline_path(typo.comment_short.timeline_id) %>
                           <% elsif typo.summary_id %>
-                              <%= t('views.model.your_summary_of_timeline') %>
+                              <%= t('views.model.summary') %>
                               <%= link_to typo.summary_short.timeline_name.html_safe, timeline_path(typo.summary_short.timeline_id) %>
                           <% elsif typo.frame_id %>
                               <%= link_to typo.field == 0 ? t('views.model.frame_0') : t('views.model.frame_1'),
@@ -45,12 +45,12 @@
                         <br/>
 
                         <div class="pull-right">
-                          <%= link_to "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Refuser la correction".html_safe,
+				<%= link_to "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> #{t('views.typos.refuse')}".html_safe,
                                       typo_path(id: typo.id), method: :delete,
                                       class:                          "btn btn-danger",
                                       data:                           {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
                                     &nbsp Suppression en cours"} %>
-                          <%= link_to "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> Accepter la correction".html_safe,
+			    <%= link_to "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> #{t('views.typos.accept')}".html_safe,
                                       typos_accept_path(id: typo.id),
                                       class: "btn btn-success",
                                       data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>

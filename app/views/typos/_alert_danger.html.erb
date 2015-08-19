@@ -7,7 +7,7 @@
       </strong>
       <% if @typo_errors.full_messages.blank? %>
           <b>
-            Vous avez déjà soumis une correction pour cette contribution, qui est en attente de validation !
+            <%= t('views.typos.already_sent') %>
           </b>
       <% else %>
           <b>

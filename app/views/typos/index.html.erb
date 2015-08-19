@@ -9,7 +9,7 @@
     <br/>
     <br/>
     &nbsp  &nbsp  &nbsp <span class="blue" style="font-size: 2em;"><span class="fat icon-bug-<%= rand(18) %>"></span>
-                    Les corrections à valider </span>
+                    <%= t('views.typos.to_valid') %> </span>
     <div class="row">
       <div class="col-xs-10 col-xs-offset-1">
         <% @typos.each do |typo| %>
@@ -18,14 +18,14 @@
               <div class="panel-body">
                 <b>
                   <% if typo.comment_id %>
-                      <%= category_hash[ typo.comment_short.reference.category][typo.field] %> de la référence
-                      <%= link_to typo.comment_short.reference.title, reference_path(typo.comment_short.reference_id) %> dans la controverse
+                      <%= category_hash[ typo.comment_short.reference.category][typo.field] %> <%= t('views.model.of_reference').downcase %>
+                      <%= link_to typo.comment_short.reference.title, reference_path(typo.comment_short.reference_id) %> <%= t('views.model.in_timeline') %>
                       <%= link_to typo.comment_short.timeline_name.html_safe, timeline_path(typo.comment_short.timeline_id ) %>
                   <% elsif typo.summary_id %>
-                      Votre synthèse de la controverse
+                      <%= t('views.model.summary') %>
                       <%= link_to typo.summary_short.timeline_name.html_safe, timeline_path(typo.summary_short.timeline_id )  %>
                   <% elsif typo.frame_id %>
-                      <%= link_to typo.field == 0 ? "Le titre" : "Le cadre",
+                      <%= link_to typo.field == 0 ? t('views.model.frame_0') : t('views.model.frame_1'),
                                   frame_path(typo.frame_id) %> de la controverse
                       <%= link_to typo.frame_short.timeline_name.html_safe, timeline_path(typo.frame_short.timeline_id ) %>
                   <% end %>
@@ -39,12 +39,12 @@
                 </div>
                 <br/>
                 <div class="pull-right">
-                  <%= link_to "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span> Refuser la correction".html_safe,
+                  <%= link_to "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>  #{t('views.typos.refuse')}".html_safe,
                               typo_path( id: typo.id ), method: :delete,
                               class: "btn btn-danger",
                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
                                     &nbsp Suppression en cours"}%>
-                  <%= link_to "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span> Accepter la correction".html_safe,
+                  <%= link_to "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  #{t('views.typos.accept')}".html_safe,
                               typos_accept_path( id: typo.id ),
                               class: "btn btn-success",
                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>

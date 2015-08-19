@@ -10,12 +10,11 @@
           <div class="panel-heading">
             <% if typo.target_user_id == current_user.id %>
                 <b>
-                  Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
-                </b>
+			<%= t('views.typos.if_yours') %>
+		</b>
             <% else %>
                 <b>
-                  Si une faute de français vous a brulé les yeux, vous pouvez proposer une correction ici à l'auteur.
-                  Celle-ci lui sera envoyée pour être soumise à validation.
+			<%= t('views.typos.if_not_yours') %>
                 </b>
             <% end %>
           </div>
@@ -26,14 +25,14 @@
             <%= f.hidden_field :comment_id, value: typo.comment_id %>
             <%= f.hidden_field :frame_id, value: typo.frame_id %>
             <%= f.hidden_field :field, value: typo.field %>
-            <%= f.label :content, "Correction", class: 'control-label' %>
+            <%= f.label :content, t('views.typos.content'), class: 'control-label' %>
             <br>
             <%= f.text_area :content, class: 'form-control textarea' %>
             <div class="actions pull-right">
               <br/>
-              <%= f.button "Envoyer la corretion &nbsp <span class=\"bigger icon-bug-#{rand(18)}\" aria-hidden=\"true\"></span>".html_safe,
+	      <%= f.button "#{t('views.typos.send')} &nbsp <span class=\"bigger icon-bug-#{rand(18)}\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Envoi "} %>
+                           data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.sending')} "} %>
             </div>
         <% end %>
       </div>
