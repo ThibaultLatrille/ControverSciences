@@ -220,7 +220,7 @@
       <li class="list-group-item">
         <div class="bold">
           <%= t('views.references.url') %>
-          <%= @reference.open_access ? "(<span class=\"icon icon-lock normal\"></span> Accés libre)".html_safe : "" %>
+          <%= @reference.open_access ? "(<span class=\"icon icon-lock normal\"></span> #{t('views.references.open_access')})".html_safe : "" %>
           :
         </div> <%= link_to @reference.url, @reference.url, class: "break-word", target: "_blank" %></li>
       <li class="list-group-item">
@@ -280,13 +280,13 @@
                       <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                       <% unless @user_binary.nil? %>
                           <b>
-                            Vous avez déjà voté, mais vous avez peut être changé d'avis ?
+                            <%= t('views.references.maybe_binary') %>
                           </b>
                       <% end %>
                       <div class="btn-group-justified" data-toggle="buttons">
                         <% unless @user_binary.nil? %>
                             <label class="btn btn-default"
-                                   title="Retirer votre avis" data-toggle="tooltip">
+                                   title="<%= t('views.references.delete_advise') %>" data-toggle="tooltip">
                               <%= f.radio_button :value, checked_value = "none",
                                                  {id: "none", autocomplete: "off"} %>
                               <span class="icon-no"></span>
@@ -307,9 +307,9 @@
                         <% if @user_binary.nil? %>
 				<%= f.button "#{t('views.buttons.advise')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
                                          class: "btn btn-success",
-                                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
+                                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
                         <% else %>
-                            <%= f.button "Enregistrer la modification &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
+                            <%= f.button "#{t('views.buttons.save_edit')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
                                          class: "btn btn-success",
                                          name: "update",
                                          data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
@@ -352,18 +352,17 @@
                 <%= f.hidden_field :reference_id, value: @reference.id %>
                 <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                 <% if @user_rating.nil? %>
-                    <%= f.label "Comment evaluez vous la qualité scientifique de ce papier ?" %>
+                    <%= f.label t('views.references.how_you_star') %>
                 <% else %>
                     <b>
-                      Vous pensez que <%= star_hash[@user_rating].downcase %>.
+                      <%= t('views.references.you_think') %> <%= star_hash[@user_rating].downcase %>.
                       <br/>
-                      Mais vous avez peut être changé d'avis ?
-                    </b>
+                      <%= t('views.references.maybe_you_changed') %>                    </b>
                 <% end %>
                 <div class="btn-group-justified" data-toggle="buttons">
                   <% unless @user_rating.nil? %>
                       <label class="btn btn-default btn-select"
-                             title="Retirer votre avis" data-toggle="tooltip">
+                             title="<%= t('views.references.delete_advise') %>" data-toggle="tooltip">
                         <%= f.radio_button :value, checked_value = "none",
                                            {id: "none", autocomplete: "off"} %>
                         <span class="icon-no"></span>
@@ -382,11 +381,11 @@
 
                 <div class="pull-right">
                   <% if @user_rating.nil? %>
-                      <%= f.button "Enregistrer cet avis &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
+                      <%= f.button "#{t('views.buttons.advise')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
                                    class: "btn btn-success",
-                                   data:{disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
+                                   data:{disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
                   <% else %>
-                      <%= f.button "Enregistrer la modification &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
+                      <%= f.button "#{t('views.buttons.save_edit')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
                                    class: "btn btn-success",
                                    name: "update",
                                    data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
@@ -394,7 +393,7 @@
                 </div>
             <% end %>
         <% else %>
-                <span class="bold"> Comment les contributeurs jugent la qualité scientifique de cette référence :
+                <span class="bold"> <%= t('views.references.how_star') %>
                  </span>
             </br>
             </br>
@@ -404,7 +403,7 @@
               <% star_hash.each do |key, value| %>
                   <div class="col-xs-2">
                     <div class="cursor-default"
-                         title="<%= @reference["star_#{key}".to_sym] -%> contributeurs pensent que <%= value.downcase %>" data-toggle="tooltip">
+                         title="<<%= t('views.references.user_binary', count: @reference["star_#{key}".to_sym] -%> <%= value.downcase %>" data-toggle="tooltip">
                         <span class="icon-<%= key %>" style="font-size: <%= @reference.star_font_size( key ) -%>em;">
                         <%= @reference["star_#{key}".to_sym] -%>
                     </span>
@@ -419,7 +418,7 @@
   <div class="panel-footer clearfix">
     <span class="pull-right">
       <br/>
-      Référence ajoutée par <%= link_to @reference.user_name, user_path(@reference.user_id) %>
+      <%= t('views.references.added_by') %> <%= link_to @reference.user_name, user_path(@reference.user_id) %>
     </span>
   </div>
 </div>

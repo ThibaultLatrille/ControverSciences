@@ -66,6 +66,8 @@ fr:
         one: "%{count} analyse"
         other: "%{count} analyses"
     buttons:
+      invit: Inviter
+      advise: Enregister cet avis
       editing: Modification en cours
       publishing: Publication en cours
       creating: Création en cours
@@ -76,6 +78,7 @@ fr:
       send: Envoyer
       sending: Envoi en cours
       saving: Enregistrement en cours
+      save_edit: Enregistrer la modification
     sorting:
       score: "Magique (par défaut)"
       score_sort: "Tri magique"
@@ -195,8 +198,15 @@ fr:
         one: "%{count} contributeur pense que cette référence appartient au thème"
         other: "%{count} contributeurs pensent que cette référence appartient au thème"
       user_binary:
-        one: "%{count} contributeur pense"
-        other: "%{count} contributeurs pensent"
+        one: "%{count} contributeur pense que"
+        other: "%{count} contributeurs pensent que"
+      added_by: Référence ajoutée par
+      delete_advise: Retirer votre avis
+      how_star: 'Comment les contributeurs jugent la qualité scientifique de cette référence :'
+      how_you_star: Comment evaluez vous la qualité scientifique de ce papier ?
+      maybe_binary: Vous avez déjà voté, mais vous avez peut être changé d'avis ?
+      maybe_you_changed: Mais vous avez peut être changé d'avis ?
+      you_think: Vous pensez que
     edges:
       new_edge: "Créer un nouveau lien"
       to_timeline: "Les liens concernant la controverse"
