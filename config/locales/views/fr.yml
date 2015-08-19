@@ -12,6 +12,7 @@ fr:
       to: "Vers"
       from: "Depuis"
       at_least: "Au moins"
+      tags: Thèmes
     navigation:
       back_timeline: "Revenir à la controverse"
       back_reference: "Revenir à la référence"
@@ -31,18 +32,33 @@ fr:
       references: "Les références"
       comments: "Les analyses"
       summaries: "Les synthèses"
+      comment: L'analyse
+      credits: Les Crédits
+      in_timeline: Dans la controverse
+      of_reference: De la référence
+      of_timeline: De la controverse
+      reference: La référence
+      summary: La synthèse
+      timeline: La Controverse
+      your_comments: Vos analyses
+      your_frames: Vos propositions d'amélioration de controverses
+      your_references: Vos références
+      your_summaries: Vos synthèses
+      your_timelines: Vos controverses
     pluralize:
       users:
         one: "%{count} contributeur"
         other: "%{count} contributeurs"
       comments:
-        one: "1 analyse"
+        one: "%{count} analyse"
         other: "%{count} analyses"
     buttons:
       editing: "Modification en cours"
       publishing: "Publication en cours"
       creating: "Création en cours"
       add: "Ajouter"
+      delete: "Supprimer"
+      edit: "Modifier"
     sorting:
       score: "Magique (par défaut)"
       score_sort: "Tri magique"
@@ -234,4 +250,14 @@ fr:
     likes:
       clic_on: Cliquer sur les buttons
       get_notified: pour être notifié des changements dans ces controverses.
-      index: Ces controverses vous intéressent :
+      index: "Ces controverses vous intéressent :"
+    my_items:
+      new_timeline: Créer une nouvelle controverse
+      no_comments: Pas encore d'analyse ajoutées
+      no_frames: Vous n'avez pas encore proposé d'amélioration de controverses
+      no_references: Pas encore de références ajoutées
+      no_summaries: Pas encore de synthèses ajoutées
+      set_public_timeline: Rendre la controverse publique est irréversible, êtes vous
+        certain de votre choix ?
+      to_comment: Votre analyse
+      to_summary: Voir la synthèse
