@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                       <td  class="w520" width="520" >
-                        <h1 style="font-size:30px;line-height:45px;"> Bonjour,
+                        <h1 style="font-size:30px;line-height:45px;"> <%= t('views.mailer.hello') %>,
                         </h1>
                       </td>
                     </tr>
@@ -62,7 +62,7 @@
                       <td class="w520" width="520" style="line-height:30px">
                         <div>
                           <p>
-                            Vous êtes maintenant inscrit au bulletin d'informations ControverSciences.
+                            <%= t('views.mailer.newsletter') %>
                           </p>
                         </div>
                       </td>
@@ -78,7 +78,7 @@
                           <tr>
                             <td class="w40" width="40"></td>
                             <td class="w440" width="440" height="45" align="center" style="background:#30be90;border-radius:5px;" >
-                              <%= link_to "Decouvrir", "http://www.controversciences.org/" , style: "text-decoration: none;color:#fff;font-weight:600;font-size:15px;line-height:45px;text-transform:uppercase;width:100%; display:inline-block" %>
+                              <%= link_to t('views.mailer.discover'), root_url , style: "text-decoration: none;color:#fff;font-weight:600;font-size:15px;line-height:45px;text-transform:uppercase;width:100%; display:inline-block" %>
                             </td>
                             <td class="w40" width="40"></td>
                           </tr>

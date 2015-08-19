@@ -1,20 +1,3 @@
 ---
 fr:
   views:
-    default:
-      thank: Merci !
-    typos:
-      accept: Accepter la correction
-      accepted: La faute a été corrigé !
-      already_sent: Vous avez déjà soumis une correction pour cette contribution,
-        qui est en attente de validation !
-      content: Correction
-      if_not_yours: |-
-        Si une faute de français vous a brulé les yeux, vous pouvez proposer une correction ici à l'auteur.\
-                          Celle-ci lui sera envoyée pour être soumise à validation.
-      if_yours: |
-        Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.\
-      refuse: Refuser la correction
-      send: Envoyer la corretion
-      sent: Votre correction a bien été envoyé à l'auteur.
-      to_valid: Les corrections à valider

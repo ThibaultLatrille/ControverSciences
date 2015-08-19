@@ -114,7 +114,7 @@
           <tr>
             <td class="logo" style="padding: 0;vertical-align:top;mso-line-height-rule: at-least;padding-bottom:40px;padding-top: 40px;width: 280px">
               <div class="logo-left" style="color:#555;font-size: 24px;font-weight:700;line-height: 30px;font-family: sans-serif" id="emb-email-header" align="left">
-                <a style="text-decoration: none;color: #555" href="http://www.controversciences.org">
+                <a style="text-decoration: none;color: #555" href="https://controversciences.org">
                   ControverSciences</a>
               </div>
             </td>
@@ -149,59 +149,58 @@
                   <td class="padded" style="padding: 0;vertical-align: top;padding-left: 50px;padding-right: 50px;word-break:break-word;word-wrap: break-word">
                     <p style="Margin-top: 0;color:#60666d;font-size: 15px;font-family:sans-serif;line-height:24px;Margin-bottom: 24px">
                       <strong style="font-weight: bold">
-                          Bonjour <%= @user_notif.name -%>,
+                        <%= t('views.mailer.hello') + " " + @user_notif.name -%>,
                       </strong>
                     </p>
                     <p style="Margin-top: 0;color:#60666d;font-size: 15px;font-family:sans-serif;line-height:24px;Margin-bottom: 24px">
-                        Il y a du nouveau sur votre compte
-                      <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="http://www.controversciences.org">
-                        ControverSciences</a> : les débats avancent !
+                        <%= t('views.mailer.notif_head') %>
+                      <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= root_url %>">
+                        ControverSciences</a> <%= t('views.mailer.notif_head_cs') %>
                     </p>
                     <ul style="Margin-top: 0;padding-left:0;color: #60666d;font-size:15px;Margin-left: 20px;font-family:sans-serif;line-height:24px;Margin-bottom: 24px">
                       <% if @user_notif.notifications_all > 2 %>
                       <li style="Margin-top: 0;padding-left: 2px"> <b>
                         <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                             href="http://www.controversciences.org/notifications/index">
-                          <%= @user_notif.notifications_all -%> nouveautés vous attendent.</a> </b></li>
+                             href="<%= root_url + "/notifications/index" %>">
+                          <%= @user_notif.notifications_all.to_s + " " + t('views.mailer.notif_waiting') %></a> </b></li>
                       <% end %>
                       <% if @user_notif.nb_notifs > 2 %>
                           <li style="Margin-top: 0;padding-left: 2px"> <b>
 
                             <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                               href="http://www.controversciences.org/notifications/important">
-                              <%= @user_notif.nb_notifs -%> notifications vous attendent.</a> </b></li>
+                               href="<%= root_url + "/notifications/important" %>">
+                              <%= @user_notif.nb_notifs.to_s + " " + t('views.mailer.notif_waiting') %></a> </b></li>
                       <% end %>
                       <% if @empty_comments > 2 && rand(3) == 0 %>
                           <li style="Margin-top: 0;padding-left: 2px"> <b>
                             <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                               href="http://www.controversciences.org/empty_comments">
-                              <%= @empty_comments -%> références n'ont pas encore d'analyse, soyez le premier à les décortiquer !</a> </b></li>
+                               href="<%= root_url + "/empty_comments" %>">
+                              <%= @empty_comments.to_s + " " + t('views.mailer.notif_empty_comments') %></a> </b></li>
                       <% end %>
                       <% if @empty_summaries > 2 && rand(3) == 0 %>
                           <li style="Margin-top: 0;padding-left: 2px"> <b>
                             <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                               href="http://www.controversciences.org/empty_summaries">
-                              <%= @empty_summaries -%> controverses ont des références mais n'ont pas synthèse,
-                            apportez votre vue d'ensemble et écrivez l'une d'entre elle ! </a> </b></li>
+                               href="<%= root_url + "/empty_summaries" %>">
+                              <%= @empty_summaries.to_s + " " + t('views.mailer.notif_empty_summaries') %></a> </b></li>
                       <% end %>
                       <% if @empty_references > 2 && rand(3) == 0 %>
                           <li style="Margin-top: 0;padding-left: 2px"> <b>
                             <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                               href="http://www.controversciences.org/empty_references">
-                              <%= @empty_references -%> controverses n'ont pas assez de références scientifiques, venez les enrichir ! </a> </b>
+                               href="<%= root_url + "/empty_references" %>">
+                              <%= @empty_references.to_s + " " + t('views.mailer.notif_empty_references') %></a> </b>
                           </li>
                       <% end %>
                     </ul>
                     <p style="Margin-top: 0;color:#60666d;font-size: 15px;font-family:sans-serif;line-height:24px;Margin-bottom: 24px">
-                        ControverSciences s'adapte à vos préférences : <br/>
-                      •  gérez vos <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="http://www.controversciences.org/likes">
-                      intérêts</a>; <br/>
-                      •  <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= "http://www.controversciences.org/users/#{@user_notif.id}/edit" -%>" >
-                      éditez votre profil</a>.
+                        <%= t('views.mailer.notif_preferences') %> <br/>
+                      •  <%= t('views.mailer.notif_handle') %> <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= root_url + "/likes" %>">
+                      <%= t('views.mailer.notif_likes') %></a>; <br/>
+                      •  <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= root_url + "/users/#{@user_notif.id}/edit" -%>" >
+                      <%= t('views.mailer.notif_edit_profil') %></a>.
                       <br>
                       <br>
                       <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted#454545" href='mailto:contact@controversciences.org'>
-                          L'équipe ControverSciences</a> vous souhaite une agréable journée ! </p>
+                          <%= t('views.mailer.the_team') %></a> <%= t('views.mailer.notif_wish') %> </p>
                   </td>
                 </tr>
                 </tbody>
