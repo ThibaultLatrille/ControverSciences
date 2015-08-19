@@ -3,14 +3,14 @@
   <div class="row">
     <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
       <div class="list-group">
-        <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
+        <%= link_to "<strong>#{t('views.model.timelines')}</strong>".html_safe, timelines_path,
                     class: "list-group-item", style: "font-size: 1.3em;" %>
-        <%= link_to "Découvrir ControverSciences", how_to_path,
+        <%= link_to t('views.navigation.how_to'), how_to_path,
                     class: "list-group-item" %>
         <div class="list-group-item list-group-item-default cursor-not-allowed">
-          Contribuer à ControverSciences
+          <%= t('views.navigation.how_to_edit') %>
         </div>
-        <%= link_to "Foire aux questions (FAQ)", faq_path,
+        <%= link_to t('views.navigation.faq_long'), faq_path,
                     class: "list-group-item" %>
       </div>
     </div>
@@ -19,7 +19,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3>
-            Contribuer à ControverSciences
+            <%= t('views.navigation.how_to_edit') %>
           </h3>
         </div>
         <div class="panel-body">
@@ -31,22 +31,18 @@
                     <h4 class="panel-title clearfix">
                       <a data-toggle="collapse" href="#Collapse1" class="pull-right glyphicon glyphicon-chevron-down"></a>
                       <a data-toggle="collapse" href="#Collapse1" aria-expanded="true" aria-controls="Collapse1">
-                        Tout d'abord il vous faut créer un compte.
+                        <%= t('views.how_to_edit.one_head') %>
                       </a>
                     </h4>
                   </div>
                   <div id="Collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body clearfix">
                       <p>
-                        Il est recommandé de disposer d'une adresse électronique universitaire
-                        ou d'un organisme scientifique reconnu pour s'inscrire. Si tel n'est pas le cas mais que vous
-                        souhaitez
-                        tout de même contribuer, tout n'est pas perdu !
-                        Il vous faut préciser vos motivations lors de l'inscription.
+                        <%= t('views.how_to_edit.one_body') %>
                       </p>
 
                       <div class="pull-right">
-                        <%= link_to "Prêt à rentrer dans l'arène !", new_user_path, class: "btn btn-primary" %>
+                        <%= link_to t('views.how_to_edit.one_new_user'), new_user_path, class: "btn btn-primary" %>
                       </div>
                     </div>
                   </div>
@@ -55,7 +51,7 @@
             </div>
             <div class="col-xs-12">
               <h3>
-                Voici les possibilités qui s'offrent ensuite à vous :
+                <%= t('views.how_to_edit.header') %>
               </h3>
             </div>
             <div class="col-xs-12 col-md-6">
@@ -65,16 +61,15 @@
                     <h4 class="panel-title clearfix">
                       <a data-toggle="collapse" href="#Collapse2" class="pull-right glyphicon glyphicon-chevron-down"></a>
                       <a data-toggle="collapse" href="#Collapse2" aria-expanded="true" aria-controls="Collapse2">
-                        Vous pouvez être tenu au courant des contributions.
+                        <%= t('views.how_to_edit.two_head') %>
                       </a>
                     </h4>
                   </div>
                   <div id="Collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
                       <p>
-                        Un système de <%= link_to "notifications", notifications_index_path %> centré
-                        <%= link_to "sur vos intérêts", likes_path %> vous permet de suivre les dernières
-                        contributions sur les sujets qui vous intèressent.
+                        <%= t('views.how_to_edit.two_body_1') %> <%= link_to t('views.how_to_edit.two_body_link_1'), notifications_index_path %> <%= t('views.how_to_edit.two_body_2') %>
+			<%= link_to t('views.how_to_edit.two_body_link_2'), likes_path %> <%= t('views.how_to_edit.two_body_3') %>
                       </p>
                     </div>
                   </div>
@@ -84,19 +79,14 @@
                     <h4 class="panel-title clearfix">
                       <a data-toggle="collapse" href="#Collapse3" class="pull-right glyphicon glyphicon-chevron-down"></a>
                       <a data-toggle="collapse" href="#Collapse3" aria-expanded="true" aria-controls="Collapse3">
-                        Vous disposez de crédits limités à distribuer entre les différentes contributions.
+                        <%= t('views.how_to_edit.three_head') %>
                       </a>
                     </h4>
                   </div>
                   <div id="Collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
                       <p>
-                        Ces crédits peuvent être redistribués à tout moment, en particulier lors de la publication
-                        d'une nouvelle analyse.
-                        Pour chaque référence, vous disposez de 12 crédits par champs, à distribuer entre les
-                        différentes contributions.
-                        De la même manière vous disposez de 12 crédits à répartir entre les différentes synthèses, par
-                        controverse.
+                        <%= t('views.how_to_edit.three_body') %>
                       </p>
                     </div>
                   </div>
@@ -106,16 +96,14 @@
                     <h4 class="panel-title clearfix">
                       <a data-toggle="collapse" href="#Collapse4" class="pull-right glyphicon glyphicon-chevron-down"></a>
                       <a data-toggle="collapse" href="#Collapse4" aria-expanded="true" aria-controls="Collapse4">
-                        Aucun texte ne vous satisfait pleinement, à vous de faire mieux !
+                        <%= t('views.how_to_edit.four_head') %>
                       </a>
                     </h4>
                   </div>
                   <div id="Collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
                       <p>
-                        Vous pouvez proposer de nouvelles analyses et synthèses (dans la langue de Molière).
-                        Pour cela vous pouvez en écrire une <i>ex nihilo</i>, ou bien repartir d'une préexistante et
-                        l'améliorer (<span class="icon-fork big"></span>).
+		      <%= t('views.how_to_edit.four_body_html') %> (<span class="icon-fork big"></span>).
                       </p>
                     </div>
                   </div>
@@ -129,26 +117,14 @@
                     <h4 class="panel-title clearfix">
                       <a data-toggle="collapse" href="#Collapse5" class="pull-right glyphicon glyphicon-chevron-down"></a>
                       <a data-toggle="collapse" href="#Collapse5" aria-expanded="true" aria-controls="Collapse5">
-                        Vous pouvez ajouter une référence qui vous semble pertinente.
+                        <%= t('views.how_to_edit.five_head') %>
                       </a>
                     </h4>
                   </div>
                   <div id="Collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
                       <p>
-                        Dans un soucis d'uniformité des références, celle-ci doivent répondrent à certain nombre de
-                        contraintes
-                        avant d'être ajoutées. Il vous faudra préciser les champs suivants : <br/>
-                        • Le titre original <br/>
-                        • Le type de référence (article/review/méta-analyse/livre) <br/>
-                        • Le journal dans lequel la référence a été publiée <br/>
-                        • Le(s) auteur(s) de l'étude <br/>
-                        • La date de Publication <br/>
-                        • Un lien vers la référence <br/>
-                        • <a href="http://fr.wikipedia.org/wiki/Digital_Object_Identifier"
-                             target="_blank"> Le DOI (Digital Object Identifier) est optionnel </a> <br/>
-                        <i>Nota Bene : </i>L'autocomplétion de ces données est possible en
-                        renseignant uniquement le titre de l'étude.
+		      <%= t('views.how_to_edit.five_body_html') %>
                       </p>
                     </div>
                   </div>
@@ -158,7 +134,7 @@
                     <h4 class="panel-title clearfix">
                       <a data-toggle="collapse" href="#Collapse6" class="pull-right glyphicon glyphicon-chevron-down"></a>
                       <a data-toggle="collapse" href="#Collapse6" aria-expanded="true" aria-controls="Collapse6">
-                        Et si le coeur vous en dit, vous pouvez ajouter une controverse.
+                        <%= t('views.how_to_edit.six_head') %>
                       </a>
                     </h4>
                   </div>
@@ -167,7 +143,7 @@
                       <p>
 
                       <div class="pull-right">
-                        <%= link_to "Ajouter une controverse", new_timeline_path, class: "btn btn-primary" %>
+                        <%= link_to t('views.timelines.new'), new_timeline_path, class: "btn btn-primary" %>
                       </div>
                       </p>
                     </div>
@@ -178,7 +154,7 @@
                     <h4 class="panel-title clearfix">
                       <a data-toggle="collapse" href="#Collapse7" class="pull-right glyphicon glyphicon-chevron-down"></a>
                       <a data-toggle="collapse" href="#Collapse7" aria-expanded="true" aria-controls="Collapse7">
-                        Vous avez en tête une amélioration pour le site ? Exprimez-la !
+                        <%= t('views.how_to_edit.seven_head') %>
                       </a>
                     </h4>
                   </div>

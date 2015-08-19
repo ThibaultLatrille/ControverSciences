@@ -30,6 +30,7 @@ fr:
       empty_ref: Enrichir
       empty_summaries: Synthétiser
       faq: FAQ
+      faq_long: Foire aux questions (FAQ)
       how_to: Découvrir ControverSciences
       how_to_edit: Contribuer à ControverSciences
       newsletter: Bulletins d'information
@@ -312,7 +313,7 @@ fr:
       downvote: Vous avez selectionné cette synthèse comme votre favorite
       from_timeline: Cette synthèse appartient à la controverse
       info: |-
-        La synthèse est un résumé général de la controverse. Son objectif\
+        La synthèse est un résumé général de la controverse. Son objectif
                           est d'intégrer l'ensemble des références analysées, et donc de donner un bilan de la controverse basé
                           sur des résultats scientifiques.
                           <br/>
@@ -503,17 +504,17 @@ fr:
       connect_as: Se connecter en tant que
       create: Créer votre compte
       created: |-
-        Vous devez activer votre compte avant de continuer.\
-                Le lien pour activer votre compte doit être parvenu à votre boîte mail,\
+        Vous devez activer votre compte avant de continuer.
+                Le lien pour activer votre compte doit être parvenu à votre boîte mail,
                 à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet.
       delete: Supprimer ce contributeur
       email_invalid: |-
-        Si vous disposez d'une adresse électronique appartenant à une institution scientifique, votre validation sera automatique.\
-                      <br/>\
-                      <br/>\
-                      Si vous ne disposez pas d'une telle adresse, votre validation sera manuelle. Veuillez s’il vous plaît écrire quelques mots montrant\
-                      votre motivation, les administrateurs valideront le compte d'autant plus rapidement que vous vous montrez motivé !\
-                      <br/>\
+        Si vous disposez d'une adresse électronique appartenant à une institution scientifique, votre validation sera automatique.
+                      <br/>
+                      <br/>
+                      Si vous ne disposez pas d'une telle adresse, votre validation sera manuelle. Veuillez s’il vous plaît écrire quelques mots montrant
+                      votre motivation, les administrateurs valideront le compte d'autant plus rapidement que vous vous montrez motivé !
+                      <br/>
                       Une fois le compte validé, vous recevrez un mail contenant un lien permettant de valider le compte.
       for_admins: Pour les admins seulement
       i_have_read: J'ai lu et j'accepte
@@ -529,3 +530,90 @@ fr:
       terms: Les conditions générales d'utilisation
       website: 'Site web :'
       wrote: a écrit
+    how_to:
+      five_body: |-
+        Chaque contributeur dispose d'un nombre limité de crédits par référence qu'il peut choisir de répartir
+                      entre les analyses qu'il considère comme les plus objectives, pertinentes et claires.
+      five_head: Les contributeurs accréditent les analyses qu'ils considèrent commme
+        les meilleures.
+      four_body: |
+        Le contributeur qui a ajouté la référence ou d'autres contributeurs peuvent proposer une analyse (en
+                      français) de cette étude.
+                      Une analyse décrit l'éxperience réalisée dans l'étude, les résultats obtenus et les limites de cette
+                      étude.
+                      Les contributeurs expliquent aussi ce que cette étude apporte de nouveau dans la controverse et des
+                      remarques éventuelles peuvent être adjointes.
+      four_head: Les références sont analysées.
+      height_body: |-
+        Chaque contributeur dispose d'un nombre limité de crédits pour cette controverse qu'il peut choisir de
+                      répartir entre les synthèses qu'il considère comme les plus objectives, pertinentes et claires.
+      height_head: Les contributeurs accréditent les synthèses qu'ils considèrent commme les meilleures.
+      nine_body: |-
+        En se basant sur les crédits accordés aux synthèses, la meilleure synthèse
+                      est sélectionnée. Elle est affichée par défaut en en-tête de la frise chronologique de la controverse.
+      nine_head: La meilleure synthèse est sélectionnée.
+      one_body: Les contributeurs de ControverSciences ajoutent une nouvelle controverse.
+      one_head: Une controverse est créée.
+      seven_body: |-
+        Chaque contributeur peut écrire une synthèse de la controverse en se basant sur les références déjà
+                      analysées.
+                      Une synthèse est un résumé général de la situation qui sert d'introduction à l'exploration de la frise
+                      chronologique.
+      seven_head: Des synthèses de la controverse sont proposées.
+      six_body: |-
+        Pour chaque référence, en se basant sur les crédits accordés aux analyses, la meilleure analyse
+                      est sélectionnée. Elle est affichée par défaut dans la frise chronologique de la controverse.
+      six_head: La meilleure analyse est sélectionnée.
+      ten_body: De nouvelles références, analyses et synthèses sont ajoutées par les
+        contributeurs pour enrichir le débat.
+      ten_head: La controverse continue à être alimentée.
+      three_body: Les références sont organisées selon leurs dates de parution sous
+        la forme d'une frise chronologique.
+      three_head: Les références composent la frise chronologique.
+      two_body: |-
+        Les références doivent provenir de journaux scientifiques reconnus publiquement.
+                      Ces références ont été relues et examinées par des pairs scientifiques avant d'être publiées.
+      two_head: Les contibuteurs ajoutent des références scientifiques.
+    how_to_edit:
+      five_body_html: |-
+        Dans un soucis d'uniformité des références, celle-ci doivent répondrent à certain nombre de
+                                contraintes
+                                avant d'être ajoutées. Il vous faudra préciser les champs suivants : <br/>
+                                • Le titre original <br/>
+                                • Le type de référence (article/review/méta-analyse/livre) <br/>
+                                • Le journal dans lequel la référence a été publiée <br/>
+                                • Le(s) auteur(s) de l'étude <br/>
+                                • La date de Publication <br/>
+                                • Un lien vers la référence <br/>
+                                • <a href="http://fr.wikipedia.org/wiki/Digital_Object_Identifier"
+                                     target="_blank"> Le DOI (Digital Object Identifier) est optionnel </a> <br/>
+                                <i>Nota Bene : </i>L'autocomplétion de ces données est possible en
+                                renseignant uniquement le titre de l'étude.
+      five_head: Vous pouvez ajouter une référence qui vous semble pertinente.
+      four_body_html: |-
+        Vous pouvez proposer de nouvelles analyses et synthèses (dans la langue de Molière).
+                                Pour cela vous pouvez en écrire une <i>ex nihilo</i>, ou bien repartir d'une préexistante et
+                                l'améliorer
+      four_head: Aucun texte ne vous satisfait pleinement, à vous de faire mieux
+      header: 'Voici les possibilités qui s''offrent ensuite à vous :'
+      one_body: |-
+        Il est recommandé de disposer d'une adresse électronique universitaire
+                                ou d'un organisme scientifique reconnu pour s'inscrire. Si tel n'est pas le cas mais que vous
+                                souhaitez tout de même contribuer, tout n'est pas perdu !
+                                Il vous faut préciser vos motivations lors de l'inscription.
+      one_head: Tout d'abord il vous faut créer un compte.
+      one_new_user: Prêt à rentrer dans l'arène !
+      seven_head: Vous avez en tête une amélioration pour le site ? Exprimez-la !
+      six_head: Et si le coeur vous en dit, vous pouvez ajouter une controverse.
+      three_body: |-
+        Ces crédits peuvent être redistribués à tout moment, en particulier lors de la publication
+                                d'une nouvelle analyse.
+                                Pour chaque référence, composez votre analyse favorite en votant pour les meilleures sous-parties.
+                                De la même manière quand il y a plusiseurs synthèses pour une controverse, vous pouvez voter pour votre favorite.
+      two_body_1: Un système de
+      two_body_2: centré
+      two_body_3: vous permet de suivre les dernières
+      two_body_link_1: notifications
+      two_body_link_2: sur vos intérêts
+      three_head: Vous disposez de crédits limités à distribuer entre les différentes contributions.
+      two_head: Vous pouvez être tenu au courant des contributions.

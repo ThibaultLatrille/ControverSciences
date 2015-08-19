@@ -3,14 +3,14 @@
 <div class="row">
 <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-2 col-lg-offset-0">
   <div class="list-group">
-    <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
+    <%= link_to "<strong>#{t('views.model.timelines')}</strong>".html_safe, timelines_path,
                 class: "list-group-item", style: "font-size: 1.3em;" %>
     <div class="list-group-item list-group-item-default cursor-not-allowed">
-      Découvrir ControverSciences
+      <%= t('views.navigation.how_to') %>
     </div>
-    <%= link_to "Contribuer à ControverSciences", how_to_edit_path,
+    <%= link_to t('views.navigation.how_to_edit'), how_to_edit_path,
                 class: "list-group-item" %>
-    <%= link_to "Foire aux questions (FAQ)", faq_path,
+    <%= link_to t('views.navigation.faq_long'), faq_path,
                 class: "list-group-item" %>
   </div>
 </div>
@@ -19,7 +19,7 @@
 <div class="panel panel-default">
 <div class="panel-heading">
   <h3>
-    Découvrir ControverSciences
+    <%= t('views.navigation.how_to') %>
   </h3>
 </div>
 <div class="panel-body">
@@ -31,14 +31,14 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse1" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse1" aria-expanded="true" aria-controls="Collapse1">
-              Une controverse est créée.
+              <%= t('views.how_to.one_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              Les contributeurs de ControverSciences ajoutent une nouvelle controverse.
+              <%= t('views.how_to.one_body') %>
             </p>
           </div>
         </div>
@@ -48,15 +48,14 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse2" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse2" aria-expanded="true" aria-controls="Collapse2">
-              Les contibuteurs ajoutent des références scientifiques.
+              <%= t('views.how_to.two_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              Les références doivent provenir de journaux scientifiques reconnus publiquement.
-              Ces références ont été relues et examinées par des pairs scientifiques avant d'être publiées.
+	    <%= t('views.how_to.two_body') %>
             </p>
           </div>
         </div>
@@ -66,15 +65,14 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse23" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse23" aria-expanded="true" aria-controls="Collapse23">
-              Les références composent la frise chronologique.
+              <%= t('views.how_to.three_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse23" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              Les références sont organisées selon leurs dates de parution sous la forme d'une frise
-              chronologique.
+              <%= t('views.how_to.three_body') %>
             </p>
           </div>
         </div>
@@ -90,21 +88,15 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse3" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse3" aria-expanded="true" aria-controls="Collapse3">
-              Les références sont analysées.
+              <%= t('views.how_to.four_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              Le contributeur qui a ajouté la référence ou d'autres contributeurs peuvent proposer une analyse (en
-              français) de cette étude.
-              Une analyse décrit l'éxperience réalisée dans l'étude, les résultats obtenus et les limites de cette
-              étude.
-              Les contributeurs expliquent aussi ce que cette étude apporte de nouveau dans la controverse et des
-              remarques
-              éventuelles peuvent être adjointes.
-            </p>
+	    <%= t('views.how_to.four_body') %>
+	    </p>
           </div>
         </div>
       </div>
@@ -113,16 +105,14 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse4" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse4" aria-expanded="true" aria-controls="Collapse4">
-              Les contributeurs accréditent les analyses qu'ils considèrent commme les meilleures.
+              <%= t('views.how_to.five_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              Chaque contributeur dispose d'un nombre limité de crédits par référence qu'il peut choisir de répartir
-              entre
-              les analyses qu'il considère comme les plus objectives, pertinentes et claires.
+              <%= t('views.how_to.five_body') %>
             </p>
           </div>
         </div>
@@ -132,15 +122,14 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse5" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse5" aria-expanded="true" aria-controls="Collapse5">
-              La meilleure analyse est sélectionnée.
+              <%= t('views.how_to.six_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              Pour chaque référence, en se basant sur les crédits accordés aux analyses, la meilleure analyse
-              est sélectionnée. Elle est affichée par défaut dans la frise chronologique de la controverse.
+	    	<%= t('views.how_to.six_body') %>
             </p>
           </div>
         </div>
@@ -154,17 +143,14 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse6" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse6" aria-expanded="true" aria-controls="Collapse6">
-              Des synthèses de la controverse sont proposées.
+              <%= t('views.how_to.seven_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              Chaque contributeur peut écrire une synthèse de la controverse en se basant sur les références déjà
-              analysées.
-              Une synthèse est un résumé général de la situation qui sert d'introduction à l'exploration de la frise
-              chronologique.
+	    <%= t('views.how_to.seven_body') %>
             </p>
           </div>
         </div>
@@ -174,16 +160,14 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse7" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse7" aria-expanded="true" aria-controls="Collapse7">
-              Les contributeurs accréditent les synthèses qu'ils considèrent commme les meilleures.
+              <%= t('views.how_to.height_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              Chaque contributeur dispose d'un nombre limité de crédits pour cette controverse qu'il peut choisir de
-              répartir entre
-              les synthèses qu'il considère comme les plus objectives, pertinentes et claires.
+	    <%= t('views.how_to.height_body') %>
             </p>
           </div>
         </div>
@@ -193,15 +177,14 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse8" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse8" aria-expanded="true" aria-controls="Collapse8">
-              La meilleure synthèse est sélectionnée.
+              <%= t('views.how_to.nine_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              En se basant sur les crédits accordés aux synthèses, la meilleure synthèse
-              est sélectionnée. Elle est affichée par défaut en en-tête de la frise chronologique de la controverse.
+	    	<%= t('views.how_to.nine_body') %>
             </p>
           </div>
         </div>
@@ -233,14 +216,14 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#Collapse9" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a data-toggle="collapse" href="#Collapse9" aria-expanded="true" aria-controls="Collapse9">
-              La controverse continue à être alimentée.
+              <%= t('views.how_to.ten_head') %>
             </a>
           </h4>
         </div>
         <div id="Collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <p>
-              De nouvelles références, analyses et synthèses sont ajoutées par les contributeurs pour enrichir le débat.
+              <%= t('views.how_to.ten_body') %>
             </p>
           </div>
         </div>
