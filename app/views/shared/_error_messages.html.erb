@@ -1,7 +1,7 @@
 <% if object.errors.any? %>
     <div id="error_explanation">
       <div class="alert alert-danger">
-        <%= object.errors.count %> <%= object.errors.count == 1 ? "erreur" : "erreurs" %>
+        <%= object.errors.count %> <%= t('views.model.errors', count: object.errors.count) %>
       </div>
       <ul>
         <% object.errors.full_messages.each do |msg| %>

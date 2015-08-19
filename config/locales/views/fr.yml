@@ -58,6 +58,9 @@ fr:
       your_summary: Voir la synthèse
       password: Mot de passe
       password_confirm: Confirmation de mot de passe
+      errors:
+       one: "%{count} erreur"
+       other: "%{count} erreurs"
     pluralize:
       users:
         one: "%{count} contributeur"
