@@ -25,18 +25,38 @@
             <div class="col-xs-12">
               <div id="empties">
                 <div class="page">
-                  <%= render 'collapse', id: 34, title: t('views.faq.dif_sum_com_q'),
-                             content:        t('views.faq.dif_sum_com_a') %>
-                  <%= render 'collapse', id: 23, title: t('views.faq.not_agree_q'),
-                             content:        t('views.faq.not_agree_a_html') %>
-                  <%= render 'collapse', id: 4, title: t('views.faq.bad_content_q'),
-                             content:        t('views.faq.bad_content_a') %>
-                  <%= render 'collapse', id: 1, title: t('views.faq.trolls_q'),
-                             content:        t('views.faq.trolls_a_html') %>
-                  <%= render 'collapse', id: 7, title: t('views.faq.license_q'),
-                             content:        t('views.faq.license_a_html') %>
-                  <%= render 'collapse', id: 54, title: t('views.faq.money_q'),
-                             content:        t('views.faq.money_a_html') %>
+                  <% @questions.each do |question| %>
+                      <div class="panel panel-default empty">
+                        <div class="panel-heading" role="tab" id="heading<%= question.id %>">
+                          <h4 class="panel-title clearfix" style="padding: 7px; font-size: 1.2em">
+                            <a data-toggle="collapse" href="#Collapse<%= question.id %>" class="pull-right glyphicon glyphicon-chevron-down"></a>
+                            <a data-toggle="collapse" href="#Collapse<%= question.id %>" aria-expanded="true" aria-controls="Collapse<%= question.id %>">
+                              <%= question.title_markdown.html_safe %>
+                            </a>
+                          </h4>
+                        </div>
+                        <div id="Collapse<%= question.id %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                          <div class="panel-body">
+                            <% if logged_in? && current_user.admin %>
+                                <div class="pull-right">
+                                  <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                              edit_question_path(id: question.id),
+                                              class: "btn btn-primary" %>
+                                  <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                              question_path(id: question.id),
+                                              method: :delete,
+                                              data:   {confirm: t('views.default.confirm')},
+                                              class:  "btn btn-danger",
+                                              :style  => "margin-right: 8px" %>
+                                </div>
+                            <% end %>
+                            <p>
+                              <%= question.content_markdown.html_safe %>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -54,6 +74,34 @@
           <br/>
         </div>
       </div>
+      <% if logged_in? && current_user.admin %>
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h3><%= t('views.faq.new') %></h3><br/>
+                  <span class="glyphicon glyphicon-warning-sign"></span>
+                  <%= t('views.faq.for_admin') %>
+                </div>
+                <div class="panel-body">
+                  <%= form_for(:question, url: questions_path, method: :post) do |f| %>
+                      <br/>
+                      <%= f.label :title %>
+                      <%= f.text_area :title, placeholder: "", :id => "markdown-title", class: 'form-control textarea' %>
+                      <br/>
+                      <%= f.label :content %>
+                      <%= f.text_area :content, placeholder: "", :id => "markdown-content", class: 'form-control textarea' %>
+
+                      <br/>
+                      <%= f.button "#{t('views.buttons.save')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                                   class: 'btn btn-success pull-right',
+                                   data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% end %>
     </div>
   </div>
 </div>
@@ -108,6 +156,8 @@
 </div>
 
 <script type="text/javascript">
+    $("#markdown-title").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
+    $("#markdown-content").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
     $('.collapse').on('show.bs.collapse', function () {
         $(this).parent(".panel").find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
 

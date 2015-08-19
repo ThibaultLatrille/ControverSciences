@@ -52,4 +52,8 @@ class StaticPagesController < ApplicationController
 
   def newsletter
   end
+
+  def faq
+    @questions = Question.all
+  end
 end

@@ -457,7 +457,7 @@ fr:
       server_dead: Le serveur ne répond pas
     typos:
       accept: Accepter la correction
-      accepted: La faute a été corrigé !
+      accepted: La faute a été corrigée !
       already_sent: Vous avez déjà soumis une correction pour cette contribution,
         qui est en attente de validation !
       content: Correction
@@ -624,3 +624,19 @@ fr:
       my_references: Enrichir les controverses qui vous intéressent
       my_comments: Analyser les références qui vous intéressent
       my_summaries: Synthètiser les controverses qui m'intéressent
+      all_references: Toutes les références
+      all_timelines: Toutes les controverses
+      have_comments: ont actuellement au moins une analyse.
+      have_references: ont actuellement au moins une référence.
+      have_summaries: ont actuellement au moins une synthèse.
+      need_comments: n'ont pas encore d'analyse, soyez le premier à les décortiquer !
+      need_references: ont besoin de références scientifiques, venez les enrichir !
+      need_summaries: ont des référénces mais n'ont pas de synthèse, résumez la situation et apportez une vue d'ensemble au débat !
+      these_references: Ces références
+      these_timelines: Ces controverses
+      you_added: que vous avez ajoutées
+      you_like: qui vous intéressent
+    faq:
+      ask: Poser une question
+      new: Ajouter une nouvelle question et sa réponse
+      for_admin: Réservé aux administrateurs

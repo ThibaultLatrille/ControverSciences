@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :typos, only: [:create, :new, :index, :show, :destroy]
   resources :pending_users, only: [:destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
+  resources :questions, only: [:create, :edit, :update, :destroy]
   post 'notifications/delete'
   delete 'logout' => 'sessions#destroy'
   get 'how_to' => 'static_pages#how_to'
