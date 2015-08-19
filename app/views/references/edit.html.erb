@@ -6,7 +6,7 @@
           <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
                       timeline_path(@reference.timeline_id),
                       class: "list-group-item" %>
-          <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la référence".html_safe,
+          <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_reference')}".html_safe,
                       reference_path(@reference),
                       class: "list-group-item" %>
       </div>
@@ -14,51 +14,51 @@
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4> Editer une référence appartenant à la controverse <%= link_to Timeline.find(@reference.timeline_id).name.html_safe,
+          <h4> <%= t('views.references.edit_from') %> <%= link_to Timeline.find(@reference.timeline_id).name.html_safe,
                                                                              Timeline.find(@reference.timeline_id) %></h4>
         </div>
         <div class="panel-body">
           <div class="clearfix">
           <%= form_for(@reference) do |f| %>
               <%= render 'shared/error_messages', object: f.object %>
-              <%= f.label "Titre original" %>
+              <%= f.label t('views.references.title_original') + "*" %>
               <%= f.text_area :title, {:rows => 2,
                                        :class => "form-control textarea"} %>
               <br/>
-              <%= f.label "Article, Review, Méta-analyse ou Livre*" %>
-              <%= f.select :category, [["Article", 0],["Review", 1],["Méta-analyse", 2],["Livre", 3]], {}, {class: 'form-control myforms'} %>
+              <%= f.label t('views.references.categories') + "*" %>
+              <%= f.select :category, [[t('views.references.category_0'), 0],[t('views.references.category_1'), 1],[t('views.references.category_2'), 2],[t('views.references.category_3'), 3]], {}, {class: 'form-control myforms'} %>
               <br/>
               <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
               <%= f.label :open_access do %>
                   <%= f.check_box :open_access %>
-                  <span> &nbsp Cette référence est en libre accès </span>
+                  <span> &nbsp <%= t('views.references.is_open_access') %> </span>
               <% end %>
               <br/>
               <br/>
-              <%= f.label "Lien vers la publication" %>
+              <%= f.label t('views.references.url') + "*" %>
               <%= f.text_field :url, class: 'form-control myforms' %>
               <br/>
-              <%= f.label "Journal" %>
+              <%= f.label t('views.references.journal') + "*" %>
               <%= f.text_field :journal, class: 'form-control myforms' %>
               <br/>
-              <%= f.label "Année de publication" %>
+              <%= f.label t('views.references.year') + "*" %>
               <%= f.select :year, (1859..Date.current.year).to_a.reverse.push(["Avant 1859", 0]), {:include_blank => true}, {class: 'form-control'} %>
               <br/>
-              <%= f.label "Les auteurs de l'étude" %>
+              <%= f.label t('views.references.author') + "*" %>
               <%= f.text_field :author, class: 'form-control' %>
               <br/>
-              <%= f.label :abstract, "Abstract en langue originale (Facultatif)" %>
+              <%= f.label :abstract, t('views.references.abstract_fac') %>
               <%= f.text_area :abstract, class: 'form-control textarea', id: "markdown-textarea" %>
               <br/>
-              <b> Identifiant unique : DOI, PMID, ou autre (facultatif) </b> <br/>
+              <b> <%= t('views.references.doi_fac') %> </b> <br/>
               <%= f.text_field :doi, class: 'form-control myforms' %>
               <br/>
-              <%= f.button "Modifier la référence &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+	      <%= f.button "#{t('views.references.edit')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success btn-lg pull-right',
                            data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
           <% end %>
         </div>
-        <b>*</b> : champs obligatoires.
+        <b>*</b> : <%= t('views.edition.necessary') %>
         </div>
       </div>
     </div>

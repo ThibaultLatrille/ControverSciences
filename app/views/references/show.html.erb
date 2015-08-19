@@ -13,13 +13,13 @@
     <div class="list-group-item center">
       <div class="sticky" data-placement="bottom"
            data-toggle="tooltip"
-           title="<%= @reference.nb_contributors.to_s + (@reference.nb_contributors > 1 ? " contributeurs" : " contributeur") %>">
+           title="<%= t('views.pluralize.users', count: @reference.nb_contributors ) %>">
         <span class="fat icon-users"></span>
         <%= @reference.nb_contributors %>
       </div>
       <div class="sticky" data-placement="bottom"
            data-toggle="tooltip"
-           title="<%= @reference.nb_edits.to_s + (@reference.nb_edits > 1 ? " analyses" : " analyse") %>">
+           title="<%= t('views.pluralize.comments', count: @reference.nb_edits ) %>">
         <span class="fat icon-comment"></span>
         <%= @reference.nb_edits %>
       </div>
@@ -27,15 +27,15 @@
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
                 timeline_path(@reference.timeline_id),
                 class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> Référence précédente".html_safe,
+	<%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> #{t('views.references.previous')}".html_safe,
                 previous_reference_path(timeline_id: @reference.timeline_id, id: @reference.id),
                 class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> Référence suivante".html_safe,
+	<%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> #{t('views.references.next')}".html_safe,
                 next_reference_path(timeline_id: @reference.timeline_id, id: @reference.id),
                 class: "list-group-item" %>
     <% if logged_in? && @reference.timeline.nb_references > 1 %>
     <%= link_to "<span class=\"glyphicon glyphicon-link\" >
-        </span> Ajouter ou modifier les liens vers d'autres références".html_safe,
+	</span> #{t('views.references.edges')}".html_safe,
                 reference_edges_path(timeline_id:  @reference.timeline_id,
                                      reference_id: @reference.id),
                 class: "list-group-item" %>
@@ -44,10 +44,10 @@
   <% if logged_in? %>
     <% if @reference.user_id == current_user.id || current_user.admin %>
       <div class="list-group">
-        <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier cette référence".html_safe,
+        <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> #{t('views.references.edit')}".html_safe,
                     edit_reference_path(@reference),
                     class: "list-group-item" %>
-        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer cette référence".html_safe,
+        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.references.delete')}".html_safe,
                     reference_path(@reference), method: :delete,
                     data:                                  {confirm: t('views.default.confirm')},
                     class:                                 "list-group-item list-group-item-danger" %>
@@ -56,21 +56,21 @@
       <div class="list-group">
         <% if @comment && params[:filter] == "mine" %>
             <%= link_to "<span class=\"icon-fork normal\" >
-             </span> Modifier votre analyse".html_safe,
+             </span> #{t('views.comments.edit')}".html_safe,
                         edit_comment_path(@comment.id),
                         class: "list-group-item" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer votre analyse".html_safe,
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.comments.delete')}".html_safe,
                         comment_path(@comment.id), method: :delete,
                         data:                              {confirm: t('views.default.confirm')},
                         class:                             "list-group-item list-group-item-danger" %>
         <% elsif @comment %>
             <%= link_to "<span class=\"icon-comment normal\" >
-             </span> Votre analyse".html_safe,
+             </span> #{t('views.model.your_comment')}".html_safe,
                         reference_path(reference_id: @reference.id, filter: "mine"),
                         class: "list-group-item" %>
         <% else %>
             <%= link_to "<span class=\"icon-fork normal\" >
-             </span> Ecrire une analyse".html_safe,
+             </span> #{t('views.comments.new')}".html_safe,
                         new_comment_path(reference_id: @reference.id),
                         class: "list-group-item" %>
         <% end %>
@@ -90,7 +90,7 @@
            data-layout="button_count">
       </div>
     </div>
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Inviter".html_safe,
+    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> #{t('views.buttons.invit')}".html_safe,
                 new_invitation_path(reference_id: @reference.id),
                 remote: true,
                 style: "padding: 1px 6px; margin-top: 5px;",
@@ -103,19 +103,19 @@
           <div class="clearfix">
             <% if @comment %>
                 <div class="btn-group">
-                  <%= link_to "Votre analyse".html_safe,
+                  <%= link_to t('views.model.your_comment'),
                               reference_path(:filter => 'mine'),
                               class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
                 </div>
             <% end %>
             <div class="btn-group">
-              <%= link_to "La meilleure analyse".html_safe,
+              <%= link_to t('views.references.best_comment'),
                           reference_path,
                           class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }" %>
             </div>
             <% if @my_votes.any? %>
                 <div class="btn-group">
-                  <%= link_to "Votre analyse favorite".html_safe,
+                  <%= link_to t('views.references.favorite_comment'),
                               reference_path(:filter => 'my-vote'),
                               class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
                 </div>
@@ -132,7 +132,7 @@
 
                   <div class="center">
                     <%= link_to "<span class=\"icon-fork\" >
-                        </span> Vous n'avez pas encore écrit d'analyse ".html_safe,
+			</span> #{t('views.references.user_no_comment')}".html_safe,
                                 new_comment_path(reference_id: @reference.id),
                                 class: "btn btn-primary", :style => "padding: 6px;" %>
                   </div>
@@ -150,7 +150,7 @@
 
                   <div class="center">
                     <%= link_to "<span class=\"icon-fork\" >
-                        </span> Soyez le premier à ecrire une analyse".html_safe,
+			</span> #{t('views.references.be_first')}".html_safe,
                                 new_comment_path(reference_id: @reference.id),
                                 class: "btn btn-primary", :style => "padding: 6px;" %>
                   </div>
@@ -164,7 +164,7 @@
           <%= render @best_comment %>
       <% else %>
           <%= link_to "<span class=\"glyphicon glyphicon-pencil\" >
-            </span> Il n'y a pas encore d'analyse à cette référence, soyez le premier ! ".html_safe,
+	    </span> #{t('views.references.no_comment_be_first')} ".html_safe,
                       new_comment_path(reference_id: @reference.id), class: "btn btn-primary" %>
       <% end %>
   <% end %>
@@ -182,28 +182,28 @@
               <%= link_to "<span class=\"fat icon-#{key}\"></span> #{value}".html_safe,
                           timelines_path(:sort => params[:sort], :order => params[:order], :tag => key),
                           class: "btn btn-default stick hvr-shadow",
-                          title: "#{value} contributeur#{ value > 1 ? "s pensent" :" pense"} que cette référence appartient au thème #{tags_hash[key]}",
+                          title: t('views.references.user_tags', count: value) + tags_hash[key],
                           "data-toggle" => "tooltip" %>
           <% end %>
         </li>
       <% end %>
       <li class="list-group-item">
         <div class="bold">
-          Les auteurs de l'étude :
+          <%= t('views.references.author') %>:
         </div> <%= @reference.author.html_safe %> </li>
       <li class="list-group-item">
         <div class="bold">
-          Année de publication :
+          <%= t('views.references.year') %>:
         </div> <%= @reference.display_year %> </li>
       <li class="list-group-item">
         <div class="bold">
-          Journal :
+          <%= t('views.references.journal') %>:
         </div> <%= @reference.journal.html_safe %>
       </li>
       <% unless @reference.abstract_markdown.blank? %>
           <li class="list-group-item">
             <div class="bold">
-              Abstract (dans sa langue originale) :
+              <%= t('views.references.abstract') %>:
             </div>
             <div class="justify">
               <%= @reference.abstract_markdown.html_safe %>
@@ -213,19 +213,19 @@
       <% unless @reference.doi.blank? %>
           <li class="list-group-item">
             <div class="bold">
-              Identifiant unique :
+             <%= t('views.references.doi') %>:
             </div> <%= @reference.doi %>
           </li>
       <% end %>
       <li class="list-group-item">
         <div class="bold">
-          Lien vers la référence
+          <%= t('views.references.url') %>
           <%= @reference.open_access ? "(<span class=\"icon icon-lock normal\"></span> Accés libre)".html_safe : "" %>
           :
         </div> <%= link_to @reference.url, @reference.url, class: "break-word", target: "_blank" %></li>
       <li class="list-group-item">
         <div class="bold">
-          Controverse dans laquelle apparait cette référence :
+          <%= t('views.references.appear_in_timeline') %>
         </div>
         <%= link_to @reference.timeline_name.html_safe, @reference.timeline,
                     target: "_blank" %>
@@ -235,7 +235,7 @@
           <%= form_for(:reference_user_tag, url: reference_user_tags_path, method: :post,) do |f| %>
               <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
               <%= f.hidden_field :reference_id, value: @reference.id %>
-              <%= f.label :Tags, "Thèmes" %> </br>
+              <%= f.label :Tags, t('views.default.tags') %> </br>
               <div class="container-fluid">
                 <div class="row" data-toggle="buttons">
                   <% tags_hash.each do |key, value| %>
@@ -258,7 +258,7 @@
                 </div>
               </div>
               <br/>
-              <%= f.button "Enregistrer cet avis &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
+	      <%= f.button "#{t('views.buttons.advise')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
                            class: 'btn btn-success pull-right',
                            data:  {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp #{t('views.buttons.editing')} "} %>
           <% end %>
@@ -305,7 +305,7 @@
 
                       <div class="pull-right">
                         <% if @user_binary.nil? %>
-                            <%= f.button "Enregistrer cet avis &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
+				<%= f.button "#{t('views.buttons.advise')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
                                          class: "btn btn-success",
                                          data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Enregistrement en cours "} %>
                         <% else %>
@@ -332,7 +332,7 @@
                   <% (1..5).each do |key| %>
                       <div class="col-xs-2">
                         <div class="cursor-default div-frog<%= key %>"
-                             title="<%= @reference["binary_#{key}".to_sym] -%> contributeurs pensent <%= binary_value_explanation(@reference.binary, key).downcase -%>"
+                             title="<%= t('views.references.user_binary', count: @reference["binary_#{key}".to_sym] ) %> <%= binary_value_explanation(@reference.binary, key).downcase -%>"
                              data-toggle="tooltip">
                         <span class="icon-frog cd-frog" style="font-size: <%= @reference.binary_font_size( key ) -%>em;">
                             <%= @reference["binary_#{key}".to_sym] -%>

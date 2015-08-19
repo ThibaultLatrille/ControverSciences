@@ -115,6 +115,7 @@ fr:
       invalid_figure: "Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo)."
       source_figure: "La source de la figure est requise pour des raisons évidentes de droit d'auteur."
     edition:
+      necessary: champs obligatoires.
       caption: "Légende de la figure"
       add_timeline_link: "Créer un lien vers une controverse"
       add_timeline_links: "Créer des liens entre cette controverse et d'autres"
@@ -157,12 +158,45 @@ fr:
       new: "Ajouter une référence à cette controverse"
       edit: "Modifier votre référence"
       delete: "Supprimer votre référence"
-      authors: "Les auteurs de l'étude "
+      author: "Les auteurs de l'étude "
       year: "Année de publication "
       journal: "Journal "
       abstract: "Abstract (dans sa langue originale) "
       doi: "Identifiant unique "
       open_access: "Accés libre"
+      abstract_fac: Abstract en langue originale (Facultatif)
+      appear_in_timeline: Apparait dans la controverse
+      add: Ajouter la référence
+      be_first: Soyez le premier à ecrire une analyse
+      best_comment: La meilleure analyse
+      categories: Article, Review, Méta-analyse ou Livre
+      category_0: Article
+      category_1: Review
+      category_2: Méta-analyse
+      category_3: Livre
+      doi_fac: 'Identifiant unique : DOI, PMID, ou autre (facultatif)'
+      edges: Ajouter ou modifier les liens vers d'autres références
+      edit: Modifier la référence
+      edit_from: Editer une référence appartenant à la controverse
+      favorite_comment: Votre analyse favorite
+      is_open_access: Cette référence est en libre accès
+      more: En savoir plus sur la référence
+      new_to: Ajouter une référence à la controverse
+      next: Référence suivante
+      no_comment: Cette référence n'a pas encore été analysée
+      no_comment_be_first: Il n'y a pas encore d'analyse à cette référence, soyez
+        le premier !
+      no_votes: Cette référence n'a pas reçu de votes.
+      previous: Référence précédente
+      title_original: Titre original
+      url: Lien vers la publication
+      user_no_comment: Vous n'avez pas encore écrit d'analyse
+      user_tags:
+        one: "%{count} contributeur pense que cette référence appartient au thème"
+        other: "%{count} contributeurs pensent que cette référence appartient au thème"
+      user_binary:
+        one: "%{count} contributeur pense"
+        other: "%{count} contributeurs pensent"
     edges:
       new_edge: "Créer un nouveau lien"
       to_timeline: "Les liens concernant la controverse"
@@ -224,7 +258,6 @@ fr:
       for_reference: Envoyez une invitation à une personne intéressée par cette référence
       for_timeline: Envoyez une invitation à une personne intéressée par cette controverse
       message: Message
-      necessary: champs obligatoires.
       send: Envoyer l'invitation
       sent: Votre invitation a bien été envoyée.
       server_error: Le serveur ne réponds pas
