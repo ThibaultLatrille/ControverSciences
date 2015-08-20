@@ -1025,7 +1025,7 @@
                         var elt = document.getElementById("list-ref")
                         if (selected.length == 0) {
                             // Give extra word
-                            chunk = elt.options[elt.selectedIndex].text
+                            chunk = "*"
                         } else {
                             chunk = selected.text
                         }
@@ -1064,7 +1064,7 @@
                         }
                         var link = elt.options[elt.selectedIndex].value
                         // transform selection and set the cursor into chunked text
-                        e.replaceSelection('[' + chunk + '](https://www.controversciences.org/timelines/' + link + ')')
+                        e.replaceSelection('[' + chunk + '](/timelines/' + link + ')')
                         cursor = selected.start+1
 
                         // Set the cursor
