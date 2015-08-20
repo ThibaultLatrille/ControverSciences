@@ -340,8 +340,6 @@
                               +'"><i class="icon icon-white icon-ok"></i> '
                               +this.__localize('Save')
                               +'</button>')
-
-
         }
 
         footer = typeof options.footer === 'function' ? options.footer(this) : options.footer
@@ -444,74 +442,58 @@
       return this
     }
 
-  , parseContent: function() {
-      var content,
-        callbackContent = this.$options.onPreview(this) // Try to get the content from callback
-
-      if (typeof callbackContent == 'string') {
-        // Set the content based by callback content
-        content = callbackContent
-      } else {
-        // Set the content
-        var val = this.$textarea.val();
-        if(typeof markdown == 'object') {
-          content = markdown.toHTML(val);
-        }else if(typeof marked == 'function') {
-          content = marked(val);
-        } else {
-          content = val;
-        }
-      }
-
-      return content;
-    }
-
   , showPreview: function() {
       var options = this.$options,
           container = this.$textarea,
           afterContainer = container.next(),
           replacementContainer = $('<div/>',{'class':'md-preview','data-provider':'markdown-preview'}),
-          content
-
+          self = this
       // Give flag that tell the editor enter preview mode
       this.$isPreview = true
       // Disable all buttons
       this.disableButtons('all').enableButtons('cmdPreview')
 
-      content = this.parseContent()
+      $.ajax('/previews', {
+          url: '/previews',
+          data: {content: this.$textarea.val()},
+          method: 'POST',
+          dataType: 'json',
+          statusCode: {
+              200: function (response) {
 
-      // Build preview element
-      replacementContainer.html(content)
+                  replacementContainer.html(response.responseText)
 
-      if (afterContainer && afterContainer.attr('class') == 'md-footer') {
-        // If there is footer element, insert the preview container before it
-        replacementContainer.insertBefore(afterContainer)
-      } else {
-        // Otherwise, just append it after textarea
-        container.parent().append(replacementContainer)
-      }
+                  if (afterContainer && afterContainer.attr('class') == 'md-footer') {
+                      // If there is footer element, insert the preview container before it
+                      replacementContainer.insertBefore(afterContainer)
+                  } else {
+                      // Otherwise, just append it after textarea
+                      container.parent().append(replacementContainer)
+                  }
 
-      // Set the preview element dimensions
-      replacementContainer.css({
-        width: container.outerWidth() + 'px',
-        height: container.outerHeight() + 'px'
-      })
+                  // Set the preview element dimensions
+                  replacementContainer.css({
+                      width: container.outerWidth() + 'px',
+                      height: container.outerHeight() + 'px'
+                  })
 
-      if (this.$options.resize) {
-        replacementContainer.css('resize',this.$options.resize)
-      }
+                  if (self.$options.resize) {
+                      replacementContainer.css('resize',self.$options.resize)
+                  }
 
-      // Hide the last-active textarea
-      container.hide()
+                  // Hide the last-active textarea
+                  container.hide()
 
-      // Attach the editor instances
-      replacementContainer.data('markdown',this)
+                  // Attach the editor instances
+                  replacementContainer.data('markdown',self)
 
-      if (this.$element.is(':disabled') || this.$element.is('[readonly]')) {
-        this.$editor.addClass('md-editor-disabled');
-        this.disableButtons('all');
-      }
-
+                  if (self.$element.is(':disabled') || self.$element.is('[readonly]')) {
+                      self.$editor.addClass('md-editor-disabled');
+                      self.disableButtons('all');
+                  }
+              }
+          }
+      });
       return this
     }
 
