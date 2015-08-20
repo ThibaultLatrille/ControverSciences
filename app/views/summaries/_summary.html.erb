@@ -21,13 +21,19 @@
             </div>
         <% end %>
         <% if summary.summary_links.count > 0 %>
-            <hr/>
+            <hr style="width: 250px"/>
             Cette synthèse se base sur <%= summary.summary_links.count.to_s + " référence" + (summary.summary_links.count > 1 ? "s" : "") %> :
-            <ul>
+            <div style="margin-left: 20px">
               <% summary.summary_links.includes(:reference).each do |link| %>
-                  <li><%= link_to link.reference.title_display, reference_path(link.reference) %></li>
+                  <% if link.count %>
+                      <sup>[<%= link.count %>]</sup>
+                  <% else %>
+                      &nbsp  •
+                  <% end %>
+                  <%= link_to link.reference.title_display, reference_path(link.reference), target: "_blank" %>
+                  <br/>
               <% end %>
-            </ul>
+            </div>
         <% end %>
       </div>
     </div>

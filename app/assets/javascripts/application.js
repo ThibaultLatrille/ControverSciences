@@ -16,8 +16,6 @@
 //= require jquery.fileupload.js
 //= require rails
 //= require bootstrap
-//= require markdown
-//= require to-markdown
 //= require bootstrap-markdown
 //= require modernizr.js
 //= require jquery.infinitescroll.js

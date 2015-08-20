@@ -7,7 +7,7 @@ fr:
       by: par
       by_cap: Par
       public_f: Publique
-      private_f: Privée"
+      private_f: Privée
       warning: Attention !
       you_and: Vous et
       to: Vers
@@ -312,7 +312,7 @@ fr:
       create: Publier la synthèse
       downvote: Vous avez selectionné cette synthèse comme votre favorite
       from_timeline: Cette synthèse appartient à la controverse
-      info: |-
+      info_html: |-
         La synthèse est un résumé général de la controverse. Son objectif
                           est d'intégrer l'ensemble des références analysées, et donc de donner un bilan de la controverse basé
                           sur des résultats scientifiques.
@@ -508,7 +508,7 @@ fr:
                 Le lien pour activer votre compte doit être parvenu à votre boîte mail,
                 à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet.
       delete: Supprimer ce contributeur
-      email_invalid: |-
+      email_invalid_html: |-
         Si vous disposez d'une adresse électronique appartenant à une institution scientifique, votre validation sera automatique.
                       <br/>
                       <br/>

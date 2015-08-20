@@ -1,12 +1,38 @@
+class Redcarpet::Render::HTML
+  def superscript(text)
+    if text[0] == "_"
+      "<sub>[#{text[1..-1]}]</sub>"
+    else
+      "<sup>[#{text}]</sup>"
+    end
+  end
+end
+
 class HTMLlinks < Redcarpet::Render::HTML
   attr_accessor :links
-  attr_accessor :ref_url
+  attr_accessor :counter
+  attr_accessor :root_url
   def link(link, title, content)
     if link !~ /\D/ && !link.blank? && link != "0"
-      self.links.push(link.to_i)
-      "<a href=\"#{self.ref_url+link}\" class=\"linked-ref\" data-ref=\"#{link}\">#{content}</a>"
+      if content == "*"
+        if self.links[link.to_i]
+          count = self.links[link.to_i]
+        else
+          count = self.counter
+          self.counter += 1
+          self.links[link.to_i] = count
+        end
+        "<a href=\"#{self.root_url + "/references/" + link}\" class=\"linked-ref\" data-ref=\"#{link}\" target=\"_blank\"><sup>[#{count}]</sup></a>"
+      else
+        unless self.links[link.to_i]
+          self.links[link.to_i] = false
+        end
+        "<a href=\"#{self.root_url + "/references/" + link}\" class=\"linked-ref\" data-ref=\"#{link}\" target=\"_blank\">#{content}</a>"
+      end
     elsif (link[0..6] == "http://") || (link[0..7] == "https://")
-      "<a href=\"#{link}\">#{content}</a>"
+      "<a href=\"#{link}\" target=\"_blank\">#{content}</a>"
+    elsif link[0..10] == "/timelines/"
+      "<a href=\"#{self.root_url + link }\" target=\"_blank\">#{content}</a>"
     else
       content
     end

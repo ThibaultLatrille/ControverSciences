@@ -147,11 +147,12 @@ class Comment < ActiveRecord::Base
     }
 
     renderer       = HTMLlinks.new(render_options)
-    renderer.links = []
+    renderer.links = {}
+    renderer.counter = 1
     if Rails.env.production?
-      renderer.ref_url = "http://www.controversciences.org/references/"
+      renderer.root_url = "https://controversciences.org"
     else
-      renderer.ref_url = "http://127.0.0.1:3000/references/"
+      renderer.root_url = "http://127.0.0.1:3000"
     end
 
     extensions = {
@@ -180,9 +181,9 @@ class Comment < ActiveRecord::Base
     links = self.markdown
     if self.save
       reference_ids = Reference.where(timeline_id: self.timeline_id).pluck(:id)
-      links.each do |link|
+      links.each do |link, value|
         if reference_ids.include? link
-          Link.create({comment_id:   self.id, user_id: self.user_id,
+          Link.create({comment_id:   self.id, user_id: self.user_id, count: value,
                        reference_id: link, timeline_id: self.timeline_id})
         end
       end
