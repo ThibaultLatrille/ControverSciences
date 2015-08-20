@@ -72,29 +72,22 @@
   <% if @timeline.nb_references > 2 || @summary %>
       <% if logged_in? %>
           <div class="list-group">
-            <% if @summary %>
-                <% if @timeline.nb_summaries > 1 %>
+            <% if @summary && @timeline.nb_summaries > 1 %>
                     <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
                   &nbsp #{t('views.model.summaries_of')} ".html_safe,
                                 summaries_path(timeline_id: @timeline.id),
                                 class: "list-group-item" %>
-                <% end %>
-                <% if @improve %>
-                    <%= link_to "<span class=\"icon-fork normal\" >
-                    </span> #{t('views.summaries.new')}".html_safe,
-                                new_summary_path(timeline_id: @timeline.id),
-                                :class => "list-group-item" %>
-                <% else %>
-                    <%= link_to "<span class=\"icon-summary normal\"></span>
-                  #{t('views.model.your_summary')}".html_safe,
-                                summaries_path(timeline_id: @timeline.id, filter: "mine"),
-                                :class => "list-group-item" %>
-                <% end %>
-            <% else %>
+            <% end %>
+            <% if @improve %>
                 <%= link_to "<span class=\"icon-fork normal\" >
                     </span> #{t('views.summaries.new')}".html_safe,
                             new_summary_path(timeline_id: @timeline.id),
-                            class: "list-group-item" %>
+                            :class => "list-group-item" %>
+            <% else %>
+                <%= link_to "<span class=\"icon-summary normal\"></span>
+                  #{t('views.model.your_summary')}".html_safe,
+                            summaries_path(timeline_id: @timeline.id, filter: "mine"),
+                            :class => "list-group-item" %>
             <% end %>
           </div>
       <% elsif @timeline.nb_summaries > 1 %>
