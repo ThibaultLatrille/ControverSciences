@@ -1,3 +1,13 @@
+class Redcarpet::Render::HTML
+  def superscript(text)
+    if text[0] == "_"
+      "<sub>[#{text[1..-1]}]</sub>"
+    else
+      "<sup>[#{text}]</sup>"
+    end
+  end
+end
+
 class HTMLlinks < Redcarpet::Render::HTML
   attr_accessor :links
   attr_accessor :counter
@@ -22,7 +32,7 @@ class HTMLlinks < Redcarpet::Render::HTML
     elsif (link[0..6] == "http://") || (link[0..7] == "https://")
       "<a href=\"#{link}\" target=\"_blank\">#{content}</a>"
     elsif link[0..10] == "/timelines/"
-    "<a href=\"#{self.root_url + link }\" target=\"_blank\">#{content}</a>"
+      "<a href=\"#{self.root_url + link }\" target=\"_blank\">#{content}</a>"
     else
       content
     end

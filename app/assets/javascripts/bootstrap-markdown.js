@@ -981,6 +981,36 @@
                 // Set the cursor
                 e.setSelection(cursor,cursor+chunk.length)
             }
+        },{
+            name: 'cmdSubScript',
+            title: 'Indice',
+            hotkey: 'Ctrl+E',
+            icon: { glyph: 'glyphicon glyphicon-subscript', fa: 'fa fa-italic', 'fa-3': 'icon-italic' },
+            callback: function(e){
+                // Give/remove * surround the selection
+                var chunk, cursor, selected = e.getSelection(), content = e.getContent()
+
+                if (selected.length == 0) {
+                    // Give extra word
+                    chunk = e.__localize('texte en indice')
+                } else {
+                    chunk = selected.text
+                }
+
+                // transform selection and set the cursor into chunked text
+                if (content.substr(selected.start-1,1) == '^('
+                    && content.substr(selected.end,1) == ')' ) {
+                    e.setSelection(selected.start-1,selected.end+1);
+                    e.replaceSelection(chunk);
+                    cursor = selected.start
+                } else {
+                    e.replaceSelection('^(_'+chunk+')');
+                    cursor = selected.start+3
+                }
+
+                // Set the cursor
+                e.setSelection(cursor,cursor+chunk.length)
+            }
         }]
       },{
         name: 'groupLink',
