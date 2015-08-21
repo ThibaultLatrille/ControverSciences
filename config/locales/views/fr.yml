@@ -444,7 +444,7 @@ fr:
     password:
       new: Demander un nouveau mot de passe
       reinit: Réinitialiser votre mot de passe
-      reset: Mot de passe oublié
+      reset: Pour récupérer votre mot de passe, veuillez saisir l'adresse email associée à votre compte
       save_new: Enregistrer le nouveau mot de passe
     sessions:
       connect: 'Identifiants de connexion :'
@@ -492,7 +492,7 @@ fr:
       notif_waiting: nouveautés vous attendent.
       notif_wish: vous souhaite une agréable journée !
       plain_link: 'Si le lien ne fonctionne pas, copier ce morceau de texte dans votre navigateur :'
-      reset_pwd: Cliquez sur le lien suivant pour réinitialiser votre mot de passe
+      reset_pwd: Cliquez sur le lien suivant pour réinitialiser votre mot de passe sur ControverSciences
       sent_this_message: 'vous a écrit le message suivant:'
       the_team: L'équipe ControverSciences
       welcome: Bienvenue sur ControverSciences, il ne vous reste plus qu'à cliquer sur le lien suivant pour commencer à contribuer au projet.
@@ -509,13 +509,9 @@ fr:
                 à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet.
       delete: Supprimer ce contributeur
       email_invalid_html: |-
-        Si vous disposez d'une adresse électronique appartenant à une institution scientifique, votre validation sera automatique.
-                      <br/>
-                      <br/>
-                      Si vous ne disposez pas d'une telle adresse, votre validation sera manuelle. Veuillez s’il vous plaît écrire quelques mots montrant
-                      votre motivation, les administrateurs valideront le compte d'autant plus rapidement que vous vous montrez motivé !
-                      <br/>
-                      Une fois le compte validé, vous recevrez un mail contenant un lien permettant de valider le compte.
+        Si vous disposez d'une adresse électronique appartenant à une institution scientifique, votre compte sera automatiquement activé. </br>
+        Sinon, veuillez détailler brièvement votre champ d'expertise scientifique et pourquoi pour souhaitez participer à ControverSciences. <br/>
+        Vous recevrez alors un mail de confirmation pour activer votre compte. <br/>
       for_admins: Pour les admins seulement
       i_have_read: J'ai lu et j'accepte
       institution: 'Institution :'
