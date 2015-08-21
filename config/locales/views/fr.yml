@@ -540,7 +540,7 @@ fr:
       have_summaries: ont actuellement au moins une synthèse.
       need_comments: n'ont pas encore d'analyse, soyez le premier à les décortiquer !
       need_references: ont besoin de références scientifiques, venez les enrichir !
-      need_summaries: ont des référénces mais n'ont pas de synthèse, résumez la situation et apportez une vue d'ensemble au débat !
+      need_summaries: ont des référénces analysées mais n'ont pas de synthèse, résumez la situation et apportez une vue d'ensemble au débat !
       these_references: Ces références
       these_timelines: Ces controverses
       you_added: que vous avez ajoutées

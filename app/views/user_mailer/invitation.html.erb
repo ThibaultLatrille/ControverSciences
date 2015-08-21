@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                       <td  class="w520" width="520" >
-                        <h1 style="font-size:30px;line-height:45px;"> <%= t('views.mailer.hello') + " " + @invitation.target_name %>,
+                        <h1 style="font-size:30px;line-height:45px;"> <%= t('views.mailer.hello') + (@invitation.target_name.blank? ? nil : " #{@invitation.target_name}" )  %>,
                         </h1>
                       </td>
                     </tr>
@@ -62,15 +62,15 @@
                       <td class="w520" width="520" style="line-height:30px">
                         <div>
                           <p>
+                            <% if @invitation.message && @invitation.message.strip != "" %>
+                                <%= @invitation.message %>
+                                <br/>
+                            <% end %>
                             <%= @invitation.user_name + " " + t('views.mailer.and') %> <%= link_to "ControverSciences", root_url %> <%= t('views.mailer.invite_you') %>
                             <% if @invitation.timeline_id %>
                                 <%= t('views.model.timeline').downcase + " " %> <%= link_to @invitation.timeline.name.html_safe, timeline_url(@invitation.timeline_id) %>
                             <% elsif @invitation.reference_id %>
-                                <%= t('views.model.reference').downcase + " " %> <%= link_to @invitation.reference.title_display.html_safe, reference_url(@invitation.reference_id) %>
-                            <% end %>
-                            <% if @invitation.message && @invitation.message.strip != "" %>
-                                <br/>
-                                <%= @invitation.user_name %> <%= t('views.mailer.sent_this_message') %> <br/> <%= @invitation.message %>
+                                <%= t('views.model.reference').downcase + " " %> <%= link_to @invitation.reference.title.html_safe, reference_url(@invitation.reference_id) %>
                             <% end %>
                           </p>
                         </div>
