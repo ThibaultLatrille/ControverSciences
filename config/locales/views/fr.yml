@@ -73,8 +73,8 @@ fr:
       password: Mot de passe
       password_confirm: Confirmation de mot de passe
       errors:
-       one: "%{count} erreur"
-       other: "%{count} erreurs"
+       one: " erreur"
+       other: " erreurs"
     pluralize:
       users:
         one: "%{count} contributeur"
