@@ -117,7 +117,7 @@ class Frame < ActiveRecord::Base
     most_frame = Frame.where(timeline_id: self.timeline_id).order(balance: :desc).first
     best_frame = Frame.find_by(timeline_id: self.timeline_id, best: true)
     if most_frame
-      if (most_frame.id != best_frame.id) && (most_frame.balance != 0)
+      if (most_frame.id != best_frame.id) && (most_frame.balance > (best_frame.balance + 1))
         most_frame.selection_update(best_frame)
       end
     end

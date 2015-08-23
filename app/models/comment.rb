@@ -300,7 +300,7 @@ class Comment < ActiveRecord::Base
     end
     most = get_most_comment(field)
     if most
-      if (most.id != best_comment["f_#{field}_comment_id".to_sym]) && (most["f_#{field}_balance"] != 0)
+      if (most.id != best_comment["f_#{field}_comment_id".to_sym]) && (most["f_#{field}_balance"] > (best_comment["f_#{field}_comment_id".to_sym] + 1))
         most.selection_update(best_comment,
                               best_comment["f_#{field}_comment_id".to_sym],
                               best_comment["f_#{field}_user_id".to_sym], field).save
