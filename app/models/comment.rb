@@ -379,7 +379,7 @@ class Comment < ActiveRecord::Base
       fill_best_comment
       unless self.notif_generated
         notifications = []
-        Notification.where.( timeline_id: self.timeline_id,
+        Notification.where( timeline_id: self.timeline_id,
             reference_id: self.reference_id,
             comment_id:   self.id, category: 5).destroy_all
         Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
