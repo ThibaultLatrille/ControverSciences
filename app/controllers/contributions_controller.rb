@@ -7,7 +7,9 @@ class ContributionsController < ApplicationController
     temp_contribs[2] = Reference.order( created_at: :asc ).all.pluck(:created_at).group_by{ | date| I18n.l date.to_date, format: :month }
     temp_contribs[3] = Comment.order( created_at: :asc ).where( public: true ).pluck(:created_at).group_by{ | date| I18n.l date.to_date, format: :month }
     temp_contribs[4] = Summary.order( created_at: :asc ).where( public: true ).pluck(:created_at).group_by{ | date| I18n.l date.to_date, format: :month }
-    @keys = temp_contribs.values.map{ |x| x.keys }.flatten.uniq[0..-2]
+    date_from  = User.select(:created_at).first.created_at.to_date
+    date_to    = Date.today
+    @keys = (date_from..date_to).map {|d| Date.new(d.year, d.month, 1) }.uniq[0..-2].map { |date | I18n.l date.to_date, format: :month }
     (0..4).each do |contrib|
       sum = 0
       @keys.each do |key|
