@@ -369,6 +369,9 @@ class Comment < ActiveRecord::Base
       fill_best_comment
       unless self.notif_generated
         notifications = []
+        Notification.where.( timeline_id: self.timeline_id,
+            reference_id: self.reference_id,
+            comment_id:   self.id, category: 5).destroy_all
         Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
           unless self.user_id == user_id
             notifications << Notification.new(user_id:      user_id, timeline_id: self.timeline_id,
@@ -377,6 +380,8 @@ class Comment < ActiveRecord::Base
           end
         end
         Notification.import notifications
+        Reference.increment_counter(:nb_edits, self.reference_id)
+        Timeline.increment_counter(:nb_comments, self.timeline_id)
         self.update_columns(notif_generated: true)
       end
     else
@@ -385,6 +390,9 @@ class Comment < ActiveRecord::Base
         Vote.where(comment_id: self.id).destroy_all
         empty_best_comment
         refill_best_comment
+        Reference.decrement_counter(:nb_edits, self.reference_id)
+        Timeline.decrement_counter(:nb_comments, self.timeline_id)
+        self.update_columns(notif_generated: false)
       end
     end
   end
@@ -403,9 +411,9 @@ class Comment < ActiveRecord::Base
       end
       Notification.import notifications
       self.update_columns(notif_generated: true)
+      Reference.increment_counter(:nb_edits, self.reference_id)
+      Timeline.increment_counter(:nb_comments, self.timeline_id)
     end
-    Reference.increment_counter(:nb_edits, self.reference_id)
-    Timeline.increment_counter(:nb_comments, self.timeline_id)
     unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
       TimelineContributor.create({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
     end

@@ -172,6 +172,8 @@ class Summary < ActiveRecord::Base
           self.selection_update
         end
         unless self.notif_generated
+          Notification.where( timeline_id: self.timeline_id,
+                           summary_id: self.id, category: 3).destroy_all
           notifications = []
           Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
             unless self.user_id == user_id
@@ -181,11 +183,15 @@ class Summary < ActiveRecord::Base
           end
           Notification.import notifications
           self.update_columns( notif_generated: true)
+          Timeline.increment_counter(:nb_summaries, self.timeline_id)
         end
       else
         Credit.where(summary_id: self.id).destroy_all
+        Timeline.decrement_counter(:nb_summaries, self.timeline_id)
+        self.update_columns( notif_generated: false)
         if self.best
           SummaryBest.where(timeline_id: self.timeline_id).destroy_all
+          refill_best_summary
         end
       end
     end
@@ -206,8 +212,8 @@ class Summary < ActiveRecord::Base
       end
       Notification.import notifications
       self.update_columns( notif_generated: true)
+      Timeline.increment_counter(:nb_summaries, self.timeline_id)
     end
-    Timeline.increment_counter(:nb_summaries, self.timeline_id)
     unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
       TimelineContributor.create({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
     end

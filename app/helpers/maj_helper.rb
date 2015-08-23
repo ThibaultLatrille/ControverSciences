@@ -1,5 +1,20 @@
 module MajHelper
 
+  def maj_v_11
+    ActiveRecord::Base.transaction do
+      Timeline.find_each do |timeline|
+        nb_references = Reference.where( timeline_id: timeline.id).where.not( title_fr: "" ).count
+        nb_comments = Comment.where( timeline_id: timeline.id, public: true)
+        nb_summaries= Summary.where( timeline_id: timeline.id, public: true)
+            timeline.update_columns( nb_references: nb_references, nb_comments: nb_comments, nb_summaries: nb_summaries )
+      end
+      Reference.find_each do |reference|
+        nb_edits = Comment.where( reference_id: reference.id, public: true)
+        reference.update_columns( nb_edits: nb_edits )
+      end
+    end
+  end
+
   def maj_v_10
     ActiveRecord::Base.transaction do
       Summary.find_each do |summary|
