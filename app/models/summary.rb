@@ -155,7 +155,9 @@ class Summary < ActiveRecord::Base
   end
 
   def destroy_with_counters
-    Timeline.decrement_counter(:nb_summaries, self.timeline_id)
+    if self.public
+      Timeline.decrement_counter(:nb_summaries, self.timeline_id)
+    end
     self.destroy
     refill_best_summary
   end

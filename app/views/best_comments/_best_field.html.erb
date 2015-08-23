@@ -1,4 +1,4 @@
-<% if (field == 6 && comment.title_markdown != "")||(field == 7 && comment.figure_id)||(((0..5).include? field) && comment["markdown_#{field}".to_sym] != "") %>
+<% if (field == 6 && !comment.title_markdown.blank?)||(field == 7 && comment.figure_id)||(((0..5).include? field) && !comment["markdown_#{field}".to_sym].blank?) %>
     <div class="panel <%= logged_in? &&
                                   @my_votes &&
                                   (@my_votes.map{ |c| c.comment_id}.include? comment.id) ? "panel-success" : "panel-default" %>">

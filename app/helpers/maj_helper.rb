@@ -2,6 +2,7 @@ module MajHelper
 
   def maj_v_11
     ActiveRecord::Base.transaction do
+      Reference.where(title_fr: nil).update_all(title_fr: "")
       Timeline.find_each do |timeline|
         nb_references = Reference.where( timeline_id: timeline.id).where.not( title_fr: "" ).count
         nb_comments = Comment.where( timeline_id: timeline.id, public: true)

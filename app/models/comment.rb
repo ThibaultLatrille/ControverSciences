@@ -238,7 +238,8 @@ class Comment < ActiveRecord::Base
           best_comment["f_#{field}_user_id"]    = nil
           best_comment["f_#{field}_comment_id"] = nil
           if field == 6
-            Reference.update(self.reference_id, title_fr: nil)
+            Reference.update(self.reference_id, title_fr: "")
+            Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: "").count)
           end
         end
       end
@@ -258,6 +259,7 @@ class Comment < ActiveRecord::Base
           best_comment["f_#{field}_comment_id"] = self.id
           if field == 6
             Reference.update(self.reference_id, title_fr: self.title_markdown)
+            Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: "").count)
           end
         end
       elsif best_comment["f_#{field}_user_id"] == self.user_id
@@ -269,11 +271,13 @@ class Comment < ActiveRecord::Base
             best_comment["f_#{field}_user_id"]    = nil
             best_comment["f_#{field}_comment_id"] = nil
             if field == 6
-              Reference.update(self.reference_id, title_fr: nil)
+              Reference.update(self.reference_id, title_fr: "")
+              Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: "").count)
             end
           end
         elsif field == 6
           Reference.update(self.reference_id, title_fr: self.title_markdown)
+          Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: "").count)
         end
       end
     end
@@ -322,8 +326,10 @@ class Comment < ActiveRecord::Base
 
   def destroy_with_counters
     empty_best_comment
-    Timeline.decrement_counter(:nb_comments, self.timeline_id)
-    Reference.update_counters(self.reference_id, nb_edits: -1)
+    if self.public
+      Timeline.decrement_counter(:nb_comments, self.timeline_id)
+      Reference.update_counters(self.reference_id, nb_edits: -1)
+    end
     self.destroy
     refill_best_comment
   end
@@ -331,33 +337,35 @@ class Comment < ActiveRecord::Base
   private
 
   def content_validation
-    ref = self.reference
-    if ref.category == 1
-      if self.f_0_content && self.f_0_content.length > 4001
-        errors.add(:f_0_content, 'est trop long (pas plus de 4000 caractères)')
+    if self.public
+      ref = self.reference
+      if ref.category == 1
+        if self.f_0_content && self.f_0_content.length > 4001
+          errors.add(:f_0_content, 'est trop long (pas plus de 4000 caractères)')
+        end
+      else
+        if self.f_0_content && self.f_0_content.length > 1001
+          errors.add(:f_0_content, 'est trop long (pas plus de 1000 caractères)')
+        end
       end
-    else
-      if self.f_0_content && self.f_0_content.length > 1001
-        errors.add(:f_0_content, 'est trop long (pas plus de 1000 caractères)')
+      if ref.category == 3
+        if self.f_1_content && self.f_1_content.length > 4001
+          errors.add(:f_1_content, 'est trop long (pas plus de 4000 caractères)')
+        end
+      else
+        if self.f_1_content && self.f_1_content.length > 1001
+          errors.add(:f_1_content, 'est trop long (pas plus de 1000 caractères)')
+        end
       end
-    end
-    if ref.category == 3
-      if self.f_1_content && self.f_1_content.length > 4001
-        errors.add(:f_1_content, 'est trop long (pas plus de 4000 caractères)')
+      if ref.title_fr.blank? && self.title.blank?
+        errors.add(:title, 'doit être spécifié dans l\'analyse')
       end
-    else
-      if self.f_1_content && self.f_1_content.length > 1001
-        errors.add(:f_1_content, 'est trop long (pas plus de 1000 caractères)')
+      if ref.nb_edits == 0 && self.f_0_content.blank? &&
+          self.f_1_content.blank? && self.f_2_content.blank? &&
+          self.f_3_content.blank? && self.f_4_content.blank? &&
+          self.f_5_content.blank? && self.caption.blank?
+        errors.add(:base, "Un titre seul n'est pas une analyse !")
       end
-    end
-    if ref.title_fr.blank? && self.title.blank?
-      errors.add(:title, 'doit être spécifié dans l\'analyse')
-    end
-    if ref.nb_edits == 0 && self.f_0_content.blank? &&
-        self.f_1_content.blank? && self.f_2_content.blank? &&
-        self.f_3_content.blank? && self.f_4_content.blank? &&
-        self.f_5_content.blank? && self.caption.blank?
-      errors.add(:base, "Un titre seul n'est pas une analyse !")
     end
   end
 

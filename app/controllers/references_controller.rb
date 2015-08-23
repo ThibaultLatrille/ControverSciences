@@ -65,6 +65,7 @@ class ReferencesController < ApplicationController
   def create
     @reference = Reference.new( reference_params )
     @reference.user_id = current_user.id
+    @reference.title_fr = ""
     if params[:title] || params[:doi]
       if params[:title]
         query = params[:reference][:title]
