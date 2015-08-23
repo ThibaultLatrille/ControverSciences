@@ -6,6 +6,11 @@
     <a href="https://www.facebook.com/ControverSciences" class="hvr-grow"  target="_blank">
       <%= image_tag("link_2.png", :height => "30px") %>
     </a>
+    <% if logged_in? %>
+    <a href="#join-slack" data-toggle="modal">
+      <%= image_tag("slack.png", :height => "30px") %>
+    </a>
+    <% end %>
   </div>
   <div class="container">
     <div class="navbar-header">
@@ -16,7 +21,7 @@
 	 <span class="icon-bar"></span>
 	 <span class="icon-bar"></span>
       </button>
-      <%= link_to image_tag("logo_title.svg", alt: "logo", height: "64px"), root_path, id: "logo-header" %>
+      <%= link_to image_tag("logo_title.png", alt: "logo", height: "64px"), root_path, id: "logo-header" %>
     </div>
     <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;">
        <ul class="nav navbar-nav navbar-right">
