@@ -93,6 +93,11 @@
                     </li>
                 <% end %>
                 <li class="divider"></li>
+                <% if current_user.nb_private > 0 %>
+                    <li class="my-missing"><%= link_to "<span class=\"badge badge-header\"> #{current_user.nb_private} </span> #{t('views.header.my_items_private')}</b>".html_safe,
+                                    my_items_items_path(private: true), style: "color: white;" %> </li>
+                    <li class="divider"></li>
+                <% end %>
                 <li><%= link_to "<b><span class='icon-summary'></span> #{t('views.header.my_items')}</b>".html_safe,
                                 my_items_items_path %> </li>
                 <li> <%= link_to "<b><span class=\"badge #{current_user.nb_notifs > 0 ? "badge-li" : nil }\">

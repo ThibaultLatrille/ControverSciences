@@ -1,293 +1,261 @@
 <% provide(:title, "Mes contributions") %>
 <div id="my-container" class="container-fluid">
-<div class="col-md-10 col-md-offset-1">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title clearfix">
-        <a data-toggle="collapse" href="#collapseOne" class="pull-right glyphicon <%= @timelines.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
-        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          <%= t('views.model.your_timelines') %> (<%= @timelines.length %>)
-        </a>
-      </h4>
+
+<% if params[:private] == "true" %>
+    <div class="col-xs-12 col-md-offset-3 col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading center">
+          <%= t('views.header.my_items_private') %>
+        </div>
+      </div>
     </div>
-    <div id="collapseOne" class="panel-collapse collapse <%= @timelines.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingOne">
-      <table id="notification-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-8"> <%= t('views.model.timeline') %> </th>
-        <th class="col-xs-3"> <%= t('views.default.tags') %> </th>
-        <% if current_user.private_timeline %>
-            <th class="col-xs-2 center"> <%= t('views.default.public_f') %> </th>
-        <% else %>
-        <th class="col-xs-1 center"> <%= t('views.buttons.edit') %> </th>
-        <th class="col-xs-1 center"> <%= t('views.buttons.delete') %> </th>
-        <% end %>
-      </tr>
-      </thead>
-
-      <tbody class="page">
-      <% if !@timelines.any? %>
-          <tr class="notification-timeline">
-            <td> <%= link_to t('views.my_items.new_timeline'),
-                             new_timeline_path %> </td>
-            <td>  </td>
-            <td>  </td>
-            <% unless current_user.private_timeline %>
-            <td>  </td>
-            <% end %>
-          </tr>
-      <% else %>
-          <% @timelines.each do |timeline| %>
-              <tr class="notification-timeline">
-                <td> <%= link_to timeline.name.html_safe, timeline_path(timeline) %> </td>
-                <td>
-                  <% timeline.get_tag_list.each do |name| %>
-                      <span class="icon-<%= name %>"></span>
-                  <% end %>
-                </td>
-                <% if current_user.private_timeline %>
-                    <% if timeline.private %>
-                        <td class="center"> <%= link_to "<span class=\"icon icon-locked normal static-red\"></span>".html_safe,
-                                                        set_public_timelines_path( timeline_id: timeline.id ),
-                                                        data: { confirm: t('views.my_items.set_public_timeline') } %> </td>
-                    <% else %>
-                        <td class="center"> <span class="icon icon-lock normal static-green"></span>  </td>
-                    <% end %>
-                <% else %>
-                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
-                                                edit_timeline_path( timeline.id ) %>  </td>
-                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                                timeline_path( timeline.id ), method: :delete,
-                                                data: { confirm: t('views.default.confirm') } %>  </td>
-                <% end %>
-              </tr>
-          <% end %>
-          <tr class="notification-timeline">
-		  <td> <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\"> </span> #{t('views.my_items.new_timeline')}".html_safe,
-                             new_timeline_path %> </td>
-            <td>  </td>
-            <td>  </td>
-            <% unless current_user.private_timeline %>
-                <td>  </td>
-            <% end %>
-          </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-  </div>
-</div>
-
-<div class="col-md-10 col-md-offset-1">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title clearfix">
-        <a data-toggle="collapse" href="#collapseZero" class="pull-right glyphicon <%= @frames.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
-        <a data-toggle="collapse" href="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
-          <%= t('views.model.your_frames') %> (<%= @frames.length %>)
-        </a>
-      </h4>
-    </div>
-    <div id="collapseZero" class="panel-collapse collapse <%= @frames.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingOne">
-      <table id="notification-timelines" class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th class="col-sm-1 center"> <%= t('views.model.credits') %> </th>
-          <th class="col-sm-9"> <%= t('views.model.timeline') %> </th>
-          <th class="col-xs-1 center"> <%= t('views.buttons.edit') %> </th>
-          <th class="col-sm-1 center"> <%= t('views.buttons.delete') %> </th>
-        </tr>
-        </thead>
-
-        <tbody class="page">
-        <% if !@frames.any? %>
-            <tr class="notification-timeline">
-              <td>  </td>
-              <td> <%= t('views.my_items.no_frames') %> </td>
-              <td>  </td>
-              <td>  </td>
+<% else %>
+    <% if !@timelines.any? && !@references.any? && !@comments.any? && !@summaries.any? && !@frames.any? %>
+        <div class="col-xs-12 col-md-offset-3 col-md-6">
+          <div class="panel panel-info">
+            <div class="panel-heading center">
+              <%= t('views.my_items.no_items') %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+<% end %>
+<% if @timelines.any? %>
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#collapseOne" class="pull-right glyphicon <%= @timelines.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
+            <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <%= t('views.model.your_timelines') %> (<%= @timelines.length %>)
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse <%= @timelines.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingOne">
+          <table id="notification-timelines" class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th class="col-xs-8"> <%= t('views.model.timeline') %> </th>
+              <th class="col-xs-3"> <%= t('views.default.tags') %> </th>
+              <% if current_user.private_timeline %>
+                  <th class="col-xs-2 center"> <%= t('views.default.public_f') %> </th>
+              <% else %>
+                  <th class="col-xs-1 center"> <%= t('views.buttons.edit') %> </th>
+                  <th class="col-xs-1 center"> <%= t('views.buttons.delete') %> </th>
+              <% end %>
             </tr>
-        <% else %>
+            </thead>
+            <tbody class="page">
+            <% @timelines.each do |timeline| %>
+                <tr class="notification-timeline">
+                  <td> <%= link_to timeline.name.html_safe, timeline_path(timeline) %> </td>
+                  <td>
+                    <% timeline.get_tag_list.each do |name| %>
+                        <span class="icon-<%= name %>"></span>
+                    <% end %>
+                  </td>
+                  <% if current_user.private_timeline %>
+                      <% if timeline.private %>
+                          <td class="center"> <%= link_to "<span class=\"icon icon-locked normal static-red\"></span>".html_safe,
+                                                          set_public_timelines_path(timeline_id: timeline.id),
+                                                          data: {confirm: t('views.my_items.set_public_timeline')} %> </td>
+                      <% else %>
+                          <td class="center"><span class="icon icon-lock normal static-green"></span></td>
+                      <% end %>
+                  <% else %>
+                      <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
+                                                      edit_timeline_path(timeline.id) %>  </td>
+                      <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                      timeline_path(timeline.id), method: :delete,
+                                                      data:                               {confirm: t('views.default.confirm')} %>  </td>
+                  <% end %>
+                </tr>
+            <% end %>
+            <tr class="notification-timeline">
+              <td> <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\"> </span> #{t('views.my_items.new_timeline')}".html_safe,
+                               new_timeline_path %> </td>
+              <td></td>
+              <td></td>
+              <% unless current_user.private_timeline %>
+                  <td></td>
+              <% end %>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+<% end %>
+<% if @frames.any? %>
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#collapseZero" class="pull-right glyphicon <%= @frames.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
+            <a data-toggle="collapse" href="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
+              <%= t('views.model.your_frames') %> (<%= @frames.length %>)
+            </a>
+          </h4>
+        </div>
+        <div id="collapseZero" class="panel-collapse collapse <%= @frames.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingOne">
+          <table id="notification-timelines" class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th class="col-sm-1 center"> <%= t('views.model.credits') %> </th>
+              <th class="col-sm-9"> <%= t('views.model.timeline') %> </th>
+              <th class="col-xs-1 center"> <%= t('views.buttons.edit') %> </th>
+              <th class="col-sm-1 center"> <%= t('views.buttons.delete') %> </th>
+            </tr>
+            </thead>
+            <tbody class="page">
             <% @frames.each do |frame| %>
                 <tr class="notification-timeline">
                   <td class="center"> <%= frame.balance %> </td>
                   <td> <%= link_to frame.name_markdown.html_safe, frame_path(frame.id) %> </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
-                                                  edit_frame_path( frame.id ) %>  </td>
+                                                  edit_frame_path(frame.id) %>  </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                                  frame_path( frame.id ), method: :delete,
-                                                  data: { confirm: t('views.default.confirm') } %>  </td>
+                                                  frame_path(frame.id), method: :delete,
+                                                  data:                         {confirm: t('views.default.confirm')} %>  </td>
                 </tr>
             <% end %>
-        <% end %>
-        </tbody>
-      </table>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<div class="col-md-10 col-md-offset-1">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
-      <h4 class="panel-title clearfix">
-        <a data-toggle="collapse" href="#collapseFour" class="pull-right glyphicon <%= @references.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
-        <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
-          <%= t('views.model.your_references') %> (<%= @references.length %>)
-        </a>
-      </h4>
-    </div>
-    <div id="collapseFour" class="panel-collapse collapse <%= @references.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingFour">
-      <table id="notification-references" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-6"> <%= t('views.model.reference') %> </th>
-        <th class="col-xs-4"> <%= t('views.model.in_timeline') %> </th>
-        <th class="col-xs-2 center"> <%= t('views.buttons.edit') %> </th>
-        <th class="col-xs-2 center"> <%= t('views.buttons.delete') %> </th>
-      </tr>
-      </thead>
-
-      <tbody class="page">
-      <% if !@references.any? %>
-          <tr class="notification-reference">
-            <td> <%= t('views.my_items.no_references') %>  </td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-      <% else %>
-          <% @references.each do |reference| %>
-              <tr class="notification-reference">
-                <td> <%= link_to reference.title, reference_path(reference.id) %>   </td>
-                <td> <%= link_to reference.timeline_name.html_safe, timeline_path(reference.timeline_id ) %>   </td>
-                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
-                                                edit_reference_path( reference.id ) %>  </td>
-                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                                reference_path( reference.id ), method: :delete,
-                                                data: { confirm: t('views.default.confirm') } %>  </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-    </div>
-  </div>
-</div>
-
-<div class="col-md-10 col-md-offset-1">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingThree">
-      <h4 class="panel-title clearfix">
-        <a data-toggle="collapse" href="#collapseThree" class="pull-right glyphicon <%= @comments.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
-        <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          <%= t('views.model.your_comments') %> (<%= @comments.length %>)
-        </a>
-      </h4>
-    </div>
-    <div id="collapseThree" class="panel-collapse collapse <%= @comments.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingThree">
-      <table id="notification-comments" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-1 center"> <%= t('views.model.credits') %> </th>
-        <th class="col-xs-2"> <%= t('views.model.comment') %> </th>
-        <th class="col-xs-2"> <%= t('views.model.of_reference') %> </th>
-        <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
-        <th class="col-xs-1 center"> <%= t('views.default.public_f') %> </th>
-        <th class="col-xs-1 center"> <%= t('views.buttons.edit') %> </th>
-        <th class="col-xs-1 center"> <%= t('views.buttons.delete') %> </th>
-      </tr>
-      </thead>
-
-      <tbody class="page">
-      <% if !@comments.any? %>
-          <tr class="notification-comment">
-            <td> </td>
-            <td> <%= t('views.my_items.no_comments') %> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-          </tr>
-      <% else %>
-          <% @comments.each do |com| %>
-              <tr class="notification-comment">
-                <td class="center"> <%= com.balance %>  </td>
-                <td> <%= link_to t('views.model.your_comment'), reference_path(com.reference_id, filter: :mine ), class: "btn btn-primary" %>   </td>
-                <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
-                <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>
-                <td class="center"> <%= com.public ? "<span class=\"icon icon-lock normal static-green\"> </span>".html_safe :
-                                                "<span class=\"icon icon-locked normal static-red\"> </span>".html_safe %>  </td>
-                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
-                                                edit_comment_path( com.id ) %>  </td>
-                <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                                comment_path( com.id ), method: :delete,
-                                                data: { confirm: t('views.default.confirm') } %>  </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-    </div>
-  </div>
-</div>
-
-<div class="col-md-10 col-md-offset-1">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title clearfix">
-        <a data-toggle="collapse" href="#collapseTwo" class="pull-right glyphicon <%= @summaries.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
-        <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          <%= t('views.model.your_summaries') %> (<%= @summaries.length %>)
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse <%= @summaries.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingTwo">
-      <table id="notification-summaries" class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th class="col-xs-1 center"> <%= t('views.model.credits') %> </th>
-          <th class="col-xs-4"> <%= t('views.model.summary') %> </th>
-          <th class="col-xs-4"> <%= t('views.model.of_timeline') %> </th>
-          <th class="col-xs-1 center"> <%= t('views.default.public_f') %> </th>
-          <th class="col-xs-1 center"> <%= t('views.buttons.edit') %> </th>
-          <th class="col-xs-1 center"> <%= t('views.buttons.delete') %> </th>
-        </tr>
-        </thead>
-
-        <tbody class="page">
-        <% if !@summaries.any? %>
-            <tr class="notification-summary">
-              <td> </td>
-              <td> <%= t('views.my_items.no_summaries') %> </td>
-              <td> </td>
-              <td> </td>
-              <td> </td>
-              <td> </td>
+<% end %>
+<% if @references.any? %>
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#collapseFour" class="pull-right glyphicon <%= @references.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
+            <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+              <%= t('views.model.your_references') %> (<%= @references.length %>)
+            </a>
+          </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse <%= @references.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingFour">
+          <table id="notification-references" class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th class="col-xs-6"> <%= t('views.model.reference') %> </th>
+              <th class="col-xs-4"> <%= t('views.model.in_timeline') %> </th>
+              <th class="col-xs-2 center"> <%= t('views.buttons.edit') %> </th>
+              <th class="col-xs-2 center"> <%= t('views.buttons.delete') %> </th>
             </tr>
-        <% else %>
+            </thead>
+            <tbody class="page">
+            <% @references.each do |reference| %>
+                <tr class="notification-reference">
+                  <td> <%= link_to reference.title, reference_path(reference.id) %>   </td>
+                  <td> <%= link_to reference.timeline_name.html_safe, timeline_path(reference.timeline_id) %>   </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
+                                                  edit_reference_path(reference.id) %>  </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                  reference_path(reference.id), method: :delete,
+                                                  data:                                 {confirm: t('views.default.confirm')} %>  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+<% end %>
+<% if @comments.any? %>
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#collapseThree" class="pull-right glyphicon <%= @comments.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
+            <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              <%= t('views.model.your_comments') %> (<%= @comments.length %>)
+            </a>
+          </h4>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse <%= @comments.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingThree">
+          <table id="notification-comments" class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th class="col-xs-1 center"> <%= t('views.model.credits') %> </th>
+              <th class="col-xs-2"> <%= t('views.model.comment') %> </th>
+              <th class="col-xs-2"> <%= t('views.model.of_reference') %> </th>
+              <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
+              <th class="col-xs-1 center"> <%= t('views.default.public_f') %> </th>
+              <th class="col-xs-1 center"> <%= t('views.buttons.edit') %> </th>
+              <th class="col-xs-1 center"> <%= t('views.buttons.delete') %> </th>
+            </tr>
+            </thead>
+            <tbody class="page">
+            <% @comments.each do |com| %>
+                <tr class="notification-comment">
+                  <td class="center"> <%= com.balance %>  </td>
+                  <td> <%= link_to t('views.model.your_comment'), reference_path(com.reference_id, filter: :mine), class: "btn btn-primary" %>   </td>
+                  <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
+                  <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id) %>   </td>
+                  <td class="center"> <%= com.public ? "<span class=\"icon icon-lock normal static-green\"> </span>".html_safe :
+                                                  "<span class=\"icon icon-locked normal static-red\"> </span>".html_safe %>  </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
+                                                  edit_comment_path(com.id) %>  </td>
+                  <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
+                                                  comment_path(com.id), method: :delete,
+                                                  data:                         {confirm: t('views.default.confirm')} %>  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+<% end %>
+<% if @summaries.any? %>
+    <div class="col-md-10 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title clearfix">
+            <a data-toggle="collapse" href="#collapseTwo" class="pull-right glyphicon <%= @summaries.any? ? "glyphicon-chevron-up" : "glyphicon-chevron-down" %>"></a>
+            <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <%= t('views.model.your_summaries') %> (<%= @summaries.length %>)
+            </a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse <%= @summaries.any? ? "in" : nil %>" role="tabpanel" aria-labelledby="headingTwo">
+          <table id="notification-summaries" class="table table-striped table-hover">
+            <thead>
+            <tr>
+              <th class="col-xs-1 center"> <%= t('views.model.credits') %> </th>
+              <th class="col-xs-4"> <%= t('views.model.summary') %> </th>
+              <th class="col-xs-4"> <%= t('views.model.of_timeline') %> </th>
+              <th class="col-xs-1 center"> <%= t('views.default.public_f') %> </th>
+              <th class="col-xs-1 center"> <%= t('views.buttons.edit') %> </th>
+              <th class="col-xs-1 center"> <%= t('views.buttons.delete') %> </th>
+            </tr>
+            </thead>
+            <tbody class="page">
             <% @summaries.each do |com| %>
                 <tr class="notification-summary">
                   <td class="center"> <%= com.balance %>   </td>
                   <td> <%= link_to t('views.model.your_summary'),
-                                   summaries_path(timeline_id: com.timeline_id, filter: "mine" ),
+                                   summaries_path(timeline_id: com.timeline_id, filter: "mine"),
                                    class: "btn btn-primary" %>   </td>
-                  <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>
+                  <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id) %>   </td>
                   <td class="center"> <%= com.public ? "<span class=\"icon icon-lock normal static-green\"> </span>".html_safe :
                                                   "<span class=\"icon icon-locked normal static-red\"> </span>".html_safe %>  </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-edit\"> </span>".html_safe,
-                                                  edit_summary_path( com.id ) %>  </td>
+                                                  edit_summary_path(com.id) %>  </td>
                   <td class="center"> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
-                                                  summary_path( com.id ), method: :delete,
-                                                  data: { confirm: t('views.default.confirm') } %>  </td>
+                                                  summary_path(com.id), method: :delete,
+                                                  data:                         {confirm: t('views.default.confirm')} %>  </td>
                 </tr>
             <% end %>
-        <% end %>
-        </tbody>
-      </table>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
+<% end %>
 </div>
 
 <script type="text/javascript">

@@ -5,13 +5,17 @@ module MajHelper
       Reference.where(title_fr: nil).update_all(title_fr: "")
       Timeline.find_each do |timeline|
         nb_references = Reference.where( timeline_id: timeline.id).where.not( title_fr: "" ).count
-        nb_comments = Comment.where( timeline_id: timeline.id, public: true)
-        nb_summaries= Summary.where( timeline_id: timeline.id, public: true)
+        nb_comments = Comment.where( timeline_id: timeline.id, public: true).count
+        nb_summaries= Summary.where( timeline_id: timeline.id, public: true).count
             timeline.update_columns( nb_references: nb_references, nb_comments: nb_comments, nb_summaries: nb_summaries )
       end
       Reference.find_each do |reference|
-        nb_edits = Comment.where( reference_id: reference.id, public: true)
+        nb_edits = Comment.where( reference_id: reference.id, public: true).count
         reference.update_columns( nb_edits: nb_edits )
+      end
+      User.find_each do |user|
+        nb_private = Comment.where( user_id: user.id, public: false).count + Summary.where( user_id: user.id, public: false).count
+        user.update_columns( nb_private: nb_private )
       end
     end
   end

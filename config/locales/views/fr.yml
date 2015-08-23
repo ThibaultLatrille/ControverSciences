@@ -89,8 +89,8 @@ fr:
         one: "%{count} référence n'a pas d'analyse"
         other: "%{count} références n'ont pas d'analyse"
       references:
-        one: "%{count} référence scientifique"
-        other: "%{count} références scientifiques"
+        one: "%{count} référence scientifique analysée"
+        other: "%{count} références scientifiques analysées"
       edits:
         one: "%{count} contribution"
         other: "%{count} contributions"
@@ -373,6 +373,7 @@ fr:
       empty_ref: Enrichir vos controverses
       empty_summaries: Synthètiser vos controverses
       my_items: Vos contributions
+      my_items_private: Vos contributions privées
       notifs: Notifications
       likes: Les controverses qui vous intéressent
       logout: Se déconnecter
@@ -412,10 +413,7 @@ fr:
       index: "Ces controverses vous intéressent :"
     my_items:
       new_timeline: Créer une nouvelle controverse
-      no_comments: Pas encore d'analyse ajoutées
-      no_frames: Vous n'avez pas encore proposé d'amélioration de controverses
-      no_references: Pas encore de références ajoutées
-      no_summaries: Pas encore de synthèses ajoutées
+      no_items: Vous n'avez pas encore de contributions. Cette page référence l'ensemble de vos contributions sur le site.
       set_public_timeline: Rendre la controverse publique est irréversible, êtes vous
         certain de votre choix ?
       credits_to_comments: Vos credits accordés aux analyses

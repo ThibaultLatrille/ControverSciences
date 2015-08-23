@@ -157,6 +157,8 @@ class Summary < ActiveRecord::Base
   def destroy_with_counters
     if self.public
       Timeline.decrement_counter(:nb_summaries, self.timeline_id)
+    else
+      User.decrement_counter(:nb_private, self.user_id)
     end
     self.destroy
     refill_best_summary
@@ -186,10 +188,12 @@ class Summary < ActiveRecord::Base
           Notification.import notifications
           self.update_columns( notif_generated: true)
           Timeline.increment_counter(:nb_summaries, self.timeline_id)
+          User.decrement_counter(:nb_private, self.user_id)
         end
       else
         Credit.where(summary_id: self.id).destroy_all
         Timeline.decrement_counter(:nb_summaries, self.timeline_id)
+        User.increment_counter(:nb_private, self.user_id)
         self.update_columns( notif_generated: false)
         if self.best
           SummaryBest.where(timeline_id: self.timeline_id).destroy_all
@@ -215,6 +219,8 @@ class Summary < ActiveRecord::Base
       Notification.import notifications
       self.update_columns( notif_generated: true)
       Timeline.increment_counter(:nb_summaries, self.timeline_id)
+    else
+      User.increment_counter(:nb_private, self.user_id)
     end
     unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
       TimelineContributor.create({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})

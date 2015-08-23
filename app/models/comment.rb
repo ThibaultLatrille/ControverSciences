@@ -329,6 +329,8 @@ class Comment < ActiveRecord::Base
     if self.public
       Timeline.decrement_counter(:nb_comments, self.timeline_id)
       Reference.update_counters(self.reference_id, nb_edits: -1)
+    else
+      User.decrement_counter(:nb_private, self.user_id)
     end
     self.destroy
     refill_best_comment
@@ -390,6 +392,7 @@ class Comment < ActiveRecord::Base
         Notification.import notifications
         Reference.increment_counter(:nb_edits, self.reference_id)
         Timeline.increment_counter(:nb_comments, self.timeline_id)
+        User.decrement_counter(:nb_private, self.user_id)
         self.update_columns(notif_generated: true)
       end
     else
@@ -400,6 +403,7 @@ class Comment < ActiveRecord::Base
         refill_best_comment
         Reference.decrement_counter(:nb_edits, self.reference_id)
         Timeline.decrement_counter(:nb_comments, self.timeline_id)
+        User.increment_counter(:nb_private, self.user_id)
         self.update_columns(notif_generated: false)
       end
     end
@@ -421,6 +425,8 @@ class Comment < ActiveRecord::Base
       self.update_columns(notif_generated: true)
       Reference.increment_counter(:nb_edits, self.reference_id)
       Timeline.increment_counter(:nb_comments, self.timeline_id)
+    else
+      User.increment_counter(:nb_private, self.user_id)
     end
     unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
       TimelineContributor.create({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})
