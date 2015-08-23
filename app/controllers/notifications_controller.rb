@@ -141,13 +141,13 @@ class NotificationsController < ApplicationController
       end
       if params[:notification][:frame_ids]
         Notification.where(user_id:    current_user.id, category: 8,
-                                    suggestion_id: params[:notification][:frame_ids]).destroy_all
+                                    frame_id: params[:notification][:frame_ids]).destroy_all
         redirect_to notifications_index_path(filter: :frame)
         return
       end
       if params[:notification][:sel_frame_ids]
         Notification.where(user_id:    current_user.id, category: 9,
-                                    suggestion_id: params[:notification][:sel_frame_ids]).destroy_all
+                                    frame_id: params[:notification][:sel_frame_ids]).destroy_all
         redirect_to notifications_index_path(filter: :frame_selection)
         return
       end
