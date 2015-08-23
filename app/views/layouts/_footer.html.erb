@@ -92,27 +92,33 @@
   </div>
 </div>
 
-<% if logged_in? %>
-    <div class="modal fade" id="join-slack" tabindex="-1" role="dialog">
-      <div class="modal-dialog">
-        <div class="modal-content clearfix">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <br/>
-          </div>
-          <div class="modal-body clearfix center">
+<div class="modal fade" id="join-slack" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content clearfix">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br/>
+      </div>
+      <div class="modal-body clearfix center">
+        <% if logged_in? %>
             <a href="<%= slack_users_path %>" class="cadre hvr-grow1 center">
               <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
               <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
             </a>
-          </div>
-          <div class="pull-right">
-            <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
-          </div>
-        </div>
+        <% else %>
+            <a href="<%= new_user_path %>" class="cadre hvr-grow1 center">
+              <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+              <b style="font-size: 1.4em"><%= t('views.sessions.new_user_slack') %></b>
+            </a>
+        <% end %>
+      </div>
+      <div class="pull-right">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
       </div>
     </div>
-<% end %>
+  </div>
+</div>
+
 
 <footer class="clearfix">
   <div id="social-footer" class="pull-right">

@@ -62,7 +62,7 @@
       <a href="mailto:thibault.latrille@controversciences.org"><span class="glyphicon glyphicon-envelope"></span></a>
     </h3>
     <i>
-      " Partager mes connaissances a toujours été une passion, mais dans certains débats celles-ci étaient bien trop
+      "Partager mes connaissances a toujours été une passion, mais dans certains débats celles-ci étaient bien trop
       souvent limitées.
       Alors plutot que de me plaindre de ne pas trouver aisément de ressources sur la toile,
       chercher et trouver une solution me parut bien plus intéressant.
@@ -185,124 +185,6 @@ Nos sincères remerciements à :
         <li>Victor Virlogueux</li>
       </span>
 </ul>
-<br/>
-<h5> Fonctionnement</h5>
-ControverSciences a été bati autour de <b>3 piliers</b> qui favorisent une approche constructive. <br/>
-
-<div class="row">
-  <div class="col-xs-12 col-md-offset-1 col-md-10">
-    <h1 style="font-size: 2.8em">
-      Les 3 piliers de ControverSciences
-    </h1>
-
-    <div class="row">
-      <div class="col-xs-12 col-md-4">
-        <h1 style="font-size: 2.6em; padding-bottom: 0">
-          Prouver
-        </h1>
-
-        <div class="center-block">
-          <div class="row">
-            <div class="col-xs-offset-3 col-xs-6">
-              <div class="center-block">
-                <%= image_tag("pillar-blue.svg", alt: "Prouver", :class => "img-responsive") %>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="text-center vcenter">
-          <h4><br/>Si vous avez des arguments à apporter, une référence
-            scientifique est nécessaire pour les justifier !</h4>
-        </div>
-      </div>
-      <div class="col-xs-12 col-md-4">
-        <h1 style="font-size: 2.6em; padding-bottom: 0">
-          Améliorer
-        </h1>
-
-        <div class="center-block">
-          <div class="row">
-            <div class="col-xs-offset-3 col-xs-6">
-              <div class="center-block">
-                <%= image_tag("pillar-yellow.svg", alt: "Améliorer", :class => "img-responsive") %>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="text-center vcenter">
-          <h4><br/>Si vous n’êtes pas d’accord avec une contribution, proposez la vôtre !
-            Les contributeurs voteront pour décider laquelle est la plus pertinente.</h4>
-        </div>
-      </div>
-      <div class="col-xs-12 col-md-4">
-        <h1 style="font-size: 2.6em; padding-bottom: 0">
-          Sélectionner
-        </h1>
-
-        <div class="center-block">
-          <div class="row">
-            <div class="col-xs-offset-3 col-xs-6">
-              <div class="center-block">
-                <%= image_tag("pillar-red.svg", alt: "Sélectionner", :class => "img-responsive") %>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="text-center vcenter">
-          <h4><br/>Les contenus de bonne qualité survivront, ceux de moindre qualité seront supprimés par un algorithme.
-          </h4>
-        </div>
-      </div>
-  </div>
-</div>
-</div>
-<br/>
-
-<p>
-  <b>ControverSciences </b>est conçu de façon à ce qu’aucun des contributeurs ne puisse déroger à ces 3 régles.
-  Ces régles permettent de produire du contenu de qualité à court et long terme, et empêchent aux débats de s’enliser.
-  <br/>
-  <br/>
-  <b>Et enfin...</b>
-  Après 10 mois de développement,
-  des litres de café ingurgités, des dizaines de milliers de lignes de code...
-  notre grenouille voit le jour. En passant par la blastula puis la morula,
-  notre embryon d’idée s’est métamorphosé en une grenouille tournée <b>vers l’avenir</b>.
-  Mais ce n’est que le début de l’aventure !
-  <b>Seule la contribution de tous pourra permettre au ControverSciences de demain de voir le jour !</b>
-  N’oublions pas que c’est un site participatif !
-</p>
-<br/>
-<section id="newsletter">
-  <%= form_for(:newsletter, url: newsletters_path, remote: true,
-               html: {role: :form, 'data-model' => 'newsletter'}) do |f| %>
-      <div class="row">
-        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
-          <h4>
-            Recevez une fois par mois les informations essentielles de ControverSciences
-          </h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
-          <div class="form-group">
-            <%= f.text_field :email, class: 'form-control', placeholder: "Votre adresse email" %>
-            <span class="help-block"></span>
-          </div>
-        </div>
-        <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-3">
-          <div id="invit" class="actions">
-            <%= f.button "S'inscrire &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
-                         class: 'btn btn-block btn-success', data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Inscription "} %>
-          </div>
-        </div>
-      </div>
-  <% end %>
-  <div class="center">
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> Voir les bulletins d'information".html_safe, newsletter_path, class: "btn btn-primary btn-lg pull-right" %>
-  </div>
-</section>
-
 <br/>
 <h5> Et derrière le décor ?</h5>
 
@@ -450,14 +332,19 @@ ControverSciences a été bati autour de <b>3 piliers</b> qui favorisent une app
       </div>
     </div>
     <div class="col-xs-12 col-md-6">
-      <% if logged_in? %>
-          <div class="center">
-            <a href="<%= slack_users_path %>" class="cadre hvr-grow1">
-              <%= image_tag("slack.png", alt: "Slack", height: "48px")%>
+      <div class="center">
+        <% if logged_in? %>
+            <a href="<%= slack_users_path %>" class="cadre hvr-grow1 center">
+              <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
               <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
             </a>
-          </div>
-      <% end %>
+        <% else %>
+            <a href="<%= new_user_path %>" class="cadre hvr-grow1 center">
+              <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+              <b style="font-size: 1.4em"><%= t('views.sessions.new_user_slack') %></b>
+            </a>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

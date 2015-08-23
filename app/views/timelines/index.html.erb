@@ -171,19 +171,22 @@
         </div>
       </div>
 
-      <% unless logged_in? %>
-          <div class="center">
+      <div class="center">
+      <% if logged_in? %>
+            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+                   </span> #{t('views.timelines.new')}".html_safe,
+                        timelines_path, class: "btn btn-block btn-primary" %>
+      <% else %>
             <%= link_to "<span class=\"icon icon-4\" >
                    </span> #{t('views.timelines.login')}".html_safe,
                         login_path, class: "btn btn-block btn-primary" %>
             <%= link_to "<span class=\"icon icon-5\" >
 		   </span> #{t('views.sessions.new_user')}".html_safe,
                         new_user_path, class: "btn btn-block btn-primary" %>
-          </div>
-
-          <br/>
-          <br/>
       <% end %>
+      </div>
+      <br/>
+      <br/>
     </div>
   </div>
 </div>
