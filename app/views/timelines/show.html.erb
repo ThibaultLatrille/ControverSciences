@@ -1,5 +1,6 @@
 <% provide(:title, @timeline.name.html_safe) %>
 <% provide(:meta, @timeline.frame.html_safe) %>
+<% provide(:img, @timeline.picture_url ) %>
 <%= javascript_include_tag 'chart' %>
 
 <div id="my-container" class="container-fluid">

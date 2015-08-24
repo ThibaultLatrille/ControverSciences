@@ -24,6 +24,14 @@ module StaticPagesHelper
     end
   end
 
+  def meta_image(meta_img)
+    if meta_img.blank?
+      image_url("logo.png")
+    else
+      meta_img
+    end
+  end
+
   def meta_keywords
     t('helpers.meta_keywords')
   end
