@@ -117,7 +117,7 @@
     <br/>
   </div>
     <div class="panel-group" role="tablist" aria-multiselectable="true">
-      <% if !@timelines.any? %>
+      <% if @timelines.any? %>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingOne">
           <h4 class="panel-title clearfix">
@@ -152,7 +152,7 @@
       </div>
       <br/>
       <% end %>
-      <% if !@references.any? %>
+      <% if @references.any? %>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
           <h4 class="panel-title clearfix">
@@ -184,7 +184,7 @@
       </div>
       <br/>
       <% end %>
-      <% if !@comments.any? %>
+      <% if @comments.any? %>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingThree">
           <h4 class="panel-title clearfix">
@@ -214,8 +214,9 @@
           </table>
         </div>
       </div>
+          <br/>
       <% end %>
-      <% if !@summaries.any? %>
+      <% if @summaries.any? %>
           <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingThree">
               <h4 class="panel-title clearfix">
