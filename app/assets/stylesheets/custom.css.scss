@@ -236,7 +236,8 @@ h1 {
 
 h2 {
   font-size: 1.8em;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
+  line-height: 1.2em;
   margin-bottom: -5px;
   text-align: center;
 }
@@ -773,4 +774,9 @@ del {
 }
 .hover-red:hover{
   background-color: #ebcccc;
+}
+
+.img-collectif{
+  width: 86px;
+  margin-right: 15px;
 }

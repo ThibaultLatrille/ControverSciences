@@ -449,7 +449,7 @@ fr:
       forgot: "(Trou de mémoire ?)"
       login: Rentrer dans l'arène
       new_user: Créer un compte
-      new_user_slack: Créer un compte pour rejoindre l'équipe sur Slack
+      new_user_slack: Créer un compte pour rejoindre le collectif sur Slack
       remember_me: Se souvenir de moi pour mes prochaines visite.
       action_login: Veuillez vous identifier afin d'effectuer cette action
       new_user: Créer un compte
@@ -493,7 +493,7 @@ fr:
       plain_link: 'Si le lien ne fonctionne pas, copier ce morceau de texte dans votre navigateur :'
       reset_pwd: Cliquez sur le lien suivant pour réinitialiser votre mot de passe sur ControverSciences
       sent_this_message: 'vous a écrit le message suivant:'
-      the_team: L'équipe ControverSciences
+      the_team: Le collectif ControverSciences
       welcome: Bienvenue sur ControverSciences, il ne vous reste plus qu'à cliquer sur le lien suivant pour commencer à contribuer au projet.
     users:
       edit: Editer votre profil
@@ -515,7 +515,7 @@ fr:
       i_have_read: J'ai lu et j'accepte
       institution: 'Institution :'
       job: 'Fonction/métier :'
-      join_slack: Rejoindre l'équipe sur Slack !
+      join_slack: Rejoindre le collectif sur Slack !
       next: Contributeur suivant
       pending: Votre incription est en cours de traitement, un email vous sera envoyé
         dès que la demande sera acceptée.
