@@ -220,7 +220,51 @@ Nos sincères remerciements à :
 <br/>
 <h5> Et derrière le décor ?</h5>
 <br/>
+<div class="center">
+  <% if logged_in? %>
+      <a href="<%= slack_users_path %>" class="cadre hvr-grow1 center">
+        <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+        <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
+      </a>
+  <% else %>
+      <a href="<%= new_user_path %>" class="cadre hvr-grow1 center">
+        <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+        <b style="font-size: 1.4em"><%= t('views.sessions.new_user_slack') %></b>
+      </a>
+  <% end %>
+</div>
+<br/>
 <div class="row">
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <a href="https://controversciences.slack.com/" target="_blank" class="hvr-grow">
+        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+          <%= image_tag("slack.png", alt: "Slack", :class => "img-responsive img-rounded") %>
+        </div>
+        <div class="col-xs-12 col-md-8 col-lg-7">
+          <h3>Slack</h3>
+
+          <p style="color: #000000">Slack est une plate-forme de communication collaborative ainsi qu'un logiciel
+            de gestion de projets.
+            C'est un peu le forum ou se retrouve l'équipe de ControverSciences, venez nous rejoindre !</p>
+        </div>
+      </a>
+    </div>
+    <div class="col-xs-12 col-md-6">
+      <a href="https://github.com/ThibaultLatrille/ControverSciences" target="_blank" class="hvr-grow">
+        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+          <%= image_tag("github.png", alt: "Javascript", :class => "img-responsive img-rounded") %>
+        </div>
+        <div class="col-xs-12 col-md-8 col-lg-7 text-right">
+          <h3>GitHub</h3>
+
+          <p style="color: #000000">GitHub est un service web d'hébergement et de gestion de développement de logiciels,
+            utilisant le logiciel de gestion de versions Git.
+          </p>
+        </div>
+      </a>
+    </div>
+  </div>
   <div class="row">
     <div class="col-xs-12 col-md-6">
       <a href="http://rubyonrails.org/" target="_blank" class="hvr-grow">
@@ -368,37 +412,6 @@ Nos sincères remerciements à :
         <p style="color: #000000">Images et vidéos libres de droit.</p>
       </div>
       </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <a href="https://controversciences.slack.com/" target="_blank" class="hvr-grow">
-      <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-        <%= image_tag("slack.png", alt: "Slack", :class => "img-responsive img-rounded") %>
-      </div>
-      <div class="col-xs-12 col-md-8 col-lg-7">
-        <h3>Slack</h3>
-
-        <p style="color: #000000">Slack est une plate-forme de communication collaborative ainsi qu'un logiciel
-          de gestion de projets.
-          C'est un peu le forum ou se retrouve l'équipe de ControverSciences, venez nous rejoindre !</p>
-      </div>
-      </a>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <div class="center">
-        <% if logged_in? %>
-            <a href="<%= slack_users_path %>" class="cadre hvr-grow1 center">
-              <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
-              <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
-            </a>
-        <% else %>
-            <a href="<%= new_user_path %>" class="cadre hvr-grow1 center">
-              <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
-              <b style="font-size: 1.4em"><%= t('views.sessions.new_user_slack') %></b>
-            </a>
-        <% end %>
-      </div>
     </div>
   </div>
 </div>
