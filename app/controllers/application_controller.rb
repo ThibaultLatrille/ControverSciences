@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def if_logged_in
     if logged_in?
       current_user.empty_references = Timeline.where(user_id: current_user.id, nb_references: 0..3 ).count
-      current_user.empty_comments = Reference.where(user_id: current_user.id, title_fr: nil).count
+      current_user.empty_comments = Reference.where(user_id: current_user.id, title_fr: "").count
       current_user.empty_summaries = Timeline.where(user_id: current_user.id, nb_summaries: 0)
                                              .where.not( nb_references: 0..3 )
                                              .where.not(nb_comments: 0..3).count
