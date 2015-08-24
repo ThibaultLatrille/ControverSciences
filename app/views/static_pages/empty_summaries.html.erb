@@ -23,18 +23,18 @@
       <div class="list-group">
         <%= link_to "<span class=\"icon-comment bigger\"></span>
                                     #{t('views.empty.comments')}
-                                    <span class=\"badge\">#{Reference.where(title_fr: nil).count}</span>".html_safe,
+                                    <span class=\"badge\">#{Reference.where(title_fr: "").count}</span>".html_safe,
                     empty_comments_path,
                     class: "list-group-item clearfix" %>
         <% if logged_in? %>
             <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up bigger\"></span>
                         #{t('views.empty.my_comments')}
-                        <span class=\"badge\">#{Reference.where(timeline_id: @like_ids).where(title_fr: nil).count}</span>".html_safe,
+                        <span class=\"badge\">#{Reference.where(timeline_id: @like_ids).where(title_fr: "").count}</span>".html_safe,
                         empty_comments_path(filter: "interest"),
                         class: "list-group-item clearfix" %>
             <%= link_to "<span class=\"icon-user bigger\"></span>
                                 #{t('views.header.empty_comments')}
-                                <span class=\"badge\">#{Reference.where(user_id: current_user.id).where(title_fr: nil).count}</span>".html_safe,
+                                <span class=\"badge\">#{Reference.where(user_id: current_user.id).where(title_fr: "").count}</span>".html_safe,
                         empty_comments_path(filter: "mine"),
                         class: "list-group-item clearfix" %>
         <% end %>
