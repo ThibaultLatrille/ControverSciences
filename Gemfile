@@ -125,6 +125,8 @@ group :development do
   # Internationalizer
   gem 'i15r'
   gem 'missing_t'
+
+  gem 'boilerman'
 end
 
 group :production do
