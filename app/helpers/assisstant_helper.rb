@@ -88,12 +88,12 @@ module AssisstantHelper
   def update_score_timelines
     Timeline.select(:id, :slug, :nb_contributors, :nb_references, :nb_summaries, :nb_comments).find_each do |timeline|
       ago             = Time.now - 7.days
-      nb_references   = Reference.where(timeline_id: timeline.id, created_at: ago..Time.now).count
-      nb_edits        = Comment.where(timeline_id: timeline.id, created_at: ago..Time.now).count +
-          Summary.where(timeline_id: timeline.id, created_at: ago..Time.now).count
+      nb_references   = Reference.where(timeline_id: timeline.id, created_at: ago..Time.now).where.not(title_fr: "").count
+      nb_comments     = Comment.where(timeline_id: timeline.id, public: true, created_at: ago..Time.now).count
+      nb_summaries    = Summary.where(timeline_id: timeline.id, public: true, created_at: ago..Time.now).count
       nb_contributors = TimelineContributor.where(timeline_id: timeline.id, created_at: ago..Time.now).count
-      score           = timeline.compute_score(timeline.nb_contributors, timeline.nb_references, timeline.nb_edits)
-      recent_score    = timeline.compute_score(nb_contributors, nb_references, nb_edits)
+      score           = timeline.compute_score(timeline.nb_contributors, timeline.nb_references, timeline.nb_comments, timeline.nb_summaries)
+      recent_score    = timeline.compute_score(nb_contributors, nb_references, nb_comments,nb_summaries )
       Timeline.update(timeline.id, score_recent: recent_score, score: score)
     end
   end

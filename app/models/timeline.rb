@@ -150,8 +150,8 @@ class Timeline < ActiveRecord::Base
     hash
   end
 
-  def compute_score( nb_contributors, nb_references, nb_edits )
-    3.0/(1.0/(1+Math.log(1+nb_contributors))+1.0/(1+Math.log(1+10*nb_references))+1.0/(1+Math.log(1+5*nb_edits)))
+  def compute_score( nb_contributors, nb_references, nb_comments, nb_summaries )
+    4.0/(1.0/(1+Math.log(1+nb_contributors))+1.0/(1+Math.log(1+10*nb_references))+1.0/(1+Math.log(1+5*nb_comments))+1.0/(1+Math.log(1+20*nb_summaries)))
   end
 
   private
