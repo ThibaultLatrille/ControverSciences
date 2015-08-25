@@ -61,7 +61,11 @@
                     <tr>
                       <td class="w520" width="520" style="line-height:30px">
                         <div><p>
-				<%= t('views.mailer.welcome') %>
+                          <% if @resend_activation %>
+				            <%= t('views.mailer.welcome') %>
+                          <% else %>
+                            <%= t('views.mailer.resend_welcome') %>
+                          <% end %>
                         </p></div>
                       </td>
                     </tr>

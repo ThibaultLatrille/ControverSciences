@@ -12,11 +12,7 @@ class PreviewsController < ApplicationController
     renderer = HTMLlinks.new(render_options)
     renderer.links = {}
     renderer.counter = 1
-    if Rails.env.production?
-      renderer.root_url = "https://controversciences.org"
-    else
-      renderer.root_url = "http://127.0.0.1:3000"
-    end
+    renderer.root_url = root_url
 
     extensions = {
         autolink: true,
