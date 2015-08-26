@@ -90,22 +90,17 @@ $(function() {
     });
 });
 
-$(document).ready(function(){
+$(document).ready(function () {
+    $('input#user_password_confirmation').keyup(function () {
+        $('#test').show();
+        var $pwc = $('input#user_password_confirmation').val();
+        var $pw = $('input#user_password').val();
 
-	$('input#user_password_confirmation').keyup(function(){
-	
-	$('#test').show();
-	var $pwc = $('input#user_password_confirmation').val();
-	var $pw = $('input#user_password').val();
-
-	if ($pwc == $pw){
-	$('#test').html("<div class='alert alert-success' role='alert'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span><span class='sr-only'>Parfait: </span> Votre mot de passe a bien été confirmé.</div>");
-		} else {
-	$('#test').html("<div class='alert alert-danger' role='alert'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span><span class='sr-only'></span> Attention, Les deux mots de passe ne sont pas identiques!</div>");
-	}
-
-	});
-
-	
+        if ($pwc == $pw) {
+            $('#test').html("<div class='alert alert-success' role='alert'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span><span class='sr-only'>Parfait: </span> <%= t('views.users.confirmation_pwd_ok') %></div>");
+        } else {
+            $('#test').html("<div class='alert alert-danger' role='alert'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span><span class='sr-only'></span> <%= t('views.users.confirmation_pwd_fail') %></div>");
+        }
+    });
 });
 </script>

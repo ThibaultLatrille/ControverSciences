@@ -526,6 +526,8 @@ fr:
       terms: Les conditions générales d'utilisation
       website: 'Site web :'
       wrote: a écrit
+      confirmation_pwd_ok: Votre mot de passe a bien été confirmé.
+      confirmation_pwd_fail: Attention, Les deux mots de passe ne sont pas identiques !
     empty:
       references: Enrichir les controverses
       comments: Analyser les références
