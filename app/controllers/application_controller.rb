@@ -9,14 +9,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :if_logged_in
 
-  def url_options
-    if Rails.env.production?
-      {:host => "controversciences.org", :protocol => 'https'}
-    else
-      {:host => "127.0.0.1:3000"}
-    end
-  end
-
   def if_logged_in
     if logged_in?
       current_user.empty_references = Timeline.where(user_id: current_user.id, nb_references: 0..3).count
@@ -28,6 +20,13 @@ class ApplicationController < ActionController::Base
   end
 
   def send_notifications
+    def url_options
+      if Rails.env.production?
+        {:host => "controversciences.org", :protocol => 'https'}
+      else
+        {:host => "127.0.0.1:3000"}
+      end
+    end
     users             = User.all.where.not(id: UserDetail.where(send_email: false).pluck(:user_id), activated: false)
     @empty_comments   = Reference.where(title_fr: "").count
     @empty_summaries  = Timeline.where(nb_summaries: 0).where.not(nb_references: 0..3).count
