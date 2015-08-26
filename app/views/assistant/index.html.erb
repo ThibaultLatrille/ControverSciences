@@ -19,11 +19,11 @@
       <td> <%= user.email %>   </td>
       <td> <%= user.name %>  </td>
       <td> <%= user.why %> </td>
-      <td> <%= link_to "accept", pending_user_path( id: "none", user_id: user.id, handle: "Accept user"),
+      <td> <%= link_to "accept", pending_user_path( id: "none", user_id: user.id, handle: "accept"),
                        method: :delete %> </td>
-      <td> <%= link_to "accept", pending_user_path( id: "none", user_id: user.id, handle: "Accept user and whitelist domain name"),
+      <td> <%= link_to "accept domain", pending_user_path( id: "none", user_id: user.id, handle: "accept_domain"),
                        method: :delete %> </td>
-      <td> <%= link_to "accept", pending_user_path( id: "none", user_id: user.id, handle: "Delete user"),
+      <td> <%= link_to "delete", pending_user_path( id: "none", user_id: user.id, handle: "destroy"),
                        method: :delete %> </td>
     </tr>
     <% end %>
