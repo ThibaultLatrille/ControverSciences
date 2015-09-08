@@ -52,6 +52,7 @@ class ApplicationController < ActionController::Base
     admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
     client.chat_postMessage(channel: admin_group['id'], text: "#{names.count} #{t('controllers.email_sent')}")
     not_activated_users = User.where(activated: false)
+    @resend_activation = true
     not_activated_users.find_each do |user|
       @user = user
       @user.create_activation_digest

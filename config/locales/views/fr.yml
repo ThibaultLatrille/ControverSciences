@@ -495,7 +495,7 @@ fr:
       sent_this_message: 'vous a écrit le message suivant:'
       the_team: Le collectif ControverSciences
       welcome: Bienvenue sur ControverSciences, il ne vous reste plus qu'à cliquer sur le lien suivant pour commencer à contribuer au projet.
-      resend_welcome: Votre compte sur ControverSciences n'est toujours pas activé, il ne vous reste qu'à cliquer sur le lien suivant pour commencer à contribuer au projet.
+      resend_welcome: Votre compte sur ControverSciences n'est pas encore activé, il ne vous reste qu'à cliquer sur le lien suivant pour commencer à contribuer au projet.
     users:
       edit: Editer votre profil
       added: 'a ajouté '
@@ -503,9 +503,9 @@ fr:
       biography: 'Biographie :'
       connect_as: Se connecter en tant que
       create: Créer votre compte
-      created: |-
-        Vous devez activer votre compte avant de continuer.
-                Le lien pour activer votre compte doit être parvenu à votre boîte mail,
+      created_html: |-
+        Vous devez <b>activer</b> votre compte avant de continuer. <br/>
+                Le lien pour activer votre compte doit être parvenu à votre boîte <b>mail</b>,
                 à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet.
       delete: Supprimer ce contributeur
       email_invalid_html: |-

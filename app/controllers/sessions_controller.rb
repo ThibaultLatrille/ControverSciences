@@ -10,61 +10,49 @@ class SessionsController < ApplicationController
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_back_or user
       else
-        if logged_in?
-          @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
-        end
-        @timelines = Timeline.order(:score => :desc).first(8)
         if PendingUser.find_by_user_id(user.id)
-          render 'users/invalid'
+          flash.now[:danger] = t('controllers.session_not_validated_html')
         else
-          @user = user
-          @user.create_activation_digest
-          @user.update_columns(activation_digest: @user.activation_digest)
-          if Rails.env.production?
-            mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-            message   = {
-                :subject => t('controllers.activation_email'),
-                :from    => "activation@controversciences.org",
-                :to      => @user.email,
-                :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
-            }
-            mg_client.send_message "controversciences.org", message
-          end
-          render 'users/success'
+          href = send_activation_sessions_path(email: user.email)
+          flash.now[:danger] = t('controllers.session_not_activated_html', href: href ).html_safe
         end
+        render 'new'
       end
     elsif user
-      if user.activated?
-        @email             = user.email
-        flash.now[:danger] = t('controllers.wrong_pwd')
-        render 'new'
-      else
-        if logged_in?
-          @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
-        end
-        @timelines = Timeline.order(:score => :desc).first(8)
-        if PendingUser.find_by_user_id(user.id)
-          render 'users/invalid'
-        else
-          @user = user
-          @user.create_activation_digest
-          @user.update_columns(activation_digest: @user.activation_digest)
-          if Rails.env.production?
-            mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-            message   = {
-                :subject => t('controllers.activation_email'),
-                :from    => "activation@controversciences.org",
-                :to      => @user.email,
-                :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
-            }
-            mg_client.send_message "controversciences.org", message
-          end
-          render 'users/success'
-        end
-      end
+      @email             = user.email
+      flash.now[:danger] = t('controllers.wrong_pwd')
+      render 'new'
     else
       flash.now[:danger] = t('controllers.no_account')
       render 'new'
+    end
+  end
+
+  def send_activation
+    user = User.find_by(email: params[:email].downcase)
+    if user && !user.activated?
+      @timelines = Timeline.order(:score => :desc).first(8)
+      if PendingUser.find_by_user_id(user.id)
+        render 'users/invalid'
+      else
+        @user = user
+        @user.create_activation_digest
+        @user.update_columns(activation_digest: @user.activation_digest)
+        if Rails.env.production?
+          mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+          message   = {
+              :subject => t('controllers.activation_email'),
+              :from    => "activation@controversciences.org",
+              :to      => @user.email,
+              :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
+          }
+          mg_client.send_message "controversciences.org", message
+        end
+        render 'users/success'
+      end
+    else
+      flash[:danger] = t('controllers.user_dont_exist')
+      redirect_to root_path
     end
   end
 

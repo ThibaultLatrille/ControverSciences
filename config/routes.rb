@@ -17,7 +17,11 @@ Rails.application.routes.draw do
   resources :ratings, only: [:create, :destroy]
   resources :binaries, only: [:create, :destroy]
   resources :user_details, only: [:create]
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions, only: [:new, :create, :destroy] do
+    collection do
+      get 'send_activation'
+    end
+  end
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
   resources :likes, only: [:create, :destroy, :index]
