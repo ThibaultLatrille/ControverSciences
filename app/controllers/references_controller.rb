@@ -12,6 +12,7 @@ class ReferencesController < ApplicationController
   def previous
     refs = Reference.select(:id, :slug, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
     i = refs.index{|x| x.id == params[:id].to_i }
+    i ||= refs.sample
     if i == 0
       i = refs.length-1
     else
@@ -23,6 +24,7 @@ class ReferencesController < ApplicationController
   def next
     refs = Reference.select(:id, :slug, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
     i = refs.index{|x| x.id == params[:id].to_i }
+    i ||= refs.sample
     if i == refs.length-1
       i = 0
     else
