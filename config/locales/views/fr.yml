@@ -251,6 +251,7 @@ fr:
       maybe_binary: Vous avez déjà voté, mais vous avez peut être changé d'avis ?
       maybe_you_changed: Mais vous avez peut être changé d'avis ?
       you_think: Vous pensez que
+      sci_hub: Vous n'avez pas accés à ce lien ?
     edges:
       new_edge: Créer un nouveau lien
       to_timeline: Les liens concernant la controverse

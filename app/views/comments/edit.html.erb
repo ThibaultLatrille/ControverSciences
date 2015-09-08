@@ -198,7 +198,18 @@
             <%= t('views.comments.reference_href') %>
             <%= @myreference.open_access ? "(<span class=\"icon icon-lock normal\"></span> #{ t('views.references.open_access')}})".html_safe : "" %>
             :
-          </div> <%= link_to @myreference.url, @myreference.url, class: "break-word", target: "_blank" %></li>
+          </div> <%= link_to @myreference.url, @myreference.url, class: "break-word", target: "_blank" %>
+          <% unless @myreference.open_access %>
+              <div class="pull-right">
+                <a class="btn btn-default"
+                   target="_blank"
+                   href="http://scholar.google.com.secure.sci-hub.org/scholar?q=<%= @myreference.title  %>">
+                  <span class="glyphicon glyphicon-flash"></span>
+                  <%= t('views.references.sci_hub') %>
+                </a>
+              </div>
+          <% end %>
+        </li>
       </ul>
     </div>
     <div class="panel-footer clearfix">
