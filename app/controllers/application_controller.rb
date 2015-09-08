@@ -7,15 +7,25 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include ReferencesHelper
 
-  before_filter :if_logged_in
-
-  def if_logged_in
+  def before_render
     if logged_in?
       current_user.empty_references = Timeline.where(user_id: current_user.id, nb_references: 0..3).count
       current_user.empty_comments   = Reference.where(user_id: current_user.id, title_fr: "").count
       current_user.empty_summaries  = Timeline.where(user_id: current_user.id, nb_summaries: 0)
                                               .where.not(nb_references: 0..3).count
+      if current_user.can_switch_admin
+        current_user.admin_typos = Typo.all.count
+        current_user.admin_dead_links = DeadLink.all.count
+        current_user.admin_pending_users = PendingUser.all.count
+      else
+        current_user.admin_typos = current_user.admin_dead_links = current_user.admin_pending_users = 0
+      end
     end
+  end
+
+  def render(*args)
+    before_render
+    super
   end
 
   def send_notifications

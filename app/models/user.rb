@@ -42,7 +42,8 @@ class User < ActiveRecord::Base
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why,
                 :invalid_email, :terms_of_service,
-                :empty_references, :empty_comments, :empty_summaries
+                :empty_references, :empty_comments, :empty_summaries,
+                :admin_typos, :admin_dead_links, :admin_pending_users
   before_save :downcase_email
   before_create :create_activation_digest
 
@@ -166,6 +167,10 @@ class User < ActiveRecord::Base
 
   def notifications_typo
     Typo.where(target_user_id: self.id).count
+  end
+
+  def notifications_count
+    notifications_all + nb_notifs + admin_typos + admin_dead_links + admin_pending_users
   end
 
   # Creates and assigns the activation token and digest.

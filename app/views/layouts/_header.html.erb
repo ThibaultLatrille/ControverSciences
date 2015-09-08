@@ -49,27 +49,35 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                 <span class="fat icon-user"></span>
-                <% if (current_user.notifications_all + current_user.nb_notifs ) > 0 %>
-                <span class="badge badge-header"><%= current_user.notifications_all + current_user.nb_notifs %></span>
+                <% if current_user.notifications_count  > 0 %>
+                <span class="badge badge-header"><%= current_user.notifications_count %></span>
                 <% end %>
                  <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
 		      <li><%= link_to "<b><span class='icon-user'></span> #{t('views.header.user')}</b>".html_safe,
                                 user_path(current_user) %> </li>
-                <% if current_user.can_switch_admin && Typo.all.count > 0 %>
+                <% if current_user.can_switch_admin && current_user.admin_typos > 0 %>
                     <li class="divider"></li>
                     <li style="background-color: #d9534f">
-			    <%= link_to "<span class=\"badge badge-header\"> #{Typo.all.count} </span> #{t('views.header.typos')}".html_safe,
+			    <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_typos} </span> #{t('views.header.typos')}".html_safe,
                                   typos_path, style: "color: white;" %>
 
                     </li>
                 <% end %>
-                <% if current_user.can_switch_admin && DeadLink.all.count > 0 %>
+                <% if current_user.can_switch_admin && current_user.admin_dead_links > 0 %>
                     <li class="divider"></li>
                     <li style="background-color: #d9534f">
-                      <%= link_to "<span class=\"badge badge-header\"> #{DeadLink.all.count} </span> #{t('views.header.dead_links')}".html_safe,
+                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_dead_links} </span> #{t('views.header.dead_links')}".html_safe,
                                   dead_links_path, style: "color: white;" %>
+
+                    </li>
+                <% end %>
+                <% if current_user.can_switch_admin && current_user.admin_pending_users > 0 %>
+                    <li class="divider"></li>
+                    <li style="background-color: #d9534f">
+                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_pending_users} </span> #{t('views.assistant.index')}".html_safe,
+                                  assistant_index_path, style: "color: white;" %>
 
                     </li>
                 <% end %>
