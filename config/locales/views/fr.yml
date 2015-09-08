@@ -225,6 +225,7 @@ fr:
       category_2: Méta-analyse
       category_3: Livre
       doi_fac: "Identifiant unique : DOI, PMID, ou autre (facultatif)"
+      dead_link: Signaler un lien mort
       edges: Ajouter ou modifier les liens vers d'autres références
       edit: Modifier la référence
       edit_from: Editer une référence appartenant à la controverse
@@ -372,6 +373,7 @@ fr:
     header:
       login: S'identifier
       typos: corrections en attente
+      dead_links: Liens morts
       user: Accéder à votre profil
       empty_comments: Analyser vos références
       empty_ref: Enrichir vos controverses

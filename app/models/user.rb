@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
   has_many :invitations, dependent: :destroy
   has_many :figures, dependent: :destroy
   has_many :binaries, dependent: :destroy
+  has_many :dead_links, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why,
                 :invalid_email, :terms_of_service,

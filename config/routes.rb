@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :questions, only: [:create, :edit, :update, :destroy]
   resources :previews, only: [:create]
+  resources :dead_links, only: [:create, :destroy, :index]
   post 'notifications/delete'
   delete 'logout' => 'sessions#destroy'
   get 'how_to' => 'static_pages#how_to'

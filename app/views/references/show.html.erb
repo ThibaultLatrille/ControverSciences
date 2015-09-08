@@ -218,6 +218,16 @@
           </li>
       <% end %>
       <li class="list-group-item clearfix">
+        <% if logged_in? %>
+            <div class="pull-right">
+              <%= link_to '<span class="glyphicon glyphicon-fire"></span>'.html_safe,
+                          dead_links_path(reference_id: @reference.id),
+                          method: :post,
+                          title: t('views.references.dead_link'),
+                          "data-toggle" => "tooltip",
+                          class: "btn btn-default" %>
+            </div>
+        <% end %>
         <div class="bold">
           <%= t('views.references.url') %>
           <%= @reference.open_access ? "(<span class=\"icon icon-lock normal\"></span> #{t('views.references.open_access')})".html_safe : "" %>
