@@ -1,4 +1,4 @@
-.detail:hover{
+.detail:hover, .cursor-hvr:hover{
     cursor:pointer;
 }
 

@@ -426,20 +426,25 @@
 
 <% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
     <div class="row">
-      <div class="col-xs-offset-1 col-xs-10">
+      <div class="col-xs-12 col-md-offset-3 col-md-6">
         <div class="panel panel-default">
           <br/><br/>
 
           <div class="row">
-            <div class="col-xs-12 col-sm-offset-3 col-sm-6">
-              <canvas id="myChart"></canvas>
+            <div class="col-xs-12 col-md-offset-1 col-md-10">
+              <canvas id="myChart" style="display: none"></canvas>
             </div>
           </div>
           <div class="center">
-            <br/>
-            <b style="font-size: 2.2em" id="versus-left"><%= @timeline.binary.split('&&')[0].humanize -%></b>
-            &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
-            <b style="font-size: 2.2em" id="versus-right"><%= @timeline.binary.split('&&')[1].humanize -%></b>
+            <div id="versus-click"
+                 class="hvr-grow cursor-hvr"
+                 title="Cliquer pour afficher le graphique de répartition des références"
+                 data-toggle="tooltip">
+              <br/>
+              <b style="font-size: 2.2em" id="versus-left"><%= @timeline.binary.split('&&')[0].humanize -%></b>
+              &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
+              <b style="font-size: 2.2em" id="versus-right"><%= @timeline.binary.split('&&')[1].humanize -%></b>
+            </div>
           </div>
           <br/><br/>
         </div>
@@ -447,88 +452,98 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            var data = {
-                labels: [
-                            "<%= t('views.timelines.strongly') %> " + $('#versus-left').text().toLowerCase(),
-                    $('#versus-left').text(),
-                    "<%= t('views.timelines.neutral') %>",
-                    $('#versus-right').text(),
-                            "<%= t('views.timelines.strongly') %> " + $('#versus-right').text().toLowerCase()],
-                datasets: [
-                    {
-                        label: "",
-                        data: [$('.binary1').length,
-                            $('.binary2').length,
-                            $('.binary3').length,
-                            $('.binary4').length,
-                            $('.binary5').length]
-                    }
-                ]
-            };
-            var colors = {
-                        1: 'rgba(112,43,217,0.0)',
-                        2: 'rgba(50,45,227,0.0)',
-                        3: 'rgba(51,102,204,0.0)',
-                        4: 'rgba(45,171,227,0.0)',
-                        5: 'rgba(43,217,207,0.0)'},
-                    labels = {
-                        1: '<%= @timeline.binary_explanation(1) -%>',
-                        2: '<%= @timeline.binary_explanation(2) -%>',
-                        3: '<%= @timeline.binary_explanation(3) -%>',
-                        4: '<%= @timeline.binary_explanation(4) -%>',
-                        5: '<%= @timeline.binary_explanation(5) -%>'};
-            Chart.defaults.global.responsive = true;
-            Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%> : <%%}%><%%= value %>";
-            (function () {
-                var helpers = Chart.helpers,
-                        canvas = $("#myChart").get(0),
-                        ctx = canvas.getContext('2d'),
-                        microBar = new Chart(ctx).Bar(data, {
+            var mychart = $("#myChart");
+            $('#versus-click').click(function () {
+                if ($(this).hasClass("clicked")){
+                } else {
+                    mychart.show();
+                    $(this).addClass("clicked");
+                    $(this).removeClass("hvr-grow");
+                    $(this).removeClass("cursor-hvr");
+                    var data = {
+                        labels: [
+                                    "<%= t('views.timelines.strongly') %> " + $('#versus-left').text().toLowerCase(),
+                            $('#versus-left').text(),
+                            "<%= t('views.timelines.neutral') %>",
+                            $('#versus-right').text(),
+                                    "<%= t('views.timelines.strongly') %> " + $('#versus-right').text().toLowerCase()],
+                        datasets: [
+                            {
+                                label: "",
+                                data: [$('.binary1').length,
+                                    $('.binary2').length,
+                                    $('.binary3').length,
+                                    $('.binary4').length,
+                                    $('.binary5').length]
+                            }
+                        ]
+                    };
+                    var colors = {
+                                1: 'rgba(112,43,217,0.0)',
+                                2: 'rgba(50,45,227,0.0)',
+                                3: 'rgba(51,102,204,0.0)',
+                                4: 'rgba(45,171,227,0.0)',
+                                5: 'rgba(43,217,207,0.0)'},
+                            labels = {
+                                1: '<%= @timeline.binary_explanation(1) -%>',
+                                2: '<%= @timeline.binary_explanation(2) -%>',
+                                3: '<%= @timeline.binary_explanation(3) -%>',
+                                4: '<%= @timeline.binary_explanation(4) -%>',
+                                5: '<%= @timeline.binary_explanation(5) -%>'};
+                    Chart.defaults.global.responsive = true;
+                    Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%> : <%%}%><%%= value %>";
+                    (function () {
+                        var helpers = Chart.helpers,
+                                canvas = $("#myChart").get(0),
+                                ctx = canvas.getContext('2d'),
+                                microBar = new Chart(ctx).Bar(data, {
+                                });
+
+                        helpers.addEvent(canvas, 'mousemove', function (evt) {
+                            var bars = microBar.getBarsAtEvent(evt);
+                            if (bars.length > 0) {
+                                canvas.style.cursor = "pointer";
+                            }
+                            else {
+                                canvas.style.cursor = "default";
+                            }
                         });
 
-                helpers.addEvent(canvas, 'mousemove', function (evt) {
-                    var bars = microBar.getBarsAtEvent(evt);
-                    if (bars.length > 0) {
-                        canvas.style.cursor = "pointer";
-                    }
-                    else {
-                        canvas.style.cursor = "default";
-                    }
-                });
+                        helpers.addEvent(canvas, 'click', function (evt) {
+                            microBar.options.animation = true;
+                            microBar.options.onAnimationComplete = function () {
+                                this.showTooltip(this.activeElements, true);
+                            };
+                            var bars = microBar.getBarsAtEvent(evt);
+                            helpers.each(bars, function (bar) {
+                                if (bar.active) {
+                                    $(bar.references).hide(500);
+                                    bar.active = false;
+                                    bar.fillColor = bar.baseColor.replace('.0)', '.05)');
+                                } else {
+                                    bar.active = true;
+                                    $(bar.references).show(500);
+                                    bar.fillColor = bar.baseColor.replace('.0)', '.5)');
+                                }
+                            });
+                            if (bars.length > 0) {
+                                microBar.update();
+                            }
+                        });
 
-                helpers.addEvent(canvas, 'click', function (evt) {
-                    microBar.options.animation = true;
-                    microBar.options.onAnimationComplete = function () {
-                        this.showTooltip(this.activeElements, true);
-                    };
-                    var bars = microBar.getBarsAtEvent(evt);
-                    helpers.each(bars, function (bar) {
-                        if (bar.active) {
-                            $(bar.references).hide(500);
-                            bar.active = false;
-                            bar.fillColor = bar.baseColor.replace('.0)', '.05)');
-                        } else {
+                        $.each(microBar.datasets[0].bars, function (key, bar) {
                             bar.active = true;
-                            $(bar.references).show(500);
-                            bar.fillColor = bar.baseColor.replace('.0)', '.5)');
-                        }
-                    });
-                    if (bars.length > 0) {
-                        microBar.update();
-                    }
-                });
-
-                $.each(microBar.datasets[0].bars, function (key, bar) {
-                    bar.active = true;
-                    bar.references = ".binary" + (key + 1).toString();
-                    bar.toolLabel = labels[key + 1];
-                    bar.baseColor = colors[key + 1];
-                    bar.fillColor = colors[key + 1].replace('.0)', '.5)');
-                    bar.strokeColor = colors[key + 1].replace('.0)', '.75)');
-                    bar.highlightFill = colors[key + 1].replace('.0)', '.75)');
-                    bar.highlightStroke = colors[key + 1].replace('.0)', '.95)');
-                });
-            })();
+                            bar.references = ".binary" + (key + 1).toString();
+                            bar.toolLabel = labels[key + 1];
+                            bar.baseColor = colors[key + 1];
+                            bar.fillColor = colors[key + 1].replace('.0)', '.5)');
+                            bar.strokeColor = colors[key + 1].replace('.0)', '.75)');
+                            bar.highlightFill = colors[key + 1].replace('.0)', '.75)');
+                            bar.highlightStroke = colors[key + 1].replace('.0)', '.95)');
+                        });
+                    })();
+                }
+            });
         });
     </script>
 <% end %>
