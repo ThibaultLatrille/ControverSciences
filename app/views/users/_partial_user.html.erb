@@ -158,7 +158,7 @@
           <h4 class="panel-title clearfix">
             <a data-toggle="collapse" href="#collapseTwo" class="pull-right glyphicon glyphicon-chevron-down"></a>
             <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              <%= @user.name + " " + t('views.users.added') + " " + t('views.pluralize.references', count: @references.length) %>
+              <%= @user.name + " " + t('views.users.added') + " " + t('views.pluralize.raw_references', count: @references.length) %>
             </a>
           </h4>
         </div>

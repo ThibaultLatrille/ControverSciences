@@ -91,6 +91,9 @@ fr:
       references:
         one: "%{count} référence scientifique analysée"
         other: "%{count} références scientifiques analysées"
+      raw_references:
+        one: "%{count} référence scientifique"
+        other: "%{count} références scientifiques"
       edits:
         one: "%{count} contribution"
         other: "%{count} contributions"
