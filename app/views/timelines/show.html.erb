@@ -459,8 +459,7 @@
                     mychart.show();
                     $(this).addClass("clicked");
                     $(this).removeClass("hvr-grow");
-                    $(this).removeAttr("data-toggle");
-                    $(this).removeAttr("title");
+                    $(this).removeAttr("data-original-title");
                     $(this).removeClass("cursor-hvr");
                     var data = {
                         labels: [
