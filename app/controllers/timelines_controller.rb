@@ -155,7 +155,7 @@ class TimelinesController < ApplicationController
   def previous
     timelines = Timeline.select(:id, :slug, :score).order(score: :desc).where.not(private: true).where.not( nb_references: 0 )
     i = timelines.index{|x| x.id == params[:id].to_i }
-    i ||= timelines.sample
+    i ||= rand(timelines.length)
     if i == 0
       i = timelines.length-1
     else
@@ -167,7 +167,7 @@ class TimelinesController < ApplicationController
   def next
     timelines = Timeline.select(:id, :slug, :score).order(score: :desc).where.not(private: true)
     i = timelines.index{|x| x.id == params[:id].to_i }
-    i ||= timelines.sample
+    i ||= rand(timelines.length)
     if i == timelines.length - 1
       i = 0
     else
