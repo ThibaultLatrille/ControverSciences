@@ -148,7 +148,7 @@ class Summary < ActiveRecord::Base
     most         = Summary.where(timeline_id: self.timeline_id, public: true).order(balance: :desc).first
     best_summary = SummaryBest.find_by(timeline_id: self.timeline_id)
     if most
-      if (most.id != best_summary.summary_id) && (most.balance > (best_summary.balance + 1))
+      if (most.id != best_summary.summary_id) && (most.balance > (best_summary.summary.balance + 1))
         most.selection_update(best_summary)
       end
     end
