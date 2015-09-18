@@ -5,7 +5,6 @@ class Suggestion < ActiveRecord::Base
 
   has_many :suggestion_children, dependent: :destroy
   has_many :suggestion_votes, dependent: :destroy
-  has_many :notification_suggestions
   has_many :notifications, dependent: :destroy
 
   validates :user_id, presence: true

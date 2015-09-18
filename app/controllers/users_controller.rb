@@ -111,7 +111,7 @@ class UsersController < ApplicationController
 
       if client.auth_test
         if client.users_list["members"].index { |user| user["profile"]["email"] == current_user.email }.blank?
-          if ["ens-lyon.fr", "umontpellier.fr", "controversciences.org", "univ-montp2.fr"].include? current_user.email.partition("@")[2]
+          if ["ens-lyon.fr", "umontpellier.fr", "etu.umontpellier.fr", "etu.univ-montp2.fr", "controversciences.org", "univ-montp2.fr"].include? current_user.email.partition("@")[2]
             redirect_to "https://controversciences.slack.com/signup"
           else
             begin

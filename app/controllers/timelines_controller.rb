@@ -46,15 +46,11 @@ class TimelinesController < ApplicationController
   def create
     @timeline = Timeline.new(user_id: current_user.id, frame: timeline_params[:frame],
                              name: timeline_params[:name],
-                             private: timeline_params[:private],
-                             debate: true)
+                             private: (current_user.private_timeline ? timeline_params[:private] : false ))
     if timeline_params[:binary] == "1"
       @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
     else
       @timeline.binary = ""
-    end
-    if params[:timeline][:tag_list]
-      @timeline.set_tag_list(params[:timeline][:tag_list])
     end
     if @timeline.save
       flash[:success] = t('controllers.timeline_added')

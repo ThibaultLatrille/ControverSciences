@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :notification_selections, dependent: :destroy
-  has_many :notification_suggestions, dependent: :destroy
   has_many :visite_references, dependent: :destroy
   has_many :visite_timelines, dependent: :destroy
   has_many :suggestions, dependent: :destroy

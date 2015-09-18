@@ -174,13 +174,15 @@ class Timeline < ActiveRecord::Base
   def cascading_save_timeline
     Frame.create( user_id: self.user_id, best: true,
                    content: self.frame, name: self.name, timeline_id: self.id, binary: self.binary )
-    notifications = []
-    User.all.pluck(:id).each do |user_id|
-      unless self.user_id == user_id
-        notifications << Notification.new( user_id: user_id, timeline_id: self.id, category: 1 )
+    unless self.private
+      notifications = []
+      User.all.pluck(:id).each do |user_id|
+        unless self.user_id == user_id
+          notifications << Notification.new( user_id: user_id, timeline_id: self.id, category: 1 )
+        end
       end
+      Notification.import notifications
     end
-    Notification.import notifications
     TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
   end
 
