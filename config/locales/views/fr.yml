@@ -495,6 +495,7 @@ fr:
       notif_likes: intérêts
       notif_preferences: "ControverSciences s'adapte à vos préférences :"
       notif_waiting: nouveautés vous attendent.
+      important_waiting: notifications vous attendent.
       notif_wish: vous souhaite une agréable journée !
       plain_link: 'Si le lien ne fonctionne pas, copier ce morceau de texte dans votre navigateur :'
       reset_pwd: Cliquez sur le lien suivant pour réinitialiser votre mot de passe sur ControverSciences
