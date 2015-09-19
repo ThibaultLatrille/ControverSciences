@@ -26,12 +26,17 @@ class UsersController < ApplicationController
     begin
       @user        = User.find(params[:id])
       @user_detail = @user.user_detail
-      @timelines   = Timeline.includes(:tags).select(:id, :slug, :name).where(user_id: @user.id).where.not(private: true)
+      @timelines   = Timeline.includes(:tags).select(:id, :slug, :name).where(user_id: @user.id)
       @references  = Reference.select(:id, :slug, :timeline_id, :title).where(user_id: @user.id)
-      @comments    = Comment.select(:id, :reference_id, :title_markdown).where(user_id: @user.id).where(public: true)
-      @summaries   = Summary.select(:id, :timeline_id, :content).where(user_id: @user.id).where(public: true)
+      @comments    = Comment.select(:id, :reference_id, :title_markdown).where(user_id: @user.id)
+      @summaries   = Summary.select(:id, :timeline_id, :content).where(user_id: @user.id)
+      unless logged_in? && current_user.id == @user.id
+        @timelines   = @timelines.where.not(private: true)
+        @comments    = @comments.where(public: true)
+        @summaries   = @summaries.where(public: true)
+      end
     rescue ActiveRecord::RecordNotFound
-      flash[:danger] = "Aucun contributeur à ce lien ;-("
+      flash[:danger] = "Aucun contributeur à cette adresse ;-("
       redirect_to users_path
     end
   end
@@ -111,7 +116,7 @@ class UsersController < ApplicationController
 
       if client.auth_test
         if client.users_list["members"].index { |user| user["profile"]["email"] == current_user.email }.blank?
-          if ["ens-lyon.fr", "umontpellier.fr", "etu.umontpellier.fr", "etu.univ-montp2.fr", "controversciences.org", "univ-montp2.fr"].include? current_user.email.partition("@")[2]
+          if ["ens-lyon.fr", "umontpellier.fr", "etu.umontpellier.fr", "etud.univ-montp2.fr", "univ-montp2.fr", "controversciences.org"].include? current_user.email.partition("@")[2]
             redirect_to "https://controversciences.slack.com/signup"
           else
             begin
