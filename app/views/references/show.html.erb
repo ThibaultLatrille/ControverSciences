@@ -189,21 +189,21 @@
       <% end %>
       <li class="list-group-item">
         <div class="bold">
-          <%= t('views.references.author') %>:
+          <%= t('views.references.author') %>
         </div> <%= @reference.author.html_safe %> </li>
       <li class="list-group-item">
         <div class="bold">
-          <%= t('views.references.year') %>:
+          <%= t('views.references.year') %>
         </div> <%= @reference.display_year %> </li>
       <li class="list-group-item">
         <div class="bold">
-          <%= t('views.references.journal') %>:
+          <%= category_source[@reference.category] %>
         </div> <%= @reference.journal.html_safe %>
       </li>
       <% unless @reference.abstract_markdown.blank? %>
           <li class="list-group-item">
             <div class="bold">
-              <%= t('views.references.abstract') %>:
+              <%= t('views.references.abstract') %>
             </div>
             <div class="justify">
               <%= @reference.abstract_markdown.html_safe %>
@@ -213,7 +213,7 @@
       <% unless @reference.doi.blank? %>
           <li class="list-group-item">
             <div class="bold">
-             <%= t('views.references.doi') %>:
+             <%= t('views.references.doi') %>
             </div> <%= @reference.doi %>
           </li>
       <% end %>
@@ -231,7 +231,6 @@
         <div class="bold">
           <%= t('views.references.url') %>
           <%= @reference.open_access ? "(<span class=\"icon icon-lock normal\"></span> #{t('views.references.open_access')})".html_safe : "" %>
-          :
         </div> <%= link_to @reference.url, @reference.url, class: "break-word", target: "_blank" %>
         <% unless @reference.open_access %>
             <div class="pull-right">

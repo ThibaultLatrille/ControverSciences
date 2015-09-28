@@ -79,7 +79,7 @@
     unique_id[<%= key %>] = '<%= value %>';
     <% end %>
     $('#reference_category').change(function () {
-        $('#source').text(source[$('#reference_category').val()] + ' *');
-        $('#unique_id').text('<%= t('views.references.doi_fac') %>' + unique_id[$('#reference_category').val()] );
+        $('#source').html(source[$('#reference_category').val()] + ' *');
+        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[$('#reference_category').val()] );
     });
 </script>

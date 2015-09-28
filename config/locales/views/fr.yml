@@ -208,11 +208,11 @@ fr:
       new: Ajouter une référence à cette controverse
       edit: Modifier votre référence
       delete: Supprimer votre référence
-      author: "Les auteurs "
-      year: "Année de publication "
-      journal: "Journal "
-      abstract: "Abstract (dans sa langue originale) "
-      doi: "Identifiant unique "
+      author: Les auteurs
+      year: Année de publication
+      journal: Journal
+      abstract: Abstract (dans sa langue originale)
+      doi: Identifiant unique
       open_access: Accés libre
       abstract_fac: Abstract en langue originale (Facultatif)
       appear_in_timeline: Apparait dans la controverse
