@@ -38,7 +38,7 @@
               <%= f.label t('views.references.url') + "*" %>
               <%= f.text_field :url, class: 'form-control myforms' %>
               <br/>
-              <%= f.label t('views.references.journal') + "*" %>
+              <%= f.label t('views.references.journal') + "*", id: "source" %>
               <%= f.text_field :journal, class: 'form-control myforms' %>
               <br/>
               <%= f.label t('views.references.year') + "*" %>
@@ -50,7 +50,7 @@
               <%= f.label :abstract, t('views.references.abstract_fac') %>
               <%= f.text_area :abstract, class: 'form-control textarea', id: "markdown-textarea" %>
               <br/>
-              <b> <%= t('views.references.doi_fac') %> </b> <br/>
+              <%= f.label t('views.references.doi_fac') + category_unique_id[0], id: "unique_id" %>
               <%= f.text_field :doi, class: 'form-control myforms' %>
               <br/>
 	      <%= f.button "#{t('views.references.edit')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
@@ -69,5 +69,17 @@
     $(document).ready(function () {
         $("#markdown-textarea").markdown({autofocus: false, savable: false,
             hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']});
+    });
+    var source = {};
+    <% category_source.each do |key, value| %>
+    source[<%= key %>] = '<%= value %>';
+    <% end %>
+    var unique_id = {};
+    <% category_unique_id.each do |key, value| %>
+    unique_id[<%= key %>] = '<%= value %>';
+    <% end %>
+    $('#reference_category').change(function () {
+        $('#source').text(source[$('#reference_category').val()] + ' *');
+        $('#unique_id').text('<%= t('views.references.doi_fac') %>' + unique_id[$('#reference_category').val()] );
     });
 </script>

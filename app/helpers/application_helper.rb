@@ -36,6 +36,20 @@ module ApplicationHelper
      3 => I18n.t('views.references.category_3')}
   end
 
+  def category_source
+    {0 => I18n.t('views.references.category_source_0'),
+     1 => I18n.t('views.references.category_source_1'),
+     2 => I18n.t('views.references.category_source_2'),
+     3 => I18n.t('views.references.category_source_3')}
+  end
+
+  def category_unique_id
+    {0 => I18n.t('views.references.category_doi_0'),
+     1 => I18n.t('views.references.category_doi_1'),
+     2 => I18n.t('views.references.category_doi_2'),
+     3 => I18n.t('views.references.category_doi_3')}
+  end
+
   def category_hash
     {0 => {0 => I18n.t('helpers.category_hash_0_0'),
            1 => I18n.t('helpers.category_hash_0_1'),

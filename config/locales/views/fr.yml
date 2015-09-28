@@ -208,7 +208,7 @@ fr:
       new: Ajouter une référence à cette controverse
       edit: Modifier votre référence
       delete: Supprimer votre référence
-      author: "Les auteurs de l'étude "
+      author: "Les auteurs "
       year: "Année de publication "
       journal: "Journal "
       abstract: "Abstract (dans sa langue originale) "
@@ -219,12 +219,23 @@ fr:
       add: Ajouter la référence
       be_first: Soyez le premier à ecrire une analyse
       best_comment: La meilleure analyse
-      categories: Article, Review, Méta-analyse ou Livre
+      categories: Article, Review, Méta-analyse, Livre ou thèse
       category_0: Article
       category_1: Review
       category_2: Méta-analyse
       category_3: Livre
-      doi_fac: "Identifiant unique : DOI, PMID, ou autre (facultatif)"
+      category_4: Thèse
+      category_source_0: Journal
+      category_source_1: Journal
+      category_source_2: Journal
+      category_source_3: Editeur du livre
+      category_source_4: Université ou établissement d'accueil de la thèse
+      category_doi_0: DOI, PMID ou autre
+      category_doi_1: DOI, PMID ou autre
+      category_doi_2: DOI, PMID ou autre
+      category_doi_3: ISSN, ISBN, ISNI, ARK ou autre
+      category_doi_4: ISSN, ISBN, ISNI, ARK ou autre
+      doi_fac: "Identifiant unique (facultatif) : "
       dead_link: Signaler un lien mort
       edges: Ajouter ou modifier les liens vers d'autres références
       edit: Modifier la référence
@@ -240,7 +251,7 @@ fr:
       no_votes: Cette référence n'a pas reçu de votes.
       previous: Référence précédente
       title_original: Titre original
-      url: Lien vers la publication
+      url: Lien vers la référence
       user_no_comment: Vous n'avez pas encore écrit d'analyse
       user_tags:
         one: "%{count} contributeur pense que cette référence appartient au thème"
