@@ -61,6 +61,7 @@ class ReferencesController < ApplicationController
   def new
     @reference = Reference.new
     @reference.open_access = false
+    @reference.category = 0
     @tag_list        = []
   end
 

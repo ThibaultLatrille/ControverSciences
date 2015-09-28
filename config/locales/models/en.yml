@@ -20,11 +20,12 @@ en:
       comment:
         title: "Le titre"
         caption: "La légende"
-        f_1_content: "Un des champs"
-        f_2_content: "Un des champs"
-        f_3_content: "Un des champs"
-        f_4_content: "Un des champs"
-        f_5_content: "Un des champs"
+        f_0_content:
+        f_1_content:
+        f_2_content:
+        f_3_content:
+        f_4_content:
+        f_5_content:
       reference:
         title: "Le titre"
         author: "Les auteurs de l'étude"

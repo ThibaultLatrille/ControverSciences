@@ -225,16 +225,11 @@ fr:
       category_2: Méta-analyse
       category_3: Livre
       category_4: Thèse
-      category_source_0: Journal
-      category_source_1: Journal
-      category_source_2: Journal
-      category_source_3: Editeur du livre
-      category_source_4: Université ou établissement d'accueil de la thèse
-      category_doi_0: DOI, PMID ou autre
-      category_doi_1: DOI, PMID ou autre
-      category_doi_2: DOI, PMID ou autre
-      category_doi_3: ISSN, ISBN, ISNI, ARK ou autre
-      category_doi_4: ISSN, ISBN, ISNI, ARK ou autre
+      category_source_journal: Journal
+      category_source_book: Editeur du livre
+      category_source_univ: Université ou établissement d'accueil de la thèse
+      category_doi: DOI, PMID ou autre
+      category_issn: ISSN, ISBN, ISNI, ARK ou autre
       doi_fac: "Identifiant unique (facultatif) : "
       dead_link: Signaler un lien mort
       edges: Ajouter ou modifier les liens vers d'autres références

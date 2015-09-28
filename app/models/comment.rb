@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   require 'HTMLlinks'
+  include ApplicationHelper
 
   attr_accessor :delete_picture, :has_picture
 
@@ -23,10 +24,6 @@ class Comment < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validate :content_validation
-  validates :f_2_content, length: {maximum: 1001}
-  validates :f_3_content, length: {maximum: 1001}
-  validates :f_4_content, length: {maximum: 1001}
-  validates :f_5_content, length: {maximum: 1001}
   validates :caption, length: {maximum: 1001}
   validates :title, length: {maximum: 180}
   validates_uniqueness_of :user_id, :scope => :reference_id
@@ -341,22 +338,9 @@ class Comment < ActiveRecord::Base
   def content_validation
     if self.public
       ref = self.reference
-      if ref.category == 1
-        if self.f_0_content && self.f_0_content.length > 4001
-          errors.add(:f_0_content, 'est trop long (pas plus de 4000 caractères)')
-        end
-      else
-        if self.f_0_content && self.f_0_content.length > 1001
-          errors.add(:f_0_content, 'est trop long (pas plus de 1000 caractères)')
-        end
-      end
-      if ref.category == 3
-        if self.f_1_content && self.f_1_content.length > 4001
-          errors.add(:f_1_content, 'est trop long (pas plus de 4000 caractères)')
-        end
-      else
-        if self.f_1_content && self.f_1_content.length > 1001
-          errors.add(:f_1_content, 'est trop long (pas plus de 1000 caractères)')
+      (category_limit[ref.category].keys - [6, 7] ).each do |field|
+        if self["f_#{field}_content".to_sym] && self["f_#{field}_content".to_sym].length > category_limit[ref.category][field]
+          errors.add("f_#{field}_content".to_sym, category_hash[ref.category][field] + " est trop long (pas plus de #{category_limit[ref.category][field]} caractères)")
         end
       end
       if ref.title_fr.blank? && self.title.blank?
