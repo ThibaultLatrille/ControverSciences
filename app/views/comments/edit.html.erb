@@ -175,7 +175,7 @@
           </div> <%= @myreference.display_year %> </li>
         <li class="list-group-item">
           <div class="bold">
-            <%= category_source[@reference.category] %>
+            <%= category_source[@myreference.category] %>
           </div> <%= @myreference.journal.html_safe %></li>
         <% unless @myreference.abstract_markdown.blank? %>
             <li class="list-group-item">
