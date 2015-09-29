@@ -40,6 +40,7 @@ fr:
     ref_standard_error: Une erreur que nous ne savons pas gérer est survenue inopinément !
     ref_updated: Référence modifiée.
     reset_pwd_email: Réinitialisation du mot de passe sur ControverSciences
+    reseted_pwd_email: Un lien pour réinitialisé votre mot de passe vous a été envoyé
     same_parts: "Une ou plusieurs sous-parties de vos sont identiques à l'originale, elle n'ont pas été sauvegardé"
     summary_added: Synthèse enregistrée.
     summary_cannot_delete: Cette synthèse est la meilleure et ne peut être supprimée.

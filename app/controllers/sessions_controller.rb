@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
   def send_activation
     user = User.find_by(email: params[:email].downcase)
     if user && !user.activated?
-      @timelines = Timeline.order(:score => :desc).first(8)
+      @timelines = Timeline.order(:score => :desc).first(4)
       if PendingUser.find_by_user_id(user.id)
         render 'users/invalid'
       else

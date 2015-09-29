@@ -19,13 +19,10 @@ class PasswordResetsController < ApplicationController
           }
           mg_client.send_message "controversciences.org", message
         end
-        flash[:info] = t('controllers.email_sent')
+        flash[:info] = t('controllers.reseted_pwd_email')
         redirect_to root_url
       else
-        if logged_in?
-          @my_likes = Like.where(user_id: current_user.id).pluck( :timeline_id )
-        end
-        @timelines = Timeline.order(:score => :desc).first(8)
+        @timelines = Timeline.order(:score => :desc).first(4)
         if PendingUser.find_by_user_id( @user.id )
           render 'users/invalid'
         else

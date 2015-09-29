@@ -53,13 +53,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      if logged_in?
-        @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
-      end
-      if logged_in?
-        @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
-      end
-      @timelines = Timeline.order(:score => :desc).first(8)
+      @timelines = Timeline.order(:score => :desc).first(4)
       if @user.invalid_email
         PendingUser.create(user_id: @user.id, why: user_params[:why])
         render 'users/invalid'

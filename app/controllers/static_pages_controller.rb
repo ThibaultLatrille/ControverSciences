@@ -1,10 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
     @timelines = Timeline.includes(:tags).order(:score => :desc).first(4)
-    @welcome_sentences_keys = [
-      '.sentence_arguments', '.sentence_plateform', '.sentence_deny', '.sentence_vulgarisation'
-    ]
-
     if logged_in?
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
     end

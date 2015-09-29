@@ -4,6 +4,10 @@ module StaticPagesHelper
     "ControverSciences"
   end
 
+  def welcome_sentences_keys
+    ['views.home.sentence_arguments', 'views.home.sentence_plateform', 'views.home.sentence_deny', 'views.home.sentence_vulgarisation']
+  end
+
   def site_url
     if Rails.env.production?
       "https://controversciences.org"

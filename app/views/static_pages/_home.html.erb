@@ -39,7 +39,7 @@
               <br/>
               <b><%= t('.sentence_result') %> </b>
             </div>
-            <% @welcome_sentences_keys.each do |key| %>
+            <% welcome_sentences_keys.each do |key| %>
               <div class="item center">
                 <br/>
                 <b><%= t(key) %></b>
@@ -207,11 +207,7 @@
   <div class="row">
     <div class="col-xs-10 col-xs-offset-1 col-lg-8 col-lg-offset-2">
       <div class="row">
-        <% if logged_in?  %>
-            <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => { :my_likes => @my_likes, full_width: false} %>
-        <% else  %>
-            <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => { :my_likes => nil, full_width: false } %>
-        <% end  %>
+            <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => { :my_likes => (@my_likes ?  @my_likes : nil), full_width: false} %>
       </div>
     </div>
   </div>

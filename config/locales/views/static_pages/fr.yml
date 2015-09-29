@@ -1,5 +1,5 @@
 fr:
-  static_pages:
+  views:
     home:
       sentence_result: Et si on s'intéressait aux résultats scientifiques ?
       sentence_arguments: Fournisseur officiel d'arguments dans vos débats !
