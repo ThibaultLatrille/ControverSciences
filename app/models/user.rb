@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
   # Returns true if the given token matches the digest.
   def authenticated?(attribute, token)
     digest = send("#{attribute}_digest")
-    BCrypt::Password.new(digest).is_password?(token)
+    digest.present? ? BCrypt::Password.new(digest).is_password?(token) : false
   end
 
   def forget
