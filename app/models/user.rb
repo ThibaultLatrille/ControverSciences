@@ -144,10 +144,6 @@ class User < ActiveRecord::Base
     Notification.where(user_id: self.id, category: 6).count
   end
 
-  def notifications_suggestions
-    Notification.where(user_id: self.id, category: 7).count
-  end
-
   def notifications_frame
     Notification.where(user_id: self.id, category: 8).count
   end
@@ -158,10 +154,6 @@ class User < ActiveRecord::Base
 
   def notifications_all
     Notification.where(user_id: self.id).count
-  end
-
-  def notifications_suggestion
-    NotificationSuggestion.where(user_id: self.id).count
   end
 
   def notifications_typo

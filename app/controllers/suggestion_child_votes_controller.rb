@@ -1,5 +1,6 @@
 class SuggestionChildVotesController < ApplicationController
-
+  before_action :redirect_to_home
+  
   def create
     if logged_in?
       vote = SuggestionChildVote.find_by(suggestion_child_id: params[:id],

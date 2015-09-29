@@ -1,4 +1,6 @@
 class SuggestionVotesController < ApplicationController
+  before_action :redirect_to_home
+
   def create
     if logged_in?
       vote = SuggestionVote.find_by(suggestion_id: params[:id],

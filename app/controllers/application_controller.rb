@@ -88,6 +88,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def redirect_to_home
+    redirect_to root_path
+  end
+
   # Confirms the correct user.
   def correct_user
     @user = User.find(params[:id])

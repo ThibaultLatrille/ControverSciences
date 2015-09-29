@@ -17,5 +17,4 @@ class Notification < ActiveRecord::Base
   belongs_to :comment
   belongs_to :suggestion
   belongs_to :frame
-
 end

@@ -1,5 +1,5 @@
 class SuggestionChildrenController < ApplicationController
-  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :redirect_to_home
 
   def from_suggestion
     @suggestion_children = SuggestionChild.order( :created_at ).where( suggestion_id: params[:suggestion_id])

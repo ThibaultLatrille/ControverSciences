@@ -2,8 +2,8 @@ class NotificationsController < ApplicationController
   before_action :logged_in_user, only: [:index, :important, :delete, :delete_all,
                                         :delete_all_important, :summary,
                                         :summary_selection, :selection, :timeline,
-                                        :reference, :comment, :suggestions,
-                                        :selection_redirect, :suggestion]
+                                        :reference, :comment,
+                                        :selection_redirect]
 
   def index
     if params[:filter]
@@ -33,11 +33,7 @@ class NotificationsController < ApplicationController
                     if Notification.where(user_id: current_user.id, category: 9).count > 0
                       @filter = :frame_selection
                     else
-                      if Notification.where(user_id: current_user.id, category: 7).count > 0
-                        @filter = :suggestions
-                      else
-                        @filter = :timeline
-                      end
+                      @filter = :timeline
                     end
                   end
                 end
@@ -79,9 +75,6 @@ class NotificationsController < ApplicationController
                                      :user_id).where(id: comment_ids).page(params[:page]).per(20)
       when :selection
         @selections = Notification.where(user_id: current_user.id, category: 6).page(params[:page]).per(20)
-      when :suggestions
-        suggestion_ids = Notification.where(user_id: current_user.id, category: 7).pluck(:suggestion_id)
-        @suggestions   = Suggestion.select(:id, :user_id, :comment ).where(id: suggestion_ids).page(params[:page]).per(20)
     end
   end
 
@@ -133,12 +126,6 @@ class NotificationsController < ApplicationController
         redirect_to notifications_index_path(filter: :selection)
         return
       end
-      if params[:notification][:suggestion_ids]
-        Notification.where(user_id:    current_user.id, category: 7,
-                                    suggestion_id: params[:notification][:suggestion_ids]).destroy_all
-        redirect_to notifications_index_path(filter: :suggestions)
-        return
-      end
       if params[:notification][:frame_ids]
         Notification.where(user_id:    current_user.id, category: 8,
                                     frame_id: params[:notification][:frame_ids]).destroy_all
@@ -181,7 +168,6 @@ class NotificationsController < ApplicationController
 
   def delete_all_important
     NotificationSelection.where(user_id: current_user.id).destroy_all
-    NotificationSuggestion.where(user_id: current_user.id).destroy_all
     redirect_to notifications_important_path
   end
 
@@ -222,12 +208,6 @@ class NotificationsController < ApplicationController
     redirect_to comment_path(notification_params)
   end
 
-  def suggestions
-    Notification.find_by(user_id:    current_user.id, category: 7,
-                         suggestion_id: notification_params).destroy
-    redirect_to suggestion_path(notification_params)
-  end
-
   def frame
     Notification.find_by(user_id:    current_user.id, category:8,
                          frame_id: notification_params).destroy
@@ -250,12 +230,6 @@ class NotificationsController < ApplicationController
     else
       redirect_to summary_path(notif.summary_id)
     end
-  end
-
-  def suggestion
-    NotificationSuggestion.find_by(user_id:             current_user.id,
-                                           suggestion_child_id: notification_params).destroy
-    redirect_to suggestion_child_path(notification_params)
   end
 
   private

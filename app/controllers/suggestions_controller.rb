@@ -1,5 +1,5 @@
 class SuggestionsController < ApplicationController
-  before_action :logged_in_user, only: [:create, :edit, :update, :destroy]
+  before_action :redirect_to_home
 
   def show
     if params[:timeline_id]
