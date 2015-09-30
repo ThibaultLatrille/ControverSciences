@@ -1,10 +1,10 @@
 <% if not reference.title_fr.blank? %>
 <div id="block-<%= reference.id %>" class="cd-timeline-block binary<%= reference.binary_most %>">
-    <div class="cd-timeline-img cd-color"
+    <div class="cd-timeline-img cd-color uni-color"
          title="<%= (reference.binary_most == 0 && reference.star_most == 0 ) ? t('views.references.no_votes') :
                             binary_value_explanation( binary, reference.binary_most ) -%>
                             <%= star_hash[reference.star_most] -%>" data-toggle="tooltip">
-      <span class="frog icon-<%= reference.star_most %>"></span>
+      <span class="frog icon-<%= reference.star_most %>" style="display: none"></span>
     </div>
 
     <div class="cd-timeline-content">
@@ -21,7 +21,7 @@
 </div>
 <% else %>
     <div class="cd-timeline-block need-comment binary<%= reference.binary_most %>">
-      <div class="cd-timeline-img gradient-orange"
+      <div class="cd-timeline-img cd-orange"
            title="<%= (reference.binary_most == 0 && reference.star_most == 0 ) ? t('views.references.no_votes') :
                               binary_value_explanation( binary, reference.binary_most ) -%>
            <%= star_hash[reference.star_most] -%> Cette référence n'a pas encore été analysée" data-toggle="tooltip">

@@ -483,21 +483,18 @@
 </div>
 
 <% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
-    <div class="row">
+    <div id="versus-chart" class="row" style="display: none">
       <div class="col-xs-12 col-md-offset-3 col-md-6">
         <div class="panel panel-default">
           <br/><br/>
 
           <div class="row">
             <div class="col-xs-12 col-md-offset-1 col-md-10">
-              <canvas id="myChart" style="display: none"></canvas>
+              <canvas id="myChart"></canvas>
             </div>
           </div>
           <div class="center">
-            <div id="versus-click"
-                 class="hvr-grow cursor-hvr"
-                 title="Cliquer pour afficher le graphique de répartition des références"
-                 data-toggle="tooltip">
+            <div>
               <br/>
               <b style="font-size: 2.2em" id="versus-left"><%= @timeline.binary.split('&&')[0].humanize -%></b>
               &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
@@ -510,103 +507,139 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            var mychart = $("#myChart");
+            var versuschart = $("#versus-chart");
             $('#versus-click').click(function () {
-                if ($(this).hasClass("clicked")){
+                if ($(this).hasClass("active")){
+                    $(this).removeClass("active");
+                    $('.cd-color').addClass("uni-color");
+                    $('#text-versus').text("<%= t('views.timelines.show_versus') %>");
+                    versuschart.hide(500);
                 } else {
-                    mychart.show();
-                    $(this).addClass("clicked");
-                    $(this).removeClass("hvr-grow");
-                    $(this).removeAttr("data-original-title");
-                    $(this).removeClass("cursor-hvr");
-                    var data = {
-                        labels: [
-                                    "<%= t('views.timelines.strongly') %> " + $('#versus-left').text().toLowerCase(),
-                            $('#versus-left').text(),
-                            "<%= t('views.timelines.neutral') %>",
-                            $('#versus-right').text(),
-                                    "<%= t('views.timelines.strongly') %> " + $('#versus-right').text().toLowerCase()],
-                        datasets: [
-                            {
-                                label: "",
-                                data: [$('.binary1').length,
-                                    $('.binary2').length,
-                                    $('.binary3').length,
-                                    $('.binary4').length,
-                                    $('.binary5').length]
-                            }
-                        ]
-                    };
-                    var colors = {
-                                1: 'rgba(112,43,217,0.0)',
-                                2: 'rgba(50,45,227,0.0)',
-                                3: 'rgba(51,102,204,0.0)',
-                                4: 'rgba(45,171,227,0.0)',
-                                5: 'rgba(43,217,207,0.0)'},
-                            labels = {
-                                1: '<%= @timeline.binary_explanation(1) -%>',
-                                2: '<%= @timeline.binary_explanation(2) -%>',
-                                3: '<%= @timeline.binary_explanation(3) -%>',
-                                4: '<%= @timeline.binary_explanation(4) -%>',
-                                5: '<%= @timeline.binary_explanation(5) -%>'};
-                    Chart.defaults.global.responsive = true;
-                    Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%> : <%%}%><%%= value %>";
-                    (function () {
-                        var helpers = Chart.helpers,
-                                canvas = $("#myChart").get(0),
-                                ctx = canvas.getContext('2d'),
-                                microBar = new Chart(ctx).Bar(data, {
-                                });
+                    $(this).addClass("active");
+                    $('#text-versus').text("<%= t('views.timelines.hide_versus') %>");
+                    $('.cd-color').removeClass("uni-color");
+                    versuschart.show(500, function() {
+                        var data = {
+                            labels: [
+                                        "<%= t('views.timelines.strongly') %> " + $('#versus-left').text().toLowerCase(),
+                                $('#versus-left').text(),
+                                "<%= t('views.timelines.neutral') %>",
+                                $('#versus-right').text(),
+                                        "<%= t('views.timelines.strongly') %> " + $('#versus-right').text().toLowerCase()],
+                            datasets: [
+                                {
+                                    label: "",
+                                    data: [$('.binary1').length,
+                                        $('.binary2').length,
+                                        $('.binary3').length,
+                                        $('.binary4').length,
+                                        $('.binary5').length]
+                                }
+                            ]
+                        };
+                        var colors = {
+                                    1: 'rgba(112,43,217,0.0)',
+                                    2: 'rgba(50,45,227,0.0)',
+                                    3: 'rgba(51,102,204,0.0)',
+                                    4: 'rgba(45,171,227,0.0)',
+                                    5: 'rgba(43,217,207,0.0)'},
+                                labels = {
+                                    1: '<%= @timeline.binary_explanation(1) -%>',
+                                    2: '<%= @timeline.binary_explanation(2) -%>',
+                                    3: '<%= @timeline.binary_explanation(3) -%>',
+                                    4: '<%= @timeline.binary_explanation(4) -%>',
+                                    5: '<%= @timeline.binary_explanation(5) -%>'};
+                        Chart.defaults.global.responsive = true;
+                        Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%> : <%%}%><%%= value %>";
+                        (function () {
+                            var helpers = Chart.helpers,
+                                    canvas = $("#myChart").get(0),
+                                    ctx = canvas.getContext('2d'),
+                                    microBar = new Chart(ctx).Bar(data, {
+                                    });
 
-                        helpers.addEvent(canvas, 'mousemove', function (evt) {
-                            var bars = microBar.getBarsAtEvent(evt);
-                            if (bars.length > 0) {
-                                canvas.style.cursor = "pointer";
-                            }
-                            else {
-                                canvas.style.cursor = "default";
-                            }
-                        });
-
-                        helpers.addEvent(canvas, 'click', function (evt) {
-                            microBar.options.animation = true;
-                            microBar.options.onAnimationComplete = function () {
-                                this.showTooltip(this.activeElements, true);
-                            };
-                            var bars = microBar.getBarsAtEvent(evt);
-                            helpers.each(bars, function (bar) {
-                                if (bar.active) {
-                                    $(bar.references).hide(500);
-                                    bar.active = false;
-                                    bar.fillColor = bar.baseColor.replace('.0)', '.05)');
-                                } else {
-                                    bar.active = true;
-                                    $(bar.references).show(500);
-                                    bar.fillColor = bar.baseColor.replace('.0)', '.5)');
+                            helpers.addEvent(canvas, 'mousemove', function (evt) {
+                                var bars = microBar.getBarsAtEvent(evt);
+                                if (bars.length > 0) {
+                                    canvas.style.cursor = "pointer";
+                                }
+                                else {
+                                    canvas.style.cursor = "default";
                                 }
                             });
-                            if (bars.length > 0) {
-                                microBar.update();
-                            }
-                        });
 
-                        $.each(microBar.datasets[0].bars, function (key, bar) {
-                            bar.active = true;
-                            bar.references = ".binary" + (key + 1).toString();
-                            bar.toolLabel = labels[key + 1];
-                            bar.baseColor = colors[key + 1];
-                            bar.fillColor = colors[key + 1].replace('.0)', '.5)');
-                            bar.strokeColor = colors[key + 1].replace('.0)', '.75)');
-                            bar.highlightFill = colors[key + 1].replace('.0)', '.75)');
-                            bar.highlightStroke = colors[key + 1].replace('.0)', '.95)');
-                        });
-                    })();
+                            helpers.addEvent(canvas, 'click', function (evt) {
+                                microBar.options.animation = true;
+                                microBar.options.onAnimationComplete = function () {
+                                    this.showTooltip(this.activeElements, true);
+                                };
+                                var bars = microBar.getBarsAtEvent(evt);
+                                helpers.each(bars, function (bar) {
+                                    if (bar.active) {
+                                        $(bar.references).hide(500);
+                                        bar.active = false;
+                                        bar.fillColor = bar.baseColor.replace('.0)', '.05)');
+                                    } else {
+                                        bar.active = true;
+                                        $(bar.references).show(500);
+                                        bar.fillColor = bar.baseColor.replace('.0)', '.5)');
+                                    }
+                                });
+                                if (bars.length > 0) {
+                                    microBar.update();
+                                }
+                            });
+
+                            $.each(microBar.datasets[0].bars, function (key, bar) {
+                                bar.active = true;
+                                bar.references = ".binary" + (key + 1).toString();
+                                bar.toolLabel = labels[key + 1];
+                                bar.baseColor = colors[key + 1];
+                                bar.fillColor = colors[key + 1].replace('.0)', '.5)');
+                                bar.strokeColor = colors[key + 1].replace('.0)', '.75)');
+                                bar.highlightFill = colors[key + 1].replace('.0)', '.75)');
+                                bar.highlightStroke = colors[key + 1].replace('.0)', '.95)');
+                            });
+                        })();
+                    });
                 }
             });
         });
     </script>
 <% end %>
 <% if @references.any? %>
+      <% if !@timeline.binary.blank? && @timeline.total_binary > 0 %>
+          <div id="versus-click" class="btn btn-default">
+            <span class="icon-versus"></span> &nbsp
+            <span id="text-versus">
+               <%= t('views.timelines.show_versus') %>
+            </span>
+          </div>
+          <br>
+          <br>
+      <% end %>
+      <div id="star-click" class="btn btn-default">
+        <span class="icon-4"></span> &nbsp
+        <span id="text-star">
+        <%= t('views.timelines.show_star') %>
+        </span>
+      </div>
+      <br>
+      <script type="text/javascript">
+          $(document).ready(function () {
+              $('#star-click').click(function () {
+                  if ($(this).hasClass("active")) {
+                      $(this).removeClass("active");
+                      $('#text-star').text("<%= t('views.timelines.show_star') %>");
+                      $('.frog').fadeOut(600);
+                  } else {
+                      $(this).addClass("active");
+                      $('#text-star', this).text("<%= t('views.timelines.hide_star') %>");
+                      $('.frog').fadeIn(600);
+                  }
+              });
+          });
+      </script>
     <% if logged_in? && @titles > 0 %>
         <div class="center">
           <br/>

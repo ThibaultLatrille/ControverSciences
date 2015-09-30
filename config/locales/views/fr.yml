@@ -378,6 +378,10 @@ fr:
       is_built_sub: Continuons sa métamorphose.
       all_staging: Les controverses à l'état embryonnaire
       all_built: Les controverses qui ont éclots
+      show_versus: Afficher le mode versus pour les références
+      hide_versus: Masquer le mode versus pour les références
+      show_star: Afficher la pertinence des références
+      hide_star: Masquer la pertinence des références
     invitations:
       for_reference: Envoyez une invitation à une personne intéressée par cette référence
       for_timeline: Envoyez une invitation à une personne intéressée par cette controverse
