@@ -31,9 +31,6 @@
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timelines')}".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order]),
                 class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> #{t('views.timelines.previous')}".html_safe,
-                previous_timeline_path(id: @timeline.id),
-                class: "list-group-item" %>
     <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> #{t('views.timelines.next')}".html_safe,
                 next_timeline_path(id: @timeline.id),
                 class: "list-group-item" %>
