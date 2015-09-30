@@ -331,3 +331,29 @@
     content: "\e62a";
 }
 
+.icon-built:before {
+    content: "\e643";
+}
+
+.icon-staging:before {
+    content: "\e645";
+}
+
+.icon-rocket:before {
+    content: "\e646";
+}
+
+.icon-egg:before {
+    content: "\e648";
+}
+
+.icon-hatch:before {
+    content: "\e647";
+}
+
+.icon-views:before {
+    content: "\e649";
+}
+
+
+
