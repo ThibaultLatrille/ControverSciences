@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :timelines, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     collection do
       get 'set_public'
+      get 'switch_staging'
+      get 'switch_favorite'
     end
   end
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]

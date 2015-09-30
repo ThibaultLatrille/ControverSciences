@@ -22,8 +22,11 @@ class TimelinesController < ApplicationController
         query = query.where(id: Like.where(user_id: current_user.id).pluck(:timeline_id))
       end
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
+    end
+    if logged_in? && params[:staging] == "true"
+      query = query.where(staging: true)
     else
-      query = query.where.not(nb_comments: 0)
+      query = query.where(staging: false)
     end
     @timelines = query.page(params[:page]).per(24)
     params[:tag] = [params[:tag]].flatten
@@ -45,7 +48,7 @@ class TimelinesController < ApplicationController
 
   def create
     @timeline = Timeline.new(user_id: current_user.id, frame: timeline_params[:frame],
-                             name: timeline_params[:name],
+                             name: timeline_params[:name], staging: true,
                              private: (current_user.private_timeline ? timeline_params[:private] : false ))
     if timeline_params[:binary] == "1"
       @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
@@ -71,6 +74,7 @@ class TimelinesController < ApplicationController
   def show
     begin
       @timeline    = Timeline.find(params[:id])
+      Timeline.increment_counter(:views, @timeline.id )
       summary_best = SummaryBest.find_by(timeline_id: @timeline.id)
       if summary_best
         @summary = Summary.find(summary_best.summary_id)
@@ -88,9 +92,9 @@ class TimelinesController < ApplicationController
         @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
         @my_frame = Frame.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
       else
-        query = query.where.not(nb_comments: 0)
+        query = query.where(staging: false)
       end
-      @timelines =query
+      @timelines = query
       @titles     = Reference.where(timeline_id: @timeline.id, title_fr: "").count
       ref_query = Reference.select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
       unless logged_in?
@@ -147,21 +151,32 @@ class TimelinesController < ApplicationController
     redirect_to :back
   end
 
-
-  def previous
-    timelines = Timeline.select(:id, :slug, :score).order(score: :desc).where.not(private: true).where.not( nb_references: 0 )
-    i = timelines.index{|x| x.id == params[:id].to_i }
-    i ||= rand(timelines.length)
-    if i == 0
-      i = timelines.length-1
+  def switch_staging
+    if current_user.admin
+      staging = Timeline.select( :staging ).find(params[:timeline_id]).staging
+      Timeline.update(params[:timeline_id], staging: !staging )
     else
-      i -= 1
+      flash[:danger] = t('controllers.only_admins')
     end
-    redirect_to timeline_path(timelines[i])
+    redirect_to :back
+  end
+
+  def switch_favorite
+    if current_user.admin
+      favorite_timeline = Timeline.select( :favorite, :staging ).find(params[:timeline_id])
+      Timeline.where(favorite: true, staging: favorite_timeline.staging ).update_all(favorite: false )
+      Timeline.update(params[:timeline_id], favorite: !favorite_timeline.favorite )
+    else
+      flash[:danger] = t('controllers.only_admins')
+    end
+    redirect_to :back
   end
 
   def next
     timelines = Timeline.select(:id, :slug, :score).order(score: :desc).where.not(private: true)
+    unless logged_in?
+      timelines.where(staging: false)
+    end
     i = timelines.index{|x| x.id == params[:id].to_i }
     i ||= rand(timelines.length)
     if i == timelines.length - 1

@@ -27,6 +27,13 @@
         <span class="fat icon-summary"></span>
         <%= @timeline.nb_edits %>
       </div>
+      <br>
+      <div class="sticky" data-placement="bottom"
+           title="<%= t('views.pluralize.views', count: @timeline.views ) %>"
+           data-toggle="tooltip">
+        <span class="fat icon-views"></span>
+        <%= @timeline.views %>
+      </div>
     </div>
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timelines')}".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order]),
@@ -176,18 +183,63 @@
 </div>
 
 <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-0">
-<% if @timeline.private && logged_in? && current_user.private_timeline %>
-    <div class="panel panel-info">
-      <div class="panel-heading">
-	      <%= link_to "#{t('views.timelines.make_public')} <span class=\"icon icon-lock normal\"></span>".html_safe,
-                    set_public_timelines_path(timeline_id: @timeline.id),
-                    data: {confirm: t('views.timelines.confirm')} %>
-      </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
+      <% if @timeline.private && logged_in? && current_user.private_timeline %>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <%= link_to "#{t('views.timelines.make_public')} <span class=\"icon icon-lock normal\"></span>".html_safe,
+                          set_public_timelines_path(timeline_id: @timeline.id),
+                          data: {confirm: t('views.timelines.confirm')} %>
+            </div>
+          </div>
+      <% end %>
+      <% if logged_in? %>
+      <% if @timeline.staging %>
+          <div class="panel panel-info">
+            <div class="panel-heading center">
+              <% if logged_in? && current_user.admin %>
+                  <%= link_to "<span class=\"icon icon-hatch bigger\"></span>".html_safe,
+                              switch_staging_timelines_path(timeline_id: @timeline.id),
+                              "data-toggle" => :tooltip,
+                              class: "btn btn-default green pull-right",
+                              title: t('views.timelines.make_public') %>
+              <% end %>
+              <span style="font-size: 1.4em">
+                <span class="icon icon-staging fat"></span>
+                <%= t('views.timelines.is_staging_html') %>
+              </span> <br>
+              <span style="font-size: 1.2em">
+                <%= t('views.timelines.is_staging_sub') %>
+              </span>
+            </div>
+          </div>
+      <% else %>
+          <div class="panel panel-info">
+            <div class="panel-heading center">
+              <% if logged_in? && current_user.admin %>
+                  <%= link_to "<span class=\"icon icon-egg bigger\"></span>".html_safe,
+                              switch_staging_timelines_path(timeline_id: @timeline.id),
+                              "data-toggle" => :tooltip,
+                              class: "btn btn-default red pull-right",
+                              title: t('views.timelines.make_staging') %>
+              <% end %>
+              <span style="font-size: 1.4em">
+                <span class="icon icon-built fat"></span>
+                <%= t('views.timelines.is_built_html') %>
+              </span> <br>
+              <span style="font-size: 1.2em">
+                <%= t('views.timelines.is_built_sub') %>
+              </span>
+            </div>
+          </div>
+      <% end %>
+      <% end %>
     </div>
-<% end %>
+  </div>
 
 <div class="panel panel-default comment">
-<div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>); background-size: 100% auto;">
+<div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>); background-size: 100%; background-repeat:no-repeat;">
   <div class="content">
     <div class="clearfix">
 
@@ -246,8 +298,16 @@
           </div>
           <br/>
       <% end %>
-      <% if logged_in? && current_user.admin && @improve_frame %>
+      <% if logged_in? && current_user.admin %>
           <div class="pull-right" style="margin-right: 8px;">
+            <% if @timeline.favorite  %>
+            <%= link_to "<span class=\"icon icon-rocket normal\"></span>".html_safe,
+                        switch_favorite_timelines_path(timeline_id: @timeline.id),
+                        "data-toggle" => :tooltip,
+                        class: "btn btn-default green pull-right",
+                        title: t('views.timelines.make_favorite') %>
+            <% end %>
+            <% if @improve_frame  %>
             <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
                         edit_frame_path(@improve_frame.id),
                         class: "btn btn-primary" %>
@@ -255,6 +315,7 @@
                         frame_path(@improve_frame.id), method: :delete,
                         data:                                  {confirm: t('views.default.confirm')},
                         class:                                 "btn btn-danger" %>
+            <% end %>
           </div>
       <% end %>
     </div>

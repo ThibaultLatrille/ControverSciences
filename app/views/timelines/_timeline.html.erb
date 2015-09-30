@@ -1,9 +1,39 @@
 <div class="timeline col-xs-12 col-sm-<%= full_width ? "12" : "6" %> ">
   <div class="panel panel-primary">
     <div class="timeline-body">
-      <div class="panel-body" style="background: white url(<%= timeline.picture_url %>); background-size: 100% auto;">
+      <div class="panel-body" style="background: white url(<%= timeline.picture_url %>); background-size: 100%; background-repeat:no-repeat;">
         <div class="timeline-frame clearfix">
           <div class="timeline-name clearfix">
+            <% if logged_in? && current_user.admin %>
+                <div class="pull-right" style="margin-left: 10px">
+                  <% if timeline.favorite %>
+                      <%= link_to "<span class=\"icon icon-rocket normal\"></span>".html_safe,
+                                  switch_favorite_timelines_path(timeline_id: timeline.id),
+                                  "data-toggle" => :tooltip,
+                                  class: "btn btn-default red",
+                                  title: t('views.timelines.remove_favorite') %>
+                  <% else %>
+                      <%= link_to "<span class=\"icon icon-rocket normal\"></span>".html_safe,
+                                  switch_favorite_timelines_path(timeline_id: timeline.id),
+                                  "data-toggle" => :tooltip,
+                                  class: "btn btn-default green",
+                                  title: t('views.timelines.make_favorite') %>
+                  <% end %>
+                  <% if timeline.staging %>
+                      <%= link_to "<span class=\"icon icon-hatch normal\"></span>".html_safe,
+                                  switch_staging_timelines_path(timeline_id: timeline.id),
+                                  "data-toggle" => :tooltip,
+                                  class: "btn btn-default green",
+                                  title: t('views.timelines.make_public') %>
+                  <% else %>
+                      <%= link_to "<span class=\"icon icon-egg normal\"></span>".html_safe,
+                                  switch_staging_timelines_path(timeline_id: timeline.id),
+                                  "data-toggle" => :tooltip,
+                                  class: "btn btn-default red",
+                                  title: t('views.timelines.make_staging') %>
+                  <% end %>
+                </div>
+            <% end %>
           <div class="pull-right" style="margin-left: 10px">
             <% if my_likes && my_likes.include?(timeline.id) %>
                 <button type="button" class="btn btn-success" data-placement="left"
@@ -30,12 +60,6 @@
           <% if timeline.nb_comments == 0 || !timeline.frame.blank? %>
           <div class="cadre text-justify">
             <%= truncate_html(timeline.frame.html_safe, length: 250, omission: '...') %>
-            <% if timeline.nb_comments == 0 %>
-                <div class="construct center">
-                  Controverse en construction
-                </div>
-                <br/>
-            <% end %>
           </div>
           <% end %>
         </div>
@@ -60,12 +84,18 @@
                 <span class="fat icon-reference"></span>
                 <span class="badge"><%= timeline.nb_references %></span>
               </div>
-              <div class="sticky" data-placement="right"
+              <div class="sticky" data-placement="top"
                    title="<%= t('views.pluralize.edits', count: timeline.nb_edits ) %>"
                    data-toggle="tooltip">
                 <span class="fat icon-summary"></span>
                 <span class="badge"><%= timeline.nb_edits %></span>
               </div>
+            <div class="sticky" data-placement="right"
+                 title="<%= t('views.pluralize.views', count: timeline.views ) %>"
+                 data-toggle="tooltip">
+              <span class="fat icon-views"></span>
+              <span class="badge"><%= timeline.views %></span>
+            </div>
           </div>
       </div>
     </div>

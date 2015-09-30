@@ -103,6 +103,9 @@ fr:
       summaries:
         one: "%{count} synthèse"
         other: "%{count} synthèses"
+      views:
+        one: "%{count} vue"
+        other: "%{count} vues"
     buttons:
       invit: Inviter
       advise: Enregister cet avis
@@ -135,6 +138,7 @@ fr:
       asc_sort: Ordre croissant
       desc: Décroissant (par défaut)
       desc_sort: Ordre décroissant
+      all_theme: Tous les thèmes
     tags:
       archeology: Archéologie
       biology: Biologie
@@ -338,7 +342,6 @@ fr:
       no_summary: Vous n'avez pas encore écrit de synthèse
       upvote: Selectionner cette synthèse comme votre favorite
     timelines:
-      previous: Controverse précédente
       next: Controverse suivante
       new: Créer une controverse
       delete: Supprimer votre controverse
@@ -365,6 +368,16 @@ fr:
       read_more: Continuer la lecture
       source_necessary: La source est nécessaire
       strongly: Fermement
+      make_favorite: Mettre cette controverse au premier plan
+      remove_favorite: Enlever cette controverse du premier plan
+      make_public: Faire éclore la controverse
+      make_staging: Retourner à l'état embryonnaire
+      is_staging_html: Cette controverse est encore à l'état embryonnaire&nbsp!
+      is_staging_sub: Aidons la à éclore.
+      is_built_html: Cette controverse a éclot, et s'est ouverte au monde extérieure&nbsp!
+      is_built_sub: Continuons sa métamorphose.
+      all_staging: Les controverses à l'état embryonnaire
+      all_built: Les controverses qui ont éclots
     invitations:
       for_reference: Envoyez une invitation à une personne intéressée par cette référence
       for_timeline: Envoyez une invitation à une personne intéressée par cette controverse

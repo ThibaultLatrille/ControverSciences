@@ -9,18 +9,6 @@ class ReferencesController < ApplicationController
     end
   end
 
-  def previous
-    refs = Reference.select(:id, :slug, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
-    i = refs.index{|x| x.id == params[:id].to_i }
-    i ||= rand(refs.length)
-    if i == 0
-      i = refs.length-1
-    else
-      i-=1
-    end
-    redirect_to reference_path(refs[i].id)
-  end
-
   def next
     refs = Reference.select(:id, :slug, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
     i = refs.index{|x| x.id == params[:id].to_i }
@@ -136,6 +124,7 @@ class ReferencesController < ApplicationController
   def show
     begin
       @reference = Reference.find(params[:id])
+      Reference.increment_counter(:views, @reference.id )
       if logged_in?
         user_id = current_user.id
         ref_user_tag = ReferenceUserTag.find_by(user_id: user_id,

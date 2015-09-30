@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150918150534) do
+ActiveRecord::Schema.define(version: 20150930151648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -476,6 +476,7 @@ ActiveRecord::Schema.define(version: 20150918150534) do
     t.text     "abstract_markdown", default: ""
     t.integer  "category"
     t.string   "slug"
+    t.integer  "views",             default: 0
   end
 
   add_index "references", ["slug"], name: "index_references_on_slug", unique: true, using: :btree
@@ -632,6 +633,9 @@ ActiveRecord::Schema.define(version: 20150918150534) do
     t.integer  "figure_id"
     t.string   "slug"
     t.boolean  "private",         default: false
+    t.boolean  "staging",         default: false
+    t.integer  "views",           default: 0
+    t.boolean  "favorite",        default: false
   end
 
   add_index "timelines", ["created_at"], name: "index_timelines_on_created_at", using: :btree
