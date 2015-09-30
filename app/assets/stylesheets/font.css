@@ -355,5 +355,7 @@
     content: "\e649";
 }
 
-
+.icon-versus:before {
+    content: "\e64a";
+}
 
