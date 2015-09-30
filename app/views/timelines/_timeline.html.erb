@@ -71,32 +71,34 @@
                           class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
           <% end %>
         </div>
-          <div class="transparent inline-block">
-              <div class="sticky" data-placement="top"
-                   title="<%= t('views.pluralize.users', count: timeline.nb_contributors ) %>"
-                   data-toggle="tooltip">
-                <span class="fat icon-users"></span>
-                <span class="badge"><%= timeline.nb_contributors %></span>
-              </div>
-              <div class="sticky" data-placement="top"
-                   title="<%= t('views.pluralize.references', count: timeline.nb_references ) %>"
-                   data-toggle="tooltip">
-                <span class="fat icon-reference"></span>
-                <span class="badge"><%= timeline.nb_references %></span>
-              </div>
-              <div class="sticky" data-placement="top"
-                   title="<%= t('views.pluralize.edits', count: timeline.nb_edits ) %>"
-                   data-toggle="tooltip">
-                <span class="fat icon-summary"></span>
-                <span class="badge"><%= timeline.nb_edits %></span>
-              </div>
-            <div class="sticky" data-placement="right"
-                 title="<%= t('views.pluralize.views', count: timeline.views ) %>"
-                 data-toggle="tooltip">
-              <span class="fat icon-views"></span>
-              <span class="badge"><%= timeline.views %></span>
-            </div>
+        <div class="transparent inline-block">
+          <div class="sticky" data-placement="top"
+               title="<%= t('views.pluralize.users', count: timeline.nb_contributors) %>"
+               data-toggle="tooltip">
+            <span class="fat icon-users"></span>
+            <span class="badge"><%= timeline.nb_contributors %></span>
           </div>
+          <div class="sticky" data-placement="top"
+               title="<%= t('views.pluralize.references', count: timeline.nb_references) %>"
+               data-toggle="tooltip">
+            <span class="fat icon-reference"></span>
+            <span class="badge"><%= timeline.nb_references %></span>
+          </div>
+          <div class="sticky" data-placement="top"
+               title="<%= t('views.pluralize.edits', count: timeline.nb_edits) %>"
+               data-toggle="tooltip">
+            <span class="fat icon-summary"></span>
+            <span class="badge"><%= timeline.nb_edits %></span>
+          </div>
+          <% if timeline.views > 90  %>
+          <div class="sticky" data-placement="right"
+               title="<%= t('views.pluralize.views', count: timeline.views) %>"
+               data-toggle="tooltip">
+            <span class="fat icon-views"></span>
+            <span class="badge"><%= timeline.views %></span>
+          </div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

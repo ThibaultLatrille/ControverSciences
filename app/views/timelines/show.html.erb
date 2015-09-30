@@ -27,6 +27,7 @@
         <span class="fat icon-summary"></span>
         <%= @timeline.nb_edits %>
       </div>
+      <% if @timeline.views > 90 %>
       <br>
       <div class="sticky" data-placement="bottom"
            title="<%= t('views.pluralize.views', count: @timeline.views ) %>"
@@ -34,6 +35,7 @@
         <span class="fat icon-views"></span>
         <%= @timeline.views %>
       </div>
+      <% end %>
     </div>
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timelines')}".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order]),
@@ -618,28 +620,30 @@
           <br>
           <br>
       <% end %>
-      <div id="star-click" class="btn btn-default">
-        <span class="icon-4"></span> &nbsp
-        <span id="text-star">
-        <%= t('views.timelines.show_star') %>
-        </span>
-      </div>
-      <br>
-      <script type="text/javascript">
-          $(document).ready(function () {
-              $('#star-click').click(function () {
-                  if ($(this).hasClass("active")) {
-                      $(this).removeClass("active");
-                      $('#text-star').text("<%= t('views.timelines.show_star') %>");
-                      $('.frog').fadeOut(600);
-                  } else {
-                      $(this).addClass("active");
-                      $('#text-star', this).text("<%= t('views.timelines.hide_star') %>");
-                      $('.frog').fadeIn(600);
-                  }
+      <% if Rating.where(timeline_id: @timeline.id).count > 0 %>
+          <div id="star-click" class="btn btn-default">
+            <span class="icon-4"></span> &nbsp
+            <span id="text-star">
+            <%= t('views.timelines.show_star') %>
+            </span>
+          </div>
+          <br>
+          <script type="text/javascript">
+              $(document).ready(function () {
+                  $('#star-click').click(function () {
+                      if ($(this).hasClass("active")) {
+                          $(this).removeClass("active");
+                          $('#text-star').text("<%= t('views.timelines.show_star') %>");
+                          $('.frog').fadeOut(600);
+                      } else {
+                          $(this).addClass("active");
+                          $('#text-star', this).text("<%= t('views.timelines.hide_star') %>");
+                          $('.frog').fadeIn(600);
+                      }
+                  });
               });
-          });
-      </script>
+          </script>
+      <% end %>
     <% if logged_in? && @titles > 0 %>
         <div class="center">
           <br/>
