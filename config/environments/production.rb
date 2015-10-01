@@ -72,3 +72,27 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
 end
+
+
+Slack.configure do |config|
+  config.token = ENV['SLACK_API_TOKEN']
+end
+
+realtime = Slack::RealTime::Client.new
+client = Slack::Web::Client.new
+
+realtime.on :team_join do
+  groups = client.groups_list["groups"].select{|u| ( u["name"].include? "mtp" ) && !u["is_archived"] }.map{|u| {id: u["id"], members: u["members"], name: u["name"]} }
+  client.users_list["members"].select{|u| u["profile"]["email"].present? ? (u["profile"]["email"].include? "etu.umontpellier.fr") : false }.map{|u| u["id"] }.each do |member_id|
+    groups.each do |group|
+      unless group[:members].include? member_id
+        client.groups_invite( {user: member_id, channel: group[:id]} )
+        channel_id = client.im_list["ims"].find{|u| u["user"] == member_id }["id"]
+        text = "Bienvenue ! Vous avez été invité automatiquement sur le channel #{group["name"]}"
+        client.chat_postMessage( {channel: channel_id, text: text} )
+      end
+    end
+  end
+end
+
+realtime.start!
