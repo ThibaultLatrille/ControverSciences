@@ -356,7 +356,7 @@ fr:
       fix_typo_summary: Corriger une faute de français dans la synthèse
       hide_show: Cliquer pour l'afficher/masquer
       is_private: Cette controverse est privée, et ne sera pas visible sans le lien.
-      login: Identifiez vous pour voir les controverses en construction
+      login: Identifiez vous pour voir les controverses à l'état embryonnaire
       make_public: Cette controverse est privée. Souhaitez vous la rendre publique
       neutral: Neutre
       new: Créer une nouvelle controverse
@@ -374,10 +374,10 @@ fr:
       make_staging: Retourner à l'état embryonnaire
       is_staging_html: Cette controverse est encore à l'état embryonnaire&nbsp!
       is_staging_sub: Aidons la à éclore.
-      is_built_html: Cette controverse a éclot, et s'est ouverte au monde extérieure&nbsp!
+      is_built_html: Cette controverse a éclos, et s'est ouverte au monde extérieure&nbsp!
       is_built_sub: Continuons sa métamorphose.
       all_staging: Les controverses à l'état embryonnaire
-      all_built: Les controverses qui ont éclots
+      all_built: Les controverses qui ont éclos
       show_versus: Afficher le mode versus pour les références
       hide_versus: Masquer le mode versus pour les références
       show_star: Afficher la pertinence des références
@@ -500,7 +500,7 @@ fr:
     mailer:
       activate: Activer mon compte
       and: et
-      discover: Découvrir la
+      discover: Découvrir
       hello: Bonjour
       if_error: |
         Si vous n'avez pas fait de demande de réinitialisation de mot de passe, désolé pour le contre temps. Vous pouvez ignorer ce message\

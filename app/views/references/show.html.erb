@@ -195,7 +195,7 @@
       <li class="list-group-item">
         <div class="bold">
           <%= category_source[@reference.category] %>
-        </div> <%= @reference.journal.html_safe %>
+        </div> <i> <%= @reference.journal.html_safe %> </i>
       </li>
       <% unless @reference.abstract_markdown.blank? %>
           <li class="list-group-item">
