@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
         names << "#{user.email}: #{user.name} || "
         message = {
             :subject => "#{@user_notif.name}, #{t('controllers.notifs_news')}",
-            :from    => "contact@controversciences.org",
+            :from    => "ControverSciences.org <contact@controversciences.org>",
             :to      => @user_notif.email,
             :html    => render_to_string(:file => 'user_mailer/notifications', layout: nil).to_str
         }
@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
       @user.update_columns(activation_digest: @user.activation_digest)
       message = {
           :subject => t('controllers.activation_email'),
-          :from    => "activation@controversciences.org",
+          :from    => "ControverSciences.org<activation@controversciences.org>",
           :to      => @user.email,
           :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
       }

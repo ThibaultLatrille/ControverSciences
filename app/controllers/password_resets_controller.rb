@@ -13,7 +13,7 @@ class PasswordResetsController < ApplicationController
           mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
           message = {
               :subject=> t('controllers.reset_pwd_email'),
-              :from=>"reinitialisation@controversciences.org",
+              :from=>"ControverSciences.org <reinitialisation@controversciences.org>",
               :to => @user.email,
               :html => render_to_string( :file => 'user_mailer/password_reset', layout: nil ).to_str
           }
@@ -32,7 +32,7 @@ class PasswordResetsController < ApplicationController
             mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
             message = {
                 :subject=> t('controllers.activation_email'),
-                :from=>"activation@controversciences.org",
+                :from=>"ControverSciences.org <activation@controversciences.org>",
                 :to => @user.email,
                 :html => render_to_string( :file => 'user_mailer/account_activation', layout: nil ).to_str
             }

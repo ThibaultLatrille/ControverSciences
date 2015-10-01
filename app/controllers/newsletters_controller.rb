@@ -7,7 +7,7 @@ class NewslettersController < ApplicationController
           mg_client.post("/lists/newsletter@controversciences.org/members", {address: newsletter_params[:email]})
           message = {
               :subject=> t('controllers.newsletter'),
-              :from=>"contact@controversciences.org",
+              :from=>"ControverSciences.org <contact@controversciences.org>",
               :to => newsletter_params[:email],
               :html => render_to_string( :file => 'user_mailer/newsletter', layout: nil ).to_str
           }

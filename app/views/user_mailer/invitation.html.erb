@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                       <td  class="w520" width="520" >
-                        <h1 style="font-size:30px;line-height:45px;"> <%= t('views.mailer.hello') + (@invitation.target_name.blank? ? nil : " #{@invitation.target_name}" )  %>,
+                        <h1 style="font-size:30px;line-height:45px;"> <%= t('views.mailer.hello') + (@invitation.target_name.blank? ? "" : " #{@invitation.target_name}" )  %>,
                         </h1>
                       </td>
                     </tr>
