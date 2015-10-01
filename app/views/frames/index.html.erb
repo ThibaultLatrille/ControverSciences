@@ -19,10 +19,12 @@
          </span> #{t('views.frames.edit')}".html_safe,
                               edit_frame_path(@frames.first.id),
                               class: "list-group-item" %>
+                  <% if @timeline.nb_frames > 1 %>
                   <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.frames.delete')}".html_safe,
                               frame_path(@frames.first.id), method: :delete,
                               data:                                 {confirm: t('views.default.confirm')},
                               class:                                "list-group-item list-group-item-danger" %>
+                  <% end %>
               <% else %>
                   <%= link_to "<span class=\"icon-summary normal\"></span>
               #{t('views.frames.mine')}".html_safe,
