@@ -331,23 +331,15 @@
     content: "\e62a";
 }
 
-.icon-built:before {
-    content: "\e643";
-}
-
-.icon-staging:before {
-    content: "\e645";
-}
-
 .icon-rocket:before {
     content: "\e646";
 }
 
-.icon-egg:before {
-    content: "\e648";
+.icon-hatch:before, .icon-built:before {
+    content: "\e643";
 }
 
-.icon-hatch:before {
+.icon-egg:before, .icon-staging:before {
     content: "\e647";
 }
 
@@ -359,3 +351,6 @@
     content: "\e64a";
 }
 
+.icon-empty-set:before {
+    content: "\e645";
+}

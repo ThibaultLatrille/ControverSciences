@@ -224,6 +224,7 @@
 
       <% if logged_in? %>
             <% if params[:staging] == "true" %>
+              <% if @built_count > 0 %>
                 <a href="<%= timelines_path(:sort => params[:sort],
                                             :filter => params[:filter],
                                             :order => params[:order],
@@ -235,7 +236,9 @@
                   <%= t('views.timelines.all_built') %>
                   <span class="badge badge-blue-background"> <%= @built_count %> </span>
                 </a>
+              <% end %>
             <% else %>
+              <% if @staging_count > 0 %>
                 <a href="<%= timelines_path(:sort => params[:sort],
                                             :filter => params[:filter],
                                             :order => params[:order],
@@ -247,6 +250,7 @@
                   <%= t('views.timelines.all_staging') %>
                   <span class="badge badge-blue-background"> <%= @staging_count %> </span>
                 </a>
+              <% end %>
             <% end %>
             <br/><br/>
             <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
