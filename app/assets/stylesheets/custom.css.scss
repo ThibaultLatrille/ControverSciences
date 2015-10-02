@@ -272,6 +272,7 @@ h6 {
   -2px -2px 1px  rgba(255, 255, 255, 0.8),
   2px -2px 1px  rgba(255, 255, 255, 0.8);
 }
+
 .cadre {
   margin-top: 10px;
   padding: 10px 18px;
@@ -279,6 +280,26 @@ h6 {
   font-size: 0.9em;
   border: 1px solid lightgrey;
   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.search-div {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 768px) {
+  .timeline{
+    h3{
+      font-size: 1.2em !important;
+    }
+  }
+}
+
+@media (max-width: 1700px) {
+  .timeline{
+    .cadre {
+      display: none;
+    }
+  }
 }
 
 .cadre:hover {

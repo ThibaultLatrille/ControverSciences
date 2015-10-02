@@ -104,8 +104,8 @@ fr:
         one: "%{count} synthèse"
         other: "%{count} synthèses"
       views:
-        one: "%{count} vue"
-        other: "%{count} vues"
+        one: "%{count} vue en "
+        other: "%{count} vues en "
     buttons:
       invit: Inviter
       advise: Enregister cet avis

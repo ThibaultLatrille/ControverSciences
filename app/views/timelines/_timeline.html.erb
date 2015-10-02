@@ -1,4 +1,4 @@
-<div class="timeline col-xs-12 col-sm-<%= full_width ? "12" : "6" %> ">
+<div class="timeline col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-<%= full_width ? "12" : "6" %> ">
   <div class="panel panel-primary">
     <div class="timeline-body">
       <div class="panel-body" style="background: white url(<%= timeline.picture_url %>); background-size: 100%; background-repeat:no-repeat;">
@@ -92,7 +92,8 @@
           </div>
           <% if timeline.views > 90  %>
           <div class="sticky" data-placement="right"
-               title="<%= t('views.pluralize.views', count: timeline.views) %>"
+               title="<%= t('views.pluralize.views', count: timeline.views) +
+                                  distance_of_time_in_words_to_now( timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00") ) %>"
                data-toggle="tooltip">
             <span class="fat icon-views"></span>
             <span class="badge"><%= timeline.views %></span>
