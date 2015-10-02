@@ -373,9 +373,9 @@ fr:
       make_public: Faire éclore la controverse
       make_staging: Retourner à l'état embryonnaire
       is_staging_html: Cette controverse est encore à l'état embryonnaire&nbsp!
-      is_staging_sub: Aidez la à éclore.
-      is_built_html: Cette controverse a éclos, et s'est ouverte au monde extérieur&nbsp!
-      is_built_sub: Continuons sa métamorphose.
+      is_staging_sub: Aidez la à éclore !
+      is_built_html: Cette controverse a éclos, elle s'est ouverte au monde&nbsp!
+      is_built_sub: Aidez la à continuer sa métamorphose !
       all_staging: Les controverses à l'état embryonnaire
       all_built: Les controverses qui ont éclos
       show_versus: Afficher le mode versus pour les références
