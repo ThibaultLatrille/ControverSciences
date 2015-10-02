@@ -75,20 +75,24 @@
     background-color: #ffffff;
 }
 
-.binary1 .cd-color, .btn-frog1:hover, .btn-filter1.active, .btn-frog1.active { background: #702BD9; color: #f1f4f9;}
-.binary2 .cd-color, .btn-frog2:hover, .btn-filter2.active, .btn-frog2.active { background: #322DE3; color: #f1f4f9;}
-.binary3 .cd-color, .btn-frog3:hover, .btn-filter3.active, .btn-frog3.active { background: #3366CC; color: #f1f4f9;}
-.binary4 .cd-color, .btn-frog4:hover, .btn-filter4.active, .btn-frog4.active { background: #2DABE3; color: #f1f4f9;}
-.binary5 .cd-color, .btn-frog5:hover, .btn-filter5.active, .btn-frog5.active { background: #2BD9CF; color: #f1f4f9;}
-.binary .cd-color, .binary0 .cd-color, .btn-frog0:hover, .btn-frog0.active { background: #3366CC; color: #f1f4f9;}
+.binary1 .cd-orange, .binary1 .cd-color, .btn-frog1:hover, .btn-filter1.active, .btn-frog1.active { background: #702BD9; color: #f1f4f9;}
+.binary2 .cd-orange, .binary2 .cd-color, .btn-frog2:hover, .btn-filter2.active, .btn-frog2.active { background: #322DE3; color: #f1f4f9;}
+.binary3 .cd-orange, .binary3 .cd-color, .btn-frog3:hover, .btn-filter3.active, .btn-frog3.active { background: #3366CC; color: #f1f4f9;}
+.binary4 .cd-orange, .binary4 .cd-color, .btn-frog4:hover, .btn-filter4.active, .btn-frog4.active { background: #2DABE3; color: #f1f4f9;}
+.binary5 .cd-orange, .binary5 .cd-color, .btn-frog5:hover, .btn-filter5.active, .btn-frog5.active { background: #2BD9CF; color: #f1f4f9;}
+.binary0 .cd-orange, .binary .cd-orange, .binary .cd-color, .binary0 .cd-color, .btn-frog0:hover, .btn-frog0.active { background: #3366CC; color: #f1f4f9;}
 
-.gradient-orange, .cd-color-orange.active, .cd-orange { background: #E77E5A; color: #f1f4f9;}
+.gradient-orange, .cd-color-orange.active { background: #E77E5A; color: #f1f4f9;}
+
+.icon-0{
+    color: #fff !important;
+}
 
 .orange{
     color: #E77E5A;
 }
 
-.cd-color{
+.cd-color, .cd-orange{
     -webkit-transition: background .6s ease-in;
     -moz-transition: background .6s ease-in;
     -o-transition: background .6s ease-in;
@@ -97,7 +101,10 @@
 
 .uni-color{
     background: #3366CC !important;
-    color: #f1f4f9 !important;
+}
+
+.uni-orange{
+    background: #E77E5A !important;
 }
 
 .grey, .grey:hover {background-color: #BBC6DB; color: #f6f9fb}

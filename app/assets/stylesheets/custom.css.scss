@@ -278,7 +278,7 @@ h6 {
   border-radius: 4px;
   font-size: 0.9em;
   border: 1px solid lightgrey;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .cadre:hover {
@@ -291,7 +291,7 @@ h6 {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .flex {
@@ -781,12 +781,12 @@ del {
   margin-right: 15px;
 }
 
-.badge-blue-color{
+.blue-color{
   padding: 0.6em 1em 0.4em 0.8em;
   background-color: $nav_hover !important;
 }
 
-.badge-blue-background{
+.blue-background{
   padding: 0.6em 1em 0.4em 0.8em;
   color: $nav_hover !important;
   background-color: #FDFDFD !important;

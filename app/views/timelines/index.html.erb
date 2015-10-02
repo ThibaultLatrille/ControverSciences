@@ -145,18 +145,18 @@
                        class="btn btn-default" style="padding: 8px 12px;">
                       <span class="fat icon-built"></span>
                       <%= t('views.timelines.all_built') %>
-                      <span class="badge badge-blue-color"> <%= @built_count %> </span>
+                      <span class="badge blue-color"> <%= @built_count %> </span>
                     </a>
                     <div class="btn btn-default active cursor-default" style="padding: 8px 12px;">
                       <span class="fat icon-staging"></span>
                       <%= t('views.timelines.all_staging') %>
-                      <span class="badge badge-blue-background"> <%= @staging_count %> </span>
+                      <span class="badge blue-background"> <%= @staging_count %> </span>
                     </div>
                 <% else %>
                     <div class="btn btn-default active cursor-default" style="padding: 8px 12px;">
                       <span class="fat icon-built"></span>
                       <%= t('views.timelines.all_built') %>
-                      <span class="badge badge-blue"> <%= @built_count %> </span>
+                      <span class="badge blue-background"> <%= @built_count %> </span>
                     </div>
                     <a href="<%= timelines_path(:sort => params[:sort],
                                                 :filter => params[:filter],
@@ -167,7 +167,7 @@
                        class="btn btn-default" style="padding: 8px 12px;">
                       <span class="fat icon-staging "></span>
                       <%= t('views.timelines.all_staging') %>
-                      <span class="badge"> <%= @staging_count %> </span>
+                      <span class="badge blue-color"> <%= @staging_count %> </span>
                     </a>
                 <% end %>
               </div>

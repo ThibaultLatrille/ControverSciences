@@ -351,6 +351,6 @@
     content: "\e64a";
 }
 
-.icon-empty-set:before {
+.icon-empty-set:before, .icon-0:before {
     content: "\e645";
 }

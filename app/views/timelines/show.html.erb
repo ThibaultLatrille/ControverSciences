@@ -514,12 +514,14 @@
                 if ($(this).hasClass("active")){
                     $(this).removeClass("active");
                     $('.cd-color').addClass("uni-color");
+                    $('.cd-orange').addClass("uni-orange");
                     $('#text-versus').text("<%= t('views.timelines.show_versus') %>");
                     versuschart.hide(500);
                 } else {
                     $(this).addClass("active");
                     $('#text-versus').text("<%= t('views.timelines.hide_versus') %>");
                     $('.cd-color').removeClass("uni-color");
+                    $('.cd-orange').removeClass("uni-orange");
                     versuschart.show(500, function() {
                         var data = {
                             labels: [
