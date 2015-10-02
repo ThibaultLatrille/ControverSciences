@@ -23,6 +23,10 @@ class TimelinesController < ApplicationController
       end
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
     end
+
+    @staging_count = query.where(staging: true).count
+    @built_count = query.where(staging: false).count
+
     if logged_in? && params[:staging] == "true"
       query = query.where(staging: true)
     else

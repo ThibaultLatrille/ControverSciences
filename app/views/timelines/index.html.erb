@@ -145,15 +145,18 @@
                        class="btn btn-default" style="padding: 8px 12px;">
                       <span class="fat icon-built"></span>
                       <%= t('views.timelines.all_built') %>
+                      <span class="badge badge-blue-color"> <%= @built_count %> </span>
                     </a>
                     <div class="btn btn-default active cursor-default" style="padding: 8px 12px;">
                       <span class="fat icon-staging"></span>
                       <%= t('views.timelines.all_staging') %>
+                      <span class="badge badge-blue-background"> <%= @staging_count %> </span>
                     </div>
                 <% else %>
                     <div class="btn btn-default active cursor-default" style="padding: 8px 12px;">
                       <span class="fat icon-built"></span>
                       <%= t('views.timelines.all_built') %>
+                      <span class="badge badge-blue"> <%= @built_count %> </span>
                     </div>
                     <a href="<%= timelines_path(:sort => params[:sort],
                                                 :filter => params[:filter],
@@ -164,6 +167,7 @@
                        class="btn btn-default" style="padding: 8px 12px;">
                       <span class="fat icon-staging "></span>
                       <%= t('views.timelines.all_staging') %>
+                      <span class="badge"> <%= @staging_count %> </span>
                     </a>
                 <% end %>
               </div>
@@ -215,19 +219,49 @@
         </div>
       </div>
 
-      <div class="center">
+      <div class="row">
+        <div class="col-xs-12 col-md-8 col-md-offset-2 center">
+
       <% if logged_in? %>
+            <% if params[:staging] == "true" %>
+                <a href="<%= timelines_path(:sort => params[:sort],
+                                            :filter => params[:filter],
+                                            :order => params[:order],
+                                            :staging => false,
+                                            :interest => params[:interest],
+                                            :tag => params[:tag]) %>"
+                   class="btn btn-block btn-primary">
+                  <span class="fat icon-built"></span>
+                  <%= t('views.timelines.all_built') %>
+                  <span class="badge badge-blue-background"> <%= @built_count %> </span>
+                </a>
+            <% else %>
+                <a href="<%= timelines_path(:sort => params[:sort],
+                                            :filter => params[:filter],
+                                            :order => params[:order],
+                                            :staging => true,
+                                            :interest => params[:interest],
+                                            :tag => params[:tag]) %>"
+                   class="btn btn-block btn-primary">
+                  <span class="fat icon-staging "></span>
+                  <%= t('views.timelines.all_staging') %>
+                  <span class="badge badge-blue-background"> <%= @staging_count %> </span>
+                </a>
+            <% end %>
+            <br/><br/>
             <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
                    </span> #{t('views.timelines.new')}".html_safe,
                         timelines_path, class: "btn btn-block btn-primary" %>
       <% else %>
-            <%= link_to "<span class=\"bigger icon icon-built\" >
-                   </span> #{t('views.timelines.login')}".html_safe,
+            <%= link_to "<span class=\"bigger icon icon-staging\" >
+                   </span> #{t('views.timelines.login')}
+                        <span class=\"badge badge-blue-background\"> #{@staging_count} </span> ".html_safe,
                         login_path, class: "btn btn-block btn-primary" %>
             <%= link_to "<span class=\"icon icon-5\" >
 		   </span> #{t('views.sessions.new_user')}".html_safe,
                         new_user_path, class: "btn btn-block btn-primary" %>
       <% end %>
+        </div>
       </div>
       <br/>
       <br/>

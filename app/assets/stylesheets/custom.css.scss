@@ -780,3 +780,14 @@ del {
   width: 86px;
   margin-right: 15px;
 }
+
+.badge-blue-color{
+  padding: 0.6em 1em 0.4em 0.8em;
+  background-color: $nav_hover !important;
+}
+
+.badge-blue-background{
+  padding: 0.6em 1em 0.4em 0.8em;
+  color: $nav_hover !important;
+  background-color: #FDFDFD !important;
+}
