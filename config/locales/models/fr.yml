@@ -40,6 +40,6 @@ fr:
       reference_edge:
         direction: "Sens du lien"
         category: "Type de lien"
-        target: "Avec la référence"
+        target: "Un ou plusieurs liens avec des références doivent être sélectionées"
       edge:
-        target: "Un ou plusieurs liens doivent être sélectionées"
+        target: "Un ou plusieurs liens avec des controverses doivent être sélectionées"

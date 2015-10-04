@@ -14,7 +14,7 @@ class EdgesController < ApplicationController
                        timeline_id: edge_params[:timeline_id],
                        weight: 1, target: target_id)
     end
-    Edge.import edges
+    edges.map{ |e| e.save }
     @edge = Edge.new
     if edges.count == 0
       @edge.errors.add(:base, t('activerecord.attributes.edge.target'))

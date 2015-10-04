@@ -77,14 +77,6 @@ fr:
     category_hash_phd_5: Remarque(s) sur cette thèse
     category_hash_phd_6: Intitulé de la thèse
     category_hash_phd_7: Figure
-    edges_category_1: A une lettre de réponse
-    edges_category_2: Est une lettre de réponse à
-    edges_category_3: Précise
-    edges_category_4: Est précisée par
-    edges_category_5: Infirme
-    edges_category_6: Est infirmée par
-    edges_category_7: Confirme
-    edges_category_8: Est confirmée par
     meta_description: ControverSciences est un portail collaboratif et indépendant
       qui rassemble les publications scientifiques autour de questions controversées,
       en les rendant accessible à tous.

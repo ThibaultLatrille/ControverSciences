@@ -9,7 +9,7 @@ fr:
       public_f: Publique
       private_f: Privée
       warning: Attention !
-      you_and: Vous et
+      you_and: "Vous et "
       to: Vers
       from: Depuis
       at_least: Au moins
@@ -282,12 +282,13 @@ fr:
         other: "%{count} contributeurs ne trouvent pas ce lien pertinent."
       not_counted: Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs.
     reference_edges:
+      new_newer: Ajouter des références qui la cite
+      new_older: Ajouter des citations
       to_reference: Les liens concernant la référence
-      no_edges: n'a aucun lien vers d'autres références
-      direction: Sens du lien
-      category: Type de lien
-      with_reference: Avec la référence
-      possible: Les liens possibles entre ces deux références
+      no_older_edges: Ne cite aucune autre référence
+      no_newer_edges: N'est citée par aucune autre référence
+      citing: "Cite les références suivantes :"
+      cited: "Est citée par les références suivantes :"
     frames:
       mine: Votre proposition de titre et de cadre
       favorite: Votre proposition de titre et de cadre favorite

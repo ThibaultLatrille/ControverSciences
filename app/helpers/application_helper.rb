@@ -203,31 +203,6 @@ module ApplicationHelper
      5 => I18n.t('helpers.binary_hash_5')}
   end
 
-  def edges_category
-    [[1, I18n.t('helpers.edges_category_1')],
-     [2, I18n.t('helpers.edges_category_2')],
-     [3, I18n.t('helpers.edges_category_3')],
-     [4, I18n.t('helpers.edges_category_4')],
-     [5, I18n.t('helpers.edges_category_5')],
-     [6, I18n.t('helpers.edges_category_6')],
-     [7, I18n.t('helpers.edges_category_7')],
-     [8, I18n.t('helpers.edges_category_8')]]
-  end
-
-  def forward_edges_category
-    edges_category.to_h
-  end
-
-  def backward_edges_category
-    edges_category.each_with_object({}) do |v, h|
-      if v[0].odd?
-        h[v[0]+1]=v[1]
-      else
-        h[v[0]-1]=v[1]
-      end
-    end
-  end
-
   def binary_value_explanation(binary, value)
     text = I18n.t('helpers.binary_value_text')
     case value
