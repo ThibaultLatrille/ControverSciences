@@ -61,10 +61,10 @@
                 <br/>
                 <%= f.label :Tags, t('views.default.tags') %> </br>
                 <div class="container-fluid">
-                  <div class="row" data-toggle="buttons">
+                  <div data-toggle="buttons">
                     <% tags_hash.each do |key, value| %>
                         <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
-                          <div class="my-btn">
+                          <div>
                             <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
                             <span class="fat icon-<%= key %>"></span> <%= value %>
                           </div>
@@ -92,6 +92,7 @@
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
     });
+    $('.my-btn').responsiveEqualHeightGrid();
     function freeze() {
         $("#submit-button").hide();
         $(".myforms").attr('readonly', true)

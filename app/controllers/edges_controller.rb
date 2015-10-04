@@ -7,16 +7,21 @@ class EdgesController < ApplicationController
   end
 
   def create
-    @edge = Edge.new(user_id: current_user.id,
-                        timeline_id: edge_params[:timeline_id],
-                        weight: 1, target: edge_params[:target])
-    if @edge.save
-      redirect_to edges_path(timeline_id: edge_params[:timeline_id])
-    else
-      params[:timeline_id] = edge_params[:timeline_id]
-      set_index
-      render 'index'
+    edges = []
+    params[:edge][:target] ||= []
+    params[:edge][:target].each do |target_id|
+      edges << Edge.new(user_id: current_user.id,
+                       timeline_id: edge_params[:timeline_id],
+                       weight: 1, target: target_id)
     end
+    Edge.import edges
+    @edge = Edge.new
+    if edges.count == 0
+      @edge.errors.add(:base, t('activerecord.attributes.edge.target'))
+    end
+    params[:timeline_id] = edge_params[:timeline_id]
+    set_index
+    render 'index'
   end
 
   def set_index

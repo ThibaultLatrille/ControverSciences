@@ -79,15 +79,29 @@
                     <%= render 'shared/error_messages', object: f.object %>
                     <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
 
-
-                    <%= f.label "La controverse" %>
-                    <%= f.select :target, @timeline_names.map{ |t| [t[0].html_safe, t[1]]}, {:prompt => "#{t('views.edges.with_timeline')}"}, {class: 'form-control'} %>
-
-                    <br/>
                     <%= f.button "<span class=\"glyphicon glyphicon-link\" aria-hidden=\"true\"></span>&nbsp #{t('views.edges.add_edge')}".html_safe,
                                  class: 'btn btn-success pull-right',
+                                 style: "margin: 5px 5px;",
                                  data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')}"}%>
-                    <br/>
+
+                    <div class="box">
+                      <div class="container-jets">
+                        <span class="icon glyphicon glyphicon-filter"></span>
+                        <input type="search" id="jetsSearch" placeholder="Filtrer" />
+                      </div>
+                    </div>
+
+                    <div id="jetsContent" data-toggle="buttons">
+                      <% @timeline_names.each do |name, id| %>
+                          <div class="btn btn-default btn-block text-left timeline-edge-check">
+                              <%= f.check_box :target, {:multiple => true}, checked_value = id, unchecked_value = nil %>
+                              <%= name.html_safe %>
+                            <span class="pull-right checked glyphicon glyphicon-link">
+                            </span>
+                          </div>
+                      <% end %>
+                    </div>
+
                     <br/>
                 <% end %>
               </div>
@@ -118,6 +132,10 @@
 </div>
 
 <script type="text/javascript">
+    var jets = new Jets({
+        searchTag: '#jetsSearch',
+        contentTag: '#jetsContent'
+    });
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     $(function () {
         $('[data-validate]').click(function () {

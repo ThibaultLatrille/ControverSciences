@@ -88,7 +88,7 @@
                     <span class="icon icon-search bigger"></span>
                 <% end %>
                     </span>
-                <%= text_field_tag(:filter, params[:filter], placeholder: " " + t('views.default.search')) %>
+                <%= search_field_tag(:filter, params[:filter], placeholder: " " + t('views.default.search')) %>
               </div>
               <%= hidden_field_tag(:tag, params[:tag]) %>
               <%= hidden_field_tag(:sort, params[:sort]) %>

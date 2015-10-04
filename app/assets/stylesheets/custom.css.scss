@@ -218,6 +218,10 @@ hr {
   text-align: center;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .justify {
   text-align: justify;
 }
@@ -839,5 +843,87 @@ del {
   .link-group-counter{
     color: #337ab7;
     background-color: #FDFDFD;
+  }
+}
+
+.timeline-edge-check{
+  margin: 0;
+  border-radius: 0;
+  .checked{
+    display: none;
+  }
+}
+
+.timeline-edge-check.active{
+  .checked{
+    display: block;
+    color: #fff;
+  }
+}
+
+.timeline-edge-check + .timeline-edge-check {
+  margin-top: -1px !important;
+}
+
+.box{
+  width: 250px;
+  height: 50px;
+  margin-bottom: 10px;
+  .container-jets{
+    width: 200px;
+    vertical-align: middle;
+    white-space: nowrap;
+    position: relative;
+  }
+  .container-jets input#jetsSearch{
+    width: 250px;
+    border: none;
+    border-bottom: 4px solid #26a69a;
+    font-size: 1.5em;
+    float: left;
+    color: #65737e;
+    padding: 5px 0 5px 40px;
+    -webkit-transition: background .55s ease;
+    -moz-transition: background .55s ease;
+    -ms-transition: background .55s ease;
+    -o-transition: background .55s ease;
+    transition: background .55s ease;
+  }
+  .container-jets input#jetsSearch::-webkit-input-placeholder {
+    color: #65737e;
+  }
+  .container-jets input#jetsSearch:-moz-placeholder { /* Firefox 18- */
+    color: #65737e;
+  }
+  .container-jets input#jetsSearch::-moz-placeholder {  /* Firefox 19+ */
+    color: #65737e;
+  }
+  .container-jets input#jetsSearch:-ms-input-placeholder {
+    color: #65737e;
+  }
+  .container-jets .icon{
+    position: absolute;
+    top: 50%;
+    margin-left: 6px;
+    margin-top: 8px;
+    font-size: 1.6em;
+    z-index: 1;
+    color: #4f5b66;
+  }
+  .container-jets input#jetsSearch:hover, .container-jets input#jetsSearch:focus, .container-jets input#jetsSearch:active{
+    outline:none;
+    background: #ffffff;
+  }
+  .container-jets input#jetsSearch:focus::-webkit-input-placeholder {
+    color: #FDFDFD;
+  }
+  .container-jets input#jetsSearch:focus:-moz-placeholder{
+    color: #FDFDFD;
+  }
+  .container-jets input#jetsSearch:focus::-moz-placeholder{
+    color: #FDFDFD;
+  }
+  .container-jets input#jetsSearch:focus:-ms-input-placeholder{
+    color: #FDFDFD;
   }
 }

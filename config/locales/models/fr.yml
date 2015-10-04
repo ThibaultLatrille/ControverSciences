@@ -42,4 +42,4 @@ fr:
         category: "Type de lien"
         target: "Avec la référence"
       edge:
-        target: "Avec la controverse"
+        target: "Un ou plusieurs liens doivent être sélectionées"
