@@ -815,6 +815,7 @@ del {
 .link-group{
   margin: 0 5px 3px;
   padding: 0;
+  border: 2px solid #dddee1;
   .link-group-counter{
     font-size: 16px;
     border-radius: 3px 0 0 3px;
@@ -844,6 +845,10 @@ del {
     color: #337ab7;
     background-color: #FDFDFD;
   }
+}
+
+.link-group.hover, .link-group:hover{
+  border: 2px solid $nav_hover;
 }
 
 .timeline-edge-check{
