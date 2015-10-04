@@ -236,7 +236,7 @@ fr:
       category_issn: ISSN, ISBN, ISNI, ARK ou autre
       doi_fac: "Identifiant unique (facultatif) : "
       dead_link: Signaler un lien mort
-      edges: Ajouter ou modifier les liens vers d'autres références
+      edges: Ajouter ou modifier les citations vers d'autres références
       edit: Modifier la référence
       edit_from: Editer une référence appartenant à la controverse
       favorite_comment: Votre analyse favorite
@@ -284,7 +284,7 @@ fr:
     reference_edges:
       new_newer: Ajouter des références qui la cite
       new_older: Ajouter des citations
-      to_reference: Les liens concernant la référence
+      to_reference: Les citations concernant la référence
       no_older_edges: Ne cite aucune autre référence
       no_newer_edges: N'est citée par aucune autre référence
       citing: "Cite les références suivantes :"
@@ -351,7 +351,7 @@ fr:
       display_all: Afficher toutes les controverses
       dl_bib: Télécharger la bibliographie
       edges: Liens entre les controverses
-      edges_ref: Liens entre les références
+      edges_ref: Citations entre les références
       hide_show: Cliquer pour l'afficher/masquer
       is_private: Cette controverse est privée, et ne sera pas visible sans le lien.
       login: Identifiez vous pour voir les controverses à l'état embryonnaire
