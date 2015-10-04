@@ -126,7 +126,7 @@ footer #about-link a:hover {
 
 .btn-default, .btn-default:focus, .btn-default.focus {
     background-color: white;
-    border-color: gray-light;
+    border-color: lightgray;
     color: #07212B;
     outline: 0px;
 }
@@ -135,8 +135,13 @@ footer #about-link a:hover {
   white-space: normal;
 }
 
-.btn-default:hover, .btn-default.hover, .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
+.btn-default:hover, .btn-default.hover, .open > .btn-default.dropdown-toggle {
   background-color: $nav_hover;
+  color: white;
+}
+
+.btn-default:active, .btn-default.active {
+  background-color: #337ab7;
   color: white;
 }
 
@@ -802,13 +807,37 @@ del {
   margin-right: 15px;
 }
 
-.blue-color{
-  padding: 0.6em 1em 0.4em 0.8em;
-  background-color: $nav_hover !important;
+
+.link-group{
+  margin: 0 5px 3px;
+  padding: 0;
+  .link-group-counter{
+    font-size: 16px;
+    border-radius: 3px 0 0 3px;
+    padding: 8px 12px 12px;
+    color: #FDFDFD;
+    background-color: #337ab7;
+  }
+  .link-group-main{
+    font-size: 16px;
+    display: inline-block;
+    padding: 6px 12px;
+  }
+  .link-icon{
+    font-size: 26px;
+    margin: 0;
+  }
+  .link-group-main-all{
+    display: inline-block;
+    padding: 8px 12px 10px;
+  }
 }
 
-.blue-background{
-  padding: 0.6em 1em 0.4em 0.8em;
-  color: $nav_hover !important;
-  background-color: #FDFDFD !important;
+.link-group.active, .link-group:active{
+  margin: 0 15px 3px;
+  border: 2px solid #337ab7;
+  .link-group-counter{
+    color: #337ab7;
+    background-color: #FDFDFD;
+  }
 }

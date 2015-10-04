@@ -5,178 +5,243 @@
       <% if logged_in? %>
           <% if @my_likes.count > 1 %>
               <div class="list-group">
-                <%= link_to                                             "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? t('views.timelines.only_liked') :
-                        t('views.timelines.display_all')}".html_safe, timelines_path(:sort     => params[:sort],
-                                                                                       :order    => params[:order],
-                                                                                       :staging    => params[:staging],
-                                                                                       :tag      => params[:tag],
-                                                                                       :filter   => params[:filter],
-                                                                                       :interest => params[:interest].blank? ? "true" : ""),
-                                                                        class: "list-group-item" %>
+                <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{params[:interest].blank? ? t('views.timelines.only_liked') :
+                                    t('views.timelines.display_all')}".html_safe, timelines_path(:sort => params[:sort],
+                                                                                                 :order => params[:order],
+                                                                                                 :staging => params[:staging],
+                                                                                                 :tag => params[:tag],
+                                                                                                 :filter => params[:filter],
+                                                                                                 :interest => params[:interest].blank? ? "true" : ""),
+                            class: "list-group-item" %>
               </div>
           <% end %>
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-offset-0 col-lg-8">
       <div class="cadre search-div">
-          <div class="pull-right">
-            <div class="btn-group">
-              <button class="btn btn-default dropdown-toggle" type="button"
-                      id="dropdownMenuTri" data-toggle="dropdown">
-                <% if params[:sort].blank? || params[:sort]=='score' %>
-                    <%= t('views.sorting.score_sort') %>
-                <% else %>
-                    <%= params[:sort]=='score_recent' ? t('views.sorting.score_recent') : nil %>
-                    <%= params[:sort]=='created_at' ? t('views.sorting.created_at') : nil %>
-                    <%= params[:sort]=='nb_contributors' ? t('views.sorting.nb_contributors') : nil %>
-                    <%= params[:sort]=='nb_references' ? t('views.sorting.nb_references') : nil %>
-                    <%= params[:sort]=='nb_comments' ? t('views.sorting.nb_comments') : nil %>
-                    <%= params[:sort]=='nb_summaries' ? t('views.sorting.nb_summaries') : nil %>
-                    <%= params[:sort]=='nb_likes' ?  t('views.sorting.nb_likes_html') : nil %>
-                <% end %>
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu">
-                <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.score'), timelines_path(:sort  => 'score', :filter => params[:filter], :interest => params[:interest],
-                                                                       :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
-                <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.score_recent'), timelines_path(:sort  => 'score_recent', :filter => params[:filter], :interest => params[:interest],
-                                                                              :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
-                <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.created_at'), timelines_path(:sort  => 'created_at', :filter => params[:filter], :interest => params[:interest],
+        <div class="pull-right">
+          <div class="btn-group">
+            <button class="btn btn-default dropdown-toggle" type="button"
+                    id="dropdownMenuTri" data-toggle="dropdown">
+              <% if params[:sort].blank? || params[:sort]=='score' %>
+                  <%= t('views.sorting.score_sort') %>
+              <% else %>
+                  <%= params[:sort]=='score_recent' ? t('views.sorting.score_recent') : nil %>
+                  <%= params[:sort]=='created_at' ? t('views.sorting.created_at') : nil %>
+                  <%= params[:sort]=='nb_contributors' ? t('views.sorting.nb_contributors') : nil %>
+                  <%= params[:sort]=='nb_references' ? t('views.sorting.nb_references') : nil %>
+                  <%= params[:sort]=='nb_comments' ? t('views.sorting.nb_comments') : nil %>
+                  <%= params[:sort]=='nb_summaries' ? t('views.sorting.nb_summaries') : nil %>
+                  <%= params[:sort]=='nb_likes' ? t('views.sorting.nb_likes_html') : nil %>
+              <% end %>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.score'), timelines_path(:sort => 'score', :filter => params[:filter], :interest => params[:interest],
+                                                                     :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+              <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.score_recent'), timelines_path(:sort => 'score_recent', :filter => params[:filter], :interest => params[:interest],
                                                                             :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
-                <li <%= params[:sort]=='nb_contributors' ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.nb_contributors'), timelines_path(:sort  => 'nb_contributors', :filter => params[:filter], :interest => params[:interest],
-                                                                                 :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
-                <li <%= params[:sort]=='nb_references' ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.nb_references'), timelines_path(:sort  => 'nb_references', :filter => params[:filter], :interest => params[:interest],
+              <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.created_at'), timelines_path(:sort => 'created_at', :filter => params[:filter], :interest => params[:interest],
+                                                                          :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+              <li <%= params[:sort]=='nb_contributors' ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.nb_contributors'), timelines_path(:sort => 'nb_contributors', :filter => params[:filter], :interest => params[:interest],
                                                                                :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
-                <li <%= params[:sort]=='nb_comments' ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.nb_comments'), timelines_path(:sort  => 'nb_comments', :filter => params[:filter], :interest => params[:interest],
+              <li <%= params[:sort]=='nb_references' ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.nb_references'), timelines_path(:sort => 'nb_references', :filter => params[:filter], :interest => params[:interest],
                                                                              :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
-                <li <%= params[:sort]=='nb_summaries' ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.nb_summaries'), timelines_path(:sort  => 'nb_summaries', :filter => params[:filter], :interest => params[:interest],
-                                                                              :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
-                <li <%= params[:sort]=='nb_likes' ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.nb_likes_html'),
-                              timelines_path(:sort  => 'nb_likes', :interest => params[:interest],
-                                             :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
-              </ul>
-            </div>
-            <div class="btn-group">
-              <button class="btn btn-default dropdown-toggle" type="button"
-                      id="dropdownMenuOrder" data-toggle="dropdown">
-                <%= (params[:order]=='desc' || params[:order].blank? ) ? t('views.sorting.desc_sort') : t('views.sorting.asc_sort') %>
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu">
-                <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.desc'), timelines_path(:sort  => params[:sort], :filter => params[:filter], :interest => params[:interest],
-                                                                      :staging => params[:staging], :order => 'desc', :tag => params[:tag]) %> </li>
-                <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-                  <%= link_to t('views.sorting.asc'), timelines_path(:sort  => params[:sort], :filter => params[:filter], :interest => params[:interest],
-                                                                     :staging => params[:staging], :order => 'asc', :tag => params[:tag]) %> </li>
-              </ul>
-            </div>
+              <li <%= params[:sort]=='nb_comments' ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.nb_comments'), timelines_path(:sort => 'nb_comments', :filter => params[:filter], :interest => params[:interest],
+                                                                           :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+              <li <%= params[:sort]=='nb_summaries' ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.nb_summaries'), timelines_path(:sort => 'nb_summaries', :filter => params[:filter], :interest => params[:interest],
+                                                                            :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+              <li <%= params[:sort]=='nb_likes' ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.nb_likes_html'),
+                            timelines_path(:sort => 'nb_likes', :interest => params[:interest],
+                                           :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+            </ul>
           </div>
-          <div>
-            <%= form_tag(:timelines, method: "get", class: "search-box") do %>
-                <div class="input-group">
+          <div class="btn-group">
+            <button class="btn btn-default dropdown-toggle" type="button"
+                    id="dropdownMenuOrder" data-toggle="dropdown">
+              <%= (params[:order]=='desc' || params[:order].blank?) ? t('views.sorting.desc_sort') : t('views.sorting.asc_sort') %>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.desc'), timelines_path(:sort => params[:sort], :filter => params[:filter], :interest => params[:interest],
+                                                                    :staging => params[:staging], :order => 'desc', :tag => params[:tag]) %> </li>
+              <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
+                <%= link_to t('views.sorting.asc'), timelines_path(:sort => params[:sort], :filter => params[:filter], :interest => params[:interest],
+                                                                   :staging => params[:staging], :order => 'asc', :tag => params[:tag]) %> </li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <%= form_tag(:timelines, method: "get", class: "search-box") do %>
+              <div class="input-group">
                   <span class="input-group-btn">
                     <%= button_tag(:class => "btn btn-primary submit-search") do %>
                     <span class="icon icon-search bigger"></span>
                 <% end %>
                     </span>
-                  <%= text_field_tag(:filter, params[:filter], placeholder: " " + t('views.default.search')) %>
-                </div>
-                <%= hidden_field_tag(:tag, params[:tag]) %>
-                <%= hidden_field_tag(:sort, params[:sort]) %>
-                <%= hidden_field_tag(:order, params[:order]) %>
-                <%= hidden_field_tag(:interest, params[:interest]) %>
-                <%= hidden_field_tag(:staging, params[:staging]) %>
-          <% end %>
-          </div>
-          <div class="row center">
-            <br/>
-            <% if params[:tag].first.blank? || (params[:tag].include? 'all') %>
-                <div class="btn btn-default active cursor-default" style="padding: 8px 8px;">
-                  <%= t('views.sorting.all_theme') %>
-                </div>
-            <% else %>
-                <a href="<%= timelines_path(:sort => params[:sort],
-                                            :filter => params[:filter],
-                                            :order => params[:order],
-                                            :staging => params[:staging],
-                                            :interest => params[:interest],
-                                            :tag => 'all' ) %>"
-                   class="btn btn-default" style="padding: 8px 8px;">
-                  <%= t('views.sorting.all_theme') %>
-                </a>
-            <% end %>
-            <% tags_hash.each do |key, value| %>
-                <a href="<%= timelines_path(:sort => params[:sort],
-                                            :filter => params[:filter],
-                                            :order => params[:order],
-                                            :staging => params[:staging],
-                                            :interest => params[:interest],
-                                            :tag => (params[:tag].blank? || (params[:tag].include? 'all') ) ?
-                                                    [key] :
-                                                    (params[:tag].include? key ) ? params[:tag].reject{|e| e == key } : [key].push(params[:tag]).flatten
-                             ) %>"
-                   class="btn btn-default <%= (params[:tag].blank? || (params[:tag].include? 'all')) ? nil : ( (params[:tag].include? key ) ? "active" : nil) %>"
-                   title="<%= value %>"
-                   data-toggle="tooltip">
-                  <%= "<span class=\"icon-#{key}\"></span> ".html_safe %>
-                </a>
-            <% end %>
-          </div>
-          <br/>
-          <% if logged_in? %>
-              <div class="row center">
-                <% if params[:staging] == "true" %>
-                    <a href="<%= timelines_path(:sort => params[:sort],
-                                                :filter => params[:filter],
-                                                :order => params[:order],
-                                                :staging => false,
-                                                :interest => params[:interest],
-                                                :tag => params[:tag]) %>"
-                       class="btn btn-default" style="padding: 8px 12px;">
-                      <span class="fat icon-built"></span>
-                      <%= t('views.timelines.all_built') %>
-                      <span class="badge blue-color"> <%= @built_count %> </span>
-                    </a>
-                    <div class="btn btn-default active cursor-default" style="padding: 8px 12px;">
-                      <span class="fat icon-staging"></span>
-                      <%= t('views.timelines.all_staging') %>
-                      <span class="badge blue-background"> <%= @staging_count %> </span>
-                    </div>
-                <% else %>
-                    <div class="btn btn-default active cursor-default" style="padding: 8px 12px;">
-                      <span class="fat icon-built"></span>
-                      <%= t('views.timelines.all_built') %>
-                      <span class="badge blue-background"> <%= @built_count %> </span>
-                    </div>
-                    <a href="<%= timelines_path(:sort => params[:sort],
-                                                :filter => params[:filter],
-                                                :order => params[:order],
-                                                :staging => true,
-                                                :interest => params[:interest],
-                                                :tag => params[:tag]) %>"
-                       class="btn btn-default" style="padding: 8px 12px;">
-                      <span class="fat icon-staging "></span>
-                      <%= t('views.timelines.all_staging') %>
-                      <span class="badge blue-color"> <%= @staging_count %> </span>
-                    </a>
-                <% end %>
+                <%= text_field_tag(:filter, params[:filter], placeholder: " " + t('views.default.search')) %>
               </div>
+              <%= hidden_field_tag(:tag, params[:tag]) %>
+              <%= hidden_field_tag(:sort, params[:sort]) %>
+              <%= hidden_field_tag(:order, params[:order]) %>
+              <%= hidden_field_tag(:interest, params[:interest]) %>
+              <%= hidden_field_tag(:staging, params[:staging]) %>
           <% end %>
+        </div>
+        <div class="row center">
+          <br/>
+          <% if params[:tag].first.blank? || (params[:tag].include? 'all') %>
+              <div class="btn btn-default active cursor-default" style="padding: 8px 8px;">
+                <%= t('views.sorting.all_theme') %>
+              </div>
+          <% else %>
+              <a href="<%= timelines_path(:sort => params[:sort],
+                                          :filter => params[:filter],
+                                          :order => params[:order],
+                                          :staging => params[:staging],
+                                          :interest => params[:interest],
+                                          :tag => 'all') %>"
+                 class="btn btn-default" style="padding: 8px 8px;">
+                <%= t('views.sorting.all_theme') %>
+              </a>
+          <% end %>
+          <% tags_hash.each do |key, value| %>
+              <a href="<%= timelines_path(:sort => params[:sort],
+                                          :filter => params[:filter],
+                                          :order => params[:order],
+                                          :staging => params[:staging],
+                                          :interest => params[:interest],
+                                          :tag => (params[:tag].blank? || (params[:tag].include? 'all')) ?
+                                                  [key] :
+                                                  (params[:tag].include? key) ? params[:tag].reject { |e| e == key } : [key].push(params[:tag]).flatten
+                           ) %>"
+                 class="btn btn-default <%= (params[:tag].blank? || (params[:tag].include? 'all')) ? nil : ((params[:tag].include? key) ? "active" : nil) %>"
+                 title="<%= value %>"
+                 data-toggle="tooltip">
+                <%= "<span class=\"icon-#{key}\"></span> ".html_safe %>
+              </a>
+          <% end %>
+        </div>
+        <br/>
+        <% if logged_in? %>
+            <div class="row center">
+              <% if params[:staging] == "true" %>
+                  <a href="<%= timelines_path(:sort => params[:sort],
+                                              :filter => params[:filter],
+                                              :order => params[:order],
+                                              :interest => params[:interest],
+                                              :tag => params[:tag]) %>"
+                     class="btn btn-default link-group">
+                    <span class="link-group-counter"> <%= @built_count + @staging_count %> </span>
+                      <span class="link-group-main-all">
+                        <%= t('views.timelines.all_timelines') %>
+                      </span>
+                  </a>
+                  <a href="<%= timelines_path(:sort => params[:sort],
+                                              :filter => params[:filter],
+                                              :order => params[:order],
+                                              :staging => false,
+                                              :interest => params[:interest],
+                                              :tag => params[:tag]) %>"
+                     class="btn btn-default link-group">
+                    <span class="link-group-counter"> <%= @built_count %> </span>
+                      <span class="link-group-main">
+                        <span class="link-icon icon-built "></span>
+                        <%= t('views.timelines.all_built') %>
+                      </span>
+                  </a>
+
+                  <div class="btn btn-default link-group active cursor-default">
+                    <span class="link-group-counter"> <%= @staging_count %>  </span>
+                      <span class="link-group-main">
+                        <span class="link-icon icon-staging "></span>
+                        <%= t('views.timelines.all_staging') %>
+                      </span>
+                  </div>
+              <% elsif params[:staging] == "false" %>
+                  <a href="<%= timelines_path(:sort => params[:sort],
+                                              :filter => params[:filter],
+                                              :order => params[:order],
+                                              :interest => params[:interest],
+                                              :tag => params[:tag]) %>"
+                     class="btn btn-default link-group">
+                    <span class="link-group-counter"> <%= @built_count + @staging_count %> </span>
+                      <span class="link-group-main-all">
+                        <%= t('views.timelines.all_timelines') %>
+                      </span>
+                  </a>
+
+                  <div class="btn btn-default link-group active cursor-default">
+                    <span class="link-group-counter"> <%= @built_count %>  </span>
+                      <span class="link-group-main">
+                        <span class="link-icon icon-built "></span>
+                        <%= t('views.timelines.all_built') %>
+                      </span>
+                  </div>
+                  <a href="<%= timelines_path(:sort => params[:sort],
+                                              :filter => params[:filter],
+                                              :order => params[:order],
+                                              :staging => true,
+                                              :interest => params[:interest],
+                                              :tag => params[:tag]) %>"
+                     class="btn btn-default link-group">
+                    <span class="link-group-counter"> <%= @staging_count %> </span>
+                      <span class="link-group-main">
+                        <span class="link-icon icon-staging "></span>
+                        <%= t('views.timelines.all_staging') %>
+                      </span>
+                  </a>
+              <% else %>
+                  <div class="btn btn-default link-group active cursor-default">
+                    <span class="link-group-counter"> <%= @built_count + @staging_count %>  </span>
+                      <span class="link-group-main-all">
+                        <%= t('views.timelines.all_timelines') %>
+                      </span>
+                  </div>
+                  <a href="<%= timelines_path(:sort => params[:sort],
+                                              :filter => params[:filter],
+                                              :order => params[:order],
+                                              :staging => false,
+                                              :interest => params[:interest],
+                                              :tag => params[:tag]) %>"
+                     class="btn btn-default link-group">
+                    <span class="link-group-counter"> <%= @built_count %> </span>
+                      <span class="link-group-main">
+                        <span class="link-icon icon-built "></span>
+                        <%= t('views.timelines.all_built') %>
+                      </span>
+                  </a>
+                  <a href="<%= timelines_path(:sort => params[:sort],
+                                              :filter => params[:filter],
+                                              :order => params[:order],
+                                              :staging => true,
+                                              :interest => params[:interest],
+                                              :tag => params[:tag]) %>"
+                     class="btn btn-default link-group">
+                    <span class="link-group-counter"> <%= @staging_count %> </span>
+                      <span class="link-group-main">
+                        <span class="link-icon icon-staging "></span>
+                        <%= t('views.timelines.all_staging') %>
+                      </span>
+                  </a>
+              <% end %>
+            </div>
+        <% end %>
       </div>
     </div>
     <div class="col-xs-12 col-lg-2">
       <% if logged_in? %>
           <div class="list-group">
-		  <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges')}".html_safe, timelines_graph_path,
+            <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges')}".html_safe, timelines_graph_path,
                         class: "list-group-item" %>
             <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
 		       </span> #{t('views.timelines.new')}".html_safe,
@@ -192,11 +257,42 @@
         <div class="row page">
           <% if @timelines.count > 0 %>
               <% if logged_in? %>
+                  <% if params[:staging] == "true" || params[:staging] == "false" %>
+                      <div class="col-xs-12 col-md-offset-2 col-md-8">
+                        <% if params[:staging] == "true" %>
+                            <div class="panel panel-info">
+                              <div class="panel-heading center">
+                                    <span style="font-size: 1.4em">
+                                <span class="icon icon-staging fat"></span>
+                                      <%= t('views.timelines.are_staging_html') %>
+                              </span>
+                                <br>
+                                  <span style="font-size: 1.2em">
+                                    <%= t('views.timelines.are_staging_sub') %>
+                                  </span>
+                              </div>
+                            </div>
+                        <% elsif params[:staging] == "false" %>
+                            <div class="panel panel-info">
+                              <div class="panel-heading center">
+                                    <span style="font-size: 1.4em">
+                                <span class="icon icon-built fat"></span>
+                                      <%= t('views.timelines.are_built_html') %>
+                              </span>
+                                <br>
+                                  <span style="font-size: 1.2em">
+                                    <%= t('views.timelines.are_built_sub') %>
+                                  </span>
+                              </div>
+                            </div>
+                        <% end %>
+                      </div>
+                  <% end %>
                   <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes, full_width: false} %>
               <% else %>
                   <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil, full_width: false} %>
               <% end %>
-                <%= paginate @timelines %>
+              <%= paginate @timelines %>
 
           <% else %>
               <h1 style="font-size: 2.8em;">
@@ -209,7 +305,7 @@
                 </div>
               </div>
               <br/>
-	      <%= link_to "<span class=\"icon icon-5\"> #{t('views.timelines.display_all')}".html_safe, timelines_path,
+              <%= link_to "<span class=\"icon icon-5\"> #{t('views.timelines.display_all')}".html_safe, timelines_path,
                           class: "btn btn-block btn-primary" %>
               <br/>
               <br/>
@@ -220,49 +316,53 @@
       <div class="row">
         <div class="col-xs-12 col-md-8 col-md-offset-2 center">
 
-      <% if logged_in? %>
-            <% if params[:staging] == "true" %>
-              <% if @built_count > 0 %>
-                <a href="<%= timelines_path(:sort => params[:sort],
-                                            :filter => params[:filter],
-                                            :order => params[:order],
-                                            :staging => false,
-                                            :interest => params[:interest],
-                                            :tag => params[:tag]) %>"
-                   class="btn btn-block btn-primary">
-                  <span class="fat icon-built"></span>
-                  <%= t('views.timelines.all_built') %>
-                  <span class="badge badge-blue-background"> <%= @built_count %> </span>
-                </a>
+          <% if logged_in? %>
+              <% if params[:staging] == "true" %>
+                  <% if @built_count > 0 %>
+                      <a href="<%= timelines_path(:sort => params[:sort],
+                                                  :filter => params[:filter],
+                                                  :order => params[:order],
+                                                  :staging => false,
+                                                  :interest => params[:interest],
+                                                  :tag => params[:tag]) %>"
+                         class="btn btn-default link-group">
+                        <span class="link-group-counter"> <%= @built_count %> </span>
+                      <span class="link-group-main">
+                        <span class="link-icon icon-built "></span>
+                        <%= t('views.timelines.all_built') %>
+                      </span>
+                      </a>
+                  <% end %>
+              <% else %>
+                  <% if @staging_count > 0 %>
+                      <a href="<%= timelines_path(:sort => params[:sort],
+                                                  :filter => params[:filter],
+                                                  :order => params[:order],
+                                                  :staging => true,
+                                                  :interest => params[:interest],
+                                                  :tag => params[:tag]) %>"
+                         class="btn btn-default link-group">
+                        <span class="link-group-counter"> <%= @staging_count %> </span>
+                      <span class="link-group-main">
+                        <span class="link-icon icon-staging "></span>
+                        <%= t('views.timelines.all_staging') %>
+                      </span>
+                      </a>
+                  <% end %>
               <% end %>
-            <% else %>
-              <% if @staging_count > 0 %>
-                <a href="<%= timelines_path(:sort => params[:sort],
-                                            :filter => params[:filter],
-                                            :order => params[:order],
-                                            :staging => true,
-                                            :interest => params[:interest],
-                                            :tag => params[:tag]) %>"
-                   class="btn btn-block btn-primary">
-                  <span class="fat icon-staging "></span>
-                  <%= t('views.timelines.all_staging') %>
-                  <span class="badge badge-blue-background"> <%= @staging_count %> </span>
-                </a>
-              <% end %>
-            <% end %>
-            <br/><br/>
-            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+              <br/><br/>
+              <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
                    </span> #{t('views.timelines.new')}".html_safe,
-                        timelines_path, class: "btn btn-block btn-primary" %>
-      <% else %>
-            <%= link_to "<span class=\"bigger icon icon-staging\" >
+                          timelines_path, class: "btn btn-block btn-primary" %>
+          <% else %>
+              <%= link_to "<span class=\"bigger icon icon-staging\" >
                    </span> #{t('views.timelines.login')}
                         <span class=\"badge badge-blue-background\"> #{@staging_count} </span> ".html_safe,
-                        login_path, class: "btn btn-block btn-primary" %>
-            <%= link_to "<span class=\"icon icon-5\" >
+                          login_path, class: "btn btn-block btn-primary" %>
+              <%= link_to "<span class=\"icon icon-5\" >
 		   </span> #{t('views.sessions.new_user')}".html_safe,
-                        new_user_path, class: "btn btn-block btn-primary" %>
-      <% end %>
+                          new_user_path, class: "btn btn-block btn-primary" %>
+          <% end %>
         </div>
       </div>
       <br/>

@@ -30,7 +30,7 @@
       <br>
       <div class="sticky" data-placement="bottom"
            title="<%= t('views.pluralize.views', count: @timeline.views ) +
-                              distance_of_time_in_words_to_now( timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00") ) %>"
+                              distance_of_time_in_words_to_now( @timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? @timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00") ) %>"
            data-toggle="tooltip">
         <span class="fat icon-views"></span>
         <%= @timeline.views %>

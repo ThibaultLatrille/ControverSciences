@@ -373,8 +373,13 @@ fr:
       is_staging_sub: Aidez la à éclore !
       is_built_html: Cette controverse a éclos, elle s'est ouverte au monde&nbsp!
       is_built_sub: Aidez la à continuer sa métamorphose !
-      all_staging: Les controverses à l'état embryonnaire
-      all_built: Les controverses qui ont éclos
+      are_staging_html: Ces controverse sont encore à l'état embryonnaire&nbsp!
+      are_staging_sub: Aidez les à éclorent !
+      are_built_html: Ces controverse ont éclos, elles se sont ouvertes au monde&nbsp!
+      are_built_sub: Aidez les à continuer leur métamorphose !
+      all_staging: À l'état embryonnaire
+      all_built: Qui ont éclos
+      all_timelines: Toutes
       show_versus: Afficher le mode versus pour les références
       hide_versus: Masquer le mode versus pour les références
       show_star: Afficher la pertinence des références

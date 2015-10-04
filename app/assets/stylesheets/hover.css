@@ -27,9 +27,7 @@
     -webkit-transition-property: box-shadow;
     transition-property: box-shadow;
 }
-.btn:hover {
-    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
-}
+
 
 .hvr-grow, .hvr-grow1, .hvr-grow2 {
     display: inline-block;
