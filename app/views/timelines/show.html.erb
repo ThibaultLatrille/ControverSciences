@@ -27,15 +27,14 @@
         <span class="fat icon-summary"></span>
         <%= @timeline.nb_edits %>
       </div>
-      <% if @timeline.views > 90 %>
       <br>
       <div class="sticky" data-placement="bottom"
-           title="<%= t('views.pluralize.views', count: @timeline.views ) %>"
+           title="<%= t('views.pluralize.views', count: @timeline.views ) +
+                              distance_of_time_in_words_to_now( timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00") ) %>"
            data-toggle="tooltip">
         <span class="fat icon-views"></span>
         <%= @timeline.views %>
       </div>
-      <% end %>
     </div>
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timelines')}".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order]),
@@ -251,7 +250,7 @@
                         new_typo_path(frame_id: @improve_frame.id, field: 0),
                         remote: true,
                         class:  "btn btn-default", "data-toggle" => "tooltip",
-                        title:  t('views.frames.fix_typo_title'),
+                        title:  t('views.default.fix_typo'),
                         style:  "padding: 8px; margin: 0px 8px;" %>
           </div>
       <% end %>
@@ -431,7 +430,7 @@
                 <div class="pull-right">
                   <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
                               new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
-                              title:                                          t('views.timelines.fix_typo_summary'), :style => "padding: 6px; margin-right: 6px" %>
+                              title:                                          t('views.default.fix_typo'), :style => "padding: 6px; margin-right: 6px" %>
                   <% if current_user.admin %>
                       <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
                                   edit_summary_path(@summary.id),

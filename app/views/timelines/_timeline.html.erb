@@ -90,7 +90,6 @@
             <span class="fat icon-summary"></span>
             <span class="badge"><%= timeline.nb_edits %></span>
           </div>
-          <% if timeline.views > 90  %>
           <div class="sticky" data-placement="right"
                title="<%= t('views.pluralize.views', count: timeline.views) +
                                   distance_of_time_in_words_to_now( timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00") ) %>"
@@ -98,7 +97,6 @@
             <span class="fat icon-views"></span>
             <span class="badge"><%= timeline.views %></span>
           </div>
-          <% end %>
         </div>
       </div>
     </div>

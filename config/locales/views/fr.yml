@@ -1,7 +1,7 @@
 fr:
   views:
     default:
-      fix_typo: Corriger une faute de français
+      fix_typo: Corriger une faute de français, ou suggérer une amélioration à l'auteur.
       confirm: Êtes-vous certain ?
       published: Publiée il y a
       by: par
@@ -291,7 +291,7 @@ fr:
     frames:
       mine: Votre proposition de titre et de cadre
       favorite: Votre proposition de titre et de cadre favorite
-      new: Proposer un titre et un cadre"
+      new: Proposer un titre et un cadre
       new_to: Proposer un titre et un cadre à la controverse
       show_to: Cette contribution appartient à la controverse
       create: Publier votre proposition de titre et de cadre
@@ -308,11 +308,9 @@ fr:
                                           Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse."
       delete: Supprimer votre contribution
       index: Toutes les titres et cadres de cette controverse
-      fix_typo_title: Corriger une faute de français dans le titre
-      fix_typo_frame: Corriger une faute de français dans le cadre
       frame: Cadre, focus et mise au point
-      upvote: Sélectionner cette analyse comme votre favorite
-      downvote: Vous avez selectionné cette analyse comme votre favorite
+      upvote: Sélectionner cette contribution comme votre favorite
+      downvote: Vous avez selectionné cette contribution comme votre favorite
       no_favorite: Vous n'avez pas de contribution favorite
       no_mine: Vous n'avez pas encore écrit de contribution
       no_other: Il n'y a pas de contribution autre que la votre
@@ -353,7 +351,6 @@ fr:
       dl_bib: Télécharger la bibliographie
       edges: Liens entre les controverses
       edges_ref: Liens entre les références
-      fix_typo_summary: Corriger une faute de français dans la synthèse
       hide_show: Cliquer pour l'afficher/masquer
       is_private: Cette controverse est privée, et ne sera pas visible sans le lien.
       login: Identifiez vous pour voir les controverses à l'état embryonnaire
@@ -489,8 +486,8 @@ fr:
       already_sent: Vous avez déjà soumis une correction pour cette contribution,
         qui est en attente de validation !
       content: Correction
-      if_not_yours: |-
-        Si une faute de français vous a brulé les yeux, vous pouvez proposer une correction ici à l'auteur.\
+      if_not_yours_html: |-
+        Si une faute de français vous a brulé les yeux, ou si vous avez une suggestion à proposer à l'auteur, vous êtes sur la bonne page ! <br/>
                           Celle-ci lui sera envoyée pour être soumise à validation.
       if_yours: Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
       refuse: Refuser la correction
