@@ -208,6 +208,13 @@ class TimelinesController < ApplicationController
               type: "application/bib"
   end
 
+  def feed
+    @timeline_feed = Timeline.includes(:user).order('created_at DESC').where.not(private: true).where(staging: false).first(200)
+    respond_to do |format|
+      format.rss { render :layout => false }
+    end
+  end
+
   private
 
   def generate_bibtex(references)
