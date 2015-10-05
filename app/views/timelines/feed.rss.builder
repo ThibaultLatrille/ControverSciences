@@ -11,13 +11,13 @@ xml.rss :version => "2.0" do
 
     for timeline in @timeline_feed
       xml.item do
-        xml.title timeline.name
+        xml.title CGI::unescapeHTML(timeline.name)
         xml.author timeline.user.name
         xml.pubDate timeline.updated_at.to_s(:rfc822)
         xml.link timeline_url(timeline)
         xml.guid timeline_url(timeline)
 
-        text = timeline.frame
+        text = CGI::unescapeHTML(timeline.frame)
         # if you like, do something with your content text here e.g. insert image tags.
         # Optional. I'm doing this on my website.
         if timeline.picture_url.present?
