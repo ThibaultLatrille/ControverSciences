@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.includes(:user_detail).where(activated: true).order(score: :desc).page(params[:page]).per(24)
+    @users = User.includes(:user_detail).where(activated: true).order(score: :desc, created_at: :desc).page(params[:page]).per(24)
   end
 
   def show
