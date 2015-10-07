@@ -185,7 +185,7 @@ en:
       thank: Merci !
       user_name: Votre nom*
     header:
-      login: S'identifier
+      login: Log in
       typos: corrections en attente
       dead_links: Liens morts
       user: Accéder à votre profil
