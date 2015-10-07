@@ -20,12 +20,13 @@ en:
       comment:
         title: "Le titre"
         caption: "La légende"
-        f_0_content:
-        f_1_content:
-        f_2_content:
-        f_3_content:
-        f_4_content:
-        f_5_content:
+        f_0_content: ""
+        f_1_content: ""
+        f_2_content: ""
+        f_3_content: ""
+        f_4_content: ""
+        f_6_content: ""
+        f_7_content: ""
       reference:
         title: "Le titre"
         author: "Les auteurs de l'étude"
@@ -39,6 +40,6 @@ en:
       reference_edge:
         direction: "Sens du lien"
         category: "Type de lien"
-        target: "Avec la référence"
+        target: "Un ou plusieurs liens avec des références doivent être sélectionées"
       edge:
-        target: "Avec la controverse"
+        target: "Un ou plusieurs liens avec des controverses doivent être sélectionées"
