@@ -1,4 +1,6 @@
 <% provide(:title, "Controverses") %>
+<% @tips = (I18n.t('tips.timeline_index').is_a? String ) ? nil : I18n.t('tips.timeline_index').values %>
+
 <div id="my-container" class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-lg-2">

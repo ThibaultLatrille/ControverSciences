@@ -932,3 +932,18 @@ del {
     color: #FDFDFD;
   }
 }
+
+#tips-large{
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+#tips-small{
+  z-index: 9999;
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}

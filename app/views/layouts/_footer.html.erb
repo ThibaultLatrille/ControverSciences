@@ -119,6 +119,30 @@
   </div>
 </div>
 
+<% if @tips.present? && @tips.length > 0 %>
+
+<div id="tips-large" class="">
+  <% @tips.each do |tip| %>
+      <h1>
+        <%= tip %>
+      </h1>
+  <%  end %>
+</div>
+<div id="tips-small" class="hvr-grow">
+  <%= image_tag("help.png", :height => "30px") %>
+</div>
+
+<script type="text/javascript">
+    $('#tips-small').click(function () {
+        $(this).fadeOut(800);
+        $('#tips-large').show(500);
+    });
+    $('#tips-large').click(function () {
+        $(this).hide(500);
+        $('#tips-small').fadeIn(800);
+    });
+</script>
+<% end %>
 
 <footer class="clearfix">
   <div id="social-footer" class="pull-right">
