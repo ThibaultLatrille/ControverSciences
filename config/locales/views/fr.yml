@@ -23,6 +23,7 @@ fr:
       back_timeline: Revenir à la controverse
       back_timelines: Revenir aux controverses
       back_reference: Revenir à la référence
+      back: Revenir en arrière
       users: Les contributeurs
       contributions: Évolution des contributions
       new_contributions: Nouvelles contributions
@@ -227,6 +228,15 @@ fr:
     issue:
       taken_into_account: Votre remarque a été prise en compte !
       thank: Merci !
+    partners:
+      new: Ajouter un partenaire
+      edit: Modifier le partenaire
+      create: Créer le partenaire
+      name: Son nom
+      description: Sa description
+      url: Lien vers le site
+      why: Le rapport avec ControverSciences
+      index_html: On <span class="glyphicon glyphicon-heart"></span>, on partage avec vous
     password:
       new: Demander un nouveau mot de passe
       reinit: Réinitialiser votre mot de passe

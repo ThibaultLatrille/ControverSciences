@@ -3,6 +3,8 @@ class Figure < ActiveRecord::Base
   belongs_to :reference
   belongs_to :timeline
   belongs_to :user
+  belongs_to :partner
+
   validate :picture_size
 
   attr_accessor :width, :height, :file_size, :is_image
@@ -19,6 +21,9 @@ class Figure < ActiveRecord::Base
     elsif self.img_timeline_id
       self.file_name = "#{self.user_id}_img_#{self.img_timeline_id}_v_#{
       Figure.where(user_id: self.user_id, img_timeline_id: self.img_timeline_id).count }"
+    elsif self.partner_id
+      self.file_name = "#{self.user_id}_partner_#{self.partner_id}_v_#{
+      Figure.where(user_id: self.user_id, partner_id: self.partner_id).count }"
     else
       self.file_name = "#{self.user_id}_profil_v_#{
       Figure.where(user_id: self.user_id, profil: true).count }"

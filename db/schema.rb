@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930151648) do
+ActiveRecord::Schema.define(version: 20151008103748) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20150930151648) do
     t.datetime "updated_at"
     t.integer  "img_timeline_id"
     t.text     "source",          default: ""
+    t.integer  "partner_id"
   end
 
   add_index "figures", ["reference_id"], name: "index_figures_on_reference_id", using: :btree
@@ -331,6 +332,22 @@ ActiveRecord::Schema.define(version: 20150930151648) do
   add_index "notifications", ["summary_id"], name: "index_notifications_on_summary_id", using: :btree
   add_index "notifications", ["timeline_id"], name: "index_notifications_on_timeline_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
+
+  create_table "partners", force: true do |t|
+    t.integer  "user_id"
+    t.text     "name"
+    t.text     "url"
+    t.text     "description"
+    t.text     "why"
+    t.text     "name_markdown"
+    t.text     "description_markdown"
+    t.text     "why_markdown"
+    t.integer  "figure_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "partners", ["user_id"], name: "index_partners_on_user_id", using: :btree
 
   create_table "pending_users", force: true do |t|
     t.integer  "user_id"
