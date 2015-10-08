@@ -291,10 +291,13 @@
                             :style                                                        => "padding: 8px; margin: 8px" %>
               </div>
           <% end %>
-          <div class="cadre text-justify">
+          <div class="cadre text-justify clearfix">
             <b style="font-size: 1.4em"><%= t('views.frames.frame') %>:</b><br/>
             <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 1 %>">
               <%= @timeline.frame.html_safe %>
+              <span class="pull-right">
+                <%= link_to @improve_frame.user_name, user_path(@improve_frame.user_id) %>
+                </span>
            </span>
           </div>
           <br/>

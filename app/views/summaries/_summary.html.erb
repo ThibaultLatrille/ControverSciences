@@ -14,12 +14,10 @@
       <% end %>
       <div class="text-justify content<%= summary.id %>">
         <%= summary.markdown.html_safe %>
-        <% unless logged_in? %>
             <div class="pull-right">
               <%= "#{t('views.default.published')} #{time_ago_in_words(summary.created_at)} #{t('views.default.by')}" %>
               <%= link_to summary.user_name, user_path(summary.user_id) %>
             </div>
-        <% end %>
         <% if summary.summary_links.count > 0 %>
             <hr style="width: 250px"/>
             Cette synthèse se base sur <%= summary.summary_links.count.to_s + " référence" + (summary.summary_links.count > 1 ? "s" : "") %> :

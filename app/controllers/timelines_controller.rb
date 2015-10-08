@@ -93,11 +93,11 @@ class TimelinesController < ApplicationController
       if logged_in?
         @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
         @improve = Summary.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? false : true
-        @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
         @my_frame = Frame.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
       else
         query = query.where(staging: false)
       end
+      @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
       @timelines = query
       @titles     = Reference.where(timeline_id: @timeline.id, title_fr: "").count
       ref_query = Reference.select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
