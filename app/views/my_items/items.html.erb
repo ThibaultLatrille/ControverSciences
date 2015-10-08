@@ -1,6 +1,9 @@
-<% provide(:title, "Mes contributions") %>
+<% provide(:title, "Vos contributions") %>
 <div id="my-container" class="container-fluid">
 
+  <h1>
+ <%= t('views.header.my_items') %>
+  </h1>
 <% if params[:private] == "true" %>
     <div class="col-xs-12 col-md-offset-3 col-md-6">
       <div class="panel panel-info">

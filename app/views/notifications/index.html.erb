@@ -1,4 +1,7 @@
 <% provide(:title, "Notifications") %>
+<h1>
+  <%= t('views.header.news') %>
+</h1>
 <div id="my-container" class="container-fluid">
 <%= form_for( :notification, url: notifications_delete_path, method: :post ) do |f| %>
 <div class="row">
