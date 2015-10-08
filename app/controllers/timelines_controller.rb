@@ -141,7 +141,7 @@ class TimelinesController < ApplicationController
   end
 
   def network
-    @nodes = Timeline.select(:id, :slug, :name, :score).all
+    @nodes = Timeline.select(:id, :slug, :name, :staging, :score).all
     @links = Edge.select(:id, :timeline_id, :target, :balance)
                 .all.to_a
                 .reject{|i|  i.balance < 0 }
