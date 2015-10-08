@@ -5,7 +5,7 @@ child @nodes, root:"nodes", :object_root => false do
   attributes :id
   node(:size) { |node| node.staging ? 10*node.score : node.score }
   node(:url) { |node| timeline_url(node) }
-  node(:group) { |node| node.staging ? '0' : '1' }
+  node(:group) { |node| node.staging ? '1' : '0' }
 end
 
 node (:nodes) {[]} if @nodes.empty?
