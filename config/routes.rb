@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   resources :dead_links, only: [:create, :destroy, :index]
   resources :partners, only: [:new, :create, :edit, :destroy, :index, :update] do
     collection do
-      get 'suggest'
+      post 'suggest'
     end
   end
   post 'notifications/delete'

@@ -6,6 +6,9 @@
       <h1>
         <%= t('views.partners.index_html') %>
       </h1>
+      <h2>
+        <%= t('views.partners.index_sub_html') %>
+      </h2>
       <br>
       <% if @partners.count > 0 %>
           <%= render :partial => 'partners/partner', :collection => @partners %>
@@ -13,11 +16,67 @@
       <br>
       <% if logged_in? && current_user.admin %>
           <div class="pull-right" style="margin-right: 8px">
-            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\"></span> #{t('views.partners.new')}".html_safe,
+            <%= link_to "#{t('views.partners.new')}".html_safe,
                         new_partner_path,
+                        class: "btn btn-primary" %>
+          </div>
+      <% else %>
+          <div class="pull-right" style="margin-right: 8px">
+            <%= link_to "#{t('views.partners.suggest')}".html_safe,
+                        '#newpartner', 'data-toggle' => 'modal',
                         class: "btn btn-primary" %>
           </div>
       <% end %>
     </div>
   </div>
 </div>
+
+<% unless logged_in? && current_user.admin %>
+    <div class="modal fade" id="newpartner" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <br/>
+          </div>
+          <div class="modal-body clearfix">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <p>
+                  <%= t('views.partners.suggest').html_safe %>
+                </p>
+              </div>
+            </div>
+            <%= form_for(:partner, url: suggest_partners_path, remote: true,
+                         html:        {role: :form, 'data-model' => 'issue'}) do |f| %>
+                <%= f.label t('views.partners.name') %>
+                <%= f.text_area :name, {rows:          1, :placeholder => t('views.partners.name'),
+                                        :class         => "form-control textarea"} %>
+                <br/>
+                <%= f.label t('views.partners.url') %>
+                <%= f.text_area :url, {rows:          1, :placeholder => t('views.partners.url'),
+                                       :class         => "form-control"} %>
+                <br/>
+                <%= f.label t('views.partners.description') %>
+                <%= f.text_area :description, {rows:          3, :placeholder => t('views.partners.description'),
+                                               :class         => "form-control textarea"} %>
+                <br/>
+                <%= f.label t('views.partners.why') %>
+                <%= f.text_area :why, {rows:          3, :placeholder => t('views.partners.why'),
+                                       :class         => "form-control textarea"} %>
+
+                <input type="reset" style="display:none;"/>
+                <br/>
+                <%= f.button "#{t('views.buttons.send')} &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                             class: 'btn btn-success btn-lg pull-right',
+                             data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.sending')} "} %>
+
+          <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>

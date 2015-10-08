@@ -40,6 +40,17 @@ class PartnersController < ApplicationController
   end
 
   def suggest
+    partner = Partner.new(partner_params)
+    text = "Nouveau :heart: :  #{partner.name} \n Lien : #{partner.url} \n Description :#{partner.description} \n Quel rapport :#{partner.why}"
+    Slack.configure do |config|
+      config.token = ENV['SLACK_API_TOKEN']
+    end
+    client      = Slack::Web::Client.new
+    admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
+    client.chat_postMessage(channel: admin_group['id'], text: text)
+    respond_to do |format|
+      format.js { render 'partners/success', :content_type => 'text/javascript', :layout => false}
+    end
   end
 
   def destroy
