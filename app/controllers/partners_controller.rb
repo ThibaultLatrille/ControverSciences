@@ -1,8 +1,11 @@
 class PartnersController < ApplicationController
-  before_action :admin_user, only: [:new, :create, :edit,  :update,:destroy]
+  before_action :admin_user, only: [:new, :create, :edit,  :update, :destroy]
 
   def index
-    @partners = Partner.all
+    @partners = Partner.order( loves: :desc ).all
+    if logged_in?
+      @my_loves = PartnerLove.where(user_id: current_user.id).pluck(:partner_id)
+    end
   end
 
   def new

@@ -8,6 +8,21 @@
     <div class="col-xs-12 col-sm-9">
       <div class="panel panel-primary">
         <div class="panel-body">
+          <div class="pull-right" style="margin-left: 10px">
+            <% if my_loves && my_loves.include?(partner.id) %>
+                <button type="button" class="btn btn-success" data-placement="left"
+                        data-toggle="tooltip" value="<%= partner.id %>" data-validate="/partner_loves"
+                        title="<%= t('views.default.you_and' ) + " " + t('views.pluralize.loves', count: partner.loves - 1 ).html_safe %>">
+                  <span class="glyphicon glyphicon-heart"> <%= partner.loves %></span>
+                </button>
+            <% else %>
+                <button type="button" class="btn btn-default green" data-placement="left"
+                        data-toggle="tooltip" value="<%= partner.id %>" data-validate="/partner_loves"
+                        title="<%= t('views.pluralize.loves', count: partner.loves ).html_safe %>">
+                  <span class="glyphicon glyphicon-heart"> <%= partner.loves %></span>
+                </button>
+            <% end %>
+          </div>
           <h3>
             &nbsp &nbsp <%= link_to partner.name_markdown, partner.url, target: "_blank", class: "hvr-grow" %>
           </h3>

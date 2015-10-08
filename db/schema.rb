@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151008103748) do
+ActiveRecord::Schema.define(version: 20151008180419) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -333,6 +333,16 @@ ActiveRecord::Schema.define(version: 20151008103748) do
   add_index "notifications", ["timeline_id"], name: "index_notifications_on_timeline_id", using: :btree
   add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
+  create_table "partner_loves", force: true do |t|
+    t.integer  "partner_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "partner_loves", ["partner_id"], name: "index_partner_loves_on_partner_id", using: :btree
+  add_index "partner_loves", ["user_id"], name: "index_partner_loves_on_user_id", using: :btree
+
   create_table "partners", force: true do |t|
     t.integer  "user_id"
     t.text     "name"
@@ -345,6 +355,7 @@ ActiveRecord::Schema.define(version: 20151008103748) do
     t.integer  "figure_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "loves",                default: 0
   end
 
   add_index "partners", ["user_id"], name: "index_partners_on_user_id", using: :btree

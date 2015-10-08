@@ -86,6 +86,9 @@ fr:
       likes:
         one: "%{count} contributeur est intéressé par cette controverse"
         other: "%{count} contributeurs sont intéressés par cette controverse"
+      loves:
+        one: "%{count} contributeur aime ce site"
+        other: "%{count} contributeurs aiment ce site"
       reference_no_comment:
         one: "%{count} référence n'a pas d'analyse"
         other: "%{count} références n'ont pas d'analyse"

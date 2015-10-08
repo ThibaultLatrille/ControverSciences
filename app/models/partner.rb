@@ -3,6 +3,7 @@ class Partner < ActiveRecord::Base
 
   attr_accessor :delete_picture, :has_picture
   belongs_to :user
+  has_many :partner_loves, :dependent => :destroy
 
   validates :user_id, presence: true
   validates :name, presence: true, length: {maximum: 180}

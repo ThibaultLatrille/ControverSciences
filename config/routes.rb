@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       post 'suggest'
     end
   end
+  resources :partner_loves, only: [:create]
   post 'notifications/delete'
   delete 'logout' => 'sessions#destroy'
   get 'how_to' => 'static_pages#how_to'
