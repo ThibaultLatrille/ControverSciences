@@ -15,6 +15,16 @@
   }
 }
 
+.side-bar-top {
+  position: fixed;
+  top: 86px;
+  left: 15px;
+  float: left;
+  border-radius: 0;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0);
+}
+
 .side-bar {
   position: fixed;
   bottom: 70px;
@@ -24,3 +34,4 @@
   z-index: 9999;
   background-color: rgba(255, 255, 255, 0);
 }
+

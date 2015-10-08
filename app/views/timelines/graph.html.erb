@@ -2,9 +2,26 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 
-<div class="side-bar">
+<div class="side-bar-top">
   <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timelines')}".html_safe,
-              timelines_path, class: "btn btn-default btn-lg" %>
+              timelines_path, class: "btn btn-default" %>
+</div>
+
+<div class="side-bar">
+  <div class="clearfix">
+    <span class="graph-caption">
+      <%= t('views.timelines.timelines_staging') %>
+    </span>
+    <div class="graph-circle pull-left" style="background-color: rgb(174, 199, 232);"></div>
+  </div>
+  <br>
+
+  <div class="clearfix">
+    <span class="graph-caption">
+       <%= t('views.timelines.timelines_built') %>
+    </span>
+    <div class="graph-circle pull-left" style="background-color: rgb(31, 119, 180);"></div>
+  </div>
 </div>
 
 <span id="d3-graph"></span>
