@@ -947,3 +947,69 @@ del {
   bottom: 0;
   right: 0;
 }
+
+#biofunds-search-box{
+  margin-bottom: 10px;
+  div{
+    border: 1px solid lightgray;
+    border-radius: 6px 0 0 6px;
+    width: 100%;
+    .icon{
+      color: #fff;
+      font-size: 28px;
+      position: absolute;
+      left: 5px;
+      padding-left:  16px;
+      padding-top:  8px;
+      pointer-events: none;
+    }
+    input#biofunds-search{
+      width: 18%;
+      min-height: 46px;
+      background-color: #26a69a;
+      border-radius: 5px 0 0 5px;
+      border: none;
+    }
+    input#biofunds-text{
+      width: 82%;
+      border: none;
+      border-bottom: 4px solid #26a69a;
+      font-size: 25px;
+      color: #65737e;
+      margin: 0 0 0 -4px;
+      padding: 1px 0 5px 10px;
+    }
+    input#biofunds-text::-webkit-input-placeholder {
+      color: lightgray;
+    }
+    input#biofunds-text:-moz-placeholder { /* Firefox 18- */
+      color: lightgray;
+    }
+    input#biofunds-text::-moz-placeholder {  /* Firefox 19+ */
+      color: lightgray;
+    }
+    input#biofunds-text:-ms-input-placeholder {
+      color: lightgray;
+    }
+    input#biofunds-text:hover, input#biofunds-text:focus, input#biofunds-text:active{
+      outline:none;
+      background: #ffffff;
+    }
+    input#biofunds-text:focus::-webkit-input-placeholder {
+      color: #FDFDFD;
+    }
+    input#biofunds-text:focus:-moz-placeholder{
+      color: #FDFDFD;
+    }
+    input#biofunds-text:focus::-moz-placeholder{
+      color: #FDFDFD;
+    }
+    input#biofunds-text:focus:-ms-input-placeholder{
+      color: #FDFDFD;
+    }
+  }
+}
+
+#why-biofunds{
+  cursor: default;
+}
