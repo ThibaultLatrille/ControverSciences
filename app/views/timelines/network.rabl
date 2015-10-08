@@ -4,6 +4,7 @@ child @nodes, root:"nodes", :object_root => false do
   node(:name) { |link| link.name }
   attributes :id
   node(:size) { |node| node.score }
+  node(:url) { |node| timeline_url(node) }
   node(:group) { |node| node.score.to_i }
 end
 
