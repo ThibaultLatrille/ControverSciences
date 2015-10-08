@@ -23,6 +23,10 @@
               <%= f.text_area :name, {rows:          1, :placeholder => t('views.partners.name'),
                                       :class         => "form-control textarea"} %>
               <br/>
+              <%= f.label t('views.partners.url') %>
+              <%= f.text_area :url, {rows:          1, :placeholder => t('views.partners.url'),
+                                     :class         => "form-control"} %>
+              <br/>
               <%= f.label t('views.partners.description') %>
               <%= f.text_area :description, {rows:          3, :placeholder => t('views.partners.description'),
                                              :class         => "form-control textarea"} %>

@@ -27,11 +27,11 @@
             &nbsp &nbsp <%= link_to partner.name_markdown, partner.url, target: "_blank", class: "hvr-grow" %>
           </h3>
           <div class="justify">
-            <%= partner.description_markdown %>
+            <%= partner.description_markdown.html_safe %>
           </div>
           <br>
           <div class="justify">
-            <%= partner.why_markdown %>
+            <%= partner.why_markdown.html_safe %>
           </div>
           <% if logged_in? && current_user.admin %>
               <div class="pull-right" style="margin-right: 8px">
