@@ -27,28 +27,34 @@
         </div>
         <div class="panel-body clearfix">
           <%= form_for(@frame) do |f| %>
-              <%= render 'static_pages/charte' %>
               <%= render 'shared/error_messages', object: f.object %>
-
-              <br/>
-              <br/>
               <b style="font-size: 1.4em"><%= t('views.frames.edit_title') %></b>
 
               <div id="characterLeft1"></div>
               <br/>
               <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
-              </br>
+              <br/>
+              <%= render 'static_pages/charte' %>
+
+              <br/>
+              <br/>
+
               <b style="font-size: 1.4em"><%= t('views.frames.edit_frame') %></b>
 
               <div id="characterLeft0"></div>
               <br/>
               <%= f.text_area :content, class: 'form-control textarea', id: "description0" %>
-              </br>
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <%= t('views.frames.edit_info_html') %>
                 </div>
               </div>
+
+              <br/>
+              <%= render 'static_pages/charte_frame' %>
+              <br/>
+              <br/>
+              <br/>
               <br/>
 
               <div class="panel panel-default">
@@ -89,7 +95,7 @@
               <br/>
               <%= f.button "#{t('views.frames.create')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success btn-lg pull-right',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.publishing')} "} %>
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.publishing')} "} %>
           <% end %>
         </div>
       </div>
@@ -99,7 +105,11 @@
 
 
 <script type="text/javascript">
-    $("#description1").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra', 'cmdList', 'cmdListO', 'cmdBold']});
+    $("#description1").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra', 'cmdList', 'cmdListO', 'cmdBold']
+    });
     $("#description0").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl']});
     $(document).ready(function () {
         if (!$('#check-box').is(':checked')) {
@@ -114,10 +124,10 @@
         });
     });
     $.each(['0', '1'], function (index, value) {
-        $(document).ready(function() {
+        $(document).ready(function () {
             if (value === '0') {
                 var max = 2500,
-                        min= 180;
+                        min = 180;
             } else {
                 var max = 180;
             }
@@ -139,7 +149,7 @@
         $('#description' + value).keyup(function () {
             if (value === '0') {
                 var max = 2500,
-                        min= 180;
+                        min = 180;
             } else {
                 var max = 180;
             }

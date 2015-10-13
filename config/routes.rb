@@ -64,6 +64,8 @@ Rails.application.routes.draw do
   get 'faq' => 'static_pages#faq'
   get 'terms' => 'static_pages#terms'
   get 'about' => 'static_pages#about'
+  get 'markdown-tutorial' => 'static_pages#markdown_tutorial'
+  get 'magna-charta' => 'static_pages#magna_charta', as: 'magna_charta'
   get 'empty_references' => 'static_pages#empty_references'
   get 'empty_summaries' => 'static_pages#empty_summaries'
   get 'empty_comments' => 'static_pages#empty_comments'

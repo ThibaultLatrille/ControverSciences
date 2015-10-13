@@ -329,6 +329,7 @@ fr:
       previous: Contributeur précédent
       send_email: Etre notifié par email si vous avez des notifications non lues (une fois par semaine)
       terms: Les conditions générales d'utilisation
+      magna_charta: La Magna Charta
       website: 'Site web :'
       wrote: a écrit
       confirmation_pwd_ok: Votre mot de passe a bien été confirmé.
@@ -393,7 +394,8 @@ fr:
       ten_body: De nouvelles références, analyses et synthèses sont ajoutées par les
         contributeurs pour enrichir le débat.
       ten_head: La controverse continue à être alimentée.
-      three_body: Les références sont organisées selon leurs dates de parution sous
+      three_body: |-
+        Les références sont organisées selon leurs dates de parution sous
         la forme d'une frise chronologique.
       three_head: Les références composent la frise chronologique.
       two_body: |-

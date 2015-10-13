@@ -127,9 +127,7 @@ fr:
       edit: Modifier votre titre et/ou votre cadre
       edit_title: Titre de la controverse
       edit_frame: Cadre, focus et mise au point de la controverse
-      edit_info_html: "Précisez le cadre de référence de la controverse.
-                                         <br/>
-                                         Le <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown est
+      edit_info_html: "Le <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown est
                                          supporté</a>"
       binary: Pour cette controverse, il existe deux réponses antagonistes
       binary_info: "En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les références.

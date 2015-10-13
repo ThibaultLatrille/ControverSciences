@@ -20,8 +20,8 @@
         <% if @frame.user_id == current_user.id || current_user.admin %>
             <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.frames.delete')}".html_safe,
                         frame_path(@frame.id), method: :delete,
-                        data:                          {confirm: t('views.default.confirm')},
-                        class:                         "list-group-item list-group-item-danger" %>
+                        data: {confirm: t('views.default.confirm')},
+                        class: "list-group-item list-group-item-danger" %>
         <% end %>
       </div>
     </div>
@@ -36,28 +36,36 @@
         </div>
         <div class="panel-body">
           <%= form_for(@frame) do |f| %>
-              <%= render 'static_pages/charte' %>
               <%= render 'shared/error_messages', object: f.object %>
-
-              <br/>
-              <br/>
               <b style="font-size: 1.4em"><%= t('views.frames.edit_title') %></b>
 
               <div id="characterLeft1"></div>
               <br/>
               <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
-              </br>
+              <br/>
+              <%= render 'static_pages/charte' %>
+
+              <br/>
+              <br/>
+
               <b style="font-size: 1.4em"><%= t('views.frames.edit_frame') %></b>
 
               <div id="characterLeft0"></div>
               <br/>
               <%= f.text_area :content, class: 'form-control textarea', id: "description0" %>
-              </br>
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <%= t('views.frames.edit_info_html') %>
                 </div>
               </div>
+
+              <br/>
+              <%= render 'static_pages/charte_frame' %>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+
 
               <div class="panel panel-default">
                 <div class="panel-body">
@@ -102,7 +110,7 @@
               <br/>
               <%= f.button "#{t('views.frames.edit')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success btn-lg pull-right',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
           <% end %>
         </div>
       </div>
@@ -111,8 +119,16 @@
 </div>
 
 <script type="text/javascript">
-    $("#description1").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra', 'cmdList', 'cmdListO', 'cmdBold']});
-    $("#description0").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']});
+    $("#description1").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra', 'cmdList', 'cmdListO', 'cmdBold']
+    });
+    $("#description0").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
+    });
     $('#check-box').click(function () {
         if ($(this).is(':checked')) {
             $('#binary-box').show(500)
@@ -133,10 +149,10 @@
         });
     });
     $.each(['0', '1'], function (index, value) {
-        $(document).ready(function() {
+        $(document).ready(function () {
             if (value === '0') {
                 var max = 2500,
-                        min= 180;
+                        min = 180;
             } else {
                 var max = 180;
             }
@@ -158,7 +174,7 @@
         $('#description' + value).keyup(function () {
             if (value === '0') {
                 var max = 2500,
-                        min= 180;
+                        min = 180;
             } else {
                 var max = 180;
             }

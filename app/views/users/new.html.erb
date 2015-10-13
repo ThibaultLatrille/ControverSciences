@@ -61,7 +61,9 @@
         <br/>
             <%= f.label :terms_of_service do %>
                 <%= f.check_box :terms_of_service %>
-                <span> <%= t('views.users.i_have_read') %> <%= link_to t('views.users.terms'), terms_path, target: "_blank" %>. </span>
+                <span> <%= t('views.users.i_have_read') %> <%= link_to t('views.users.terms'), terms_path, target: "_blank" %> </span>
+
+                <span> ET <%= link_to t('views.users.magna_charta'), magna_charta_path, target: "_blank" %>. </span>
             <% end %>
        <br/>
        <%= f.button "#{t('views.users.create')} &nbsp <span class=\"icon-frog fat\" aria-hidden=\"true\"></span>".html_safe, id: "submit",

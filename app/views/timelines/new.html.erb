@@ -1,95 +1,111 @@
 <% provide(:title, "Nouvelle controverse") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
-<div class="col-md-6 col-md-offset-3">
-<div class="panel panel-default">
-<div class="panel-heading">
-  <h3><%= t('views.timelines.new') %></h3>
-</div>
-<div class="panel-body">
-<%= form_for(@timeline) do |f| %>
-    <%= render 'static_pages/charte' %>
-    <%= render 'shared/error_messages', object: f.object %>
-    <br/>
-    <br/>
-    <b style="font-size: 1.4em"><%= t('views.frames.edit_title') %></b>
-
-      <div id="characterLeft1"></div>
-      <br/>
-    <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
-    </br>
-    <b style="font-size: 1.4em"><%= t('views.frames.edit_frame') %></b>
-
-      <div id="characterLeft0"></div>
-      <br/>
-    <%= f.text_area :frame, class: 'form-control textarea', id: "description0" %>
-    </br>
-      <div class="panel panel-info">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-default">
         <div class="panel-heading">
-          <%= t('views.frames.edit_info_html') %>
+          <h3><%= t('views.timelines.new') %></h3>
         </div>
-      </div>
-      <br/>
+        <div class="panel-body">
+          <%= form_for(@timeline) do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
+              <b style="font-size: 1.4em"><%= t('views.frames.edit_title') %></b>
 
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <%= f.label :binary do %>
-            <%= f.check_box :binary, id: "check-box", value: true %>
-            <span> <%= t('views.frames.binary') %> </span>
-        <% end %>
-        <div id="binary-box">
-          <br/>
+              <div id="characterLeft1"></div>
+              <br/>
+              <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
+              <br/>
+              <%= render 'static_pages/charte' %>
 
-          <div class="row">
-            <div class="col-xs-4">
               <br/>
-              <%= f.text_field :binary_left, class: 'form-control', value: "", placeholder: t('views.frames.versus_placeholder_left') %>
               <br/>
-            </div>
-            <div class="col-xs-4 center">
-              <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
-            </div>
-            <div class="col-xs-4">
+
+              <b style="font-size: 1.4em"><%= t('views.frames.edit_frame') %></b>
+
+              <div id="characterLeft0"></div>
               <br/>
-              <%= f.text_field :binary_right, class: 'form-control', value: "", placeholder: t('views.frames.versus_placeholder_right') %>
+              <%= f.text_area :frame, class: 'form-control textarea', id: "description0" %>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <%= t('views.frames.edit_info_html') %>
+                </div>
+              </div>
+
               <br/>
-            </div>
-          </div>
-          <br/>
-        </div>
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <%= t('views.frames.binary_info') %>
-          </div>
+              <%= render 'static_pages/charte_frame' %>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <%= f.label :binary do %>
+                      <%= f.check_box :binary, id: "check-box", value: true %>
+                      <span> <%= t('views.frames.binary') %> </span>
+                  <% end %>
+                  <div id="binary-box">
+                    <br/>
+
+                    <div class="row">
+                      <div class="col-xs-4">
+                        <br/>
+                        <%= f.text_field :binary_left, class: 'form-control', value: "", placeholder: t('views.frames.versus_placeholder_left') %>
+                        <br/>
+                      </div>
+                      <div class="col-xs-4 center">
+                        <%= image_tag("versus.png", alt: "Versus", :height => "78px") %>
+                      </div>
+                      <div class="col-xs-4">
+                        <br/>
+                        <%= f.text_field :binary_right, class: 'form-control', value: "", placeholder: t('views.frames.versus_placeholder_right') %>
+                        <br/>
+                      </div>
+                    </div>
+                    <br/>
+                  </div>
+                  <div class="panel panel-info">
+                    <div class="panel-heading">
+                      <%= t('views.frames.binary_info') %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% if current_user.private_timeline %>
+                  <div class="panel panel-danger">
+                    <div class="panel-heading">
+                      <%= f.label :private do %>
+                          <%= f.check_box :private %>
+                          <span class="icon icon-locked normal"></span>
+                          <span><%= t('views.timelines.is_private') %> </span>
+                      <% end %>
+                    </div>
+                  </div>
+              <% else %>
+                  <%= f.hidden_field :private, value: false %>
+              <% end %>
+              <%= f.button "#{t('views.timelines.create')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success btn-lg pull-right',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')} "} %>
+          <% end %>
         </div>
       </div>
     </div>
-      <% if current_user.private_timeline %>
-          <div class="panel panel-danger">
-            <div class="panel-heading">
-              <%= f.label :private do %>
-                  <%= f.check_box :private %>
-                  <span class="icon icon-locked normal"></span> <span><%= t('views.timelines.is_private') %> </span>
-              <% end %>
-            </div>
-          </div>
-      <% else %>
-          <%= f.hidden_field :private, value: false %>
-      <% end %>
-      <%= f.button "#{t('views.timelines.create')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                 class: 'btn btn-success btn-lg pull-right',
-		 data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')} "} %>
-<% end %>
-</div>
-</div>
-</div>
-</div>
+  </div>
 </div>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#description1").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra','cmdList','cmdListO','cmdBold']});
-        $("#description0").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
+        $("#description1").markdown({
+            autofocus: false,
+            savable: false,
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra', 'cmdList', 'cmdListO', 'cmdBold']
+        });
+        $("#description0").markdown({
+            autofocus: false,
+            savable: false,
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
+        });
         $('#check-box').click(function () {
             if ($(this).is(':checked')) {
                 $('#binary-box').show(500)
@@ -99,10 +115,10 @@
         });
     });
     $.each(['0', '1'], function (index, value) {
-        $(document).ready(function() {
+        $(document).ready(function () {
             if (value === '0') {
                 var max = 2500,
-                    min= 180;
+                        min = 180;
             } else {
                 var max = 180;
             }
@@ -124,7 +140,7 @@
         $('#description' + value).keyup(function () {
             if (value === '0') {
                 var max = 2500,
-                        min= 180;
+                        min = 180;
             } else {
                 var max = 180;
             }
