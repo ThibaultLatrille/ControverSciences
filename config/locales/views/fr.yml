@@ -232,7 +232,7 @@ fr:
       taken_into_account: Votre remarque a été prise en compte !
       thank: Merci !
     partners:
-      new: Ajouter un site sur le murdu <span class="glyphicon glyphicon-heart"></span>
+      new: Ajouter un site sur le mur du <span class="glyphicon glyphicon-heart"></span>
       edit: Modifier les information
       create: Créer ce site et l'ajouter sur le mur du <span class="glyphicon glyphicon-heart"></span>
       suggest: Suggèrer un site à ajouter sur le mur du <span class="glyphicon glyphicon-heart"></span>
