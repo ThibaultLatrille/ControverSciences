@@ -4,6 +4,8 @@ class ReferencesController < ApplicationController
   def from_timeline
     @best_comment = BestComment.find_by_reference_id( params[:reference_id] )
     @ref = Reference.select( :id, :category ).find( params[:reference_id] )
+    @target = Reference.select( :id, :year, :title, :title_fr ).where( id: ReferenceEdge.where(reference_id: params[:reference_id]).pluck(:target) )
+    @from = Reference.select( :id, :year, :title, :title_fr ).where( id: ReferenceEdge.where(target: params[:reference_id]).pluck(:reference_id) )
     respond_to do |format|
       format.js
     end
@@ -125,6 +127,9 @@ class ReferencesController < ApplicationController
     begin
       @reference = Reference.find(params[:id])
       Reference.increment_counter(:views, @reference.id )
+      @target = Reference.select( :id, :year, :title, :title_fr ).where( id: ReferenceEdge.where(reference_id: @reference.id).pluck(:target) )
+      @from = Reference.select( :id, :year, :title, :title_fr ).where( id: ReferenceEdge.where(target: @reference.id).pluck(:reference_id) )
+
       if logged_in?
         user_id = current_user.id
         ref_user_tag = ReferenceUserTag.find_by(user_id: user_id,

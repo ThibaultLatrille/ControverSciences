@@ -20,7 +20,7 @@
             </div>
         <% if summary.summary_links.count > 0 %>
             <hr style="width: 250px"/>
-            Cette synthèse se base sur <%= summary.summary_links.count.to_s + " référence" + (summary.summary_links.count > 1 ? "s" : "") %> :
+            <%= t('views.pluralize.edges', count: summary.summary_links.count) %> : :
             <ul style="list-style-type: none; padding-left: 0;">
               <% summary.summary_links.includes(:reference).each do |link| %>
                   <li>

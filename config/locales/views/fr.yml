@@ -110,6 +110,15 @@ fr:
       views:
         one: "%{count} vue en "
         other: "%{count} vues en "
+      target:
+        one: "Cette référence cite %{count} autre référence."
+        other: "Cette référence cite %{count} autres références."
+      from:
+        one: "Cette référence est citée par %{count} autre référence."
+        other: "Cette référence est citée par %{count} autres références."
+      edges:
+        one: "Cette synthèse se base sur %{count} référence analysée."
+        other: "Cette synthèse se base sur %{count} références analysée."
     buttons:
       invit: Inviter
       advise: Enregister cet avis

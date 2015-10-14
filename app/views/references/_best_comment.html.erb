@@ -1,10 +1,4 @@
 <br/>
-<% @ref.get_tag_list.each do |name| %>
-    <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
-                timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
-                class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
-<% end %>
-<br/>
 <% if best_comment.f_7_comment_id %>
     <div class="pull-right">
       <br/><br/>
@@ -12,7 +6,7 @@
       <div class="thumbnail">
         <%= image_tag best_comment.picture_url, class: "img-rounded img-responsive" %>
         <div class="caption">
-          <%= best_comment.markdown( 7 ).html_safe %>
+          <%= best_comment.markdown(7).html_safe %>
         </div>
       </div>
     </div>
@@ -21,9 +15,43 @@
     <% if best_comment["f_#{fi}_comment_id".to_sym] %>
         <b> <%= category_hash[@ref.category][fi] %> </b>
         <div class="text-justify">
-          <%= best_comment.markdown( fi ).html_safe %>
+          <%= best_comment.markdown(fi).html_safe %>
         </div>
     <% end %>
 <% end %>
+<% if @target.length > 0 || @from.length > 0 %>
+    <hr style="width: 250px"/>
+<% end %>
+<% if @target.length > 0 %>
+    <%= t('views.pluralize.target', count: @target.length) %> :
+    <ul style="list-style-type: none; padding-left: 0;">
+      <% @target.each do |link| %>
+          <li>
+            <span class="center" style="float: left; width: 40px;">
+              •
+            </span>
+            <%= link_to "#{link.year} - #{link.title_display}".html_safe, reference_path(link.id), target: "_blank" %>
+          </li>
+      <% end %>
+    </ul>
+<% end %>
+<% if @from.length > 0 %>
+    <%= t('views.pluralize.from', count: @from.length) %> :
+    <ul style="list-style-type: none; padding-left: 0;">
+      <% @from.each do |link| %>
+          <li>
+            <span class="center" style="float: left; width: 40px;">
+              •
+            </span>
+            <%= link_to "#{link.year} - #{link.title_display}".html_safe, reference_path(link.id), target: "_blank" %>
+          </li>
+      <% end %>
+    </ul>
+<% end %>
+<% @ref.get_tag_list.each do |name| %>
+    <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                class: "btn btn-default pull-right stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+<% end %>
 
-<%= link_to t('views.references.more'), reference_path( best_comment.reference_id ), class: "btn btn-primary" %>
+<%= link_to t('views.references.more'), reference_path(best_comment.reference_id), class: "btn btn-primary" %>
