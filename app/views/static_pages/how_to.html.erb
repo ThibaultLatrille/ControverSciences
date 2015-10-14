@@ -19,7 +19,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3>
-            <%= t('views.navigation.how_to') %>
+            <%= t('views.how_to.title') %>
           </h3>
         </div>
         <div class="panel-body">
@@ -30,65 +30,140 @@
                   <div class="col-xs-12">
                     <br>
                     <br>
-                    <ul class="nav nav-pills nav-justified">
-                      <li data-slide-to="0" class="slider active clearfix"><a href="#"><b>Controverse</b></a></li>
-                      <li data-slide-to="1" class="slider clearfix"><a href="#"><b>Référence</b></a></li>
-                      <li data-slide-to="2" class="slider clearfix"><a href="#"><b>Analyse</b></a></li>
-                      <li data-slide-to="3" class="slider clearfix"><a href="#"><b>Synthèse</b></a></li>
-                      <li data-slide-to="4" class="slider clearfix"><a href="#"><b>Amèliorer</b></a></li>
-                      <li data-slide-to="5" class="slider clearfix"><a href="#"><b>Voter</b></a></li>
-                      <li data-slide-to="6" class="slider clearfix"><a href="#"><b>Sélectionner</b></a></li>
+                    <ul id="navigation" class="nav nav-pills nav-justified">
+                      <li class="slider active clearfix">
+                        <a href="#"><b><%= t('views.how_to.controverse_head') %></b></a></li>
+                      <li class="slider clearfix">
+                        <a href="#"><b><%= t('views.how_to.reference_head') %></b></a></li>
+                      <li class="slider clearfix">
+                        <a href="#"><b><%= t('views.how_to.analyse_head') %></b></a></li>
+                      <li class="slider clearfix">
+                        <a href="#"><b><%= t('views.how_to.synthese_head') %></b></a></li>
+                      <li class="slider clearfix">
+                        <a href="#"><b><%= t('views.how_to.ameliorer_head') %></b></a></li>
+                      <li class="slider clearfix">
+                        <a href="#"><b><%= t('views.how_to.voter_head') %></b></a></li>
+                      <li class="slider clearfix">
+                        <a href="#"><b><%= t('views.how_to.selectionner_head') %></b></a></li>
+                      <li class="slider clearfix">
+                        <a href="#"><b><%= t('views.how_to.eclosion_head') %></b></a></li>
                     </ul>
                   </div>
                 </div>
               </div>
               <div class="col-xs-12 col-md-9">
-                <div id="slide-0" class="item displayed">
-                  <img class="img-responsive" src=<%= path_to_image 'organisation-0.png' %>>
-                  <div class="caption">
-                    <%=  t('views.how_to.four_body') %>
+                <div id="items">
+                  <div id="slide-0" class="item opaque">
+                    <img class="img-responsive" src=<%= path_to_image 'organisation-0.png' %>>
+                    <div class="caption clearfix">
+                      <div class="pull-right go-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </div>
+                      <div class="pull-left go-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                      </div>
+                      <%= t('views.how_to.controverse_body') %>
+                    </div>
+                    <br>
                   </div>
-                </div>
-                <div id="slide-1" class="item" style="display: none">
-                  <img class="img-responsive" src=<%= path_to_image 'organisation-1.png' %>>
+                  <div id="slide-1" class="item">
+                    <img class="img-responsive" src=<%= path_to_image 'organisation-1.png' %>>
 
-                  <div class="caption">
-                    <%=  t('views.how_to.four_body') %>
+                    <div class="caption">
+                      <div class="pull-right go-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </div>
+                      <div class="pull-left go-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                      </div>
+                      <%= t('views.how_to.reference_body') %>
+                    </div>
                   </div>
-                </div>
-                <div id="slide-2" class="item" style="display: none">
-                  <img class="img-responsive" src=<%= path_to_image 'organisation-2.png' %>>
+                  <div id="slide-2" class="item">
+                    <img class="img-responsive" src=<%= path_to_image 'organisation-2.png' %>>
 
-                  <div class="caption">
-                    <%=  t('views.how_to.four_body') %>
+                    <div class="caption">
+                      <div class="pull-right go-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </div>
+                      <div class="pull-left go-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                      </div>
+                      <%= t('views.how_to.analyse_body') %>
+                    </div>
                   </div>
-                </div>
-                <div id="slide-3" class="item" style="display: none">
-                  <img class="img-responsive" src=<%= path_to_image 'organisation-3.png' %>>
+                  <div id="slide-3" class="item">
+                    <img class="img-responsive" src=<%= path_to_image 'organisation-3.png' %>>
 
-                  <div class="caption">
-                    <%=  t('views.how_to.four_body') %>
+                    <div class="caption">
+                      <div class="pull-right go-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </div>
+                      <div class="pull-left go-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                      </div>
+                      <%= t('views.how_to.synthese_body') %>
+                    </div>
                   </div>
-                </div>
-                <div id="slide-4" class="item" style="display: none">
-                  <img class="img-responsive" src=<%= path_to_image 'organisation-4.png' %>>
+                  <div id="slide-4" class="item">
+                    <img class="img-responsive" src=<%= path_to_image 'organisation-4.png' %>>
 
-                  <div class="caption">
-                    <%=  t('views.how_to.four_body') %>
+                    <div class="caption">
+                      <div class="pull-right go-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </div>
+                      <div class="pull-left go-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                      </div>
+                      <%= t('views.how_to.ameliorer_body') %>
+                    </div>
                   </div>
-                </div>
-                <div id="slide-5" class="item" style="display: none">
-                  <img class="img-responsive" src=<%= path_to_image 'organisation-5.png' %>>
+                  <div id="slide-5" class="item">
+                    <img class="img-responsive" src=<%= path_to_image 'organisation-5.png' %>>
 
-                  <div class="caption">
-                    <%=  t('views.how_to.four_body') %>
+                    <div class="caption">
+                      <div class="pull-right go-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </div>
+                      <div class="pull-left go-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                      </div>
+                      <%= t('views.how_to.voter_body') %>
+                    </div>
                   </div>
-                </div>
-                <div id="slide-6" class="item" style="display: none">
-                  <img class="img-responsive" src=<%= path_to_image 'organisation-6.png' %>>
+                  <div id="slide-6" class="item">
+                    <img class="img-responsive" src=<%= path_to_image 'organisation-6.png' %>>
 
-                  <div class="caption">
-                    <%=  t('views.how_to.four_body') %>
+                    <div class="caption">
+                      <div class="pull-right go-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </div>
+                      <div class="pull-left go-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                      </div>
+                      <%= t('views.how_to.selectionner_body') %>
+                    </div>
+                  </div>
+                  <div id="slide-7" class="item">
+                    <div id="eclosion">
+                      <%= t('views.how_to.eclosion_body') %>
+                      <br><br>
+                      <span class="icon icon-staging"></span> <span class="arrow">&nbsp &#10137; &nbsp</span> <span class="icon icon-built"></span>
+                    </div>
+                  </div>
+                  <div id="is-transparent">
+                    <img class="img-responsive clearfix" src=<%= path_to_image 'organisation-0.png' %>>
+
+                    <div class="caption clearfix">
+                      <div class="pull-right go-right">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                      </div>
+                      <div class="pull-left go-left">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                      </div>
+                      <%= t('views.how_to.reference_body') %>
+                    </div>
+                    <br>
                   </div>
                 </div>
               </div>
@@ -101,16 +176,31 @@
   </div>
 </div>
 <script type="text/javascript">
-    $('.slider').on('click', function () {
-        var $this = $(this);
-        $('.slider').removeClass("active");
-        $this.addClass("active");
-        console.log($this.data('slide-to'));
-        $('.displayed').fadeOut(function () {
-            $(this).removeClass('displayed');
-            var target = $('#slide-' + $this.data('slide-to'));
-            target.fadeIn();
-            target.addClass("displayed");
-        })
+    $(document).ready(function () {
+        $('.slider').on('mouseover', function () {
+            $("#items .item").removeClass("opaque");
+
+            var newImage = $(this).index();
+
+            $("#items .item").eq(newImage).addClass("opaque");
+
+            $(".slider").removeClass("active");
+            $(this).addClass("active");
+        });
+        $('.go-right').on( "click", function () {
+            console.log("bim")
+            var index = ($(".active").index() + 1) % $(".slider").size();
+            $("#items .item").removeClass("opaque");
+            $("#items .item").eq(index).addClass("opaque");
+            $(".slider").removeClass("active");
+            $("#navigation .slider").eq(index).addClass("active");
+        });
+        $('.go-left').on( "click", function () {
+            var index = ($(".active").index() - 1) % $(".slider").size();
+            $("#items .item").removeClass("opaque");
+            $("#items .item").eq(index).addClass("opaque");
+            $(".slider").removeClass("active");
+            $("#navigation .slider").eq(index).addClass("active");
+        });
     });
 </script>

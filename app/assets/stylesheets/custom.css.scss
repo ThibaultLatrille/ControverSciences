@@ -1058,6 +1058,52 @@ del {
 
 
 #myCarousel {
+  .go-right{
+    cursor: pointer;
+  }
+  .go-left{
+    cursor: pointer;
+  }
+  #items{
+    position:relative;
+    margin:0 auto 10px;
+    #is-transparent{
+      z-index: -1;
+      opacity:0;
+      -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+      filter: alpha(opacity=0);
+    }
+    #eclosion{
+      margin-top: 3em;
+      text-align: center;
+      line-height: 1.2em;
+      font-size: 1.8em;
+      .icon{
+        font-size: 5em;
+      }
+      .arrow{
+        padding-top: 2em;
+        font-size: 2em;
+      }
+    }
+  }
+  #items .item {
+    position:absolute;
+    left:0;
+    -webkit-transition: opacity 0.5s ease-in-out;
+    -moz-transition: opacity 0.5s ease-in-out;
+    -o-transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.5s ease-in-out;
+    opacity:0;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+  }
+
+  #items .item.opaque {
+    opacity:1;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=1);
+  }
   .caption{
     font-size: 1.5em;
     text-align: center;

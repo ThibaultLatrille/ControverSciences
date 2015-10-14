@@ -357,49 +357,37 @@ en:
       new: Ajouter une nouvelle question et sa réponse
       for_admin: Réservé aux administrateurs
     how_to:
-      five_body: |-
-        Chaque contributeur dispose d'un nombre limité de crédits par référence qu'il peut choisir de répartir
-                      entre les analyses qu'il considère comme les plus objectives, pertinentes et claires.
-      five_head: Les contributeurs accréditent les analyses qu'ils considèrent commme
-        les meilleures.
-      four_body: |
-        Le contributeur qui a ajouté la référence ou d'autres contributeurs peuvent proposer une analyse (en
-                      français) de cette étude.
-                      Une analyse décrit l'éxperience réalisée dans l'étude, les résultats obtenus et les limites de cette
-                      étude.
-                      Les contributeurs expliquent aussi ce que cette étude apporte de nouveau dans la controverse et des
-                      remarques éventuelles peuvent être adjointes.
-      four_head: Les références sont analysées.
-      height_body: |-
-        Chaque contributeur dispose d'un nombre limité de crédits pour cette controverse qu'il peut choisir de
-                      répartir entre les synthèses qu'il considère comme les plus objectives, pertinentes et claires.
-      height_head: Les contributeurs accréditent les synthèses qu'ils considèrent commme les meilleures.
-      nine_body: |-
-        En se basant sur les crédits accordés aux synthèses, la meilleure synthèse
-                      est sélectionnée. Elle est affichée par défaut en en-tête de la frise chronologique de la controverse.
-      nine_head: La meilleure synthèse est sélectionnée.
-      one_body: Les contributeurs de ControverSciences ajoutent une nouvelle controverse.
-      one_head: Une controverse est créée.
-      seven_body: |-
-        Chaque contributeur peut écrire une synthèse de la controverse en se basant sur les références déjà
-                      analysées.
-                      Une synthèse est un résumé général de la situation qui sert d'introduction à l'exploration de la frise
-                      chronologique.
-      seven_head: Des synthèses de la controverse sont proposées.
-      six_body: |-
-        Pour chaque référence, en se basant sur les crédits accordés aux analyses, la meilleure analyse
-                      est sélectionnée. Elle est affichée par défaut dans la frise chronologique de la controverse.
-      six_head: La meilleure analyse est sélectionnée.
-      ten_body: De nouvelles références, analyses et synthèses sont ajoutées par les
-        contributeurs pour enrichir le débat.
-      ten_head: La controverse continue à être alimentée.
-      three_body: Les références sont organisées selon leurs dates de parution sous
-        la forme d'une frise chronologique.
-      three_head: Les références composent la frise chronologique.
-      two_body: |-
-        Les références doivent provenir de journaux scientifiques reconnus publiquement.
-                      Ces références ont été relues et examinées par des pairs scientifiques avant d'être publiées.
-      two_head: Les contibuteurs ajoutent des références scientifiques.
+      title: Suivons le destin d'une controverse
+      voter_body: |-
+        Les contributeurs accréditent les contributions qu'ils considèrent commme
+        les meilleures, c'est à dire si celles qui sont concises, précises et rigoureuses.
+      voter_head: Voter
+      analyse_body: |-
+        Les contributeurs propose des analyses en français de chaque référence.
+        Une analyse permet d'expliciter dans un vocabulaire non technique les tenants et aboutissant de la référence par rapport à la controverse.
+      analyse_head: Analyser
+      ameliorer_body: |-
+        Les contributeurs qui ne sont pas d'accord avec les contributions existantes
+         peuvent proposer des alternatives. Ceci est valable pour les synthèses, les analyses et même les titre de la controverse.
+      ameliorer_head: Améliorer
+      controverse_body: Un contributeur ajoute une nouvelle controverse, et en explicite le cadre de référence.
+      controverse_head: Naissance
+      synthese_body: |-
+        Une fois la controverse suffisament référencée, une synthèse peut être proposée.
+        Une synthèses résume l'ensemble du corpus et des analyses présentes.
+      synthese_head: Synthétiser
+      selectionner_body: |-
+        Les contributions les mieux notées sont mises en avant, et affichées par défaut.
+      selectionner_head: Sélectionner
+      reference_body: |-
+        Les contributeurs peuvent ensuite ajouter des références scientifiques, provenant de journaux scientifiques reconnus publiquement.
+        Les thèses de doctorat et les livres scientifiques sont également considérés comme des références scientifiques.
+      reference_head: Référencer
+      eclosion_body: |-
+        L'éclosion est le moment ou les contributeurs décident que la controverse peut être rendue publique.
+        Bien évidement elle continue ensuite à être alimenté, mais à partir de ce moment là, elle sort de sa mare et affronte les dures
+        lois de cette jungle qu'on appelle internet.
+      eclosion_head: Éclosion
     how_to_edit:
       five_body_html: |-
         Dans un soucis d'uniformité des références, celle-ci doivent répondrent à certain nombre de
