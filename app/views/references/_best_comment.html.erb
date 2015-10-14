@@ -30,7 +30,11 @@
             <span class="center" style="float: left; width: 40px;">
               •
             </span>
-            <%= link_to "#{link.year} - #{link.title_display}".html_safe, reference_path(link.id), target: "_blank" %>
+            <%= link_to "#{link.year} - #{link.title_display}".html_safe,
+                        reference_path(link.id),
+                        class: "linked-ref",
+                        "data-ref" => link.id,
+                        target: "_blank" %>
           </li>
       <% end %>
     </ul>
@@ -43,7 +47,11 @@
             <span class="center" style="float: left; width: 40px;">
               •
             </span>
-            <%= link_to "#{link.year} - #{link.title_display}".html_safe, reference_path(link.id), target: "_blank" %>
+            <%= link_to "#{link.year} - #{link.title_display}".html_safe,
+                        reference_path(link.id),
+                        class: "linked-ref",
+                        "data-ref" => link.id,
+                        target: "_blank" %>
           </li>
       <% end %>
     </ul>

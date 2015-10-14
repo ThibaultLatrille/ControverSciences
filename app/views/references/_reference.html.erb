@@ -20,7 +20,7 @@
     </div>
 </div>
 <% else %>
-    <div class="cd-timeline-block need-comment binary<%= reference.binary_most %>">
+    <div id="block-<%= reference.id %>" class="cd-timeline-block need-comment binary<%= reference.binary_most %>">
       <div class="cd-timeline-img cd-orange uni-orange"
            title="<%= (reference.binary_most == 0 && reference.star_most == 0 ) ? t('views.references.no_votes') :
                               binary_value_explanation( binary, reference.binary_most ) -%>
@@ -32,6 +32,8 @@
         <h2 style="font-size: 1.3em"> <%= link_to "#{reference.title}<br/><br/><span class=\"orange\"><span class=\"icon icon-comment bigger\"></span>
 	#{t('views.references.no_comment')}</span>".html_safe, new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
         </h2>
+        <div id="reference<%= reference.id %>" class="ref clearfix" style="display: none">
+        </div>
         <span class="cd-date"><%= reference.display_year %> - <b><%= category_names[reference.category] %></b></span>
       </div>
     </div>

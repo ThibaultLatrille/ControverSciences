@@ -694,12 +694,16 @@
                     $("#ref-" + id).trigger('click');
                 }
                 $("#block-" + id).show(500);
-                e.stopPropagation();
-                e.preventDefault();
-                $('html, body').animate({
-                    scrollTop: $('#block-' + id).offset().top - 80
-                }, 500);
-                return false
+                if ( $('#block-' + id).length ){
+                    e.stopPropagation();
+                    e.preventDefault();
+                    $('html, body').animate({
+                        scrollTop: $('#block-' + id).offset().top - 80
+                    }, 500);
+                    return false
+                } else{
+                    return true
+                }
             });
             $('.detail').click(function () {
                 if ($(this).hasClass("glyphicon-chevron-down")) {

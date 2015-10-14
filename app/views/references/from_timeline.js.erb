@@ -8,3 +8,21 @@ $("#reference<%= params[:reference_id] %>").html(
 $("#ref-<%= params[:reference_id] %>").show();
 $("#button<%= params[:reference_id] %>").remove();
 $('[data-toggle="tooltip"]',"#reference<%= params[:reference_id] %>").tooltip({container: 'body'});
+$('.linked-ref',"#reference<%= params[:reference_id] %>").click(function (e) {
+    var id = $(this).data("ref");
+    $("#button" + id).trigger('click');
+    if ($("#ref-" + id).hasClass("glyphicon-chevron-down")) {
+        $("#ref-" + id).trigger('click');
+    }
+    $("#block-" + id).show(500);
+    if ( $('#block-' + id).length ){
+        e.stopPropagation();
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $('#block-' + id).offset().top - 80
+        }, 500);
+        return false
+    } else{
+        return true
+    }
+});

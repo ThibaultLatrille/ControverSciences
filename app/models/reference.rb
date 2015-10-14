@@ -101,7 +101,7 @@ class Reference < ActiveRecord::Base
 
   def title_display
     if self.title_fr.blank?
-      self.title.html_safe
+      "Non analysée - #{self.title}".html_safe
     else
       self.title_fr.strip[3..-5].html_safe
     end
