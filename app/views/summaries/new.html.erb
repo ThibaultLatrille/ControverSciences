@@ -43,7 +43,9 @@
               <%= f.label t('views.model.summary') %>
               <div id="characterLeft0"></div>
 
-              <%= f.text_area :content, {rows:          3, :placeholder => t('views.model.summary'),
+              <%= f.text_area :content, {rows:          3,
+                                         value: t('views.summaries.content_value'),
+                                         :placeholder => t('views.model.summary'),
                                          :class         => "form-control textarea",
                                          id:            "description0",
                                          "data-provide" => "markdown"} %>

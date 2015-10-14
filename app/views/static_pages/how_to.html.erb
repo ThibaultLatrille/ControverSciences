@@ -188,7 +188,6 @@
             $(this).addClass("active");
         });
         $('.go-right').on( "click", function () {
-            console.log("bim")
             var index = ($(".active").index() + 1) % $(".slider").size();
             $("#items .item").removeClass("opaque");
             $("#items .item").eq(index).addClass("opaque");

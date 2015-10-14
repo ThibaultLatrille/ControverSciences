@@ -153,16 +153,30 @@ en:
       create: Publier la synthèse
       downvote: Vous avez selectionné cette synthèse comme votre favorite
       from_timeline: Cette synthèse appartient à la controverse
+      content_value: |-
+        ​**Introduction**
+
+        **Cœur de la synthèse**
+
+        ​​**Conclusion et ouverture**
       info_html: |-
-        La synthèse est un résumé général de la controverse. Son objectif
-                          est d'intégrer l'ensemble des références analysées, et donc de donner un bilan de la controverse basé
-                          sur des résultats scientifiques.
-                          <br/>
-                          Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est
-                          supporté</a>.
-                          De plus vous pouvez insérer des liens internes vers les références de cette controverse
-                          (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
-                          au lecteur une meilleure navigation dans la controverse.
+        La synthèse est un résumé général de la controverse. Son ​<b>objectif</b>​ est d'<b>intégrer</b> l'ensemble des <b>références analysées</b>​,
+        et d'en dresser un <b>bilan</b>​.
+        <br><br>
+        A titre d'<b>​exemple</b>​, voici une ​<b>​structure</b>​​ de synthèse qui
+        s'efforce d'être complète en incorporant les principales informations qui permettront de connecter les différentes références.<br><br>
+        ​<b>​[Introduction]</b>​<br>
+        &nbsp Bref rappel du contexte et des enjeux. Si nécessaire, décomposition de la question principale en
+        sous questions et articulation de ces sous questions.<br>
+        <b>​[Coeur de la synthèse]</b>​<br>
+        &nbsp Bilan des analyses de références.<br>
+        ​​<b>​[Conclusion et ouverture]</b>​<br>
+        &nbsp Délimiter ce qui semble attesté et ce qui est discutable. Discussion des enjeux.
+        <br><br>
+        Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
+        De plus vous pouvez insérer des liens internes vers les références de cette controverse
+        (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
+        au lecteur une meilleure navigation dans la controverse.
       no_favorite: Vous n'avez pas de synthèse favorite
       no_other: Il n'y a pas de synthèse autre que la votre
       no_summary: Vous n'avez pas encore écrit de synthèse
