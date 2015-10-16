@@ -4,21 +4,21 @@ en:
       fix_typo: Corriger une faute de français, ou suggérer une amélioration à l'auteur.
       confirm: Êtes-vous certain ?
       published: Publiée il y a
-      by: par
+      by: by
       by_cap: Par
-      public_f: Publique
-      private_f: Privée
-      warning: Attention !
-      you_and: "Vous et "
-      to: Vers
-      from: Depuis
-      at_least: Au moins
+      public_f: Public
+      private_f: Private
+      warning: Warning!
+      you_and: "You and "
+      to: To
+      from: From
+      at_least: At least
       tags: Thèmes
       ago: Il y a
-      your: Votre
-      search: Rechercher
-      close: Fermer
-      creation_confirmed: Création confirmée
+      your: Your
+      search: Search
+      close: Close
+      creation_confirmed: Creation confirmed
     navigation:
       back_timeline: Revenir à la controverse
       back_timelines: Revenir aux controverses
@@ -26,20 +26,20 @@ en:
       back: Revenir en arrière
       users: Les contributeurs
       contributions: Évolution des contributions
-      new_contributions: Nouvelles contributions
+      new_contributions: New contributions
       empty_comments: Analyser
       empty_ref: Enrichir
       empty_summaries: Synthétiser
       faq: FAQ
       faq_long: Foire aux questions (FAQ)
-      how_to: Découvrir ControverSciences
+      how_to: Discover ControverSciences
       how_to_edit: Contribuer à ControverSciences
-      newsletter: Bulletins d'information
+      newsletter: Newsletter
     pagination:
-      first: "&laquo; Première"
-      last: "Dernière &raquo;"
-      previous: "&lsaquo; Précédente"
-      next: "Suivante &rsaquo;"
+      first: "&laquo; First"
+      last: "Last &raquo;"
+      previous: "&lsaquo; Previous"
+      next: "Next &rsaquo;"
       truncate: "&hellip;"
     model:
       users: Les contributeurs
@@ -51,10 +51,10 @@ en:
       summaries_of: Les synthèses de cette controverse
       comment: L'analyse
       frame: La proposition de titre et de cadres
-      frame_0: Le titre
+      frame_0: Title
       frame_1: Le cadre
       frames: Les proposition de titre et de cadres
-      credits: Les Crédits
+      credits: Credits
       in_timeline: Dans la controverse
       of_reference: De la référence
       of_timeline: De la controverse
@@ -74,8 +74,8 @@ en:
       password: Mot de passe
       password_confirm: Confirmation de mot de passe
       errors:
-       one: " erreur"
-       other: " erreurs"
+       one: " error"
+       other: " errors"
     pluralize:
       users:
         one: "%{count} contributeur"
@@ -125,17 +125,17 @@ en:
       editing: Modification en cours
       publishing: Publication en cours
       creating: Création en cours
-      add: Ajouter
-      save: Sauvegarder
-      delete: Supprimer
-      edit: Modifier
-      deleting: Suppression en cours
-      send: Envoyer
-      sending: Envoi en cours
-      saving: Enregistrement en cours
+      add: Add
+      save: Save
+      delete: Delete
+      edit: Edit
+      deleting: Deleting
+      send: Send
+      sending: Sending
+      saving: Saving
       save_edit: Enregistrer la modification
       save_changes: Enregistrer les changements
-      connecting: Connexion en cours
+      connecting: Connecting
     sorting:
       score: Magique (par défaut)
       score_sort: Tri magique
