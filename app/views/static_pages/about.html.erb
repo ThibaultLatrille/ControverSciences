@@ -164,7 +164,7 @@
           <%= image_tag("irene-courtin.jpg", alt: "Irene Courtin", :class => "img-responsive img-rounded img-collectif") %>
         </div>
         <div>
-          <h3><a href="<%= user_path("irenel") %>" target="_blank">Irène Courtin</a> - Zététicienne en herb &nbsp
+          <h3><a href="<%= user_path("irenel") %>" target="_blank">Irène Courtin</a> - Zet éthique &nbsp
             <a href="mailto:irene.courtin@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
           </h3>
           <div class="justify">
@@ -521,6 +521,10 @@
 
 <h5> Politique de confidentialité</h5>
 <%= link_to t('views.users.terms'), terms_path, class: "btn btn-primary", target: "_blank" %>
+<br/>
+
+<h5> La Charte du site</h5>
+<%= link_to t('views.users.magna_charta'), magna_charta_path, class: "btn btn-primary", target: "_blank" %>
 <br/>
 
 </div>

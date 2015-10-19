@@ -335,7 +335,7 @@
                       </span>
                       </a>
                   <% end %>
-              <% else %>
+              <% elsif params[:staging] == "false" %>
                   <% if @staging_count > 0 %>
                       <a href="<%= timelines_path(:sort => params[:sort],
                                                   :filter => params[:filter],

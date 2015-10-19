@@ -367,7 +367,7 @@ fr:
       new: Ajouter une nouvelle question et sa réponse
       for_admin: Réservé aux administrateurs
     how_to:
-      title: Suivons le destin d'une controverse
+      title: Le destin d'une controverse sur ControverSciences
       voter_body: |-
         Les contributeurs accréditent les contributions qu'ils considèrent commme
         les meilleures, c'est à dire celles qui sont concises, précises et rigoureuses.
