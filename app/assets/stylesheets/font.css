@@ -348,9 +348,13 @@
 }
 
 .icon-versus:before {
-    content: "\e64a";
+    content: "\e800";
 }
 
 .icon-empty-set:before, .icon-0:before {
     content: "\e645";
+}
+
+.icon-pirate:before{
+    content: "\e801";
 }
