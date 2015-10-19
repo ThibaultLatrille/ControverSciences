@@ -99,6 +99,7 @@ footer #about-link a:hover {
 }
 
 .img-responsive {
+  width: 100%;
   display: block;
   max-width: 100%;
   height: auto;
@@ -807,7 +808,7 @@ del {
 }
 
 .img-collectif{
-  width: 86px;
+  width: 86px !important;
   margin-right: 15px;
 }
 

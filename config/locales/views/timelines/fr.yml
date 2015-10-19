@@ -77,7 +77,7 @@ fr:
       no_votes: Cette référence n'a pas reçu de votes.
       previous: Référence précédente
       title_original: Titre original
-      url: Lien vers la référence
+      url: Accéder à la référence
       user_no_comment: Vous n'avez pas encore écrit d'analyse
       user_tags:
         one: "%{count} contributeur pense que cette référence appartient au thème"
@@ -92,7 +92,7 @@ fr:
       maybe_binary: Vous avez déjà voté, mais vous avez peut être changé d'avis ?
       maybe_you_changed: Mais vous avez peut être changé d'avis ?
       you_think: Vous pensez que
-      sci_hub: Vous n'avez pas accés à ce lien ?
+      sci_hub: (en utilisant Sci-Hub)
     edges:
       new_edge: Ajouter des nouveaux liens
       to_timeline: Les liens concernant la controverse
