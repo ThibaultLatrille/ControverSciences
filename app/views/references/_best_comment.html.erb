@@ -23,7 +23,7 @@
     <hr style="width: 250px"/>
 <% end %>
 <% if @target.length > 0 %>
-    <%= t('views.pluralize.target', count: @target.length) %> :
+    <%= t('views.pluralize.target', count: @target.length) %>
     <ul style="list-style-type: none; padding-left: 0;">
       <% @target.each do |link| %>
           <li>
@@ -40,7 +40,7 @@
     </ul>
 <% end %>
 <% if @from.length > 0 %>
-    <%= t('views.pluralize.from', count: @from.length) %> :
+    <%= t('views.pluralize.from', count: @from.length) %>
     <ul style="list-style-type: none; padding-left: 0;">
       <% @from.each do |link| %>
           <li>

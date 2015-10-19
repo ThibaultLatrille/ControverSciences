@@ -27,6 +27,9 @@
     <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
                 timeline_path(@reference.timeline_id),
                 class: "list-group-item" %>
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-left\"></span> #{t('views.references.previous')}".html_safe,
+                previous_reference_path(timeline_id: @reference.timeline_id, id: @reference.id),
+                class: "list-group-item" %>
 	<%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> #{t('views.references.next')}".html_safe,
                 next_reference_path(timeline_id: @reference.timeline_id, id: @reference.id),
                 class: "list-group-item" %>
@@ -158,7 +161,7 @@
               <hr style="width: 250px"/>
           <% end %>
           <% if @target.length > 0 %>
-              <%= t('views.pluralize.target', count: @target.length) %> :
+              <%= t('views.pluralize.target', count: @target.length) %>
               <ul style="list-style-type: none; padding-left: 0;">
                 <% @target.each do |link| %>
                     <li>
@@ -171,7 +174,7 @@
               </ul>
           <% end %>
           <% if @from.length > 0 %>
-              <%= t('views.pluralize.from', count: @from.length) %> :
+              <%= t('views.pluralize.from', count: @from.length) %>
               <ul style="list-style-type: none; padding-left: 0;">
                 <% @from.each do |link| %>
                     <li>

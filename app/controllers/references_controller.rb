@@ -11,16 +11,38 @@ class ReferencesController < ApplicationController
     end
   end
 
-  def next
+  def previous
     refs = Reference.select(:id, :slug, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
     i = refs.index{|x| x.id == params[:id].to_i }
     i ||= rand(refs.length)
-    if i == refs.length-1
-      i = 0
+    if i.present?
+      if i == 0
+        i = refs.length - 1
+      else
+        i -= 1
+      end
+      redirect_to reference_path(refs[i])
     else
-      i += 1
+      flash[:danger] = t('controllers.timeline_record_not_found')
+      redirect_to timelines_path
     end
-    redirect_to reference_path(refs[i].id)
+  end
+
+  def next
+    refs = Reference.select(:id, :slug, :year).order(year: :desc).where(timeline_id: params[:timeline_id])
+    i = refs.index { |x| x.id == params[:id].to_i }
+    i ||= rand(refs.length)
+    if i.present?
+      if i == refs.length-1
+        i = 0
+      else
+        i += 1
+      end
+      redirect_to reference_path(refs[i])
+    else
+      flash[:danger] = t('controllers.timeline_record_not_found')
+      redirect_to timelines_path
+    end
   end
 
   def from_reference
