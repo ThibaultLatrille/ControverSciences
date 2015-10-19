@@ -150,7 +150,7 @@ class TimelinesController < ApplicationController
 
   def set_public
     if current_user.private_timeline
-      Timeline.update(params[:timeline_id], private: false)
+      Timeline.where(id: params[:timeline_id]).update_all( private: false)
     end
     redirect_to :back
   end
@@ -158,7 +158,7 @@ class TimelinesController < ApplicationController
   def switch_staging
     if current_user.admin
       staging = Timeline.select( :staging ).find(params[:timeline_id]).staging
-      Timeline.update(params[:timeline_id], staging: !staging )
+      Timeline.where(id: params[:timeline_id]).update_all( staging: !staging )
     else
       flash[:danger] = t('controllers.only_admins')
     end
@@ -169,7 +169,7 @@ class TimelinesController < ApplicationController
     if current_user.admin
       favorite_timeline = Timeline.select( :favorite, :staging ).find(params[:timeline_id])
       Timeline.where(favorite: true, staging: favorite_timeline.staging ).update_all(favorite: false )
-      Timeline.update(params[:timeline_id], favorite: !favorite_timeline.favorite )
+      Timeline.where(id: params[:timeline_id]).update_all( favorite: !favorite_timeline.favorite )
     else
       flash[:danger] = t('controllers.only_admins')
     end
