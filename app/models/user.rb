@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
   has_many :binaries, dependent: :destroy
   has_many :dead_links, dependent: :destroy
   has_many :partners, dependent: :destroy
-  has_many :partner_loves, dependent: :destroy
+  has_many :partner_loves, class_name: "PartnerLove", dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why,
                 :invalid_email, :terms_of_service,

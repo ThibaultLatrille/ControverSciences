@@ -5,7 +5,7 @@ class PendingUsersController < ApplicationController
     pending = PendingUser.find_by(user_id: params[:user_id])
     @user   = User.find(params[:user_id])
     if params[:handle] == "destroy"
-      @user.destroy
+      pending.update_columns( refused: true )
     elsif params[:handle] == "accept_domain" || params[:handle] == "accept"
       if params[:handle] == "accept_domain"
         Domain.create(name: @user.email.partition("@")[2])
@@ -22,8 +22,8 @@ class PendingUsersController < ApplicationController
         }
         mg_client.send_message "controversciences.org", message
       end
+      pending.destroy
     end
-    pending.destroy
     redirect_to assistant_index_path
   end
 

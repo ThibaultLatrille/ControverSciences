@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       if current_user.can_switch_admin
         current_user.admin_typos = Typo.where.not(target_user_id: current_user.id ).count
         current_user.admin_dead_links = DeadLink.all.count
-        current_user.admin_pending_users = PendingUser.all.count
+        current_user.admin_pending_users = PendingUser.where.not(refused: true).count
       else
         current_user.admin_typos = current_user.admin_dead_links = current_user.admin_pending_users = 0
       end
@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
     client      = Slack::Web::Client.new
     admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
     client.chat_postMessage(channel: admin_group['id'], text: "#{names.count} #{t('controllers.email_sent')}")
-    not_activated_users = User.where(activated: false)
+    not_activated_users = User.where(activated: false).where.not(id: PendingUser.where(refused: true).pluck(:user_id) )
     @resend_activation = true
     not_activated_users.find_each do |user|
       @user = user

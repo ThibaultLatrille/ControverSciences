@@ -7,7 +7,7 @@ class AssistantController < ApplicationController
   end
 
   def index
-    pending_users = Hash[PendingUser.all.pluck( :user_id, :why)]
+    pending_users = Hash[PendingUser.where.not(refused: true).pluck( :user_id, :why)]
     @users = User.where( id: pending_users.keys  )
     @users.each do |user|
       user.why = pending_users[user.id]
