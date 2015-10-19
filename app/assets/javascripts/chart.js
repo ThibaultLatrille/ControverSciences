@@ -11,6 +11,6 @@
 // about supported directives.
 //
 //= require Chart.Core.js
-//= require Chart.Bar.js
 //= require Chart.Radar.js
 //= require Chart.Line.js
+//= require Chart.Doughnut.js

@@ -100,18 +100,17 @@ class Timeline < ActiveRecord::Base
   end
 
   def binary_explanation( value )
-    text = "Les références qui sont "
     case value
       when 1
-        return text + "très fermement du coté " + self.binary.split('&&')[0].downcase
+        return "Très fermement " + self.binary.split('&&')[0].downcase
       when 2
-        return text + "du coté " + self.binary.split('&&')[0].downcase
+        return self.binary.split('&&')[0].humanize
       when 3
-        return text + "neutres"
+        return "Neutre"
       when 4
-        return text + "du coté " + self.binary.split('&&')[1].downcase
+        return self.binary.split('&&')[1].humanize
       when 5
-        return text + "très fermement du coté " + self.binary.split('&&')[1].downcase
+        return "Très fermement " + self.binary.split('&&')[1].downcase
     end
   end
 

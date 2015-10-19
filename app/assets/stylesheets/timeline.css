@@ -59,37 +59,37 @@
     left: 8px;
 }
 
-.btn-frog1, .div-frog1 { color: #702BD9; }
+.btn-frog1, .div-frog1 { color: #0b84a5; }
 
-.btn-frog2, .div-frog2 { color: #322DE3; }
+.btn-frog2, .div-frog2 { color: #aed688; }
 
-.btn-frog3, .div-frog3 { color: #3366CC; }
+.btn-frog3, .div-frog3 { color: #f5c767; }
 
-.btn-frog4, .div-frog4 { color: #2DABE3; }
+.btn-frog4, .div-frog4 { color: #ffa056; }
 
-.btn-frog5, .div-frog5 { color: #2BD9CF; }
+.btn-frog5, .div-frog5 { color: #ca472f; }
 
-.btn-frog0, .div-frog0 { color: #3366CC; }
+.btn-frog0, .div-frog0 { color: #fff; }
 
 .btn-select{
     background-color: #ffffff;
 }
 
-.binary1 .cd-orange, .binary1 .cd-color, .btn-frog1:hover, .btn-filter1.active, .btn-frog1.active { background: #702BD9; color: #f1f4f9;}
-.binary2 .cd-orange, .binary2 .cd-color, .btn-frog2:hover, .btn-filter2.active, .btn-frog2.active { background: #322DE3; color: #f1f4f9;}
-.binary3 .cd-orange, .binary3 .cd-color, .btn-frog3:hover, .btn-filter3.active, .btn-frog3.active { background: #3366CC; color: #f1f4f9;}
-.binary4 .cd-orange, .binary4 .cd-color, .btn-frog4:hover, .btn-filter4.active, .btn-frog4.active { background: #2DABE3; color: #f1f4f9;}
-.binary5 .cd-orange, .binary5 .cd-color, .btn-frog5:hover, .btn-filter5.active, .btn-frog5.active { background: #2BD9CF; color: #f1f4f9;}
-.binary0 .cd-orange, .binary .cd-orange, .binary .cd-color, .binary0 .cd-color, .btn-frog0:hover, .btn-frog0.active { background: #3366CC; color: #f1f4f9;}
+.binary1 .cd-orange, .binary1 .cd-color, .btn-frog1:hover, .btn-filter1.active, .btn-frog1.active { background: #0b84a5; color: #f1f4f9;}
+.binary2 .cd-orange, .binary2 .cd-color, .btn-frog2:hover, .btn-filter2.active, .btn-frog2.active { background: #aed688; color: #f1f4f9;}
+.binary3 .cd-orange, .binary3 .cd-color, .btn-frog3:hover, .btn-filter3.active, .btn-frog3.active { background: #f5c767; color: #f1f4f9;}
+.binary4 .cd-orange, .binary4 .cd-color, .btn-frog4:hover, .btn-filter4.active, .btn-frog4.active { background: #ffa056; color: #f1f4f9;}
+.binary5 .cd-orange, .binary5 .cd-color, .btn-frog5:hover, .btn-filter5.active, .btn-frog5.active { background: #ca472f; color: #f1f4f9;}
+.binary0 .cd-orange, .binary .cd-orange, .binary .cd-color, .binary0 .cd-color, .btn-frog0:hover, .btn-frog0.active { background: grey; color: #f1f4f9;}
 
-.gradient-orange, .cd-color-orange.active { background: #E77E5A; color: #f1f4f9;}
+.gradient-orange, .cd-color-orange.active { background: #2DABE3; color: #f1f4f9;}
 
 .icon-0{
     color: #fff !important;
 }
 
 .orange{
-    color: #E77E5A;
+    color: #2DABE3;
 }
 
 .cd-color, .cd-orange{
@@ -104,7 +104,7 @@
 }
 
 .uni-orange{
-    background: #E77E5A !important;
+    background: #2DABE3 !important;
 }
 
 .grey, .grey:hover {background-color: #BBC6DB; color: #f6f9fb}

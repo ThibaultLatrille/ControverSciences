@@ -488,24 +488,25 @@
 
 <% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
     <div id="versus-chart" class="row" style="display: none">
-      <div class="col-xs-12 col-md-offset-3 col-md-6">
+      <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
         <div class="panel panel-default">
+          <div class="center">
+            <br>
+            <div style="font-size: 1.2em">
+              <%= @timeline.name.html_safe %>
+            </div>
+          </div>
           <br/><br/>
-
           <div class="row">
-            <div class="col-xs-12 col-md-offset-1 col-md-10">
+            <div class="col-xs-12 col-md-offset-1 col-md-6">
               <canvas id="myChart"></canvas>
             </div>
-          </div>
-          <div class="center">
-            <div>
-              <br/>
-              <b style="font-size: 2.2em" id="versus-left"><%= @timeline.binary.split('&&')[0].humanize -%></b>
-              &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
-              <b style="font-size: 2.2em" id="versus-right"><%= @timeline.binary.split('&&')[1].humanize -%></b>
+            <div class="col-xs-10 col-xs-offset-1 col-md-offset-0 col-md-4">
+              <div id="doughtnut-legend"></div>
             </div>
           </div>
-          <br/><br/>
+          <br>
+          <br>
         </div>
       </div>
     </div>
@@ -525,48 +526,51 @@
                     $('.cd-color').removeClass("uni-color");
                     $('.cd-orange').removeClass("uni-orange");
                     versuschart.show(500, function() {
-                        var data = {
-                            labels: [
-                                        "<%= t('views.timelines.strongly') %> " + $('#versus-left').text().toLowerCase(),
-                                $('#versus-left').text(),
-                                "<%= t('views.timelines.neutral') %>",
-                                $('#versus-right').text(),
-                                        "<%= t('views.timelines.strongly') %> " + $('#versus-right').text().toLowerCase()],
-                            datasets: [
-                                {
-                                    label: "",
-                                    data: [$('.binary1').length,
-                                        $('.binary2').length,
-                                        $('.binary3').length,
-                                        $('.binary4').length,
-                                        $('.binary5').length]
-                                }
-                            ]
-                        };
-                        var colors = {
-                                    1: 'rgba(112,43,217,0.0)',
-                                    2: 'rgba(50,45,227,0.0)',
-                                    3: 'rgba(51,102,204,0.0)',
-                                    4: 'rgba(45,171,227,0.0)',
-                                    5: 'rgba(43,217,207,0.0)'},
-                                labels = {
-                                    1: '<%= @timeline.binary_explanation(1) -%>',
-                                    2: '<%= @timeline.binary_explanation(2) -%>',
-                                    3: '<%= @timeline.binary_explanation(3) -%>',
-                                    4: '<%= @timeline.binary_explanation(4) -%>',
-                                    5: '<%= @timeline.binary_explanation(5) -%>'};
+                        var data = [
+                            {
+                                value: $('.binary1').length,
+                                color: "rgba(11,132,165,1.0)",
+                                highlight: "rgba(11,132,165,0.6)",
+                                label: '<%= @timeline.binary_explanation(1) -%>'
+                            },
+                            {
+                                value: $('.binary2').length,
+                                color: "rgba(174,214,136,1.0)",
+                                highlight: "rgba(174,214,136,0.6)",
+                                label: '<%= @timeline.binary_explanation(2) -%>'
+                            },
+                            {
+                                value: $('.binary3').length,
+                                color: "rgba(245,199,103,1.0)",
+                                highlight: "rgba(245,199,103,0.6)",
+                                label: '<%= @timeline.binary_explanation(3) -%>'
+                            },
+                            {
+                                value: $('.binary4').length,
+                                color: "rgba(255,160,86,1.0)",
+                                highlight: "rgba(255,160,86,0.6)",
+                                label: '<%= @timeline.binary_explanation(4) -%>'
+                            },
+                            {
+                                value: $('.binary5').length,
+                                color: "rgba(202,71,47,1.0)",
+                                highlight: "rgba(202,71,47,0.6)",
+                                label: '<%= @timeline.binary_explanation(5) -%>'
+                            }
+                        ];
                         Chart.defaults.global.responsive = true;
-                        Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%> : <%%}%><%%= value %>";
+                        Chart.defaults.global.tooltipTemplate = "<%%= value %> références";
                         (function () {
                             var helpers = Chart.helpers,
                                     canvas = $("#myChart").get(0),
                                     ctx = canvas.getContext('2d'),
-                                    microBar = new Chart(ctx).Bar(data, {
+                                    versusDoughnut = new Chart(ctx).Doughnut(data, {
+                                        legendTemplate: "<div><%% for (var i=0; i<segments.length; i++){%><div class=\"clearfix\"><div class=\"pics\" style=\"background-color:<%%=segments[i].fillColor%>\"></div><div class=\"labels\"><%%if(segments[i].label){%><%%=segments[i].label%></div><%%}%></div><%%}%></div>"
                                     });
-
+                            $('#doughtnut-legend').html(versusDoughnut.generateLegend());
                             helpers.addEvent(canvas, 'mousemove', function (evt) {
-                                var bars = microBar.getBarsAtEvent(evt);
-                                if (bars.length > 0) {
+                                var segments = versusDoughnut.getSegmentsAtEvent(evt);
+                                if (segments.length > 0) {
                                     canvas.style.cursor = "pointer";
                                 }
                                 else {
@@ -575,36 +579,33 @@
                             });
 
                             helpers.addEvent(canvas, 'click', function (evt) {
-                                microBar.options.animation = true;
-                                microBar.options.onAnimationComplete = function () {
+                                versusDoughnut.options.animation = true;
+                                versusDoughnut.options.onAnimationComplete = function () {
                                     this.showTooltip(this.activeElements, true);
                                 };
-                                var bars = microBar.getBarsAtEvent(evt);
-                                helpers.each(bars, function (bar) {
+                                var segments = versusDoughnut.getSegmentsAtEvent(evt);
+                                helpers.each(segments, function (bar) {
                                     if (bar.active) {
                                         $(bar.references).hide(500);
                                         bar.active = false;
-                                        bar.fillColor = bar.baseColor.replace('.0)', '.05)');
+                                        bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.8)');
+                                        bar._saved.fillColor = bar.baseColor.replace('1.0)', '0.1)');
                                     } else {
                                         bar.active = true;
                                         $(bar.references).show(500);
-                                        bar.fillColor = bar.baseColor.replace('.0)', '.5)');
+                                        bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.6)');
+                                        bar._saved.fillColor = bar.baseColor.replace('1.0)', '1.0)');
                                     }
+                                    console.log(bar)
                                 });
-                                if (bars.length > 0) {
-                                    microBar.update();
+                                if (segments.length > 0) {
+                                    versusDoughnut.update();
                                 }
                             });
-
-                            $.each(microBar.datasets[0].bars, function (key, bar) {
+                            $.each(versusDoughnut.segments, function (key, bar) {
                                 bar.active = true;
                                 bar.references = ".binary" + (key + 1).toString();
-                                bar.toolLabel = labels[key + 1];
-                                bar.baseColor = colors[key + 1];
-                                bar.fillColor = colors[key + 1].replace('.0)', '.5)');
-                                bar.strokeColor = colors[key + 1].replace('.0)', '.75)');
-                                bar.highlightFill = colors[key + 1].replace('.0)', '.75)');
-                                bar.highlightStroke = colors[key + 1].replace('.0)', '.95)');
+                                bar.baseColor = bar.fillColor;
                             });
                         })();
                     });
@@ -649,44 +650,34 @@
           </script>
       <% end %>
     <% if logged_in? && @titles > 0 %>
-        <div class="center">
           <br/>
-          <% if @titles == 1 %>
-              <br/>
-              <label class="btn <%= logged_in? ? "active" : nil %> btn-comment grey cd-color-orange" style="font-size: 16px;"
-                     title="<%= t('views.pluralize.reference_no_comment', count: 1 ) %>. <%= t('views.timelines.hide_show') %>." data-toggle="tooltip">
-                &nbsp <span class="glyphicon glyphicon-eye-<%= logged_in? ? "open" : "close" %>"></span> &nbsp
-                <%= t('views.pluralize.reference_no_comment', count: 1 ) %>
-              </label>
-          <% else %>
-              <label class="btn <%= logged_in? ? "active" : nil %> btn-comment grey cd-color-orange" style="font-size: 16px;"
-                     title="<%= t('views.pluralize.reference_no_comment', count: @titles ) %>. <%= t('views.timelines.hide_show') %>." data-toggle="tooltip">
-                &nbsp <span class="glyphicon glyphicon-eye-<%= logged_in? ? "open" : "close" %>"></span>
-                &nbsp <%= t('views.pluralize.reference_no_comment', count: @titles ) %>
-              </label>
-          <% end %>
-        </div>
+          <div id="no-comment" class="btn btn-default active"
+                 title="<%= t('views.pluralize.reference_no_comment', count: @titles ) %>."
+                    data-toggle="tooltip">
+            &nbsp <span class="icon-comment"></span>
+            &nbsp <span id="text-no-comment"><%= t('views.timelines.hide_no_comment', count: @titles ) %></span>
+          </div>
+          <script type="text/javascript">
+              $(document).ready(function () {
+                  $('#no-comment').click(function () {
+                      if ($(this).hasClass("active")) {
+                          $(this).removeClass("active");
+                          $('#text-no-comment').text("<%= t('views.timelines.show_no_comment') %>");
+                          $('.need-comment').hide(600);
+                      } else {
+                          $(this).addClass("active");
+                          $('#text-no-comment', this).text("<%= t('views.timelines.hide_no_comment') %>");
+                          $('.need-comment').show(600);
+                      }
+                  });
+              });
+          </script>
     <% end %>
     <div id="cd-timeline" class="cd-container">
       <%= render :partial => 'references/reference', :collection => @references, :locals => {:binary => @timeline.binary} %>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            jQuery.fn.extend({
-                zigzag: function (array) {
-                    $(this).click(function () {
-                        if ($(this).hasClass("active")) {
-                            array.hide(500);
-                            $(this).removeClass("active");
-                        } else {
-                            $(this).addClass("active");
-                            array.show(500);
-                        }
-                    });
-                    return 1;
-                }
-            });
-            $('.btn-comment').zigzag($('.need-comment'));
             $('.linked-ref').click(function (e) {
                 var id = $(this).data("ref");
                 $("#button" + id).trigger('click');

@@ -192,7 +192,6 @@ fr:
       edges_ref: Citations entre les références
       timelines_staging: Embryons de controverses
       timelines_built: Controverses écloses
-      hide_show: Cliquer pour l'afficher/masquer
       is_private: Cette controverse est privée, et ne sera pas visible sans le lien.
       login: Identifiez-vous pour voir les controverses à l'état embryonnaire
       make_public: Cette controverse est privée. Souhaitez vous la rendre publique
@@ -221,10 +220,12 @@ fr:
       all_staging: À l'état embryonnaire
       all_built: Qui ont éclos
       all_timelines: Toutes
-      show_versus: Afficher le mode versus pour les références
-      hide_versus: Masquer le mode versus pour les références
+      show_versus: Afficher la répartition des références
+      hide_versus: Masquer la répartition des références
       show_star: Afficher la pertinence des références
       hide_star: Masquer la pertinence des références
+      show_no_comment: Afficher les références non analysées
+      hide_no_comment: Masquer les références non analysées
     likes:
       clic_on: Cliquer sur les buttons
       get_notified: pour être notifié des changements dans ces controverses.
