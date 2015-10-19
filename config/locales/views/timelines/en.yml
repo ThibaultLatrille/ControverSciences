@@ -77,7 +77,7 @@ en:
       no_votes: Cette référence n'a pas reçu de votes.
       previous: Référence précédente
       title_original: Titre original
-      url: Lien vers la référence
+      url: Accéder à la référence
       user_no_comment: Vous n'avez pas encore écrit d'analyse
       user_tags:
         one: "%{count} contributeur pense que cette référence appartient au thème"
@@ -92,7 +92,7 @@ en:
       maybe_binary: Vous avez déjà voté, mais vous avez peut être changé d'avis ?
       maybe_you_changed: Mais vous avez peut être changé d'avis ?
       you_think: Vous pensez que
-      sci_hub: Vous ne pouvez pas accèder à cette référence ?
+      sci_hub: (en utilisant Sci-Hub)
     edges:
       new_edge: Ajouter des nouveaux liens
       to_timeline: Les liens concernant la controverse
@@ -127,15 +127,13 @@ en:
       edit: Modifier votre titre et/ou votre cadre
       edit_title: Titre de la controverse
       edit_frame: Cadre, focus et mise au point de la controverse
-      edit_info_html: "Précisez le cadre de référence de la controverse.
-                                         <br/>
-                                         Le <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown est
+      edit_info_html: "Le <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown est
                                          supporté</a>"
       binary: Pour cette controverse, il existe deux réponses antagonistes
       binary_info: "En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les références.
                                           Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse."
       delete: Supprimer votre contribution
-      index: Toutes les titres et cadres de cette controverse
+      index: Tous les titres et cadres de cette controverse
       frame: Cadre, focus et mise au point
       upvote: Sélectionner cette contribution comme votre favorite
       downvote: Vous avez selectionné cette contribution comme votre favorite
@@ -193,8 +191,7 @@ en:
       edges: Liens entre les controverses
       edges_ref: Citations entre les références
       timelines_staging: Embryons de controverses
-      timelines_built: Controveres écloses
-      hide_show: Cliquer pour l'afficher/masquer
+      timelines_built: Controverses écloses
       is_private: Cette controverse est privée, et ne sera pas visible sans le lien.
       login: Identifiez-vous pour voir les controverses à l'état embryonnaire
       make_public: Cette controverse est privée. Souhaitez vous la rendre publique
@@ -223,10 +220,12 @@ en:
       all_staging: À l'état embryonnaire
       all_built: Qui ont éclos
       all_timelines: Toutes
-      show_versus: Afficher le mode versus pour les références
-      hide_versus: Masquer le mode versus pour les références
+      show_versus: Afficher la répartition des références
+      hide_versus: Masquer la répartition des références
       show_star: Afficher la pertinence des références
       hide_star: Masquer la pertinence des références
+      show_no_comment: Afficher les références non analysées
+      hide_no_comment: Masquer les références non analysées
     likes:
       clic_on: Cliquer sur les buttons
       get_notified: pour être notifié des changements dans ces controverses.
