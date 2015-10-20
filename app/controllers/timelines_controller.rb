@@ -91,6 +91,9 @@ class TimelinesController < ApplicationController
       timeline_ids = edges.map{ |e| [e.target, e.timeline_id] }
       query = Timeline.includes(:tags).where( id: timeline_ids.flatten.uniq ).where.not( id: @timeline.id )
       if logged_in?
+        visitetimeline = VisiteTimeline.find_or_create_by( user_id: current_user.id, timeline_id: @timeline.id )
+        VisiteTimeline.increment_counter(:counter, visitetimeline.id)
+        visitetimeline.update_columns(updated_at: Time.current)
         @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
         @improve = Summary.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? false : true
         @my_frame = Frame.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false

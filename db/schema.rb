@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019091723) do
+ActiveRecord::Schema.define(version: 20151020202426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -737,6 +737,7 @@ ActiveRecord::Schema.define(version: 20151019091723) do
     t.integer  "reference_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "counter",      default: 0
   end
 
   add_index "visite_references", ["reference_id"], name: "index_visite_references_on_reference_id", using: :btree
@@ -748,6 +749,7 @@ ActiveRecord::Schema.define(version: 20151019091723) do
     t.integer  "timeline_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "counter",     default: 0
   end
 
   add_index "visite_timelines", ["timeline_id"], name: "index_visite_timelines_on_timeline_id", using: :btree
