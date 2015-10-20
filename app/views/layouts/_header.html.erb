@@ -3,63 +3,63 @@
     <a href="https://twitter.com/ControverSci" class="hvr-grow" target="_blank">
       <%= image_tag("link_1.png", :height => "30px") %>
     </a>
-    <a href="https://www.facebook.com/ControverSciences" class="hvr-grow"  target="_blank">
+    <a href="https://www.facebook.com/ControverSciences" class="hvr-grow" target="_blank">
       <%= image_tag("link_2.png", :height => "30px") %>
     </a>
-    <a href="#join-slack"  class="hvr-grow"  data-toggle="modal">
+    <a href="#join-slack" class="hvr-grow" data-toggle="modal">
       <%= image_tag("slack.png", :height => "30px") %>
     </a>
   </div>
   <div class="container">
     <div class="navbar-header">
-      <button class="navbar-toggle collapsed" data-target=".bs-navbar-collapse" 
- 			data-toggle="collapse" type="button">
-         <span class="sr-only">Toggle navigation</span>
-	 <span class="icon-bar"></span>
-	 <span class="icon-bar"></span>
-	 <span class="icon-bar"></span>
+      <button class="navbar-toggle collapsed" data-target=".bs-navbar-collapse"
+              data-toggle="collapse" type="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
       </button>
       <%= link_to image_tag("logo_title.png", alt: "logo", height: "64px"), root_path, id: "logo-header" %>
     </div>
     <nav class="navbar-collapse bs-navbar-collapse collapse" role="navigation" style="height: 1px;">
-       <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to '<span class="glyphicon glyphicon-home"></span>'.html_safe,   root_path %></li>
-            <li><%= link_to "<strong>Les controverses</strong>".html_safe,   timelines_path %></li>
-             <li class="dropdown">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                 <span class="fat icon-frog"></span>
-                 <span class="caret"></span>
-               </a>
-               <ul class="dropdown-menu">
-		       <li><%= link_to "<b><span class=\"glyphicon glyphicon-info-sign font12\"></span> &nbsp #{t('views.navigation.how_to')} </b>".html_safe, how_to_path %></li>
-		       <li><%= link_to "<b><span class=\"glyphicon glyphicon-info-sign font12\" ></span> &nbsp #{t('views.navigation.how_to_edit')}</b>".html_safe, how_to_edit_path %></li>
-		       <li><%= link_to "<b><span class=\"glyphicon glyphicon-question-sign font12\" ></span> &nbsp #{t('views.navigation.faq')}</b>".html_safe, faq_path %></li>
-                 <li class="divider"></li>
-                 <li><%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe, users_path %> </li>
-                 <li><%= link_to "<b><span class=\"icon-graph-int bigger\" ></span> #{t('views.navigation.contributions')}</b>".html_safe, contributions_path %> </li>
-                 <li><%= link_to "<b><span class=\"icon-graph-diff bigger\" ></span> #{t('views.navigation.new_contributions')}</b>".html_safe, contributions_path(filter: "freq") %> </li>
-                 <li class="divider"></li>
-		 <li><%= link_to "<b><span class=\"icon-reference bigger\" ></span> #{t('views.navigation.empty_ref')}</b>".html_safe, empty_references_path %></li>
-		 <li><%= link_to "<b><span class=\"icon-comment bigger\" ></span> #{t('views.navigation.empty_comments')}</b>".html_safe, empty_comments_path %></li>
-		 <li><%= link_to "<b><span class=\"icon-summary bigger\" ></span> #{t('views.navigation.empty_summaries')}</b>".html_safe, empty_summaries_path %></li>
-               </ul>
-             </li>
-         <% if logged_in? %>
+      <ul class="nav navbar-nav navbar-right">
+        <li><%= link_to '<span class="glyphicon glyphicon-home"></span>'.html_safe, root_path %></li>
+        <li><%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path %></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+            <span class="fat icon-frog"></span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "<b><span class=\"glyphicon glyphicon-info-sign font12\"></span> &nbsp #{t('views.navigation.how_to')} </b>".html_safe, how_to_path %></li>
+            <li><%= link_to "<b><span class=\"glyphicon glyphicon-info-sign font12\" ></span> &nbsp #{t('views.navigation.how_to_edit')}</b>".html_safe, how_to_edit_path %></li>
+            <li><%= link_to "<b><span class=\"glyphicon glyphicon-question-sign font12\" ></span> &nbsp #{t('views.navigation.faq')}</b>".html_safe, faq_path %></li>
+            <li class="divider"></li>
+            <li><%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe, users_path %> </li>
+            <li><%= link_to "<b><span class=\"icon-graph-int bigger\" ></span> #{t('views.navigation.contributions')}</b>".html_safe, contributions_path %> </li>
+            <li><%= link_to "<b><span class=\"icon-graph-diff bigger\" ></span> #{t('views.navigation.new_contributions')}</b>".html_safe, contributions_path(filter: "freq") %> </li>
+            <li class="divider"></li>
+            <li><%= link_to "<b><span class=\"icon-reference bigger\" ></span> #{t('views.navigation.empty_ref')}</b>".html_safe, empty_references_path %></li>
+            <li><%= link_to "<b><span class=\"icon-comment bigger\" ></span> #{t('views.navigation.empty_comments')}</b>".html_safe, empty_comments_path %></li>
+            <li><%= link_to "<b><span class=\"icon-summary bigger\" ></span> #{t('views.navigation.empty_summaries')}</b>".html_safe, empty_summaries_path %></li>
+          </ul>
+        </li>
+        <% if logged_in? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                 <span class="fat icon-user"></span>
-                <% if current_user.notifications_count  > 0 %>
-                <span class="badge badge-header"><%= current_user.notifications_count %></span>
+                <% if current_user.notifications_count > 0 %>
+                    <span class="badge badge-header"><%= current_user.notifications_count %></span>
                 <% end %>
-                 <span class="caret"></span>
+                <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-		      <li><%= link_to "<b><span class='icon-user'></span> #{t('views.header.user')}</b>".html_safe,
+                <li><%= link_to "<b><span class='icon-user'></span> #{t('views.header.user')}</b>".html_safe,
                                 user_path(current_user) %> </li>
                 <% if current_user.can_switch_admin && current_user.admin_typos > 0 %>
                     <li class="divider"></li>
                     <li style="background-color: #d9534f">
-			    <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_typos} </span> #{t('views.header.typos')}".html_safe,
+                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_typos} </span> #{t('views.header.typos')}".html_safe,
                                   typos_path, style: "color: white;" %>
 
                     </li>
@@ -110,19 +110,19 @@
                 <li class="divider"></li>
                 <% if current_user.nb_private > 0 %>
                     <li class="my-missing"><%= link_to "<span class=\"badge badge-header\"> #{current_user.nb_private} </span> #{t('views.header.my_items_private')}</b>".html_safe,
-                                    my_items_items_path(private: true), style: "color: white;" %> </li>
+                                                       my_items_items_path(private: true), style: "color: white;" %> </li>
                     <li class="divider"></li>
                 <% end %>
                 <li><%= link_to "<b><span class='icon-summary'></span> #{t('views.header.my_items')}</b>".html_safe,
                                 my_items_items_path %> </li>
                 <li> <%= link_to "<b><span class=\"badge #{current_user.nb_notifs > 0 ? "badge-li" : nil }\">
                 #{current_user.nb_notifs}</span> #{t('views.header.notifs')} </b>".html_safe,
-                            notifications_important_path %>
+                                 notifications_important_path %>
                 </li>
                 <li class="divider"></li>
                 <li>
                   <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{t('views.header.likes')}".html_safe,
-                              timelines_path(:interest => "true")%>
+                              timelines_path(:interest => "true") %>
                 </li>
                 <li><%= link_to "<b><span class=\"badge #{current_user.notifications_all > 0 ? "badge-li" : nil }\">
                 #{current_user.notifications_all }</span> #{t('views.header.news')} </b>".html_safe,
@@ -130,30 +130,30 @@
                 <li class="divider"></li>
                 <li>
                   <%= link_to "<b><span class=\"glyphicon glyphicon-off\"></span>&nbsp #{t('views.header.logout')}</b>".html_safe,
-				logout_path, method: "delete" %>
+                              logout_path, method: "delete" %>
                 </li>
               </ul>
             </li>
-            <% else %>
+        <% else %>
             <li><%= link_to t('views.header.login'), login_path, id: "link-navbar" %></li>
-             <% end %>
-             <li>
-               <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe, '#newissue','data-toggle' => 'modal' %>
-             </li>
-             <% if logged_in? && current_user.can_switch_admin %>
-                 <% if current_user.admin %>
-                     <li>
-                       <%= link_to "<span class=\"glyphicon glyphicon-log-out\"></span> Be Human".html_safe,
-                                   switch_admin_users_path %>
-                     </li>
-                 <% else %>
-                     <li>
-                       <%= link_to "<span class=\"glyphicon glyphicon-log-in\"></span> Be God".html_safe,
-                                   switch_admin_users_path %>
-                     </li>
-                 <% end %>
-             <% end %>
-          </ul>
+        <% end %>
+        <li>
+          <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe, '#newissue', 'data-toggle' => 'modal' %>
+        </li>
+        <% if logged_in? && current_user.can_switch_admin %>
+            <% if current_user.admin %>
+                <li>
+                  <%= link_to "<span class=\"glyphicon glyphicon-log-out\"></span> Be Human".html_safe,
+                              switch_admin_users_path %>
+                </li>
+            <% else %>
+                <li>
+                  <%= link_to "<span class=\"glyphicon glyphicon-log-in\"></span> Be God".html_safe,
+                              switch_admin_users_path %>
+                </li>
+            <% end %>
+        <% end %>
+      </ul>
     </nav>
   </div>
 </header>

@@ -9,12 +9,12 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <p>
-	    <%= t('views.footer.issue') %>
+              <%= t('views.footer.issue') %>
             </p>
           </div>
         </div>
         <%= form_for(:issue, url: issues_path, remote: true,
-                     html:        {role: :form, 'data-model' => 'issue'}) do |f| %>
+                     html: {role: :form, 'data-model' => 'issue'}) do |f| %>
             <div class="form-group">
               <%= f.label :title, t('views.footer.issue_title'), class: 'control-label' %>
               <br>
@@ -31,11 +31,11 @@
             <%= f.label :labels, "Labels" %> </br>
             <div class="container-fluid">
               <div class="row" data-toggle="buttons">
-                <% {"amelioration"     => t('views.footer.issue_amelioration'), "idee" => t('views.footer.issue_idea'),
-                    "bug"              => t('views.footer.issue_bug'), "design" =>t('views.footer.issue_design'),
+                <% {"amelioration" => t('views.footer.issue_amelioration'), "idee" => t('views.footer.issue_idea'),
+                    "bug" => t('views.footer.issue_bug'), "design" => t('views.footer.issue_design'),
                     "incompréhensible" => t('views.footer.issue_unclear'),
-                    "orthographe"      => t('views.footer.issue_grammar'),
-                    "autre"            => t('views.footer.issue_other'), }.each do |label, value| %>
+                    "orthographe" => t('views.footer.issue_grammar'),
+                    "autre" => t('views.footer.issue_other'), }.each do |label, value| %>
                     <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
                       <div class="my-btn">
                         <%= f.check_box :labels, {:multiple => true}, checked_value = label, unchecked_value = nil %>
@@ -49,7 +49,7 @@
             <%= f.label :importance, "Importance" %> </br>
             <div class="btn-group-justified" data-toggle="buttons">
               <% {"***** critic" => t('views.footer.issue_critic'), "**** urgent" => t('views.footer.issue_urgent'), "*** important" => t('views.footer.issue_important'),
-                  "** to do"     => t('views.footer.issue_to_do'), "* negligible" => t('views.footer.issue_negligible')}.each do |key, value| %>
+                  "** to do" => t('views.footer.issue_to_do'), "* negligible" => t('views.footer.issue_negligible')}.each do |key, value| %>
                   <label class="btn btn-default"
                          title="<%= value %>" data-toggle="tooltip">
                     <%= f.radio_button :importance, checked_value = key,
@@ -72,9 +72,9 @@
             <input type="reset" style="display:none;"/>
 
             <div class="actions pull-right">
-		    <%= f.button "#{t('views.buttons.send')} &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+              <%= f.button "#{t('views.buttons.send')} &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success',
-			   data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.sending')} "} %>
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.sending')} "} %>
             </div>
         <% end %>
       </div>
@@ -82,8 +82,8 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <p>
-	    <%= t('views.footer.question_html') %>          
-	    </p>
+              <%= t('views.footer.question_html') %>
+            </p>
           </div>
         </div>
         <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
@@ -121,27 +121,27 @@
 
 <% if @tips.present? && @tips.length > 0 %>
 
-<div id="tips-large" class="">
-  <% @tips.each do |tip| %>
-      <h1>
-        <%= tip %>
-      </h1>
-  <%  end %>
-</div>
-<div id="tips-small" class="hvr-grow">
-  <%= image_tag("help.png", :height => "30px") %>
-</div>
+    <div id="tips-large" class="">
+      <% @tips.each do |tip| %>
+          <h1>
+            <%= tip %>
+          </h1>
+      <% end %>
+    </div>
+    <div id="tips-small" class="hvr-grow">
+      <%= image_tag("help.png", :height => "30px") %>
+    </div>
 
-<script type="text/javascript">
-    $('#tips-small').click(function () {
-        $(this).fadeOut(800);
-        $('#tips-large').show(500);
-    });
-    $('#tips-large').click(function () {
-        $(this).hide(500);
-        $('#tips-small').fadeIn(800);
-    });
-</script>
+    <script type="text/javascript">
+        $('#tips-small').click(function () {
+            $(this).fadeOut(800);
+            $('#tips-large').show(500);
+        });
+        $('#tips-large').click(function () {
+            $(this).hide(500);
+            $('#tips-small').fadeIn(800);
+        });
+    </script>
 <% end %>
 
 <footer class="clearfix">
@@ -153,17 +153,17 @@
     &nbsp
     <div class="cs-fb-like">
       <span class="fb-like"
-         data-layout="button_count"
-         data-show-faces="false"
-         data-share="true"
-         data-colorscheme="light"
-         data-href="https://www.facebook.com/ControverSciences">
+            data-layout="button_count"
+            data-show-faces="false"
+            data-share="true"
+            data-colorscheme="light"
+            data-href="https://www.facebook.com/ControverSciences">
         </span>
     </div>
   </div>
   <div id="about-link">
     <a id="contact" href="mailto:contact@controversciences.org" class="glyphicon glyphicon-envelope"></a>
-  <%= link_to "<span class=\"icon-frog normal\"></span>".html_safe + t('views.footer.about'), about_path %>
+    <%= link_to "<span class=\"icon-frog normal\"></span>".html_safe + t('views.footer.about'), about_path %>
   </div>
 </footer>
 
