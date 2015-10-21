@@ -413,7 +413,10 @@
         <% if @summary.picture? %>
             <div class="pull-right">
               <div class="thumbnail">
-                <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
+                <a class="fancybox" rel="gallery" href="<%= @summary.picture_url %>">
+                  <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
+                  <div class="glyphicon glyphicon-zoom-in"></div>
+                </a>
                 <div class="caption">
                   <%= @summary.caption_markdown.html_safe %>
                 </div>

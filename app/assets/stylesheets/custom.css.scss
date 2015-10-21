@@ -548,7 +548,7 @@ section h1{
     }
   }
   .timestamp {
-    color: gray-light;
+    color: lightgray;
     display: block;
     margin-left: 20px;
   }
@@ -638,9 +638,41 @@ section h1{
 
 
 .thumbnail {
-  img {
+  a {
+    position: relative;
     width: 100%;
+    display: block;
     max-width: 400px;
+    div {
+      color: #07212B;
+      font-size: 4em;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      -webkit-transition: opacity 1s ease;
+      -moz-transition: opacity 1s ease;
+      -o-transition: opacity 1s ease;
+      -ms-transition: opacity 1s ease;
+      transition: opacity 1s ease;
+    }
+    img{
+      opacity: 1;
+      -webkit-transition: opacity 1s ease;
+      -moz-transition: opacity 1s ease;
+      -o-transition: opacity 1s ease;
+      -ms-transition: opacity 1s ease;
+      transition: opacity 1s ease;
+    }
+  }
+  a:hover {
+    div {
+      opacity: 1;
+    }
+    img{
+      opacity: .5;
+    }
   }
   margin-left: 15px;
 }

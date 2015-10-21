@@ -4,7 +4,10 @@
       <br/><br/>
 
       <div class="thumbnail">
+        <a class="fancybox" rel="gallery" href="<%= best_comment.picture_url %>">
         <%= image_tag best_comment.picture_url, class: "img-rounded img-responsive" %>
+          <div class="glyphicon glyphicon-zoom-in"></div>
+        </a>
         <div class="caption">
           <%= best_comment.markdown(7).html_safe %>
         </div>

@@ -27,3 +27,4 @@
 //= require autosize.js
 //= require jquery.pretty-text-diff.js
 //= require jets.js
+//= require fancyBox.js

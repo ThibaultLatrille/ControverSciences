@@ -169,6 +169,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('.fancybox').fancybox({
+            openEffect	: 'elastic',
+            closeEffect	: 'elastic'
+        });
         autosize($('textarea'));
     });
     $('#newissue').on('shown.bs.modal', function () {

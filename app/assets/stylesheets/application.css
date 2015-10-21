@@ -18,6 +18,7 @@
  *= require timeline.css
  *= require d3-graph.css.scss
  *= require chart.css.scss
+ *= require fancyBox.css
  */
 @font-face{
     font-family: 'Glyphicons Halflings';

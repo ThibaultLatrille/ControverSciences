@@ -9,7 +9,10 @@
       <% if comment.picture? %>
         <div class="pull-right">
           <div class="thumbnail">
+            <a class="fancybox" rel="gallery" href="<%= comment.picture_url %>">
             <%= image_tag comment.picture_url, class: "img-rounded img-responsive" %>
+              <div class="glyphicon glyphicon-zoom-in"></div>
+            </a>
             <div class="caption">
               <b>  <%= category_hash[comment.category][7] %> :
               </b>
