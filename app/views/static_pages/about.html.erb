@@ -117,29 +117,6 @@
       </div>
       <br/>
 
-
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("paul-guille-escuret.jpg", alt: "Paul Guille-Escuret", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("p-guille-escuret") %>" target="_blank">Paul Guille-Escuret</a> - Flic epistémologique &nbsp
-            <a href="mailto:paul.guille-escuret@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-
-          <div class="justify">
-            Quand on construit une maison, on remplit un contrat et on rend accessible un bien à des hommes.
-            J’estime que la science doit répondre aux mêmes exigences.
-            Biologiste axé sur l’entomologie médicale, j’essaye d’envisager les différentes disciplines dont j’ai
-            croisé la route au cours de mon parcours dans une approche épistémologique.
-            C’est sur cette thématique que Thibault m’a entrainé dans le processus de définition et de conception du site.
-            Malgré quelques prises de becs -sans noms d'oiseaux-, ControverSciences est devenu une combinaison d’ambition, de rire et de sérieux.
-            La grenouille n’est que science et amour !
-          </div>
-        </div>
-      </div>
-      <br/>
-
       <div class="row">
         <div class="pull-left">
           <%= image_tag("florent-giry.jpg", alt: "Florent Giry", :class => "img-responsive img-rounded img-collectif") %>
@@ -154,6 +131,28 @@
             Rejoindre le projet en cours de route m'a permis d'y apporter un regard neuf.
             Agronome et économiste de formation, mon rôle dans l'équipe est de trouver des idées pour optimiser les fonctionnalités du portail et pour en créer de nouvelles.
             Je pars aussi à la chasse aux bugs pour rendre l'expérience ControverSciences la plus agréable possible pour tous les contributeurs et visiteurs !
+          </div>
+        </div>
+      </div>
+      <br/>
+
+      <div class="row">
+        <div class="pull-left">
+          <%= image_tag("paul-guille-escuret.jpg", alt: "Paul Guille-Escuret", :class => "img-responsive img-rounded img-collectif") %>
+        </div>
+        <div>
+          <h3><a href="<%= user_path("p-guille-escuret") %>" target="_blank">Paul Guille-Escuret</a> - Flic epistémologique &nbsp
+            <a href="mailto:paul.guille-escuret@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+          </h3>
+
+          <div class="justify">
+            Quand on construit une maison, on remplit un contrat et on rend accessible un bien à des hommes.
+            J’estime que le scientifique doit répondre aux mêmes exigences et donc partager le fruit de son travail.
+            Biologiste axé sur l’entomologie médicale, j’essaye d’envisager les différentes disciplines dont j’ai
+            croisé la route au cours de mon parcours dans une approche épistémologique.
+            C’est sur cette thématique que Thibault m’a entrainé dans le processus de définition et de conception du site.
+            Malgré quelques prises de becs -sans noms d'oiseaux-, ControverSciences est devenu une combinaison d’ambition, de rire et de sérieux.
+            La grenouille n’est que science et amour !
           </div>
         </div>
       </div>
@@ -270,42 +269,12 @@
         </div>
       </div>
       <br/>
-      Nos sincères remerciements à :
-      <ul>
-        <li>Marion Melix</li>
-        <li>Florian Lamouche</li>
-        <li>Hélène Ortial, pour l'idée du nom et du logo</li>
-        <li>Valentin Thouzeau, pour avoir fait germer l'idée à la pause café</li>
 
-        <div id="show-sort" class="btn btn-default">
-          Mais aussi... (liste non exhaustive)
+      <div class="row">
+        <div>
+          <h3>... Et tant d'autres qui ont apporté leur pierre à l'édifice.</h3>
         </div>
-      <span id="sort" style="display: none">
-        <li>Yoan Anciaux</li>
-        <li>Vincent Bonhomme</li>
-        <li>Iago Bonnicci</li>
-        <li>Cecile Bouvet</li>
-        <li>Helene Boyer</li>
-        <li>Lilian Chambragne</li>
-        <li>Guilhem Doulcier</li>
-        <li>Romain Feron</li>
-        <li>Florent Figon</li>
-        <li>Matthias Grenié</li>
-        <li>Auguste Herbert</li>
-        <li>Solène Knipping</li>
-        <li>Iris, Myriam, Eric, Anne et Samuel Latrille</li>
-        <li>Iris Le Roncé</li>
-        <li>Sylvain Longet</li>
-        <li>Pascal Milanesi</li>
-        <li>Vincent Platforet</li>
-        <li>Thomas Poinsot</li>
-        <li>Martin Privat</li>
-        <li>Gaëtan Richard</li>
-        <li>Paul Saunders</li>
-        <li>Emmanuel Trouche</li>
-        <li>Victor Virlogueux</li>
-      </span>
-      </ul>
+      </div>
       <br/>
 
       <div class="center">
@@ -563,12 +532,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        $('#show-sort').click(function () {
-            $(this).hide(500);
-            $('#sort').show(500)
-        });
-    });
-</script>
