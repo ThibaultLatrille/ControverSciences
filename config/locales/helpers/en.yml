@@ -102,14 +102,14 @@ en:
     tags_hash_7: Histoire
     tags_hash_8: Informatique
     tags_hash_9: Linguistique
-    user_profils_1: Dilemnatique
+    user_profils_1: Sphinx
     user_profils_2: Reformulateur
     user_profils_3: Ecrivain
     user_profils_4: Encyclopédiste
     user_profils_5: Analyste
-    user_profils_6: Passionné
-    user_profils_7: Adulé
-    user_profils_8: Fanatique
+    user_profils_6: Enthousiaste
+    user_profils_7: Juge
+    user_profils_8: Donateur
     user_profils_9: Bienveillant
     user_profils_info_1: A créé des controverses qui sont populaires.
     user_profils_info_2: A écrit des propositions de formulation qui sont bien classées.
@@ -117,6 +117,6 @@ en:
     user_profils_info_4: A ajouté des références qui sont bien classées.
     user_profils_info_5: A ajouté des analyses qui sont bien classées.
     user_profils_info_6: S'intéresse à des thèmes variés.
-    user_profils_info_7: A recu des crédits de la part des autres contributeurs.
+    user_profils_info_7: A jugé la pertinence des références.
     user_profils_info_8: A donné des crédits aux autres contributeurs.
     user_profils_info_9: A corrigé des fautes d'orthographe.

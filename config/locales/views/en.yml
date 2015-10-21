@@ -118,7 +118,7 @@ en:
         other: "Cette référence est citée par %{count} autres références."
       edges:
         one: "Cette synthèse se base sur %{count} référence analysée."
-        other: "Cette synthèse se base sur %{count} références analysée."
+        other: "Cette synthèse se base sur %{count} références analysées."
     buttons:
       invit: Inviter
       advise: Enregister cet avis
@@ -278,7 +278,7 @@ en:
                           Celle-ci lui sera envoyée pour être soumise à validation.
       if_yours: Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
       refuse: Refuser la correction
-      send: Envoyer la corretion
+      send: Envoyer la correction
       sent: Votre correction a bien été envoyé à l'auteur.
       to_valid: Les corrections à valider
     mailer:
