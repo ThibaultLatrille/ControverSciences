@@ -1,9 +1,9 @@
 <section id="welcome">
   <div class="row">
-    <div class="col-xs-offset-2 col-xs-8 col-md-offset-3 col-md-3 vcenter">
+    <div class="col-xs-offset-2 col-xs-8  col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-3 vcenter">
       <%= image_tag("logo.png", alt: "Bienvenue", :class => "img-responsive") %>
     </div>
-    <div class="col-xs-offset-1 col-xs-10 col-md-offset-0  col-md-3 vcenter">
+    <div class="col-xs-offset-1 col-xs-10  col-sm-offset-3 col-sm-6 col-md-offset-0  col-md-3 vcenter">
       <%= form_tag(:timelines, method: "get", class: "search-box") do %>
           <br/>
           <div class="input-group">
@@ -66,11 +66,11 @@
   </h1>
 
   <div class="row">
-    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-0 col-md-6 col-lg-offset-2 col-lg-4 vcenter">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-1 col-md-5 col-lg-offset-2 col-lg-4 vcenter">
       <object class="img-responsive" data=<%= path_to_image 'help-mission.svg' %>>
       </object>
     </div>
-    <div class="col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-5 col-lg-offset-0 col-lg-4 vcenter">
+    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-5 col-lg-offset-0 col-lg-4 vcenter">
       <h4 class="text-justify">
         Qui n’a jamais été à court d'<b>arguments</b> dans un <b>débat</b> ?
         <br/>
@@ -109,9 +109,9 @@
   </h1>
 
   <div class="row">
-    <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
       <div class="row text-center">
-        <div class="col-xs-12 col-md-4 c">
+        <div class="col-xs-12 col-sm-4">
           <h1 style="font-size: 2.6em; padding-bottom: 0">
             Prouver
           </h1>
@@ -130,7 +130,7 @@
               scientifique est nécessaire pour les justifier !</h4>
           </div>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-sm-4">
           <h1 style="font-size: 2.6em; padding-bottom: 0">
             Améliorer
           </h1>
@@ -149,7 +149,7 @@
               Les contributeurs voteront pour décider laquelle est la plus pertinente.</h4>
           </div>
         </div>
-        <div class="col-xs-12 col-md-4">
+        <div class="col-xs-12 col-sm-4">
           <h1 style="font-size: 2.6em; padding-bottom: 0">
             Sélectionner
           </h1>
@@ -219,10 +219,10 @@
   </h1>
 
   <div class="row">
-    <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-3 col-lg-6">
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10  col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
       <div class="row">
         <a href="<%= empty_references_path %>" style="color: white">
-          <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-4 hvr-grow">
+          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-4 hvr-grow">
             <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
               Enrichir
             </h1>
@@ -236,7 +236,7 @@
           </div>
         </a>
         <a href="<%= empty_comments_path %>" style="color: white">
-          <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-4 hvr-grow">
+          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-4 hvr-grow">
             <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
               Analyser
             </h1>
@@ -250,7 +250,7 @@
           </div>
         </a>
         <a href="<%= empty_summaries_path %>" style="color: white">
-          <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-4 hvr-grow">
+          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-4 hvr-grow">
             <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
               Synthétiser
             </h1>
