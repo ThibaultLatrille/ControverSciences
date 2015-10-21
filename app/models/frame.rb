@@ -12,6 +12,7 @@ class Frame < ActiveRecord::Base
   has_many :typos, dependent: :destroy
   has_many :notification_selections, dependent: :destroy
 
+  before_validation :check_binary
   after_create :cascading_create_frame
   before_create :to_markdown
 
@@ -137,6 +138,12 @@ class Frame < ActiveRecord::Base
   end
 
   private
+
+  def check_binary
+    if self.binary.downcase == "non&&oui"
+      self.binary = "Oui&&Non"
+    end
+  end
 
   def cascading_create_frame
     unless self.best

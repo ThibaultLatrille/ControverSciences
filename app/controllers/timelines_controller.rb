@@ -59,6 +59,9 @@ class TimelinesController < ApplicationController
     else
       @timeline.binary = ""
     end
+    if @timeline.binary.downcase == "non&&oui"
+      @timeline.binary = "Oui&&Non"
+    end
     if @timeline.save
       flash[:success] = t('controllers.timeline_added')
       redirect_to @timeline

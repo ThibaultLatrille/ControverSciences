@@ -1,5 +1,35 @@
 module MajHelper
 
+  def maj_v_12
+    ActiveRecord::Base.transaction do
+      Frame.where.not(binary: "").find_each do |frame|
+        if frame.binary.downcase == "non&&oui"
+          frame.update_columns( binary: "Oui&&Non")
+        end
+      end
+      Timeline.where.not(binary: "").find_each do |timeline|
+        if timeline.binary.downcase == "non&&oui"
+          timeline.update_columns( binary: "Oui&&Non",
+                                   binary_1: timeline.binary_5,
+                                   binary_2: timeline.binary_4,
+                                   binary_4: timeline.binary_2,
+                                   binary_5: timeline.binary_1)
+          Reference.where(timeline_id: timeline.id).find_each do |reference|
+            reference.update_columns( binary: "Oui&&Non",
+                                      binary_1: reference.binary_5,
+                                      binary_2: reference.binary_4,
+                                      binary_4: reference.binary_2,
+                                      binary_5: reference.binary_1,
+                                      binary_most: (reference.binary_most == 0 ? reference.binary_most : (6 - reference.binary_most)))
+          end
+          Binary.where(timeline_id: timeline.id).find_each do |binary|
+            binary.update_columns( value: 6 - binary.value )
+          end
+        end
+      end
+    end
+  end
+
   def maj_v_11
     ActiveRecord::Base.transaction do
       Reference.where(title_fr: nil).update_all(title_fr: "")

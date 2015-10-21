@@ -29,6 +29,11 @@ class FramesController < ApplicationController
                                content:     frame_params[:content],
                                name:        frame_params[:name])
     @frame.user_id = current_user.id
+    if frame_params[:binary] != "0"
+      @frame.binary = "#{frame_params[:binary_left].strip}&&#{frame_params[:binary_right].strip}"
+    else
+      @frame.binary = ""
+    end
     if @frame.save
       flash[:success] = t('controllers.frame_saved')
       redirect_to frames_path(filter: "mine", timeline_id: @frame.timeline_id)
