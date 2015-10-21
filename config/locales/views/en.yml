@@ -15,6 +15,7 @@ en:
       at_least: At least
       tags: Thèmes
       ago: Il y a
+      see: Go to
       your: Your
       search: Search
       close: Close
@@ -290,6 +291,8 @@ en:
         Si vous n'avez pas fait de demande de réinitialisation de mot de passe, désolé pour le contre temps. Vous pouvez ignorer ce message\
                                   et continuer à trier vos mails, votre mot de passe restera tel quel.
       invite_you: vous invitent à découvrir
+      congrat: Félicitation !
+      eclosion: à laquelle vous avez contribué sur ControverSciences vient d'éclore. Elle est maintenant visible par tous, .
       link_reset_pwd: Réinitialiser le mot de passe
       newsletter: Vous êtes maintenant inscrit au bulletin d'informations ControverSciences.
       notif_edit_profil: "éditez votre profil"

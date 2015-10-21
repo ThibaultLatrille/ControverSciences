@@ -13,6 +13,7 @@ fr:
     comment_record_not_found: Cette analyse n'existe pas (ou plus)
     dead_link_ok: Merci, les administrateurs vont s'occuper de ce lien mort
     dead_link_not_ok: Vous aviez déjà signalé ce lien mort, les administrateurs vont le réparer
+    eclosion_email: Éclosion d'une controverse à laquelle vous avez participé sur ControverSciences
     email_sent: emails ont été envoyé aux contributeurs
     expired_reset: Réinitialisation de mot de passe expirée.
     frame_cannot_delete: Vous ne pouvez pas supprimer cette contribution.

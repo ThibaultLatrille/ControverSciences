@@ -160,8 +160,22 @@ class TimelinesController < ApplicationController
 
   def switch_staging
     if current_user.admin
-      staging = Timeline.select( :staging ).find(params[:timeline_id]).staging
-      Timeline.where(id: params[:timeline_id]).update_all( staging: !staging )
+      staging = Timeline.select(:staging).find(params[:timeline_id]).staging
+      Timeline.where(id: params[:timeline_id]).update_all(staging: !staging)
+      if staging && Rails.env.production?
+        @eclosion_timeline = Timeline.find(params[:timeline_id])
+        mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+        TimelineContributor.includes(:user).where(timeline_id: params[:timeline_id]).each do |timelinecontributor|
+          @eclosion_user = timelinecontributor.user
+          message = {
+              :subject => t('controllers.eclosion_email'),
+              :from => "ControverSciences.org <contact@controversciences.org>",
+              :to => @eclosion_user.email,
+              :html => render_to_string(:file => 'user_mailer/eclosion', layout: nil).to_str
+          }
+          mg_client.send_message "controversciences.org", message
+        end
+      end
     else
       flash[:danger] = t('controllers.only_admins')
     end
