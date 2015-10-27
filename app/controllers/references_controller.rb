@@ -7,6 +7,8 @@ class ReferencesController < ApplicationController
     @target = Reference.select( :id, :year, :title, :title_fr ).where( id: ReferenceEdge.where(reference_id: params[:reference_id]).pluck(:target) )
     @from = Reference.select( :id, :year, :title, :title_fr ).where( id: ReferenceEdge.where(target: params[:reference_id]).pluck(:reference_id) )
     respond_to do |format|
+      format.html {render partial: 'references/best_comment',
+             locals: { best_comment: @best_comment }}
       format.js
     end
   end
@@ -66,6 +68,9 @@ class ReferencesController < ApplicationController
                               "f_#{params[:field]}_balance" ).where( id: ids ).order('random()')
     end
     respond_to do |format|
+      format.html { render partial: 'best_comments/best_fields',
+                           locals: { best_fields: @best_fields, field: params[:field].to_i,
+                                     reference_id: params[:reference_id].to_i } }
       format.js
     end
   end

@@ -9,6 +9,7 @@ class InvitationsController < ApplicationController
       @invitation.user_name = current_user.name
     end
     respond_to do |format|
+      format.html { render partial: 'invitations/modal', locals: { invitation: @invitation } }
       format.js { render 'invitations/new', :content_type => 'text/javascript', :layout => false}
     end
   end
