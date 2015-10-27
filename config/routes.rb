@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :suggestion_votes, only: [:create]
   resources :suggestion_child_votes, only: [:create]
   resources :issues, only: [:create]
+  resources :reponses, only: [:create]
   resources :figures, only: [:create]
   resources :invitations, only: [:create, :new]
   resources :edges, only: [:index, :create]
@@ -64,6 +65,7 @@ Rails.application.routes.draw do
   get 'faq' => 'static_pages#faq'
   get 'terms' => 'static_pages#terms'
   get 'about' => 'static_pages#about'
+  get 'transition-rhone-alpes' => 'static_pages#rhone_alpes'
   get 'markdown-tutorial' => 'static_pages#markdown_tutorial'
   get 'magna-charta' => 'static_pages#magna_charta', as: 'magna_charta'
   get 'empty_references' => 'static_pages#empty_references'

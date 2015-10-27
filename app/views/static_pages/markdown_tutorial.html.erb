@@ -10,7 +10,7 @@
             <div id="sommaire">
               <ol>
                 <li><a href="#introduction">C'est quoi le markdown ?</a></li>
-                <li><a href="#introduction">Les bases</a></li>
+                <li><a href="#introduction">Pourquoi du markdown sur ControverSciences</a></li>
                 <li><a href="#basics">Gras et Italique</a></li>
                 <li><a href="#sup">Indice et Exposant</a></li>
                 <li><a href="#liste">Liste à puce et ordonnée</a></li>
@@ -22,13 +22,13 @@
             <div id="not-timeline">
               <h3 id="introduction"><strong>C'est quoi le markdown ?</strong></h3>
                 <p>
-                  Markdown est un langage de balisage léger créé par John Gruber en 2004.
+                  Markdown est un langage de balisage léger créé en 2004.
                   Son but est d'offrir une syntaxe facile à lire et à écrire.
-                  Un document formaté selon Markdown devrait pouvoir être publié comme tel, en texte,
-                  sans donner l’impression qu’il a été marqué par des balises ou des instructions de formatage.
+                  En terme moins technique, cela permet faire du texte assez joli sans encombrer
                 </p>
-              <h3 id="basics"><strong>Les bases, les hic, les basics</strong></h3>
-
+              <h3 id="basics"><strong>Pourquoi du markdown sur ControverSciences</strong></h3>
+              <h4>Parce que c'est cool.
+              </h4>
               <p>Inutile de préciser que la <strong>politesse</strong> est un prérequis même si le site a été conçu pour
                 empêcher les <strong>altercations</strong> entre contributeurs. Celui qui arriverait à contourner le
                 système pour s'en prendre à son prochain verra son <strong>compte supprimé</strong> sans avertissement.
@@ -243,3 +243,9 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
+    });
+</script>
