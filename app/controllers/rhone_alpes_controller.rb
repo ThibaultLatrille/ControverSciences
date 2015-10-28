@@ -1,0 +1,2 @@
+class RhoneAlpesController < ApplicationController
+end
