@@ -1,8 +1,9 @@
 class StaticPagesController < ApplicationController
   def home
-    @timelines = Timeline.includes(:tags).order(:score => :desc).first(4)
     if logged_in?
-      @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
+      @favorite = Timeline.find_by(favorite: true, staging: true)
+    else
+      @favorite = Timeline.find_by(favorite: true, staging: false)
     end
   end
 

@@ -60,6 +60,25 @@
     </div>
   </div>
 </section>
+<% if @favorite %>
+    <div class="row">
+      <div class="timeline col-xs-12">
+        <div id="favorite">
+          <img src="<%= image_path "rocket.png" %>" alt="Rocket" class="img-responsive">
+          <a id="favorite-timeline" class="hvr-grow1" href="<%= timelines_path @favorite %>">
+            <h4>
+              <span class="glyphicon glyphicon-star-empty normal"></span>
+              Controverse à l'affiche
+              <span class="glyphicon glyphicon-star-empty normal"></span>
+            </h4>
+            <h3 class="shadowed">
+              <%= @favorite.name.html_safe %>
+            </h3>
+          </a>
+        </div>
+      </div>
+    </div>
+<% end %>
 <section id="mission">
   <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
     Une passerelle entre la société et les scientifiques autour de questions controversées.
@@ -197,20 +216,6 @@
         </div>
       </div>
   <% end %>
-</section>
-
-<section id="featured">
-  <h1 style="font-size: 3em">
-    Controverses à l'affiche
-  </h1>
-
-  <div class="row">
-    <div class="col-xs-12 col-lg-offset-1 col-lg-10">
-      <div class="row">
-            <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => { :my_likes => (@my_likes ?  @my_likes : nil), full_width: false} %>
-      </div>
-    </div>
-  </div>
 </section>
 
 <section id="mission">

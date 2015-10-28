@@ -22,7 +22,7 @@ class PasswordResetsController < ApplicationController
         flash[:info] = t('controllers.reseted_pwd_email')
         redirect_to root_url
       else
-        @timelines = Timeline.order(:score => :desc).first(4)
+        @favorite = Timeline.find_by(favorite: true, staging: false)
         if PendingUser.find_by_user_id( @user.id )
           render 'users/invalid'
         else
