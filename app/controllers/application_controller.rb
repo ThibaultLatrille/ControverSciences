@@ -106,11 +106,11 @@ class ApplicationController < ActionController::Base
 
   # Confirms an admin user.
   def admin_user
-    if current_user.admin?
+    if logged_in? && current_user.admin?
       flash.now[:danger] = t('controllers.admin_page')
     else
       flash[:danger] = t('controllers.only_admins')
-      redirect_to(root_url) unless current_user.admin?
+      redirect_to(root_url)
     end
   end
 
