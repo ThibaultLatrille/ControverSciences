@@ -1,19 +1,20 @@
 <% provide(:title, "Transition sociétale et écologique en Rhône-Alpes") %>
 <div id="my-container" class="container-fluid">
-    <h1>
-      La transition sociétale et écologique en Rhône-Alpes
-    </h1>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <h1>
+        La transition sociétale et écologique en Rhône-Alpes
+      </h1>
+      <br>
+      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
 
-          <div class="box">
-            <div class="container-jets">
-              <span class="icon glyphicon glyphicon-filter"></span>
-              <input type="search" id="jetsSearch" placeholder="Filtrer" />
-            </div>
+        <div class="box">
+          <div class="container-jets">
+            <span class="icon glyphicon glyphicon-filter"></span>
+            <input type="search" id="jetsSearch" placeholder="Filtrer"/>
           </div>
-          <div id="jetsContent" data-toggle="buttons">
+        </div>
+        <div id="jetsContent" data-toggle="buttons">
           <%= render 'rhone_alpes/actors', number_id: "1", name: "Nadège Riotte" %>
           <%= render 'rhone_alpes/actors', number_id: "1", name: "Jean Duverger" %>
           <%= render 'rhone_alpes/actors', number_id: "1", name: "Alain Chabrolle" %>
@@ -78,115 +79,150 @@
 
           <%= render 'rhone_alpes/actors', number_id: "18", name: "Hervé Piaton" %>
           <%= render 'rhone_alpes/actors', number_id: "18", name: "Anne-Marie Schmutz" %>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
+        <div class="row">
+          <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <p style="text-align: justify;">Bienvenue sur la plateforme participative d&eacute;di&eacute;e &agrave; la
+                  transition soci&eacute;tale et &eacute;cologique en r&eacute;gion Rh&ocirc;ne-Alpes&nbsp;! Ce projet
+                  collaboratif a &eacute;t&eacute; initi&eacute; par les &eacute;tudiants du master BioSciences de l&rsquo;&Eacute;cole
+                  Normale Sup&eacute;rieure (ENS) de Lyon, sous la supervision de Ioan Negrutiu, professeur de
+                  biologie &agrave; l'ENS de Lyon, et avec le soutien de l'Institut Michel Serres. L'ensemble des travaux
+                  des &eacute;tudiants est ici accessibles &agrave; tous, sous forme de dossiers th&eacute;matiques
+                  disponibles pour la critique, la controverse, les &eacute;changes ou encore les mises &agrave; jour. Le r&eacute;sultat
+                  attendu est la p&eacute;rennisation collaborative et participative de cet espace d&rsquo;analyse, de
+                  coordination, d&rsquo;articulation et de validation), avec une capacit&eacute; d&rsquo;information et de
+                  suivi en temps quasi-r&eacute;el de la transition en r&eacute;gion.</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
-          <div class="row">
-            <div class="col-xs-12">
-              <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="heading1">
-                    <h4 class="panel-title clearfix">
-                      <a data-toggle="collapse" href="#CollapseG0" class="pull-right CollapseG1 glyphicon glyphicon-chevron-down"></a>
-                      <a data-toggle="collapse" href="#CollapseG0">
-                        Les acteurs de la transition sociétale et écologique en Rhône-Alpes : décryptage par les jeunes
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="CollapseG0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body clearfix">
-                      <%= render 'rhone_alpes/rhone_alpes_synthese' %>
-                      <%= render 'rhone_alpes/panel_group', response: false, parent: "CollapseG0", number_id: "synthese_annexes", title: "Annexes" %>
-                      <%= render 'rhone_alpes/panel_group', response: false, parent: "CollapseG0", number_id: "synthese_references", title: "Références" %>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <p style="text-align: justify;">Cette analyse est l&rsquo;amorce du travail collectif et collaboratif
+                  que nous proposons pour cette plateforme consacr&eacute;e &agrave; la transition en
+                  Rh&ocirc;ne-Alpes.</p>
+
+                <div class="panel-group" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading1">
+                      <h4 class="panel-title clearfix">
+                        <a data-toggle="collapse" href="#CollapseG0" class="pull-right CollapseG1 glyphicon glyphicon-chevron-down"></a>
+                        <a data-toggle="collapse" href="#CollapseG0">
+                          Les acteurs de la transition sociétale et écologique en Rhône-Alpes : décryptage par les
+                          jeunes
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="CollapseG0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body clearfix">
+                        <%= render 'rhone_alpes/rhone_alpes_synthese' %>
+                        <%= render 'rhone_alpes/panel_group', response: false, parent: "CollapseG0", number_id: "synthese_annexes", title: "Annexes" %>
+                        <%= render 'rhone_alpes/panel_group', response: false, parent: "CollapseG0", number_id: "synthese_references", title: "Références" %>
                       </div>
-                  </div>
-                </div>
-              </div>
-              <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="heading1">
-                    <h4 class="panel-title clearfix">
-                      <a data-toggle="collapse" href="#CollapseG1" class="pull-right CollapseG1 glyphicon glyphicon-chevron-down"></a>
-                      <a data-toggle="collapse" href="#CollapseG1">
-                        Les acteurs de la gouvernance
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="CollapseG1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body clearfix">
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "1", title: "Les acteurs politiques" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "2", title: "Les acteurs socio-économiques" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "3", title: "Les acteurs de la société civile" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "4", title: "Recherche et formation dans la transition écologique" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "5", title: "La place de la transition écologique et sociétale dans le débat public" %>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="heading1">
-                    <h4 class="panel-title clearfix">
-                      <a data-toggle="collapse" href="#CollapseG2" class="pull-right CollapseG2 glyphicon glyphicon-chevron-down"></a>
-                      <a data-toggle="collapse" href="#CollapseG2">
-                        Les acteurs par secteurs territoriaux
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="CollapseG2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body clearfix">
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "6", title: "Énergie et transports" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "7", title: "Gestion de l'agriculture et de l'eau" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "10", title: "Aménagement du territoire et foncier, rural-urbain" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "12", title: "Réglementation, normes, fiscalité et financement" %>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <p style="text-align: justify;">L&rsquo;analyse de la transition soci&eacute;tale et &eacute;cologique
+                  en Rh&ocirc;ne-Alpes a &eacute;t&eacute; organis&eacute;e en sous-th&egrave;mes, cliquez pour acc&eacute;der
+                  aux dossiers th&eacute;matiques qui les composent et pour r&eacute;pondre ou commenter.</p>
+
+                <div class="panel-group" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading1">
+                      <h4 class="panel-title clearfix">
+                        <a data-toggle="collapse" href="#CollapseG1" class="pull-right CollapseG1 glyphicon glyphicon-chevron-down"></a>
+                        <a data-toggle="collapse" href="#CollapseG1">
+                          Les acteurs de la gouvernance
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="CollapseG1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body clearfix">
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "1", title: "Les acteurs politiques" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "2", title: "Les acteurs socio-économiques" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "3", title: "Les acteurs de la société civile" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "4", title: "Recherche et formation dans la transition écologique" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "5", title: "La place de la transition écologique et sociétale dans le débat public" %>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="heading1">
-                    <h4 class="panel-title clearfix">
-                      <a data-toggle="collapse" href="#CollapseG3" class="pull-right CollapseG3 glyphicon glyphicon-chevron-down"></a>
-                      <a data-toggle="collapse" href="#CollapseG3">
-                        Les acteurs par secteurs sociaux
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="CollapseG3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body clearfix">
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "8", title: "Économie, travail et inégalités" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "9", title: "Alimentation et santé" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "11", title: "Consommation, recyclage, démographie et éducation" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "13", title: "Données et démocratie" %>
+                <div class="panel-group" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading1">
+                      <h4 class="panel-title clearfix">
+                        <a data-toggle="collapse" href="#CollapseG2" class="pull-right CollapseG2 glyphicon glyphicon-chevron-down"></a>
+                        <a data-toggle="collapse" href="#CollapseG2">
+                          Les acteurs par secteurs territoriaux
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="CollapseG2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body clearfix">
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "6", title: "Énergie et transports" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "7", title: "Gestion de l'agriculture et de l'eau" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "10", title: "Aménagement du territoire et foncier, rural-urbain" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "12", title: "Réglementation, normes, fiscalité et financement" %>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="heading1">
-                    <h4 class="panel-title clearfix">
-                      <a data-toggle="collapse" href="#CollapseG4" class="pull-right glyphicon CollapseG4 glyphicon-chevron-down"></a>
-                      <a data-toggle="collapse" href="#CollapseG4">
-                        Innovations et expérimentations alternatives en Rhône-Alpes
-                      </a>
-                    </h4>
+                <div class="panel-group" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading1">
+                      <h4 class="panel-title clearfix">
+                        <a data-toggle="collapse" href="#CollapseG3" class="pull-right CollapseG3 glyphicon glyphicon-chevron-down"></a>
+                        <a data-toggle="collapse" href="#CollapseG3">
+                          Les acteurs par secteurs sociaux
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="CollapseG3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body clearfix">
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "8", title: "Économie, travail et inégalités" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "9", title: "Alimentation et santé" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "11", title: "Consommation, recyclage, démographie et éducation" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "13", title: "Données et démocratie" %>
+                      </div>
+                    </div>
                   </div>
-                  <div id="CollapseG4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body clearfix">
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "14", title: "Les valeurs de la transition" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "15", title: "Les monnaies complémentaires" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "16", title: "Les villes en transition" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "17", title: "La Biovallée" %>
-                      <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "18", title: "Les circuits courts" %>
+                </div>
+                <div class="panel-group" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading1">
+                      <h4 class="panel-title clearfix">
+                        <a data-toggle="collapse" href="#CollapseG4" class="pull-right glyphicon CollapseG4 glyphicon-chevron-down"></a>
+                        <a data-toggle="collapse" href="#CollapseG4">
+                          Innovations et expérimentations alternatives en Rhône-Alpes
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="CollapseG4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body clearfix">
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "14", title: "Les valeurs de la transition" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "15", title: "Les monnaies complémentaires" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "16", title: "Les villes en transition" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "17", title: "La Biovallée" %>
+                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "18", title: "Les circuits courts" %>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
