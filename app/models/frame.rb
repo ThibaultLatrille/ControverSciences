@@ -92,10 +92,8 @@ class Frame < ActiveRecord::Base
                                            frame_id: self.id, win: true)
     end
     tim = self.timeline
-    tim.name = self.name_markdown
-    tim.frame = self.content_markdown
-    tim.binary = self.binary
-    tim.save
+    tim.update_columns(name: self.name_markdown, frame: self.content_markdown)
+    tim.reset_binary(self.binary)
     self.update_columns(best: true)
   end
 
@@ -137,10 +135,10 @@ class Frame < ActiveRecord::Base
   def update_timeline
     if self.best
       tim = self.timeline
-      tim.name = self.name_markdown
-      tim.frame = self.content_markdown
-      tim.binary = self.binary
-      tim.save
+      tim.update_columns(name: self.name_markdown, frame: self.content_markdown)
+      if tim.binary != self.binary
+        tim.reset_binary(self.binary)
+      end
     end
   end
 

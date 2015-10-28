@@ -48,8 +48,6 @@ class Timeline < ActiveRecord::Base
 
   after_create :cascading_create_timeline
 
-  around_update :updating_with_params
-
   validates :user_id, presence: true
   validates :private, :inclusion => {:in => [true, false]}
   validates :name, presence: true
@@ -169,6 +167,16 @@ class Timeline < ActiveRecord::Base
     4.0/(1.0/(1+Math.log(1+nb_contributors))+1.0/(1+Math.log(1+10*nb_references))+1.0/(1+Math.log(1+5*nb_comments))+1.0/(1+Math.log(1+20*nb_summaries)))
   end
 
+  def reset_binary(binary)
+    Reference.where( timeline_id: self.id ).update_all(binary_most: 0,:binary => binary,
+                                                        binary_1: 0, binary_2: 0,
+                                                       binary_3: 0, binary_4: 0, binary_5: 0)
+    Timeline.where( id: self.id ).update_all(binary_0: self.nb_references,
+                                             binary_1: 0, binary_2: 0,
+                                             binary_3: 0, binary_4: 0, binary_5: 0)
+    Binary.where( timeline_id: self.id ).delete_all
+  end
+
   private
 
   def binary_valid
@@ -199,23 +207,6 @@ class Timeline < ActiveRecord::Base
       Notification.import notifications
     end
     TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
-  end
-
-  def updating_with_params
-    binary = self.binary_was
-    yield
-    if binary != self.binary
-      Reference.where( timeline_id: self.id ).update_all(:binary => self.binary )
-      if self.binary == ""
-        Reference.where( timeline_id: self.id ).update_all(binary_most: 0,
-                                                           binary_1: 0, binary_2: 0,
-                                                           binary_3: 0, binary_4: 0, binary_5: 0)
-        Timeline.where( id: self.id ).update_all(binary_0: self.nb_references,
-                                                           binary_1: 0, binary_2: 0,
-                                                           binary_3: 0, binary_4: 0, binary_5: 0)
-        Binary.where( timeline_id: self.id ).delete_all
-      end
-    end
   end
 
 end
