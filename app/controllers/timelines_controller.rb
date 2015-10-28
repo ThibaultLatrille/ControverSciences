@@ -6,7 +6,9 @@ class TimelinesController < ApplicationController
       params[:sort] = :nb_comments
     end
     query = Timeline.includes(:tags).order(params[:sort].blank? ? :score : params[:sort].to_sym =>
-                               params[:order].blank? ? :desc : params[:order].to_sym, created_at: params[:order].blank? ? :desc : params[:order].to_sym ).where.not(private: true)
+                                            params[:order].blank? ? :desc : params[:order].to_sym,
+                                            created_at: params[:order].blank? ? :desc : params[:order].to_sym )
+                                            .where.not(private: true)
     unless params[:filter].blank?
       query = query.search_by_name(params[:filter])
       unless params[:tag].blank?
@@ -62,7 +64,7 @@ class TimelinesController < ApplicationController
     if @timeline.binary.downcase == "non&&oui"
       @timeline.binary = "Oui&&Non"
     end
-    if @timeline.save
+    if @timeline.content_valid? && @timeline.save
       flash[:success] = t('controllers.timeline_added')
       redirect_to @timeline
     else

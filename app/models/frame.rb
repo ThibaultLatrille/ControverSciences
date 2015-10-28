@@ -13,7 +13,9 @@ class Frame < ActiveRecord::Base
   has_many :notification_selections, dependent: :destroy
 
   before_validation :check_binary
+
   after_create :cascading_create_frame
+  after_save :update_timeline
   before_create :to_markdown
 
   validates :user_id, presence: true
@@ -62,13 +64,6 @@ class Frame < ActiveRecord::Base
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     self.content_markdown = redcarpet.render(self.content)
     self.name_markdown = redcarpet_no_wrap.render(self.name)
-    if self.best && !self.new_record?
-      tim = self.timeline
-      tim.name = self.name_markdown
-      tim.frame = self.content_markdown
-      tim.binary = self.binary
-      tim.save
-    end
   end
 
   def save_with_markdown
@@ -138,6 +133,16 @@ class Frame < ActiveRecord::Base
   end
 
   private
+
+  def update_timeline
+    if self.best
+      tim = self.timeline
+      tim.name = self.name_markdown
+      tim.frame = self.content_markdown
+      tim.binary = self.binary
+      tim.save
+    end
+  end
 
   def check_binary
     if self.binary.downcase == "non&&oui"

@@ -46,18 +46,35 @@ class Timeline < ActiveRecord::Base
   has_many :header_figures, class_name: "Figure", foreign_key: "img_timeline_id", dependent: :destroy
   belongs_to :figure
 
-  after_create :cascading_save_timeline
+  after_create :cascading_create_timeline
 
   around_update :updating_with_params
 
   validates :user_id, presence: true
   validates :private, :inclusion => {:in => [true, false]}
-  validates :name, presence: true, length: { maximum: 180 }
-  validates :frame, length: {minimum: 180, maximum: 2500}
+  validates :name, presence: true
+  validates :frame, presence: true
   validate :binary_valid
 
   def user_name
     User.select( :name ).find( self.user_id ).name
+  end
+
+  def content_valid?
+    valid = true
+    if self.frame.length > 2500
+      self.errors.add(:frame, I18n.t('errors.messages.too_long', count: 2500))
+      valid = false
+    end
+    if self.frame.length < 180
+      self.errors.add(:frame, I18n.t('errors.messages.too_short', count: 2500))
+      valid = false
+    end
+    if self.name.length > 180
+      self.errors.add(:name, I18n.t('errors.messages.too_long', count: 180))
+      valid = false
+    end
+    valid
   end
 
   def picture?
@@ -157,19 +174,19 @@ class Timeline < ActiveRecord::Base
   def binary_valid
     if self.binary != ""
       if self.binary.split('&&')[0].blank?
-        errors.add(:base, "Un des antagoniste est vide")
+        errors.add(:base, I18n.t('activerecord.attributes.timeline.binary') + " " + I18n.t('errors.messages.empty'))
       elsif self.binary.split('&&')[0].length > 20
-        errors.add(:base, "Un des antagoniste est trop long (>20 caractères)")
+        errors.add(:base, I18n.t('activerecord.attributes.timeline.binary') + " " + I18n.t('errors.messages.too_long', count: 20))
       end
       if self.binary.split('&&')[1].blank?
-        errors.add(:base, "Un des antagoniste est vide")
+        errors.add(:base, I18n.t('activerecord.attributes.timeline.binary') + " " + I18n.t('errors.messages.empty'))
       elsif self.binary.split('&&')[1].length > 20
-        errors.add(:base, "Un des antagoniste est trop long (>20 caractères)")
+        errors.add(:base, I18n.t('activerecord.attributes.timeline.binary') + " " + I18n.t('errors.messages.too_long', count: 20))
       end
     end
   end
 
-  def cascading_save_timeline
+  def cascading_create_timeline
     Frame.create( user_id: self.user_id, best: true,
                    content: self.frame, name: self.name, timeline_id: self.id, binary: self.binary )
     unless self.private

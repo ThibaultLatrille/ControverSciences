@@ -10,6 +10,7 @@ fr:
       timeline:
         name: "Le titre"
         frame: "Le cadre"
+        binary: "Un des antagonistes"
       frame:
         name: "Le titre"
         content: "Le cadre"
