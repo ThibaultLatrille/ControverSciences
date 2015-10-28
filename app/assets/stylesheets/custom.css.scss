@@ -1191,13 +1191,16 @@ del {
 #favorite{
   position: relative;
   #favorite-timeline{
+    h4{
+      font-size: 1.6em;
+    }
     position: absolute;
     top: 25%;
     right: 10%;
     width: 40%;
     padding: 1em 2em;
     background-image: none;
-    border: 1px solid transparent;
+    border: 2px solid #0f75bc;
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.3);
   }
