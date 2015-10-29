@@ -1,30 +1,30 @@
 en:
   controllers:
-    account_activated: "Compte activé avec succès ! Vous pouvez dès à présent contribuer à ControverSciences !"
-    action_impossible: Impossible d'effectuer cette action.
-    activation_email: Activation du compte sur ControverSciences
-    activation_invalid: Lien d'activation corrompu ou invalide.
-    admin_page: Vous êtes sur une page dedié aux admins.
-    comment_cannot_delete: Vous ne pouvez pas supprimer une analyse qui ne vous appartient pas.
-    comment_private: Cette analyse est privée.
-    comment_privated: Vous n'avez pas l'autorisation d'accéder à l'analyse, le contenu à été rendu privé par son auteur.
-    comment_saved: Analyse enregistrée.
-    comment_updated: Analyse modifiée.
-    comment_record_not_found: Cette analyse n'existe pas (ou plus)
-    dead_link_ok: Merci, les administrateurs vont s'occuper de ce lien mort
-    dead_link_not_ok: Vous aviez déjà signalé ce lien mort, les administrateurs vont le réparer
-    eclosion_email: Éclosion d'une controverse à laquelle vous avez participé sur ControverSciences
-    email_sent: emails ont été envoyé aux contributeurs
-    expired_reset: Réinitialisation de mot de passe expirée.
-    frame_cannot_delete: Vous ne pouvez pas supprimer cette contribution.
-    frame_deleted: Contribution envoyée à la poubelle.
-    frame_saved: Contribution enregistrée.
-    frame_updated: Contribution modifiée.
-    impossible_action: Impossible d'effectuer cette action.
-    impossible_edit: Impossible d'effectuer cette modification.
-    mailer_invitation: et ControverSciences vous invitent à découvrir
-    must_login: Vous devez vous connecter/inscrire pour explorer ce recoin de ControverSciences.
-    newsletter: Inscription à la newsletter ControverSciences
+    account_activated: "Account successfully activated! You can start contributing to ControverSciences now!"
+    action_impossible: This action is impossible.
+    activation_email: !!Activation of your account on ControverSciences
+    activation_invalid: Activation link is corrupt or invalid.
+    admin_page: !!This is an webmaster-dedicated page.
+    comment_cannot_delete: You cannot erase an analysis that isn't yours.
+    comment_private: This is a private analysis.
+    comment_privated: You are not allowed to access this analysis, its content was made private by its author.
+    comment_saved: Analysis saved
+    comment_updated: Analysis modified.
+    comment_record_not_found: This analysis does not, or no longer, exist
+    dead_link_ok: Thank you, the webmasters will take care of this broken link
+    dead_link_not_ok: You already signaled this broken link, the webmasters will repair it
+    eclosion_email: Hatching of a controversy to which you contributed on ControverSciences
+    email_sent: emails were sent to the contributors
+    expired_reset: !!Delay for reinitialization of your password is expired.
+    frame_cannot_delete: You cannot erase this contribution.
+    frame_deleted: Contribution sent to the trash.
+    frame_saved: Contribution saved.
+    frame_updated: Contribution modified.
+    impossible_action: This action is impossible.
+    impossible_edit: !!This modification cannot be carried out.
+    mailer_invitation: and ControverSciences invite you to discover
+    must_login: You must sign in/log in to explore this nook of ControverSciences.
+    newsletter: Registration for the ControverSciences newsletter
     no_account: Cette adresse email n'est associée à aucun compte.
     no_account_id: Aucun compte n'est lié à cette adresse mail.
     no_vote_selected: Vous n'avez pas sélectionné de vote.
