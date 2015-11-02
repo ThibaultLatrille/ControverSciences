@@ -10,16 +10,19 @@
           <div class="row">
             <div class="col-xs-12 col-md-4 center">
               <div class="navigation btn btn-default btn-block active" data-body="controversciences">
+                <span class="glyphicon glyphicon-home bigger"></span> &nbsp
                 ControverSciences
               </div>
             </div>
             <div class="col-xs-12 col-md-4 center">
               <div class="navigation btn btn-default btn-block" data-body="decouvrir">
+                <span class="icon icon-telescope"></span> &nbsp
                 Découvrir
               </div>
             </div>
             <div class="col-xs-12 col-md-4 center">
               <div class="navigation btn btn-default btn-block" data-body="contribuer">
+                <span class="icon icon-user"></span> &nbsp
                 Contribuer
               </div>
             </div>
@@ -27,43 +30,98 @@
           <br>
           <div class="row">
             <div class="col-xs-12 col-md-10 col-md-offset-1">
-              <div id="head-controversciences" class="row head">
-                <br>
-
-                <div class="col-xs-12 col-md-4 center">
-                  <div class="sub-navigation btn btn-default btn-block active" data-target="controverse" data-parent="controversciences">
-                    Controverses
-                  </div>
-                </div>
-                <div class="col-xs-12 col-md-4 center">
-                  <div class="sub-navigation btn btn-default btn-block" data-target="pilliers" data-parent="controversciences">
-                    Piliers
-                  </div>
-                </div>
-                <div class="col-xs-12 col-md-4 center">
-                  <div class="sub-navigation btn btn-default btn-block" data-target="manifesto" data-parent="controversciences">
-                    Manifesto
+              <div id="head-controversciences" class="head">
+                <div class="center">
+                  <div class="menu">
+                    <div class="menu-wrapper">
+                      <ul class="menu-items">
+                        <li class="menu-item">
+                          <button class="sub-navigation menu-item-button active" data-target="controverse" data-parent="controversciences">
+                            <i class="icon icon-frog icon-menu-left"></i>
+                          </button>
+                          <div class="menu-item-bounce"></div>
+                        </li>
+                        <li class="menu-item">
+                          <button class="sub-navigation menu-item-button" data-target="piliers" data-parent="controversciences">
+                            <i class="icon icon-pillar icon-menu-top"></i>
+                          </button>
+                          <div class="menu-item-bounce"></div>
+                        </li>
+                        <li class="menu-item">
+                          <button class="sub-navigation menu-item-button" data-target="manifesto" data-parent="controversciences">
+                            <i class="icon icon-geography icon-menu-right"></i>
+                          </button>
+                          <div class="menu-item-bounce"></div>
+                        </li>
+                      </ul>
+                      <button class="menu-toggle-button">
+                        <i class="glyphicon glyphicon-home bigger"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div id="head-decouvrir" class="row head not-activated">
+              <div id="head-decouvrir" class="row head not-activated center">
+                <div class="paginate">
+                  <div class="pagination-navigation">
+                    <div class="pagination-current"></div>
+                    <div class="pagination-dots">
+                      <button class="pagination-dot">
+                        <span class="pagination-number">1</span>
+                      </button>
+                      <button class="pagination-dot">
+                        <span class="pagination-number">2</span>
+                      </button>
+                      <button class="pagination-dot">
+                        <span class="pagination-number">3</span>
+                      </button>
+                      <button class="pagination-dot">
+                        <span class="pagination-number">4</span>
+                      </button>
+                      <button class="pagination-dot">
+                        <span class="pagination-number">5</span>
+                      </button>
+                      <button class="pagination-dot">
+                        <span class="pagination-number">6</span>
+                      </button>
+                      <button class="pagination-dot">
+                        <span class="pagination-number">7</span>
+                      </button>
+                      <button class="pagination-dot">
+                        <span class="pagination-number">8</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div id="head-contribuer" class="row head not-activated">
-                <br>
-
-                <div class="col-xs-12 col-md-4 center">
-                  <div class="sub-navigation btn btn-default btn-block active" data-target="enrichir" data-parent="contribuer">
-                    Enrichir
-                  </div>
-                </div>
-                <div class="col-xs-12 col-md-4 center">
-                  <div class="sub-navigation btn btn-default btn-block" data-target="analyser" data-parent="contribuer">
-                    Analyser
-                  </div>
-                </div>
-                <div class="col-xs-12 col-md-4 center">
-                  <div class="sub-navigation btn btn-default btn-block" data-target="synthetiser" data-parent="contribuer">
-                    Synthétiser
+                <div class="center">
+                  <div class="menu">
+                    <div class="menu-wrapper">
+                      <ul class="menu-items">
+                        <li class="menu-item">
+                          <button class="sub-navigation menu-item-button active" data-target="enrichir" data-parent="contribuer">
+                            <i class="icon icon-reference icon-menu-left"></i>
+                          </button>
+                          <div class="menu-item-bounce"></div>
+                        </li>
+                        <li class="menu-item">
+                          <button class="sub-navigation menu-item-button" data-target="analyser" data-parent="contribuer">
+                            <i class="icon icon-comment icon-menu-top"></i>
+                          </button>
+                          <div class="menu-item-bounce"></div>
+                        </li>
+                        <li class="menu-item">
+                          <button class="sub-navigation menu-item-button" data-target="synthetiser" data-parent="contribuer">
+                            <i class="icon icon-summary icon-menu-right"></i>
+                          </button>
+                          <div class="menu-item-bounce"></div>
+                        </li>
+                      </ul>
+                      <button class="menu-toggle-button">
+                        <i class="icon icon-user"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -138,7 +196,7 @@
         </div>
       </div>
 
-      <div id="pilliers" class="not-activated sub-leading center">
+      <div id="piliers" class="not-activated sub-leading center">
         <div class="row">
           <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
             <br>
@@ -462,6 +520,16 @@
                   $(".slider").removeClass("active");
                   $(this).addClass("active");
               });
+              $('.slider').on('click', function () {
+                  $("#items .item").removeClass("opaque");
+
+                  var newImage = $(this).index();
+
+                  $("#items .item").eq(newImage).addClass("opaque");
+
+                  $(".slider").removeClass("active");
+                  $(this).addClass("active");
+              });
               $('.go-right').on("click", function () {
                   var index = ($(".active", "#navigation").index() + 1) % $(".slider").size();
                   $("#items .item").removeClass("opaque");
@@ -613,22 +681,107 @@
   </div>
 </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+
 <script type="text/javascript">
-    $('.navigation').on("click", function () {
-        $(".navigation").removeClass("active");
-        $this = $(this);
-        $this.addClass("active");
-        $(".leading").addClass("not-activated");
-        $(".head").addClass("not-activated");
-        $("#head-" + $this.data("body")).removeClass("not-activated");
-        $("#body-" + $this.data("body")).removeClass("not-activated");
-    });
-    $('.sub-navigation').on("click", function () {
-        $this = $(this);
-        $(".sub-navigation", "#head-" + $this.data("parent")).removeClass("active");
-        $this.addClass("active");
-        $(".sub-leading", "#body-" + $this.data("parent")).addClass("not-activated");
-        $("#" + $this.data("target")).removeClass("not-activated");
+    $(document).ready(function(){
+        var $dots=$(".pagination-dot")
+                ,$current=$(".pagination-current")
+                ,$items=$(".slider")
+
+                ,spacing=parseFloat($dots.css("width"))+(parseFloat($dots.css("marginLeft"))*2)
+                ,halfSpacing=spacing/2
+                ,startPos
+
+                ,lastItem=0
+                ,lastItemR=0
+                ,lastTime=Date.now()
+                ;
+
+        startPos=$dots.eq(0).position().left;
+        $current.data("pos",{x:startPos});
+
+        $dots.on('click', function(event){
+            var $cur=$(this);
+            $items.eq($cur.index()).click();
+            var dest=($cur.index())*spacing;
+            TweenMax.to($current.data("pos"),0.6,{
+                x:startPos+dest,
+                onUpdate:updatePos,
+                onComplete:updatePos,
+                ease:Quint.easeOut
+                // ease:Elastic.easeOut,
+                // easeParams:[1.1,0.6]
+            });
+        });
+
+        $items.on('mouseover', function () {
+                $dots.eq($(this).index()).click();
+        });
+
+        var dragging=false;
+        var startDrag={x:0,y:0};
+
+        function updatePos(){
+            var pos=$current.data("pos").x-startPos;
+            var scale=pos%spacing;
+            if(scale>halfSpacing){
+                scale=halfSpacing-(scale-halfSpacing);
+            }
+            scale=1-((scale/halfSpacing)*0.35);
+            TweenMax.set($current,{
+                x:pos+startPos,
+                scale:scale*1.4,
+                force3D:true
+            });
+
+            var curItem=pos/spacing,
+                    curItemR=Math.round(curItem)
+                    ;
+            var now=Date.now();
+            var diff=now-lastTime;
+            var deltaTime=diff/(1000/60);
+            lastTime=now;
+            if(lastItemR!=curItemR){
+                var $bounceDot=$dots.eq(lastItemR);
+                TweenMax.to($bounceDot,0.1,{
+                    x:70*((curItem-lastItem)/deltaTime),
+                    ease:Quad.easeOut,
+                    onComplete:function(){
+                        TweenMax.to($bounceDot,1,{
+                            x:0,
+                            ease:Elastic.easeOut,
+                            easeParams:[1.1,0.5]
+                        })
+                    }
+                })
+            }
+            lastItem=curItem;
+            lastItemR=curItemR;
+        }
+        $('.navigation').on("click", function () {
+            $(".navigation").removeClass("active");
+            $this = $(this);
+            $this.addClass("active");
+            $(".leading").addClass("not-activated");
+            $(".head").addClass("not-activated");
+            $("#head-" + $this.data("body")).removeClass("not-activated");
+            $("#body-" + $this.data("body")).removeClass("not-activated");
+            startPos=$dots.eq(0).position().left;
+            $current.data("pos",{x:startPos});
+            $dots.eq(0).click();
+            $(".menu-toggle-button").click();
+        });
+        $('.sub-navigation').on("click", function () {
+            $this = $(this);
+            console.log($this.data("parent"));
+            $(".sub-navigation", "#head-" + $this.data("parent")).removeClass("active");
+            $this.addClass("active");
+            $(".sub-leading", "#body-" + $this.data("parent")).addClass("not-activated");
+            $("#" + $this.data("target")).removeClass("not-activated");
+        });
+        $(".menu-toggle-button").trigger("mousedown")
     });
 </script>
 

@@ -19,6 +19,8 @@
  *= require d3-graph.css.scss
  *= require chart.css.scss
  *= require fancyBox.css
+ *= require menu.css
+ *= require pagination.css
  */
 @font-face{
     font-family: 'Glyphicons Halflings';

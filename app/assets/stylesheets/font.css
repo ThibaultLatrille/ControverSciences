@@ -358,3 +358,11 @@
 .icon-pirate:before{
     content: "\e801";
 }
+
+.icon-telescope:before {
+    content: "\e900";
+}
+
+.icon-pillar:before {
+    content: "\e901";
+}

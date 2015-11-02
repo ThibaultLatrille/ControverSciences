@@ -28,3 +28,4 @@
 //= require jquery.pretty-text-diff.js
 //= require jets.js
 //= require fancyBox.js
+//= require menu.js
