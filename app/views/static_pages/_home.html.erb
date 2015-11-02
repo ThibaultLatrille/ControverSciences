@@ -6,7 +6,6 @@
     <div class="row">
       <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
         <br>
-
         <div class="framed">
           <div class="row">
             <div class="col-xs-12 col-md-4 center">
@@ -24,7 +23,8 @@
                 Contribuer
               </div>
             </div>
-          </div>
+            </div>
+          <br>
           <div class="row">
             <div class="col-xs-12 col-md-10 col-md-offset-1">
               <div id="head-controversciences" class="row head">
@@ -140,7 +140,7 @@
 
       <div id="pilliers" class="not-activated sub-leading center">
         <div class="row">
-          <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+          <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
             <br>
             <br>
 
@@ -229,7 +229,7 @@
 
       <div id="manifesto" class="not-activated sub-leading">
         <div class="row">
-          <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+          <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
             <br>
             <br>
 
@@ -240,7 +240,7 @@
               </h1>
 
               <div class="row">
-                <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-5 vcenter">
+                <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-1 col-md-4 vcenter">
                   <object class="img-responsive" data=<%= path_to_image 'help-mission.svg' %>>
                   </object>
                 </div>
@@ -446,6 +446,8 @@
               </div>
             </div>
           </div>
+          <br>
+          <br>
         </div>
       </div>
       <script type="text/javascript">
@@ -461,14 +463,14 @@
                   $(this).addClass("active");
               });
               $('.go-right').on("click", function () {
-                  var index = ($(".active").index() + 1) % $(".slider").size();
+                  var index = ($(".active", "#navigation").index() + 1) % $(".slider").size();
                   $("#items .item").removeClass("opaque");
                   $("#items .item").eq(index).addClass("opaque");
                   $(".slider").removeClass("active");
                   $("#navigation .slider").eq(index).addClass("active");
               });
               $('.go-left').on("click", function () {
-                  var index = ($(".active").index() - 1) % $(".slider").size();
+                  var index = ($(".active", "#navigation").index() - 1) % $(".slider").size();
                   $("#items .item").removeClass("opaque");
                   $("#items .item").eq(index).addClass("opaque");
                   $(".slider").removeClass("active");
@@ -480,55 +482,130 @@
 
     <div id="body-contribuer" class="leading not-activated">
       <div id="enrichir" class="sub-leading activated">
-        <a href="<%= empty_references_path %>" style="color: white">
-          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 hvr-grow">
-            <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
-              Enrichir
-            </h1>
-
-            <div class="center-block">
-              <%= image_tag("3rules-1.png", alt: "Enrichir", :class => "img-responsive") %>
+        <br>
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
+            <div class="framed center">
+              <h1 style="font-size: 2.6em;">
+                Enrichir
+              </h1>
+              <div class="row">
+                <div class="col-xs-12 col-sm-5 vcenter">
+                  <a href="<%= empty_references_path %>" style="color: white" class="hvr-grow">
+                    <div class="center-block">
+                      <%= image_tag("3rules-1.png", alt: "Enrichir", :class => "img-responsive") %>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 center vcenter">
+                  <br>
+                  <div class="text-center">
+                    <h4>Des controverses ont besoin de références scientifiques, venez les enrichir !</h4>
+                  </div>
+                  <br>
+                  <br>
+                  <%= link_to "<b><span class=\"icon-4 bigger\" ></span> #{t('views.sessions.new_user')}</b>".html_safe,
+                              signup_path,
+                              class: "btn btn-lg btn-primary" %>
+                  <br>
+                  <br>
+                </div>
+              </div>
+              <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
+                          users_path,
+                          class: "btn btn-lg btn-primary center"  %>
+              <br>
+              <br>
             </div>
-            <div class="text-center vcenter">
-              <h4>Ces controverses ont besoin de références scientifiques, venez les enrichir !</h4>
-            </div>
+            <br>
+            <br>
           </div>
-        </a>
+        </div>
       </div>
 
       <div id="analyser" class="sub-leading not-activated">
-        <a href="<%= empty_comments_path %>" style="color: white">
-          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 hvr-grow">
-            <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
-              Analyser
-            </h1>
-
-            <div class="center-block">
-              <%= image_tag("3rules-3.png", alt: "Analyser", :class => "img-responsive") %>
+        <br>
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
+            <div class="framed center">
+              <h1 style="font-size: 2.6em;">
+                Analyser
+              </h1>
+              <div class="row">
+                <div class="col-xs-12 col-sm-5 vcenter">
+                  <a href="<%= empty_comments_path %>" style="color: white" class="hvr-grow">
+                    <div class="center-block">
+                      <%= image_tag("3rules-3.png", alt: "Analyser", :class => "img-responsive") %>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 center vcenter">
+                  <br>
+                  <div class="text-center">
+                    <h4>Des références n'ont pas encore d'analyse, soyez le premier à les décortiquer !</h4>
+                  </div>
+                  <br>
+                  <br>
+                  <%= link_to "<b><span class=\"icon-4 bigger\" ></span> #{t('views.sessions.new_user')}</b>".html_safe,
+                              signup_path,
+                              class: "btn btn-lg btn-primary" %>
+                  <br>
+                  <br>
+                </div>
+              </div>
+              <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
+                          users_path,
+                          class: "btn btn-lg btn-primary center"  %>
+              <br>
+              <br>
             </div>
-            <div class="text-center vcenter">
-              <h4>Ces références n'ont pas encore d'analyse, soyez le premier à les décortiquer !</h4>
-            </div>
+            <br>
+            <br>
           </div>
-        </a>
+        </div>
       </div>
 
       <div id="synthetiser" class="sub-leading not-activated">
-        <a href="<%= empty_summaries_path %>" style="color: white">
-          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 hvr-grow">
-            <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
-              Synthétiser
-            </h1>
-
-            <div class="center-block">
-              <%= image_tag("3rules-2.png", alt: "Synthétiser", :class => "img-responsive") %>
+        <br>
+        <div class="row">
+          <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
+            <div class="framed center">
+              <h1 style="font-size: 2.6em;">
+                Synthétiser
+              </h1>
+              <div class="row">
+                <div class="col-xs-12 col-sm-5 vcenter">
+                  <a href="<%= empty_summaries_path %>" style="color: white" class="hvr-grow">
+                    <div class="center-block">
+                      <%= image_tag("3rules-2.png", alt: "Synthétiser", :class => "img-responsive") %>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 center vcenter">
+                  <br>
+                  <div class="text-center">
+                    <h4>Des controverses ont des références mais n'ont pas de synthèse,
+                      résumez la situation et apportez une vue d'ensemble au débat !</h4>
+                  </div>
+                  <br>
+                  <br>
+                  <%= link_to "<b><span class=\"icon-4 bigger\" ></span> #{t('views.sessions.new_user')}</b>".html_safe,
+                              signup_path,
+                              class: "btn btn-lg btn-primary" %>
+                  <br>
+                  <br>
+                </div>
+              </div>
+              <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
+                          users_path,
+                          class: "btn btn-lg btn-primary center"  %>
+              <br>
+              <br>
             </div>
-            <div class="text-center vcenter">
-              <h4>Ces controverses ont des références mais n'ont pas de synthèse,
-                résumez la situation et apportez une vue d'ensemble au débat !</h4>
-            </div>
+            <br>
+            <br>
           </div>
-        </a>
+        </div>
       </div>
 
     </div>
@@ -554,3 +631,13 @@
         $("#" + $this.data("target")).removeClass("not-activated");
     });
 </script>
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+      <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+    </filter>
+  </defs>
+</svg>
