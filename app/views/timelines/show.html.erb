@@ -1,462 +1,471 @@
 <% provide(:title, @timeline.name.html_safe) %>
 <% provide(:meta, @timeline.frame.html_safe) %>
-<% provide(:img, @timeline.picture_url ) %>
+<% provide(:img, @timeline.picture_url) %>
 <%= javascript_include_tag 'chart' %>
 
 <div id="my-container" class="container-fluid">
-<div class="row">
+  <div class="row">
 
-<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
-  <div class="list-group">
-    <div class="list-group-item center">
-      <div class="sticky" data-placement="bottom"
-           title="<%= t('views.pluralize.users', count: @timeline.nb_contributors ) %>"
-           data-toggle="tooltip">
-        <span class="fat icon-users"></span>
-        <%= @timeline.nb_contributors %>
-      </div>
-      <div class="sticky" data-placement="bottom"
-           title="<%= t('views.pluralize.references', count: @timeline.nb_references ) %>"
-           data-toggle="tooltip">
-        <span class="fat icon-reference"></span>
-        <%= @timeline.nb_references %>
-      </div>
-      <div class="sticky" data-placement="right"
-           title="<%= t('views.pluralize.edits', count: @timeline.nb_edits ) %>"
-           data-toggle="tooltip">
-        <span class="fat icon-summary"></span>
-        <%= @timeline.nb_edits %>
-      </div>
-      <br>
-      <div class="sticky" data-placement="bottom"
-           title="<%= t('views.pluralize.views', count: @timeline.views ) +
-                              distance_of_time_in_words_to_now( @timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? @timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00") ) %>"
-           data-toggle="tooltip">
-        <span class="fat icon-views"></span>
-        <%= @timeline.views %>
-      </div>
-    </div>
-    <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timelines')}".html_safe,
-                timelines_path(:sort => params[:sort], :order => params[:order]),
-                class: "list-group-item" %>
-    <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> #{t('views.timelines.next')}".html_safe,
-                next_timeline_path(id: @timeline.id),
-                class: "list-group-item" %>
-    <% if logged_in? %>
-        <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
+      <div class="list-group">
+        <div class="list-group-item center">
+          <div class="sticky" data-placement="bottom"
+               title="<%= t('views.pluralize.users', count: @timeline.nb_contributors) %>"
+               data-toggle="tooltip">
+            <span class="fat icon-users"></span>
+            <%= @timeline.nb_contributors %>
+          </div>
+          <div class="sticky" data-placement="bottom"
+               title="<%= t('views.pluralize.references', count: @timeline.nb_references) %>"
+               data-toggle="tooltip">
+            <span class="fat icon-reference"></span>
+            <%= @timeline.nb_references %>
+          </div>
+          <div class="sticky" data-placement="right"
+               title="<%= t('views.pluralize.edits', count: @timeline.nb_edits) %>"
+               data-toggle="tooltip">
+            <span class="fat icon-summary"></span>
+            <%= @timeline.nb_edits %>
+          </div>
+          <br>
+
+          <div class="sticky" data-placement="bottom"
+               title="<%= t('views.pluralize.views', count: @timeline.views) +
+                                  distance_of_time_in_words_to_now(@timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? @timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00")) %>"
+               data-toggle="tooltip">
+            <span class="fat icon-views"></span>
+            <%= @timeline.views %>
+          </div>
+        </div>
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timelines')}".html_safe,
+                    timelines_path(:sort => params[:sort], :order => params[:order]),
+                    class: "list-group-item" %>
+        <%= link_to "<span class=\"glyphicon glyphicon-menu-right\"></span> #{t('views.timelines.next')}".html_safe,
+                    next_timeline_path(id: @timeline.id),
+                    class: "list-group-item" %>
+        <% if logged_in? %>
+            <%= link_to "<span class=\"glyphicon glyphicon-link\" >
 			</span>  #{t('views.timelines.new_edges')}".html_safe,
-                    edges_path(timeline_id: @timeline.id),
-                    class: "list-group-item" %>
-        <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.timelines.delete')}".html_safe,
-                        timeline_path(@timeline), method: :delete,
-                        data:                             {confirm: t('views.default.confirm')},
-                        class:                            "list-group-item list-group-item-danger" %>
+                        edges_path(timeline_id: @timeline.id),
+                        class: "list-group-item" %>
+            <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
+                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.timelines.delete')}".html_safe,
+                            timeline_path(@timeline), method: :delete,
+                            data: {confirm: t('views.default.confirm')},
+                            class: "list-group-item list-group-item-danger" %>
+            <% end %>
         <% end %>
-    <% end %>
-  </div>
-  <div class="list-group">
-    <% if @timeline.nb_frames > 1 %>
-        <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_frames}</span>
+      </div>
+      <div class="list-group">
+        <% if @timeline.nb_frames > 1 %>
+            <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_frames}</span>
 	      &nbsp #{t('views.model.frames')}".html_safe,
-                    frames_path(timeline_id: @timeline.id),
-                    class: "list-group-item" %>
-    <% elsif logged_in? && !@my_frame %>
-        <%= link_to "<span class=\"icon-fork normal\" >
+                        frames_path(timeline_id: @timeline.id),
+                        class: "list-group-item" %>
+        <% elsif logged_in? && !@my_frame %>
+            <%= link_to "<span class=\"icon-fork normal\" >
 				</span> #{t('views.timelines.new_frame')}".html_safe,
-                    new_frame_path(timeline_id: @timeline.id),
-                    class: "list-group-item" %>
-    <% end %>
-    <% if logged_in? && @my_frame %>
-        <%= link_to "<span class=\"icon-summary normal\"></span>
+                        new_frame_path(timeline_id: @timeline.id),
+                        class: "list-group-item" %>
+        <% end %>
+        <% if logged_in? && @my_frame %>
+            <%= link_to "<span class=\"icon-summary normal\"></span>
                                 </span> #{t('views.model.your_frame')}".html_safe,
-                    frames_path(timeline_id: @timeline.id, filter: "mine"),
-                    :class => "list-group-item" %>
-    <% end %>
-  </div>
+                        frames_path(timeline_id: @timeline.id, filter: "mine"),
+                        :class => "list-group-item" %>
+        <% end %>
+      </div>
 
-  <% if @timeline.nb_references > 2 || @summary %>
-      <% if logged_in? %>
-          <div class="list-group">
-            <% if @summary && @timeline.nb_summaries > 1 %>
+      <% if @timeline.nb_references > 2 || @summary %>
+          <% if logged_in? %>
+              <div class="list-group">
+                <% if @summary && @timeline.nb_summaries > 1 %>
                     <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
                   &nbsp #{t('views.model.summaries_of')} ".html_safe,
                                 summaries_path(timeline_id: @timeline.id),
                                 class: "list-group-item" %>
-            <% end %>
-            <% if @improve %>
-                <%= link_to "<span class=\"icon-fork normal\" >
+                <% end %>
+                <% if @improve %>
+                    <%= link_to "<span class=\"icon-fork normal\" >
                     </span> #{t('views.summaries.new')}".html_safe,
-                            new_summary_path(timeline_id: @timeline.id),
-                            :class => "list-group-item" %>
-            <% else %>
-                <%= link_to "<span class=\"icon-summary normal\"></span>
+                                new_summary_path(timeline_id: @timeline.id),
+                                :class => "list-group-item" %>
+                <% else %>
+                    <%= link_to "<span class=\"icon-summary normal\"></span>
                   #{t('views.model.your_summary')}".html_safe,
-                            summaries_path(timeline_id: @timeline.id, filter: "mine"),
-                            :class => "list-group-item" %>
-            <% end %>
-          </div>
-      <% elsif @timeline.nb_summaries > 1 %>
-          <div class="list-group">
-            <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
+                                summaries_path(timeline_id: @timeline.id, filter: "mine"),
+                                :class => "list-group-item" %>
+                <% end %>
+              </div>
+          <% elsif @timeline.nb_summaries > 1 %>
+              <div class="list-group">
+                <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
               &nbsp #{t('views.model.summaries_of')} ".html_safe,
-                        summaries_path(timeline_id: @timeline.id),
+                            summaries_path(timeline_id: @timeline.id),
+                            class: "list-group-item" %>
+              </div>
+          <% end %>
+      <% end %>
+      <% if logged_in? %>
+          <div class="list-group">
+            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+            </span> #{t('views.references.new')}".html_safe,
+                        new_reference_path(timeline_id: @timeline.id),
                         class: "list-group-item" %>
           </div>
-      <% end %>
-  <% end %>
-  <% if logged_in? %>
-      <div class="list-group">
-        <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
-            </span> #{t('views.references.new')}".html_safe,
-                    new_reference_path(timeline_id: @timeline.id),
-                    class: "list-group-item" %>
-      </div>
-      <% if @timeline.nb_references > 0 %>
-          <div class="list-group">
-            <% if @timeline.nb_references > 1 %>
-		    <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges_ref')}".html_safe,
-                            references_graph_path(timeline_id: @timeline.id),
+          <% if @timeline.nb_references > 0 %>
+              <div class="list-group">
+                <% if @timeline.nb_references > 1 %>
+                    <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges_ref')}".html_safe,
+                                references_graph_path(timeline_id: @timeline.id),
+                                class: "list-group-item" %>
+                <% end %>
+                <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> #{t('views.timelines.dl_bib')}".html_safe,
+                            '#download-biblio', 'data-toggle' => 'modal',
                             class: "list-group-item" %>
-            <% end %>
-	    <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> #{t('views.timelines.dl_bib')}".html_safe,
-                        '#download-biblio', 'data-toggle' => 'modal',
-                        class:                            "list-group-item" %>
-            <div class="modal fade" id="download-biblio" tabindex="-1" role="dialog">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <br/>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row">
-                      <div class="col-xs-12 col-md-3">
-                        <%= link_to image_tag("bib.png", alt: "Bibtex", :class => "img-responsive", style: "width:100%;"),
-                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
-                                    class: "hvr-grow" %>
+                <div class="modal fade" id="download-biblio" tabindex="-1" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <br/>
                       </div>
-                      <div class="col-xs-12 col-md-3">
-                        <%= link_to image_tag("xml.png", alt: "Xml", :class => "img-responsive", style: "width:100%;"),
-                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
-                                    class: "hvr-grow" %>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col-xs-12 col-md-3">
+                            <%= link_to image_tag("bib.png", alt: "Bibtex", :class => "img-responsive", style: "width:100%;"),
+                                        timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
+                                        class: "hvr-grow" %>
+                          </div>
+                          <div class="col-xs-12 col-md-3">
+                            <%= link_to image_tag("xml.png", alt: "Xml", :class => "img-responsive", style: "width:100%;"),
+                                        timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
+                                        class: "hvr-grow" %>
+                          </div>
+                          <div class="col-xs-12 col-md-3">
+                            <%= link_to image_tag("json.png", alt: "json", :class => "img-responsive", style: "width:100%;"),
+                                        timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
+                                        class: "hvr-grow" %>
+                          </div>
+                          <div class="col-xs-12 col-md-3">
+                            <%= link_to image_tag("yaml.png", alt: "yaml", :class => "img-responsive", style: "width:100%;"),
+                                        timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
+                                        class: "hvr-grow" %>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-xs-12 col-md-3">
-                        <%= link_to image_tag("json.png", alt: "json", :class => "img-responsive", style: "width:100%;"),
-                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
-                                    class: "hvr-grow" %>
-                      </div>
-                      <div class="col-xs-12 col-md-3">
-                        <%= link_to image_tag("yaml.png", alt: "yaml", :class => "img-responsive", style: "width:100%;"),
-                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
-                                    class: "hvr-grow" %>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> <%= t('views.default.close') %> </button>
                       </div>
                     </div>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> <%= t('views.default.close') %> </button>
-                  </div>
                 </div>
               </div>
-            </div>
-          </div>
+          <% end %>
       <% end %>
-  <% end %>
-  <div>
-    <a href="https://twitter.com/share"
-       class="twitter-share-button"
-       data-text="<%= CGI::unescapeHTML(@timeline.name) %>"
-       data-via="ControverSci">
-      Tweet
-    </a>
-  </div>
-  <div>
-    <div class="fb-share-button"
-         data-href="<%= timeline_path @timeline %>"
-         data-layout="button_count">
+      <div>
+        <a href="https://twitter.com/share"
+           class="twitter-share-button"
+           data-text="<%= CGI::unescapeHTML(@timeline.name) %>"
+           data-via="ControverSci">
+          Tweet
+        </a>
+      </div>
+      <div>
+        <div class="fb-share-button"
+             data-href="<%= timeline_path @timeline %>"
+             data-layout="button_count">
+        </div>
+      </div>
+      <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>#{t('views.buttons.invit')}</b>".html_safe,
+                  new_invitation_path(timeline_id: @timeline.id),
+                  remote: true,
+                  style: "padding: 1px 6px; margin-top: 5px;",
+                  class: "btn btn-sm btn-primary" %>
     </div>
-  </div>
-    <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>#{t('views.buttons.invit')}</b>".html_safe,
-                new_invitation_path(timeline_id: @timeline.id),
-                remote: true,
-                style: "padding: 1px 6px; margin-top: 5px;",
-                class:  "btn btn-sm btn-primary" %>
-</div>
 
-<div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
-      <% if @timeline.private && logged_in? && current_user.admin %>
-          <div class="panel panel-info">
-            <div class="panel-heading">
-              <%= link_to "#{t('views.timelines.make_public')} <span class=\"icon icon-lock normal\"></span>".html_safe,
-                          set_public_timelines_path(timeline_id: @timeline.id),
-                          data: {confirm: t('views.timelines.confirm')} %>
-            </div>
-          </div>
-      <% end %>
-      <% if logged_in? %>
-      <% if @timeline.staging %>
-          <div class="panel panel-info">
-            <div class="panel-heading center">
-              <% if current_user.admin %>
-                  <%= link_to "<span class=\"icon icon-hatch bigger\"></span>".html_safe,
-                              switch_staging_timelines_path(timeline_id: @timeline.id),
-                              "data-toggle" => :tooltip,
-                              class: "btn btn-default green pull-right",
-                              title: t('views.timelines.make_public') %>
-              <% end %>
-              <span style="font-size: 1.4em">
+    <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
+          <% if @timeline.private && logged_in? && current_user.admin %>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <%= link_to "#{t('views.timelines.make_public')} <span class=\"icon icon-lock normal\"></span>".html_safe,
+                              set_public_timelines_path(timeline_id: @timeline.id),
+                              data: {confirm: t('views.timelines.confirm')} %>
+                </div>
+              </div>
+          <% end %>
+          <% if logged_in? %>
+              <% if @timeline.staging %>
+                  <div class="panel panel-info">
+                    <div class="panel-heading center">
+                      <% if current_user.admin %>
+                          <%= link_to "<span class=\"icon icon-hatch bigger\"></span>".html_safe,
+                                      switch_staging_timelines_path(timeline_id: @timeline.id),
+                                      "data-toggle" => :tooltip,
+                                      class: "btn btn-default green pull-right",
+                                      title: t('views.timelines.make_public') %>
+                      <% end %>
+                      <span style="font-size: 1.4em">
                 <span class="icon icon-staging fat"></span>
-                <%= t('views.timelines.is_staging_html') %>
+                        <%= t('views.timelines.is_staging_html') %>
               </span> <br>
               <span style="font-size: 1.2em">
                 <%= t('views.timelines.is_staging_sub') %>
               </span>
-            </div>
-          </div>
-      <% else %>
-          <div class="panel panel-info">
-            <div class="panel-heading center">
-              <% if current_user.admin %>
-                  <%= link_to "<span class=\"icon icon-egg bigger\"></span>".html_safe,
-                              switch_staging_timelines_path(timeline_id: @timeline.id),
-                              "data-toggle" => :tooltip,
-                              class: "btn btn-default red pull-right",
-                              title: t('views.timelines.make_staging') %>
-              <% end %>
-              <span style="font-size: 1.4em">
+                    </div>
+                  </div>
+              <% else %>
+                  <div class="panel panel-info">
+                    <div class="panel-heading center">
+                      <% if current_user.admin %>
+                          <%= link_to "<span class=\"icon icon-egg bigger\"></span>".html_safe,
+                                      switch_staging_timelines_path(timeline_id: @timeline.id),
+                                      "data-toggle" => :tooltip,
+                                      class: "btn btn-default red pull-right",
+                                      title: t('views.timelines.make_staging') %>
+                      <% end %>
+                      <span style="font-size: 1.4em">
                 <span class="icon icon-built fat"></span>
-                <%= t('views.timelines.is_built_html') %>
+                        <%= t('views.timelines.is_built_html') %>
               </span> <br>
               <span style="font-size: 1.2em">
                 <%= t('views.timelines.is_built_sub') %>
               </span>
-            </div>
-          </div>
-      <% end %>
-      <% end %>
-    </div>
-  </div>
-
-<div class="panel panel-default comment">
-<div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>); background-size: 100%; background-repeat:no-repeat;">
-  <div class="content">
-    <div class="clearfix">
-
-      <% if logged_in? && @improve_frame %>
-          <div class="pull-right">
-            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                        new_typo_path(frame_id: @improve_frame.id, field: 0),
-                        remote: true,
-                        class:  "btn btn-default", "data-toggle" => "tooltip",
-                        title:  t('views.default.fix_typo'),
-                        style:  "padding: 8px; margin: 0px 8px;" %>
-          </div>
-      <% end %>
-      <div class="pull-right">
-        <% if logged_in? && (@my_likes.include? @timeline.id) %>
-            <button type="button" class="btn btn-success" data-placement="left"
-                    data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                    title="<%= t('views.default.you_and' ) + " " + t('views.pluralize.likes', count: @timeline.nb_likes - 1 ) %>">
-              <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
-            </button>
-        <% else %>
-            <button type="button" class="btn btn-default green" data-placement="left"
-                    data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                    title="<%= t('views.pluralize.likes', count: @timeline.nb_likes ) %>">
-              <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
-            </button>
-        <% end %>
+                    </div>
+                  </div>
+              <% end %>
+          <% end %>
+        </div>
       </div>
-      <% @timeline.get_tag_list.each do |name| %>
-          <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
-                      timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
-                      class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
-      <% end %>
-      <h1 class="shadowed">
-        <br/>
+
+      <div class="panel panel-default comment">
+        <div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>); background-size: 100%; background-repeat:no-repeat;">
+          <div class="content">
+            <div class="clearfix">
+
+              <% if logged_in? && @improve_frame %>
+                  <div class="pull-right">
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                new_typo_path(frame_id: @improve_frame.id, field: 0),
+                                remote: true,
+                                class: "btn btn-default", "data-toggle" => "tooltip",
+                                title: t('views.default.fix_typo'),
+                                style: "padding: 8px; margin: 0px 8px;" %>
+                  </div>
+              <% end %>
+              <div class="pull-right">
+                <% if logged_in? && (@my_likes.include? @timeline.id) %>
+                    <button type="button" class="btn btn-success" data-placement="left"
+                            data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
+                            title="<%= t('views.default.you_and') + " " + t('views.pluralize.likes', count: @timeline.nb_likes - 1) %>">
+                      <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
+                    </button>
+                <% else %>
+                    <button type="button" class="btn btn-default green" data-placement="left"
+                            data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
+                            title="<%= t('views.pluralize.likes', count: @timeline.nb_likes) %>">
+                      <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
+                    </button>
+                <% end %>
+              </div>
+              <% @timeline.get_tag_list.each do |name| %>
+                  <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                              timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                              class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+              <% end %>
+              <h1 class="shadowed">
+                <br/>
         <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 0 %>">
            <%= @timeline.name.html_safe %>
         </span>
-        <br/><br/>
-      </h1>
-      <% if @timeline.frame != "" %>
-          <% if logged_in? && @improve_frame %>
-              <div class="pull-right">
-                <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                            new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
-                            :class                                                        => "btn btn-default", "data-toggle" => "tooltip",
-                            title:                                                        t('views.default.fix_typo'),
-                            :style                                                        => "padding: 8px; margin: 8px" %>
-              </div>
-          <% end %>
-          <div class="cadre text-justify clearfix">
-            <b style="font-size: 1.4em"><%= t('views.frames.frame') %>:</b><br/>
+                <br/><br/>
+              </h1>
+              <% if logged_in? && current_user.admin %>
+                  <div id="source-timeline" class="panel-heading">
+                    <%= form_for(@timeline, html: {multipart: true}, remote: true) do |f| %>
+                        <%= f.hidden_field :has_picture, value: @timeline.picture? %>
+                        <%= f.hidden_field :delete_picture, value: false %>
+                        <%= f.hidden_field :img_timeline_id, value: @timeline.id %>
+                        <%= f.text_field :source, value: (@timeline.figure_id.blank? ? nil : @timeline.figure.source), placeholder: t('views.picture.source'), class: 'form-control' %>
+                        <br/>
+
+                        <div id="size-warning" class="row" style="display: none">
+                          <div class="col-xs-10 col-xs-offset-1">
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                              <strong>
+                                <span class="glyphicon glyphicon-warning-sign"></span>
+                                <%= t('views.picture.invalid_banner') %>
+                              </strong>
+                            </div>
+                          </div>
+                        </div>
+                        <%= f.button "#{t('views.buttons.save')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                                     class: 'btn btn-success pull-right',
+                                     data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
+                    <% end %>
+                    <div>
+                      <div id="upload-btn" class="btn btn-default fileinput-button">
+                        <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+                        <span id="ajouter"> <%= t('views.picture.add_figure') %> </span>
+                        <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
+                      </div>
+                      <div id="progress" style="display: none">
+                        <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                          <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                            <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                          </path>
+                        </svg>
+                      </div>
+                      <div id="delete" class="btn btn-danger" style="display: none">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                        <%= t('views.picture.delete_figure') %>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                      $(document).ready(function () {
+                          if ($('#timeline_has_picture').val() === 'true') {
+                              $('#delete').show();
+                              $('#ajouter').text("<%= t('views.picture.edit_figure') %>");
+                          }
+                          $(function () {
+                              'use strict';
+                              // Change this to the location of your server-side upload handler:
+                              $('#fileupload').fileupload({
+                                  url: "<%= figures_url + "?img_timeline_id=" + @timeline.id.to_s %>",
+                                  type: 'POST',
+                                  dataType: 'json',
+                                  done: function (e, data) {
+                                      $('#upload-btn').show(300);
+                                      $('#progress').hide(300);
+                                      if (data.result.id == null) {
+                                          $('#size-warning').show(300);
+                                      } else {
+                                          $('#timeline_has_picture').val('true');
+                                          $('#timeline_delete_picture').val('false');
+                                          $('#size-warning').hide();
+                                          $('#uploaded').css("background", "white url(" + data.result.picture.url + ")");
+                                      }
+                                  },
+                                  start: function (e, data) {
+                                      $('#upload-btn').hide();
+                                      $('#progress').show();
+                                  }
+                              }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+                          });
+                          $('#delete').click(function () {
+                              $('#delete').hide(300);
+                              $('#uploaded').css("background", "white");
+                              $('#ajouter').text("<%=t('views.picture.add_figure')%>");
+                              $('#timeline_delete_picture').val('true');
+                          });
+                      });
+                  </script>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div id="uploaded" class="panel-body">
+          <div class="content">
+            <% if @timeline.frame != "" %>
+                <% if logged_in? && @improve_frame %>
+                    <div class="pull-right">
+                      <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                  new_typo_path(frame_id: @improve_frame.id, field: 1), remote: true,
+                                  :class => "btn btn-default", "data-toggle" => "tooltip",
+                                  title: t('views.default.fix_typo'),
+                                  :style => "padding: 8px; margin: 8px" %>
+                    </div>
+                <% end %>
+                <div class="cadre text-justify clearfix">
+                  <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
             <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 1 %>">
               <%= @timeline.frame.html_safe %>
               <span class="pull-right">
                 <%= link_to @improve_frame.user_name, user_path(@improve_frame.user_id) %>
                 </span>
            </span>
-          </div>
-          <br/>
-      <% end %>
-      <% if logged_in? && current_user.admin %>
-          <div class="pull-right" style="margin-right: 8px;">
-            <% if @timeline.favorite  %>
-            <%= link_to "<span class=\"icon icon-rocket normal\"></span>".html_safe,
-                        switch_favorite_timelines_path(timeline_id: @timeline.id),
-                        "data-toggle" => :tooltip,
-                        class: "btn btn-default green pull-right",
-                        title: t('views.timelines.make_favorite') %>
-            <% end %>
-            <% if @improve_frame  %>
-            <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                        edit_frame_path(@improve_frame.id),
-                        class: "btn btn-primary" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                        frame_path(@improve_frame.id), method: :delete,
-                        data:                                  {confirm: t('views.default.confirm')},
-                        class:                                 "btn btn-danger" %>
-            <% end %>
-          </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-<% if logged_in? && current_user.admin %>
-    <div id="source-timeline" class="panel-heading">
-      <%= form_for(@timeline, html: {multipart: true}, remote: true) do |f| %>
-          <%= f.hidden_field :has_picture, value: @timeline.picture? %>
-          <%= f.hidden_field :delete_picture, value: false %>
-          <%= f.hidden_field :img_timeline_id, value: @timeline.id %>
-          <%= f.text_field :source, value: (@timeline.figure_id.blank? ? nil : @timeline.figure.source), placeholder: t('views.picture.source'), class: 'form-control' %>
-          <br/>
-
-          <div id="size-warning" class="row" style="display: none">
-            <div class="col-xs-10 col-xs-offset-1">
-              <div class="alert alert-danger alert-dismissible" role="alert">
-                <strong>
-                  <span class="glyphicon glyphicon-warning-sign"></span>
-                  <%= t('views.picture.invalid_banner') %>
-                  </strong>
-              </div>
-            </div>
-          </div>
-          <%= f.button "#{t('views.buttons.save')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                       class: 'btn btn-success pull-right',
-                       data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
-      <% end %>
-      <div>
-        <div id="upload-btn" class="btn btn-default fileinput-button">
-          <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-          <span id="ajouter"> <%=t('views.picture.add_figure')%> </span>
-          <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
-        </div>
-        <div id="progress" style="display: none">
-          <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-            <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
-              <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
-            </path>
-          </svg>
-        </div>
-        <div id="delete" class="btn btn-danger" style="display: none">
-          <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-          <%= t('views.picture.delete_figure') %>
-        </div>
-      </div>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            if ($('#timeline_has_picture').val() === 'true') {
-                $('#delete').show();
-                $('#ajouter').text("<%= t('views.picture.edit_figure') %>");
-            }
-            $(function () {
-                'use strict';
-                // Change this to the location of your server-side upload handler:
-                $('#fileupload').fileupload({
-                    url: "<%= figures_url + "?img_timeline_id=" + @timeline.id.to_s %>",
-                    type: 'POST',
-                    dataType: 'json',
-                    done: function (e, data) {
-                        $('#upload-btn').show(300);
-                        $('#progress').hide(300);
-                        if (data.result.id == null) {
-                            $('#size-warning').show(300);
-                        } else {
-                            $('#timeline_has_picture').val('true');
-                            $('#timeline_delete_picture').val('false');
-                            $('#size-warning').hide();
-                            $('#uploaded').css("background", "white url(" + data.result.picture.url + ")");
-                        }
-                    },
-                    start: function (e, data) {
-                        $('#upload-btn').hide();
-                        $('#progress').show();
-                    }
-                }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-            });
-            $('#delete').click(function () {
-                $('#delete').hide(300);
-                $('#uploaded').css("background", "white");
-                $('#ajouter').text("<%=t('views.picture.add_figure')%>");
-                $('#timeline_delete_picture').val('true');
-            });
-        });
-    </script>
-<% end %>
-<% if @summary %>
-    <div class="panel-body">
-      <div id="summary" class="clearfix">
-        <% if @summary.picture? %>
-            <div class="pull-right">
-              <div class="thumbnail">
-                <a class="fancybox" rel="gallery" href="<%= @summary.picture_url %>">
-                  <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
-                  <div class="glyphicon glyphicon-zoom-in"></div>
-                </a>
-                <div class="caption">
-                  <%= @summary.caption_markdown.html_safe %>
                 </div>
-              </div>
-            </div>
-        <% end %>
-        <div class="justify">
-          <div class="content<%= @summary.id %>">
-              <%= @summary.markdown.html_safe %>
-
-            <span class="pull-right">
-                <%= link_to @summary.user_name, user_path(@summary.user_id) %>
-            </span>
-            <br/>
-            <br/>
-            <% if logged_in? %>
-                <div class="pull-right">
-                  <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                              new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
-                              title:                                          t('views.default.fix_typo'), :style => "padding: 6px; margin-right: 6px" %>
-                  <% if current_user.admin %>
+                <br/>
+            <% end %>
+            <% if logged_in? && current_user.admin %>
+                <div class="pull-right" style="margin-right: 8px;">
+                  <% if @timeline.favorite %>
+                      <%= link_to "<span class=\"icon icon-rocket normal\"></span>".html_safe,
+                                  switch_favorite_timelines_path(timeline_id: @timeline.id),
+                                  "data-toggle" => :tooltip,
+                                  class: "btn btn-default green pull-right",
+                                  title: t('views.timelines.make_favorite') %>
+                  <% end %>
+                  <% if @improve_frame %>
                       <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                  edit_summary_path(@summary.id),
+                                  edit_frame_path(@improve_frame.id),
                                   class: "btn btn-primary" %>
                       <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                  summary_path(@summary.id), method: :delete,
-                                  data:                              {confirm: t('views.default.confirm')},
-                                  class:                             "btn btn-danger" %>
+                                  frame_path(@improve_frame.id), method: :delete,
+                                  data: {confirm: t('views.default.confirm')},
+                                  class: "btn btn-danger" %>
                   <% end %>
-                  <br/>
-                  <br/>
-                  <br/>
                 </div>
             <% end %>
-            <% if @summary.summary_links.count > 0 %>
-                <hr style="width: 250px"/>
-            <%= t('views.pluralize.edges', count: @summary.summary_links.count) %>
-            <ul style="list-style-type: none; padding-left: 0;">
-              <% @summary.summary_links.includes(:reference).each do |link| %>
-                  <li>
+          </div>
+        </div>
+      </div>
+      <% if @summary %>
+          <div class="panel panel-default comment">
+            <div class="panel-body">
+              <div id="summary" class="clearfix">
+                <% if @summary.picture? %>
+                    <div class="pull-right">
+                      <div class="thumbnail">
+                        <a class="fancybox" rel="gallery" href="<%= @summary.picture_url %>">
+                          <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
+                          <div class="glyphicon glyphicon-zoom-in"></div>
+                        </a>
+
+                        <div class="caption">
+                          <%= @summary.caption_markdown.html_safe %>
+                        </div>
+                      </div>
+                    </div>
+                <% end %>
+                <div class="justify">
+                  <b style="font-size: 1.4em"><%= t('views.model.summary') %> :</b>
+                  <div class="content<%= @summary.id %>">
+                    <%= @summary.markdown.html_safe %>
+
+                    <span class="pull-right">
+                <%= link_to @summary.user_name, user_path(@summary.user_id) %>
+            </span>
+                    <br/>
+                    <br/>
+                    <% if logged_in? %>
+                        <div class="pull-right">
+                          <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                                      new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
+                                      title: t('views.default.fix_typo'), :style => "padding: 6px; margin-right: 6px" %>
+                          <% if current_user.admin %>
+                              <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
+                                          edit_summary_path(@summary.id),
+                                          class: "btn btn-primary" %>
+                              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
+                                          summary_path(@summary.id), method: :delete,
+                                          data: {confirm: t('views.default.confirm')},
+                                          class: "btn btn-danger" %>
+                          <% end %>
+                          <br/>
+                          <br/>
+                          <br/>
+                        </div>
+                    <% end %>
+                    <% if @summary.summary_links.count > 0 %>
+                        <hr style="width: 250px"/>
+                        <%= t('views.pluralize.edges', count: @summary.summary_links.count) %>
+                        <ul style="list-style-type: none; padding-left: 0;">
+                          <% @summary.summary_links.includes(:reference).each do |link| %>
+                              <li>
                     <span class="center" style="float: left; width: 40px;">
                   <% if link.count %>
                       [<%= link.count %>]
@@ -464,272 +473,276 @@
                       •
                   <% end %>
                     </span>
-                    <%= link_to link.reference.title_display, reference_path(link.reference), target: "_blank", class: "linked-ref", "data-ref" => link.reference_id  %>
-                  </li>
-              <% end %>
-            </ul>
+                                <%= link_to link.reference.title_display, reference_path(link.reference), target: "_blank", class: "linked-ref", "data-ref" => link.reference_id %>
+                              </li>
+                          <% end %>
+                        </ul>
+                        <br/>
+                    <% end %>
+                  </div>
+                </div>
                 <br/>
-            <% end %>
-           </div>
-        </div>
-        <br/>
-      </div>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#summary").readmore({
-                speed: 750,
-                embedCSS: false,
-                collapsedHeight: 450,
-                moreLink: '<a href="#" class="btn btn-default"><%= t('views.timelines.read_more') %></a>',
-                lessLink: '<a href="#" class="btn btn-default"><%= t('views.timelines.read_less') %></a>'
-            });
-        });
-    </script>
-<% end %>
-</div>
-
-<% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
-    <div id="versus-chart" class="row" style="display: none">
-      <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-        <div class="panel panel-default">
-          <div class="center">
-            <br>
-            <div style="font-size: 1.2em">
-              <%= @timeline.name.html_safe %>
+              </div>
             </div>
-          </div>
-          <br/><br/>
-          <div class="row">
-            <div class="col-xs-12 col-md-offset-1 col-md-6">
-              <canvas id="myChart"></canvas>
-            </div>
-            <div class="col-xs-10 col-xs-offset-1 col-md-offset-0 col-md-4">
-              <div id="doughtnut-legend"></div>
-            </div>
-          </div>
-          <br>
-          <br>
-        </div>
-      </div>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var versuschart = $("#versus-chart");
-            $('#versus-click').click(function () {
-                if ($(this).hasClass("active")){
-                    $(this).removeClass("active");
-                    $('.cd-color').addClass("uni-color");
-                    $('.cd-orange').addClass("uni-orange");
-                    $('#text-versus').text("<%= t('views.timelines.show_versus') %>");
-                    versuschart.hide(500);
-                } else {
-                    $(this).addClass("active");
-                    $('#text-versus').text("<%= t('views.timelines.hide_versus') %>");
-                    $('.cd-color').removeClass("uni-color");
-                    $('.cd-orange').removeClass("uni-orange");
-                    versuschart.show(500, function() {
-                        var data = [
-                            {
-                                value: $('.binary1').length,
-                                color: "rgba(11,132,165,1.0)",
-                                highlight: "rgba(11,132,165,0.6)",
-                                label: '<%= @timeline.binary_explanation(1) -%>'
-                            },
-                            {
-                                value: $('.binary2').length,
-                                color: "rgba(174,214,136,1.0)",
-                                highlight: "rgba(174,214,136,0.6)",
-                                label: '<%= @timeline.binary_explanation(2) -%>'
-                            },
-                            {
-                                value: $('.binary3').length,
-                                color: "rgba(245,199,103,1.0)",
-                                highlight: "rgba(245,199,103,0.6)",
-                                label: '<%= @timeline.binary_explanation(3) -%>'
-                            },
-                            {
-                                value: $('.binary4').length,
-                                color: "rgba(255,160,86,1.0)",
-                                highlight: "rgba(255,160,86,0.6)",
-                                label: '<%= @timeline.binary_explanation(4) -%>'
-                            },
-                            {
-                                value: $('.binary5').length,
-                                color: "rgba(202,71,47,1.0)",
-                                highlight: "rgba(202,71,47,0.6)",
-                                label: '<%= @timeline.binary_explanation(5) -%>'
-                            }
-                        ];
-                        Chart.defaults.global.responsive = true;
-                        Chart.defaults.global.tooltipTemplate = "<%%= value %> références";
-                        (function () {
-                            var helpers = Chart.helpers,
-                                    canvas = $("#myChart").get(0),
-                                    ctx = canvas.getContext('2d'),
-                                    versusDoughnut = new Chart(ctx).Doughnut(data, {
-                                        legendTemplate: "<div><%% for (var i=0; i<segments.length; i++){%><div class=\"clearfix\"><div class=\"pics\" style=\"background-color:<%%=segments[i].fillColor%>\"></div><div class=\"labels\"><%%if(segments[i].label){%><%%=segments[i].label%></div><%%}%></div><%%}%></div>"
-                                    });
-                            $('#doughtnut-legend').html(versusDoughnut.generateLegend());
-                            helpers.addEvent(canvas, 'mousemove', function (evt) {
-                                var segments = versusDoughnut.getSegmentsAtEvent(evt);
-                                if (segments.length > 0) {
-                                    canvas.style.cursor = "pointer";
-                                }
-                                else {
-                                    canvas.style.cursor = "default";
-                                }
-                            });
-
-                            helpers.addEvent(canvas, 'click', function (evt) {
-                                versusDoughnut.options.animation = true;
-                                versusDoughnut.options.onAnimationComplete = function () {
-                                    this.showTooltip(this.activeElements, true);
-                                };
-                                var segments = versusDoughnut.getSegmentsAtEvent(evt);
-                                helpers.each(segments, function (bar) {
-                                    if (bar.active) {
-                                        $(bar.references).hide(500);
-                                        bar.active = false;
-                                        bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.8)');
-                                        bar._saved.fillColor = bar.baseColor.replace('1.0)', '0.1)');
-                                    } else {
-                                        bar.active = true;
-                                        $(bar.references).show(500);
-                                        bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.6)');
-                                        bar._saved.fillColor = bar.baseColor.replace('1.0)', '1.0)');
-                                    }
-                                    console.log(bar)
-                                });
-                                if (segments.length > 0) {
-                                    versusDoughnut.update();
-                                }
-                            });
-                            $.each(versusDoughnut.segments, function (key, bar) {
-                                bar.active = true;
-                                bar.references = ".binary" + (key + 1).toString();
-                                bar.baseColor = bar.fillColor;
-                            });
-                        })();
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $("#summary").readmore({
+                        speed: 750,
+                        embedCSS: false,
+                        collapsedHeight: 450,
+                        moreLink: '<a href="#" class="btn btn-default"><%= t('views.timelines.read_more') %></a>',
+                        lessLink: '<a href="#" class="btn btn-default"><%= t('views.timelines.read_less') %></a>'
                     });
-                }
-            });
-        });
-    </script>
-<% end %>
-<% if @references.any? %>
-      <% if !@timeline.binary.blank? && @timeline.total_binary > 0 %>
-          <div id="versus-click" class="btn btn-default">
-            <span class="icon-versus"></span> &nbsp
+                });
+            </script>
+          </div>
+      <% end %>
+
+      <% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
+          <div id="versus-chart" class="row" style="display: none">
+            <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+              <div class="panel panel-default">
+                <div class="center">
+                  <br>
+
+                  <div style="font-size: 1.2em">
+                    <%= @timeline.name.html_safe %>
+                  </div>
+                </div>
+                <br/><br/>
+
+                <div class="row">
+                  <div class="col-xs-12 col-md-offset-1 col-md-6">
+                    <canvas id="myChart"></canvas>
+                  </div>
+                  <div class="col-xs-10 col-xs-offset-1 col-md-offset-0 col-md-4">
+                    <div id="doughtnut-legend"></div>
+                  </div>
+                </div>
+                <br>
+                <br>
+              </div>
+            </div>
+          </div>
+          <script type="text/javascript">
+              $(document).ready(function () {
+                  var versuschart = $("#versus-chart");
+                  $('#versus-click').click(function () {
+                      if ($(this).hasClass("active")) {
+                          $(this).removeClass("active");
+                          $('.cd-color').addClass("uni-color");
+                          $('.cd-orange').addClass("uni-orange");
+                          $('#text-versus').text("<%= t('views.timelines.show_versus') %>");
+                          versuschart.hide(500);
+                      } else {
+                          $(this).addClass("active");
+                          $('#text-versus').text("<%= t('views.timelines.hide_versus') %>");
+                          $('.cd-color').removeClass("uni-color");
+                          $('.cd-orange').removeClass("uni-orange");
+                          versuschart.show(500, function () {
+                              var data = [
+                                  {
+                                      value: $('.binary1').length,
+                                      color: "rgba(11,132,165,1.0)",
+                                      highlight: "rgba(11,132,165,0.6)",
+                                      label: '<%= @timeline.binary_explanation(1) -%>'
+                                  },
+                                  {
+                                      value: $('.binary2').length,
+                                      color: "rgba(174,214,136,1.0)",
+                                      highlight: "rgba(174,214,136,0.6)",
+                                      label: '<%= @timeline.binary_explanation(2) -%>'
+                                  },
+                                  {
+                                      value: $('.binary3').length,
+                                      color: "rgba(245,199,103,1.0)",
+                                      highlight: "rgba(245,199,103,0.6)",
+                                      label: '<%= @timeline.binary_explanation(3) -%>'
+                                  },
+                                  {
+                                      value: $('.binary4').length,
+                                      color: "rgba(255,160,86,1.0)",
+                                      highlight: "rgba(255,160,86,0.6)",
+                                      label: '<%= @timeline.binary_explanation(4) -%>'
+                                  },
+                                  {
+                                      value: $('.binary5').length,
+                                      color: "rgba(202,71,47,1.0)",
+                                      highlight: "rgba(202,71,47,0.6)",
+                                      label: '<%= @timeline.binary_explanation(5) -%>'
+                                  }
+                              ];
+                              Chart.defaults.global.responsive = true;
+                              Chart.defaults.global.tooltipTemplate = "<%%= value %> références";
+                              (function () {
+                                  var helpers = Chart.helpers,
+                                          canvas = $("#myChart").get(0),
+                                          ctx = canvas.getContext('2d'),
+                                          versusDoughnut = new Chart(ctx).Doughnut(data, {
+                                              legendTemplate: "<div><%% for (var i=0; i<segments.length; i++){%><div class=\"clearfix\"><div class=\"pics\" style=\"background-color:<%%=segments[i].fillColor%>\"></div><div class=\"labels\"><%%if(segments[i].label){%><%%=segments[i].label%></div><%%}%></div><%%}%></div>"
+                                          });
+                                  $('#doughtnut-legend').html(versusDoughnut.generateLegend());
+                                  helpers.addEvent(canvas, 'mousemove', function (evt) {
+                                      var segments = versusDoughnut.getSegmentsAtEvent(evt);
+                                      if (segments.length > 0) {
+                                          canvas.style.cursor = "pointer";
+                                      }
+                                      else {
+                                          canvas.style.cursor = "default";
+                                      }
+                                  });
+
+                                  helpers.addEvent(canvas, 'click', function (evt) {
+                                      versusDoughnut.options.animation = true;
+                                      versusDoughnut.options.onAnimationComplete = function () {
+                                          this.showTooltip(this.activeElements, true);
+                                      };
+                                      var segments = versusDoughnut.getSegmentsAtEvent(evt);
+                                      helpers.each(segments, function (bar) {
+                                          if (bar.active) {
+                                              $(bar.references).hide(500);
+                                              bar.active = false;
+                                              bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.8)');
+                                              bar._saved.fillColor = bar.baseColor.replace('1.0)', '0.1)');
+                                          } else {
+                                              bar.active = true;
+                                              $(bar.references).show(500);
+                                              bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.6)');
+                                              bar._saved.fillColor = bar.baseColor.replace('1.0)', '1.0)');
+                                          }
+                                          console.log(bar)
+                                      });
+                                      if (segments.length > 0) {
+                                          versusDoughnut.update();
+                                      }
+                                  });
+                                  $.each(versusDoughnut.segments, function (key, bar) {
+                                      bar.active = true;
+                                      bar.references = ".binary" + (key + 1).toString();
+                                      bar.baseColor = bar.fillColor;
+                                  });
+                              })();
+                          });
+                      }
+                  });
+              });
+          </script>
+      <% end %>
+      <% if @references.any? %>
+          <% if !@timeline.binary.blank? && @timeline.total_binary > 0 %>
+              <div id="versus-click" class="btn btn-default">
+                <span class="icon-versus"></span> &nbsp
             <span id="text-versus">
                <%= t('views.timelines.show_versus') %>
             </span>
-          </div>
-          <br>
-          <br>
-      <% end %>
-      <% if Rating.where(timeline_id: @timeline.id).count > 0 %>
-          <div id="star-click" class="btn btn-default">
-            <span class="icon-4"></span> &nbsp
+              </div>
+              <br>
+              <br>
+          <% end %>
+          <% if Rating.where(timeline_id: @timeline.id).count > 0 %>
+              <div id="star-click" class="btn btn-default">
+                <span class="icon-4"></span> &nbsp
             <span id="text-star">
             <%= t('views.timelines.show_star') %>
             </span>
+              </div>
+              <br>
+              <script type="text/javascript">
+                  $(document).ready(function () {
+                      $('#star-click').click(function () {
+                          if ($(this).hasClass("active")) {
+                              $(this).removeClass("active");
+                              $('#text-star').text("<%= t('views.timelines.show_star') %>");
+                              $('.frog').fadeOut(600);
+                          } else {
+                              $(this).addClass("active");
+                              $('#text-star', this).text("<%= t('views.timelines.hide_star') %>");
+                              $('.frog').fadeIn(600);
+                          }
+                      });
+                  });
+              </script>
+          <% end %>
+          <% if logged_in? && @titles > 0 %>
+              <br/>
+
+              <div id="no-comment" class="btn btn-default active"
+                   title="<%= t('views.pluralize.reference_no_comment', count: @titles) %>."
+                   data-toggle="tooltip">
+                &nbsp <span class="icon-comment"></span>
+                &nbsp <span id="text-no-comment"><%= t('views.timelines.hide_no_comment', count: @titles) %></span>
+              </div>
+              <script type="text/javascript">
+                  $(document).ready(function () {
+                      $('#no-comment').click(function () {
+                          if ($(this).hasClass("active")) {
+                              $(this).removeClass("active");
+                              $('#text-no-comment').text("<%= t('views.timelines.show_no_comment') %>");
+                              $('.need-comment').hide(600);
+                          } else {
+                              $(this).addClass("active");
+                              $('#text-no-comment', this).text("<%= t('views.timelines.hide_no_comment') %>");
+                              $('.need-comment').show(600);
+                          }
+                      });
+                  });
+              </script>
+          <% end %>
+          <div id="cd-timeline" class="cd-container">
+            <%= render :partial => 'references/reference', :collection => @references, :locals => {:binary => @timeline.binary} %>
           </div>
-          <br>
           <script type="text/javascript">
               $(document).ready(function () {
-                  $('#star-click').click(function () {
-                      if ($(this).hasClass("active")) {
-                          $(this).removeClass("active");
-                          $('#text-star').text("<%= t('views.timelines.show_star') %>");
-                          $('.frog').fadeOut(600);
+                  $('.linked-ref').click(function (e) {
+                      var id = $(this).data("ref");
+                      $("#button" + id).trigger('click');
+                      if ($("#ref-" + id).hasClass("glyphicon-chevron-down")) {
+                          $("#ref-" + id).trigger('click');
+                      }
+                      $("#block-" + id).show(500);
+                      if ($('#block-' + id).length) {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          $('html, body').animate({
+                              scrollTop: $('#block-' + id).offset().top - 80
+                          }, 500);
+                          return false
                       } else {
-                          $(this).addClass("active");
-                          $('#text-star', this).text("<%= t('views.timelines.hide_star') %>");
-                          $('.frog').fadeIn(600);
+                          return true
+                      }
+                  });
+                  $('.detail').click(function () {
+                      if ($(this).hasClass("glyphicon-chevron-down")) {
+                          $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+                          $(this).parent().parent().parent().find('.ref').show(500);
+                          $('html, body').animate({
+                              scrollTop: $(this).parent().parent().parent().offset().top - 80
+                          }, 500)
+                      }
+                      else {
+                          $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+                          $(this).parent().parent().parent().find('.ref').hide(500)
                       }
                   });
               });
           </script>
       <% end %>
-    <% if logged_in? && @titles > 0 %>
+      <% if @timelines.count > 0 %>
           <br/>
-          <div id="no-comment" class="btn btn-default active"
-                 title="<%= t('views.pluralize.reference_no_comment', count: @titles ) %>."
-                    data-toggle="tooltip">
-            &nbsp <span class="icon-comment"></span>
-            &nbsp <span id="text-no-comment"><%= t('views.timelines.hide_no_comment', count: @titles ) %></span>
+          <br/>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+              <% if logged_in? %>
+                  <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes, full_width: true} %>
+              <% else %>
+                  <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil, full_width: true} %>
+              <% end %>
+            </div>
           </div>
-          <script type="text/javascript">
-              $(document).ready(function () {
-                  $('#no-comment').click(function () {
-                      if ($(this).hasClass("active")) {
-                          $(this).removeClass("active");
-                          $('#text-no-comment').text("<%= t('views.timelines.show_no_comment') %>");
-                          $('.need-comment').hide(600);
-                      } else {
-                          $(this).addClass("active");
-                          $('#text-no-comment', this).text("<%= t('views.timelines.hide_no_comment') %>");
-                          $('.need-comment').show(600);
-                      }
-                  });
-              });
-          </script>
-    <% end %>
-    <div id="cd-timeline" class="cd-container">
-      <%= render :partial => 'references/reference', :collection => @references, :locals => {:binary => @timeline.binary} %>
+      <% end %>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.linked-ref').click(function (e) {
-                var id = $(this).data("ref");
-                $("#button" + id).trigger('click');
-                if ($("#ref-" + id).hasClass("glyphicon-chevron-down")) {
-                    $("#ref-" + id).trigger('click');
-                }
-                $("#block-" + id).show(500);
-                if ( $('#block-' + id).length ){
-                    e.stopPropagation();
-                    e.preventDefault();
-                    $('html, body').animate({
-                        scrollTop: $('#block-' + id).offset().top - 80
-                    }, 500);
-                    return false
-                } else{
-                    return true
-                }
-            });
-            $('.detail').click(function () {
-                if ($(this).hasClass("glyphicon-chevron-down")) {
-                    $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-                    $(this).parent().parent().parent().find('.ref').show(500);
-                    $('html, body').animate({
-                        scrollTop: $(this).parent().parent().parent().offset().top - 80
-                    }, 500)
-                }
-                else {
-                    $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-                    $(this).parent().parent().parent().find('.ref').hide(500)
-                }
-            });
-        });
-    </script>
-<% end %>
-<% if @timelines.count > 0 %>
-    <br/>
-    <br/>
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-          <% if logged_in? %>
-              <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => @my_likes, full_width: true} %>
-          <% else %>
-              <%= render :partial => 'timelines/timeline', :collection => @timelines, :locals => {:my_likes => nil, full_width: true} %>
-          <% end %>
-        </div>
-      </div>
-<% end %>
-</div>
-</div>
+  </div>
 </div>
 <div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
   <div class="modal-dialog">
