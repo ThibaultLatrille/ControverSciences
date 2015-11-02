@@ -457,25 +457,6 @@ section h1{
   padding-bottom: 1em;
 }
 
-#welcome{
-  background-color: #ffffff;
-}
-
-#mission{
-  border-top: 2px solid #07212B;
-  border-bottom: 2px solid #07212B;
-  background-color: #3686BE;
-  color: #ffffff;
-}
-
-#development{
-  background-color: #ffffff;
-}
-
-#featured{
-  background-color: #ffffff;
-}
-
 #mycarousel{
   font-size: 1.4em;
 }
@@ -1189,37 +1170,49 @@ del {
 }
 
 #favorite{
-  position: relative;
   #favorite-timeline{
     h4{
       font-size: 1.6em;
     }
-    position: absolute;
-    top: 25%;
-    right: 10%;
-    width: 40%;
     padding: 1em 2em;
     background-image: none;
     border: 2px solid #0f75bc;
-    border-radius: 4px;
+    border-radius: 5px;
     background-color: rgba(255, 255, 255, 0.3);
-  }
-  @media (max-width: 767px) {
-    #favorite-timeline {
-      top: 0;
-      right: 5%;
-      width: 90%;
-    }
-  }
-
-  @media (min-width: 767px) and (max-width: 1439px) {
-    #favorite-timeline {
-      top: 20%;
-      right: 5%;
-      width: 60%;
-    }
   }
   #favorite-timeline:hover{
     text-decoration: none;
   }
+}
+
+.framed{
+  padding: 0.5em 1em;
+  background-image: none;
+  border: 1px solid #0f75bc;
+  border-radius: 5px;
+  background-color: rgba(240, 240, 240, 0.5);
+}
+
+.framed-white{
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.inline-framed{
+  display: inline-block;
+}
+.heading{
+  width: 100%;
+  min-width: 100%;
+  position: absolute;
+  top: 80px;
+  z-index: -1;
+}
+
+.leading{
+  height: 100%;
+  min-height: 100%;
+}
+
+.not-activated{
+  display: none;
 }

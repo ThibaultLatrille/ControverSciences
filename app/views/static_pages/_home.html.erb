@@ -1,233 +1,487 @@
-<section id="welcome">
-  <div class="row">
-    <div class="col-xs-offset-2 col-xs-8  col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-3 vcenter">
-      <%= image_tag("logo.png", alt: "Bienvenue", :class => "img-responsive") %>
-    </div>
-    <div class="col-xs-offset-1 col-xs-10  col-sm-offset-3 col-sm-6 col-md-offset-0  col-md-3 vcenter">
-      <%= form_tag(:timelines, method: "get", class: "search-box") do %>
-          <br/>
-          <div class="input-group">
-                  <span class="input-group-btn">
-                    <%= button_tag(:class => "btn btn-primary submit-search") do %>
-                    <span class="icon icon-search bigger"></span>
-                <% end %>
-              </span>
-            <%= text_field_tag(:filter, "", placeholder: "Rechercher")%>
-          </div>
-          <br/>
-      <% end %>
-      <%= link_to "<b>Les controverses</b>".html_safe, timelines_path,
-                  class: "btn btn-block btn-primary", style: "font-size: 1.4em;" %>
-      <%= link_to "<b>Découvrir</b>".html_safe, how_to_path,
-                  class: "btn btn-block btn-primary" %>
-      <%= link_to "<b>Contribuer</b>".html_safe, how_to_edit_path,
-                  class: "btn btn-block btn-primary" %>
-      <%= link_to "<b>Foire aux questions (FAQ)</b>".html_safe, faq_path,
-                  class: "btn btn-block btn-primary" %>
-      <%= link_to "<b>A propos</b>".html_safe, about_path,
-                  class: "btn btn-block btn-primary" %>
-    </div>
-    <div class="col-xs-12 col-md-offset-3 col-md-6">
-      <br/>
-      <br/>
-    </div>
-    <div class="col-xs-12 col-md-offset-1 col-md-10 center">
-      <div class="carousel-container">
-        <div id="mycarousel" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner home-carrousel" role="listbox">
-            <div class="item active center">
-              <br/>
-              <b><%= t('views.home.sentence_result') %> </b>
-            </div>
-            <% welcome_sentences_keys.each do |key| %>
-              <div class="item center">
-                <br/>
-                <b><%= t(key) %></b>
-              </div>
-            <% end %>
-            <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-            <br/>
-          </div>
-        </div>
-      </div>
-    </div>
+<div id="my-container" class="container-fluid" style="background: transparent url(<%= image_url "rocket.svg" %>); background-size: 100%; background-position: center bottom; background-repeat:no-repeat;">
+  <div class="heading">
+    <%= image_tag "stars.png", class: "img-responsive" %>
   </div>
-</section>
-<% if @favorite %>
+  <div id="home">
     <div class="row">
-      <div class="timeline col-xs-12">
-        <div id="favorite">
-          <img src="<%= image_path "rocket.png" %>" alt="Rocket" class="img-responsive">
-          <a id="favorite-timeline" class="hvr-grow1" href="<%= timeline_path @favorite %>">
-            <h4>
-              <span class="glyphicon glyphicon-star-empty normal"></span>
-              Controverse à l'affiche
-              <span class="glyphicon glyphicon-star-empty normal"></span>
-            </h4>
-            <h3 class="shadowed">
-              <%= @favorite.name.html_safe %>
-            </h3>
-          </a>
-        </div>
-      </div>
-    </div>
-<% end %>
-<section id="mission">
-  <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
-    Une passerelle entre la société et les scientifiques autour de questions controversées.
-  </h1>
+      <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        <br>
 
-  <div class="row">
-    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-1 col-md-5 col-lg-offset-2 col-lg-4 vcenter">
-      <object class="img-responsive" data=<%= path_to_image 'help-mission.svg' %>>
-      </object>
-    </div>
-    <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-5 col-lg-offset-0 col-lg-4 vcenter">
-      <h4 class="text-justify">
-        Qui n’a jamais été à court d'<b>arguments</b> dans un <b>débat</b> ?
-        <br/>
-        <br/>
-        Quelques notions <b>scientifiques</b> vous auraient sauvé d’une situation embarrassante !
-        <br/>
-        <br/>
-        Les publications scientifiques sont souvent <b>opaques et compliquées</b>. Leur accès est souvent payant et
-        incompréhensible !
-        <br/>
-        <br/>
-        <b>ControverSciences</b> a pour <b>mission</b> d’être une plateforme de <b>vulgarisation</b> ! C’est un lieu de
-        <b>partage</b> de la science <b>accessible à tous</b> !
-        <br/>
-        <br/>
-        Sur ControverSciences, il n’y a pas de discrimination intellectuelle ! Tout un chacun a accès au <b>savoir</b>.
-        <br/>
-        <br/>
-        Des <b>scientifiques partagent</b> avec vous les résumés de travaux en les expliquant.
-        <br/>
-        <br/>
-      </h4>
+        <div class="framed">
+          <div class="row">
+            <div class="col-xs-12 col-md-4 center">
+              <div class="navigation btn btn-default btn-block active" data-body="controversciences">
+                ControverSciences
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-4 center">
+              <div class="navigation btn btn-default btn-block" data-body="decouvrir">
+                Découvrir
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-4 center">
+              <div class="navigation btn btn-default btn-block" data-body="contribuer">
+                Contribuer
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-md-10 col-md-offset-1">
+              <div id="head-controversciences" class="row head">
+                <br>
 
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <h1 style="font-size: 2em; color: #07212B; font-weight: bold; margin-bottom: 20px; padding-bottom: 0">
-            ControverSciences, halte aux croyances !</h1>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="featured">
-  <h1 style="font-size: 2.8em">
-    Les 3 piliers de ControverSciences
-  </h1>
+                <div class="col-xs-12 col-md-4 center">
+                  <div class="sub-navigation btn btn-default btn-block active" data-target="controverse" data-parent="controversciences">
+                    Controverses
+                  </div>
+                </div>
+                <div class="col-xs-12 col-md-4 center">
+                  <div class="sub-navigation btn btn-default btn-block" data-target="pilliers" data-parent="controversciences">
+                    Piliers
+                  </div>
+                </div>
+                <div class="col-xs-12 col-md-4 center">
+                  <div class="sub-navigation btn btn-default btn-block" data-target="manifesto" data-parent="controversciences">
+                    Manifesto
+                  </div>
+                </div>
+              </div>
+              <div id="head-decouvrir" class="row head not-activated">
+              </div>
+              <div id="head-contribuer" class="row head not-activated">
+                <br>
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-      <div class="row text-center">
-        <div class="col-xs-12 col-sm-4">
-          <h1 style="font-size: 2.6em; padding-bottom: 0">
-            Prouver
-          </h1>
-
-          <div class="center-block">
-            <div class="row">
-              <div class="col-xs-offset-3 col-xs-6">
-                <div class="center">
-                  <%= image_tag("pillar-blue.svg", alt: "Prouver", :class => "img-responsive center-block") %>
+                <div class="col-xs-12 col-md-4 center">
+                  <div class="sub-navigation btn btn-default btn-block active" data-target="enrichir" data-parent="contribuer">
+                    Enrichir
+                  </div>
+                </div>
+                <div class="col-xs-12 col-md-4 center">
+                  <div class="sub-navigation btn btn-default btn-block" data-target="analyser" data-parent="contribuer">
+                    Analyser
+                  </div>
+                </div>
+                <div class="col-xs-12 col-md-4 center">
+                  <div class="sub-navigation btn btn-default btn-block" data-target="synthetiser" data-parent="contribuer">
+                    Synthétiser
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="text-center">
-            <h4><br/>Si vous avez des arguments à apporter, une référence
-              scientifique est nécessaire pour les justifier !</h4>
-          </div>
         </div>
-        <div class="col-xs-12 col-sm-4">
-          <h1 style="font-size: 2.6em; padding-bottom: 0">
-            Améliorer
-          </h1>
+      </div>
+    </div>
+    <div id="body-controversciences" class="leading activated">
+      <div id="controverse" class="activated sub-leading">
+        <div class="col-xs-12 col-md-offset-1 col-md-10 center">
+          <br>
+          <br>
+          <br>
+          <br>
 
-          <div class="center-block">
-            <div class="row">
-              <div class="col-xs-offset-3 col-xs-6">
-                <div class="center">
-                  <%= image_tag("pillar-yellow.svg", alt: "Ameliorer", :class => "img-responsive center-block") %>
+          <div class="row">
+            <div class="col-xs-12 col-md-offset-3 col-md-6 center">
+              <% if @favorite %>
+                  <div id="favorite">
+                    <a id="favorite-timeline" class="hvr-grow1" href="<%= timeline_path @favorite %>">
+                      <h4>
+                        <span class="glyphicon glyphicon-star-empty normal"></span>
+                        Controverse à l'affiche
+                        <span class="glyphicon glyphicon-star-empty normal"></span>
+                      </h4>
+
+                      <h3 class="shadowed">
+                        <%= @favorite.name.html_safe %>
+                      </h3>
+                    </a>
+                  </div>
+                  <br>
+                  <br>
+              <% end %>
+              <%= link_to "Toutes les controverses", timelines_path, class: "btn btn-lg btn-primary" %>
+            </div>
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+
+          <div class="carousel-container">
+            <div id="mycarousel" class="carousel slide" data-ride="carousel">
+              <div class="framed">
+                <div class="carousel-inner home-carrousel" role="listbox">
+                  <div class="item active center">
+                    <br/>
+                    <b><%= t('views.home.sentence_result') %> </b>
+                  </div>
+                  <% welcome_sentences_keys.each do |key| %>
+                      <div class="item center">
+                        <br/>
+                        <b><%= t(key) %></b>
+                      </div>
+                  <% end %>
+                  <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                  <br/>
                 </div>
               </div>
             </div>
           </div>
-          <div class="text-center">
-            <h4><br/>Si vous n’êtes pas d’accord avec une contribution, proposez la vôtre !
-              Les contributeurs voteront pour décider laquelle est la plus pertinente.</h4>
-          </div>
+          <br>
         </div>
-        <div class="col-xs-12 col-sm-4">
-          <h1 style="font-size: 2.6em; padding-bottom: 0">
-            Sélectionner
-          </h1>
+      </div>
 
-          <div class="center-block">
-            <div class="row">
-              <div class="col-xs-offset-3 col-xs-6">
-                <div class="center">
-                  <%= image_tag("pillar-red.svg", alt: "Selectionner", :class => "img-responsive center-block") %>
+      <div id="pilliers" class="not-activated sub-leading center">
+        <div class="row">
+          <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <br>
+            <br>
+
+            <div class="framed">
+              <br>
+
+              <h1 style="font-size: 2.4em">
+                Les 3 piliers de ControverSciences
+              </h1>
+              <br>
+              <br>
+
+              <div class="row text-center">
+                <div class="col-xs-12 col-sm-4">
+                  <div class="framed">
+                    <h1 style="font-size: 2.6em; padding-bottom: 0">
+                      Prouver
+                    </h1>
+
+                    <div class="center-block">
+                      <div class="row">
+                        <div class="col-xs-offset-3 col-xs-6">
+                          <div class="center">
+                            <%= image_tag("pillar-blue.svg", alt: "Prouver", :class => "img-responsive center-block") %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <h4><br/>Si vous avez des arguments à apporter, une référence
+                        scientifique est nécessaire pour les justifier !</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <div class="framed">
+                    <h1 style="font-size: 2.6em; padding-bottom: 0">
+                      Améliorer
+                    </h1>
+
+                    <div class="center-block">
+                      <div class="row">
+                        <div class="col-xs-offset-3 col-xs-6">
+                          <div class="center">
+                            <%= image_tag("pillar-yellow.svg", alt: "Ameliorer", :class => "img-responsive center-block") %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <h4><br/>Si vous n’êtes pas d’accord avec une contribution, proposez la vôtre !
+                        Les contributeurs voteront pour décider laquelle est la plus pertinente.</h4>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <div class="framed">
+                    <h1 style="font-size: 2.6em; padding-bottom: 0">
+                      Sélectionner
+                    </h1>
+
+                    <div class="center-block">
+                      <div class="row">
+                        <div class="col-xs-offset-3 col-xs-6">
+                          <div class="center">
+                            <%= image_tag("pillar-red.svg", alt: "Selectionner", :class => "img-responsive center-block") %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <h4><br/>Les contenus de bonne qualité survivront, ceux de moindre qualité seront supprimés par un
+                        algorithme.</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <br>
+            </div>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+
+      <div id="manifesto" class="not-activated sub-leading">
+        <div class="row">
+          <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <br>
+            <br>
+
+            <div class="framed">
+              <h1 style="font-size: 2.4em">
+                Une passerelle entre la société et les scientifiques <br>
+                autour de questions controversées.
+              </h1>
+
+              <div class="row">
+                <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-5 vcenter">
+                  <object class="img-responsive" data=<%= path_to_image 'help-mission.svg' %>>
+                  </object>
+                </div>
+                <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-6 vcenter">
+                  <h4 class="text-justify">
+                    <br>
+                    Qui n’a jamais été à court d'<b>arguments</b> dans un <b>débat</b> ?
+                    <br/>
+                    <br/>
+                    Quelques notions <b>scientifiques</b> vous auraient sauvé d’une situation embarrassante !
+                    <br/>
+                    <br/>
+                    Les publications scientifiques sont souvent <b>opaques et compliquées</b>. Leur accès est souvent
+                    payant
+                    et
+                    incompréhensible !
+                    <br/>
+                    <br/>
+                    <b>ControverSciences</b> a pour <b>mission</b> d’être une plateforme de <b>vulgarisation</b> ! C’est
+                    un
+                    lieu de
+                    <b>partage</b> de la science <b>accessible à tous</b> !
+                    <br/>
+                    <br/>
+                    Sur ControverSciences, il n’y a pas de discrimination intellectuelle ! Tout un chacun a accès au
+                    <b>savoir</b>.
+                    <br/>
+                    <br/>
+                    Des <b>scientifiques partagent</b> avec vous les résumés de travaux en les expliquant.
+                    <br/>
+                    <br/>
+                  </h4>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="text-center">
-            <h4><br/>Les contenus de bonne qualité survivront, ceux de moindre qualité seront supprimés par un
-              algorithme.</h4>
+            <br>
+            <br>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<section id="newsletter">
-  <%= form_for(:newsletter, url: newsletters_path, remote: true,
-               html: {role: :form, 'data-model' => 'newsletter'}) do |f| %>
+    <div id="body-decouvrir" class="leading not-activated">
+      <br>
+      <br>
+
       <div class="row">
-        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
-          <h4>
-            Recevez une fois par mois les informations essentielles de ControverSciences
-          </h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-offset-2 col-xs-8 col-md-offset-2 col-md-5">
-          <div class="form-group">
-            <%= f.text_field :email, class: 'form-control', placeholder: "Votre adresse email" %>
-            <span class="help-block"></span>
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-8 col-md-offset-2">
+          <div class="framed">
+            <h1 style="font-size: 2.4em;">
+              <%= t('views.how_to.title') %>
+            </h1>
+
+            <div class="panel-body">
+              <div id="myCarousel" class="col-xs-offset-1 col-xs-10">
+                <div class="row">
+                  <div class="col-xs-12 col-md-3">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <br>
+                        <br>
+                        <ul id="navigation" class="nav nav-pills nav-justified">
+                          <li class="slider active clearfix">
+                            <a href="#"><b><%= t('views.how_to.controverse_head') %></b></a></li>
+                          <li class="slider clearfix">
+                            <a href="#"><b><%= t('views.how_to.reference_head') %></b></a></li>
+                          <li class="slider clearfix">
+                            <a href="#"><b><%= t('views.how_to.analyse_head') %></b></a></li>
+                          <li class="slider clearfix">
+                            <a href="#"><b><%= t('views.how_to.synthese_head') %></b></a></li>
+                          <li class="slider clearfix">
+                            <a href="#"><b><%= t('views.how_to.ameliorer_head') %></b></a></li>
+                          <li class="slider clearfix">
+                            <a href="#"><b><%= t('views.how_to.voter_head') %></b></a></li>
+                          <li class="slider clearfix">
+                            <a href="#"><b><%= t('views.how_to.selectionner_head') %></b></a></li>
+                          <li class="slider clearfix">
+                            <a href="#"><b><%= t('views.how_to.eclosion_head') %></b></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-md-9">
+                    <div class="framed framed-white">
+                      <div id="items">
+                        <div id="slide-0" class="item opaque">
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-0.png' %>>
+
+                          <div class="caption clearfix">
+                            <div class="pull-right go-right">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </div>
+                            <div class="pull-left go-left">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </div>
+                            <%= t('views.how_to.controverse_body') %>
+                          </div>
+                          <br>
+                        </div>
+                        <div id="slide-1" class="item">
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-1.png' %>>
+
+                          <div class="caption">
+                            <div class="pull-right go-right">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </div>
+                            <div class="pull-left go-left">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </div>
+                            <%= t('views.how_to.reference_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-2" class="item">
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-2.png' %>>
+
+                          <div class="caption">
+                            <div class="pull-right go-right">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </div>
+                            <div class="pull-left go-left">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </div>
+                            <%= t('views.how_to.analyse_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-3" class="item">
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-3.png' %>>
+
+                          <div class="caption">
+                            <div class="pull-right go-right">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </div>
+                            <div class="pull-left go-left">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </div>
+                            <%= t('views.how_to.synthese_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-4" class="item">
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-4.png' %>>
+
+                          <div class="caption">
+                            <div class="pull-right go-right">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </div>
+                            <div class="pull-left go-left">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </div>
+                            <%= t('views.how_to.ameliorer_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-5" class="item">
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-5.png' %>>
+
+                          <div class="caption">
+                            <div class="pull-right go-right">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </div>
+                            <div class="pull-left go-left">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </div>
+                            <%= t('views.how_to.voter_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-6" class="item">
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-6.png' %>>
+
+                          <div class="caption">
+                            <div class="pull-right go-right">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </div>
+                            <div class="pull-left go-left">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </div>
+                            <%= t('views.how_to.selectionner_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-7" class="item">
+                          <div id="eclosion">
+                            <%= t('views.how_to.eclosion_body') %>
+                            <br><br>
+                            <span class="icon icon-staging"></span> <span class="arrow">&nbsp &#10137; &nbsp</span>
+                            <span class="icon icon-built"></span>
+                          </div>
+                        </div>
+                        <div id="is-transparent">
+                          <img class="img-responsive clearfix" src=<%= path_to_image 'organisation-0.png' %>>
+
+                          <div class="caption clearfix">
+                            <div class="pull-right go-right">
+                              <span class="glyphicon glyphicon-chevron-right"></span>
+                            </div>
+                            <div class="pull-left go-left">
+                              <span class="glyphicon glyphicon-chevron-left"></span>
+                            </div>
+                            <%= t('views.how_to.reference_body') %>
+                          </div>
+                          <br>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-xs-offset-2 col-xs-8 col-md-offset-0 col-md-3">
-          <div id="invit" class="actions">
-            <%= f.button "S'inscrire &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
-                         class: 'btn btn-block btn-success', data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp Inscription "} %>
-          </div>
-        </div>
       </div>
-  <% end %>
-</section>
+      <script type="text/javascript">
+          $(document).ready(function () {
+              $('.slider').on('mouseover', function () {
+                  $("#items .item").removeClass("opaque");
 
-<section id="mission">
-  <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
-    Par où commencer ?
-  </h1>
+                  var newImage = $(this).index();
 
-  <div class="row">
-    <div class="col-xs-12 col-sm-offset-1 col-sm-10  col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-      <div class="row">
+                  $("#items .item").eq(newImage).addClass("opaque");
+
+                  $(".slider").removeClass("active");
+                  $(this).addClass("active");
+              });
+              $('.go-right').on("click", function () {
+                  var index = ($(".active").index() + 1) % $(".slider").size();
+                  $("#items .item").removeClass("opaque");
+                  $("#items .item").eq(index).addClass("opaque");
+                  $(".slider").removeClass("active");
+                  $("#navigation .slider").eq(index).addClass("active");
+              });
+              $('.go-left').on("click", function () {
+                  var index = ($(".active").index() - 1) % $(".slider").size();
+                  $("#items .item").removeClass("opaque");
+                  $("#items .item").eq(index).addClass("opaque");
+                  $(".slider").removeClass("active");
+                  $("#navigation .slider").eq(index).addClass("active");
+              });
+          });
+      </script>
+    </div>
+
+    <div id="body-contribuer" class="leading not-activated">
+      <div id="enrichir" class="sub-leading activated">
         <a href="<%= empty_references_path %>" style="color: white">
-          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-4 hvr-grow">
+          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 hvr-grow">
             <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
               Enrichir
             </h1>
@@ -240,8 +494,11 @@
             </div>
           </div>
         </a>
+      </div>
+
+      <div id="analyser" class="sub-leading not-activated">
         <a href="<%= empty_comments_path %>" style="color: white">
-          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-4 hvr-grow">
+          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 hvr-grow">
             <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
               Analyser
             </h1>
@@ -254,8 +511,11 @@
             </div>
           </div>
         </a>
+      </div>
+
+      <div id="synthetiser" class="sub-leading not-activated">
         <a href="<%= empty_summaries_path %>" style="color: white">
-          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-0 col-md-4 hvr-grow">
+          <div class="col-xs-offset-2 col-xs-8 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4 hvr-grow">
             <h1 style="font-size: 2.8em; text-shadow: 3px 3px #1C75BC;">
               Synthétiser
             </h1>
@@ -270,111 +530,27 @@
           </div>
         </a>
       </div>
-    </div>
-  </div>
-</section>
 
-<div class="modal fade" id="iptaken" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <% if logged_in? %>
-            <br/>
-            <h2 class="modal-title" id="myModalLabel"> Le serveur ne répond pas </h2>
-        <% else %>
-            <br/>
-            <h2 class="modal-title" id="myModalLabel"> Veuillez vous identifier afin d'effectuer cette action</h2>
-            <br/>
-            <%= link_to "S'identifier", login_path, class: "btn btn-lg btn-primary" %>
-            <div class="pull-right">
-              <%= link_to "Créer un compte", signup_path, class: "btn btn-lg btn-primary" %>
-            </div>
-        <% end %>
-        <br/>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok </button>
-      </div>
     </div>
+
   </div>
 </div>
-
-<div class="modal fade" id="success" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Un grand merci de votre interêt à ControverSciences, nous vous
-          tiendrons au courant des avancées du projet avec plaisir ;-) </h4>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
-      </div>
-    </div>
-  </div>
 </div>
-
-<div class="modal fade" id="fail" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> Vous êtes déjà inscrit à ce bulletion d'information, ou votre adresse
-          est invalide. </h4>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"> Ok</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('.timeline-name').responsiveEqualHeightGrid();
-        $('.timeline-frame').responsiveEqualHeightGrid();
-        $('.timeline-body').responsiveEqualHeightGrid();
-        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    $('.navigation').on("click", function () {
+        $(".navigation").removeClass("active");
+        $this = $(this);
+        $this.addClass("active");
+        $(".leading").addClass("not-activated");
+        $(".head").addClass("not-activated");
+        $("#head-" + $this.data("body")).removeClass("not-activated");
+        $("#body-" + $this.data("body")).removeClass("not-activated");
     });
-    $(function () {
-        $('[data-validate]').click(function () {
-            var self = $(this);
-            self.hide();
-            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-            $.ajax(self.data('validate'), {
-                url: self.data('validate'),
-                data: {id: self.val()},
-                method: 'POST',
-                statusCode: {
-                    201: function (response){
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.glyphicon', self);
-                        self.addClass('btn-success');
-                        self.removeClass('btn-default');
-                        self.removeClass('green');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
-                        like.text(' ' + (parseInt(like.text()) + 1));
-                    },
-                    204: function (response){
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.glyphicon', self);
-                        self.removeClass('btn-success');
-                        self.addClass('btn-default');
-                        self.addClass('green');
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
-                        like.text(' ' + (parseInt(like.text()) - 1));
-                    },
-                    401: function (response){
-                        $('.loader-like').remove();
-                        self.show();
-                        $('#iptaken').modal('show');
-                    }
-                }
-            })
-        });
+    $('.sub-navigation').on("click", function () {
+        $this = $(this);
+        $(".sub-navigation", "#head-" + $this.data("parent")).removeClass("active");
+        $this.addClass("active");
+        $(".sub-leading", "#body-" + $this.data("parent")).addClass("not-activated");
+        $("#" + $this.data("target")).removeClass("not-activated");
     });
 </script>
