@@ -1,11 +1,32 @@
 <% provide(:title, "Transition sociétale et écologique en Rhône-Alpes") %>
-<div id="my-container" class="container-fluid">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ControverSciences & Société">
+  <meta name="author" content="Thibault Latrille">
+  <meta name="Keywords" content="<%= meta_keywords %>">
+  <meta property="og:image" content="<%= meta_image(yield(:img)) %>"/>
+  <link rel="icon"
+        type="image/png"
+        href="<%= path_to_image "favicon.png" %>">
+  <title><%= full_title(yield(:title)).html_safe %></title>
+  <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <base href="<%= root_url %>"/>
+</head>
+<body>
+<div id="container" class="container-fluid" style="margin-top: -50px">
   <div class="panel panel-default">
     <div class="panel-body">
       <h1>
         La transition sociétale et écologique en Rhône-Alpes
       </h1>
       <br>
+
       <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
 
         <div class="box">
@@ -86,15 +107,19 @@
           <div class="col-xs-12 col-sm-10 col-sm-offset-1">
             <div class="panel panel-default">
               <div class="panel-body">
-                <p style="text-align: justify;">Bienvenue sur la plateforme participative d&eacute;di&eacute;e &agrave; la
+                <p style="text-align: justify;">Bienvenue sur la plateforme participative d&eacute;di&eacute;e &agrave;
+                  la
                   transition soci&eacute;tale et &eacute;cologique en r&eacute;gion Rh&ocirc;ne-Alpes&nbsp;! Ce projet
                   collaboratif a &eacute;t&eacute; initi&eacute; par les &eacute;tudiants du master BioSciences de l&rsquo;&Eacute;cole
                   Normale Sup&eacute;rieure (ENS) de Lyon, sous la supervision de Ioan Negrutiu, professeur de
-                  biologie &agrave; l'ENS de Lyon, et avec le soutien de l'Institut Michel Serres. L'ensemble des travaux
+                  biologie &agrave; l'ENS de Lyon, et avec le soutien de l'Institut Michel Serres. L'ensemble des
+                  travaux
                   des &eacute;tudiants est ici accessibles &agrave; tous, sous forme de dossiers th&eacute;matiques
-                  disponibles pour la critique, la controverse, les &eacute;changes ou encore les mises &agrave; jour. Le r&eacute;sultat
+                  disponibles pour la critique, la controverse, les &eacute;changes ou encore les mises &agrave; jour.
+                  Le r&eacute;sultat
                   attendu est la p&eacute;rennisation collaborative et participative de cet espace d&rsquo;analyse, de
-                  coordination, d&rsquo;articulation et de validation), avec une capacit&eacute; d&rsquo;information et de
+                  coordination, d&rsquo;articulation et de validation, avec une capacit&eacute; d&rsquo;information et
+                  de
                   suivi en temps quasi-r&eacute;el de la transition en r&eacute;gion.</p>
               </div>
             </div>
@@ -121,6 +146,7 @@
                     </div>
                     <div id="CollapseG0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                       <div class="panel-body clearfix">
+                        <%= render 'rhone_alpes/reponse', reponse: "synthese", title: "Synthèse" %>
                         <%= render 'rhone_alpes/rhone_alpes_synthese' %>
                         <%= render 'rhone_alpes/panel_group', response: false, parent: "CollapseG0", number_id: "synthese_annexes", title: "Annexes" %>
                         <%= render 'rhone_alpes/panel_group', response: false, parent: "CollapseG0", number_id: "synthese_references", title: "Références" %>
@@ -263,3 +289,5 @@
         contentTag: '#jetsContent'
     });
 </script>
+</body>
+</html>
