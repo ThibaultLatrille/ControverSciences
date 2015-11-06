@@ -183,7 +183,7 @@ fr:
       add_profil: Ajouter une photo de profil
       delete_profil: Supprimer la photo de profil
     assistant:
-      index: Contributeurs en attente
+      index: Contributeur(s) en attente
       timelines: Mettre à jour les valeurs sélectives des controverses
       users: Mettre à jour les valeurs sélectives des utilisateurs
       profils: Mettre à jour les profils
@@ -200,7 +200,7 @@ fr:
       user_name: Votre nom*
     header:
       login: S'identifier
-      typos: corrections en attente
+      typos: Correction(s) en attente
       dead_links: Liens morts
       user: Accéder à votre profil
       empty_comments: Analyser vos références
