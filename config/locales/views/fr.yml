@@ -183,7 +183,7 @@ fr:
       add_profil: Ajouter une photo de profil
       delete_profil: Supprimer la photo de profil
     assistant:
-      index: Contributeurs en attentes
+      index: Contributeurs en attente
       timelines: Mettre à jour les valeurs sélectives des controverses
       users: Mettre à jour les valeurs sélectives des utilisateurs
       profils: Mettre à jour les profils
