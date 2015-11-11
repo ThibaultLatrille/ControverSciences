@@ -280,7 +280,7 @@ fr:
       if_yours: Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
       refuse: Refuser la correction
       send: Envoyer la correction
-      sent: Votre correction a bien été envoyé à l'auteur.
+      sent: Votre correction a bien été envoyée à l'auteur.
       to_valid: Les corrections à valider
     mailer:
       activate: Activer mon compte

@@ -88,7 +88,7 @@ fr:
       added_by: Référence ajoutée par
       delete_advise: Retirer votre avis
       how_star: 'Comment les contributeurs jugent la qualité scientifique de cette référence :'
-      how_you_star: Comment evaluez vous la qualité scientifique de ce papier ?
+      how_you_star: Comment évaluez-vous la qualité scientifique de ce papier ?
       maybe_binary: Vous avez déjà voté, mais vous avez peut être changé d'avis ?
       maybe_you_changed: Mais vous avez peut être changé d'avis ?
       you_think: Vous pensez que
@@ -109,7 +109,7 @@ fr:
         other: "%{count} contributeurs ne trouvent pas ce lien pertinent."
       not_counted: Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs.
     reference_edges:
-      new_newer: Ajouter des références qui la cite
+      new_newer: Ajouter des références qui la citent
       new_older: Ajouter des citations
       to_reference: Les citations concernant la référence
       no_older_edges: Ne cite aucune autre référence
@@ -134,7 +134,7 @@ fr:
                                           Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse."
       delete: Supprimer votre contribution
       index: Tous les titres et cadres de cette controverse
-      frame: Cadre, focus et mise au point
+      frame: "Cadre, focus et mise au point "
       upvote: Sélectionner cette contribution comme votre favorite
       downvote: Vous avez selectionné cette contribution comme votre favorite
       no_favorite: Vous n'avez pas de contribution favorite
@@ -270,5 +270,5 @@ fr:
       if_yours: Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
       refuse: Refuser la correction
       send: Envoyer la correction
-      sent: Votre correction a bien été envoyé à l'auteur.
+      sent: Votre correction a bien été envoyée à l'auteur.
       to_valid: Les corrections à valider

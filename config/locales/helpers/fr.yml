@@ -13,11 +13,11 @@ fr:
     binary_hash_3: cette référence est neutre.
     binary_hash_4: modérément
     binary_hash_5: très fermement
-    binary_value_1: 'très fermement du coté '
-    binary_value_2: 'du coté '
+    binary_value_1: 'très fermement du côté '
+    binary_value_2: 'du côté '
     binary_value_3: neutre.
-    binary_value_4: 'du coté '
-    binary_value_5: 'très fermement du coté '
+    binary_value_4: 'du côté '
+    binary_value_5: 'très fermement du côté '
     binary_value_text: 'Cette référence est '
     article: cet article
     review: cette review

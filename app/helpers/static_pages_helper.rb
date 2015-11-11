@@ -30,7 +30,7 @@ module StaticPagesHelper
 
   def meta_image(meta_img)
     if meta_img.blank?
-      image_url("logo.png")
+      image_url("ControverSciences.png")
     else
       meta_img
     end

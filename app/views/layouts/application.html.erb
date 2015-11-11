@@ -1,54 +1,71 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
+  <title><%= full_title(yield(:title)).html_safe %></title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="<%=  meta_description(yield(:meta)).html_safe %>">
+  <meta name="description" content="<%= meta_description(yield(:meta)).html_safe %>">
   <meta name="author" content="<%= meta_author %>">
   <meta name="Keywords" content="<%= meta_keywords %>">
-  <meta property="og:image" content="<%=  meta_image(yield(:img)) %>" />
-    <link rel="alternate" type="application/rss+xml" title="ControverSciences.org RSS Feed" href="https://controversciences.org/feed?format=rss">
-    <link rel="icon"
-          type="image/png"
-          href="<%= path_to_image "favicon.png" %>">
-    <title><%= full_title(yield(:title)).html_safe %></title>
-    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
-    <%= javascript_include_tag 'application' %>
-    <% if Rails.env.production? %>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="<%= meta_image(yield(:img)) %>">
+  <link rel="alternate" type="application/rss+xml" title="ControverSciences.org RSS Feed" href="https://controversciences.org/feed?format=rss">
+  <link rel="icon"
+        type="image/png"
+        href="<%= path_to_image "favicon.png" %>">
+  <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
+  <%= javascript_include_tag 'application' %>
+  <% if Rails.env.production? %>
+      <script>
+          (function (i, s, o, g, r, a, m) {
+              i['GoogleAnalyticsObject'] = r;
+              i[r] = i[r] || function () {
+                          (i[r].q = i[r].q || []).push(arguments)
+                      }, i[r].l = 1 * new Date();
+              a = s.createElement(o),
+                      m = s.getElementsByTagName(o)[0];
+              a.async = 1;
+              a.src = g;
+              m.parentNode.insertBefore(a, m)
+          })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-58277628-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-    <% end %>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.4&appId=503468426483927";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    </script>
-    <%= csrf_meta_tags %>
-    <base href="<%= root_url %>"/>
+          ga('create', 'UA-58277628-1', 'auto');
+          ga('send', 'pageview');
+      </script>
+  <% end %>
+  <script>!function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+      if (!d.getElementById(id)) {
+          js = d.createElement(s);
+          js.id = id;
+          js.src = p + '://platform.twitter.com/widgets.js';
+          fjs.parentNode.insertBefore(js, fjs);
+      }
+  }(document, 'script', 'twitter-wjs');</script>
+  <div id="fb-root"></div>
+  <script>(function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s);
+      js.id = id;
+      js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.4&appId=503468426483927";
+      fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <%= csrf_meta_tags %>
+  <base href="<%= root_url %>"/>
   <%= render 'layouts/shim' %>
-  </head>
-  <body>
-  <%= render 'layouts/header' %>
-  <div id="error-container" class="container-fluid">
-      <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message,
-                        class: "alert alert-#{message_type}") %>
-      <% end %>
-  </div>
-  <%= yield %>
-  </body>
-  <%= render 'layouts/footer' %>
+</head>
+<body>
+<%= render 'layouts/header' %>
+<div id="error-container" class="container-fluid">
+  <% flash.each do |message_type, message| %>
+      <%= content_tag(:div, message,
+                      class: "alert alert-#{message_type}") %>
+  <% end %>
+</div>
+<%= yield %>
+</body>
+<%= render 'layouts/footer' %>
 </html>

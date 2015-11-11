@@ -8,10 +8,10 @@
   <meta name="description" content="ControverSciences & Société">
   <meta name="author" content="Thibault Latrille">
   <meta name="Keywords" content="<%= meta_keywords %>">
-  <meta property="og:image" content="<%= meta_image(yield(:img)) %>"/>
+  <meta property="og:image" content="<%= image_url("ens-lyon.png") %>"/>
   <link rel="icon"
         type="image/png"
-        href="<%= path_to_image "favicon.png" %>">
+        href="<%= path_to_image "ens-lyon-favicon.png" %>">
   <title><%= full_title(yield(:title)).html_safe %></title>
   <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
   <%= javascript_include_tag 'application' %>
