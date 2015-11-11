@@ -166,6 +166,12 @@ class UsersController < ApplicationController
     redirect_to user_path(users[i])
   end
 
+  def network
+    @nodes = User.where(activated: true).select(:id, :slug, :name,  :score).all
+    ids = @nodes.map{ |u| u.id }
+    @links = ids.combination(2).to_a.sample(ids.length/1.5)
+  end
+
   private
 
   def user_params

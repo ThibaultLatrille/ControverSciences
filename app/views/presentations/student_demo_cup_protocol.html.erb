@@ -1,0 +1,392 @@
+<% provide(:title, "Student Demo Cup") %>
+<% provide(:img, image_url("french-tech.png")) %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title(yield(:title)).html_safe %></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<%= meta_description(yield(:meta)).html_safe %>">
+  <meta name="author" content="<%= meta_author %>">
+  <meta name="Keywords" content="<%= meta_keywords %>">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="<%= meta_image(yield(:img)) %>">
+  <link rel="icon"
+        type="image/png"
+        href="<%= path_to_image "favicon.png" %>">
+  <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
+  <style>
+      .item {
+          min-width: 100% !important;
+          width: 100% !important;
+      }
+
+      .presentation-navigation {
+          border: 2px solid #FFFFFF;
+          border-radius: 5px;
+          padding: 5px;
+          color: #FFFFFF;
+      }
+
+      .presentation-navigation:hover {
+          color: #337ab7;
+          border: 2px solid #337ab7;
+      }
+
+      .pagination-dot,
+      .pagination-current {
+          background: #FFFFFF !important;
+          color: #337ab7 !important;
+      }
+
+      .pagination-number {
+          color: #337ab7 !important;
+      }
+  </style>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <base href="<%= root_url %>"/>
+  <%= render 'layouts/shim' %>
+</head>
+<body style="background-color: #080912; margin: 0; padding: 0; min-height: 100%">
+<div style="background-color: #080912; color: #ffffff; margin: 0; padding: 0; min-height: 100%">
+
+  <div style="margin: 15px 10px;">
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-left normal\"></span>".html_safe,
+                student_demo_cup_path, class: "presentation-navigation" %>
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-right normal\"></span>".html_safe,
+                student_demo_cup_controversciences_path, class: "presentation-navigation" %>
+  </div>
+  <div class="paginate">
+    <div class="pagination-navigation">
+      <div class="pagination-current"></div>
+      <div class="pagination-dots">
+        <button class="pagination-dot">
+          <span class="pagination-number">1</span>
+        </button>
+        <button class="pagination-dot">
+          <span class="pagination-number">2</span>
+        </button>
+        <button class="pagination-dot">
+          <span class="pagination-number">3</span>
+        </button>
+        <button class="pagination-dot">
+          <span class="pagination-number">4</span>
+        </button>
+        <button class="pagination-dot">
+          <span class="pagination-number">5</span>
+        </button>
+        <button class="pagination-dot">
+          <span class="pagination-number">6</span>
+        </button>
+        <button class="pagination-dot">
+          <span class="pagination-number">7</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div id="myCarousel" class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12 col-md-1" style="opacity: 0">
+        <div class="row">
+          <div class="col-xs-12">
+            <br>
+            <br>
+            <ul id="navigation" class="nav nav-pills nav-justified">
+              <li class="slider active clearfix">
+                <a href="#"></a></li>
+              <li class="slider clearfix">
+                <a href="#"></a></li>
+              <li class="slider clearfix">
+                <a href="#"></a></li>
+              <li class="slider clearfix">
+                <a href="#"></a></li>
+              <li class="slider clearfix">
+                <a href="#"></a></li>
+              <li class="slider clearfix">
+                <a href="#"></a></li>
+              <li class="slider clearfix">
+                <a href="#"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-10">
+        <div id="items">
+          <div id="slide-0" class="item">
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div style="font-size: 2em">
+                  <b>Contexte : </b><br>
+                  La vie de tous les jours
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+              </div>
+            </div>
+          </div>
+          <div id="slide-1" class="item">
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div style="font-size: 2em">
+                  <b>Contexte : </b> <br> La vie de tous les jours
+                </div>
+                <br>
+
+                <div style="font-size: 2em">
+                  <b>Objectif : </b> <br> Répondre une question controversée <br>
+                </div>
+                <div style="font-size: 1.7em; padding-left: 2em">
+                  <b>Example: </b> <br> Les OGMs sont-ils nocifs pour la santé ?
+                </div>
+                <br>
+              </div>
+              <div class="col-xs-12 col-md-6">
+              </div>
+            </div>
+          </div>
+          <div id="slide-2" class="item">
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div style="font-size: 2em">
+                  <b>Contexte : </b> <br> La vie de tous les jours
+                </div>
+                <br>
+
+                <div style="font-size: 2em">
+                  <b>Objectif : </b> <br> Répondre une question controversée <br>
+                </div>
+                <div style="font-size: 1.7em; padding-left: 2em">
+                  <b>Example: </b> <br> Les OGMs sont-ils nocifs pour la santé ?
+                </div>
+                <br>
+
+                <div style="font-size: 2em">
+                  <b>Mise en places : </b> <br> Cobayes divisé en 3 groupes <br>
+                  <ul style="padding-left: 2em">
+                    <li>Non intéressés</li>
+                    <li>Intéressé - Non expert</li>
+                    <li>Intéressé - Expert</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <img class="img-responsive" src=<%= path_to_image 'student-demo-cup/student-demo-cup.svg' %>>
+              </div>
+            </div>
+          </div>
+          <div id="slide-3" class="item">
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div style="font-size: 2em">
+                  <b>Contexte : </b> <br> La vie de tous les jours
+                </div>
+                <br>
+
+                <div style="font-size: 2em">
+                  <b>Objectif : </b> <br> Répondre une question controversée <br>
+                </div>
+                <div style="font-size: 1.7em; padding-left: 2em">
+                  <b>Example: </b> <br> Les OGMs sont-ils nocifs pour la santé ?
+                </div>
+                <br>
+
+                <div style="font-size: 2em">
+                  <b>Mise en places : </b> <br> Cobayes divisé en 3 groupes <br>
+                  <ul style="padding-left: 2em">
+                    <li>Non intéressés</li>
+                    <li style="color: rgba(255,255,255,0.1)">Intéressé - Non expert</li>
+                    <li style="color: rgba(255,255,255,0.1)">Intéressé - Expert</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <img class="img-responsive" src=<%= path_to_image 'student-demo-cup/student-demo-cup-not-interested.svg' %>>
+              </div>
+            </div>
+          </div>
+          <div id="slide-4" class="item">
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div style="font-size: 2em">
+                  <b>Contexte : </b> <br> La vie de tous les jours
+                </div>
+                <br>
+
+                <div style="font-size: 2em">
+                  <b>Objectif : </b> <br> Répondre une question controversée <br>
+                </div>
+                <div style="font-size: 1.7em; padding-left: 2em">
+                  <b>Example: </b> <br> Les OGMs sont-ils nocifs pour la santé ?
+                </div>
+                <br>
+
+                <div style="font-size: 2em">
+                  <b>Mise en places : </b> <br> Cobayes divisé en 3 groupes <br>
+                  <ul style="padding-left: 2em">
+                    <li style="color: rgba(255,255,255,0.1)">Non intéressés</li>
+                    <li>Intéressé - Non expert</li>
+                    <li style="color: rgba(255,255,255,0.1)">Intéressé - Expert</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <img class="img-responsive" src=<%= path_to_image 'student-demo-cup/student-demo-cup-interested.svg' %>>
+              </div>
+            </div>
+          </div>
+          <div id="slide-5" class="item">
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div style="font-size: 2em">
+                  <b>Contexte : </b> <br> La vie de tous les jours
+                </div>
+                <br>
+
+                <div style="font-size: 2em">
+                  <b>Objectif : </b> <br> Répondre une question controversée <br>
+                </div>
+                <div style="font-size: 1.7em; padding-left: 2em">
+                  <b>Example: </b> <br> Les OGMs sont-ils nocifs pour la santé ?
+                </div>
+                <br>
+
+                <div style="font-size: 2em">
+                  <b>Mise en places : </b> <br> Cobayes divisé en 3 groupes <br>
+                  <ul style="padding-left: 2em">
+                    <li style="color: rgba(255,255,255,0.1)">Non intéressés</li>
+                    <li style="color: rgba(255,255,255,0.1)">Intéressé - Non expert</li>
+                    <li>Intéressé - Expert</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <img class="img-responsive" src=<%= path_to_image 'student-demo-cup/student-demo-cup-expert.svg' %>>
+              </div>
+            </div>
+          </div>
+          <div id="slide-6" class="item">
+            <div class="row">
+              <div class="col-xs-12 col-md-6 col-md-offset-3">
+                <img class="img-responsive" src=<%= path_to_image 'student-demo-cup/controversciences.svg' %>>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.slider').on('click', function () {
+            $("#items .item").removeClass("opaque");
+
+            var newImage = $(this).index();
+
+            $("#items .item").eq(newImage).addClass("opaque");
+
+            $(".slider").removeClass("active");
+            $(this).addClass("active");
+        });
+    });
+    $(document).ready(function () {
+        var $dots = $(".pagination-dot")
+                , $current = $(".pagination-current")
+                , $items = $(".slider")
+
+                , spacing = parseFloat($dots.css("width")) + (parseFloat($dots.css("marginLeft")) * 2)
+                , halfSpacing = spacing / 2
+                , startPos
+
+                , lastItem = 0
+                , lastItemR = 0
+                , lastTime = Date.now()
+                ;
+
+        startPos = $dots.eq(0).position().left;
+        $current.data("pos", {x: startPos});
+
+        $dots.on('click', function (event) {
+            var $cur = $(this);
+            $items.eq($cur.index()).click();
+            var dest = ($cur.index()) * spacing;
+            TweenMax.to($current.data("pos"), 0.6, {
+                x: startPos + dest,
+                onUpdate: updatePos,
+                onComplete: updatePos,
+                ease: Quint.easeOut
+                // ease:Elastic.easeOut,
+                // easeParams:[1.1,0.6]
+            });
+        });
+
+        $items.on('mouseover', function () {
+            $dots.eq($(this).index()).click();
+        });
+
+        var dragging = false;
+        var startDrag = {x: 0, y: 0};
+
+        function updatePos() {
+            var pos = $current.data("pos").x - startPos;
+            var scale = pos % spacing;
+            if (scale > halfSpacing) {
+                scale = halfSpacing - (scale - halfSpacing);
+            }
+            scale = 1 - ((scale / halfSpacing) * 0.35);
+            TweenMax.set($current, {
+                x: pos + startPos,
+                scale: scale * 1.4,
+                force3D: true
+            });
+
+            var curItem = pos / spacing,
+                    curItemR = Math.round(curItem)
+                    ;
+            var now = Date.now();
+            var diff = now - lastTime;
+            var deltaTime = diff / (1000 / 60);
+            lastTime = now;
+            if (lastItemR != curItemR) {
+                var $bounceDot = $dots.eq(lastItemR);
+                TweenMax.to($bounceDot, 0.1, {
+                    x: 70 * ((curItem - lastItem) / deltaTime),
+                    ease: Quad.easeOut,
+                    onComplete: function () {
+                        TweenMax.to($bounceDot, 1, {
+                            x: 0,
+                            ease: Elastic.easeOut,
+                            easeParams: [1.1, 0.5]
+                        })
+                    }
+                })
+            }
+            lastItem = curItem;
+            lastItemR = curItemR;
+        }
+
+        startPos = $dots.eq(0).position().left;
+        $current.data("pos", {x: startPos});
+        $dots.eq(0).click();
+    });
+</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"/>
+      <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+    </filter>
+  </defs>
+</svg>

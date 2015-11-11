@@ -1,0 +1,153 @@
+<% provide(:title, "Student Demo Cup") %>
+<% provide(:img, image_url("french-tech.png")) %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title(yield(:title)).html_safe %></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<%= meta_description(yield(:meta)).html_safe %>">
+  <meta name="author" content="<%= meta_author %>">
+  <meta name="Keywords" content="<%= meta_keywords %>">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="<%= meta_image(yield(:img)) %>">
+  <link rel="icon"
+        type="image/png"
+        href="<%= path_to_image "favicon.png" %>">
+  <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <base href="<%= root_url %>"/>
+  <%= render 'layouts/shim' %>
+</head>
+<body style="background-color: #080912; margin: 0; padding: 0; min-height: 100%">
+<div style="background-color: #080912; margin: 0; padding: 0; min-height: 100%" class="clearfix">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+  <div style="margin: 15px 10px;">
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-left normal\"></span>".html_safe,
+                root_path, class: "presentation-navigation" %>
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-right normal\"></span>".html_safe,
+                student_demo_cup_protocol_path, class: "presentation-navigation" %>
+  </div>
+
+  <span id="d3-graph" style="background-color: #080912;"></span>
+  <script type="text/javascript">
+      var margin = {top: 0, right: 0, bottom: 0, left: 0},
+              width = $(window).width(),
+              height = $(window).height() - 50;
+
+      var zoom = d3.behavior.zoom()
+              .scaleExtent([1, 10])
+              .on("zoom", zoomed);
+
+      var color = d3.scale.category20();
+
+      var force = d3.layout.force()
+              .linkDistance(10)
+              .linkStrength(2)
+              .size([width, height]);
+
+      var svg = d3.select("#d3-graph").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
+              .call(zoom);
+
+      var rect = svg.append("rect")
+              .attr("width", width)
+              .attr("height", height)
+              .style("fill", "#080912")
+              .style("pointer-events", "all");
+
+      var container = svg.append("g");
+
+      d3.json("/users_network", function (error, graph) {
+          if (error) throw error;
+          var nodes = graph.nodes.slice(),
+                  links = [],
+                  bilinks = [];
+          graph.links.forEach(function (link) {
+
+              var s = nodes.filter(function (n) {
+                          return n.id === link.source;
+                      })[0],
+                      t = nodes.filter(function (n) {
+                          return n.id === link.target;
+                      })[0],
+                      i = {}; // intermediate node
+              nodes.push(i);
+              links.push({source: s, target: i}, {source: i, target: t});
+              bilinks.push([s, i, t]);
+          });
+          force
+                  .nodes(nodes)
+                  .links(links)
+                  .start();
+          var link = container.selectAll(".link")
+                  .data(bilinks)
+                  .enter().append("path")
+                  .attr("class", "link");
+          var node = container.selectAll(".node")
+                  .data(graph.nodes)
+                  .enter().append("a")
+                  .attr("xlink:href", function (d) {
+                      return d.url;
+                  })
+                  .attr("target", "_blank")
+                  .append("circle")
+                  .attr("class", "node")
+                  .attr("r", function (d) {
+                      return 3 * d.size;
+                  })
+                  .style("fill", "#ffffff")
+                  .call(force.drag);
+          node.attr("title", function (d) {
+              return $('<div/>').html(d.name).text();
+          });
+          node.attr("data-toggle", "tooltip");
+          force.on("tick", function () {
+              link.attr("d", function (d) {
+                  return "M" + d[0].x + "," + d[0].y
+                          + "S" + d[1].x + "," + d[1].y
+                          + " " + d[2].x + "," + d[2].y;
+              });
+              node.attr("transform", function (d) {
+                  return "translate(" + d.x + "," + d.y + ")";
+              });
+          });
+      });
+
+      function zoomed() {
+          container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+      }
+  </script>
+
+  <style>
+    .presentation-navigation{
+        border: 2px solid #FFFFFF;
+        border-radius: 5px;
+        padding: 5px;
+        color: #FFFFFF;
+    }
+    .presentation-navigation:hover{
+        color: #337ab7;
+        border: 2px solid #337ab7;
+    }
+      #d3-graph svg .node {
+          cursor: pointer;
+          stroke: #ffffff !important;
+          stroke-width: 1.5px;
+      }
+      #d3-graph svg .link {
+          stroke: #ffffff !important;
+          stroke-width: 1px;
+      }
+  </style>
+</div>
+
+</body>
+</html>
