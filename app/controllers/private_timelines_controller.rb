@@ -22,18 +22,20 @@ class PrivateTimelinesController < ApplicationController
       private_timeline =  PrivateTimeline.new(user_id: user_id,
                         timeline_id: private_timeline_params[:timeline_id] )
       if private_timeline.save
-        mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-        @invitation = Invitation.new(target_email: private_timeline.user.email,
-                                     timeline_id: private_timeline.timeline_id,
-                                     target_name: private_timeline.user.name)
-        subject = "#{@invitation.target_name}, #{t('controllers.particiate')}"
-        message = {
-            :subject =>  (CGI.unescapeHTML subject),
-            :from=>"ControverSciences <invitation@controversciences.org>",
-            :to => @invitation.target_email,
-            :html => render_to_string( :file => 'user_mailer/invitation', layout: nil ).to_str
-        }
-        mg_client.send_message "controversciences.org", message
+        if Rails.env.production?
+          mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
+          @invitation = Invitation.new(target_email: private_timeline.user.email,
+                                       timeline_id: private_timeline.timeline_id,
+                                       target_name: private_timeline.user.name)
+          subject = "#{@invitation.target_name}, #{t('controllers.particiate')}"
+          message = {
+              :subject =>  (CGI.unescapeHTML subject),
+              :from=>"ControverSciences <invitation@controversciences.org>",
+              :to => @invitation.target_email,
+              :html => render_to_string( :file => 'user_mailer/invitation', layout: nil ).to_str
+          }
+          mg_client.send_message "controversciences.org", message
+        end
         count += 1
       end
     end
