@@ -20,6 +20,13 @@ class InvitationsController < ApplicationController
       @invitation.user_id = current_user.id
     end
     if @invitation.save
+      if @invitation.timeline_id
+        user = User.where(email: @invitation.target_email, activated: true ).first
+        if user
+          PrivateTimeline.create(user_id: user.id,
+                                 timeline_id: @invitation.timeline_id )
+        end
+      end
       begin
         if Rails.env.production?
           mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
