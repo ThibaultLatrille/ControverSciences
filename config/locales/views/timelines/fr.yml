@@ -207,7 +207,6 @@ fr:
       strongly: Fermement
       make_favorite: Mettre cette controverse au premier plan
       remove_favorite: Enlever cette controverse du premier plan
-      make_public: Faire éclore la controverse
       make_staging: Retourner à l'état embryonnaire
       is_staging_html: Cette controverse est encore à l'état embryonnaire&nbsp!
       is_staging_sub: Aidez la à éclore !
@@ -273,10 +272,12 @@ fr:
       sent: Votre correction a bien été envoyée à l'auteur.
       to_valid: Les corrections à valider
     private_timelines:
-      to_timeline: Cette controverse est privée, invitez des contributeurs à y participer.
-      new_private_timeline: Les contributeurs à inviter
+      to_timeline: Voir les contributeurs participants à cette controverse privée.
+      new_private_timeline: Inviter des contributeurs à participer à cette controverse
       add_private_timeline: Inviter les contributeurs sélectionnés
       participating: Ils participent à cette controverse
-      no_participating: Il n'y a actuellement aucun invité à cette controverse
+      no_participating: Il n'y a actuellement aucun participant à cette controverse
       yours: Les controverses privées auxquelles vous participez
       invited: Controverses privées
+      participate: participez à cette controverse
+      invit_extern: Inviter une personne qui n'a pas de compte

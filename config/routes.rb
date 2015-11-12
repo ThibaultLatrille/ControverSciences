@@ -59,7 +59,11 @@ Rails.application.routes.draw do
     end
   end
   resources :partner_loves, only: [:create]
-  resources :private_timelines, only: [:index, :create]
+  resources :private_timelines, only: [:index, :create] do
+    collection do
+      get 'add_current_user'
+    end
+  end
   post 'notifications/delete'
   delete 'logout' => 'sessions#destroy'
   get 'how_to' => 'static_pages#how_to'

@@ -64,3 +64,5 @@ fr:
     question_added: Q&A ajoutée !
     question_updated: Changements sauvegardés !
     user_dont_exist: "Impossible de trouver ce contributeur dans la base de données"
+    add_current_user: Vous avez été ajouté aux participants de cette controverse.
+    particiate: vous avez été invité à participer à une controverse privée sur ControverSciences.

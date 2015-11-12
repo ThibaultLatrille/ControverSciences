@@ -18,6 +18,11 @@
           </h2>
         </div>
         <div class="panel-body">
+          <% unless @private_timelines.map{ |pt| pt.user_id }.include? current_user.id %>
+              <%= link_to "#{current_user.name}, #{t('views.private_timelines.participate')}".html_safe,
+                          add_current_user_private_timelines_path(timeline_id: params[:timeline_id]),
+                          class: "btn btn-success pull-right" %>
+          <% end %>
           <% if @private_timelines.any? %>
               <%= t('views.private_timelines.participating') %> :<br>
               <% @private_timelines.each do |private_timeline| %>
@@ -65,6 +70,10 @@
 
                   <br/>
               <% end %>
+              <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>#{t('views.private_timelines.invit_extern')}</b>".html_safe,
+                          new_invitation_path(timeline_id: params[:timeline_id]),
+                          remote: true,
+                          class: "btn btn-primary pull-right" %>
             </div>
           </div>
         </div>
