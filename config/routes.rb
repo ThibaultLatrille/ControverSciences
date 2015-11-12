@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       get 'switch_staging'
       get 'switch_favorite'
       get 'invited'
+      get 'mine'
     end
   end
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]

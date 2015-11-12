@@ -7,15 +7,15 @@
       <div class="panel panel-default clearfix">
         <div class="panel-heading clearfix">
           <h2>
-            <%= t('views.private_timelines.yours') %><br/>
+            <%= current_user.name %><br/>
             <br/>
           </h2>
         </div>
         <div class="panel-body">
-          <% if @private_timelines.any? %>
-              <% @private_timelines.each do |private_timeline| %>
+          <% if @mine_timelines.any? %>
+              <% @mine_timelines.each do |timeline| %>
                   <div>
-                    <%= link_to "<span class=\"icon icon-user\"></span> #{private_timeline.timeline.name}".html_safe, timeline_path(private_timeline.timeline) %>
+                    <%= link_to "<span class=\"icon icon-users\"></span> #{timeline.name}".html_safe, timeline_path(timeline) %>
                   </div>
               <% end %>
           <% end %>
@@ -24,3 +24,4 @@
     </div>
   </div>
 </div>
+

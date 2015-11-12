@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   has_many :private_timelines, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why,
-                :invalid_email, :terms_of_service, :invited,
+                :invalid_email, :terms_of_service, :invited, :timelines_count,
                 :empty_references, :empty_comments, :empty_summaries,
                 :admin_typos, :admin_dead_links, :admin_pending_users
   before_save :downcase_email

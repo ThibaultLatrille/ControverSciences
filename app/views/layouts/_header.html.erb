@@ -46,93 +46,100 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                 <span class="fat icon-user"></span>
-                <% if current_user.notifications_count > 0 %>
-                    <span class="badge badge-header"><%= current_user.notifications_count %></span>
+                <% if current_user.private_timeline ? true : current_user.notifications_count > 0  %>
+                    <span class="badge badge-header"><%= current_user.private_timeline ? current_user.timelines_count : current_user.notifications_count %></span>
                 <% end %>
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
                 <li><%= link_to "<b><span class='icon-user'></span> #{t('views.header.user')}</b>".html_safe,
                                 user_path(current_user) %> </li>
-                <% if current_user.invited > 0 %>
+                <% if current_user.private_timeline %>
                     <li class="divider"></li>
-                    <li style="background-color: #d9534f">
-                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.invited} </span> #{t('views.private_timelines.invited')}".html_safe,
-                                  invited_timelines_path(user_id: current_user.id), style: "color: white;" %>
-
-                    </li>
-                <% end %>
-                <% if current_user.can_switch_admin && current_user.admin_typos > 0 %>
-                    <li class="divider"></li>
-                    <li style="background-color: #d9534f">
-                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_typos} </span> #{t('views.header.typos')}".html_safe,
-                                  typos_path, style: "color: white;" %>
-
-                    </li>
-                <% end %>
-                <% if current_user.can_switch_admin && current_user.admin_dead_links > 0 %>
-                    <li class="divider"></li>
-                    <li style="background-color: #d9534f">
-                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_dead_links} </span> #{t('views.header.dead_links')}".html_safe,
-                                  dead_links_path, style: "color: white;" %>
-
-                    </li>
-                <% end %>
-                <% if current_user.can_switch_admin && current_user.admin_pending_users > 0 %>
-                    <li class="divider"></li>
-                    <li style="background-color: #d9534f">
-                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_pending_users} </span> #{t('views.assistant.index')}".html_safe,
-                                  assistant_index_path, style: "color: white;" %>
-
-                    </li>
-                <% end %>
-                <% if current_user.empty_references + current_user.empty_comments + current_user.empty_summaries > 0 %>
-                    <li class="divider"></li>
-                <% end %>
-                <% if current_user.empty_references > 0 %>
                     <li class="my-missing">
-                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_references} </span>
+                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.timelines_count} </span> Vos controverses".html_safe,
+                                  mine_timelines_path, style: "color: white;" %>
+                    </li>
+                <% else %>
+                    <% if current_user.invited > 0 %>
+                        <li class="divider"></li>
+                        <li style="background-color: #d9534f">
+                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.invited} </span> #{t('views.private_timelines.invited')}".html_safe,
+                                      invited_timelines_path(user_id: current_user.id), style: "color: white;" %>
+
+                        </li>
+                    <% end %>
+                    <% if current_user.can_switch_admin && current_user.admin_typos > 0 %>
+                        <li class="divider"></li>
+                        <li style="background-color: #d9534f">
+                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_typos} </span> #{t('views.header.typos')}".html_safe,
+                                      typos_path, style: "color: white;" %>
+
+                        </li>
+                    <% end %>
+                    <% if current_user.can_switch_admin && current_user.admin_dead_links > 0 %>
+                        <li class="divider"></li>
+                        <li style="background-color: #d9534f">
+                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_dead_links} </span> #{t('views.header.dead_links')}".html_safe,
+                                      dead_links_path, style: "color: white;" %>
+
+                        </li>
+                    <% end %>
+                    <% if current_user.can_switch_admin && current_user.admin_pending_users > 0 %>
+                        <li class="divider"></li>
+                        <li style="background-color: #d9534f">
+                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_pending_users} </span> #{t('views.assistant.index')}".html_safe,
+                                      assistant_index_path, style: "color: white;" %>
+
+                        </li>
+                    <% end %>
+                    <% if current_user.empty_references + current_user.empty_comments + current_user.empty_summaries > 0 %>
+                        <li class="divider"></li>
+                    <% end %>
+                    <% if current_user.empty_references > 0 %>
+                        <li class="my-missing">
+                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_references} </span>
                       #{t('views.header.empty_ref')}".html_safe,
-                                  empty_references_path(filter: "mine"), style: "color: white;" %>
+                                      empty_references_path(filter: "mine"), style: "color: white;" %>
 
-                    </li>
-                <% end %>
-                <% if current_user.empty_comments > 0 %>
-                    <li class="my-missing">
-                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_comments} </span>
+                        </li>
+                    <% end %>
+                    <% if current_user.empty_comments > 0 %>
+                        <li class="my-missing">
+                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_comments} </span>
                       #{t('views.header.empty_comments')}".html_safe,
-                                  empty_comments_path(filter: "mine"), style: "color: white;" %>
+                                      empty_comments_path(filter: "mine"), style: "color: white;" %>
 
-                    </li>
-                <% end %>
-                <% if current_user.empty_summaries > 0 %>
-                    <li class="my-missing">
-                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_summaries} </span>
+                        </li>
+                    <% end %>
+                    <% if current_user.empty_summaries > 0 %>
+                        <li class="my-missing">
+                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_summaries} </span>
                       #{t('views.header.empty_summaries')}".html_safe,
-                                  empty_summaries_path(filter: "mine"), style: "color: white;" %>
-
-                    </li>
-                <% end %>
-                <li class="divider"></li>
-                <% if current_user.nb_private > 0 %>
-                    <li class="my-missing"><%= link_to "<span class=\"badge badge-header\"> #{current_user.nb_private} </span> #{t('views.header.my_items_private')}</b>".html_safe,
-                                                       my_items_items_path(private: true), style: "color: white;" %> </li>
+                                      empty_summaries_path(filter: "mine"), style: "color: white;" %>
+                        </li>
+                    <% end %>
                     <li class="divider"></li>
-                <% end %>
-                <li><%= link_to "<b><span class='icon-summary'></span> #{t('views.header.my_items')}</b>".html_safe,
-                                my_items_items_path %> </li>
-                <li> <%= link_to "<b><span class=\"badge #{current_user.nb_notifs > 0 ? "badge-li" : nil }\">
+                    <% if current_user.nb_private > 0 %>
+                        <li class="my-missing"><%= link_to "<span class=\"badge badge-header\"> #{current_user.nb_private} </span> #{t('views.header.my_items_private')}</b>".html_safe,
+                                                           my_items_items_path(private: true), style: "color: white;" %> </li>
+                        <li class="divider"></li>
+                    <% end %>
+                    <li><%= link_to "<b><span class='icon-summary'></span> #{t('views.header.my_items')}</b>".html_safe,
+                                    my_items_items_path %> </li>
+                    <li> <%= link_to "<b><span class=\"badge #{current_user.nb_notifs > 0 ? "badge-li" : nil }\">
                 #{current_user.nb_notifs}</span> #{t('views.header.notifs')} </b>".html_safe,
-                                 notifications_important_path %>
-                </li>
-                <li class="divider"></li>
-                <li>
-                  <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{t('views.header.likes')}".html_safe,
-                              timelines_path(:interest => "true") %>
-                </li>
-                <li><%= link_to "<b><span class=\"badge #{current_user.notifications_all > 0 ? "badge-li" : nil }\">
+                                     notifications_important_path %>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                      <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> #{t('views.header.likes')}".html_safe,
+                                  timelines_path(:interest => "true") %>
+                    </li>
+                    <li><%= link_to "<b><span class=\"badge #{current_user.notifications_all > 0 ? "badge-li" : nil }\">
                 #{current_user.notifications_all }</span> #{t('views.header.news')} </b>".html_safe,
-                                notifications_index_path %> </li>
+                                    notifications_index_path %> </li>
+                <% end %>
                 <li class="divider"></li>
                 <li>
                   <%= link_to "<b><span class=\"glyphicon glyphicon-off\"></span>&nbsp #{t('views.header.logout')}</b>".html_safe,

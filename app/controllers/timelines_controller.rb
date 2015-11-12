@@ -1,8 +1,12 @@
 class TimelinesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :edit, :update, :create, :destroy, :invited]
+  before_action :logged_in_user, only: [:new, :edit, :update, :create, :destroy, :invited, :mine]
 
   def invited
     @private_timelines = PrivateTimeline.includes(:timeline).where(user_id: current_user.id)
+  end
+
+  def mine
+    @mine_timelines = Timeline.where(user_id: current_user.id)
   end
 
   def index
