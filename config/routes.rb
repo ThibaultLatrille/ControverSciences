@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get 'set_public'
       get 'switch_staging'
       get 'switch_favorite'
+      get 'invited'
     end
   end
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
@@ -58,6 +59,7 @@ Rails.application.routes.draw do
     end
   end
   resources :partner_loves, only: [:create]
+  resources :private_timelines, only: [:index, :create]
   post 'notifications/delete'
   delete 'logout' => 'sessions#destroy'
   get 'how_to' => 'static_pages#how_to'

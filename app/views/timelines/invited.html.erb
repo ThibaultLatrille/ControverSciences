@@ -1,0 +1,34 @@
+<% provide(:title, "Inviter") %>
+<div id="my-container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
+      <div class="panel panel-default clearfix">
+        <div class="panel-heading clearfix">
+          <h2>
+            <%= t('views.private_timelines.yours') %><br/>
+            <br/>
+          </h2>
+        </div>
+        <div class="panel-body">
+          <% if @private_timelines.any? %>
+              <% @private_timelines.each do |private_timeline| %>
+                  <div>
+                    <%= link_to "<span class=\"icon icon-user\"></span> #{private_timeline.timeline.name}".html_safe, timeline_path(private_timeline.timeline) %>
+                  </div>
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    var jets = new Jets({
+        searchTag: '#jetsSearch',
+        contentTag: '#jetsContent'
+    });
+</script>

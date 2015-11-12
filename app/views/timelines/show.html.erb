@@ -196,7 +196,14 @@
                 </div>
               </div>
           <% end %>
-          <% if logged_in? %>
+          <% if @timeline.private && logged_in? %>
+              <div class="panel panel-info">
+                <div class="panel-heading center">
+                  <%= link_to "<span class=\"icon icon-users fat\"></span> #{t('views.private_timelines.to_timeline')}".html_safe,
+                              private_timelines_path(timeline_id: @timeline.id), class: "hvr-grow" %>
+                </div>
+              </div>
+          <% elsif logged_in? %>
               <% if @timeline.staging %>
                   <div class="panel panel-info">
                     <div class="panel-heading center">

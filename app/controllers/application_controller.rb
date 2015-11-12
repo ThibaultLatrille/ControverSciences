@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
       current_user.empty_comments   = Reference.where(user_id: current_user.id, title_fr: "").count
       current_user.empty_summaries  = Timeline.where(user_id: current_user.id, nb_summaries: 0)
                                               .where.not(nb_references: 0..3).count
+      current_user.invited = PrivateTimeline.where(user_id: current_user.id).count
       if current_user.can_switch_admin
         current_user.admin_typos = Typo.where.not(target_user_id: current_user.id ).count
         current_user.admin_dead_links = DeadLink.all.count

@@ -272,3 +272,11 @@ fr:
       send: Envoyer la correction
       sent: Votre correction a bien été envoyée à l'auteur.
       to_valid: Les corrections à valider
+    private_timelines:
+      to_timeline: Cette controverse est privée, invitez des contributeurs à y participer.
+      new_private_timeline: Les contributeurs à inviter
+      add_private_timeline: Inviter les contributeurs sélectionnés
+      participating: Ils participent à cette controverse
+      no_participating: Il n'y a actuellement aucun invité à cette controverse
+      yours: Les controverses privées auxquelles vous participez
+      invited: Controverses privées

@@ -1,0 +1,82 @@
+<% provide(:title, "Inviter") %>
+<div id="my-container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
+                    timeline_path(params[:timeline_id]),
+                    class: "list-group-item" %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
+      <div class="panel panel-default clearfix">
+        <div class="panel-heading clearfix">
+          <h2>
+            <%= link_to Timeline.select(:name).find(params[:timeline_id]).name.html_safe, timeline_path(params[:timeline_id]) %>
+            <br/>
+            <br/>
+          </h2>
+        </div>
+        <div class="panel-body">
+          <% if @private_timelines.any? %>
+              <%= t('views.private_timelines.participating') %> :<br>
+              <% @private_timelines.each do |private_timeline| %>
+                  <div>
+                    <%= link_to "<span class=\"icon icon-user\"></span> #{private_timeline.user.name}".html_safe, user_path(private_timeline.user) %>
+                  </div>
+              <% end %>
+          <% else %>
+              <%= t('views.private_timelines.no_participating') %>
+          <% end %>
+          <br><br>
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h4><span class="icon icon-users"></span> <%= t('views.private_timelines.new_private_timeline') %></h4>
+            </div>
+            <div class="panel-body">
+              <%= form_for(@private_timeline) do |f| %>
+                  <%= render 'shared/error_messages', object: f.object %>
+                  <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+
+                  <%= f.button "<span class=\"icon icon-users\" aria-hidden=\"true\"></span>&nbsp #{t('views.private_timelines.add_private_timeline')}".html_safe,
+                               class: 'btn btn-success pull-right',
+                               style: "margin: 5px;",
+                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')}"} %>
+
+                  <% if @user_names.count > 6 %>
+                      <div class="box">
+                        <div class="container-jets">
+                          <span class="icon glyphicon glyphicon-filter"></span>
+                          <input type="search" id="jetsSearch" placeholder="Filtrer"/>
+                        </div>
+                      </div>
+                  <% end %>
+
+                  <div id="jetsContent" data-toggle="buttons">
+                    <% @user_names.each do |name, id| %>
+                        <div class="btn btn-default btn-block text-left timeline-private_timeline-check">
+                          <%= f.check_box :user_id, {:multiple => true}, checked_value = id, unchecked_value = nil %>
+                          <%= name.html_safe %>
+                          <span class="pull-right checked icon icon-user">
+                            </span>
+                        </div>
+                    <% end %>
+                  </div>
+
+                  <br/>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    var jets = new Jets({
+        searchTag: '#jetsSearch',
+        contentTag: '#jetsContent'
+    });
+</script>

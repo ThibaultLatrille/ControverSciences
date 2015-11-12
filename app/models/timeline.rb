@@ -44,6 +44,7 @@ class Timeline < ActiveRecord::Base
 
   has_many :figures, dependent: :destroy
   has_many :header_figures, class_name: "Figure", foreign_key: "img_timeline_id", dependent: :destroy
+  has_many :private_timelines, dependent: :destroy
   belongs_to :figure
 
   after_create :cascading_create_timeline

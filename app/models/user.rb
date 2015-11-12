@@ -40,9 +40,10 @@ class User < ActiveRecord::Base
   has_many :dead_links, dependent: :destroy
   has_many :partners, dependent: :destroy
   has_many :partner_loves, class_name: "PartnerLove", dependent: :destroy
+  has_many :private_timelines, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why,
-                :invalid_email, :terms_of_service,
+                :invalid_email, :terms_of_service, :invited,
                 :empty_references, :empty_comments, :empty_summaries,
                 :admin_typos, :admin_dead_links, :admin_pending_users
   before_save :downcase_email
@@ -163,7 +164,7 @@ class User < ActiveRecord::Base
   end
 
   def notifications_count
-    notifications_all + nb_notifs + admin_typos + admin_dead_links + admin_pending_users
+    notifications_all + nb_notifs + admin_typos + admin_dead_links + admin_pending_users + invited
   end
 
   # Creates and assigns the activation token and digest.

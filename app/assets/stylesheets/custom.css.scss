@@ -72,7 +72,6 @@ footer #about-link #contact {
 
 footer #about-link a:hover {
   color: #f1f1f1;
-  text-decoration: none;
 }
 
 @media (max-width: 480px) {
@@ -707,9 +706,10 @@ body.modal-open {
   a{
     color: #07212B;
   }
-  a:hover{
-    text-decoration: none;
-  }
+}
+
+a:hover, a:active, a.active, a.focus, a:focus{
+  text-decoration: none;
 }
 
 #progress .bar {
@@ -1027,10 +1027,6 @@ del {
 
 #why-biofunds{
   cursor: default;
-}
-
-.partner a:hover{
-  text-decoration: none;
 }
 
 .graph-circle{
