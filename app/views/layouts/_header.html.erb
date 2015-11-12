@@ -57,7 +57,7 @@
                 <% if current_user.private_timeline %>
                     <li class="divider"></li>
                     <li class="my-missing">
-                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.timelines_count} </span> Vos controverses".html_safe,
+                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.timelines_count} </span> Controverses privées".html_safe,
                                   mine_timelines_path, style: "color: white;" %>
                     </li>
                 <% else %>

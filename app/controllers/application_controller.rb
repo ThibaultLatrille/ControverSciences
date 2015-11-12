@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def before_render
     if logged_in?
       if current_user.private_timeline
-        current_user.timelines_count = Timeline.where(user_id: current_user.id).count
+        current_user.timelines_count = Timeline.where(user_id: current_user.id, private: true).count
       else
         current_user.empty_references = Timeline.where(user_id: current_user.id, nb_references: 0..3).count
         current_user.empty_comments   = Reference.where(user_id: current_user.id, title_fr: "").count

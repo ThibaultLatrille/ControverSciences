@@ -6,7 +6,7 @@ class TimelinesController < ApplicationController
   end
 
   def mine
-    @mine_timelines = Timeline.where(user_id: current_user.id)
+    @mine_timelines = Timeline.where(user_id: current_user.id, private: true)
   end
 
   def index
