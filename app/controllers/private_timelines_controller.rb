@@ -52,7 +52,7 @@ class PrivateTimelinesController < ApplicationController
 
   def set_index
     @private_timelines = PrivateTimeline.includes(:user).where(timeline_id: params[:timeline_id])
-    @user_names = User.order(:name).all.where.not( id: @private_timelines.map{ |u| u.user_id } ).pluck(:name, :id)
+    @user_names = User.order(:name).where(activated: true).not( id: @private_timelines.map{ |u| u.user_id } ).pluck(:name, :id)
   end
 
   private
