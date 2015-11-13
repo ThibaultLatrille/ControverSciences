@@ -1,1 +1,181 @@
-Page en construction !
+<% provide(:title, "Student Demo Cup") %>
+<% provide(:img, image_url("french-tech.png")) %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title(yield(:title)).html_safe %></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<%= meta_description(yield(:meta)).html_safe %>">
+  <meta name="author" content="<%= meta_author %>">
+  <meta name="Keywords" content="<%= meta_keywords %>">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="<%= meta_image(yield(:img)) %>">
+  <link rel="icon"
+        type="image/png"
+        href="<%= path_to_image "favicon.png" %>">
+  <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
+  <style>
+      .item {
+          min-width: 100% !important;
+          width: 100% !important;
+      }
+
+      .presentation-navigation {
+          border: 2px solid #FFFFFF;
+          border-radius: 5px;
+          padding: 5px;
+          color: #FFFFFF;
+      }
+
+      .presentation-navigation:hover {
+          color: #337ab7;
+          border: 2px solid #337ab7;
+      }
+
+      h1 {
+          text-shadow: none !important;
+      }
+
+      .pagination-dot,
+      .pagination-current {
+          background: #FFFFFF !important;
+          color: #337ab7 !important;
+      }
+
+      .pagination-number {
+          color: #337ab7 !important;
+      }
+  </style>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <base href="<%= root_url %>"/>
+  <%= render 'layouts/shim' %>
+</head>
+<body style="background-color: #080912; margin: 0; padding: 0; min-height: 100%">
+<div style="background-color: #080912; color: #ffffff; margin: 0; padding: 0; min-height: 100%">
+
+  <div style="margin: 15px 10px;">
+    <%= link_to "<span class=\"glyphicon glyphicon-menu-left normal\"></span>".html_safe,
+                student_demo_cup_protocol_path, class: "presentation-navigation" %>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <div class="row text-center">
+        <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            <%= User.where(activated: true).count %> contributeurs
+          </h1>
+
+          <div class="center-block">
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-6">
+                <div class="center">
+                  <%= image_tag("student-demo-cup/contributeurs.svg", alt: "contributeurs", :class => "img-responsive center-block") %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            <%= Timeline.count %> controverses
+          </h1>
+
+          <div class="center-block">
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-6">
+                <div class="center">
+                  <%= image_tag("student-demo-cup/controverse.svg", alt: "controverses", :class => "img-responsive center-block") %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <div class="row text-center">
+        <div class="col-xs-12 col-sm-4">
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            <%= Reference.count %> références
+          </h1>
+
+          <div class="center-block">
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-6">
+                <div class="center">
+                  <%= image_tag("3rules-1.png", alt: "Références", :class => "img-responsive center-block") %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            <%= Comment.count %> analyses
+          </h1>
+
+          <div class="center-block">
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-6">
+                <div class="center">
+                  <%= image_tag("3rules-2.png", alt: "Analyses", :class => "img-responsive center-block") %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            <%= Summary.count %> synthèses
+          </h1>
+
+          <div class="center-block">
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-6">
+                <div class="center">
+                  <%= image_tag("3rules-3.png", alt: "Synthèses", :class => "img-responsive center-block") %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br><br><br>
+      <div class="row text-center">
+        <div class="col-xs-12 col-sm-4 col-sm-offset-2">
+          <div class="center-block">
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-6">
+                <div class="center">
+                  <%= image_tag("umontpellier.png", alt: "Références", :class => "img-rounded img-responsive center-block") %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            Université de Montpellier
+          </h1>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+          <div class="center-block">
+            <div class="row">
+              <div class="col-xs-offset-3 col-xs-6">
+                <div class="center">
+                  <%= image_tag("ens-lyon.png", alt: "Analyses", :class => "img-rounded img-responsive center-block") %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h1 style="font-size: 2.6em; padding-bottom: 0">
+            ENS de Lyon
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+

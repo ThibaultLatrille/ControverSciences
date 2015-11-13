@@ -17,6 +17,42 @@
         href="<%= path_to_image "favicon.png" %>">
   <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
   <%= javascript_include_tag 'application' %>
+
+  <style>
+      .tooltip-inner {
+          font-size: 1.5em;
+          padding: 0.2em 1em;
+          background-color: #337ab7;
+      }
+      .tooltip.top .tooltip-arrow { border-top-color: #337ab7 !important;}
+      .tooltip.right .tooltip-arrow { border-right-color: #337ab7 !important;}
+      .tooltip.bottom .tooltip-arrow { border-bottom-color: #337ab7 !important;}
+      .tooltip.left .tooltip-arrow { border-left-color: #337ab7 !important;}
+
+      .presentation-navigation {
+          border: 2px solid #FFFFFF;
+          border-radius: 5px;
+          padding: 5px;
+          color: #FFFFFF;
+      }
+
+      .presentation-navigation:hover {
+          color: #337ab7;
+          border: 2px solid #337ab7;
+      }
+
+      #d3-graph svg .node {
+          cursor: pointer;
+          stroke: #ffffff !important;
+          stroke-width: 1.5px;
+      }
+
+      #d3-graph svg .link {
+          stroke: #337ab7 !important;
+          stroke-width: 2px;
+      }
+  </style>
+
   <%= csrf_meta_tags %>
   <base href="<%= root_url %>"/>
   <%= render 'layouts/shim' %>
@@ -118,35 +154,37 @@
               node.attr("transform", function (d) {
                   return "translate(" + d.x + "," + d.y + ")";
               });
+              $('[data-toggle="tooltip"]').tooltip({container: 'body'});
           });
       });
 
       function zoomed() {
           container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
       }
-  </script>
 
-  <style>
-    .presentation-navigation{
-        border: 2px solid #FFFFFF;
-        border-radius: 5px;
-        padding: 5px;
-        color: #FFFFFF;
-    }
-    .presentation-navigation:hover{
-        color: #337ab7;
-        border: 2px solid #337ab7;
-    }
-      #d3-graph svg .node {
-          cursor: pointer;
-          stroke: #ffffff !important;
-          stroke-width: 1.5px;
+      function getRandomSubarray(arr, size) {
+          var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+          while (i-- > min) {
+              index = Math.floor((i + 1) * Math.random());
+              temp = shuffled[index];
+              shuffled[index] = shuffled[i];
+              shuffled[i] = temp;
+          }
+          return shuffled.slice(min);
       }
-      #d3-graph svg .link {
-          stroke: #ffffff !important;
-          stroke-width: 1px;
+
+      for (var i = 0; i <= 50; i++) {
+          (function (ind) {
+              setTimeout(function () {
+                  console.log(ind);
+                  var array;
+                  $('[data-toggle="tooltip"]').tooltip('hide');
+                  array = getRandomSubarray($('[data-toggle="tooltip"]'), Math.ceil(Math.random() * 5) + 3)
+                  array.tooltip('show')
+              }, 7000 + (2500 * ind));
+          })(i);
       }
-  </style>
+  </script>
 </div>
 
 </body>

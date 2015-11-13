@@ -167,9 +167,13 @@ class UsersController < ApplicationController
   end
 
   def network
-    @nodes = User.where(activated: true).select(:id, :slug, :name,  :score).all
-    ids = @nodes.map{ |u| u.id }
-    @links = ids.combination(2).to_a.sample(ids.length/1.5)
+    @nodes = User.where(activated: true).select(:id, :slug, :name,  :score)
+    user_ids = @nodes.map{ |u| u.id }
+    ids = []
+    @nodes.each do |user|
+      ids += user_ids.sample(rand(user.score+2)).reject{ |u| u == user.id }.map{ |u| [u, user.id] }
+    end
+    @links = ids.uniq{ |e| [e[0],e[1]].sort }
   end
 
   private
