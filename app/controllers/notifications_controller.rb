@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-  before_action :logged_in_user, only: [:index, :important, :delete, :delete_all,
+  before_action :logged_in_user, only: [:index, :important, :patches, :delete, :delete_all,
                                         :delete_all_important, :summary,
                                         :summary_selection, :selection, :timeline,
                                         :reference, :comment,
@@ -80,11 +80,19 @@ class NotificationsController < ApplicationController
 
   def important
     @notification_selections = NotificationSelection.where(user_id: current_user.id).group_by{ |notif| notif.win }
-    puts @notification_selections
     if current_user.private_timeline
       @typos = []
     else
       @typos = Typo.where( target_user_id: current_user.id )
+    end
+  end
+
+  def patches
+    @notification_selections = NotificationSelection.where(user_id: current_user.id).group_by{ |notif| notif.win }
+    if current_user.private_timeline
+      @typos = []
+    else
+      @typos = Patch.where( target_user_id: current_user.id )
     end
   end
 

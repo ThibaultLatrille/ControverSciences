@@ -2,6 +2,7 @@ fr:
   views:
     default:
       fix_typo: Corriger une faute de français, ou suggérer une amélioration à l'auteur.
+      patch: Corriger une faute de français, ou suggérer une amélioration à l'auteur.
       confirm: Êtes-vous certain ?
       published: Publiée il y a
       by: par
@@ -201,6 +202,7 @@ fr:
     header:
       login: S'identifier
       typos: Correction(s) en attente
+      patches: Correction(s) en attente
       dead_links: Liens morts
       user: Accéder à votre profil
       empty_comments: Analyser vos références
@@ -268,20 +270,6 @@ fr:
       action_login: Veuillez vous identifier afin d'effectuer cette action
       new_user: Créer un compte
       server_dead: Le serveur ne répond pas
-    typos:
-      accept: Accepter la correction
-      accepted: La faute a été corrigée !
-      already_sent: Vous avez déjà soumis une correction pour cette contribution,
-        qui est en attente de validation !
-      content: Correction
-      if_not_yours_html: |-
-        Si une faute de français vous a brulé les yeux, ou si vous avez une suggestion à proposer à l'auteur, vous êtes sur la bonne page ! <br/>
-                          Celle-ci lui sera envoyée pour être soumise à validation.
-      if_yours: Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
-      refuse: Refuser la correction
-      send: Envoyer la correction
-      sent: Votre correction a bien été envoyée à l'auteur.
-      to_valid: Les corrections à valider
     mailer:
       activate: Activer mon compte
       and: et

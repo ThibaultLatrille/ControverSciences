@@ -69,13 +69,21 @@
 
                         </li>
                     <% end %>
-                    <% if current_user.can_switch_admin && current_user.admin_typos > 0 %>
+                    <% if current_user.can_switch_admin && (current_user.admin_typos > 0 || current_user.admin_patches > 0 ) %>
                         <li class="divider"></li>
-                        <li style="background-color: #d9534f">
-                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_typos} </span> #{t('views.header.typos')}".html_safe,
-                                      typos_path, style: "color: white;" %>
+                        <% if current_user.admin_typos > 0 %>
+                            <li style="background-color: #d9534f">
+                              <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_typos} </span> #{t('views.header.typos')}".html_safe,
+                                          typos_path, style: "color: white;" %>
 
-                        </li>
+                            </li>
+                        <% elsif current_user.admin_patches > 0  %>
+                            <li style="background-color: #d9534f">
+                              <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_patches} </span> #{t('views.header.patches')}".html_safe,
+                                          patches_path, style: "color: white;" %>
+
+                            </li>
+                        <% end %>
                     <% end %>
                     <% if current_user.can_switch_admin && current_user.admin_dead_links > 0 %>
                         <li class="divider"></li>

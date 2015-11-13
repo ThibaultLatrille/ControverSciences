@@ -5,10 +5,10 @@
       <% if logged_in? %>
           <div class="pull-right">
             <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                        new_typo_path(frame_id: frame.id, field: 0),
+                        new_patch_path(frame_id: frame.id, field: 0),
                         remote: true,
                         :class  => "btn btn-default", "data-toggle" => "tooltip",
-                        title:  t('views.default.fix_typo'),
+                        title:  t('views.default.patch'),
                         :style  => "padding: 8px; margin-right: 8px" %>
           </div>
       <% end %>
@@ -23,10 +23,10 @@
           <% if logged_in? %>
               <div class="pull-right">
                 <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                            new_typo_path(frame_id: frame.id, field: 1),
+                            new_patch_path(frame_id: frame.id, field: 1),
                             remote: true,
                             :class  => "btn btn-default", "data-toggle" => "tooltip",
-                            title: t('views.default.fix_typo'),
+                            title: t('views.default.patch'),
                             :style  => "padding: 8px; margin: 8px" %>
               </div>
           <% end %>

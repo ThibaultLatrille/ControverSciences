@@ -49,6 +49,9 @@ Rails.application.routes.draw do
   resources :reference_user_tags, only: [:create, :update]
   resources :contributions, only: [:index]
   resources :typos, only: [:create, :new, :index, :show, :destroy]
+  get 'typos_accept' => 'typos#accept', as: 'typos_accept'
+  resources :patches, only: [:create, :new, :index, :show, :destroy]
+  get 'patches_accept' => 'patches#accept', as: 'patches_accept'
   resources :pending_users, only: [:destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :questions, only: [:create, :edit, :update, :destroy]
@@ -124,7 +127,6 @@ Rails.application.routes.draw do
   get 'my_items/items'
   get 'my_items/votes'
   get "/fetch_children" => 'suggestion_children#from_suggestion', as: 'fetch_children'
-  get 'typos_accept' => 'typos#accept', as: 'typos_accept'
   get 'feed' => 'timelines#feed', :as => "feed"
   if Rails.env.development?
     get '/public/uploads/:file', to: redirect { |path_params, req|

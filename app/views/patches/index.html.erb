@@ -1,0 +1,71 @@
+<% provide(:title, "Notifications") %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+
+<div id="my-container" class="container-fluid">
+<div class="row">
+<div class="col-xs-12 col-lg-8 col-lg-offset-2">
+<div class="panel panel-primary">
+<% if @patches.any? %>
+    <br/>
+    <br/>
+    &nbsp  &nbsp  &nbsp <span class="blue" style="font-size: 2em;"><span class="fat icon-bug-<%= rand(18) %>"></span>
+                    <%= t('views.patches.to_valid') %> </span>
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
+        <% @patches.each do |patch| %>
+            <hr style="margin: 1em 3em 1em 3em ">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <b>
+                  <% if patch.comment_id %>
+                      <%= category_hash[ patch.comment_short.reference.category][patch.field] %> <%= t('views.model.of_reference').downcase %>
+                      <%= link_to patch.comment_short.reference.title, reference_path(patch.comment_short.reference_id) %> <%= t('views.model.in_timeline') %>
+                      <%= link_to patch.comment_short.timeline_name.html_safe, timeline_path(patch.comment_short.timeline_id ) %>
+                  <% elsif patch.summary_id %>
+                      <%= t('views.model.summary') %>
+                      <%= link_to patch.summary_short.timeline_name.html_safe, timeline_path(patch.summary_short.timeline_id )  %>
+                  <% elsif patch.frame_id %>
+                      <%= link_to patch.field == 0 ? t('views.model.frame_0') : t('views.model.frame_1'),
+                                  frame_path(patch.frame_id) %> de la controverse
+                      <%= link_to patch.frame_short.timeline_name.html_safe, timeline_path(patch.frame_short.timeline_id ) %>
+                  <% end %>
+                </b>
+                <br/>
+                <br/>
+                <div class="pretty">
+                  <div id="original" style="display: none"><%= patch.old_content %></div>
+                  <div id="changed" style="display: none"><%= patch.content %></div>
+                  <div id="diff"></div>
+                </div>
+                <br/>
+                <div class="pull-right">
+                  <%= link_to "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>  #{t('views.patches.refuse')}".html_safe,
+                              patch_path( id: patch.id ), method: :delete,
+                              class: "btn btn-danger",
+                              data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
+                                    &nbsp Suppression en cours"}%>
+                  <%= link_to "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  #{t('views.patches.accept')}".html_safe,
+                              patches_accept_path( id: patch.id ),
+                              class: "btn btn-success",
+                              data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
+                                    &nbsp Enregistrement en cours "}%>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+    $(".pretty").prettyTextDiff({
+        cleanup: true,
+        originalContainer: "#original",
+        changedContainer: "#changed",
+        diffContainer: "#diff"
+    });
+</script>

@@ -23,7 +23,9 @@ class User < ActiveRecord::Base
   has_many :suggestion_votes, dependent: :destroy
   has_many :suggestion_child_votes, dependent: :destroy
   has_many :typos, dependent: :destroy
+  has_many :patches, dependent: :destroy
   has_many :received_typos, class_name: "Typo", foreign_key: "target_user_id", dependent: :destroy
+  has_many :received_patches, class_name: "Patch", foreign_key: "target_user_id", dependent: :destroy
   has_many :frames, dependent: :destroy
   has_many :frame_credits, dependent: :destroy
   has_many :edges, dependent: :destroy
@@ -44,7 +46,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why,
                 :invalid_email, :terms_of_service, :invited, :timelines_count,
-                :empty_references, :empty_comments, :empty_summaries,
+                :empty_references, :empty_comments, :empty_summaries, :admin_patches,
                 :admin_typos, :admin_dead_links, :admin_pending_users
   before_save :downcase_email
   before_create :create_activation_digest
@@ -163,8 +165,12 @@ class User < ActiveRecord::Base
     Typo.where(target_user_id: self.id).count
   end
 
+  def notifications_patch
+    Patch.where(target_user_id: self.id).count
+  end
+
   def notifications_count
-    notifications_all + nb_notifs + admin_typos + admin_dead_links + admin_pending_users + invited
+    notifications_all + nb_notifs + admin_typos + admin_patches + admin_dead_links + admin_pending_users + invited
   end
 
   # Creates and assigns the activation token and digest.

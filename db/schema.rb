@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111233529) do
+ActiveRecord::Schema.define(version: 20151113142446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -359,6 +359,23 @@ ActiveRecord::Schema.define(version: 20151111233529) do
   end
 
   add_index "partners", ["user_id"], name: "index_partners_on_user_id", using: :btree
+
+  create_table "patches", force: true do |t|
+    t.integer  "comment_id"
+    t.integer  "user_id"
+    t.integer  "summary_id"
+    t.integer  "field"
+    t.integer  "target_user_id"
+    t.integer  "frame_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "patches", ["comment_id"], name: "index_patches_on_comment_id", using: :btree
+  add_index "patches", ["frame_id"], name: "index_patches_on_frame_id", using: :btree
+  add_index "patches", ["summary_id"], name: "index_patches_on_summary_id", using: :btree
+  add_index "patches", ["user_id"], name: "index_patches_on_user_id", using: :btree
 
   create_table "pending_users", force: true do |t|
     t.integer  "user_id"
@@ -737,6 +754,8 @@ ActiveRecord::Schema.define(version: 20151111233529) do
     t.string   "slug"
     t.boolean  "private_timeline",  default: false
     t.integer  "nb_private",        default: 0
+    t.integer  "my_patches",        default: 0
+    t.integer  "target_patches",    default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
