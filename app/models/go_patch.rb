@@ -1,4 +1,4 @@
-class Patch < ActiveRecord::Base
+class GoPatch < ActiveRecord::Base
   belongs_to :user
   belongs_to :summary
   belongs_to :comment
@@ -9,9 +9,22 @@ class Patch < ActiveRecord::Base
   after_create :increment_nb_notifs
   after_destroy :decrement_nb_notifs
 
-  validates_uniqueness_of :user_id, :if => Proc.new { |c| not c.summary_id.blank? }, :scope => [:summary_id]
-  validates_uniqueness_of :user_id, :if => Proc.new { |c| not c.comment_id.blank? }, :scope => [:comment_id, :field]
-  validates_uniqueness_of :user_id, :if => Proc.new { |c| not c.frame_id.blank? }, :scope => [:frame_id, :field]
+  def save_as_list
+    dmp = DiffMatchPatch.new
+    patches = dmp.patch_make(self.old_content, content)
+    puts "bim"
+    puts old_content
+    puts content
+    puts patches
+    patches.each do |patch|
+      puts dmp.patch_to_text(patch)
+      new = GoPatch.new(content: dmp.patch_to_text(patch),
+                      comment_id: comment_id, summary_id: summary_id,
+                      target_user_id: target_user_id, field: field,
+                      frame_id: frame_id, user_id: user_id)
+      new.save!
+    end
+  end
 
   def old_content
     if !summary_id.blank?
@@ -38,6 +51,50 @@ class Patch < ActiveRecord::Base
 
   def frame_short
     Frame.select(:id, :user_id, :timeline_id).find(self.frame_id)
+  end
+
+  def new_content(text)
+    dmp = DiffMatchPatch.new
+    dmp.patch_apply(dmp.patch_from_text(self.content), text)[0]
+  end
+
+  def apply_content(current_user_id, admin)
+    if !summary_id.blank?
+      sum = self.summary
+      if sum.user_id == current_user_id || admin
+        sum.content = new_content(sum.content)
+        sum.update_with_markdown
+      else
+        false
+      end
+    elsif !comment_id.blank?
+      com = self.comment
+      if com.user_id == current_user_id || admin
+        case self.field
+          when 6
+            com.title = new_content(com.title)
+          when 7
+            com.caption = new_content(com.caption)
+          else
+            com["f_#{field}_content"] = new_content(com["f_#{field}_content"])
+        end
+        com.update_with_markdown
+      else
+        false
+      end
+    elsif !frame_id.blank?
+      fra = self.frame
+      if fra.user_id == current_user_id || admin
+        if self.field == 0
+          fra.name = new_content(fra.name)
+        else
+          fra.content = new_content(fra.content)
+        end
+        fra.save_with_markdown
+      else
+        false
+      end
+    end
   end
 
   def set_content(current_user_id, admin)

@@ -11,6 +11,7 @@ class Frame < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :typos, dependent: :destroy
   has_many :notification_selections, dependent: :destroy
+  has_many :go_patches, dependent: :destroy
 
   before_validation :check_binary
 

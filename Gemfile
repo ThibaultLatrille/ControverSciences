@@ -94,6 +94,9 @@ gem 'friendly_id', '~> 5.0.0'
 # Slack Api wrapper
 gem 'slack-ruby-client'
 
+# Diff Match Patch Native
+gem 'diff_match_patch_native'
+
 group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace',     '0.1.3'

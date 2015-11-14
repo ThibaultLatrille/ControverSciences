@@ -15,7 +15,7 @@ class Comment < ActiveRecord::Base
   has_many :notification_selections, dependent: :destroy
   has_many :comment_joins, dependent: :destroy
   has_many :typos, dependent: :destroy
-  has_many :patches, dependent: :destroy
+  has_many :go_patches, dependent: :destroy
 
   after_create :cascading_create_comment
 

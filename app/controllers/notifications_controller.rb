@@ -92,7 +92,7 @@ class NotificationsController < ApplicationController
     if current_user.private_timeline
       @typos = []
     else
-      @typos = Patch.where( target_user_id: current_user.id )
+      @typos = GoPatch.where( target_user_id: current_user.id )
     end
   end
 

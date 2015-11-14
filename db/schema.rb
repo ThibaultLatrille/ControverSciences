@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113142446) do
+ActiveRecord::Schema.define(version: 20151113170318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,23 @@ ActiveRecord::Schema.define(version: 20151113142446) do
   add_index "frames", ["timeline_id"], name: "index_frames_on_timeline_id", using: :btree
   add_index "frames", ["user_id"], name: "index_frames_on_user_id", using: :btree
 
+  create_table "go_patches", force: true do |t|
+    t.integer  "comment_id"
+    t.integer  "user_id"
+    t.integer  "summary_id"
+    t.integer  "field"
+    t.integer  "target_user_id"
+    t.integer  "frame_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "go_patches", ["comment_id"], name: "index_go_patches_on_comment_id", using: :btree
+  add_index "go_patches", ["frame_id"], name: "index_go_patches_on_frame_id", using: :btree
+  add_index "go_patches", ["summary_id"], name: "index_go_patches_on_summary_id", using: :btree
+  add_index "go_patches", ["user_id"], name: "index_go_patches_on_user_id", using: :btree
+
   create_table "invitations", force: true do |t|
     t.integer  "user_id"
     t.text     "message"
@@ -359,23 +376,6 @@ ActiveRecord::Schema.define(version: 20151113142446) do
   end
 
   add_index "partners", ["user_id"], name: "index_partners_on_user_id", using: :btree
-
-  create_table "patches", force: true do |t|
-    t.integer  "comment_id"
-    t.integer  "user_id"
-    t.integer  "summary_id"
-    t.integer  "field"
-    t.integer  "target_user_id"
-    t.integer  "frame_id"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "patches", ["comment_id"], name: "index_patches_on_comment_id", using: :btree
-  add_index "patches", ["frame_id"], name: "index_patches_on_frame_id", using: :btree
-  add_index "patches", ["summary_id"], name: "index_patches_on_summary_id", using: :btree
-  add_index "patches", ["user_id"], name: "index_patches_on_user_id", using: :btree
 
   create_table "pending_users", force: true do |t|
     t.integer  "user_id"

@@ -3,7 +3,7 @@ class PatchesController < ApplicationController
   before_action :admin_user, only: [:index]
 
   def new
-    @patch = Patch.new( get_params )
+    @patch = GoPatch.new( get_params )
     if !@patch.comment_id.blank?
       com = Comment.find(get_params[:comment_id])
       @patch.content = com.field_content(get_params[:field].to_i)
@@ -28,7 +28,7 @@ class PatchesController < ApplicationController
   end
 
   def create
-    @patch = Patch.new( patch_params )
+    @patch = GoPatch.new( patch_params )
     if !@patch.comment_id.blank?
       @patch.target_user_id = Comment.select( :user_id ).find(patch_params[:comment_id]).user_id
     elsif !@patch.summary_id.blank?
@@ -49,9 +49,12 @@ class PatchesController < ApplicationController
         end
       end
     else
+      puts @patch.old_content
       @patch_errors = @patch.is_content_valid
+      puts "basqsfdm"
+      puts @patch.old_content
       if @patch_errors.full_messages.blank?
-        if @patch.save
+        if @patch.save_as_list
           respond_to do |format|
             format.js { render 'patches/success', :content_type => 'text/javascript', :layout => false}
           end
@@ -69,12 +72,12 @@ class PatchesController < ApplicationController
   end
 
   def index
-    @patches = Patch.all
+    @patches = GoPatch.all
   end
 
   def accept
-    @patch = Patch.find( params[:id] )
-    @patch.set_content(current_user.id, current_user.admin)
+    @patch = GoPatch.find( params[:id] )
+    @patch.apply_content(current_user.id, current_user.admin)
     if @patch.target_user_id == current_user.id || current_user.admin
       @patch.destroy
       User.increment_counter(:my_patches, @patch.user_id)
@@ -88,7 +91,7 @@ class PatchesController < ApplicationController
   end
 
   def destroy
-    @patch = Patch.find( params[:id] )
+    @patch = GoPatch.find( params[:id] )
     if @patch.target_user_id == current_user.id || current_user.admin
       @patch.destroy
     end
@@ -106,6 +109,6 @@ class PatchesController < ApplicationController
   end
 
   def patch_params
-    params.require(:patch).permit(:comment_id, :summary_id, :frame_id, :content, :field)
+    params.require(:go_patch).permit(:comment_id, :summary_id, :frame_id, :content, :field)
   end
 end
