@@ -16,18 +16,28 @@
         type="image/png"
         href="<%= path_to_image "favicon.png" %>">
   <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
-  <%= javascript_include_tag 'application' %>
-
   <style>
       .tooltip-inner {
           font-size: 1.5em;
           padding: 0.2em 1em;
           background-color: #337ab7;
       }
-      .tooltip.top .tooltip-arrow { border-top-color: #337ab7 !important;}
-      .tooltip.right .tooltip-arrow { border-right-color: #337ab7 !important;}
-      .tooltip.bottom .tooltip-arrow { border-bottom-color: #337ab7 !important;}
-      .tooltip.left .tooltip-arrow { border-left-color: #337ab7 !important;}
+
+      .tooltip.top .tooltip-arrow {
+          border-top-color: #337ab7 !important;
+      }
+
+      .tooltip.right .tooltip-arrow {
+          border-right-color: #337ab7 !important;
+      }
+
+      .tooltip.bottom .tooltip-arrow {
+          border-bottom-color: #337ab7 !important;
+      }
+
+      .tooltip.left .tooltip-arrow {
+          border-left-color: #337ab7 !important;
+      }
 
       .presentation-navigation {
           border: 2px solid #FFFFFF;
@@ -53,6 +63,9 @@
       }
   </style>
 
+  <%= javascript_include_tag 'application' %>
+
+
   <%= csrf_meta_tags %>
   <base href="<%= root_url %>"/>
   <%= render 'layouts/shim' %>
@@ -71,38 +84,1524 @@
 
   <span id="d3-graph" style="background-color: #080912;"></span>
   <script type="text/javascript">
-      var margin = {top: 0, right: 0, bottom: 0, left: 0},
-              width = $(window).width(),
-              height = $(window).height() - 50;
+      $(document).ready(function () {
+          var margin = {top: 0, right: 0, bottom: 0, left: 0},
+                  width = $(window).width(),
+                  height = $(window).height() - 50;
 
-      var zoom = d3.behavior.zoom()
-              .scaleExtent([1, 10])
-              .on("zoom", zoomed);
+          var zoom = d3.behavior.zoom()
+                  .scaleExtent([1, 10])
+                  .on("zoom", zoomed);
 
-      var color = d3.scale.category20();
+          var color = d3.scale.category20();
 
-      var force = d3.layout.force()
-              .linkDistance(10)
-              .linkStrength(2)
-              .size([width, height]);
+          var force = d3.layout.force()
+                  .linkDistance(10)
+                  .linkStrength(2)
+                  .size([width, height]);
 
-      var svg = d3.select("#d3-graph").append("svg")
-              .attr("width", width + margin.left + margin.right)
-              .attr("height", height + margin.top + margin.bottom)
-              .append("g")
-              .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
-              .call(zoom);
+          var svg = d3.select("#d3-graph").append("svg")
+                  .attr("width", width + margin.left + margin.right)
+                  .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                  .attr("transform", "translate(" + margin.left + "," + margin.right + ")")
+                  .call(zoom);
 
-      var rect = svg.append("rect")
-              .attr("width", width)
-              .attr("height", height)
-              .style("fill", "#080912")
-              .style("pointer-events", "all");
+          var rect = svg.append("rect")
+                  .attr("width", width)
+                  .attr("height", height)
+                  .style("fill", "#080912")
+                  .style("pointer-events", "all");
 
-      var container = svg.append("g");
+          var container = svg.append("g");
 
-      d3.json("/users_network", function (error, graph) {
-          if (error) throw error;
+          var graph = {
+              "nodes": [{
+                  "id": 92,
+                  "name": "Gold",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/quentin-falcand",
+                  "group": "1"
+              }, {
+                  "id": 107,
+                  "name": "A. Paul",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-paul",
+                  "group": "1"
+              }, {
+                  "id": 120,
+                  "name": "Sohini",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/sohini",
+                  "group": "1"
+              }, {
+                  "id": 81,
+                  "name": "Debiève ",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/debieve",
+                  "group": "1"
+              }, {
+                  "id": 88,
+                  "name": "V.Federico",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/v-federico",
+                  "group": "1"
+              }, {
+                  "id": 44,
+                  "name": "Arnaud Le Gué",
+                  "size": 1.24827469663223,
+                  "url": "https://controversciences.org/users/arnaud-le-gue",
+                  "group": "1"
+              }, {
+                  "id": 141,
+                  "name": "Linh",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/linh",
+                  "group": "1"
+              }, {
+                  "id": 50,
+                  "name": "Giliane",
+                  "size": 1.24827469663223,
+                  "url": "https://controversciences.org/users/giliane",
+                  "group": "1"
+              }, {
+                  "id": 151,
+                  "name": "Dennyss LELAURIN",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/dennyss-lelaurin",
+                  "group": "1"
+              }, {
+                  "id": 67,
+                  "name": "D. Cherrier",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/d-cherrier",
+                  "group": "1"
+              }, {
+                  "id": 132,
+                  "name": "Thibaut Anglade",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/thibaut-anglade",
+                  "group": "1"
+              }, {
+                  "id": 145,
+                  "name": "Gabriel Marsères",
+                  "size": 1.26610986807363,
+                  "url": "https://controversciences.org/users/gabriel-marseres",
+                  "group": "1"
+              }, {
+                  "id": 128,
+                  "name": "Eléonore B",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/eleonore-bellot",
+                  "group": "1"
+              }, {
+                  "id": 86,
+                  "name": "A. Durier",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-durier",
+                  "group": "1"
+              }, {
+                  "id": 102,
+                  "name": "Lucie FARRERA",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/lucie-farrera",
+                  "group": "1"
+              }, {
+                  "id": 125,
+                  "name": "qwrk",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/qwrk",
+                  "group": "1"
+              }, {
+                  "id": 84,
+                  "name": "Virgie R",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/virgie-r",
+                  "group": "1"
+              }, {
+                  "id": 112,
+                  "name": "R. Munier",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/r-munier",
+                  "group": "1"
+              }, {
+                  "id": 97,
+                  "name": "Alban B.",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/alban-b",
+                  "group": "1"
+              }, {
+                  "id": 153,
+                  "name": "C. Godineau",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/c-godineau",
+                  "group": "1"
+              }, {
+                  "id": 79,
+                  "name": "Université de Montpellier",
+                  "size": 1.44220480171182,
+                  "url": "https://controversciences.org/users/universite-de-montpellier",
+                  "group": "1"
+              }, {
+                  "id": 154,
+                  "name": "Marie-Paule SAVELLI",
+                  "size": 1.27419564727935,
+                  "url": "https://controversciences.org/users/marie-paule-savelli",
+                  "group": "1"
+              }, {
+                  "id": 159,
+                  "name": "Tania Louis",
+                  "size": 1.23570063918445,
+                  "url": "https://controversciences.org/users/tania-louis",
+                  "group": "1"
+              }, {
+                  "id": 156,
+                  "name": "S.Sweydan",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/simon-sweydan",
+                  "group": "1"
+              }, {
+                  "id": 134,
+                  "name": "S. Desrosiers",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/s-desrosiers",
+                  "group": "1"
+              }, {
+                  "id": 115,
+                  "name": "Carole Chedid",
+                  "size": 1.2734543522382,
+                  "url": "https://controversciences.org/users/carole-chedid",
+                  "group": "1"
+              }, {
+                  "id": 89,
+                  "name": "S. Marlène",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/s-marlene",
+                  "group": "1"
+              }, {
+                  "id": 122,
+                  "name": "Léo Mouillard-Lample",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/l-mouillard-lample",
+                  "group": "1"
+              }, {
+                  "id": 113,
+                  "name": "G. Gonella",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/g",
+                  "group": "1"
+              }, {
+                  "id": 103,
+                  "name": "Scientifiste",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/scientifiste",
+                  "group": "1"
+              }, {
+                  "id": 131,
+                  "name": "Pierre ARNAL",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/pierre-arnal",
+                  "group": "1"
+              }, {
+                  "id": 93,
+                  "name": "Clément Gremillet",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/clement-gremillet",
+                  "group": "1"
+              }, {
+                  "id": 138,
+                  "name": "F. Martin",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/f-martin",
+                  "group": "1"
+              }, {
+                  "id": 34,
+                  "name": "Acermendax",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/acermendax",
+                  "group": "1"
+              }, {
+                  "id": 108,
+                  "name": "L.Jean",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/l-jean",
+                  "group": "1"
+              }, {
+                  "id": 114,
+                  "name": "Jimmy Hortion",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/jimmy-hortion",
+                  "group": "1"
+              }, {
+                  "id": 116,
+                  "name": "SauSau_YaYa",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/sausau_yaya",
+                  "group": "1"
+              }, {
+                  "id": 135,
+                  "name": "A. Fournier ",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-fournier",
+                  "group": "1"
+              }, {
+                  "id": 1,
+                  "name": "T. Latrille",
+                  "size": 1.94488291343743,
+                  "url": "https://controversciences.org/users/t-latrille",
+                  "group": "1"
+              }, {
+                  "id": 133,
+                  "name": "J.Gauthier",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/j-gauthier",
+                  "group": "1"
+              }, {
+                  "id": 152,
+                  "name": "D.Djerrab",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/d-djerrab",
+                  "group": "1"
+              }, {
+                  "id": 129,
+                  "name": "M. Laviron",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/m-laviron",
+                  "group": "1"
+              }, {
+                  "id": 146,
+                  "name": "A. Rey",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-rey",
+                  "group": "1"
+              }, {
+                  "id": 157,
+                  "name": "Jacques Talbot",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/jacques-talbot",
+                  "group": "1"
+              }, {
+                  "id": 150,
+                  "name": "Chia-Ting Chen",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/chia-ting-chen",
+                  "group": "1"
+              }, {
+                  "id": 147,
+                  "name": "Amael",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/amael",
+                  "group": "1"
+              }, {
+                  "id": 99,
+                  "name": "T.Damestoy",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/t-damestoy",
+                  "group": "1"
+              }, {
+                  "id": 90,
+                  "name": "Carlos",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/carlos",
+                  "group": "1"
+              }, {
+                  "id": 94,
+                  "name": "Alice",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/alice",
+                  "group": "1"
+              }, {
+                  "id": 130,
+                  "name": "Marie Bau",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/m-baudouin",
+                  "group": "1"
+              }, {
+                  "id": 109,
+                  "name": "L. Huot",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/l-huot",
+                  "group": "1"
+              }, {
+                  "id": 104,
+                  "name": "O. Tournayre",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/o-tournayre",
+                  "group": "1"
+              }, {
+                  "id": 136,
+                  "name": "C. Thouly",
+                  "size": 1.24827469663223,
+                  "url": "https://controversciences.org/users/c-thouly",
+                  "group": "1"
+              }, {
+                  "id": 143,
+                  "name": "Q.Vautrin",
+                  "size": 1.67570002234986,
+                  "url": "https://controversciences.org/users/q-vautrin",
+                  "group": "1"
+              }, {
+                  "id": 139,
+                  "name": "allan",
+                  "size": 1.25241073110419,
+                  "url": "https://controversciences.org/users/allan",
+                  "group": "1"
+              }, {
+                  "id": 118,
+                  "name": "K.Sartori",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/k-sartori",
+                  "group": "1"
+              }, {
+                  "id": 105,
+                  "name": "O. Tournayre",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/o-tournayre-0a631871-c2a5-460c-b25e-0b19bb12b4f5",
+                  "group": "1"
+              }, {
+                  "id": 117,
+                  "name": "A.Christophe",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-christophe",
+                  "group": "1"
+              }, {
+                  "id": 126,
+                  "name": "Josselin Griffet",
+                  "size": 1.72626198627254,
+                  "url": "https://controversciences.org/users/josselin-griffet",
+                  "group": "1"
+              }, {
+                  "id": 142,
+                  "name": "Robin Dard",
+                  "size": 1.31063762557499,
+                  "url": "https://controversciences.org/users/robin-dard",
+                  "group": "1"
+              }, {
+                  "id": 155,
+                  "name": "M.Blanchon",
+                  "size": 1.64720891510404,
+                  "url": "https://controversciences.org/users/m-blanchon",
+                  "group": "1"
+              }, {
+                  "id": 140,
+                  "name": "Camille Tisserand",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/camille-tisserand",
+                  "group": "1"
+              }, {
+                  "id": 3,
+                  "name": "N. Clairis",
+                  "size": 5.29522852632661,
+                  "url": "https://controversciences.org/users/n-clairis",
+                  "group": "1"
+              }, {
+                  "id": 162,
+                  "name": "Controverti",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/controverti",
+                  "group": "1"
+              }, {
+                  "id": 158,
+                  "name": "Dufloo",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/dufloo",
+                  "group": "1"
+              }, {
+                  "id": 160,
+                  "name": "T.Corneloup",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/t-corneloup",
+                  "group": "1"
+              }, {
+                  "id": 4,
+                  "name": "M. Melix",
+                  "size": 2.15975865174733,
+                  "url": "https://controversciences.org/users/m-melix",
+                  "group": "1"
+              }, {
+                  "id": 163,
+                  "name": "J.Kerdranvat",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/j-kerdranvat",
+                  "group": "1"
+              }, {
+                  "id": 7,
+                  "name": "R. Feron",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/r-feron",
+                  "group": "1"
+              }, {
+                  "id": 8,
+                  "name": "Iago-lito",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/iago-lito",
+                  "group": "1"
+              }, {
+                  "id": 9,
+                  "name": "Y. Anciaux",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/y-anciaux",
+                  "group": "1"
+              }, {
+                  "id": 11,
+                  "name": "F. Lamouche",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/f-lamouche",
+                  "group": "1"
+              }, {
+                  "id": 13,
+                  "name": "N. Rivel",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/n-rivel",
+                  "group": "1"
+              }, {
+                  "id": 14,
+                  "name": "Florent Figon",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/florent-figon",
+                  "group": "1"
+              }, {
+                  "id": 16,
+                  "name": "Amélie B",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/amelie-b",
+                  "group": "1"
+              }, {
+                  "id": 19,
+                  "name": "Iris Latrille",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/iris-latrille",
+                  "group": "1"
+              }, {
+                  "id": 23,
+                  "name": "LouV",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/louv",
+                  "group": "1"
+              }, {
+                  "id": 24,
+                  "name": "Justin Péméja ",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/justin-pemeja",
+                  "group": "1"
+              }, {
+                  "id": 25,
+                  "name": "Puységur",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/puysegur",
+                  "group": "1"
+              }, {
+                  "id": 26,
+                  "name": "Paulette THOMAS",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/paulette-thomas",
+                  "group": "1"
+              }, {
+                  "id": 27,
+                  "name": "J. Romanos",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/j-romanos",
+                  "group": "1"
+              }, {
+                  "id": 30,
+                  "name": "fpirot",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/fpirot",
+                  "group": "1"
+              }, {
+                  "id": 31,
+                  "name": "A.Denizot",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-denizot",
+                  "group": "1"
+              }, {
+                  "id": 32,
+                  "name": "A. Jasson",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-jasson",
+                  "group": "1"
+              }, {
+                  "id": 35,
+                  "name": "Carlito en provencu",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/carlitoenprovencu",
+                  "group": "1"
+              }, {
+                  "id": 36,
+                  "name": "Crinière de feu",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/criniere-de-feu",
+                  "group": "1"
+              }, {
+                  "id": 10,
+                  "name": "P. Guille Escuret",
+                  "size": 1.86865288132892,
+                  "url": "https://controversciences.org/users/p-guille-escuret",
+                  "group": "1"
+              }, {
+                  "id": 33,
+                  "name": "Serrano",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/serrano",
+                  "group": "1"
+              }, {
+                  "id": 20,
+                  "name": "P. Duret",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/p-duret",
+                  "group": "1"
+              }, {
+                  "id": 12,
+                  "name": "SK",
+                  "size": 1.03422905651301,
+                  "url": "https://controversciences.org/users/sk",
+                  "group": "1"
+              }, {
+                  "id": 21,
+                  "name": "R. Becanne",
+                  "size": 1.02116824316102,
+                  "url": "https://controversciences.org/users/r-becanne",
+                  "group": "1"
+              }, {
+                  "id": 37,
+                  "name": "K. Galliez",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/k-galliez",
+                  "group": "1"
+              }, {
+                  "id": 38,
+                  "name": "Kristen Chaman",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/kristen-chaman",
+                  "group": "1"
+              }, {
+                  "id": 39,
+                  "name": "Laure Schneider-Maunoury",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/laure-schneider-maunoury",
+                  "group": "1"
+              }, {
+                  "id": 40,
+                  "name": "H. Vranken",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/h-vranken",
+                  "group": "1"
+              }, {
+                  "id": 41,
+                  "name": "Alexis",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/alexis",
+                  "group": "1"
+              }, {
+                  "id": 47,
+                  "name": "O. Coen",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/o-coen",
+                  "group": "1"
+              }, {
+                  "id": 51,
+                  "name": "Marine Lehue",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/marine-lehue",
+                  "group": "1"
+              }, {
+                  "id": 52,
+                  "name": "Iris Latrille",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/iris-latrille-b0160734-43da-493d-b503-e7119e089088",
+                  "group": "1"
+              }, {
+                  "id": 53,
+                  "name": "FADEL",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/fadel",
+                  "group": "1"
+              }, {
+                  "id": 54,
+                  "name": "G.Richard",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/g-richard",
+                  "group": "1"
+              }, {
+                  "id": 55,
+                  "name": "Manini",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/manini",
+                  "group": "1"
+              }, {
+                  "id": 62,
+                  "name": "Arthur Michaut",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/arthur-michaut",
+                  "group": "1"
+              }, {
+                  "id": 56,
+                  "name": "Mathieu T.",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/mathieu-t",
+                  "group": "1"
+              }, {
+                  "id": 49,
+                  "name": "Thomas P.",
+                  "size": 1.16991227193184,
+                  "url": "https://controversciences.org/users/thomas-p",
+                  "group": "1"
+              }, {
+                  "id": 48,
+                  "name": "A.T. Bui",
+                  "size": 1.24827469663223,
+                  "url": "https://controversciences.org/users/a-t-bui",
+                  "group": "1"
+              }, {
+                  "id": 57,
+                  "name": "Thibault",
+                  "size": 1.20744828748794,
+                  "url": "https://controversciences.org/users/thibault",
+                  "group": "1"
+              }, {
+                  "id": 46,
+                  "name": "Béna",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/bena",
+                  "group": "1"
+              }, {
+                  "id": 59,
+                  "name": "Un illustre inconnu",
+                  "size": 1.0232802152565,
+                  "url": "https://controversciences.org/users/un-illustre-inconnu",
+                  "group": "1"
+              }, {
+                  "id": 42,
+                  "name": "Octavie",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/octavie",
+                  "group": "1"
+              }, {
+                  "id": 45,
+                  "name": "Maximinuit",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/maximinuit",
+                  "group": "1"
+              }, {
+                  "id": 61,
+                  "name": "A. Boniface",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-boniface",
+                  "group": "1"
+              }, {
+                  "id": 58,
+                  "name": "Simon Klein",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/simon-klein",
+                  "group": "1"
+              }, {
+                  "id": 64,
+                  "name": "Julian Renard",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/julian-renard",
+                  "group": "1"
+              }, {
+                  "id": 66,
+                  "name": "M. REMY",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/m-remy",
+                  "group": "1"
+              }, {
+                  "id": 68,
+                  "name": "Matthieu Perrinel",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/matthieu-perrinel",
+                  "group": "1"
+              }, {
+                  "id": 70,
+                  "name": "Iris Le Roncé",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/iris-le-ronce-b788623b-db66-4679-b88c-820f1b30fabe",
+                  "group": "1"
+              }, {
+                  "id": 72,
+                  "name": "Benoit Gaüzère",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/benoit-gauzere",
+                  "group": "1"
+              }, {
+                  "id": 75,
+                  "name": "Guy-Charles ",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/guy-charles",
+                  "group": "1"
+              }, {
+                  "id": 76,
+                  "name": "Cécile S",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/cecile-s",
+                  "group": "1"
+              }, {
+                  "id": 77,
+                  "name": "S. Mkacher",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/s-mkacher",
+                  "group": "1"
+              }, {
+                  "id": 78,
+                  "name": "ABOLIVIER Lucie",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/abolivier-lucie",
+                  "group": "1"
+              }, {
+                  "id": 127,
+                  "name": "Factsory",
+                  "size": 1.24294126542549,
+                  "url": "https://controversciences.org/users/factsory",
+                  "group": "1"
+              }, {
+                  "id": 80,
+                  "name": "Aurélie M.",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/aurelie-madrid",
+                  "group": "1"
+              }, {
+                  "id": 91,
+                  "name": "C.Tuton",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/c-tuton",
+                  "group": "1"
+              }, {
+                  "id": 95,
+                  "name": "P. Gaudeaux",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/p-gaudeaux",
+                  "group": "1"
+              }, {
+                  "id": 100,
+                  "name": "B.Amhouti",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/b-amhouti",
+                  "group": "1"
+              }, {
+                  "id": 111,
+                  "name": "ESTRADA",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/estrada",
+                  "group": "1"
+              }, {
+                  "id": 106,
+                  "name": "Muriel Drouglazet",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/muriel-drouglazet",
+                  "group": "1"
+              }, {
+                  "id": 110,
+                  "name": "N.Combémorel",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/n-combemorel",
+                  "group": "1"
+              }, {
+                  "id": 101,
+                  "name": "Artémis A.",
+                  "size": 1.81024736678187,
+                  "url": "https://controversciences.org/users/a-anest",
+                  "group": "1"
+              }, {
+                  "id": 121,
+                  "name": "S. Derville",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/s-derville",
+                  "group": "1"
+              }, {
+                  "id": 144,
+                  "name": "Nathalie Bouré",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/nathalie-boure",
+                  "group": "1"
+              }, {
+                  "id": 71,
+                  "name": "R.Gayet",
+                  "size": 1.63793440214082,
+                  "url": "https://controversciences.org/users/r-gayet",
+                  "group": "1"
+              }, {
+                  "id": 149,
+                  "name": "Barbot.E",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/barbote",
+                  "group": "1"
+              }, {
+                  "id": 168,
+                  "name": "OPi",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/opi",
+                  "group": "1"
+              }, {
+                  "id": 166,
+                  "name": "Manon",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/manon",
+                  "group": "1"
+              }, {
+                  "id": 167,
+                  "name": "lprelot",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/lprelot",
+                  "group": "1"
+              }, {
+                  "id": 165,
+                  "name": "5l²4X#4Vl0l=",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/5l-4x-4vl0l",
+                  "group": "1"
+              }, {
+                  "id": 74,
+                  "name": "Jcourtais",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/jcourtais",
+                  "group": "1"
+              }, {
+                  "id": 170,
+                  "name": "Suzanne Bonamour ",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/suzanne-bonamour",
+                  "group": "1"
+              }, {
+                  "id": 179,
+                  "name": "B. Polturat",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/b-polturat",
+                  "group": "1"
+              }, {
+                  "id": 181,
+                  "name": "François Bonhomme",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/francois-bonhomme",
+                  "group": "1"
+              }, {
+                  "id": 173,
+                  "name": "Lucas Bonzon",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/lucas-bonzon-39fda687-3a8d-40bf-8a19-e7cfe7b26afb",
+                  "group": "1"
+              }, {
+                  "id": 174,
+                  "name": "Augereau",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/augereau",
+                  "group": "1"
+              }, {
+                  "id": 171,
+                  "name": "Juan Escamilla",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/juan-escamilla",
+                  "group": "1"
+              }, {
+                  "id": 185,
+                  "name": "Hygiène Mentale",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/hygiene-mentale",
+                  "group": "1"
+              }, {
+                  "id": 178,
+                  "name": "S.Scussel",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/s-scussel",
+                  "group": "1"
+              }, {
+                  "id": 169,
+                  "name": "M.Dubart",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/m-dubart",
+                  "group": "1"
+              }, {
+                  "id": 22,
+                  "name": "IreneL",
+                  "size": 1.75727060697328,
+                  "url": "https://controversciences.org/users/irenel",
+                  "group": "1"
+              }, {
+                  "id": 63,
+                  "name": "F. Giry",
+                  "size": 6.48077340577234,
+                  "url": "https://controversciences.org/users/f-giry",
+                  "group": "1"
+              }, {
+                  "id": 175,
+                  "name": "C.Benezech",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/c-benezech",
+                  "group": "1"
+              }, {
+                  "id": 177,
+                  "name": "azlon",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/azlon",
+                  "group": "1"
+              }, {
+                  "id": 182,
+                  "name": "S. Groc",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/s-groc",
+                  "group": "1"
+              }, {
+                  "id": 183,
+                  "name": "O. Perrot",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/o-perrot",
+                  "group": "1"
+              }, {
+                  "id": 184,
+                  "name": "Jonathan D'Ambrosio",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/jonathan-d-ambrosio",
+                  "group": "1"
+              }, {
+                  "id": 186,
+                  "name": "Christophe Michel",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/christophe-michel",
+                  "group": "1"
+              }, {
+                  "id": 210,
+                  "name": "M. Mapotoeke",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/m-mapotoeke",
+                  "group": "1"
+              }, {
+                  "id": 164,
+                  "name": "Geck'",
+                  "size": 2.18726548837349,
+                  "url": "https://controversciences.org/users/geck",
+                  "group": "1"
+              }, {
+                  "id": 180,
+                  "name": "REMION Estelle",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/remion-estelle",
+                  "group": "1"
+              }, {
+                  "id": 192,
+                  "name": "Goltrin",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/goltrin",
+                  "group": "1"
+              }, {
+                  "id": 187,
+                  "name": "Louis Nerriere",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/louis-nerriere",
+                  "group": "1"
+              }, {
+                  "id": 204,
+                  "name": "M.kheir",
+                  "size": 1.25849218134977,
+                  "url": "https://controversciences.org/users/m-kheir",
+                  "group": "1"
+              }, {
+                  "id": 198,
+                  "name": "Chantal Heuschmidt",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/chantal-heuschmidt",
+                  "group": "1"
+              }, {
+                  "id": 193,
+                  "name": "A. de Haldat du Lys",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-de-haldat-du-lys",
+                  "group": "1"
+              }, {
+                  "id": 201,
+                  "name": "C.Cornillon",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/c-cornillon",
+                  "group": "1"
+              }, {
+                  "id": 199,
+                  "name": "Quentin Lamamy",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/quentin-lamamy",
+                  "group": "1"
+              }, {
+                  "id": 191,
+                  "name": "J.Lafont",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/j-lafont",
+                  "group": "1"
+              }, {
+                  "id": 194,
+                  "name": "M.BADJI",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/m-badji",
+                  "group": "1"
+              }, {
+                  "id": 200,
+                  "name": "T.Lurier",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/t-lurier",
+                  "group": "1"
+              }, {
+                  "id": 202,
+                  "name": "Patrizia",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/patrizia",
+                  "group": "1"
+              }, {
+                  "id": 197,
+                  "name": "Eric Latrille",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/eric-latrille",
+                  "group": "1"
+              }, {
+                  "id": 195,
+                  "name": "A. Azam",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/a-azam",
+                  "group": "1"
+              }, {
+                  "id": 190,
+                  "name": "Kévin",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/kevin",
+                  "group": "1"
+              }, {
+                  "id": 196,
+                  "name": "Nicolas Rohat ",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/nicolas-rohat",
+                  "group": "1"
+              }, {
+                  "id": 188,
+                  "name": "S.Marion",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/s-marion",
+                  "group": "1"
+              }, {
+                  "id": 203,
+                  "name": "Cloïc",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/cloic",
+                  "group": "1"
+              }, {
+                  "id": 2,
+                  "name": "T. Lorin",
+                  "size": 1.5594184060115,
+                  "url": "https://controversciences.org/users/t-lorin",
+                  "group": "1"
+              }, {
+                  "id": 206,
+                  "name": "Donia",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/zmander",
+                  "group": "1"
+              }, {
+                  "id": 207,
+                  "name": "B.Ecalle",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/b-ecalle",
+                  "group": "1"
+              }, {
+                  "id": 189,
+                  "name": "S. Marion",
+                  "size": 1.75431628476636,
+                  "url": "https://controversciences.org/users/s-marion-4b83a746-3667-4ef9-8c8d-6f18a65ed8b2",
+                  "group": "1"
+              }, {
+                  "id": 208,
+                  "name": "C.Soubiran",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/c-soubiran",
+                  "group": "1"
+              }, {
+                  "id": 60,
+                  "name": "Sergio",
+                  "size": 1.22508859842874,
+                  "url": "https://controversciences.org/users/sergio",
+                  "group": "1"
+              }, {
+                  "id": 209,
+                  "name": "C.Peres",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/c-peres",
+                  "group": "1"
+              }, {
+                  "id": 148,
+                  "name": "A.Mary",
+                  "size": 1.8481088831255,
+                  "url": "https://controversciences.org/users/a-mary",
+                  "group": "1"
+              }, {
+                  "id": 220,
+                  "name": "Floriane Delicque",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/floriane-delicque",
+                  "group": "1"
+              }, {
+                  "id": 217,
+                  "name": "cusantloic",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/cusantloic",
+                  "group": "1"
+              }, {
+                  "id": 218,
+                  "name": "Amandine Maurin",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/amandine-maurin",
+                  "group": "1"
+              }, {
+                  "id": 212,
+                  "name": "J.detrey",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/j-detrey",
+                  "group": "1"
+              }, {
+                  "id": 221,
+                  "name": "M.Duranton",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/m-duranton",
+                  "group": "1"
+              }, {
+                  "id": 213,
+                  "name": "P. Couderc",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/p-couderc",
+                  "group": "1"
+              }, {
+                  "id": 215,
+                  "name": "C. Moulia ",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/c-moulia",
+                  "group": "1"
+              }, {
+                  "id": 222,
+                  "name": "Thibault",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/thibault-59f1ce9f-91c4-4e6b-b4dc-e632a1507d3c",
+                  "group": "1"
+              }, {
+                  "id": 216,
+                  "name": "Marion.C",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/marion-c",
+                  "group": "1"
+              }, {
+                  "id": 5,
+                  "name": "H. Pitsch",
+                  "size": 1.70630048093053,
+                  "url": "https://controversciences.org/users/h-pitsch",
+                  "group": "1"
+              }, {
+                  "id": 6,
+                  "name": "A. Danet",
+                  "size": 1.48111461676741,
+                  "url": "https://controversciences.org/users/a-danet",
+                  "group": "1"
+              }, {
+                  "id": 219,
+                  "name": "MarilouH",
+                  "size": 1.0,
+                  "url": "https://controversciences.org/users/marilouh",
+                  "group": "1"
+              }, {
+                  "id": 211,
+                  "name": "C. Garot-Adrian",
+                  "size": 1.26610986807363,
+                  "url": "https://controversciences.org/users/c-garot-adrian",
+                  "group": "1"
+              }, {
+                  "id": 214,
+                  "name": "P.Couderc",
+                  "size": 1.24827469663223,
+                  "url": "https://controversciences.org/users/p-couderc-ae4b9293-f29a-4ca5-a86d-1c84954f1a7e",
+                  "group": "1"
+              }],
+              "links": [{"source": 147, "target": 107, "value": 1}, {
+                  "source": 139,
+                  "target": 107,
+                  "value": 1
+              }, {"source": 190, "target": 120, "value": 1}, {"source": 84, "target": 120, "value": 1}, {
+                  "source": 157,
+                  "target": 81,
+                  "value": 1
+              }, {"source": 3, "target": 81, "value": 1}, {"source": 201, "target": 44, "value": 1}, {
+                  "source": 37,
+                  "target": 44,
+                  "value": 1
+              }, {"source": 47, "target": 141, "value": 1}, {"source": 154, "target": 141, "value": 1}, {
+                  "source": 219,
+                  "target": 50,
+                  "value": 1
+              }, {"source": 221, "target": 151, "value": 1}, {"source": 169, "target": 67, "value": 1}, {
+                  "source": 220,
+                  "target": 128,
+                  "value": 1
+              }, {"source": 221, "target": 128, "value": 1}, {"source": 151, "target": 102, "value": 1}, {
+                  "source": 211,
+                  "target": 125,
+                  "value": 1
+              }, {"source": 103, "target": 84, "value": 1}, {"source": 4, "target": 84, "value": 1}, {
+                  "source": 187,
+                  "target": 79,
+                  "value": 1
+              }, {"source": 72, "target": 79, "value": 1}, {"source": 126, "target": 154, "value": 1}, {
+                  "source": 219,
+                  "target": 154,
+                  "value": 1
+              }, {"source": 4, "target": 134, "value": 1}, {"source": 141, "target": 122, "value": 1}, {
+                  "source": 188,
+                  "target": 93,
+                  "value": 1
+              }, {"source": 153, "target": 93, "value": 1}, {"source": 64, "target": 34, "value": 1}, {
+                  "source": 191,
+                  "target": 34,
+                  "value": 1
+              }, {"source": 97, "target": 116, "value": 1}, {"source": 74, "target": 1, "value": 1}, {
+                  "source": 200,
+                  "target": 152,
+                  "value": 1
+              }, {"source": 24, "target": 152, "value": 1}, {"source": 188, "target": 146, "value": 1}, {
+                  "source": 114,
+                  "target": 146,
+                  "value": 1
+              }, {"source": 199, "target": 157, "value": 1}, {"source": 153, "target": 157, "value": 1}, {
+                  "source": 84,
+                  "target": 150,
+                  "value": 1
+              }, {"source": 201, "target": 150, "value": 1}, {"source": 95, "target": 147, "value": 1}, {
+                  "source": 168,
+                  "target": 130,
+                  "value": 1
+              }, {"source": 186, "target": 130, "value": 1}, {"source": 212, "target": 109, "value": 1}, {
+                  "source": 31,
+                  "target": 109,
+                  "value": 1
+              }, {"source": 115, "target": 104, "value": 1}, {"source": 182, "target": 104, "value": 1}, {
+                  "source": 222,
+                  "target": 143,
+                  "value": 1
+              }, {"source": 126, "target": 143, "value": 1}, {"source": 196, "target": 139, "value": 1}, {
+                  "source": 68,
+                  "target": 139,
+                  "value": 1
+              }, {"source": 54, "target": 118, "value": 1}, {"source": 93, "target": 118, "value": 1}, {
+                  "source": 53,
+                  "target": 105,
+                  "value": 1
+              }, {"source": 169, "target": 117, "value": 1}, {"source": 5, "target": 117, "value": 1}, {
+                  "source": 178,
+                  "target": 126,
+                  "value": 1
+              }, {"source": 204, "target": 142, "value": 1}, {"source": 13, "target": 142, "value": 1}, {
+                  "source": 180,
+                  "target": 155,
+                  "value": 1
+              }, {"source": 210, "target": 155, "value": 1}, {"source": 157, "target": 140, "value": 1}, {
+                  "source": 204,
+                  "target": 140,
+                  "value": 1
+              }, {"source": 212, "target": 162, "value": 1}, {"source": 143, "target": 162, "value": 1}, {
+                  "source": 40,
+                  "target": 158,
+                  "value": 1
+              }, {"source": 71, "target": 160, "value": 1}, {"source": 66, "target": 160, "value": 1}, {
+                  "source": 99,
+                  "target": 163,
+                  "value": 1
+              }, {"source": 151, "target": 163, "value": 1}, {"source": 102, "target": 8, "value": 1}, {
+                  "source": 145,
+                  "target": 9,
+                  "value": 1
+              }, {"source": 10, "target": 11, "value": 1}, {"source": 179, "target": 14, "value": 1}, {
+                  "source": 76,
+                  "target": 16,
+                  "value": 1
+              }, {"source": 166, "target": 16, "value": 1}, {"source": 127, "target": 19, "value": 1}, {
+                  "source": 156,
+                  "target": 23,
+                  "value": 1
+              }, {"source": 121, "target": 26, "value": 1}, {"source": 21, "target": 27, "value": 1}, {
+                  "source": 115,
+                  "target": 27,
+                  "value": 1
+              }, {"source": 110, "target": 30, "value": 1}, {"source": 199, "target": 30, "value": 1}, {
+                  "source": 153,
+                  "target": 31,
+                  "value": 1
+              }, {"source": 79, "target": 31, "value": 1}, {"source": 129, "target": 32, "value": 1}, {
+                  "source": 63,
+                  "target": 32,
+                  "value": 1
+              }, {"source": 26, "target": 35, "value": 1}, {"source": 100, "target": 36, "value": 1}, {
+                  "source": 77,
+                  "target": 33,
+                  "value": 1
+              }, {"source": 135, "target": 33, "value": 1}, {"source": 22, "target": 37, "value": 1}, {
+                  "source": 101,
+                  "target": 37,
+                  "value": 1
+              }, {"source": 16, "target": 38, "value": 1}, {"source": 34, "target": 38, "value": 1}, {
+                  "source": 207,
+                  "target": 39,
+                  "value": 1
+              }, {"source": 63, "target": 41, "value": 1}, {"source": 174, "target": 47, "value": 1}, {
+                  "source": 129,
+                  "target": 47,
+                  "value": 1
+              }, {"source": 211, "target": 51, "value": 1}, {"source": 129, "target": 51, "value": 1}, {
+                  "source": 221,
+                  "target": 52,
+                  "value": 1
+              }, {"source": 154, "target": 53, "value": 1}, {"source": 215, "target": 55, "value": 1}, {
+                  "source": 143,
+                  "target": 56,
+                  "value": 1
+              }, {"source": 56, "target": 48, "value": 1}, {"source": 55, "target": 57, "value": 1}, {
+                  "source": 190,
+                  "target": 57,
+                  "value": 1
+              }, {"source": 48, "target": 59, "value": 1}, {"source": 2, "target": 59, "value": 1}, {
+                  "source": 175,
+                  "target": 45,
+                  "value": 1
+              }, {"source": 128, "target": 45, "value": 1}, {"source": 41, "target": 61, "value": 1}, {
+                  "source": 140,
+                  "target": 58,
+                  "value": 1
+              }, {"source": 33, "target": 58, "value": 1}, {"source": 22, "target": 64, "value": 1}, {
+                  "source": 19,
+                  "target": 66,
+                  "value": 1
+              }, {"source": 198, "target": 75, "value": 1}, {"source": 38, "target": 75, "value": 1}, {
+                  "source": 115,
+                  "target": 77,
+                  "value": 1
+              }, {"source": 196, "target": 77, "value": 1}, {"source": 101, "target": 78, "value": 1}, {
+                  "source": 219,
+                  "target": 78,
+                  "value": 1
+              }, {"source": 125, "target": 127, "value": 1}, {"source": 90, "target": 95, "value": 1}, {
+                  "source": 71,
+                  "target": 100,
+                  "value": 1
+              }, {"source": 52, "target": 100, "value": 1}, {"source": 207, "target": 111, "value": 1}, {
+                  "source": 210,
+                  "target": 111,
+                  "value": 1
+              }, {"source": 66, "target": 110, "value": 1}, {"source": 48, "target": 110, "value": 1}, {
+                  "source": 138,
+                  "target": 101,
+                  "value": 1
+              }, {"source": 61, "target": 101, "value": 1}, {"source": 145, "target": 121, "value": 1}, {
+                  "source": 60,
+                  "target": 121,
+                  "value": 1
+              }, {"source": 95, "target": 144, "value": 1}, {"source": 115, "target": 71, "value": 1}, {
+                  "source": 207,
+                  "target": 71,
+                  "value": 1
+              }, {"source": 36, "target": 149, "value": 1}, {"source": 44, "target": 149, "value": 1}, {
+                  "source": 49,
+                  "target": 166,
+                  "value": 1
+              }, {"source": 199, "target": 166, "value": 1}, {"source": 44, "target": 167, "value": 1}, {
+                  "source": 145,
+                  "target": 165,
+                  "value": 1
+              }, {"source": 109, "target": 74, "value": 1}, {"source": 138, "target": 170, "value": 1}, {
+                  "source": 165,
+                  "target": 179,
+                  "value": 1
+              }, {"source": 143, "target": 181, "value": 1}, {"source": 41, "target": 181, "value": 1}, {
+                  "source": 56,
+                  "target": 173,
+                  "value": 1
+              }, {"source": 153, "target": 171, "value": 1}, {"source": 50, "target": 171, "value": 1}, {
+                  "source": 132,
+                  "target": 178,
+                  "value": 1
+              }, {"source": 145, "target": 178, "value": 1}, {"source": 58, "target": 169, "value": 1}, {
+                  "source": 184,
+                  "target": 22,
+                  "value": 1
+              }, {"source": 62, "target": 22, "value": 1}, {"source": 70, "target": 63, "value": 1}, {
+                  "source": 11,
+                  "target": 175,
+                  "value": 1
+              }, {"source": 22, "target": 182, "value": 1}, {"source": 37, "target": 182, "value": 1}, {
+                  "source": 23,
+                  "target": 184,
+                  "value": 1
+              }, {"source": 212, "target": 186, "value": 1}, {"source": 94, "target": 186, "value": 1}, {
+                  "source": 6,
+                  "target": 210,
+                  "value": 1
+              }, {"source": 200, "target": 210, "value": 1}, {"source": 3, "target": 164, "value": 1}, {
+                  "source": 27,
+                  "target": 164,
+                  "value": 1
+              }, {"source": 198, "target": 164, "value": 1}, {"source": 218, "target": 180, "value": 1}, {
+                  "source": 9,
+                  "target": 180,
+                  "value": 1
+              }, {"source": 57, "target": 192, "value": 1}, {"source": 33, "target": 192, "value": 1}, {
+                  "source": 53,
+                  "target": 187,
+                  "value": 1
+              }, {"source": 143, "target": 187, "value": 1}, {"source": 197, "target": 198, "value": 1}, {
+                  "source": 120,
+                  "target": 193,
+                  "value": 1
+              }, {"source": 30, "target": 201, "value": 1}, {"source": 20, "target": 201, "value": 1}, {
+                  "source": 160,
+                  "target": 199,
+                  "value": 1
+              }, {"source": 126, "target": 199, "value": 1}, {"source": 20, "target": 194, "value": 1}, {
+                  "source": 126,
+                  "target": 200,
+                  "value": 1
+              }, {"source": 152, "target": 195, "value": 1}, {"source": 81, "target": 190, "value": 1}, {
+                  "source": 168,
+                  "target": 196,
+                  "value": 1
+              }, {"source": 177, "target": 188, "value": 1}, {"source": 103, "target": 203, "value": 1}, {
+                  "source": 178,
+                  "target": 203,
+                  "value": 1
+              }, {"source": 54, "target": 206, "value": 1}, {"source": 191, "target": 206, "value": 1}, {
+                  "source": 88,
+                  "target": 207,
+                  "value": 1
+              }, {"source": 6, "target": 207, "value": 1}, {"source": 131, "target": 189, "value": 1}, {
+                  "source": 56,
+                  "target": 208,
+                  "value": 1
+              }, {"source": 184, "target": 60, "value": 1}, {"source": 213, "target": 209, "value": 1}, {
+                  "source": 215,
+                  "target": 209,
+                  "value": 1
+              }, {"source": 97, "target": 148, "value": 1}, {"source": 25, "target": 220, "value": 1}, {
+                  "source": 188,
+                  "target": 220,
+                  "value": 1
+              }, {"source": 146, "target": 218, "value": 1}, {"source": 154, "target": 221, "value": 1}, {
+                  "source": 3,
+                  "target": 221,
+                  "value": 1
+              }, {"source": 138, "target": 213, "value": 1}, {"source": 105, "target": 213, "value": 1}, {
+                  "source": 50,
+                  "target": 222,
+                  "value": 1
+              }, {"source": 58, "target": 216, "value": 1}, {"source": 217, "target": 5, "value": 1}, {
+                  "source": 158,
+                  "target": 5,
+                  "value": 1
+              }, {"source": 201, "target": 6, "value": 1}, {"source": 112, "target": 219, "value": 1}, {
+                  "source": 61,
+                  "target": 211,
+                  "value": 1
+              }, {"source": 27, "target": 211, "value": 1}, {"source": 14, "target": 214, "value": 1}, {
+                  "source": 195,
+                  "target": 214,
+                  "value": 1
+              }]
+          }
+
           var nodes = graph.nodes.slice(),
                   links = [],
                   bilinks = [];
@@ -156,34 +1655,34 @@
               });
               $('[data-toggle="tooltip"]').tooltip({container: 'body'});
           });
-      });
 
-      function zoomed() {
-          container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-      }
-
-      function getRandomSubarray(arr, size) {
-          var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
-          while (i-- > min) {
-              index = Math.floor((i + 1) * Math.random());
-              temp = shuffled[index];
-              shuffled[index] = shuffled[i];
-              shuffled[i] = temp;
+          function zoomed() {
+              container.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
           }
-          return shuffled.slice(min);
-      }
 
-      for (var i = 0; i <= 50; i++) {
-          (function (ind) {
-              setTimeout(function () {
-                  console.log(ind);
-                  var array;
-                  $('[data-toggle="tooltip"]').tooltip('hide');
-                  array = getRandomSubarray($('[data-toggle="tooltip"]'), Math.ceil(Math.random() * 5) + 3)
-                  array.tooltip('show')
-              }, 7000 + (2500 * ind));
-          })(i);
-      }
+          function getRandomSubarray(arr, size) {
+              var shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+              while (i-- > min) {
+                  index = Math.floor((i + 1) * Math.random());
+                  temp = shuffled[index];
+                  shuffled[index] = shuffled[i];
+                  shuffled[i] = temp;
+              }
+              return shuffled.slice(min);
+          }
+
+          for (var i = 0; i <= 50; i++) {
+              (function (ind) {
+                  setTimeout(function () {
+                      console.log(ind);
+                      var array;
+                      $('[data-toggle="tooltip"]').tooltip('hide');
+                      array = getRandomSubarray($('[data-toggle="tooltip"]'), Math.ceil(Math.random() * 5) + 3)
+                      array.tooltip('show')
+                  }, 7000 + (2500 * ind));
+              })(i);
+          }
+      });
   </script>
 </div>
 
