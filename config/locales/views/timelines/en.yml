@@ -22,7 +22,7 @@ en:
       show: Analysis of the reference
       new: Write an analysis
       publish: Publish your analysis
-      edit: Modify your analysis
+      edit: Edit your analysis
       delete: Delete your analysis
       from_reference: "From reference "
       from_timeline: "In controversy "
@@ -138,7 +138,7 @@ en:
       downvote: !!You selected this contribution as your favorite
       no_favorite: You don't have a favorite contribution
       no_mine: You haven't written any contribution yet
-      no_other: Appart from yours, there is no contribution
+      no_other: Apart from yours, there is no contribution
       versus_placeholder_left: Yes/White/Innate/...
       versus_placeholder_right: !!No/Black/Acquired/...
     summaries:
@@ -174,110 +174,108 @@ en:
         Plus, you can insert internal links towards the references for this controversy
         (<span class="icon-reference normal"></span> button in the tool bar) to allow
         the reader a better browsing between references for the controversy.
-      no_favorite: Vous n'avez pas de synthèse favorite
-      no_other: Il n'y a pas de synthèse autre que la votre
-      no_summary: Vous n'avez pas encore écrit de synthèse
-      upvote: Selectionner cette synthèse comme votre favorite
+      no_favorite: You don't have a favorite synthesis
+      no_other: There is no synthesis apart from yours
+      no_summary: You haven't written any synthesis yet
+      upvote: Select this synthesis as your favorite
     timelines:
-      next: Controverse suivante
-      new: Créer une controverse
-      delete: Supprimer votre controverse
-      confirm: Rendre la controverse publique est irréversible, êtes vous certain
-        de votre choix ?
-      create: Créer la controverse
-      display_all: Afficher toutes les controverses
-      dl_bib: Télécharger la bibliographie
-      edges: Liens entre les controverses
-      edges_ref: Citations entre les références
-      timelines_staging: Controverses embryonnaires
-      timelines_built: Controverses écloses
-      is_private: Cette controverse est privée, et ne sera pas visible sans le lien.
-      login: Identifiez-vous pour voir les controverses à l'état embryonnaire
-      make_public: Cette controverse est privée. Souhaitez vous la rendre publique
-      neutral: Neutre
-      new: Créer une nouvelle controverse
-      new_edges: Ajouter ou modifier les liens vers d'autres controverses
-      new_frame: Proposer une amélioration de titre et de cadre
-      none_params: Aucune controverse ne correspond à ces critères de sélection
-      only_liked: Afficher uniquement les controverses qui vous intéressent
-      read_less: Réduire le texte
-      read_more: Continuer la lecture
-      source_necessary: La source est nécessaire
-      strongly: Fermement
-      make_favorite: Mettre cette controverse au premier plan
-      remove_favorite: Enlever cette controverse du premier plan
-      make_public: Faire éclore la controverse
-      make_staging: Retourner à l'état embryonnaire
-      is_staging_html: Cette controverse est encore à l'état embryonnaire&nbsp!
-      is_staging_sub: Aidez la à éclore !
-      is_built_html: Cette controverse a éclos, elle s'est ouverte au monde&nbsp!
-      is_built_sub: Aidez la à continuer sa métamorphose !
-      are_staging_html: Ces controverses sont encore à l'état embryonnaire&nbsp!
-      are_staging_sub: Aidez les à éclore !
-      are_built_html: Ces controverses ont éclos, elles se sont ouvertes au monde&nbsp!
-      are_built_sub: Aidez les à continuer leur métamorphose !
-      all_staging: À l'état embryonnaire
-      all_built: Qui ont éclos
-      all_timelines: Toutes
-      show_versus: Afficher la répartition des références
-      hide_versus: Masquer la répartition des références
-      show_star: Afficher la pertinence des références
-      hide_star: Masquer la pertinence des références
-      show_no_comment: Afficher les références non analysées
-      hide_no_comment: Masquer les références non analysées
+      next: Next controversy
+      new: Create a controversy
+      delete: Delete a controversy
+      confirm: Make the controversy a public one is irreversible, are your sure?
+      create: Create the controversy
+      display_all: Display all controversies
+      dl_bib: Download the bibliography
+      edges: Links between controversies
+      edges_ref: Quotations between references
+      timelines_staging: Nascent controversies
+      timelines_built: Hatched controversies
+      is_private: This is a private controversy that cannot be accessed without the link.
+      login: Please login to see nascent controversies
+      make_public: This is a private controversy. Do you wish to make it public
+      neutral: Neutral
+      new: Create a new controversy
+      new_edges: Add or edit links to other controversies
+      new_frame: Propose an enhancement in title and frame
+      none_params: No matching controversy found
+      only_liked: Display only the controversies you are interested in
+      read_less: Reduce text
+      read_more: Read more
+      source_necessary: The source is necessary
+      strongly: Strongly
+      make_favorite: !!Pull this controversy to the front
+      remove_favorite: !!Take this controversy from the front
+      make_public: Have the controversy hatch
+      make_staging: Go back to nascent state
+      is_staging_html: This controversy is still nascent&nbsp!
+      is_staging_sub: Help it hatch!
+      is_built_html: This controversy hatched, it opened to the world&nbsp!
+      is_built_sub: Help it keep on evolving!
+      are_staging_html: These controversies are still nascent&nbsp!
+      are_staging_sub: Help them hatch!
+      are_built_html: These controversies hacthed, they opened to the world&nbsp!
+      are_built_sub: Help them keep on evolving!
+      all_staging: Nascent
+      all_built: Having hatched
+      all_timelines: All
+      show_versus: Display reference repartition
+      hide_versus: Hide reference repartition
+      show_star: Display reference relevance
+      hide_star: Hide reference relevance
+      show_no_comment: Display non analysed references
+      hide_no_comment: Hide non analysed references
     likes:
-      clic_on: Cliquer sur les buttons
-      get_notified: pour être notifié des changements dans ces controverses.
-      index: "Ces controverses vous intéressent :"
+      clic_on: Click on the buttons
+      get_notified: to be notified of any change in these controversies.
+      index: "These controversies interest you:"
     my_items:
-      new_timeline: Créer une nouvelle controverse
-      no_items: Vous n'avez pas encore de contributions. Cette page référence l'ensemble de vos contributions sur le site.
-      set_public_timeline: Rendre la controverse publique est irréversible, êtes vous
-        certain de votre choix ?
-      credits_to_comments: Vos credits accordés aux analyses
-      credits_to_frames: Vos credits accordés aux propositions d'amélioration de controverse
-      credits_to_summaries: Vos credits accordés aux synthèses
-      no_credits: Pas encore de crédits accordés
+      new_timeline: Create a new controversy
+      no_items: You don't have any contributions yet. Here is every contribution of yours on the website.
+      set_public_timeline: Make the controversy a public one is irreversible, are your sure?
+      credits_to_comments: Credits given to analyses
+      credits_to_frames: Credits given to proposals for enhancement of controversy
+      credits_to_summaries: Credits given to syntheses
+      no_credits: No credits given yet
     notifications:
-      best_comments: Les analyses qui ont pris la première place
-      best_contrib: 'Ont pris la première place :'
-      best_frames: Les améliorations de controverses qui ont pris la première place
-      best_summaries: Les synthèses qui ont pris la première place
-      delete: Supprimer ces notifications
-      delete_all: Supprimer toutes les notifications sur cette page
-      delete_selected: Supprimer les notifications sélectionnées
-      downvoted: Vos contributions qui ont perdu la première place
-      new: 'Les nouvelles/nouveaux :'
-      new_comments: Les nouvelles analyses
-      new_frames: Les nouvelles améliorations de controverses
-      new_references: Les nouvelles références
-      new_summaries: Les nouvelles synthèses
-      new_timelines: Les nouvelles controverses
-      no_news: Pas de nouveautés
-      no_notifs: Vous n'avez aucune nouvelle notification
-      typos: Les corrections que vous ont apporté les contributeurs
-      upvoted: Vos contributions qui ont pris la première place
+      best_comments: Best analyses
+      best_contrib: 'Have made first rank:'
+      best_frames: Best enhancements for controversies
+      best_summaries: Best syntheses
+      delete: Delete these notifications
+      delete_all: Delete all notifications on this page
+      delete_selected: Delete selected notifications
+      downvoted: Contributions of yours that lost first rank
+      new: 'New:'
+      new_comments: New analyses
+      new_frames: New enhancements for controversies
+      new_references: New references
+      new_summaries: New syntheses
+      new_timelines: New controversies
+      no_news: No news
+      no_notifs: You don't have any notification
+      typos: Corrections made by the contributors
+      upvoted: Contributions of yours that made first rank
     typos:
-      accept: Accepter la correction
-      accepted: La faute a été corrigée !
-      already_sent: Vous avez déjà soumis une correction pour cette contribution,
-        qui est en attente de validation !
+      accept: Accept correction
+      accepted: Mistake corrected!
+      already_sent: You already sent a correction for this contribution,
+        it's awaiting validation!
       content: Correction
       if_not_yours_html: |-
-        Si une faute de français vous a brulé les yeux, ou si vous avez une suggestion à proposer à l'auteur, vous êtes sur la bonne page ! <br/>
-                          Celle-ci lui sera envoyée pour être soumise à validation.
-      if_yours: Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
-      refuse: Refuser la correction
-      send: Envoyer la correction
-      sent: Votre correction a bien été envoyée à l'auteur.
-      to_valid: Les corrections à valider
+        If you burnt your eyes on a language mistake, or if you want to suggest something to the author, you're in the right place! <br/>
+                          This will be sent to them so they can validate it.
+      if_yours: If you burnt your eyes on a language mistake in your own contribution, you can correct it.
+      refuse: Refuse correction
+      send: Send correction
+      sent: Your correction was sent to the author.
+      to_valid: Corrections to validate
     private_timelines:
-      to_timeline: Voir les contributeurs participants à cette controverse privée.
-      new_private_timeline: Inviter des contributeurs à participer à cette controverse
-      add_private_timeline: Inviter les contributeurs sélectionnés
-      participating: Ils participent à cette controverse
-      no_participating: Il n'y a actuellement aucun participant à cette controverse
-      yours: Les controverses privées auxquelles vous participez
-      invited: Controverses privées
-      participate: participez à cette controverse
-      invit_extern: Inviter une personne qui n'a pas de compte
+      to_timeline: See contributors to this private controversy.
+      new_private_timeline: Invite contributors to participate in this controversy
+      add_private_timeline: Invite selected contributors
+      participating: They participate in this controversy
+      no_participating: There currently isn't any participant to this controversy
+      yours: Private controversies you participate in
+      invited: Private controversies
+      participate: participate in this controversy
+      invit_extern: Invite a person without an account
