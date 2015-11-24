@@ -1,11 +1,11 @@
 en:
   views:
     default:
-      fix_typo: Corriger une faute de français, ou suggérer une amélioration à l'auteur.
-      confirm: Êtes-vous certain ?
-      published: Publiée il y a
+      fix_typo: Correct a mistake, or suggest an enhancement to the author.
+      confirm: Are you sure?
+      published: !!!Published ... ago
       by: by
-      by_cap: Par
+      by_cap: By
       public_f: Public
       private_f: Private
       warning: Warning!
@@ -13,28 +13,28 @@ en:
       to: To
       from: From
       at_least: At least
-      tags: Thèmes
-      ago: Il y a
+      tags: Themes
+      ago: !!Ago ... ou there is
       see: Go to
       your: Your
       search: Search
       close: Close
       creation_confirmed: Creation confirmed
     navigation:
-      back_timeline: Revenir à la controverse
-      back_timelines: Revenir aux controverses
-      back_reference: Revenir à la référence
-      back: Revenir en arrière
-      users: Les contributeurs
-      contributions: Évolution des contributions
+      back_timeline: Go back to the controversy
+      back_timelines: Go back to the controversies
+      back_reference: Go back to the reference
+      back: Go back
+      users: Contributors
+      contributions: Contributions evolution
       new_contributions: New contributions
-      empty_comments: Analyser
-      empty_ref: Enrichir
-      empty_summaries: Synthétiser
+      empty_comments: Analyse
+      empty_ref: Enhance
+      empty_summaries: Summarize
       faq: FAQ
-      faq_long: Foire aux questions (FAQ)
+      faq_long: Frequently Asked Questions (FAQ)
       how_to: Discover ControverSciences
-      how_to_edit: Contribuer à ControverSciences
+      how_to_edit: Contribute to ControverSciences
       newsletter: Newsletter
     pagination:
       first: "&laquo; First"
@@ -43,74 +43,74 @@ en:
       next: "Next &rsaquo;"
       truncate: "&hellip;"
     model:
-      users: Les contributeurs
-      timelines: Les controverses
-      reference: La référence
-      references: Les références
-      comments: Les analyses
-      summaries: Les synthèses
-      summaries_of: Les synthèses de cette controverse
-      comment: L'analyse
-      frame: La proposition de titre et de cadres
+      users: Contributors
+      timelines: Controversies
+      reference: The reference
+      references: References
+      comments: Analyses
+      summaries: Summaries
+      summaries_of: Summaries for this controversy
+      comment: Analysis
+      frame: Title and frames proposal
       frame_0: Title
-      frame_1: Le cadre
-      frames: Les proposition de titre et de cadres
+      frame_1: Frame
+      frames: Title and frames proposals
       credits: Credits
-      in_timeline: Dans la controverse
-      of_reference: De la référence
-      of_timeline: De la controverse
-      reference: La référence
-      summary: La synthèse
-      timeline: La Controverse
-      your_comments: Vos analyses
-      your_frames: Vos propositions de titre et de cadre
-      your_references: Vos références
-      your_summaries: Vos synthèses
-      your_timelines: Vos controverses
-      your_frame: Votre proposition de titre et de cadre
-      your_summary: Voir la synthèse
-      your_summary_of_timeline: Votre synthèse de la controverse
-      your_comment: Votre analyse
-      your_summary: Votre synthèse
-      password: Mot de passe
-      password_confirm: Confirmation de mot de passe
+      in_timeline: In the controversy
+      of_reference: Of reference
+      of_timeline: Of controversy
+      reference: Reference
+      summary: Summary
+      timeline: Controversy
+      your_comments: Your analyses
+      your_frames: Your proposals of title and frames
+      your_references: Your references
+      your_summaries: Your summaries
+      your_timelines: Your controversies
+      your_frame: Your proposal of title and frame
+      your_summary: See summary
+      your_summary_of_timeline: Your summary for this controversy
+      your_comment: Your analysis
+      your_summary: Your summary
+      password: Password
+      password_confirm: Password confirmation 
       errors:
        one: " error"
        other: " errors"
     pluralize:
       users:
-        one: "%{count} contributeur"
-        other: "%{count} contributeurs"
+        one: "%{count} contributor"
+        other: "%{count} contributors"
       comments:
-        one: "%{count} analyse"
+        one: "%{count} analysis"
         other: "%{count} analyses"
       likes:
-        one: "%{count} contributeur est intéressé par cette controverse"
-        other: "%{count} contributeurs sont intéressés par cette controverse"
+        one: "%{count} contributor is interested by this controversy"
+        other: "%{count} contributors are interested by this controversy"
       loves:
-        one: "%{count} contributeur aime ce site"
-        other: "%{count} contributeurs aiment ce site"
+        one: "%{count} contributor likes this website"
+        other: "%{count} contributors like this website"
       reference_no_comment:
-        one: "%{count} référence n'a pas d'analyse"
-        other: "%{count} références n'ont pas d'analyse"
+        one: "%{count} reference doesn't have an analysis"
+        other: "%{count} references don't have an analysis"
       references:
-        one: "%{count} référence scientifique analysée"
-        other: "%{count} références scientifiques analysées"
+        one: "%{count} scientific reference analysed"
+        other: "%{count} scientific references analysed"
       raw_references:
-        one: "%{count} référence scientifique"
-        other: "%{count} références scientifiques"
+        one: "%{count} scientific reference"
+        other: "%{count} scientific references"
       edits:
         one: "%{count} contribution"
         other: "%{count} contributions"
       timelines:
-        one: "%{count} controverse"
-        other: "%{count} controverses"
+        one: "%{count} controversy"
+        other: "%{count} controversies"
       summaries:
-        one: "%{count} synthèse"
-        other: "%{count} synthèses"
+        one: "%{count} summary"
+        other: "%{count} summaries"
       views:
-        one: "%{count} vue en "
-        other: "%{count} vues en "
+        one: "%{count} view in "
+        other: "%{count} views in "
       target:
         one: "Cette référence cite %{count} autre référence."
         other: "Cette référence cite %{count} autres références."
