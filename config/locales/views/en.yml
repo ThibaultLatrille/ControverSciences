@@ -112,20 +112,20 @@ en:
         one: "%{count} view in "
         other: "%{count} views in "
       target:
-        one: "Cette référence cite %{count} autre référence."
-        other: "Cette référence cite %{count} autres références."
+        one: "This reference cites %{count} other reference."
+        other: "This reference cites %{count} other references."
       from:
-        one: "Cette référence est citée par %{count} autre référence."
-        other: "Cette référence est citée par %{count} autres références."
+        one: "This reference is cited by %{count} other reference."
+        other: "This reference is cited by %{count} other references."
       edges:
-        one: "Cette synthèse se base sur %{count} référence analysée."
-        other: "Cette synthèse se base sur %{count} références analysées."
+        one: "This summary is based upon %{count} analysed reference."
+        other: "This summary is based upon %{count} analysed references."
     buttons:
-      invit: Inviter
-      advise: Enregister cet avis
-      editing: Modification en cours
-      publishing: Publication en cours
-      creating: Création en cours
+      invit: Invite
+      advise: Save this opinion
+      editing: Currently editing
+      publishing: Currently publishing
+      creating: Currently creating
       add: Add
       save: Save
       delete: Delete
@@ -134,145 +134,144 @@ en:
       send: Send
       sending: Sending
       saving: Saving
-      save_edit: Enregistrer la modification
-      save_changes: Enregistrer les changements
+      save_edit: Save change
+      save_changes: Save changes
       connecting: Connecting
     sorting:
-      score: Magique (par défaut)
-      score_sort: Tri magique
-      score_recent: Activité récente
-      created_at: Date de création
-      created_at_sort: Tri par date
-      nb_contributors: Nombre de contributeurs
-      nb_references: Nombre de références
-      nb_comments: Nombre d'analyses
-      nb_summaries: Nombre de synthèses
-      nb_likes_html: "Nombre de &nbsp<span class=\"glyphicon glyphicon-thumbs-up\"></span>"
-      asc: Croissant
-      asc_sort: Ordre croissant
-      desc: Décroissant (par défaut)
-      desc_sort: Ordre décroissant
-      all_theme: Tous les thèmes
+      score: !!Magique (par défaut)
+      score_sort: !!Tri magique
+      score_recent: Recent activity
+      created_at: Creation date
+      created_at_sort: Sort by date
+      nb_contributors: Number of contributors
+      nb_references: Number de references
+      nb_comments: Number of analyses
+      nb_summaries: Number of summaries
+      nb_likes_html: "Number of &nbsp<span class=\"glyphicon glyphicon-thumbs-up\"></span>"
+      asc: Ascending
+      asc_sort: Acsending order
+      desc: Decreasing (default mode)
+      desc_sort: Decreasing order
+      all_theme: All themes
     tags:
-      archeology: Archéologie
-      biology: Biologie
-      chemistry: Chimie
-      planet: Ecologie
-      epistemology: Epistémologie
-      geography: Géographie
-      geology: Géologie
-      history: Histoire
-      informatics: Informatique
-      linguistic: Linguistique
-      pie: Mathématiques
-      medicine: Médecine et santé
-      physics: Physique
-      psycho: Psychologie
-      socio: Sociologie
-      techno: Technologie
+      archeology: Archeology
+      biology: Biology
+      chemistry: Chemistry
+      planet: Ecology
+      epistemology: Epistemology
+      geography: Geography
+      geology: Geology
+      history: History
+      informatics: Informatics
+      linguistic: Linguistics
+      pie: Mathematiques
+      medicine: Medecine and health
+      physics: Physics
+      psycho: Psychology
+      socio: Sociology
+      techno: Technology
     picture:
-      add_figure: Ajouter une figure
-      delete_figure: Supprimer la figure
-      edit_figure: Modifier la figure
-      invalid_figure: Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo).
-      invalid_banner: Cette image est de trop petite résolution (minimum 1280px*1280px), ou bien elle est trop grande (> 5Mo).
-      invalid_profil: Cette image est de trop petite résolution (minimum 250px*250px), ou bien elle est trop grande (> 5Mo).
-      source_figure: La source de la figure est requise pour des raisons évidentes de droit d'auteur.
-      source: La source de l'image
-      edit_profil: Modifier la photo de profil
-      add_profil: Ajouter une photo de profil
-      delete_profil: Supprimer la photo de profil
+      add_figure: Add a figure
+      delete_figure: Delete figure
+      edit_figure: Edit figure
+      invalid_figure: The resolution of this image is too small (minimum 640px*640px), or it's too heavy (> 5Mo).
+      invalid_banner: The resolution of this image is too small (minimum 1280px*1280px), or it's too heavy (> 5Mo).
+      invalid_profil: The resolution of this image is too small (minimum 250px*250px), or it's too heavy (> 5Mo).
+      source_figure: For obvious copyright issues, the source of the figure is required.
+      source: The source of the image
+      edit_profil: Edit profile picture
+      add_profil: Add a profile picture
+      delete_profil: Delete profile picture
     assistant:
-      index: Contributeurs en attentes
-      timelines: Mettre à jour les valeurs sélectives des controverses
-      users: Mettre à jour les valeurs sélectives des utilisateurs
-      profils: Mettre à jour les profils
+      index: !!Contributors waiting list
+      timelines: !!Update selective values of the controversies
+      users: !!Update selective values of the users
+      profils: Update profiles
     invitations:
-      for_reference: Envoyez une invitation à une personne intéressée par cette référence
-      for_timeline: Envoyez une invitation à une personne intéressée par cette controverse
+      for_reference: Send an invitation to a person interested by this reference
+      for_timeline: Send an invitation to a person interested by this controversy
       message: Message
-      send: Envoyer l'invitation
-      sent: Votre invitation a bien été envoyée.
-      server_error: Le serveur ne réponds pas
-      target_email: Son adresse email*
-      target_name: Son nom
-      thank: Merci !
-      user_name: Votre nom*
+      send: Send the invitation
+      sent: Your invitation was sent.
+      server_error: The servor doesn't respond
+      target_email: Their email adress*
+      target_name: Their name
+      thank: Thanks!
+      user_name: Your user name*
     header:
-      login: S'identifier
-      typos: corrections en attente
-      dead_links: Liens morts
-      user: Accéder à votre profil
-      empty_comments: Analyser vos références
-      empty_ref: Enrichir vos controverses
-      empty_summaries: Synthètiser vos controverses
-      my_items: Vos contributions
-      my_items_private: Vos contributions privées
+      login: Login
+      typos: corrections awaiting validation
+      dead_links: Dead links
+      user: Access your profile
+      empty_comments: Analyse your references
+      empty_ref: Expand your controversies
+      empty_summaries: Summarize your controversies
+      my_items: Your contributions
+      my_items_private: Your private contributions
       notifs: Notifications
-      likes: Les controverses qui vous intéressent
-      logout: Se déconnecter
-      news: Nouveautés
+      likes: Controversies that interest you
+      logout: Logout
+      news: News
     footer:
-      about: " A propos"
-      close: Fermer
+      about: " About"
+      close: Close
       issue: |-
-        Si vous avez déniché un bug, une faute, ou si vous avez des remarques sur le site,
-                      ne soyez pas égoïste, faites-le nous savoir, cette page est là pour ça ;-)
-      issue_amelioration: Critique sur le fond
-      issue_author: Auteur (facultatif)
+        If you found out about a bug, a mistake, or if you have any comments about the website,
+                      don't be selfish, let us know, that's why there is this page ;-)
+      issue_amelioration: Criticism on the content
+      issue_author: Author (optional)
       issue_body: Description
       issue_bug: Bug
-      issue_critic: Critique
-      issue_design: Design (c'est pas beau)
-      issue_grammar: Atenssion à la langue francaise !
-      issue_idea: J'ai une idée !
+      issue_critic: Criticism
+      issue_design: Design (it's not pretty)
+      issue_grammar: Careful with zee English language!
+      issue_idea: I've got an idea!
       issue_important: Important
-      issue_negligible: Un détail
-      issue_other: Autre
-      issue_title: Objet du bug
-      issue_to_do: A faire
-      issue_unclear: C'est pas clair !
+      issue_negligible: A detail
+      issue_other: Other
+      issue_title: What the bug is about
+      issue_to_do: To do
+      issue_unclear: That's not clear!
       issue_urgent: Urgent
       question_html: |
-        Si vous avez des questions, si vous souhaitez nous aider, ou si vous voulez nous inviter à prendre un
-                      verre,
-                      <a href="mailto:contact@controversciences.org">contactez-nous sans attendre</a>
-                      ou spammez directement <a href="mailto:thibault.latrille@controversciences.org">le webmaster !</a>
+        If you have questions, if you want to help us, or if you want to invite us
+                      for a drink,
+                      <a href="mailto:contact@controversciences.org"> contact us without delay</a>
+                      or spamm the webmaster <a href="mailto:thibault.latrille@controversciences.org"> directly!</a>
     issue:
-      taken_into_account: Votre remarque a été prise en compte !
-      thank: Merci !
+      taken_into_account: Your comment has been taken into account!
+      thank: Thanks!
     partners:
-      new: Ajouter un site sur le murdu <span class="glyphicon glyphicon-heart"></span>
-      edit: Modifier les information
-      create: Créer ce site et l'ajouter sur le mur du <span class="glyphicon glyphicon-heart"></span>
-      suggest: Suggèrer un site à ajouter sur le mur du <span class="glyphicon glyphicon-heart"></span>
-      name: Son nom
-      description: Sa description
-      url: Lien vers le site
-      why: Pourquoi le faire apparaître sur ControverSciences ?
-      index_html: Le mur du <span class="glyphicon glyphicon-heart"></span>
-      index_sub_html: Parce qu'on est fan de ce qu'ils font et qu'on veut le partager ici avec vous !
-      taken_into_account: Votre suggestion a été envoyé aux admins
+      new: !!Add a website on the newsfeed <span class="glyphicon glyphicon-heart"></span>
+      edit: Edit information
+      create: !!Create this website and add it to the newsfeed <span class="glyphicon glyphicon-heart"></span>
+      suggest: !!Suggest a website to add to the newsfeed <span class="glyphicon glyphicon-heart"></span>
+      name: Their name
+      description: Their description
+      url: Link to their website
+      why: Why make them appear on ControverSciences ?
+      index_html: !!Newsfeed <span class="glyphicon glyphicon-heart"></span>
+      index_sub_html: Because we love what they do and want to share it here with you!
+      taken_into_account: Your suggestion was sent to the webmasters
     password:
-      new: Demander un nouveau mot de passe
-      reinit: Réinitialiser votre mot de passe
-      reset: Pour récupérer votre mot de passe, veuillez saisir l'adresse email associée à votre compte
-      save_new: Enregistrer le nouveau mot de passe
+      new: Ask for a new password
+      reinit: Reset your password
+      reset: To get your password back, please enter the email adress associated with your account
+      save_new: Save new password
     sessions:
-      connect: 'Identifiants de connexion :'
-      forgot: "(Trou de mémoire ?)"
-      login: Rentrer dans l'arène
-      new_user: Créer un compte
-      new_user_slack: Créer un compte pour rejoindre le collectif sur Slack
-      remember_me: Se souvenir de moi pour mes prochaines visites.
-      action_login: Veuillez vous identifier afin d'effectuer cette action
-      new_user: Créer un compte
-      server_dead: Le serveur ne répond pas
+      connect: 'User name:'
+      forgot: "(Forgot?)"
+      login: Enter the arena
+      new_user: Sign up
+      new_user_slack: Sign up to join the community on Slack
+      remember_me: Remember me for my next visits.
+      action_login: Please login to do this action
+      server_dead: The servor doesn't answer
     typos:
-      accept: Accepter la correction
-      accepted: La faute a été corrigée !
-      already_sent: Vous avez déjà soumis une correction pour cette contribution,
-        qui est en attente de validation !
+      accept: Accept correction
+      accepted: The mistake was corrected!
+      already_sent: You already submitted a correction to this contribution,
+        it's awaiting validation !
       content: Correction
       if_not_yours_html: |-
         Si une faute de français vous a brulé les yeux, ou si vous avez une suggestion à proposer à l'auteur, vous êtes sur la bonne page ! <br/>
