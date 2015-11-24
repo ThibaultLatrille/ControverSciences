@@ -49,12 +49,10 @@ class PatchesController < ApplicationController
         end
       end
     else
-      puts @patch.old_content
+      old_content = @patch.old_content
       @patch_errors = @patch.is_content_valid
-      puts "basqsfdm"
-      puts @patch.old_content
       if @patch_errors.full_messages.blank?
-        if @patch.save_as_list
+        if @patch.save_as_list(old_content)
           respond_to do |format|
             format.js { render 'patches/success', :content_type => 'text/javascript', :layout => false}
           end

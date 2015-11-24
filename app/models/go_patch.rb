@@ -9,16 +9,11 @@ class GoPatch < ActiveRecord::Base
   after_create :increment_nb_notifs
   after_destroy :decrement_nb_notifs
 
-  def save_as_list
+  def save_as_list(old_content)
     dmp = DiffMatchPatch.new
-    patches = dmp.patch_make(self.old_content, content)
-    puts "bim"
-    puts old_content
-    puts content
-    puts patches
+    patches = dmp.patch_make(old_content, self.content)
     patches.each do |patch|
-      puts dmp.patch_to_text(patch)
-      new = GoPatch.new(content: dmp.patch_to_text(patch),
+      new = GoPatch.new(content: dmp.patch_to_text([patch]),
                       comment_id: comment_id, summary_id: summary_id,
                       target_user_id: target_user_id, field: field,
                       frame_id: frame_id, user_id: user_id)
