@@ -1,8 +1,8 @@
 en:
   views:
     home:
-      sentence_result: Et si on s'intéressait aux résultats scientifiques ?
-      sentence_arguments: Fournisseur officiel d'arguments dans vos débats !
-      sentence_plateform: Une plateforme pour partager et comprendre le travail des scientifiques.
+      sentence_result: How about we take a look about the scientific results?
+      sentence_arguments: Official supplier of arguments in your debates!
+      sentence_plateform: A platform to share and understand scientists' work.
       sentence_deny: ControverSciences combat le déni depuis 2015.
       sentence_vulgarisation: "ControverSciences, le nouvel élan de vulgarisation scientifique."
