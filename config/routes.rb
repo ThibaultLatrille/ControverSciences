@@ -86,6 +86,8 @@ Rails.application.routes.draw do
   get 'login_for_admin' => 'sessions#as_admin'
   get 'signup' => 'users#new'
   get 'login' => 'sessions#new'
+  get 'tag-pairs-graph' => 'tag_pairs#graph'
+  get 'reference-pairs' => 'tag_pairs#reference_pairs'
   get 'timelines_graph' => 'timelines#graph'
   get 'timelines_network' => 'timelines#network'
   get 'users_network' => 'users#network'
