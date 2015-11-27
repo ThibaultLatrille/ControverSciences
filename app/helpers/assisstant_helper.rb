@@ -102,7 +102,7 @@ module AssisstantHelper
     tableau_references = Hash.new(0)
     tableau_timelines = Hash.new(0)
 
-    TagPair.destroy_all
+    TagPair.delete_all
 
     # consultation des bases de données et calculs
 
@@ -130,20 +130,22 @@ module AssisstantHelper
 
     # insertion des données
 
+    tag_pairs = []
     #références
-    for i in 1..Tag.all.length
-      for j in i..Tag.all.length
-        TagPair.create(tag_theme_source: i, tag_theme_target: j, references:TRUE, occurencies: tableau_references[[i,j]]) #en i les sources, en j les cibles
+    Tag.all.pluck(:id).each do |i|
+      Tag.all.pluck(:id).select{|item| i <= item}.each do |j|
+          tag_pairs << TagPair.new(tag_theme_source: i, tag_theme_target: j, references: true, occurencies: tableau_references[[i,j]]) #en i les sources, en j les cibles
       end
     end
 
     #controverses
-    for i in 1..Tag.all.length
-      for j in i..Tag.all.length
-        TagPair.create(tag_theme_source: i, tag_theme_target: j, references: FALSE, occurencies: tableau_timelines[[i,j]]) #en i les sources, en j les cibles
+    Tag.all.pluck(:id).each do |i|
+      Tag.all.pluck(:id).select{|item| i <= item}.each do |j|
+        tag_pairs << TagPair.new(tag_theme_source: i, tag_theme_target: j, references: false, occurencies: tableau_timelines[[i,j]]) #en i les sources, en j les cibles
       end
     end
 
+    TagPair.import tag_pairs
   end
 
 end
