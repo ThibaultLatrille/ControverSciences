@@ -13,11 +13,11 @@ en:
     binary_hash_3: this reference is neutral.
     binary_hash_4: moderately
     binary_hash_5: !!!very firmly
-    binary_value_1: !!!'very firmly on the ... side '
-    binary_value_2: !!!'du côté '
+    binary_value_1: '!!!very firmly on the ... side '
+    binary_value_2: '!!!du côté '
     binary_value_3: neutral.
-    binary_value_4: !!!'du côté '
-    binary_value_5: !!!'très fermement du côté '
+    binary_value_4: '!!!du côté '
+    binary_value_5: '!!!très fermement du côté '
     binary_value_text: 'This reference is '
     article: this article
     review: this review

@@ -39,7 +39,7 @@ en:
       summary:
         content: "Synthesis"
       reference_edge:
-        direction: !!!"Sens du lien"
+        direction: "!!!Sens du lien"
         category: "Type of link"
         target: "One or a few links with references must be selected"
       edge:

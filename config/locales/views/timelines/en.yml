@@ -61,7 +61,7 @@ en:
       category_source_univ: !!University or hosting institution for the thesis
       category_doi: DOI, PMID or else
       category_issn: ISSN, ISBN, ISNI, ARK or else
-      doi_fac: !!"Unique user name (optional): "
+      doi_fac: "!!Unique user name (optional): "
       dead_link: Signal broken link
       edges: Add or edit quotations to other references
       edit: Edit reference
@@ -79,8 +79,8 @@ en:
       url: Access the reference
       user_no_comment: You haven't written any analysis yet
       user_tags:
-        one: !!"%{count} contributor thinks this reference belongs with the theme "
-        other: !!"%{count} contributors think this reference belongs with the theme "
+        one: "%!!{count} contributor thinks this reference belongs with the theme "
+        other: "%!!{count} contributors think this reference belongs with the theme "
       user_binary:
         one: "%{count} contributor thinks that"
         other: "%{count} contributors think that"
@@ -129,7 +129,7 @@ en:
       edit_info_html: "The <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown is
                                          accepted</a>"
       binary: There are two antagonistic answers to this controversy
-      binary_info: !!"By checking this box and filling in both antagonists, you allow for the references to be sorted.
+      binary_info: "!!By checking this box and filling in both antagonists, you allow for the references to be sorted.
                                           If the controversy isn't a Yes or No question, uncheck this box or rephrase the controversy."
       delete: Delete your contribution
       index: Every title and frame of this controversy

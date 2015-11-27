@@ -270,8 +270,7 @@ en:
     typos:
       accept: Accept correction
       accepted: The mistake was corrected!
-      already_sent: You already submitted a correction to this contribution,
-        it's awaiting validation !
+      already_sent: You already submitted a correction to this contribution, it's awaiting validation !
       content: Correction
       if_not_yours_html: |-
         If you burnt your eyes on a language mistake, or if you want to suggest something to the author, you're in the right place! <br/>
@@ -305,8 +304,8 @@ en:
       notif_preferences: "ControverSciences adapts to your preferences:"
       notif_waiting: news await for you.
       important_waiting: notifications await for you.
-      notif_wish: hopes you have a great day!
-      plain_link: 'If the link doesn't work, copy this text in your browser:'
+      notif_wish: "hopes you have a great day!"
+      plain_link: "If the link doesn't work, copy this text in your browser:"
       reset_pwd: Clic on the following link to reset your password on ControverSciences
       sent_this_message: 'sent you the following message:'
       the_team: The ControverSciences community

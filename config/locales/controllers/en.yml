@@ -58,7 +58,7 @@ en:
     wrong_pwd: Wrong password/email match.
     session_not_validated_html: "Your account is being approved, you'll receive an email as soon as the process is over"
     session_not_activated_html: "Please <b>activate your account</b> by clicking on the <b>link you receive by email</b>. </br> If you can't find said email <a href=%{href}>clic here</a> to receive a new link"
-    slack_already_invited: !!!"You already received an invitation for Slack to the adress %{email}, but you haven't activated your account yet. Please contact admin@controversciences.org if you can't find this email"
+    slack_already_invited: "!!!You already received an invitation for Slack to the adress %{email}, but you haven't activated your account yet. Please contact admin@controversciences.org if you can't find this email"
     slack_connexion_lost: The servor couldn't connect to Slack
     slack_invit: "Your invitation was sent to %{email}!"
     question_added: Q&A added!
