@@ -27,9 +27,6 @@ class ReferenceUserTag < ActiveRecord::Base
 
   def set_tag_list(names)
     if !names.nil?
-      puts "BIMMMM"
-      puts tags_hash
-
       list = tags_hash.keys
       self.tags = names.map do |n|
         if list.include? n
