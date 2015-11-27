@@ -5,5 +5,6 @@ namespace :admin  do
     update_score_users
     update_score_timelines
     update_all_profils
+    compute_occurencies
   end
 end

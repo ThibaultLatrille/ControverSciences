@@ -10,6 +10,7 @@ class TagPairsController < ApplicationController
   end
 
   def reference_pairs
+    @tag_pairs = TagPair.where(references: true)
     respond_to do |format|
       format.html
       format.csv do
