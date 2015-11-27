@@ -11,13 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111233529) do
+ActiveRecord::Schema.define(version: 20151127122655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "pg_trgm"
-  enable_extension "unaccent"
 
   create_table "best_comments", force: true do |t|
     t.integer  "reference_id"
@@ -620,6 +617,15 @@ ActiveRecord::Schema.define(version: 20151111233529) do
   add_index "summary_links", ["timeline_id"], name: "index_summary_links_on_timeline_id", using: :btree
   add_index "summary_links", ["user_id"], name: "index_summary_links_on_user_id", using: :btree
 
+  create_table "tag_pairs", force: true do |t|
+    t.integer  "tag_theme_source"
+    t.integer  "tag_theme_target"
+    t.boolean  "references"
+    t.integer  "occurencies"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"
     t.integer  "timeline_id"
@@ -697,23 +703,6 @@ ActiveRecord::Schema.define(version: 20151111233529) do
   add_index "typos", ["frame_id"], name: "index_typos_on_frame_id", using: :btree
   add_index "typos", ["summary_id"], name: "index_typos_on_summary_id", using: :btree
   add_index "typos", ["user_id"], name: "index_typos_on_user_id", using: :btree
-
-  create_table "user_details", force: true do |t|
-    t.integer  "user_id"
-    t.string   "institution"
-    t.string   "job"
-    t.string   "website"
-    t.text     "biography"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "figure_id"
-    t.text     "content_markdown", default: ""
-    t.boolean  "send_email",       default: true
-    t.hstore   "profil"
-  end
-
-  add_index "user_details", ["figure_id"], name: "index_user_details_on_figure_id", using: :btree
-  add_index "user_details", ["user_id"], name: "index_user_details_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
