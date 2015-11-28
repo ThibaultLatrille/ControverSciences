@@ -1,0 +1,7 @@
+source,target,count
+<%- @tag_pairs.each do |tag_pair| -%>
+<%= raw "\"#{tag_pair.tag_source.name}\",\"#{tag_pair.tag_target.name}\",#{tag_pair.occurencies}" %>
+<%- if tag_pair.tag_theme_source != tag_pair.tag_theme_target -%>
+<%= raw "\"#{tag_pair.tag_target.name}\",\"#{tag_pair.tag_source.name}\",#{tag_pair.occurencies}" %>
+<%- end -%>
+<%- end -%>

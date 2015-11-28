@@ -1,284 +1,281 @@
 en:
   views:
     edition:
-      necessary: champs obligatoires.
-      caption: Légende de la figure
-      add_timeline_link: Créer un lien vers une controverse
-      add_timeline_links: Créer des liens entre cette controverse et d'autres
-      imposible: Opération impossible
-      timeline_not_linked: La controverse sur laquelle vous vous trouvez n'est actuellement liée à aucune autre.
-      add_reference_link: Créer un lien vers une référence
-      add_href: Ajouter un lien externe
-      make_private: Rendre une contribution privée vous fera perdre tous les crédits qui lui ont été attribués.
-      character_much: caractères en trop !
-      character_left: caractères restants.
-      character_miss: caractères manquants !
+      necessary: compulsory fields.
+      caption: Figure caption
+      add_timeline_link: Create a link to a controversy
+      add_timeline_links: Create a link between this controversy and others
+      imposible: Impossible task
+      timeline_not_linked: The controversy you are currently on isn't linked to any other.
+      add_reference_link: Create a link to a reference
+      add_href: Add an external link
+      make_private: !!Make a contribution private will have you lose all credits it had gathered.
+      character_much: Too many characters!
+      character_left: characters left.
+      character_miss: missing characters!
     best_comments:
-      caption: Légende
-      display_all: Toutes les contributions
-      upvote: Sélectionner cette analyse comme votre favorite
-      downvote: Vous avez selectionné cette analyse comme votre favorite
+      caption: Caption
+      display_all: All contributions
+      upvote: !!Vote for this analysis as your favorite
+      downvote: !!You selected this analysis as your favorite
     comments:
-      show: Analyse de la référence
-      new: Ecrire une analyse
-      publish: Publier votre analyse
-      edit: Modifier votre analyse
-      delete: Supprimer votre analyse
-      from_reference: "De la référence "
-      from_timeline: "Dans la controverse "
-      edit_help_html: "Vous pouvez tout à fait laissez certains champs vides.
-                            Plus votre analyse est concise et précise, mieux cela est pour les lecteurs.
+      show: Analysis of the reference
+      new: Write an analysis
+      publish: Publish your analysis
+      edit: Edit your analysis
+      delete: Delete your analysis
+      from_reference: "From reference "
+      from_timeline: "In controversy "
+      edit_help_html: "You can leave some fields empty.
+                            The more succint and precise your analysis, the better for the readers.
                             <br/>
-                            Le <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown est supporté</a>.
-                            De plus vous pouvez insérer des liens internes vers les références de cette controverse
-                            (bouton <span class=\"icon-reference normal\"></span> dans la barre d'outils) afin de permettre
-                            au lecteur une meilleure navigation entre les références de la controverse."
-      reference_href: Lien vers la référence
-      reference_added_by: Référence ajoutée par
+                            The <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown is accepted</a>.
+                            Plus, you can insert internal links towards the references for this controversy
+                            (<span class=\"icon-reference normal\"></span> button in the tool bar) to allow 
+                            the reader a better browsing between references for the controversy."
+      reference_href: Link to the reference
+      reference_added_by: Reference added by
     references:
-      new: Ajouter une référence à cette controverse
-      edit: Modifier votre référence
-      delete: Supprimer votre référence
-      author: Les auteurs
-      year: Année de publication
-      journal: Journal
-      abstract: Abstract (dans sa langue originale)
-      doi: Identifiant unique
-      open_access: Accès libre
-      abstract_fac: Abstract en langue originale (Facultatif)
-      appear_in_timeline: Apparait dans la controverse
-      add: Ajouter la référence
-      be_first: Soyez le premier à ecrire une analyse
-      best_comment: La meilleure analyse
-      categories: Article, Review, Méta-analyse, Livre ou thèse
+      new: Add a reference to this controversy
+      edit: Modify your reference
+      delete: Delete your reference
+      author: Authors
+      year: Year of publication
+      journal: !!Journal
+      abstract: Abstract (in its native language)
+      doi: Unique user name
+      open_access: Open access
+      abstract_fac: Abstract in its native language (Optional)
+      appear_in_timeline: Appears in the controversy
+      add: Add the reference
+      be_first: Be the first to write an analysis
+      best_comment: Best analysis
+      categories: Article, Review, Meta-analysis, Book or thesis
       category_0: Article
       category_1: Review
-      category_2: Méta-analyse
-      category_3: Livre
-      category_4: Thèse
-      category_source_journal: Journal
-      category_source_book: Editeur du livre
-      category_source_univ: Université ou établissement d'accueil de la thèse
-      category_doi: DOI, PMID ou autre
-      category_issn: ISSN, ISBN, ISNI, ARK ou autre
-      doi_fac: "Identifiant unique (facultatif) : "
-      dead_link: Signaler un lien mort
-      edges: Ajouter ou modifier les citations vers d'autres références
-      edit: Modifier la référence
-      edit_from: Editer une référence appartenant à la controverse
-      favorite_comment: Votre analyse favorite
-      is_open_access: Cette référence est en libre accès
-      more: En savoir plus sur la référence
-      new_to: Ajouter une référence à la controverse
-      next: Référence suivante
-      no_comment: Cette référence n'a pas encore été analysée
-      no_comment_be_first: Il n'y a pas encore d'analyse à cette référence, soyez
-        le premier !
-      no_votes: Cette référence n'a pas reçu de votes.
-      previous: Référence précédente
-      title_original: Titre original
-      url: Accéder à la référence
-      user_no_comment: Vous n'avez pas encore écrit d'analyse
+      category_2: Meta-analysis
+      category_3: Book
+      category_4: Thesis
+      category_source_journal: !!Journal
+      category_source_book: Editor of the book
+      category_source_univ: !!University or hosting institution for the thesis
+      category_doi: DOI, PMID or else
+      category_issn: ISSN, ISBN, ISNI, ARK or else
+      doi_fac: "!!Unique user name (optional): "
+      dead_link: Signal broken link
+      edges: Add or edit quotations to other references
+      edit: Edit reference
+      edit_from: Edit a reference from the controversy
+      favorite_comment: Your favorite analysis
+      is_open_access: This reference can be accessed freely
+      more: Learn more about the reference
+      new_to: Add a reference to the controversy
+      next: Next reference
+      no_comment: This reference has no analysis yet
+      no_comment_be_first: There is no analysis for this reference yet, be the first to comment!
+      no_votes: This reference didn't receive any vote.
+      previous: Previous reference
+      title_original: Original title
+      url: Access the reference
+      user_no_comment: You haven't written any analysis yet
       user_tags:
-        one: "%{count} contributeur pense que cette référence appartient au thème "
-        other: "%{count} contributeurs pensent que cette référence appartient au thème "
+        one: "%!!{count} contributor thinks this reference belongs with the theme "
+        other: "%!!{count} contributors think this reference belongs with the theme "
       user_binary:
-        one: "%{count} contributeur pense que"
-        other: "%{count} contributeurs pensent que"
-      added_by: Référence ajoutée par
-      delete_advise: Retirer votre avis
-      how_star: 'Comment les contributeurs jugent la qualité scientifique de cette référence :'
-      how_you_star: Comment evaluez vous la qualité scientifique de ce papier ?
-      maybe_binary: Vous avez déjà voté, mais vous avez peut être changé d'avis ?
-      maybe_you_changed: Mais vous avez peut être changé d'avis ?
-      you_think: Vous pensez que
-      sci_hub: (en utilisant Sci-Hub)
+        one: "%{count} contributor thinks that"
+        other: "%{count} contributors think that"
+      added_by: Reference added by
+      delete_advise: Retract your opinion
+      how_star: 'How the contributors judge the scientific quality of this reference :'
+      how_you_star: What do you think about the scientific quality of this paper?
+      maybe_binary: You already gave an opinion about this, but maybe you changed your mind?
+      maybe_you_changed: Maybe you changed your mind?
+      you_think: You think that
+      sci_hub: (using Sci-Hub)
     edges:
-      new_edge: Ajouter des nouveaux liens
-      to_timeline: Les liens concernant la controverse
-      with_timeline: Liens avec la controverse...
-      with_timelines: Liens avec les controverses
-      add_edge: Ajouter les liens sélectionnés
-      impossible: "Opération impossible : vous avez précédemment émis un avis contraire sur ce sujet.
-                                 Annulez d'abord votre vote précédent (en cliquant à nouveau sur le bouton correspondant)."
+      new_edge: Add new links
+      to_timeline: Links concerning the controversy
+      with_timeline: Links to the controversy...
+      with_timelines: Links to controversies
+      add_edge: Add the selected links
+      impossible: "Impssible task: you previously gave an opposite opinion on that matter.
+                                 Please cancel your previous vote (by clicking on the corresponding button)."
       upvote:
-        one: "%{count} contributeur trouve ce lien pertinent."
-        other: "%{count} contributeurs trouvent ce lien pertinent."
+        one: "%{count} contributor thinks this link is relevant."
+        other: "%{count} contributors think this link is relevant."
       downvote:
-        one: "%{count} contributeur ne trouve pas ce lien pertinent."
-        other: "%{count} contributeurs ne trouvent pas ce lien pertinent."
-      not_counted: Ce lien n'est pas comptabilisé, il contient plus de vote négatifs que de positifs.
+        one: "%{count} contributor thinks this link isn't relevant."
+        other: "%{count} contributors think this link isn't relevant."
+      not_counted: This link isn't taken into account, it has more negative than positive votes.
     reference_edges:
-      new_newer: Ajouter des références qui la citent
-      new_older: Ajouter des citations
-      to_reference: Les citations concernant la référence
-      no_older_edges: Ne cite aucune autre référence
-      no_newer_edges: N'est citée par aucune autre référence
-      citing: "Cite les références suivantes :"
-      cited: "Est citée par les références suivantes :"
+      new_newer: Add references that quote it
+      new_older: Add quotations
+      to_reference: Quotations about the reference
+      no_older_edges: Doesn't cite any other reference
+      no_newer_edges: Isn't quoted by any other reference
+      citing: "Quotes the following references:"
+      cited: "Is quoted by the following references:"
     frames:
-      mine: Votre proposition de titre et de cadre
-      favorite: Votre proposition de titre et de cadre favorite
-      new: Proposer un titre et un cadre
-      new_to: Proposer un titre et un cadre à la controverse
-      show_to: Cette contribution appartient à la controverse
-      create: Publier votre proposition de titre et de cadre
-      delete: Supprimer votre titre et votre cadre
-      edit: Modifier votre titre et/ou votre cadre
-      edit_title: Titre de la controverse
-      edit_frame: Cadre, focus et mise au point de la controverse
-      edit_info_html: "Le <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown est
-                                         supporté</a>"
-      binary: Pour cette controverse, il existe deux réponses antagonistes
-      binary_info: "En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les références.
-                                          Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse."
-      delete: Supprimer votre contribution
-      index: Tous les titres et cadres de cette controverse
-      frame: Cadre, focus et mise au point
-      upvote: Sélectionner cette contribution comme votre favorite
-      downvote: Vous avez selectionné cette contribution comme votre favorite
-      no_favorite: Vous n'avez pas de contribution favorite
-      no_mine: Vous n'avez pas encore écrit de contribution
-      no_other: Il n'y a pas de contribution autre que la votre
-      versus_placeholder_left: Oui/Blanc/Inné/...
-      versus_placeholder_right: Non/Noir/Acquis/...
+      mine: !!Your proposition for title and frame
+      favorite: !!Your favorite proposition for title and frame
+      new: Propose a title and a frame
+      new_to: Propose a title and a frame for the controversy
+      show_to: This contribution is part of the controversy
+      create: Publish your proposition for title and frame
+      delete: Delete your title and frame
+      edit: Edit your title and/or your frame
+      edit_title: Title of the controversy
+      edit_frame: !!Frame and focus of the controversy
+      edit_info_html: "The <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown is
+                                         accepted</a>"
+      binary: There are two antagonistic answers to this controversy
+      binary_info: "!!By checking this box and filling in both antagonists, you allow for the references to be sorted.
+                                          If the controversy isn't a Yes or No question, uncheck this box or rephrase the controversy."
+      delete: Delete your contribution
+      index: Every title and frame of this controversy
+      frame: !!Frame and focus
+      upvote: Select this contribution as your favorite
+      downvote: !!You selected this contribution as your favorite
+      no_favorite: You don't have a favorite contribution
+      no_mine: You haven't written any contribution yet
+      no_other: Apart from yours, there is no contribution
+      versus_placeholder_left: Yes/White/Innate/...
+      versus_placeholder_right: !!No/Black/Acquired/...
     summaries:
-      new: Ecrire une synthèse
-      edit: Modifier votre synthèse
-      delete: Supprimer votre synthèse
-      index: Toutes les synthèses de cette controverse
-      favorite: Votre synthèse favorite
-      create: Publier la synthèse
-      downvote: Vous avez selectionné cette synthèse comme votre favorite
-      from_timeline: Cette synthèse appartient à la controverse
+      new: Write a synthesis
+      edit: Edit your synthesis
+      delete: Delete your synthesis
+      index: Every synthesis for this controversy
+      favorite: Your favorite synthesis
+      create: Publish synthesis
+      downvote: You selected this synthesis as your favorite
+      from_timeline: This synthesis is part of the controversy
       content_value: |-
         ​**Introduction**
 
-        **Cœur de la synthèse**
+        **Synthesis in itself**
 
-        ​​**Conclusion et ouverture**
+        ​​**Conclusion and perspective**
       info_html: |-
-        La synthèse est un résumé général de la controverse. Son ​<b>objectif</b>​ est d'<b>intégrer</b> l'ensemble des <b>références analysées</b>​,
-        et d'en dresser un <b>bilan</b>​.
+        Synthesis is a general summary for the controversy. Its ​<b>objective</b>​ is to <b>integrate</b> all of the <b>analysed references</b>​,
+        and to make an <b>assessment</b>​ out of them.
         <br><br>
-        A titre d'<b>​exemple</b>​, voici une ​<b>​structure</b>​​ de synthèse qui
-        s'efforce d'être complète en incorporant les principales informations qui permettront de connecter les différentes références.<br><br>
+        For <b>​instance</b>​, here is a ​<b>​structure</b>​​ for a synthesis that is written trying to be
+        complete by including the main information that will allow to connect the various references.<br><br>
         ​<b>​[Introduction]</b>​<br>
-        &nbsp Bref rappel du contexte et des enjeux. Si nécessaire, décomposition de la question principale en
-        sous questions et articulation de ces sous questions.<br>
-        <b>​[Coeur de la synthèse]</b>​<br>
-        &nbsp Bilan des analyses de références.<br>
-        ​​<b>​[Conclusion et ouverture]</b>​<br>
-        &nbsp Délimiter ce qui semble attesté et ce qui est discutable. Discussion des enjeux.
+        &nbsp Brief reminder of the context and issues. If necessary, deconstruction of the main question in
+        sub questions and structuring between these sub questions.<br>
+        <b>​[Synthesis in itself]</b>​<br>
+        &nbsp Assessment of the analyses of references.<br>
+        ​​<b>​[Conclusion and perspective]</b>​<br>
+        &nbsp Mark out what seems substantiated from what is up to more discussion. Reflection on the stakes.
         <br><br>
-        Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
-        De plus vous pouvez insérer des liens internes vers les références de cette controverse
-        (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
-        au lecteur une meilleure navigation dans la controverse.
-      no_favorite: Vous n'avez pas de synthèse favorite
-      no_other: Il n'y a pas de synthèse autre que la votre
-      no_summary: Vous n'avez pas encore écrit de synthèse
-      upvote: Selectionner cette synthèse comme votre favorite
+        The <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown is accepted</a>.
+        Plus, you can insert internal links towards the references for this controversy
+        (<span class="icon-reference normal"></span> button in the tool bar) to allow
+        the reader a better browsing between references for the controversy.
+      no_favorite: You don't have a favorite synthesis
+      no_other: There is no synthesis apart from yours
+      no_summary: You haven't written any synthesis yet
+      upvote: Select this synthesis as your favorite
     timelines:
-      next: Controverse suivante
-      new: Créer une controverse
-      delete: Supprimer votre controverse
-      confirm: Rendre la controverse publique est irréversible, êtes vous certain
-        de votre choix ?
-      create: Créer la controverse
-      display_all: Afficher toutes les controverses
-      dl_bib: Télécharger la bibliographie
-      edges: Liens entre les controverses
-      edges_ref: Citations entre les références
-      timelines_staging: Controverses embryonnaires
-      timelines_built: Controverses écloses
-      is_private: Cette controverse est privée, et ne sera pas visible sans le lien.
-      login: Identifiez-vous pour voir les controverses à l'état embryonnaire
-      make_public: Cette controverse est privée. Souhaitez vous la rendre publique
-      neutral: Neutre
-      new: Créer une nouvelle controverse
-      new_edges: Ajouter ou modifier les liens vers d'autres controverses
-      new_frame: Proposer une amélioration de titre et de cadre
-      none_params: Aucune controverse ne correspond à ces critères de sélection
-      only_liked: Afficher uniquement les controverses qui vous intéressent
-      read_less: Réduire le texte
-      read_more: Continuer la lecture
-      source_necessary: La source est nécessaire
-      strongly: Fermement
-      make_favorite: Mettre cette controverse au premier plan
-      remove_favorite: Enlever cette controverse du premier plan
-      make_public: Faire éclore la controverse
-      make_staging: Retourner à l'état embryonnaire
-      is_staging_html: Cette controverse est encore à l'état embryonnaire&nbsp!
-      is_staging_sub: Aidez la à éclore !
-      is_built_html: Cette controverse a éclos, elle s'est ouverte au monde&nbsp!
-      is_built_sub: Aidez la à continuer sa métamorphose !
-      are_staging_html: Ces controverses sont encore à l'état embryonnaire&nbsp!
-      are_staging_sub: Aidez les à éclore !
-      are_built_html: Ces controverses ont éclos, elles se sont ouvertes au monde&nbsp!
-      are_built_sub: Aidez les à continuer leur métamorphose !
-      all_staging: À l'état embryonnaire
-      all_built: Qui ont éclos
-      all_timelines: Toutes
-      show_versus: Afficher la répartition des références
-      hide_versus: Masquer la répartition des références
-      show_star: Afficher la pertinence des références
-      hide_star: Masquer la pertinence des références
-      show_no_comment: Afficher les références non analysées
-      hide_no_comment: Masquer les références non analysées
+      next: Next controversy
+      new: Create a controversy
+      delete: Delete a controversy
+      confirm: Make the controversy a public one is irreversible, are your sure?
+      create: Create the controversy
+      display_all: Display all controversies
+      dl_bib: Download the bibliography
+      edges: Links between controversies
+      edges_ref: Quotations between references
+      timelines_staging: Nascent controversies
+      timelines_built: Hatched controversies
+      is_private: This is a private controversy that cannot be accessed without the link.
+      login: Please login to see nascent controversies
+      make_public: This is a private controversy. Do you wish to make it public
+      neutral: Neutral
+      new: Create a new controversy
+      new_edges: Add or edit links to other controversies
+      new_frame: Propose an enhancement in title and frame
+      none_params: No matching controversy found
+      only_liked: Display only the controversies you are interested in
+      read_less: Reduce text
+      read_more: Read more
+      source_necessary: The source is necessary
+      strongly: Strongly
+      make_favorite: !!Pull this controversy to the front
+      remove_favorite: !!Take this controversy from the front
+      make_public: Have the controversy hatch
+      make_staging: Go back to nascent state
+      is_staging_html: This controversy is still nascent&nbsp!
+      is_staging_sub: Help it hatch!
+      is_built_html: This controversy hatched, it opened to the world&nbsp!
+      is_built_sub: Help it keep on evolving!
+      are_staging_html: These controversies are still nascent&nbsp!
+      are_staging_sub: Help them hatch!
+      are_built_html: These controversies hacthed, they opened to the world&nbsp!
+      are_built_sub: Help them keep on evolving!
+      all_staging: Nascent
+      all_built: Having hatched
+      all_timelines: All
+      show_versus: Display reference repartition
+      hide_versus: Hide reference repartition
+      show_star: Display reference relevance
+      hide_star: Hide reference relevance
+      show_no_comment: Display non analysed references
+      hide_no_comment: Hide non analysed references
     likes:
-      clic_on: Cliquer sur les buttons
-      get_notified: pour être notifié des changements dans ces controverses.
-      index: "Ces controverses vous intéressent :"
+      clic_on: Click on the buttons
+      get_notified: to be notified of any change in these controversies.
+      index: "These controversies interest you:"
     my_items:
-      new_timeline: Créer une nouvelle controverse
-      no_items: Vous n'avez pas encore de contributions. Cette page référence l'ensemble de vos contributions sur le site.
-      set_public_timeline: Rendre la controverse publique est irréversible, êtes vous
-        certain de votre choix ?
-      credits_to_comments: Vos credits accordés aux analyses
-      credits_to_frames: Vos credits accordés aux propositions d'amélioration de controverse
-      credits_to_summaries: Vos credits accordés aux synthèses
-      no_credits: Pas encore de crédits accordés
+      new_timeline: Create a new controversy
+      no_items: You don't have any contributions yet. Here is every contribution of yours on the website.
+      set_public_timeline: Make the controversy a public one is irreversible, are your sure?
+      credits_to_comments: Credits given to analyses
+      credits_to_frames: Credits given to proposals for enhancement of controversy
+      credits_to_summaries: Credits given to syntheses
+      no_credits: No credits given yet
     notifications:
-      best_comments: Les analyses qui ont pris la première place
-      best_contrib: 'Ont pris la première place :'
-      best_frames: Les améliorations de controverses qui ont pris la première place
-      best_summaries: Les synthèses qui ont pris la première place
-      delete: Supprimer ces notifications
-      delete_all: Supprimer toutes les notifications sur cette page
-      delete_selected: Supprimer les notifications sélectionnées
-      downvoted: Vos contributions qui ont perdu la première place
-      new: 'Les nouvelles/nouveaux :'
-      new_comments: Les nouvelles analyses
-      new_frames: Les nouvelles améliorations de controverses
-      new_references: Les nouvelles références
-      new_summaries: Les nouvelles synthèses
-      new_timelines: Les nouvelles controverses
-      no_news: Pas de nouveautés
-      no_notifs: Vous n'avez aucune nouvelle notification
-      typos: Les corrections que vous ont apporté les contributeurs
-      upvoted: Vos contributions qui ont pris la première place
+      best_comments: Best analyses
+      best_contrib: 'Have made first rank:'
+      best_frames: Best enhancements for controversies
+      best_summaries: Best syntheses
+      delete: Delete these notifications
+      delete_all: Delete all notifications on this page
+      delete_selected: Delete selected notifications
+      downvoted: Contributions of yours that lost first rank
+      new: 'New:'
+      new_comments: New analyses
+      new_frames: New enhancements for controversies
+      new_references: New references
+      new_summaries: New syntheses
+      new_timelines: New controversies
+      no_news: No news
+      no_notifs: You don't have any notification
+      typos: Corrections made by the contributors
+      upvoted: Contributions of yours that made first rank
     typos:
-      accept: Accepter la correction
-      accepted: La faute a été corrigée !
-      already_sent: Vous avez déjà soumis une correction pour cette contribution,
-        qui est en attente de validation !
+      accept: Accept correction
+      accepted: Mistake corrected!
+      already_sent: You already sent a correction for this contribution,
+        it's awaiting validation!
       content: Correction
       if_not_yours_html: |-
-        Si une faute de français vous a brulé les yeux, ou si vous avez une suggestion à proposer à l'auteur, vous êtes sur la bonne page ! <br/>
-                          Celle-ci lui sera envoyée pour être soumise à validation.
-      if_yours: Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
-      refuse: Refuser la correction
-      send: Envoyer la correction
-      sent: Votre correction a bien été envoyée à l'auteur.
-      to_valid: Les corrections à valider
+        If you burnt your eyes on a language mistake, or if you want to suggest something to the author, you're in the right place! <br/>
+                          This will be sent to them so they can validate it.
+      if_yours: If you burnt your eyes on a language mistake in your own contribution, you can correct it.
+      refuse: Refuse correction
+      send: Send correction
+      sent: Your correction was sent to the author.
+      to_valid: Corrections to validate
     private_timelines:
-      to_timeline: Voir les contributeurs participants à cette controverse privée.
-      new_private_timeline: Inviter des contributeurs à participer à cette controverse
-      add_private_timeline: Inviter les contributeurs sélectionnés
-      participating: Ils participent à cette controverse
-      no_participating: Il n'y a actuellement aucun participant à cette controverse
-      yours: Les controverses privées auxquelles vous participez
-      invited: Controverses privées
-      participate: participez à cette controverse
-      invit_extern: Inviter une personne qui n'a pas de compte
+      to_timeline: See contributors to this private controversy.
+      new_private_timeline: Invite contributors to participate in this controversy
+      add_private_timeline: Invite selected contributors
+      participating: They participate in this controversy
+      no_participating: There currently isn't any participant to this controversy
+      yours: Private controversies you participate in
+      invited: Private controversies
+      participate: participate in this controversy
+      invit_extern: Invite a person without an account

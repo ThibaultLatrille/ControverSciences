@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113170318) do
+ActiveRecord::Schema.define(version: 20151127122655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -636,6 +636,15 @@ ActiveRecord::Schema.define(version: 20151113170318) do
   add_index "summary_links", ["summary_id"], name: "index_summary_links_on_summary_id", using: :btree
   add_index "summary_links", ["timeline_id"], name: "index_summary_links_on_timeline_id", using: :btree
   add_index "summary_links", ["user_id"], name: "index_summary_links_on_user_id", using: :btree
+
+  create_table "tag_pairs", force: true do |t|
+    t.integer  "tag_theme_source"
+    t.integer  "tag_theme_target"
+    t.boolean  "references"
+    t.integer  "occurencies"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

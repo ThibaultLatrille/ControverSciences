@@ -1,11 +1,11 @@
 en:
   views:
     default:
-      fix_typo: Corriger une faute de français, ou suggérer une amélioration à l'auteur.
-      confirm: Êtes-vous certain ?
-      published: Publiée il y a
+      fix_typo: Correct a mistake, or suggest an enhancement to the author.
+      confirm: Are you sure?
+      published: !!!Published ... ago
       by: by
-      by_cap: Par
+      by_cap: By
       public_f: Public
       private_f: Private
       warning: Warning!
@@ -13,28 +13,28 @@ en:
       to: To
       from: From
       at_least: At least
-      tags: Thèmes
-      ago: Il y a
+      tags: Themes
+      ago: !!Ago ... ou there is
       see: Go to
       your: Your
       search: Search
       close: Close
       creation_confirmed: Creation confirmed
     navigation:
-      back_timeline: Revenir à la controverse
-      back_timelines: Revenir aux controverses
-      back_reference: Revenir à la référence
-      back: Revenir en arrière
-      users: Les contributeurs
-      contributions: Évolution des contributions
+      back_timeline: Go back to the controversy
+      back_timelines: Go back to the controversies
+      back_reference: Go back to the reference
+      back: Go back
+      users: Contributors
+      contributions: Contributions evolution
       new_contributions: New contributions
-      empty_comments: Analyser
-      empty_ref: Enrichir
-      empty_summaries: Synthétiser
+      empty_comments: Analyse
+      empty_ref: Enhance
+      empty_summaries: Summarize
       faq: FAQ
-      faq_long: Foire aux questions (FAQ)
+      faq_long: Frequently Asked Questions (FAQ)
       how_to: Discover ControverSciences
-      how_to_edit: Contribuer à ControverSciences
+      how_to_edit: Contribute to ControverSciences
       newsletter: Newsletter
     pagination:
       first: "&laquo; First"
@@ -43,89 +43,89 @@ en:
       next: "Next &rsaquo;"
       truncate: "&hellip;"
     model:
-      users: Les contributeurs
-      timelines: Les controverses
-      reference: La référence
-      references: Les références
-      comments: Les analyses
-      summaries: Les synthèses
-      summaries_of: Les synthèses de cette controverse
-      comment: L'analyse
-      frame: La proposition de titre et de cadres
+      users: Contributors
+      timelines: Controversies
+      reference: The reference
+      references: References
+      comments: Analyses
+      summaries: Summaries
+      summaries_of: Summaries for this controversy
+      comment: Analysis
+      frame: Title and frames proposal
       frame_0: Title
-      frame_1: Le cadre
-      frames: Les proposition de titre et de cadres
+      frame_1: Frame
+      frames: Title and frames proposals
       credits: Credits
-      in_timeline: Dans la controverse
-      of_reference: De la référence
-      of_timeline: De la controverse
-      reference: La référence
-      summary: La synthèse
-      timeline: La Controverse
-      your_comments: Vos analyses
-      your_frames: Vos propositions de titre et de cadre
-      your_references: Vos références
-      your_summaries: Vos synthèses
-      your_timelines: Vos controverses
-      your_frame: Votre proposition de titre et de cadre
-      your_summary: Voir la synthèse
-      your_summary_of_timeline: Votre synthèse de la controverse
-      your_comment: Votre analyse
-      your_summary: Votre synthèse
-      password: Mot de passe
-      password_confirm: Confirmation de mot de passe
+      in_timeline: In the controversy
+      of_reference: Of reference
+      of_timeline: Of controversy
+      reference: Reference
+      summary: Summary
+      timeline: Controversy
+      your_comments: Your analyses
+      your_frames: Your proposals of title and frames
+      your_references: Your references
+      your_summaries: Your summaries
+      your_timelines: Your controversies
+      your_frame: Your proposal of title and frame
+      your_summary: See summary
+      your_summary_of_timeline: Your summary for this controversy
+      your_comment: Your analysis
+      your_summary: Your summary
+      password: Password
+      password_confirm: Password confirmation 
       errors:
        one: " error"
        other: " errors"
     pluralize:
       users:
-        one: "%{count} contributeur"
-        other: "%{count} contributeurs"
+        one: "%{count} contributor"
+        other: "%{count} contributors"
       comments:
-        one: "%{count} analyse"
+        one: "%{count} analysis"
         other: "%{count} analyses"
       likes:
-        one: "%{count} contributeur est intéressé par cette controverse"
-        other: "%{count} contributeurs sont intéressés par cette controverse"
+        one: "%{count} contributor is interested by this controversy"
+        other: "%{count} contributors are interested by this controversy"
       loves:
-        one: "%{count} contributeur aime ce site"
-        other: "%{count} contributeurs aiment ce site"
+        one: "%{count} contributor likes this website"
+        other: "%{count} contributors like this website"
       reference_no_comment:
-        one: "%{count} référence n'a pas d'analyse"
-        other: "%{count} références n'ont pas d'analyse"
+        one: "%{count} reference doesn't have an analysis"
+        other: "%{count} references don't have an analysis"
       references:
-        one: "%{count} référence scientifique analysée"
-        other: "%{count} références scientifiques analysées"
+        one: "%{count} scientific reference analysed"
+        other: "%{count} scientific references analysed"
       raw_references:
-        one: "%{count} référence scientifique"
-        other: "%{count} références scientifiques"
+        one: "%{count} scientific reference"
+        other: "%{count} scientific references"
       edits:
         one: "%{count} contribution"
         other: "%{count} contributions"
       timelines:
-        one: "%{count} controverse"
-        other: "%{count} controverses"
+        one: "%{count} controversy"
+        other: "%{count} controversies"
       summaries:
-        one: "%{count} synthèse"
-        other: "%{count} synthèses"
+        one: "%{count} summary"
+        other: "%{count} summaries"
       views:
-        one: "%{count} vue en "
-        other: "%{count} vues en "
+        one: "%{count} view in "
+        other: "%{count} views in "
       target:
-        one: "Cette référence cite %{count} autre référence."
-        other: "Cette référence cite %{count} autres références."
+        one: "This reference cites %{count} other reference."
+        other: "This reference cites %{count} other references."
       from:
-        one: "Cette référence est citée par %{count} autre référence."
-        other: "Cette référence est citée par %{count} autres références."
+        one: "This reference is cited by %{count} other reference."
+        other: "This reference is cited by %{count} other references."
       edges:
-        one: "Cette synthèse se base sur %{count} référence analysée."
-        other: "Cette synthèse se base sur %{count} références analysées."
+        one: "This summary is based upon %{count} analysed reference."
+        other: "This summary is based upon %{count} analysed references."
     buttons:
-      invit: Inviter
-      advise: Enregister cet avis
-      editing: Modification en cours
-      publishing: Publication en cours
-      creating: Création en cours
+      invit: Invite
+      advise: Save this opinion
+      editing: Currently editing
+      publishing: Currently publishing
+      creating: Currently creating
       add: Add
       save: Save
       delete: Delete
@@ -134,313 +134,310 @@ en:
       send: Send
       sending: Sending
       saving: Saving
-      save_edit: Enregistrer la modification
-      save_changes: Enregistrer les changements
+      save_edit: Save change
+      save_changes: Save changes
       connecting: Connecting
     sorting:
-      score: Magique (par défaut)
-      score_sort: Tri magique
-      score_recent: Activité récente
-      created_at: Date de création
-      created_at_sort: Tri par date
-      nb_contributors: Nombre de contributeurs
-      nb_references: Nombre de références
-      nb_comments: Nombre d'analyses
-      nb_summaries: Nombre de synthèses
-      nb_likes_html: "Nombre de &nbsp<span class=\"glyphicon glyphicon-thumbs-up\"></span>"
-      asc: Croissant
-      asc_sort: Ordre croissant
-      desc: Décroissant (par défaut)
-      desc_sort: Ordre décroissant
-      all_theme: Tous les thèmes
+      score: !!Magique (par défaut)
+      score_sort: !!Tri magique
+      score_recent: Recent activity
+      created_at: Creation date
+      created_at_sort: Sort by date
+      nb_contributors: Number of contributors
+      nb_references: Number de references
+      nb_comments: Number of analyses
+      nb_summaries: Number of summaries
+      nb_likes_html: "Number of &nbsp<span class=\"glyphicon glyphicon-thumbs-up\"></span>"
+      asc: Ascending
+      asc_sort: Acsending order
+      desc: Decreasing (default mode)
+      desc_sort: Decreasing order
+      all_theme: All themes
     tags:
-      archeology: Archéologie
-      biology: Biologie
-      chemistry: Chimie
-      planet: Ecologie
-      epistemology: Epistémologie
-      geography: Géographie
-      geology: Géologie
-      history: Histoire
-      informatics: Informatique
-      linguistic: Linguistique
-      pie: Mathématiques
-      medicine: Médecine et santé
-      physics: Physique
-      psycho: Psychologie
-      socio: Sociologie
-      techno: Technologie
+      archeology: Archeology
+      biology: Biology
+      chemistry: Chemistry
+      planet: Ecology
+      epistemology: Epistemology
+      geography: Geography
+      geology: Geology
+      history: History
+      informatics: Informatics
+      linguistic: Linguistics
+      pie: Mathematiques
+      medicine: Medecine and health
+      physics: Physics
+      psycho: Psychology
+      socio: Sociology
+      techno: Technology
     picture:
-      add_figure: Ajouter une figure
-      delete_figure: Supprimer la figure
-      edit_figure: Modifier la figure
-      invalid_figure: Cette image est de trop petite résolution (minimum 640px*640px), ou bien elle est trop grande (> 5Mo).
-      invalid_banner: Cette image est de trop petite résolution (minimum 1280px*1280px), ou bien elle est trop grande (> 5Mo).
-      invalid_profil: Cette image est de trop petite résolution (minimum 250px*250px), ou bien elle est trop grande (> 5Mo).
-      source_figure: La source de la figure est requise pour des raisons évidentes de droit d'auteur.
-      source: La source de l'image
-      edit_profil: Modifier la photo de profil
-      add_profil: Ajouter une photo de profil
-      delete_profil: Supprimer la photo de profil
+      add_figure: Add a figure
+      delete_figure: Delete figure
+      edit_figure: Edit figure
+      invalid_figure: The resolution of this image is too small (minimum 640px*640px), or it's too heavy (> 5Mo).
+      invalid_banner: The resolution of this image is too small (minimum 1280px*1280px), or it's too heavy (> 5Mo).
+      invalid_profil: The resolution of this image is too small (minimum 250px*250px), or it's too heavy (> 5Mo).
+      source_figure: For obvious copyright issues, the source of the figure is required.
+      source: The source of the image
+      edit_profil: Edit profile picture
+      add_profil: Add a profile picture
+      delete_profil: Delete profile picture
     assistant:
-      index: Contributeurs en attentes
-      timelines: Mettre à jour les valeurs sélectives des controverses
-      users: Mettre à jour les valeurs sélectives des utilisateurs
-      profils: Mettre à jour les profils
+      index: !!Contributors waiting list
+      timelines: !!Update selective values of the controversies
+      users: !!Update selective values of the users
+      profils: Update profiles
     invitations:
-      for_reference: Envoyez une invitation à une personne intéressée par cette référence
-      for_timeline: Envoyez une invitation à une personne intéressée par cette controverse
+      for_reference: Send an invitation to a person interested by this reference
+      for_timeline: Send an invitation to a person interested by this controversy
       message: Message
-      send: Envoyer l'invitation
-      sent: Votre invitation a bien été envoyée.
-      server_error: Le serveur ne réponds pas
-      target_email: Son adresse email*
-      target_name: Son nom
-      thank: Merci !
-      user_name: Votre nom*
+      send: Send the invitation
+      sent: Your invitation was sent.
+      server_error: The servor doesn't respond
+      target_email: Their email adress*
+      target_name: Their name
+      thank: Thanks!
+      user_name: Your user name*
     header:
-      login: S'identifier
-      typos: corrections en attente
-      dead_links: Liens morts
-      user: Accéder à votre profil
-      empty_comments: Analyser vos références
-      empty_ref: Enrichir vos controverses
-      empty_summaries: Synthètiser vos controverses
-      my_items: Vos contributions
-      my_items_private: Vos contributions privées
+      login: Login
+      typos: corrections awaiting validation
+      dead_links: Dead links
+      user: Access your profile
+      empty_comments: Analyse your references
+      empty_ref: Expand your controversies
+      empty_summaries: Summarize your controversies
+      my_items: Your contributions
+      my_items_private: Your private contributions
       notifs: Notifications
-      likes: Les controverses qui vous intéressent
-      logout: Se déconnecter
-      news: Nouveautés
+      likes: Controversies that interest you
+      logout: Logout
+      news: News
     footer:
-      about: " A propos"
-      close: Fermer
+      about: " About"
+      close: Close
       issue: |-
-        Si vous avez déniché un bug, une faute, ou si vous avez des remarques sur le site,
-                      ne soyez pas égoïste, faites-le nous savoir, cette page est là pour ça ;-)
-      issue_amelioration: Critique sur le fond
-      issue_author: Auteur (facultatif)
+        If you found out about a bug, a mistake, or if you have any comments about the website,
+                      don't be selfish, let us know, that's why there is this page ;-)
+      issue_amelioration: Criticism on the content
+      issue_author: Author (optional)
       issue_body: Description
       issue_bug: Bug
-      issue_critic: Critique
-      issue_design: Design (c'est pas beau)
-      issue_grammar: Atenssion à la langue francaise !
-      issue_idea: J'ai une idée !
+      issue_critic: Criticism
+      issue_design: Design (it's not pretty)
+      issue_grammar: Careful with zee English language!
+      issue_idea: I've got an idea!
       issue_important: Important
-      issue_negligible: Un détail
-      issue_other: Autre
-      issue_title: Objet du bug
-      issue_to_do: A faire
-      issue_unclear: C'est pas clair !
+      issue_negligible: A detail
+      issue_other: Other
+      issue_title: What the bug is about
+      issue_to_do: To do
+      issue_unclear: That's not clear!
       issue_urgent: Urgent
       question_html: |
-        Si vous avez des questions, si vous souhaitez nous aider, ou si vous voulez nous inviter à prendre un
-                      verre,
-                      <a href="mailto:contact@controversciences.org">contactez-nous sans attendre</a>
-                      ou spammez directement <a href="mailto:thibault.latrille@controversciences.org">le webmaster !</a>
+        If you have questions, if you want to help us, or if you want to invite us
+                      for a drink,
+                      <a href="mailto:contact@controversciences.org"> contact us without delay</a>
+                      or spamm the webmaster <a href="mailto:thibault.latrille@controversciences.org"> directly!</a>
     issue:
-      taken_into_account: Votre remarque a été prise en compte !
-      thank: Merci !
+      taken_into_account: Your comment has been taken into account!
+      thank: Thanks!
     partners:
-      new: Ajouter un site sur le murdu <span class="glyphicon glyphicon-heart"></span>
-      edit: Modifier les information
-      create: Créer ce site et l'ajouter sur le mur du <span class="glyphicon glyphicon-heart"></span>
-      suggest: Suggèrer un site à ajouter sur le mur du <span class="glyphicon glyphicon-heart"></span>
-      name: Son nom
-      description: Sa description
-      url: Lien vers le site
-      why: Pourquoi le faire apparaître sur ControverSciences ?
-      index_html: Le mur du <span class="glyphicon glyphicon-heart"></span>
-      index_sub_html: Parce qu'on est fan de ce qu'ils font et qu'on veut le partager ici avec vous !
-      taken_into_account: Votre suggestion a été envoyé aux admins
+      new: !!Add a website on the newsfeed <span class="glyphicon glyphicon-heart"></span>
+      edit: Edit information
+      create: !!Create this website and add it to the newsfeed <span class="glyphicon glyphicon-heart"></span>
+      suggest: !!Suggest a website to add to the newsfeed <span class="glyphicon glyphicon-heart"></span>
+      name: Their name
+      description: Their description
+      url: Link to their website
+      why: Why make them appear on ControverSciences ?
+      index_html: !!Newsfeed <span class="glyphicon glyphicon-heart"></span>
+      index_sub_html: Because we love what they do and want to share it here with you!
+      taken_into_account: Your suggestion was sent to the webmasters
     password:
-      new: Demander un nouveau mot de passe
-      reinit: Réinitialiser votre mot de passe
-      reset: Pour récupérer votre mot de passe, veuillez saisir l'adresse email associée à votre compte
-      save_new: Enregistrer le nouveau mot de passe
+      new: Ask for a new password
+      reinit: Reset your password
+      reset: To get your password back, please enter the email adress associated with your account
+      save_new: Save new password
     sessions:
-      connect: 'Identifiants de connexion :'
-      forgot: "(Trou de mémoire ?)"
-      login: Rentrer dans l'arène
-      new_user: Créer un compte
-      new_user_slack: Créer un compte pour rejoindre le collectif sur Slack
-      remember_me: Se souvenir de moi pour mes prochaines visites.
-      action_login: Veuillez vous identifier afin d'effectuer cette action
-      new_user: Créer un compte
-      server_dead: Le serveur ne répond pas
+      connect: 'User name:'
+      forgot: "(Forgot?)"
+      login: Enter the arena
+      new_user: Sign up
+      new_user_slack: Sign up to join the community on Slack
+      remember_me: Remember me for my next visits.
+      action_login: Please login to do this action
+      server_dead: The servor doesn't answer
     typos:
-      accept: Accepter la correction
-      accepted: La faute a été corrigée !
-      already_sent: Vous avez déjà soumis une correction pour cette contribution,
-        qui est en attente de validation !
+      accept: Accept correction
+      accepted: The mistake was corrected!
+      already_sent: You already submitted a correction to this contribution, it's awaiting validation !
       content: Correction
       if_not_yours_html: |-
-        Si une faute de français vous a brulé les yeux, ou si vous avez une suggestion à proposer à l'auteur, vous êtes sur la bonne page ! <br/>
-                          Celle-ci lui sera envoyée pour être soumise à validation.
-      if_yours: Si une faute de français dans votre propre contribution vous a brulé les yeux, vous pouvez la corriger.
-      refuse: Refuser la correction
-      send: Envoyer la correction
-      sent: Votre correction a bien été envoyée à l'auteur.
-      to_valid: Les corrections à valider
+        If you burnt your eyes on a language mistake, or if you want to suggest something to the author, you're in the right place! <br/>
+                          This will be sent to them so they can validate it.
+      if_yours: If you burnt your eyes on a language mistake in your own contribution, you can correct it.
+      refuse: Refuse correction
+      send: Send correction
+      sent: Your correction was sent to the author.
+      to_valid: Corrections to validate
     mailer:
-      activate: Activer mon compte
-      and: et
-      discover: Découvrir
-      hello: Bonjour
+      activate: Activate my account
+      and: and
+      discover: Discover
+      hello: Hello
       if_error: |
-        Si vous n'avez pas fait de demande de réinitialisation de mot de passe, désolé pour le contre temps. Vous pouvez ignorer ce message\
-                                  et continuer à trier vos mails, votre mot de passe restera tel quel.
-      invite_you: vous invitent à découvrir
-      congrat: Félicitation !
-      eclosion: à laquelle vous avez contribué sur ControverSciences vient d'éclore. Elle est maintenant visible par tous, .
-      link_reset_pwd: Réinitialiser le mot de passe
-      newsletter: Vous êtes maintenant inscrit au bulletin d'informations ControverSciences.
-      notif_edit_profil: "éditez votre profil"
-      notif_empty_comments: références n'ont pas encore d'analyse, soyez le premier à les décortiquer !
-      notif_empty_references: controverses n'ont pas assez de références scientifiques, venez les enrichir !
-      notif_empty_summaries: controverses ont des références mais n'ont pas synthèse, apportez votre vue d'ensemble et écrivez l'une d'entre elle !
-      notif_handle: gérez vos
-      notif_head: Il y a du nouveau sur votre compte
-      notif_head_cs: ": les débats avancent !"
-      notif_likes: intérêts
-      notif_preferences: "ControverSciences s'adapte à vos préférences :"
-      notif_waiting: nouveautés vous attendent.
-      important_waiting: notifications vous attendent.
-      notif_wish: vous souhaite une agréable journée !
-      plain_link: 'Si le lien ne fonctionne pas, copier ce morceau de texte dans votre navigateur :'
-      reset_pwd: Cliquez sur le lien suivant pour réinitialiser votre mot de passe sur ControverSciences
-      sent_this_message: 'vous a écrit le message suivant:'
-      the_team: Le collectif ControverSciences
-      welcome: Bienvenue sur ControverSciences, il ne vous reste plus qu'à cliquer sur le lien suivant pour commencer à contribuer au projet.
-      resend_welcome: Votre compte sur ControverSciences n'est pas encore activé, il ne vous reste qu'à cliquer sur le lien suivant pour commencer à contribuer au projet.
-      participate: Vous avez été invité à participer à
+        If you haven't asked for your password to be reset, sorry for the mishap. You can ignore this message\
+                                  and keep on sorting your emails, your password will stay as it is.
+      invite_you: invite you to discover
+      congrat: Congratulation!
+      eclosion: to which you were participating on ControverSciences just hatched. It's now visible to anyone, .
+      link_reset_pwd: Reset password
+      newsletter: You are now listed for the ControverSciences newsletter.
+      notif_edit_profil: "edit your profile"
+      notif_empty_comments: references don't have any analyses yet, be the first to tackle them!
+      notif_empty_references: controversies don't have enough scientific references, come expand them!
+      notif_empty_summaries: controversies have references but are without a summary, bring your perspective and write one of them!
+      notif_handle: handle your
+      notif_head: There're news on your account
+      notif_head_cs: ": debates are moving forward!"
+      notif_likes: interests
+      notif_preferences: "ControverSciences adapts to your preferences:"
+      notif_waiting: news await for you.
+      important_waiting: notifications await for you.
+      notif_wish: "hopes you have a great day!"
+      plain_link: "If the link doesn't work, copy this text in your browser:"
+      reset_pwd: Clic on the following link to reset your password on ControverSciences
+      sent_this_message: 'sent you the following message:'
+      the_team: The ControverSciences community
+      welcome: Welcome on ControverSciences, you just have to clic on the following link to begin contributing to the project.
+      resend_welcome: Your account on ControverSciences has yet to be activated, you only have to clic on the following link to begin contributing to the project.
+      participate: You were invited to participate in
     users:
-      edit: Editer votre profil
-      added: 'a ajouté '
-      all: Tous les contributeurs
-      biography: 'Biographie :'
-      connect_as: Se connecter en tant que
-      create: Créer votre compte
+      edit: Edit your profile
+      added: 'added '
+      all: All contributors
+      biography: 'Biography :'
+      connect_as: Login as
+      create: Sign up
       created_html: |-
-        Vous devez <b>activer</b> votre compte avant de continuer. <br/>
-                Le lien pour activer votre compte doit être parvenu à votre boîte <b>mail</b>,
-                à moins qu'il ne se soit noyé dans vos spams ou perdu dans les méandres d'internet.
-      delete: Supprimer ce contributeur
+        You need to <b>activate</b> your account before going any further. <br/>
+                The link to activate your account should have made it to your <b>mailbox</b>,
+                unless it drowned in your spams or lost in the dark corners of the Internet.
+      delete: Delete contributor
       email_invalid_html: |-
-        Si vous disposez d'une adresse électronique appartenant à une institution scientifique, votre compte sera automatiquement activé. </br>
-        Sinon, veuillez détailler brièvement votre champ d'expertise scientifique et pourquoi pour souhaitez participer à ControverSciences. <br/>
-        Vous recevrez alors un mail de confirmation pour activer votre compte. <br/>
-      for_admins: Pour les admins seulement
-      i_have_read: J'ai lu et j'accepte
+        If you have an email adress from a scientific institution, your account is automatically activated. </br>
+        Otherwise, please detail briefly your field of scientific expertise and why your want to participate in ControverSciences. <br/>
+        You'll then receive a confirmation email to activate your account. <br/>
+      for_admins: Webmasters-only
+      i_have_read: I read and accept
       institution: 'Institution :'
-      job: 'Fonction/métier :'
-      join_slack: Rejoindre le collectif sur Slack !
-      next: Contributeur suivant
-      pending: Votre incription est en cours de traitement, un email vous sera envoyé
-        dès que la demande sera acceptée.
-      pending_confirm: Confirmation en attente
-      previous: Contributeur précédent
-      send_email: Etre notifié par email si vous avez des notifications non lues (une fois par semaine)
-      terms: Les conditions générales d'utilisation
-      website: 'Site web :'
-      wrote: a écrit
-      confirmation_pwd_ok: Votre mot de passe a bien été confirmé.
-      confirmation_pwd_fail: Attention, Les deux mots de passe ne sont pas identiques !
+      job: 'Function/job:'
+      join_slack: Join the community on Slack!
+      next: Next contributor
+      pending: Your registration is being processed, an email will be sent to you
+        as soon as the request is accepted.
+      pending_confirm: Confirmation awaiting processing
+      previous: Previous contribution
+      send_email: Be notified by email if you have unread notifications (once a week)
+      terms: Terms of use
+      website: 'Website:'
+      wrote: wrote
+      confirmation_pwd_ok: Your password was confirmed.
+      confirmation_pwd_fail: Careful, both passwords aren't identical!
     empty:
-      references: Enrichir les controverses
-      comments: Analyser les références
-      summaries: Synthètiser les controverses
-      my_references: Enrichir les controverses qui vous intéressent
-      my_comments: Analyser les références qui vous intéressent
-      my_summaries: Synthètiser les controverses qui m'intéressent
-      all_references: Toutes les références
-      all_timelines: Toutes les controverses
-      have_comments: ont actuellement au moins une analyse.
-      have_references: ont actuellement au moins une référence.
-      have_summaries: ont actuellement au moins une synthèse.
-      need_comments: n'ont pas encore d'analyse, soyez le premier à les décortiquer !
-      need_references: ont besoin de références scientifiques, venez les enrichir !
-      need_summaries: ont des référénces analysées mais n'ont pas de synthèse, résumez la situation et apportez une vue d'ensemble au débat !
-      these_references: Ces références
-      these_timelines: Ces controverses
-      you_added: que vous avez ajoutées
-      you_like: qui vous intéressent
+      references: Expand controversies
+      comments: Analyze references
+      summaries: Summarize controversies
+      my_references: Expand controversies that interest you
+      my_comments: Analyze references that interest you
+      my_summaries: Summarize controversies that interest you
+      all_references: All references
+      all_timelines: All controversies
+      have_comments: currently have at least one analysis.
+      have_references: currently have at least one reference.
+      have_summaries: currently have at least one summary.
+      need_comments: still don't have any analysis, be the first to tackle them!
+      need_references: need scientific references, come expand them!
+      need_summaries: have analyzed references but no summary, sum up the situation and bring an overview to the debate!
+      these_references: These references
+      these_timelines: These controversies
+      you_added: that you added
+      you_like: that interest you
     faq:
-      ask: Poser une question
-      new: Ajouter une nouvelle question et sa réponse
-      for_admin: Réservé aux administrateurs
+      ask: Ask a question
+      new: Add a new question and its answer
+      for_admin: Webmasters-only
     how_to:
-      title: Le destin d'une controverse sur ControverSciences
+      title: Destiny of a controversy on ControverSciences
       voter_body: |-
-        Les contributeurs accréditent les contributions qu'ils considèrent commme
-        les meilleures, c'est à dire si celles qui sont concises, précises et rigoureuses.
-      voter_head: Voter
+        Contributors give credits to the contributions they consider
+        the best, meaning ones which are succint, accurate and thourough.
+      voter_head: Vote
       analyse_body: |-
-        Les contributeurs propose des analyses en français de chaque référence.
-        Une analyse permet d'expliciter dans un vocabulaire non technique les tenants et aboutissants de la référence par rapport à la controverse.
-      analyse_head: Analyser
+        Contributors propose analyses in English of each reference.
+        An analysis explicits in a non-specialist vocabulary the ins and outs of the reference, regarding the controversy.
+      analyse_head: Analyze
       ameliorer_body: |-
-        Les contributeurs qui ne sont pas d'accord avec les contributions existantes
-         peuvent proposer des alternatives. Ceci est valable pour les synthèses, les analyses et même les titre de la controverse.
-      ameliorer_head: Améliorer
-      controverse_body: Un contributeur ajoute une nouvelle controverse, et en explicite le cadre de référence.
-      controverse_head: Naissance
+        Contributors who disagree with the existing contributions
+         may propose alternates. This stands for summaries, analyses and even the title of the controversy.
+      ameliorer_head: Enhance
+      controverse_body: A contributor adds a new controversy, and explains its reference framework.
+      controverse_head: Hatching
       synthese_body: |-
-        Une fois la controverse suffisament référencée, une synthèse peut être proposée.
-        Une synthèses résume l'ensemble du corpus et des analyses présentes.
-      synthese_head: Synthétiser
+        Once the controversy has enough references, a summary can be proposed.
+        A summary sums up the entirety of the corpus and analyses present.
+      synthese_head: Summarize
       selectionner_body: |-
-        Les contributions les mieux notées sont mises en avant, et affichées par défaut.
-      selectionner_head: Sélectionner
+        Best noted contributions are highlighted, and displayed by default.
+      selectionner_head: Select
       reference_body: |-
-        Les contributeurs peuvent ensuite ajouter des références scientifiques, provenant de journaux scientifiques reconnus publiquement.
-        Les thèses de doctorat et les livres scientifiques sont également considérés comme des références scientifiques.
-      reference_head: Référencer
+        Contributors may then add scientific references, coming from publicly reputed scientific magazines.
+        Doctorate theses and scientific books are considered scientific references as well.
+      reference_head: Reference
       eclosion_body: |-
-        L'éclosion est le moment ou les contributeurs décident que la controverse peut être rendue publique.
-        Bien évidement elle continue ensuite à être alimenté, mais à partir de ce moment là, elle sort de sa mare et affronte les dures
-        lois de cette jungle qu'on appelle internet.
-      eclosion_head: Éclosion
+        Hatching is when the contributors decide the controversy can be made public.
+        Obviously it can still be altered and expanded, but from then on, it's out of the small pond and face to the tough
+        laws of this jungle we call the Internet.
+      eclosion_head: Hatching
     how_to_edit:
       five_body_html: |-
-        Dans un soucis d'uniformité des références, celle-ci doivent répondrent à certain nombre de
-                                contraintes
-                                avant d'être ajoutées. Il vous faudra préciser les champs suivants : <br/>
-                                • Le titre original <br/>
-                                • Le type de référence (article/review/méta-analyse/livre) <br/>
-                                • Le journal dans lequel la référence a été publiée <br/>
-                                • Le(s) auteur(s) de l'étude <br/>
-                                • La date de Publication <br/>
-                                • Un lien vers la référence <br/>
+        Because of an unifomity issue fir the references, they need to answer a few criteria
+                                before being added. You'll have to fill in the following fields: <br/>
+                                • The original title <br/>
+                                • Type of reference (article/review/meta-analysis/book) <br/>
+                                • Journal in which the reference was published <br/>
+                                • Author(s) of the study <br/>
+                                • Date of publication <br/>
+                                • Link to the reference <br/>
                                 • <a href="http://fr.wikipedia.org/wiki/Digital_Object_Identifier"
-                                     target="_blank"> Le DOI (Digital Object Identifier) est optionnel </a> <br/>
-                                <i>Nota Bene : </i>L'autocomplétion de ces données est possible en
-                                renseignant uniquement le titre de l'étude.
-      five_head: Vous pouvez ajouter une référence qui vous semble pertinente.
+                                     target="_blank"> The DOI (Digital Object Identifier) is optional </a> <br/>
+                                <i>Nota Bene : </i> Automatic filling of these datas is possible by
+                                informing merely the title of the study.
+      five_head: You can add a reference that seems relevant to you.
       four_body_html: |-
-        Vous pouvez proposer de nouvelles analyses et synthèses (dans la langue de Molière).
-                                Pour cela vous pouvez en écrire une <i>ex nihilo</i>, ou bien repartir d'une préexistante et
-                                l'améliorer
-      four_head: Aucun texte ne vous satisfait pleinement, à vous de faire mieux
-      header: 'Voici les possibilités qui s''offrent ensuite à vous :'
+        You can propose new analyses and summaries (in the language of Shakespeare).
+                                In order to do that, you can write one <i>ex nihilo</i>, or take a pre-existing one and
+                                enhance it
+      four_head: There is no text that's satisfying to you, it's up to you to do better
+      header: 'Here are the possibilities that you then have:'
       one_body: |-
-        Il est recommandé de disposer d'une adresse électronique universitaire
-                                ou d'un organisme scientifique reconnu pour s'inscrire. Si tel n'est pas le cas mais que vous
-                                souhaitez tout de même contribuer, tout n'est pas perdu !
-                                Il vous faut préciser vos motivations lors de l'inscription.
-      one_head: Tout d'abord il vous faut créer un compte.
-      one_new_user: Prêt à rentrer dans l'arène !
-      seven_head: Vous avez en tête une amélioration pour le site ? Exprimez-la !
-      six_head: Et si le coeur vous en dit, vous pouvez ajouter une controverse.
+        It is advised to have a university email adress
+                                or from a reputed scientific institution to sign up. If you don't, but still
+                                want to contribute, all is not lost!
+                                You need to explain your motivations when signing up.
+      one_head: You need to sign up first.
+      one_new_user: Ready to enter the arena!
+      seven_head: You're thinking about an enhancement for the website? Tell us!
+      six_head: And if your heart is in it, you can add a controversy.
       three_body: |-
-        Ces crédits peuvent être redistribués à tout moment, en particulier lors de la publication
-                                d'une nouvelle analyse.
-                                Pour chaque référence, composez votre analyse favorite en votant pour les meilleures sous-parties.
-                                De la même manière quand il y a plusiseurs synthèses pour une controverse, vous pouvez voter pour votre favorite.
-      two_body_1: Un système de
-      two_body_2: centré
-      two_body_3: vous permet de suivre les dernières
+        These credits can be distributed again anytime, particularly when publishing
+                                a new analysis.
+                                For each reference, arrange your favorite analysis by voting for the best sub-parts.
+                                Likewise, when there are several summaries for one controversy, you can vote for your favorite.
+      two_body_1: A system of
+      two_body_2: centered
+      two_body_3: allows you to follow the latest
       two_body_link_1: notifications
-      two_body_link_2: sur vos intérêts
-      three_head: Vous disposez de crédits limités à distribuer entre les différentes contributions.
-      two_head: Vous pouvez être tenu au courant des contributions.
+      two_body_link_2: on your interests
+      three_head: You have limited credits to distribute between the various contributions.
+      two_head: You can be kept up to date of the contributions.

@@ -2,25 +2,25 @@ en:
   activerecord:
     attributes:
       user:
-        name: "Le nom"
-        email: "L'adresse électronique"
-        password: "Le mot de passe"
-        password_confirmation: "La confirmation de mot de passe"
-        terms_of_service: "Les conditions générales d'utilisation"
+        name: "Name"
+        email: "Email adress"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        terms_of_service: "Terms of service"
       timeline:
-        name: "Le titre"
-        frame: "Le cadre"
-        binary: "Un des antagonistes"
+        name: "Title"
+        frame: "Frame"
+        binary: "One of the antagonists"
       frame:
-        name: "Le titre"
-        content: "Le cadre"
+        name: "Title"
+        content: "Frame"
       invitation:
-        target_name: "Son nom"
-        target_email: "Son adresse électronique"
-        user_name: "Votre nom"
+        target_name: "Their name"
+        target_email: "Their email adress"
+        user_name: "Your user name"
       comment:
-        title: "Le titre"
-        caption: "La légende"
+        title: "Title"
+        caption: "Caption"
         f_0_content: ""
         f_1_content: ""
         f_2_content: ""
@@ -29,18 +29,18 @@ en:
         f_6_content: ""
         f_7_content: ""
       reference:
-        title: "Le titre"
-        author: "Les auteurs de l'étude"
-        year: "L'année de publication"
-        url: "Le lien vers la référence"
-        journal: "Le journal"
+        title: "Title"
+        author: "Authors of the study"
+        year: "Publication year"
+        url: "Link to the reference"
+        journal: "Magazine"
       suggestion:
-        comment: "Le message"
+        comment: "Message"
       summary:
-        content: "La synthèse"
+        content: "Synthesis"
       reference_edge:
-        direction: "Sens du lien"
-        category: "Type de lien"
-        target: "Un ou plusieurs liens avec des références doivent être sélectionées"
+        direction: "!!!Sens du lien"
+        category: "Type of link"
+        target: "One or a few links with references must be selected"
       edge:
-        target: "Un ou plusieurs liens avec des controverses doivent être sélectionées"
+        target: "One or a few links with controversies must be selected"

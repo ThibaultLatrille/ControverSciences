@@ -25,44 +25,44 @@ en:
     mailer_invitation: and ControverSciences invite you to discover
     must_login: You must sign in/log in to explore this nook of ControverSciences.
     newsletter: Registration for the ControverSciences newsletter
-    no_account: Cette adresse email n'est associée à aucun compte.
-    no_account_id: Aucun compte n'est lié à cette adresse mail.
-    no_vote_selected: Vous n'avez pas sélectionné de vote.
-    notifs_news: les nouveautés qui vous intéressent sur ControverSciences
-    only_admins: Uniquement les admins peuvent effectuer ces actions.
-    pwd_or_confirm_error: Erreur de mot de passe ou de confirmation.
-    pwd_updated: Mot de passe modifié.
-    ref_added: Référence ajoutée avec succès.
-    ref_added_no_tags: Référence ajoutée, mais les thèmes n'ont pas été pris en compte.
-    ref_argument_error: Votre requête n'a rien donné de concluant.
-    ref_connexion_error: Impossible de se connecter aux serveurs qui délivrent les metadonnées.
-    ref_record_not_found: Cette référence n'existe pas (ou plus)
-    ref_same_doi: Cette référence a déjà été ajouté à cette controverse !
-    ref_standard_error: Une erreur que nous ne savons pas gérer est survenue inopinément !
-    ref_updated: Référence modifiée.
-    reset_pwd_email: Réinitialisation du mot de passe sur ControverSciences
-    reseted_pwd_email: Un lien pour réinitialisé votre mot de passe vous a été envoyé
-    same_parts: "Une ou plusieurs sous-parties de vos sont identiques à l'originale, elle n'ont pas été sauvegardé"
-    summary_added: Synthèse enregistrée.
-    summary_cannot_delete: Cette synthèse est la meilleure et ne peut être supprimée.
-    summary_updated: Synthèse modifiée.
-    summary_record_not_found: Cette synthèse n'existe pas (ou plus)
-    timeline_added: Controverse ajoutée !
-    timeline_record_not_found: Cette controverse n'existe pas (ou plus)
-    updated_profils: Les profils ont été mis à jour
-    updated_score_timelines: Les valeurs sélectives des controverses sont à jour
-    updated_score_users: Les valeurs sélectives des utilisateurs sont à jour
-    user_deleted: Utilisateur destroyed
-    user_updated: Les modifications apportées à votre profil ont été enregistrées.
-    vote_ok: Votre vote a été pris en compte.
-    wrong_pwd: Mauvais mot de passe pour cette adresse email.
-    session_not_validated_html: "Votre compte est en cours de validation, vous recevrez un email dès que celui-ci sera validé"
-    session_not_activated_html: "Veuillez <b>activer votre compte</b> en cliquant sur le <b>lien envoyé par email</b>. </br> Si vous ne trouvez pas cet email <a href=%{href}>cliquez ici</a> pour recevoir un nouveau lien d'activation"
-    slack_already_invited: "Vous avez deja reçu l'invitation de Slack à l'adresse %{email}, mais vous n'avez pas encore activé votre compte. Veuillez contacter admin@controversciences.org si vous ne trouvez pas cet email"
-    slack_connexion_lost: Le serveur n'a pas pu se connecter à Slack
-    slack_invit: "Votre invitation a été envoyé à l'adresse %{email} !"
-    question_added: Q&A ajoutée !
-    question_updated: Changements sauvegardés !
-    user_dont_exist: "Impossible de trouver ce contributeur dans la base de données"
-    add_current_user: Vous avez été ajouté aux participants de cette controverse.
-    particiate: vous avez été invité à participer à une controverse privée sur ControverSciences.
+    no_account: This email adress isn't linked to any account.
+    no_account_id: There is no account linked to this email adress.
+    no_vote_selected: You haven't selected a vote.
+    notifs_news: News that interest you on ControverSciences
+    only_admins: These actions are webmasters-only.
+    pwd_or_confirm_error: Wrong password/confirmation.
+    pwd_updated: Password modified.
+    ref_added: Reference successfully added.
+    ref_added_no_tags: The reference was added, but the themes weren't taken into account.
+    ref_argument_error: Your request wasn't conclusive.
+    ref_connexion_error: Cannot connect to the servers delivering the metadata.
+    ref_record_not_found: This reference does not, or no longer, exist
+    ref_same_doi: This reference has already been added to this controversy!
+    ref_standard_error: An error popped up and we don't know how to deal with it!
+    ref_updated: Reference modified.
+    reset_pwd_email: Password reset on ControverSciences
+    reseted_pwd_email: A link to reset your password has been sent to you
+    same_parts: "One or a few sub-parts are identical to the original and thus haven't been saved"
+    summary_added: Synthesis saved.
+    summary_cannot_delete: This synthesis was designated the best and can't be erased.
+    summary_updated: Synthesis modified.
+    summary_record_not_found: This synthesis does not, or no longer, exist
+    timeline_added: Controversy added!
+    timeline_record_not_found: This controversy does not, or no longer, exist
+    updated_profils: Profiles were updated
+    updated_score_timelines: !!!Les valeurs sélectives des controverses sont à jour
+    updated_score_users: !!!Les valeurs sélectives des utilisateurs sont à jour
+    user_deleted: User deleted
+    user_updated: Modifications to your profile were saved.
+    vote_ok: Your vote was taken into account.
+    wrong_pwd: Wrong password/email match.
+    session_not_validated_html: "Your account is being approved, you'll receive an email as soon as the process is over"
+    session_not_activated_html: "Please <b>activate your account</b> by clicking on the <b>link you receive by email</b>. </br> If you can't find said email <a href=%{href}>clic here</a> to receive a new link"
+    slack_already_invited: "!!!You already received an invitation for Slack to the adress %{email}, but you haven't activated your account yet. Please contact admin@controversciences.org if you can't find this email"
+    slack_connexion_lost: The servor couldn't connect to Slack
+    slack_invit: "Your invitation was sent to %{email}!"
+    question_added: Q&A added!
+    question_updated: Changes saved !
+    user_dont_exist: "We couldn't find this contributor in our database"
+    add_current_user: !!You're now participating to this controversy.
+    particiate: You were invited to participate to a private controversy on ControverSciences.

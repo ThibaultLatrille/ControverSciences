@@ -3,120 +3,120 @@ en:
     page_entries_info:
       one_page:
         display_entries:
-          zero: "Aucun(e) %{entry_name} trouvé(e)s"
-          one: "Affichage de <b>1</b> %{entry_name}"
-          other: "Affichage des <b>%{count}</b> %{entry_name}"
+          zero: "No %{entry_name} found"
+          one: "Displaying <b>1</b> %{entry_name}"
+          other: "Displaying <b>%{count}</b> %{entry_name}"
       more_pages:
-        display_entries: "%{entry_name} <b>%{first}</b> à <b>%{last}</b> affiché(e)s sur <b>%{total}</b> au total"
-    binary_hash_1: très fermement
-    binary_hash_2: modérément
-    binary_hash_3: cette référence est neutre.
-    binary_hash_4: modérément
-    binary_hash_5: très fermement
-    binary_value_1: 'très fermement du côté '
-    binary_value_2: 'du côté '
-    binary_value_3: neutre.
-    binary_value_4: 'du côté '
-    binary_value_5: 'très fermement du côté '
-    binary_value_text: 'Cette référence est '
-    article: cet article
-    review: cette review
-    meta: cette méta-analyse
-    book: ce livre
-    phd: cette thèse
+        display_entries: "%{entry_name} <b>%{first}</b> to <b>%{last}</b> displayed on a total of <b>%{total}</b>"
+    binary_hash_1: !!!very firmly
+    binary_hash_2: moderately
+    binary_hash_3: this reference is neutral.
+    binary_hash_4: moderately
+    binary_hash_5: !!!very firmly
+    binary_value_1: '!!!very firmly on the ... side '
+    binary_value_2: '!!!du côté '
+    binary_value_3: neutral.
+    binary_value_4: '!!!du côté '
+    binary_value_5: '!!!très fermement du côté '
+    binary_value_text: 'This reference is '
+    article: this article
+    review: this review
+    meta: this meta-analysis
+    book: this book
+    phd: this thesis
     category_explanation_intro: |-
-      L'introduction permet au lecteur de situer %{category} dans
-                                    la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
-    category_explanation_experience: Résumé de l'expérience (ou des expériences) réalisé dans %{category}.
-    category_explanation_results: Résumé du résultat (ou des résultats) de l’expérience (ou des expériences) de %{category}.
+      The introduction allows the reader to situate %{category} in the controversy and to introduce smoothly 
+                                the study's experience and results.
+    category_explanation_experience: Summary of the experience(s) realized in %{category}.
+    category_explanation_results: Summary of the result(s) of the experience(s) of %{category}.
     category_explanation_limits: |-
-      Un résumé des limites de %{category}, que ce soit méthodologique, conceptuelle ou
-                                philosophique. Toute étude à ses limites.
-    category_explanation_more: Ce que %{category} apporte de plus et comment cela permet d'éclairer la controverse.
+      A summary of the limitations of %{category}, whether they are methodological, conceptual or 
+                                philosophical. Every study has its limits.
+    category_explanation_more: What %{category} offers in addition and how it enlighten the controversy.
     category_explanation_remarque: |-
-      Toutes les remarques de %{category} qui ne rentrent pas dans les champs précédents.
-                                Cela peut être sur les affiliations ou les financements douteux de %{category}.
-                                Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
-                                subjective.
+      Every comments of %{category} which don't fit the previous fields.
+                                It can be about the affiliations or the questionable funding of %{category}.
+                                An anecdote about this paper or its authors, or simply a totally subjective 
+                                remark.
     category_explanation_summary: |-
-      Le résumé de la %{category} permet au lecteur de
-                        comprendre cette étude dans le cadre de cette controverse.
-    category_hash_article_0: Introduction à l'article
-    category_hash_article_1: Expériences de l'article
-    category_hash_article_2: Résultats de l'article
-    category_hash_article_3: Limites de l'article
-    category_hash_article_4: Ce que cet article apporte au débat
-    category_hash_article_5: Remarque(s) sur l'article
-    category_hash_article_6: Titre de l'article
+      The summary of the %{category} allows the reader to
+                        understand this study as part of this controversy.
+    category_hash_article_0: Introduction to the article
+    category_hash_article_1: Experiences of the article
+    category_hash_article_2: Results of the article
+    category_hash_article_3: Limits of the article
+    category_hash_article_4: What this article brings to the debate
+    category_hash_article_5: Remarks about the article
+    category_hash_article_6: Title of the article
     category_hash_article_7: Figure
-    category_hash_review_0: Résumé de la review
-    category_hash_review_3: Limites de la review
-    category_hash_review_4: Ce que cette review apporte au débat
-    category_hash_review_5: Remarque(s) sur la review
-    category_hash_review_6: Titre de la review
+    category_hash_review_0: Summary of the review
+    category_hash_review_3: Limits of the review
+    category_hash_review_4: What this review brings to the debate
+    category_hash_review_5: Remarks about the review
+    category_hash_review_6: Title of the review
     category_hash_review_7: Figure
-    category_hash_meta_0: Introduction à la méta-analyse
-    category_hash_meta_1: Expériences de la méta-analyse
-    category_hash_meta_2: Résultats de la méta-analyse
-    category_hash_meta_3: Limites de la méta-analyse
-    category_hash_meta_4: Ce que cette méta-analyse apporte au débat
-    category_hash_meta_5: Remarque(s) sur la méta-analyse
-    category_hash_meta_6: Titre de la méta-analyse
+    category_hash_meta_0: Introduction to the meta-analysis
+    category_hash_meta_1: Experiences of the meta-analysis
+    category_hash_meta_2: Results of the meta-analysis
+    category_hash_meta_3: Limits of the meta-analysis
+    category_hash_meta_4: What this meta-analysis brings to the debate
+    category_hash_meta_5: Remarks about the meta-analysis
+    category_hash_meta_6: Title of the meta-analysis
     category_hash_meta_7: Figure
-    category_hash_book_0: Introduction au livre
-    category_hash_book_1: Résumé et résultats du livre
-    category_hash_book_3: Limites du livre
-    category_hash_book_4: Ce que ce livre apporte au débat
-    category_hash_book_5: Remarque(s) sur le livre
-    category_hash_book_6: Titre du Livre
+    category_hash_book_0: Introduction to the book
+    category_hash_book_1: Summary and results of the book
+    category_hash_book_3: Limits of the book
+    category_hash_book_4: What this book brings to the debate
+    category_hash_book_5: Remarks about the book
+    category_hash_book_6: Title of the book
     category_hash_book_7: Figure
-    category_hash_phd_0: Introduction à la thèse
-    category_hash_phd_1: Résumé et résultats de la thèse
-    category_hash_phd_3: Limites de la thèse
-    category_hash_phd_4: Ce que cette thèse apporte au débat
-    category_hash_phd_5: Remarque(s) sur cette thèse
-    category_hash_phd_6: Intitulé de la thèse
+    category_hash_phd_0: Introduction to the thesis
+    category_hash_phd_1: Summary and results of the thesis
+    category_hash_phd_3: Limits of the thesis
+    category_hash_phd_4: What this thesis brings to the debate
+    category_hash_phd_5: Remarks about this thesis
+    category_hash_phd_6: Title of the thesis
     category_hash_phd_7: Figure
-    meta_description: ControverSciences est un portail collaboratif et indépendant
-      qui rassemble les publications scientifiques autour de questions controversées,
-      en les rendant accessible à tous.
-    meta_keywords: controverse scientifique débat discussion interpretation polémique
-    star_hash_1: Cette référence est peu rigoureuse et n'est pas importante pour comprendre la controverse.
-    star_hash_2: Cette référence est rigoureuse mais pas importante pour comprendre la controverse.
-    star_hash_3: Cette référence est peu rigoureuse mais est importante pour comprendre la controverse.
-    star_hash_4: Cette référence est rigoureuse et est importante pour comprendre la controverse.
-    star_hash_5: Cette référence est à lire absolument dans le cadre de cette controverse !
-    tags_hash_0: Archéologie
-    tags_hash_1: Biologie
-    tags_hash_10: Mathématiques
-    tags_hash_11: Médecine et santé
-    tags_hash_12: Physique
-    tags_hash_13: Psychologie
-    tags_hash_14: Sociologie
-    tags_hash_15: Technologie
-    tags_hash_2: Chimie
-    tags_hash_3: Ecologie
-    tags_hash_4: Epistémologie
-    tags_hash_5: Géographie
-    tags_hash_6: Géologie
-    tags_hash_7: Histoire
-    tags_hash_8: Informatique
-    tags_hash_9: Linguistique
-    user_profils_1: Sphinx
-    user_profils_2: Reformulateur
-    user_profils_3: Ecrivain
-    user_profils_4: Encyclopédiste
-    user_profils_5: Analyste
-    user_profils_6: Enthousiaste
-    user_profils_7: Juge
-    user_profils_8: Donateur
-    user_profils_9: Bienveillant
-    user_profils_info_1: A créé des controverses qui sont populaires.
-    user_profils_info_2: A écrit des propositions de formulation qui sont bien classées.
-    user_profils_info_3: A écrit des synthèses qui sont bien classées
-    user_profils_info_4: A ajouté des références qui sont bien classées.
-    user_profils_info_5: A ajouté des analyses qui sont bien classées.
-    user_profils_info_6: S'intéresse à des thèmes variés.
-    user_profils_info_7: A jugé la pertinence des références.
-    user_profils_info_8: A donné des crédits aux autres contributeurs.
-    user_profils_info_9: A corrigé des fautes d'orthographe.
+    meta_description: ControverSciences is a collaborative and independant portal 
+      gathering the scientific publications around controversial questions,
+      making them accessible for all.
+    meta_keywords: scientific controversy debate discussion interpretation polemical
+    star_hash_1: This reference lacks rigour and is not important to the understanding of the controversy.
+    star_hash_2: This reference is rigorous but is not important to the understanding of the controversy.
+    star_hash_3: This reference lacks rigour but is important to the understanding of the controversy.
+    star_hash_4: This reference is rigorous and is important to the understanding of the controversy.
+    star_hash_5: You must read this reference, it is crucial for this Controversy!
+    tags_hash_0: Archaeology
+    tags_hash_1: Biology
+    tags_hash_10: Mathematics
+    tags_hash_11: Medecine and Health
+    tags_hash_12: Physic
+    tags_hash_13: Psychology
+    tags_hash_14: Sociology
+    tags_hash_15: Technology
+    tags_hash_2: Chemistry
+    tags_hash_3: Ecology
+    tags_hash_4: Epistemology
+    tags_hash_5: Geography
+    tags_hash_6: Geology
+    tags_hash_7: History
+    tags_hash_8: Informatic
+    tags_hash_9: Linguistic
+    user_profils_1: !!!Sphinx
+    user_profils_2: Rephraser
+    user_profils_3: Writer
+    user_profils_4: Encyclopedist
+    user_profils_5: Analyst
+    user_profils_6: Enthusiastic
+    user_profils_7: Evaluator
+    user_profils_8: Donator
+    user_profils_9: Benevolent
+    user_profils_info_1: Created popular controversies.
+    user_profils_info_2: Wrote well-classified formula propositions.
+    user_profils_info_3: Wrote well-classified summaries.
+    user_profils_info_4: Add well-classified references.
+    user_profils_info_5: Add well-classified analysis.
+    user_profils_info_6: Takes interest in various topics.
+    user_profils_info_7: Evaluated the referencies' relevance.
+    user_profils_info_8: Gave the other contributors credits.
+    user_profils_info_9: Corrected language mistakes.
