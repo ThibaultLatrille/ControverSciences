@@ -27,8 +27,8 @@
                         <br/>
 
                         <div class="pretty">
-                          <div id="original" style="display: none"><%= patch.old_content %></div>
-                          <div id="changed" style="display: none"><%= patch.new_content(patch.old_content) %></div>
+                          <div id="original" style="display: none"><%= patch.parent_content %></div>
+                          <div id="changed" style="display: none"><%= patch.new_content(patch.parent_content) %></div>
                           <div id="diff"></div>
                         </div>
                         <br/>

@@ -18,7 +18,7 @@ class PatchesController < ApplicationController
     dmp = DiffMatchPatch.new
     @patch = patches.first
     if @patch
-      @text = @patch.old_content
+      @text = @patch.parent_content
       @new_text = dmp.patch_apply(patches.map { |patch| dmp.patch_from_text(patch.content) }.flatten, @text)[0]
     end
   end
@@ -49,9 +49,9 @@ class PatchesController < ApplicationController
     @patch = GoPatch.new(patch_params)
     @patch.target_user_id = @patch.frame.user_id
     @patch.user_id = current_user.id
-    old_content = @patch.old_content
+    parent_content = @patch.parent_content
     if @patch.content_errors.full_messages.blank?
-      @patch.save_as_list(old_content)
+      @patch.save_as_list(parent_content)
       redirect_to patches_mine_path(frame_id: @patch.frame_id, field: @patch.field )
     else
       @patch.content_errors.full_messages.each do |message|
