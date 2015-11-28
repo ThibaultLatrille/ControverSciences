@@ -1,0 +1,85 @@
+<% provide(:title, "Nouvelle correction") %>
+<div id="my-container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
+      <div class="list-group">
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2> <%= t('views.patches.if_not_yours_html') %>
+          </h2>
+          <br/>
+        </div>
+        <div class="panel-body">
+
+          <%= form_for(@patch, url: patches_path) do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
+
+              <%= f.hidden_field :summary_id, value: @patch.summary_id %>
+              <%= f.hidden_field :comment_id, value: @patch.comment_id %>
+              <%= f.hidden_field :frame_id, value: @patch.frame_id %>
+              <%= f.hidden_field :field, value: @patch.field %>
+
+              <b style="font-size: 1.4em">Correction</b>
+              <br>
+
+              <div id="characterLeft"></div>
+
+              <%= f.text_area :content, class: 'form-control textarea', id: "description" %>
+
+              <br>
+              <%= f.button "#{t('views.patches.send')} &nbsp <span class=\"bigger icon-bug-#{rand(18)}\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success pull-right',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.sending')} "} %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $("#description").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
+    });
+    $(document).ready(function () {
+        var max = <%= @patch.content_ch_max %>, min = <%= @patch.content_ch_min %>;
+
+        var len = $('#description').val().length;
+        if (len >= max) {
+            var ch = len - max;
+            $('#characterLeft').css({"color": "#a94442"});
+            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
+        } else if (len <= min) {
+            var ch = min - len;
+            $('#characterLeft').css({"color": "#a94442"});
+            $('#characterLeft').text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
+        } else {
+            var ch = max - len;
+            $('#characterLeft').css({"color": "#5cb85c"});
+            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
+        }
+        $('#description').keyup(function () {
+            var len = $(this).val().length;
+            if (len >= max) {
+                var ch = len - max;
+                $('#characterLeft').css({"color": "#a94442"});
+                $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
+            } else if (len <= min) {
+                var ch = min - len;
+                $('#characterLeft').css({"color": "#a94442"});
+                $('#characterLeft').text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
+            } else {
+                var ch = max - len;
+                $('#characterLeft').css({"color": "#5cb85c"});
+                $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
+            }
+        });
+    });
+</script>
+

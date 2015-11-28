@@ -1,47 +1,30 @@
 class GoPatch < ActiveRecord::Base
   belongs_to :user
-  belongs_to :summary
-  belongs_to :comment
   belongs_to :frame
-
   belongs_to :target_user, class_name: "User", foreign_key: "target_user_id"
 
   after_create :increment_nb_notifs
   after_destroy :decrement_nb_notifs
 
   def save_as_list(old_content)
+    GoPatch.where(field: field, frame_id: frame_id, user_id: user_id).destroy_all
     dmp = DiffMatchPatch.new
     patches = dmp.patch_make(old_content, self.content)
     patches.each do |patch|
       new = GoPatch.new(content: dmp.patch_to_text([patch]),
-                      comment_id: comment_id, summary_id: summary_id,
-                      target_user_id: target_user_id, field: field,
-                      frame_id: frame_id, user_id: user_id)
+                        target_user_id: target_user_id, field: field,
+                        frame_id: frame_id, user_id: user_id)
       new.save!
     end
   end
 
   def old_content
-    if !summary_id.blank?
-      self.summary.content
-    elsif !comment_id.blank?
-      self.comment.field_content(self.field.to_i)
-    elsif !frame_id.blank?
-      case self.field.to_i
-        when 0
-          self.frame.name
-        when 1
-          self.frame.content
-      end
+    case self.field.to_i
+      when 0
+        self.frame.name
+      when 1
+        self.frame.content
     end
-  end
-
-  def summary_short
-    Summary.select(:id, :user_id, :timeline_id).find(self.summary_id)
-  end
-
-  def comment_short
-    Comment.select(:id, :user_id, :reference_id, :timeline_id).find(self.comment_id)
   end
 
   def frame_short
@@ -50,135 +33,67 @@ class GoPatch < ActiveRecord::Base
 
   def new_content(text)
     dmp = DiffMatchPatch.new
-    dmp.patch_apply(dmp.patch_from_text(self.content), text)[0]
+    dmp.patch_apply(dmp.patch_from_text(self.content), text)[0].force_encoding("UTF-8")
   end
 
   def apply_content(current_user_id, admin)
-    if !summary_id.blank?
-      sum = self.summary
-      if sum.user_id == current_user_id || admin
-        sum.content = new_content(sum.content)
-        sum.update_with_markdown
+    fra = self.frame
+    if fra.user_id == current_user_id || admin
+      if self.field == 0
+        original = fra.name
+        modified = new_content(original)
+        fra.name = modified
       else
-        false
+        original = fra.content
+        modified = new_content(original)
+        fra.content = modified
       end
-    elsif !comment_id.blank?
-      com = self.comment
-      if com.user_id == current_user_id || admin
-        case self.field
-          when 6
-            com.title = new_content(com.title)
-          when 7
-            com.caption = new_content(com.caption)
-          else
-            com["f_#{field}_content"] = new_content(com["f_#{field}_content"])
+      dmp = DiffMatchPatch.new
+      patch_total = dmp.patch_make(original, modified)
+      if fra.save_with_markdown
+        GoPatch.where(field: field, frame_id: frame_id).where.not(id: self.id).each do |go_patch|
+          r = dmp.patch_from_text(go_patch.content)
+          text = dmp.patch_apply(patch_total + r, original)[0].force_encoding("UTF-8")
+          patch = dmp.patch_make(modified, text)
+          go_patch.update_column(:content, dmp.patch_to_text(patch))
         end
-        com.update_with_markdown
       else
         false
       end
-    elsif !frame_id.blank?
-      fra = self.frame
-      if fra.user_id == current_user_id || admin
-        if self.field == 0
-          fra.name = new_content(fra.name)
-        else
-          fra.content = new_content(fra.content)
-        end
-        fra.save_with_markdown
-      else
-        false
-      end
-    end
-  end
-
-  def set_content(current_user_id, admin)
-    if !summary_id.blank?
-      sum = self.summary
-      if sum.user_id == current_user_id || admin
-        sum.content = self.content
-        sum.update_with_markdown
-      else
-        false
-      end
-    elsif !comment_id.blank?
-      com = self.comment
-      if com.user_id == current_user_id || admin
-        case self.field
-          when 6
-            com.title = self.content
-          when 7
-            com.caption = self.content
-          else
-            com["f_#{field}_content"] = self.content
-        end
-        com.update_with_markdown
-      else
-        false
-      end
-    elsif !frame_id.blank?
-      fra = self.frame
-      if fra.user_id == current_user_id || admin
-        if self.field == 0
-          fra.name = self.content
-        else
-          fra.content = self.content
-        end
-        fra.save_with_markdown
-      else
-        false
-      end
+    else
+      false
     end
   end
 
   def content_index
-    if !summary_id.blank?
-      self.summary_id
-    elsif !comment_id.blank?
-      self.comment_id*10 + self.field
-    elsif !frame_id.blank?
-      self.frame_id*10 + self.field
+    self.frame_id*10 + self.field
+  end
+
+  def content_ch_max
+    if self.field == 0
+      180
+    else
+      2500
     end
   end
 
-  def get_model_errors
-    if !summary_id.blank?
-      self.summary.errors
-    elsif !comment_id.blank?
-      self.comment.errors
-    elsif !frame_id.blank?
-      self.frame.errors
+  def content_ch_min
+    if self.field == 0
+      0
+    else
+      180
     end
   end
 
-  def is_content_valid
-    if !summary_id.blank?
-      sum = self.summary
-      sum.content = self.content
-      sum.valid?
-      sum.errors
-    elsif !comment_id.blank?
-      com = self.comment
-      case self.field
-        when 6
-          com.title = self.content
-        when 7
-          com.caption = self.content
-        else
-          com["f_#{field}_content"] = self.content
-      end
-      com.valid?
-      com.errors
-    elsif !frame_id.blank?
-      fra = self.frame
-      if self.field == 0
-        fra.name = self.content
-      else
-        fra.content = self.content
-      end
-      fra.valid?
-      fra.errors
+  def content_errors
+    fra = self.frame
+    if self.field == 0
+      fra.name = self.content
+    else
+      fra.content = self.content
     end
+    fra.valid?
+    fra.errors
   end
 
   private

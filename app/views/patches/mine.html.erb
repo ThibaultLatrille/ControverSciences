@@ -1,0 +1,52 @@
+<% provide(:title, "Notifications") %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/diff_match_patch/20121119/diff_match_patch.js"></script>
+
+<div id="my-container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+      <div class="panel panel-primary">
+        <% if @patch %>
+            <br>
+            <div class="row">
+              <div class="col-xs-10 col-xs-offset-1">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <b>
+                      <%= link_to @patch.field == 0 ? t('views.model.frame_0') : t('views.model.frame_1'),
+                                  frame_path(@patch.frame_id) %> de la controverse
+                      <%= link_to @patch.frame_short.timeline_name.html_safe, timeline_path(@patch.frame_short.timeline_id) %>
+                    </b>
+                    <br/>
+                    <br/>
+
+                    <div class="pretty">
+                      <div id="original" style="display: none"><%= @text %></div>
+                      <div id="changed" style="display: none"><%= @new_text.force_encoding("UTF-8") %></div>
+                      <div id="diff"></div>
+                    </div>
+                    <br/>
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> Modifier mes suggestions".html_safe,
+                                new_patch_path(frame_id: @patch.frame_id,
+                                               comment_id: @patch.comment_id,
+                                               summary_id: @patch.summary_id,
+                                               field: @patch.field, edit: true),
+                                class: "btn btn-primary pull-right",
+                                style: "padding: 8px; margin: 0px 8px;" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(".pretty").prettyTextDiff({
+        cleanup: true,
+        originalContainer: "#original",
+        changedContainer: "#changed",
+        diffContainer: "#diff"
+    });
+</script>

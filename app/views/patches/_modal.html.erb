@@ -10,31 +10,31 @@
           <div class="panel-heading">
             <% if patch.target_user_id == current_user.id %>
                 <b>
-			<%= t('views.patches.if_yours') %>
-		</b>
-            <% else %>
-                <b>
-			<%= t('views.patches.if_not_yours_html') %>
+                  Modifier votre contribution
                 </b>
+            <% else %>
+                <div class="row">
+                  <div class="col-xs-12 col-md-6">
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> Correction".html_safe,
+                                new_patch_path(frame_id: patch.frame_id,
+                                               comment_id: patch.comment_id,
+                                               summary_id: patch.summary_id,
+                                               field: patch.field),
+                                style: "padding: 8px; margin: 0px 8px;" %>
+                    <br>
+                    // gerer le cas ou le user a déjà des patches
+                  </div>
+                  <div class="col-xs-12 col-md-6">
+                    <%= link_to "<span class=\"fat icon-fork\"></span> Correction".html_safe,
+                                new_frame_path(timeline_id: patch.frame.timeline_id),
+                                style: "padding: 8px; margin: 0px 8px;" %>
+                    <br>
+                    // gerer le cas ou le user à déjà une patches
+                  </div>
+                </div>
             <% end %>
           </div>
         </div>
-        <%= form_for(patch, url: patches_path, remote: true,
-                     html:      {role: :form, 'data-model' => 'issue'}) do |f| %>
-            <%= f.hidden_field :summary_id, value: patch.summary_id %>
-            <%= f.hidden_field :comment_id, value: patch.comment_id %>
-            <%= f.hidden_field :frame_id, value: patch.frame_id %>
-            <%= f.hidden_field :field, value: patch.field %>
-            <%= f.label :content, t('views.patches.content'), class: 'control-label' %>
-            <br>
-            <%= f.text_area :content, class: 'form-control textarea' %>
-            <div class="actions pull-right">
-              <br/>
-	      <%= f.button "#{t('views.patches.send')} &nbsp <span class=\"bigger icon-bug-#{rand(18)}\" aria-hidden=\"true\"></span>".html_safe,
-                           class: 'btn btn-success',
-                           data:  {disable_with: "<span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.sending')} "} %>
-            </div>
-        <% end %>
       </div>
     </div>
   </div>

@@ -50,8 +50,10 @@ Rails.application.routes.draw do
   resources :contributions, only: [:index]
   resources :typos, only: [:create, :new, :index, :show, :destroy]
   get 'typos_accept' => 'typos#accept', as: 'typos_accept'
-  resources :patches, only: [:create, :new, :index, :show, :destroy]
+  resources :patches, only: [:create, :show, :new, :index, :destroy]
   get 'patches_accept' => 'patches#accept', as: 'patches_accept'
+  get 'patches_mine' => 'patches#mine', as: 'patches_mine'
+  get 'patches_modal' => 'patches#modal', as: 'patches_modal'
   resources :pending_users, only: [:destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
   resources :questions, only: [:create, :edit, :update, :destroy]
