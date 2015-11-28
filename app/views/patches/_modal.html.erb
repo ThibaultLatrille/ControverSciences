@@ -1,41 +1,94 @@
 <div class="modal fade" id="newpatch" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog <%= patch.target_user_id == current_user.id ? nil : "modal-lg" %> ">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <br/>
       </div>
-      <div class="modal-body clearfix">
-        <div class="panel panel-info">
-          <div class="panel-heading">
-            <% if patch.target_user_id == current_user.id %>
-                <b>
-                  Modifier votre contribution
-                </b>
+      <div class="modal-body center bigger clearfix">
+        <% if patch.target_user_id == current_user.id %>
+            <% if GoPatch.where(target_user_id: current_user.id, frame_id: patch.frame_id).count > 0 %>
+                Vous avez des suggestions en attentes pour cette contribution
+                <br>
+                <br>
+                <%= link_to "<span class=\"badge badge-li\"> #{GoPatch.where(target_user_id: current_user.id, frame_id: patch.frame_id).count}</span> Étudier les suggestions".html_safe,
+                            patches_target_path(frame_id: patch.frame_id),
+                            class: "btn btn-primary btn-lg" %>
+
             <% else %>
-                <div class="row">
-                  <div class="col-xs-12 col-md-6">
-                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> Correction".html_safe,
+                Souhaitez vous modifier votre contribution ?
+                <br>
+                <br>
+                <%= link_to "<span class=\"icon icon-summary\"></span> Modifier votre contribution".html_safe,
+                            edit_frame_path(patch.frame_id),
+                            class: "btn btn-primary btn-lg" %>
+            <% end %>
+        <% else %>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                Vous pouvez suggérer des améliorations à l'auteur de cette
+                contribution, qu'il validera ensuite selon son bon vouloir.
+                <br>
+                <br>
+                <br>
+                <% if GoPatch.where(user_id: current_user.id, frame_id: patch.frame_id, field: patch.field).count > 0 %>
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> <br> Voir mes suggestions".html_safe,
+                                patches_mine_path(frame_id: patch.frame_id, field: patch.field),
+                                class: "btn btn-primary btn-lg" %>
+                    <br><br>
+                    <div class="panel-danger panel">
+                      <div class="panel-heading">
+                        <span class="glyphicon glyphicon-warning-sign"></span>
+                        Vos suggestions pour cette contribution sont en attentes.
+                      </div>
+                    </div>
+                <% else %>
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> <br> Suggérer une amélioration".html_safe,
                                 new_patch_path(frame_id: patch.frame_id,
                                                comment_id: patch.comment_id,
                                                summary_id: patch.summary_id,
                                                field: patch.field),
-                                style: "padding: 8px; margin: 0px 8px;" %>
-                    <br>
-                    // gerer le cas ou le user a déjà des patches
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <%= link_to "<span class=\"fat icon-fork\"></span> Correction".html_safe,
-                                new_frame_path(timeline_id: patch.frame.timeline_id),
-                                style: "padding: 8px; margin: 0px 8px;" %>
-                    <br>
-                    // gerer le cas ou le user à déjà une patches
-                  </div>
+                                class: "btn btn-primary btn-lg" %>
+                <% end %>
+                <div class="center" style="font-size: 0.8em">
+                  Utilisez cette option pour les fautes de français et l'amélioration des tournures de phrases
                 </div>
-            <% end %>
-          </div>
-        </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                Vous pouvez proposer une nouvelle version. Dans ces cas les contributeurs pourront
+                voter entre les diffèrentes version et la meilleure sera mise en avant.
+                <br>
+                <br>
+                <% if Frame.where(user_id: current_user.id, timeline_id: patch.frame.timeline_id).count > 0 %>
+                    <%= link_to "<span class=\"fat icon-fork\"></span> <br> Modifier votre propre version".html_safe,
+                                new_frame_path(timeline_id: patch.frame.timeline_id),
+                                class: "btn btn-primary btn-lg" %>
+                    <br><br>
+                    <div class="panel-danger panel">
+                      <div class="panel-heading">
+                        <span class="glyphicon glyphicon-warning-sign"></span>
+                        Vous avez déjà écrit votre propre version.
+                      </div>
+                    </div>
+                <% else %>
+                    <%= link_to "<span class=\"fat icon-fork\"></span> <br> Proposer une nouvelle version".html_safe,
+                                new_frame_path(timeline_id: patch.frame.timeline_id),
+                                class: "btn btn-primary btn-lg" %>
+                <% end %>
+                <br>
+                <br>
+
+                <div class="center" style="font-size: 0.8em">
+                  Utilisez cette option si vous n'êtes pas d'accord avec le contributeur et que vous inférer
+                  qu'il n'acceptera pas vos proposition.
+                </div>
+              </div>
+            </div>
+        <% end %>
+        <br>
+        <br>
       </div>
     </div>
   </div>
+</div>
 </div>
