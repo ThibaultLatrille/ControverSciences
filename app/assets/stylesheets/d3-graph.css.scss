@@ -25,6 +25,16 @@
   background-color: rgba(255, 255, 255, 0);
 }
 
+.side-bar-right {
+  position: fixed;
+  top: 86px;
+  right: 15px;
+  float: right;
+  border-radius: 0;
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0);
+}
+
 .side-bar {
   position: fixed;
   bottom: 70px;
