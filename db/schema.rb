@@ -232,23 +232,6 @@ ActiveRecord::Schema.define(version: 20151127122655) do
   add_index "frames", ["timeline_id"], name: "index_frames_on_timeline_id", using: :btree
   add_index "frames", ["user_id"], name: "index_frames_on_user_id", using: :btree
 
-  create_table "go_patches", force: true do |t|
-    t.integer  "comment_id"
-    t.integer  "user_id"
-    t.integer  "summary_id"
-    t.integer  "field"
-    t.integer  "target_user_id"
-    t.integer  "frame_id"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "go_patches", ["comment_id"], name: "index_go_patches_on_comment_id", using: :btree
-  add_index "go_patches", ["frame_id"], name: "index_go_patches_on_frame_id", using: :btree
-  add_index "go_patches", ["summary_id"], name: "index_go_patches_on_summary_id", using: :btree
-  add_index "go_patches", ["user_id"], name: "index_go_patches_on_user_id", using: :btree
-
   create_table "invitations", force: true do |t|
     t.integer  "user_id"
     t.text     "message"
@@ -763,8 +746,6 @@ ActiveRecord::Schema.define(version: 20151127122655) do
     t.string   "slug"
     t.boolean  "private_timeline",  default: false
     t.integer  "nb_private",        default: 0
-    t.integer  "my_patches",        default: 0
-    t.integer  "target_patches",    default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
