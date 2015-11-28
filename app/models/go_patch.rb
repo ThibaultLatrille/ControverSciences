@@ -3,9 +3,6 @@ class GoPatch < ActiveRecord::Base
   belongs_to :frame
   belongs_to :target_user, class_name: "User", foreign_key: "target_user_id"
 
-  after_create :increment_nb_notifs
-  after_destroy :decrement_nb_notifs
-
   def save_as_list(old_content)
     GoPatch.where(field: field, frame_id: frame_id, user_id: user_id).destroy_all
     dmp = DiffMatchPatch.new
@@ -55,7 +52,11 @@ class GoPatch < ActiveRecord::Base
           r = dmp.patch_from_text(go_patch.content)
           text = dmp.patch_apply(patch_total + r, original)[0].force_encoding("UTF-8")
           patch = dmp.patch_make(modified, text)
-          go_patch.update_column(:content, dmp.patch_to_text(patch))
+          if patch.blank?
+            go_patch.destroy
+          else
+            go_patch.update_column(:content, dmp.patch_to_text(patch))
+          end
         end
       else
         false
@@ -94,19 +95,5 @@ class GoPatch < ActiveRecord::Base
     end
     fra.valid?
     fra.errors
-  end
-
-  private
-
-  def increment_nb_notifs
-    unless User.select(:private_timeline).find(self.target_user_id).private_timeline
-      User.increment_counter(:nb_notifs, self.target_user_id)
-    end
-  end
-
-  def decrement_nb_notifs
-    unless User.select(:private_timeline).find(self.target_user_id).private_timeline
-      User.decrement_counter(:nb_notifs, self.target_user_id)
-    end
   end
 end

@@ -23,13 +23,13 @@ class ApplicationController < ActionController::Base
         current_user.empty_summaries  = Timeline.where(user_id: current_user.id, nb_summaries: 0)
                                             .where.not(nb_references: 0..3).count
         current_user.invited = PrivateTimeline.where(user_id: current_user.id).count
+        current_user.notif_patches = GoPatch.where(target_user_id: current_user.id).count
         if current_user.can_switch_admin
-          current_user.admin_typos = Typo.where.not(target_user_id: current_user.id ).count
           current_user.admin_patches = GoPatch.where.not(target_user_id: current_user.id ).count
           current_user.admin_dead_links = DeadLink.all.count
           current_user.admin_pending_users = PendingUser.where.not(refused: true).count
         else
-          current_user.admin_patches = current_user.admin_typos = current_user.admin_dead_links = current_user.admin_pending_users = 0
+          current_user.admin_patches = current_user.admin_dead_links = current_user.admin_pending_users = 0
         end
       end
     end

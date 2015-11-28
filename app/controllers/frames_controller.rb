@@ -52,13 +52,17 @@ class FramesController < ApplicationController
 
   def edit
     @frame       = Frame.find(params[:id])
-    @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
-    if @frame.binary != ""
-      @frame.binary_left  = @frame.binary.split('&&')[0]
-      @frame.binary_right = @frame.binary.split('&&')[1]
-      @frame.binary       = true
+    if GoPatch.where( frame_id: params[:id] ).count > 0
+      redirect_to patches_target_path(frame_id: params[:id])
     else
-      @frame.binary = false
+      @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
+      if @frame.binary != ""
+        @frame.binary_left  = @frame.binary.split('&&')[0]
+        @frame.binary_right = @frame.binary.split('&&')[1]
+        @frame.binary       = true
+      else
+        @frame.binary = false
+      end
     end
   end
 

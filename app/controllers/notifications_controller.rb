@@ -88,11 +88,10 @@ class NotificationsController < ApplicationController
   end
 
   def patches
-    @notification_selections = NotificationSelection.where(user_id: current_user.id).group_by{ |notif| notif.win }
     if current_user.private_timeline
-      @typos = []
+      @patches = []
     else
-      @typos = GoPatch.where( target_user_id: current_user.id )
+      @patches = GoPatch.where( target_user_id: current_user.id ).group_by{ |patch| patch.frame_id }
     end
   end
 

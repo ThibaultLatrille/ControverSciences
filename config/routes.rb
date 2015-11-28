@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   resources :patches, only: [:create, :show, :new, :index, :destroy]
   get 'patches_accept' => 'patches#accept', as: 'patches_accept'
   get 'patches_mine' => 'patches#mine', as: 'patches_mine'
+  get 'patches_target' => 'patches#target', as: 'patches_target'
   get 'patches_modal' => 'patches#modal', as: 'patches_modal'
   resources :pending_users, only: [:destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
@@ -116,6 +117,7 @@ Rails.application.routes.draw do
   get 'assistant/profils' => 'assistant#profils'
   get 'notifications/index'
   get 'notifications/important'
+  get 'notifications/patches'
   get 'notifications/delete_all'
   get 'notifications/delete_all_important'
   get 'notifications/timeline'

@@ -284,7 +284,7 @@ fr:
       refuse: Refuser la correction
       send: Envoyer la correction
       sent: Votre correction a bien été envoyée à l'auteur.
-      to_valid: Les corrections à valider
+      to_valid: Les suggestions à étudier
     private_timelines:
       to_timeline: Voir les contributeurs participants à cette controverse privée.
       new_private_timeline: Inviter des contributeurs à participer à cette controverse

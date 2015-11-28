@@ -1,5 +1,5 @@
 class PatchesController < ApplicationController
-  before_action :logged_in_user, only: [:accept, :mine, :modal, :new, :create, :destroy, :index]
+  before_action :logged_in_user, only: [:accept, :mine, :modal, :new, :target, :create, :destroy, :index]
   before_action :admin_user, only: [:index]
 
   def modal
@@ -61,8 +61,13 @@ class PatchesController < ApplicationController
     end
   end
 
+  def target
+    @patches = GoPatch.where(target_user_id: current_user.id,
+                      frame_id: get_params[:frame_id])
+  end
+
   def index
-    @patches = GoPatch.all
+    @patches = GoPatch.where(user_id: current_user.id)
   end
 
   def accept
@@ -76,7 +81,7 @@ class PatchesController < ApplicationController
     if current_user.admin
       redirect_to patches_path
     else
-      redirect_to notifications_important_path
+      redirect_to patches_target_path(frame_id: @patch.frame_id)
     end
   end
 
@@ -88,7 +93,7 @@ class PatchesController < ApplicationController
     if current_user.admin
       redirect_to patches_path
     else
-      redirect_to notifications_important_path
+      redirect_to patches_target_path(frame_id: @patch.frame_id)
     end
   end
 

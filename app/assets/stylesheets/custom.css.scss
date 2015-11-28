@@ -785,15 +785,6 @@ a:hover, a:active, a.active, a.focus, a:focus{
   }
 }
 
-.badge-header{
-  color: #4E7DC9;
-  background-color: #FDFDFD;
-}
-
-.badge-li{
-  background-color: $red-error;
-}
-
 ins {
   background-color: #c6ffc6;
   text-decoration: none;
@@ -810,8 +801,32 @@ del {
   font-size: 1.2em;
 }
 
+.badge-header{
+  color: #FDFDFD;
+  background-color: #4E7DC9;
+}
+
 .my-missing{
   background-color: #4E7DC9;
+  a{
+    color: white !important;
+  }
+  .badge-header{
+    color: #4E7DC9;
+    background-color: #FDFDFD;
+  }
+}
+
+.my-important{
+  background-color: $red-error;
+  a{
+    color: white !important;
+  }
+}
+
+.badge-li{
+  color: $red-error;
+  background-color: #FDFDFD;
 }
 
 .hover-red{

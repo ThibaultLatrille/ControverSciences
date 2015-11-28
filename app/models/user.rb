@@ -47,7 +47,7 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token, :reset_token, :why,
                 :invalid_email, :terms_of_service, :invited, :timelines_count,
                 :empty_references, :empty_comments, :empty_summaries, :admin_patches,
-                :admin_typos, :admin_dead_links, :admin_pending_users
+                :notif_patches, :admin_dead_links, :admin_pending_users
   before_save :downcase_email
   before_create :create_activation_digest
 
@@ -161,16 +161,8 @@ class User < ActiveRecord::Base
     Notification.where(user_id: self.id).count
   end
 
-  def notifications_typo
-    Typo.where(target_user_id: self.id).count
-  end
-
-  def notifications_patch
-    GoPatch.where(target_user_id: self.id).count
-  end
-
   def notifications_count
-    notifications_all + nb_notifs + admin_typos + admin_patches + admin_dead_links + admin_pending_users + invited
+    notifications_all + notif_patches + nb_notifs + admin_patches + admin_dead_links + admin_pending_users
   end
 
   # Creates and assigns the activation token and digest.
