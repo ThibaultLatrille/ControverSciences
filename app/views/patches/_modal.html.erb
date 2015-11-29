@@ -1,5 +1,5 @@
 <div class="modal fade" id="newpatch" tabindex="-1" role="dialog">
-  <div class="modal-dialog <%= patch.target_user_id == current_user.id ? nil : "modal-lg" %> ">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -40,11 +40,8 @@
         <% else %>
             <div class="row">
               <div class="col-xs-12 col-md-6">
-                <div>
-                  <span class="fat icon-bug-<%=rand(18)%>"></span>
-                </div>
+                <br>
                 <%= t('views.patches.suggest') %>
-
                 <br>
                 <br>
                 <br>
@@ -73,21 +70,15 @@
                                                summary_id: patch.summary_id,
                                                field: patch.field),
                                 class: "btn btn-primary btn-lg" %>
+                    <br>
+                    <br>
+                    <div class="center">
+                      <%= t('views.patches.why') %>
+                    </div>
                 <% end %>
-                <br>
-                <br>
-                <div class="center">
-                  <%= t('views.patches.why') %>
-                </div>
               </div>
               <div class="col-xs-12 col-md-6">
-                <div>
-                  <% if patch.comment_id %>
-                      <span class="fat icon-comment"></span>
-                  <% elsif patch.summary_id %>
-                      <span class="fat icon-summary"></span>
-                  <% end %>
-                </div>
+                <br>
                 <%= t('views.patches.version') %>
 
                 <br>
@@ -111,13 +102,20 @@
                                         new_frame_path(timeline_id: patch.frame.timeline_id) : patch.summary_id ?
                                         new_summary_path(timeline_id: patch.summary.timeline_id) : new_comment_path(reference_id: patch.comment.reference_id),
                                 class: "btn btn-primary btn-lg" %>
-                <% end %>
-                <br>
-                <br>
+                    <br>
+                    <br>
 
-                <div class="center" >
-                  <%= t('views.patches.why_version') %>
-                </div>
+                    <div class="center" >
+                      <%= t('views.patches.why_version') %>
+                    </div>
+                <% end %>
+                <% if patch.all_contributions > 1 %>
+                    <%= link_to "<span class=\"badge badge-li\"> #{patch.all_contributions}</span> #{t('views.patches.all_contribs')}".html_safe,
+                                patch.frame_id ?
+                                        frames_path(timeline_id: patch.frame.timeline_id) : patch.summary_id ?
+                                        summaries_path(timeline_id: patch.summary.timeline_id) : reference_path( patch.comment.reference_id),
+                                class: "btn btn-primary " %>
+                <% end %>
               </div>
             </div>
         <% end %>

@@ -42,6 +42,16 @@ class GoPatch < ActiveRecord::Base
     self.parent[self.parent_content_accessor]
   end
 
+  def all_contributions
+    if !summary_id.blank?
+      self.summary.timeline.nb_summaries
+    elsif !comment_id.blank?
+      CommentJoin.where( reference_id: self.comment.reference_id, field: self.field ).count
+    elsif !frame_id.blank?
+      self.frame.timeline.nb_frames
+    end
+  end
+
   def mine_parent
     if !summary_id.blank?
       Summary.find_by(user_id: self.user_id, timeline_id: self.summary.timeline_id)
