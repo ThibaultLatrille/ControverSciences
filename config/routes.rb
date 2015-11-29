@@ -48,8 +48,6 @@ Rails.application.routes.draw do
   resources :reference_edge_votes, only: [:create, :destroy]
   resources :reference_user_tags, only: [:create, :update]
   resources :contributions, only: [:index]
-  resources :typos, only: [:create, :new, :index, :show, :destroy]
-  get 'typos_accept' => 'typos#accept', as: 'typos_accept'
   resources :patches, only: [:create, :show, :new, :index, :destroy]
   get 'patches_accept' => 'patches#accept', as: 'patches_accept'
   get 'patches_mine' => 'patches#mine', as: 'patches_mine'

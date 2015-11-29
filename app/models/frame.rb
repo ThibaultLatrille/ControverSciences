@@ -9,7 +9,6 @@ class Frame < ActiveRecord::Base
 
   has_many :frame_credits, dependent: :destroy
   has_many :notifications, dependent: :destroy
-  has_many :typos, dependent: :destroy
   has_many :notification_selections, dependent: :destroy
   has_many :go_patches, dependent: :destroy
 

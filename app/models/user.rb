@@ -22,9 +22,7 @@ class User < ActiveRecord::Base
   has_many :suggestion_children, dependent: :destroy
   has_many :suggestion_votes, dependent: :destroy
   has_many :suggestion_child_votes, dependent: :destroy
-  has_many :typos, dependent: :destroy
   has_many :go_patches, dependent: :destroy
-  has_many :received_typos, class_name: "Typo", foreign_key: "target_user_id", dependent: :destroy
   has_many :received_patches, class_name: "GoPatch", foreign_key: "target_user_id", dependent: :destroy
   has_many :frames, dependent: :destroy
   has_many :frame_credits, dependent: :destroy

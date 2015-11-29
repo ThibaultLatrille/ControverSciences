@@ -52,7 +52,7 @@ module AssisstantHelper
       user_detail.profil[8] = Float(Credit.where(user_id: user_detail.user_id ).count +
           FrameCredit.where(user_id: user_detail.user_id ).count +
           Vote.where(user_id: user_detail.user_id ).count)
-      user_detail.profil[9] = User.find( user_detail.user_id).my_typos
+      user_detail.profil[9] = User.find( user_detail.user_id).my_patches
       max.keys.each do |key|
         max[key] = (max[key] > user_detail.profil[key]) ? max[key] : user_detail.profil[key]
       end

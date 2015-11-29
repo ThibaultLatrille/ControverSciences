@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127122655) do
+ActiveRecord::Schema.define(version: 20151129132418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -707,23 +707,6 @@ ActiveRecord::Schema.define(version: 20151127122655) do
   add_index "timelines", ["slug"], name: "index_timelines_on_slug", unique: true, using: :btree
   add_index "timelines", ["user_id"], name: "index_timelines_on_user_id", using: :btree
 
-  create_table "typos", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "summary_id"
-    t.integer  "comment_id"
-    t.integer  "field"
-    t.integer  "target_user_id"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "frame_id"
-  end
-
-  add_index "typos", ["comment_id"], name: "index_typos_on_comment_id", using: :btree
-  add_index "typos", ["frame_id"], name: "index_typos_on_frame_id", using: :btree
-  add_index "typos", ["summary_id"], name: "index_typos_on_summary_id", using: :btree
-  add_index "typos", ["user_id"], name: "index_typos_on_user_id", using: :btree
-
   create_table "user_details", force: true do |t|
     t.integer  "user_id"
     t.string   "institution"
@@ -757,8 +740,6 @@ ActiveRecord::Schema.define(version: 20151127122655) do
     t.datetime "reset_sent_at"
     t.integer  "important"
     t.integer  "nb_notifs",         default: 0
-    t.integer  "my_typos",          default: 0
-    t.integer  "target_typos",      default: 0
     t.boolean  "can_switch_admin",  default: false
     t.string   "slug"
     t.boolean  "private_timeline",  default: false

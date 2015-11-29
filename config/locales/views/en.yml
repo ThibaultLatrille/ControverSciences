@@ -277,19 +277,6 @@ en:
       remember_me: Remember me for my next visits.
       action_login: Please login to do this action
       server_dead: The servor doesn't answer
-    typos:
-      accept: Accept correction
-      accepted: The mistake was corrected!
-      already_sent: You already submitted a correction to this contribution, it's awaiting validation !
-      content: Correction
-      if_not_yours_html: |-
-        If you burnt your eyes on a language mistake, or if you want to suggest something to the author, you're in the right place! <br/>
-                          This will be sent to them so they can validate it.
-      if_yours: If you burnt your eyes on a language mistake in your own contribution, you can correct it.
-      refuse: Refuse correction
-      send: Send correction
-      sent: Your correction was sent to the author.
-      to_valid: Corrections to validate
     mailer:
       activate: Activate my account
       and: and

@@ -80,11 +80,6 @@ class NotificationsController < ApplicationController
 
   def important
     @notification_selections = NotificationSelection.where(user_id: current_user.id).group_by{ |notif| notif.win }
-    if current_user.private_timeline
-      @typos = []
-    else
-      @typos = Typo.where( target_user_id: current_user.id )
-    end
   end
 
   def patches
