@@ -95,7 +95,7 @@ gem 'friendly_id', '~> 5.0.0'
 gem 'slack-ruby-client'
 
 # Diff Match Patch Native
-gem 'diff_match_patch_native'
+gem 'diff_match_patch'
 
 group :test do
   gem 'minitest-reporters', '1.0.5'

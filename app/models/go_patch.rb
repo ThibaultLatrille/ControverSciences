@@ -71,7 +71,7 @@ class GoPatch < ActiveRecord::Base
     dmp = DiffMatchPatch.new
     patches = dmp.patch_make(parent_content, self.content)
     patches.each do |patch|
-      new = GoPatch.new(content: dmp.patch_to_text([patch]),
+      new = GoPatch.new(content: dmp.patch_toText([patch]),
                         target_user_id: target_user_id,
                         field: field,
                         frame_id: frame_id,
@@ -96,7 +96,7 @@ class GoPatch < ActiveRecord::Base
 
   def new_content(text)
     dmp = DiffMatchPatch.new
-    dmp.patch_apply(dmp.patch_from_text(self.content), text)[0].force_encoding("UTF-8")
+    dmp.patch_apply(dmp.patch_fromText(self.content), text)[0].force_encoding("UTF-8")
   end
 
   def apply_content(current_user_id, admin)
@@ -112,13 +112,13 @@ class GoPatch < ActiveRecord::Base
                       frame_id: frame_id,
                       summary_id: summary_id,
                       comment_id: comment_id).where.not(id: self.id).each do |go_patch|
-          r = dmp.patch_from_text(go_patch.content)
+          r = dmp.patch_fromText(go_patch.content)
           text = dmp.patch_apply(patch_total + r, original)[0].force_encoding("UTF-8")
           patch = dmp.patch_make(modified, text)
           if patch.blank?
             go_patch.destroy
           else
-            go_patch.update_column(:content, dmp.patch_to_text(patch))
+            go_patch.update_column(:content, dmp.patch_toText(patch))
           end
         end
       else

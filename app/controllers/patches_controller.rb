@@ -21,7 +21,7 @@ class PatchesController < ApplicationController
     @patch = patches.first
     if @patch
       @text = @patch.parent_content
-      @new_text = dmp.patch_apply(patches.map { |patch| dmp.patch_from_text(patch.content) }.flatten, @text)[0]
+      @new_text = dmp.patch_apply(patches.map { |patch| dmp.patch_fromText(patch.content) }.flatten, @text)[0]
     end
   end
 
@@ -37,7 +37,7 @@ class PatchesController < ApplicationController
                                                      summary_id: get_params[:summary_id],
                                                      comment_id: get_params[:comment_id],
                                                      frame_id: get_params[:frame_id])
-                                           .map { |patch| dmp.patch_from_text(patch.content) }
+                                           .map { |patch| dmp.patch_fromText(patch.content) }
                                            .flatten,
                                        @patch.content)[0].force_encoding("UTF-8")
     end
