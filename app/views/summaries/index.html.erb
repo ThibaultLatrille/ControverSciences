@@ -9,13 +9,13 @@
                     class: "list-group-item" %>
         <% if logged_in? %>
             <% if @improve %>
-                <%= link_to "<span class=\"icon-fork normal\" >
+                <%= link_to "<span class=\"icon-summary normal\" >
                     </span> #{t('views.summaries.new')}".html_safe,
                             new_summary_path(timeline_id: @timeline.id),
                             :class => "list-group-item" %>
             <% else %>
                 <% if params[:filter] == "mine" %>
-                    <%= link_to "<span class=\"icon-fork normal\" >
+                    <%= link_to "<span class=\"icon-summary normal\" >
              </span> #{t('views.summaries.edit')}".html_safe,
                                 edit_summary_path(@summaries.first.id),
                                 class: "list-group-item" %>

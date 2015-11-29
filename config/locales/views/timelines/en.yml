@@ -255,20 +255,33 @@ en:
       no_notifs: You don't have any notification
       typos: Corrections made by the contributors
       upvoted: Contributions of yours that made first rank
-    typos:
-      accept: Accept correction
-      accepted: Mistake corrected!
-      already_sent: You already sent a correction for this contribution,
-        it's awaiting validation!
-      content: Correction
+    patches:
+      new_version: Proposer une nouvelle version
+      edit_version: Modifier votre contribution
+      new_patch: Suggérer une amélioration
+      see_patch: Vos suggestions d'amélioration
+      edit_contrib: Modifier votre contribution
+      show_patches: Étudier les améliorations qui vous ont été suggerées
+      accept: Accepter la suggestion
+      accepted: La suggestion d'amélioration a été acceptée !
+      content: Suggestion
+      wait: Les suggestions d'amélioration en attentes
       if_not_yours_html: |-
-        If you burnt your eyes on a language mistake, or if you want to suggest something to the author, you're in the right place! <br/>
-                          This will be sent to them so they can validate it.
-      if_yours: If you burnt your eyes on a language mistake in your own contribution, you can correct it.
-      refuse: Refuse correction
-      send: Send correction
-      sent: Your correction was sent to the author.
-      to_valid: Corrections to validate
+              If you burnt your eyes on a language mistake, or if you want to suggest something to the author, you're in the right place! <br/>
+                                This will be sent to them so they can validate it.
+      refuse: Refuser la suggestion
+      send: Envoyer la suggestion d'amélioration
+      sent: Votre suggestion d'amélioration a bien été envoyée à l'auteur.
+      to_valid: Vos suggestions d'amélioration à valider
+      waiting: Vous avez des suggestions d'amélioration en attentes pour cette contribution
+      edit: Souhaitez vous modifier votre contribution ?
+      suggest: Vous pouvez suggérer des améliorations à l'auteur de cette contribution, qu'il sera le seul à pouvoir valider.
+      yours_wait: Vos suggestions d'amélioration pour cette contribution sont en attentes.
+      why: Utilisez cette option pour les fautes de français et l'amélioration des tournures de phrases
+      version: Vous pouvez proposer une nouvelle version. Dans ces cas les contributeurs pourront voter entre les diffèrentes version et la meilleure sera mise en avant.
+      already: Vous avez déjà écrit votre propre version.
+      why_version: Utilisez cette option si vous n'êtes d'accord avec aucune des contributions.
+      all_contribs: Voir toutes les versions
     private_timelines:
       to_timeline: See contributors to this private controversy.
       new_private_timeline: Invite contributors to participate in this controversy

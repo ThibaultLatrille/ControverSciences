@@ -3,31 +3,35 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <br/>
+        <div class="center bigger">
+          <br/>
+          <%= render 'patches/parent_header', patch: patch %>
+          <br>
+        </div>
       </div>
-      <div class="modal-body center bigger clearfix">
+      <div class="modal-body center font12 clearfix">
         <% if patch.target_user_id == current_user.id %>
             <% if GoPatch.where(target_user_id: current_user.id,
                                 summary_id: patch.summary_id,
                                 comment_id: patch.comment_id,
                                 frame_id: patch.frame_id).count > 0 %>
-                Vous avez des suggestions en attentes pour cette contribution
+                <%= t('views.patches.waiting') %>
                 <br>
                 <br>
                 <%= link_to "<span class=\"badge badge-li\"> #{GoPatch.where(target_user_id: current_user.id,
                                                                              summary_id: patch.summary_id,
                                                                              comment_id: patch.comment_id,
-                                                                             frame_id: patch.frame_id ).count}</span> Étudier les suggestions".html_safe,
+                                                                             frame_id: patch.frame_id ).count}</span> #{t('views.patches.show_patches')}".html_safe,
                             patches_target_path(frame_id: patch.frame_id,
                                                 summary_id: patch.summary_id,
                                                 comment_id: patch.comment_id),
                             class: "btn btn-primary btn-lg" %>
 
             <% else %>
-                Souhaitez vous modifier votre contribution ?
+                <%= t('views.patches.edit') %>
                 <br>
                 <br>
-                <%= link_to "<span class=\"icon icon-summary\"></span> Modifier votre contribution".html_safe,
+                <%= link_to "<span class=\"icon icon-summary\"></span> #{t('views.patches.edit_contrib')}".html_safe,
                             patch.frame_id ?
                                     edit_frame_path(patch.frame_id) : patch.summary_id ?
                                     edit_summary_path(patch.summary_id) : edit_comment_path(patch.comment_id),
@@ -36,8 +40,11 @@
         <% else %>
             <div class="row">
               <div class="col-xs-12 col-md-6">
-                Vous pouvez suggérer des améliorations à l'auteur de cette
-                contribution, qu'il validera ensuite selon son bon vouloir.
+                <div>
+                  <span class="fat icon-bug-<%=rand(18)%>"></span>
+                </div>
+                <%= t('views.patches.suggest') %>
+
                 <br>
                 <br>
                 <br>
@@ -46,7 +53,7 @@
                                     comment_id: patch.comment_id,
                                     frame_id: patch.frame_id,
                                     field: patch.field).count > 0 %>
-                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> <br> Voir mes suggestions".html_safe,
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> <br> #{t('views.patches.see_patch')}".html_safe,
                                 patches_mine_path(frame_id: patch.frame_id,
                                                   summary_id: patch.summary_id,
                                                   comment_id: patch.comment_id,
@@ -56,28 +63,37 @@
                     <div class="panel-danger panel">
                       <div class="panel-heading">
                         <span class="glyphicon glyphicon-warning-sign"></span>
-                        Vos suggestions pour cette contribution sont en attentes.
+                        <%= t('views.patches.yours_wait') %>
                       </div>
                     </div>
                 <% else %>
-                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> <br> Suggérer une amélioration".html_safe,
+                    <%= link_to "<span class=\"fat icon-flow-line\"></span> <br> #{t('views.patches.new_patch')}".html_safe,
                                 new_patch_path(frame_id: patch.frame_id,
                                                comment_id: patch.comment_id,
                                                summary_id: patch.summary_id,
                                                field: patch.field),
                                 class: "btn btn-primary btn-lg" %>
                 <% end %>
-                <div class="center" style="font-size: 0.8em">
-                  Utilisez cette option pour les fautes de français et l'amélioration des tournures de phrases
+                <br>
+                <br>
+                <div class="center">
+                  <%= t('views.patches.why') %>
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
-                Vous pouvez proposer une nouvelle version. Dans ces cas les contributeurs pourront
-                voter entre les diffèrentes version et la meilleure sera mise en avant.
+                <div>
+                  <% if patch.comment_id %>
+                      <span class="fat icon-comment"></span>
+                  <% elsif patch.summary_id %>
+                      <span class="fat icon-summary"></span>
+                  <% end %>
+                </div>
+                <%= t('views.patches.version') %>
+
                 <br>
                 <br>
                 <% if patch.mine_parent %>
-                    <%= link_to "<span class=\"fat icon-fork\"></span> <br> Modifier votre propre version".html_safe,
+                    <%= link_to "<span class=\"fat icon-summary\"></span> <br> #{t('views.patches.edit_version')}".html_safe,
                                 patch.frame_id ?
                                         edit_frame_path(patch.mine_parent.id) : patch.summary_id ?
                                         edit_summary_path(patch.mine_parent.id) : new_comment_path(patch.mine_parent.id),
@@ -86,11 +102,11 @@
                     <div class="panel-danger panel">
                       <div class="panel-heading">
                         <span class="glyphicon glyphicon-warning-sign"></span>
-                        Vous avez déjà écrit votre propre version.
+                        <%= t('views.patches.already') %>
                       </div>
                     </div>
                 <% else %>
-                    <%= link_to "<span class=\"fat icon-fork\"></span> <br> Proposer une nouvelle version".html_safe,
+                    <%= link_to "<span class=\"fat icon-flow-fork-blank\"></span> <br> #{t('views.patches.new_version')}".html_safe,
                                 patch.frame_id ?
                                         new_frame_path(timeline_id: patch.frame.timeline_id) : patch.summary_id ?
                                         new_summary_path(timeline_id: patch.summary.timeline_id) : new_comment_path(reference_id: patch.comment.reference_id),
@@ -99,9 +115,8 @@
                 <br>
                 <br>
 
-                <div class="center" style="font-size: 0.8em">
-                  Utilisez cette option si vous n'êtes pas d'accord avec le contributeur et que vous inférer
-                  qu'il n'acceptera pas vos proposition.
+                <div class="center" >
+                  <%= t('views.patches.why_version') %>
                 </div>
               </div>
             </div>

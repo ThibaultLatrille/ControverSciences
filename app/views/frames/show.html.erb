@@ -15,7 +15,7 @@
                         class: "list-group-item" %>
         <% end %>
         <% if logged_in? && @frame.user_id == current_user.id && !current_user.private_timeline %>
-            <%= link_to "<span class=\"icon-fork normal\"></span> #{t('views.frames.edit')}".html_safe,
+            <%= link_to "<span class=\"icon-summary normal\"></span> #{t('views.frames.edit')}".html_safe,
                         edit_frame_path(@frame.id),
                         class: "list-group-item" %>
             <% if @timeline.nb_frames > 1 %>

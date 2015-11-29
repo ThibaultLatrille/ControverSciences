@@ -9,13 +9,13 @@
                   class: "list-group-item" %>
       <% if logged_in? %>
           <% if @improve %>
-              <%= link_to "<span class=\"icon-fork normal\" >
+              <%= link_to "<span class=\"icon-summary normal\" >
                 </span> #{t('views.frames.new')}".html_safe,
                           new_frame_path(timeline_id: @timeline.id),
                           :class => "list-group-item" %>
           <% elsif !current_user.private_timeline %>
               <% if params[:filter] == "mine" %>
-                  <%= link_to "<span class=\"icon-fork normal\" >
+                  <%= link_to "<span class=\"icon-summary normal\" >
          </span> #{t('views.frames.edit')}".html_safe,
                               edit_frame_path(@frames.first.id),
                               class: "list-group-item" %>

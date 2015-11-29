@@ -1,7 +1,7 @@
 en:
   views:
     default:
-      fix_typo: Correct a mistake, or suggest an enhancement to the author.
+      patch: Suggest an enhancement to the author, or write your own version.
       confirm: Are you sure?
       published: !!!Published ... ago
       by: by

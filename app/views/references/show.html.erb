@@ -55,7 +55,7 @@
     <% end %>
       <div class="list-group">
         <% if @comment && params[:filter] == "mine" %>
-            <%= link_to "<span class=\"icon-fork normal\" >
+            <%= link_to "<span class=\"icon-comment normal\" >
              </span> #{t('views.comments.edit')}".html_safe,
                         edit_comment_path(@comment.id),
                         class: "list-group-item" %>
@@ -69,7 +69,7 @@
                         reference_path(reference_id: @reference.id, filter: "mine"),
                         class: "list-group-item" %>
         <% else %>
-            <%= link_to "<span class=\"icon-fork normal\" >
+            <%= link_to "<span class=\"icon-comment normal\" >
              </span> #{t('views.comments.new')}".html_safe,
                         new_comment_path(reference_id: @reference.id),
                         class: "list-group-item" %>
@@ -131,7 +131,7 @@
                   <br/>
 
                   <div class="center">
-                    <%= link_to "<span class=\"icon-fork\" >
+                    <%= link_to "<span class=\"icon-comment\" >
 			</span> #{t('views.references.user_no_comment')}".html_safe,
                                 new_comment_path(reference_id: @reference.id),
                                 class: "btn btn-primary", :style => "padding: 6px;" %>
@@ -149,7 +149,7 @@
                   <br/>
 
                   <div class="center">
-                    <%= link_to "<span class=\"icon-fork\" >
+                    <%= link_to "<span class=\"icon-comment\" >
 			</span> #{t('views.references.be_first')}".html_safe,
                                 new_comment_path(reference_id: @reference.id),
                                 class: "btn btn-primary", :style => "padding: 6px;" %>
