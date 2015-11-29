@@ -351,6 +351,10 @@
     content: "\e800";
 }
 
+.icon-circo:before {
+    content: "\e800";
+}
+
 .icon-empty-set:before, .icon-0:before {
     content: "\e645";
 }

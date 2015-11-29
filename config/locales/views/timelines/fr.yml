@@ -292,6 +292,8 @@ fr:
       participating: Ils participent à cette controverse
       no_participating: Il n'y a actuellement aucun participant à cette controverse
       yours: Les controverses privées auxquelles vous participez
-      invited: Controverses privées
+      invited:
+        one: Controverse privée
+        other:  Controverses privées
       participate: participez à cette controverse
       invit_extern: Inviter une personne qui n'a pas de compte

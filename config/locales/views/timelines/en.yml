@@ -276,6 +276,8 @@ en:
       participating: They participate in this controversy
       no_participating: There currently isn't any participant to this controversy
       yours: Private controversies you participate in
-      invited: Private controversies
+      invited:
+        one: Private controversy
+        other: Private controversies
       participate: participate in this controversy
       invit_extern: Invite a person without an account

@@ -15,7 +15,7 @@
 <% else %>
       <% if current_user.nb_private > 0 %>
           <div class="center">
-            <%= link_to "<span class=\"badge badge-header\"> #{current_user.nb_private} </span> #{t('views.header.my_items_private')}</b>".html_safe,
+            <%= link_to "<span class=\"badge badge-li\"> #{current_user.nb_private} </span> #{t('views.header.my_items_private')}</b>".html_safe,
                         my_items_items_path(private: true) %>
           </div>
           <br>

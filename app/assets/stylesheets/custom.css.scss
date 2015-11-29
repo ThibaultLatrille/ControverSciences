@@ -86,6 +86,39 @@ footer #about-link a:hover {
   }
 }
 
+.badge-li{
+  color: #FDFDFD;
+  background-color: #4E7DC9;
+}
+
+header{
+  .dropdown{
+    li a {
+      font-weight: bold !important;
+    }
+  }
+  .my-missing{
+    background-color: #4E7DC9;
+    a{
+      color: white !important;
+    }
+    .badge-li{
+      color: #4E7DC9;
+      background-color: #FDFDFD;
+    }
+  }
+  .my-important{
+    background-color: $red-error;
+    a{
+      color: white !important;
+    }
+    .badge-li{
+      color: $red-error;
+      background-color: #FDFDFD;
+    }
+  }
+}
+
 .twitter-follow-button{
   vertical-align: top !important;
   margin-top: 17px;
@@ -801,33 +834,7 @@ del {
   font-size: 1.2em;
 }
 
-.badge-header{
-  color: #FDFDFD;
-  background-color: #4E7DC9;
-}
 
-.my-missing{
-  background-color: #4E7DC9;
-  a{
-    color: white !important;
-  }
-  .badge-header{
-    color: #4E7DC9;
-    background-color: #FDFDFD;
-  }
-}
-
-.my-important{
-  background-color: $red-error;
-  a{
-    color: white !important;
-  }
-}
-
-.badge-li{
-  color: $red-error;
-  background-color: #FDFDFD;
-}
 
 .hover-red{
   text-align: left;

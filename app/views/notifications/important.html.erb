@@ -1,6 +1,6 @@
 <% provide(:title, "Notifications") %>
 <h1>
-  <%= t('views.header.notifs') %>
+  <%= t('views.header.notifs', count: current_user.nb_notifs) %>
 </h1>
 <div id="my-container" class="container-fluid">
   <div class="row">

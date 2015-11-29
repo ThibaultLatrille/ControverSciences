@@ -184,7 +184,9 @@ fr:
       add_profil: Ajouter une photo de profil
       delete_profil: Supprimer la photo de profil
     assistant:
-      index: Contributeur(s) en attente
+      index:
+        one: Contributeur en attente
+        other: Contributeurs en attente
       timelines: Mettre à jour les valeurs sélectives des controverses
       users: Mettre à jour les valeurs sélectives des utilisateurs
       profils: Mettre à jour les profils
@@ -201,19 +203,26 @@ fr:
       user_name: Votre nom*
     header:
       login: S'identifier
-      typos: Correction(s) en attente
-      patches: Correction(s) en attente
-      dead_links: Liens morts
+      patches:
+        one: Correction en attente
+        other: Corrections en attente
+      dead_links:
+        one: Lien mort
+        other: Liens morts
       user: Accéder à votre profil
       empty_comments: Analyser vos références
       empty_ref: Enrichir vos controverses
       empty_summaries: Synthètiser vos controverses
       my_items: Vos contributions
       my_items_private: Vos contributions privées
-      notifs: Notifications
+      notifs:
+        one: Notification
+        other: Notifications
       likes: Les controverses qui vous intéressent
       logout: Se déconnecter
-      news: Nouveautés
+      news:
+        one: Nouveauté
+        other: Nouveautés
     footer:
       about: " A propos"
       close: Fermer

@@ -35,11 +35,12 @@
             <li class="divider"></li>
             <li><%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe, users_path %> </li>
             <li><%= link_to "<b><span class=\"icon-graph-int bigger\" ></span> #{t('views.navigation.contributions')}</b>".html_safe, contributions_path %> </li>
-            <li><%= link_to "<b><span class=\"icon-graph-diff bigger\" ></span> #{t('views.navigation.new_contributions')}</b>".html_safe, contributions_path(filter: "freq") %> </li>
+            <li><%= link_to "<b><span class=\"icon-network bigger\" ></span> #{t('views.timelines.edges')}</b>".html_safe, timelines_graph_path %> </li>
+            <li><%= link_to "<b><span class=\"icon-circo bigger\" ></span> Pluridisciplinarité</b>".html_safe, tag_pairs_graph_path %> </li>
             <li class="divider"></li>
             <% if logged_in? && current_user.empty_references > 0 %>
                 <li>
-                  <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_references} </span>
+                  <%= link_to "<span class=\"badge badge-li\"> #{current_user.empty_references} </span>
                       #{t('views.header.empty_ref')}".html_safe,
                               empty_references_path(filter: "mine") %>
 
@@ -49,7 +50,7 @@
             <% end %>
             <% if logged_in? && current_user.empty_comments > 0 %>
                 <li>
-                  <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_comments} </span>
+                  <%= link_to "<span class=\"badge badge-li\"> #{current_user.empty_comments} </span>
                       #{t('views.header.empty_comments')}".html_safe,
                               empty_comments_path(filter: "mine") %>
 
@@ -59,7 +60,7 @@
             <% end %>
             <% if logged_in? && current_user.empty_summaries > 0 %>
                 <li>
-                  <%= link_to "<span class=\"badge badge-header\"> #{current_user.empty_summaries} </span>
+                  <%= link_to "<span class=\"badge badge-li\"> #{current_user.empty_summaries} </span>
                       #{t('views.header.empty_summaries')}".html_safe,
                               empty_summaries_path(filter: "mine") %>
                 </li>
@@ -73,22 +74,51 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 
                 <% if current_user.private_timeline ? true : current_user.notifications_count > 0 %>
-                    <span class="badge badge-li" style="color: #4E7DC9"><%= current_user.private_timeline ? current_user.timelines_count : current_user.notifications_count %></span>
+                    <span class="badge badge-li" style="color: #4E7DC9; background-color: #FDFDFD"><%= current_user.private_timeline ? current_user.timelines_count : current_user.notifications_count %></span>
                 <% else %>
                     <span class="fat icon-user"></span>
                 <% end %>
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
+                <% if current_user.can_switch_admin && (current_user.admin_patches > 0 || current_user.admin_dead_links > 0 || current_user.admin_pending_users > 0) %>
+                    <li> &nbsp &nbsp <b>Admin Board</b></li>
+                    <% if current_user.can_switch_admin && current_user.admin_patches %>
+                        <li class="my-important">
+                          <%= link_to "<span class=\"badge badge-li\"> #{current_user.admin_patches} </span> #{t('views.header.patches',
+                                                                                                                 count: current_user.admin_patches)}".html_safe,
+                                      patches_path %>
+
+                        </li>
+                    <% end %>
+                    <% if current_user.can_switch_admin && current_user.admin_dead_links > 0 %>
+                        <li class="my-important">
+                          <%= link_to "<span class=\"badge badge-li\"> #{current_user.admin_dead_links} </span> #{t('views.header.dead_links',
+                                                                                                                    count: current_user.admin_dead_links)}".html_safe,
+                                      dead_links_path %>
+
+                        </li>
+                    <% end %>
+                    <% if current_user.can_switch_admin && current_user.admin_pending_users > 0 %>
+                        <li class="divider"></li>
+                        <li class="my-important">
+                          <%= link_to "<span class=\"badge badge-li\"> #{current_user.admin_pending_users} </span> #{t('views.assistant.index',
+                                                                                                                       count: current_user.admin_pending_users)}".html_safe,
+                                      assistant_index_path %>
+
+                        </li>
+                    <% end %>
+                    <li class="divider"></li>
+                <% end %>
                 <% if current_user.nb_notifs > 0 %>
                     <li class="my-important"> <%= link_to "<b><span class=\"badge badge-li\">
-                #{current_user.nb_notifs}</span> #{t('views.header.notifs')} </b>".html_safe,
+                #{current_user.nb_notifs}</span> #{t('views.header.notifs', count: current_user.nb_notifs)} </b>".html_safe,
                                                           notifications_important_path %>
                     </li>
                 <% end %>
                 <% if current_user.notif_patches > 0 %>
                     <li class="my-important"> <%= link_to "<b><span class=\"badge badge-li\">
-                #{current_user.notif_patches}</span> #{t('views.header.patches')} </b>".html_safe,
+                #{current_user.notif_patches}</span> #{t('views.header.patches', count: current_user.notif_patches)} </b>".html_safe,
                                                           notifications_patches_path %>
                     </li>
                 <% end %>
@@ -97,49 +127,27 @@
                 <% if current_user.notifications_all > 0 %>
                     <li class="divider"></li>
                     <li class="my-missing"><%= link_to "<b><span class=\"badge badge-li\">
-                    #{current_user.notifications_all }</span> #{t('views.header.news')} </b>".html_safe,
+                    #{current_user.notifications_all }</span> #{t('views.header.news', count: current_user.notifications_all)} </b>".html_safe,
                                                        notifications_index_path %> </li>
                 <% end %>
                 <% if current_user.private_timeline %>
                     <li class="divider"></li>
                     <li>
-                      <%= link_to "<span class=\"badge badge-header\"> #{current_user.timelines_count} </span> #{t('views.private_timelines.invited')}".html_safe,
+                      <%= link_to "<span class=\"badge badge-li\"> #{current_user.timelines_count} </span> #{t('views.private_timelines.invited',
+                                                                                                                   count: current_user.timelines_count)}".html_safe,
                                   mine_timelines_path %>
                     </li>
                 <% else %>
+                    <li class="divider"></li>
                     <% if current_user.invited > 0 %>
                         <li class="divider"></li>
                         <li>
-                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.invited} </span> #{t('views.private_timelines.invited')}".html_safe,
+                          <%= link_to "<span class=\"badge badge-li\"> #{current_user.invited} </span> #{t('views.private_timelines.invited',
+                                                                                                               count: current_user.invited)}".html_safe,
                                       invited_timelines_path(user_id: current_user.id) %>
 
                         </li>
                     <% end %>
-                    <% if current_user.can_switch_admin && current_user.admin_patches > 0 %>
-                        <li class="divider"></li>
-                        <li class="my-important">
-                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_patches} </span> #{t('views.header.patches')}".html_safe,
-                                      patches_path %>
-
-                        </li>
-                    <% end %>
-                    <% if current_user.can_switch_admin && current_user.admin_dead_links > 0 %>
-                        <li class="divider"></li>
-                        <li class="my-important">
-                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_dead_links} </span> #{t('views.header.dead_links')}".html_safe,
-                                      dead_links_path %>
-
-                        </li>
-                    <% end %>
-                    <% if current_user.can_switch_admin && current_user.admin_pending_users > 0 %>
-                        <li class="divider"></li>
-                        <li class="my-important">
-                          <%= link_to "<span class=\"badge badge-header\"> #{current_user.admin_pending_users} </span> #{t('views.assistant.index')}".html_safe,
-                                      assistant_index_path %>
-
-                        </li>
-                    <% end %>
-                    <li class="divider"></li>
                     <li><%= link_to "<b><span class='icon-summary'></span> #{t('views.header.my_items')}</b>".html_safe,
                                     my_items_items_path %> </li>
                 <% end %>

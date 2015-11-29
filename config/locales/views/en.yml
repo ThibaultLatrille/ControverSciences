@@ -183,9 +183,11 @@ en:
       add_profil: Add a profile picture
       delete_profil: Delete profile picture
     assistant:
-      index: !!Contributors waiting list
-      timelines: !!Update selective values of the controversies
-      users: !!Update selective values of the users
+      index:
+        one: Contributor waiting list
+        other: Contributors waiting list
+      timelines: Update selective values of the controversies
+      users: Update selective values of the users
       profils: Update profiles
     invitations:
       for_reference: Send an invitation to a person interested by this reference
@@ -200,18 +202,26 @@ en:
       user_name: Your user name*
     header:
       login: Login
-      typos: corrections awaiting validation
-      dead_links: Dead links
+      patches:
+        one: Correction awaiting validation
+        other: Corrections awaiting validation
+      dead_links:
+        one: Dead link
+        other: Dead links
       user: Access your profile
       empty_comments: Analyse your references
       empty_ref: Expand your controversies
       empty_summaries: Summarize your controversies
       my_items: Your contributions
       my_items_private: Your private contributions
-      notifs: Notifications
+      notifs:
+        one: Notification
+        other: Notifications
       likes: Controversies that interest you
       logout: Logout
-      news: News
+      news:
+        one: New
+        other: News
     footer:
       about: " About"
       close: Close
