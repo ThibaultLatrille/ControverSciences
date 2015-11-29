@@ -52,8 +52,8 @@
                   <% end %>
               <% end %>
             <div class="pull-right">
-              <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                          new_typo_path(comment_id: comment.id, field: field),
+              <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
+                          patches_modal_path(comment_id: comment.id, field: field),
                           remote:       true,
                           :class        => "btn btn-default",
                           "data-toggle" => "tooltip",

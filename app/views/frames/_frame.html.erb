@@ -4,8 +4,8 @@
     <div class="clearfix">
       <% if logged_in? %>
           <div class="pull-right">
-            <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                        new_patch_path(frame_id: frame.id, field: 0),
+            <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
+                        patches_modal_path(frame_id: frame.id, field: 0),
                         remote: true,
                         :class  => "btn btn-default", "data-toggle" => "tooltip",
                         title:  t('views.default.patch'),
@@ -22,8 +22,8 @@
       <% if frame.content != "" %>
           <% if logged_in? %>
               <div class="pull-right">
-                <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                            new_patch_path(frame_id: frame.id, field: 1),
+                <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
+                            patches_modal_path(frame_id: frame.id, field: 1),
                             remote: true,
                             :class  => "btn btn-default", "data-toggle" => "tooltip",
                             title: t('views.default.patch'),

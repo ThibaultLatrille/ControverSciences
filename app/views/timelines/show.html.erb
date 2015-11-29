@@ -254,7 +254,7 @@
 
               <% if logged_in? && @improve_frame %>
                   <div class="pull-right">
-                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                    <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
                                 patches_modal_path(frame_id: @improve_frame.id, field: 0),
                                 remote: true,
                                 class: "btn btn-default", "data-toggle" => "tooltip",
@@ -379,7 +379,7 @@
             <% if @timeline.frame != "" %>
                 <% if logged_in? && @improve_frame %>
                     <div class="pull-right">
-                      <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
+                      <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
                                   patches_modal_path(frame_id: @improve_frame.id, field: 1), remote: true,
                                   :class => "btn btn-default", "data-toggle" => "tooltip",
                                   title: t('views.default.patch'),
@@ -450,8 +450,8 @@
                     <br/>
                     <% if logged_in? %>
                         <div class="pull-right">
-                          <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span>".html_safe,
-                                      new_typo_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
+                          <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
+                                      patches_modal_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
                                       title: t('views.default.fix_typo'), :style => "padding: 6px; margin-right: 6px" %>
                           <% if current_user.admin %>
                               <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
