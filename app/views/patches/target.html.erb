@@ -16,10 +16,8 @@
               <div class="col-xs-10 col-xs-offset-1">
                 <div class="center">
                   <b style="font-size: 1.4em">
-                    <%= link_to @patches.first.field == 0 ? t('views.model.frame_0') : t('views.model.frame_1'),
-                                frame_path(@patches.first.frame_id) %> de la controverse
-                    <%= link_to @patches.first.frame_short.timeline_name.html_safe, timeline_path(@patches.first.frame_short.timeline_id) %>
-                  </b>
+                    <%= render 'patches/parent_header', patch: @patches.first %>
+                    </b>
                 </div>
                 <% @patches.each do |patch| %>
                     <hr style="margin: 1em 3em 1em 3em ">

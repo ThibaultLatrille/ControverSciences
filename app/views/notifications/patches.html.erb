@@ -1,6 +1,6 @@
 <% provide(:title, "Suggestions d'amelioration") %>
 <h1>
-  <%= t('views.header.notifs') %>
+  <%= t('views.header.notifs', count: current_user.nb_notifs) %>
 </h1>
 
 <div id="my-container" class="container-fluid">
@@ -18,22 +18,22 @@
               </span>
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
-                <% @patches.keys.each do |frame_id| %>
-                    <% patch = @patches[frame_id].first %>
+                <% @patches.keys.each do |parent_key| %>
+                    <% patch = @patches[parent_key].first %>
                     <hr style="margin: 1em 3em 1em 3em ">
                     <div class="panel panel-default">
                       <div class="panel-body">
                         <b>
-                          <%= link_to t('views.model.frame'),
-                                      frame_path(patch.frame_id) %> <%= t('views.model.of_timeline').downcase %>
-                          <%= link_to patch.frame_short.timeline_name.html_safe, timeline_path(patch.frame_short.timeline_id) %>
+                          <%= render 'patches/parent_header', patch: patch %>
                         </b>
                         <br/>
                         <br/>
 
                         <div class="pull-right">
-                          <%= link_to "<span class=\"badge badge-li\">#{@patches[frame_id].length}</span> Étudier les suggestions".html_safe,
-                                      patches_target_path(frame_id: frame_id),
+                          <%= link_to "<span class=\"badge badge-li\">#{@patches[parent_key].length}</span> Étudier les suggestions".html_safe,
+                                      patches_target_path(frame_id: patch.frame_id,
+                                                          summary_id: patch.summary_id,
+                                                          comment_id: patch.comment_id),
                                       class: "btn btn-primary" %>
                         </div>
                       </div>

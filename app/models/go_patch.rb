@@ -1,7 +1,10 @@
 class GoPatch < ActiveRecord::Base
+  include ApplicationHelper
+
   belongs_to :user
   belongs_to :frame
   belongs_to :summary
+  belongs_to :comment
   belongs_to :target_user, class_name: "User", foreign_key: "target_user_id"
 
   def parent_content_accessor
@@ -39,8 +42,22 @@ class GoPatch < ActiveRecord::Base
     self.parent[self.parent_content_accessor]
   end
 
+  def mine_parent
+    if !summary_id.blank?
+      Summary.find_by(user_id: self.user_id, timeline_id: self.summary.timeline_id)
+    elsif !comment_id.blank?
+      Comment.find_by(user_id: self.user_id, reference_id: self.comment.reference_id)
+    elsif !frame_id.blank?
+      Frame.find_by(user_id: self.user_id, timeline_id: self.frame.timeline_id)
+    end
+  end
+
   def save_as_list(parent_content)
-    GoPatch.where(field: field, frame_id: frame_id, user_id: user_id).destroy_all
+    GoPatch.where(field: field,
+                  frame_id: frame_id,
+                  summary_id: summary_id,
+                  comment_id: comment_id,
+                  user_id: user_id).destroy_all
     dmp = DiffMatchPatch.new
     patches = dmp.patch_make(parent_content, self.content)
     patches.each do |patch|
@@ -49,6 +66,7 @@ class GoPatch < ActiveRecord::Base
                         field: field,
                         frame_id: frame_id,
                         summary_id: summary_id,
+                        comment_id: comment_id,
                         user_id: user_id)
       new.save!
     end
@@ -60,6 +78,10 @@ class GoPatch < ActiveRecord::Base
 
   def summary_short
     Summary.select(:id, :user_id, :timeline_id).find(self.summary_id)
+  end
+
+  def comment_short
+    Comment.select(:id, :user_id, :reference_id, :timeline_id).find(self.comment_id)
   end
 
   def new_content(text)
@@ -76,7 +98,10 @@ class GoPatch < ActiveRecord::Base
       dmp = DiffMatchPatch.new
       patch_total = dmp.patch_make(original, modified)
       if parent_model.save_with_markdown
-        GoPatch.where(field: field, frame_id: frame_id).where.not(id: self.id).each do |go_patch|
+        GoPatch.where(field: field,
+                      frame_id: frame_id,
+                      summary_id: summary_id,
+                      comment_id: comment_id).where.not(id: self.id).each do |go_patch|
           r = dmp.patch_from_text(go_patch.content)
           text = dmp.patch_apply(patch_total + r, original)[0].force_encoding("UTF-8")
           patch = dmp.patch_make(modified, text)

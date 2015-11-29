@@ -91,7 +91,10 @@ class NotificationsController < ApplicationController
     if current_user.private_timeline
       @patches = []
     else
-      @patches = GoPatch.where( target_user_id: current_user.id ).group_by{ |patch| patch.frame_id }
+      @patches = GoPatch.where( target_user_id: current_user.id )
+                     .group_by{ |patch| patch.frame_id ?
+                                        "f_#{patch.frame_id}" : patch.summary_id ?
+                                        "s_#{patch.summary_id}" : "c_#{patch.comment_id}" }
     end
   end
 

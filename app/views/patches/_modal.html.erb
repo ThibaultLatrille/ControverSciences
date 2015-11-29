@@ -7,12 +7,20 @@
       </div>
       <div class="modal-body center bigger clearfix">
         <% if patch.target_user_id == current_user.id %>
-            <% if GoPatch.where(target_user_id: current_user.id, frame_id: patch.frame_id).count > 0 %>
+            <% if GoPatch.where(target_user_id: current_user.id,
+                                summary_id: patch.summary_id,
+                                comment_id: patch.comment_id,
+                                frame_id: patch.frame_id).count > 0 %>
                 Vous avez des suggestions en attentes pour cette contribution
                 <br>
                 <br>
-                <%= link_to "<span class=\"badge badge-li\"> #{GoPatch.where(target_user_id: current_user.id, frame_id: patch.frame_id).count}</span> Étudier les suggestions".html_safe,
-                            patches_target_path(frame_id: patch.frame_id),
+                <%= link_to "<span class=\"badge badge-li\"> #{GoPatch.where(target_user_id: current_user.id,
+                                                                             summary_id: patch.summary_id,
+                                                                             comment_id: patch.comment_id,
+                                                                             frame_id: patch.frame_id ).count}</span> Étudier les suggestions".html_safe,
+                            patches_target_path(frame_id: patch.frame_id,
+                                                summary_id: patch.summary_id,
+                                                comment_id: patch.comment_id),
                             class: "btn btn-primary btn-lg" %>
 
             <% else %>
@@ -20,7 +28,9 @@
                 <br>
                 <br>
                 <%= link_to "<span class=\"icon icon-summary\"></span> Modifier votre contribution".html_safe,
-                            edit_frame_path(patch.frame_id),
+                            patch.frame_id ?
+                                    edit_frame_path(patch.frame_id) : patch.summary_id ?
+                                    edit_summary_path(patch.summary_id) : edit_comment_path(patch.comment_id),
                             class: "btn btn-primary btn-lg" %>
             <% end %>
         <% else %>
@@ -31,9 +41,16 @@
                 <br>
                 <br>
                 <br>
-                <% if GoPatch.where(user_id: current_user.id, frame_id: patch.frame_id, field: patch.field).count > 0 %>
+                <% if GoPatch.where(user_id: current_user.id,
+                                    summary_id: patch.summary_id,
+                                    comment_id: patch.comment_id,
+                                    frame_id: patch.frame_id,
+                                    field: patch.field).count > 0 %>
                     <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> <br> Voir mes suggestions".html_safe,
-                                patches_mine_path(frame_id: patch.frame_id, field: patch.field),
+                                patches_mine_path(frame_id: patch.frame_id,
+                                                  summary_id: patch.summary_id,
+                                                  comment_id: patch.comment_id,
+                                                  field: patch.field),
                                 class: "btn btn-primary btn-lg" %>
                     <br><br>
                     <div class="panel-danger panel">
@@ -59,9 +76,11 @@
                 voter entre les diffèrentes version et la meilleure sera mise en avant.
                 <br>
                 <br>
-                <% if Frame.where(user_id: current_user.id, timeline_id: patch.frame.timeline_id).count > 0 %>
+                <% if patch.mine_parent %>
                     <%= link_to "<span class=\"fat icon-fork\"></span> <br> Modifier votre propre version".html_safe,
-                                new_frame_path(timeline_id: patch.frame.timeline_id),
+                                patch.frame_id ?
+                                        edit_frame_path(patch.mine_parent.id) : patch.summary_id ?
+                                        edit_summary_path(patch.mine_parent.id) : new_comment_path(patch.mine_parent.id),
                                 class: "btn btn-primary btn-lg" %>
                     <br><br>
                     <div class="panel-danger panel">
@@ -72,7 +91,9 @@
                     </div>
                 <% else %>
                     <%= link_to "<span class=\"fat icon-fork\"></span> <br> Proposer une nouvelle version".html_safe,
-                                new_frame_path(timeline_id: patch.frame.timeline_id),
+                                patch.frame_id ?
+                                        new_frame_path(timeline_id: patch.frame.timeline_id) : patch.summary_id ?
+                                        new_summary_path(timeline_id: patch.summary.timeline_id) : new_comment_path(reference_id: patch.comment.reference_id),
                                 class: "btn btn-primary btn-lg" %>
                 <% end %>
                 <br>

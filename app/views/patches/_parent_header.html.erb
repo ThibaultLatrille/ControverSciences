@@ -1,0 +1,12 @@
+<% if patch.comment_id %>
+    <%= category_hash[patch.comment_short.reference.category][patch.field] %> <%= t('views.model.of_reference').downcase %>
+    <%= link_to patch.comment_short.reference.title, reference_path(patch.comment_short.reference_id) %> <%= t('views.model.in_timeline') %>
+    <%= link_to patch.comment_short.timeline_name.html_safe, timeline_path(patch.comment_short.timeline_id) %>
+<% elsif patch.summary_id %>
+    <%= t('views.model.summary') %>
+    <%= link_to patch.summary_short.timeline_name.html_safe, timeline_path(patch.summary_short.timeline_id) %>
+<% elsif patch.frame_id %>
+    <%= link_to t('views.model.frame'),
+                frame_path(patch.frame_id) %> <%= t('views.model.of_timeline').downcase %>
+    <%= link_to patch.frame_short.timeline_name.html_safe, timeline_path(patch.frame_short.timeline_id) %>
+<% end %>

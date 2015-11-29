@@ -12,9 +12,7 @@
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <b>
-                      <%= link_to @patch.field == 0 ? t('views.model.frame_0') : t('views.model.frame_1'),
-                                  frame_path(@patch.frame_id) %> de la controverse
-                      <%= link_to @patch.frame_short.timeline_name.html_safe, timeline_path(@patch.frame_short.timeline_id) %>
+                      <%= render 'patches/parent_header', patch: @patch %>
                     </b>
                     <br/>
                     <br/>
