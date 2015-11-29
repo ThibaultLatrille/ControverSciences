@@ -352,7 +352,7 @@
 }
 
 .icon-circo:before {
-    content: "\e800";
+    content: "\e902";
 }
 
 .icon-empty-set:before, .icon-0:before {
@@ -369,4 +369,17 @@
 
 .icon-pillar:before {
     content: "\e901";
+}
+
+.icon-flow-fork:before {
+    content: "\e903";
+}
+.icon-flow-fork-blank:before {
+    content: "\e904";
+}
+.icon-flow-line:before {
+    content: "\e905";
+}
+.icon-flow-straight:before {
+    content: "\e906";
 }
