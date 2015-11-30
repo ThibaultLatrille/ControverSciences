@@ -30,7 +30,7 @@ class EdgesController < ApplicationController
                                                params[:timeline_id])
     timeline_ids = @edges.map{ |e| [e.target, e.timeline_id] }
     timeline_ids << params[:timeline_id].to_i
-    @timeline_names = Timeline.order(:name).all.where.not( id: timeline_ids.flatten.uniq ).pluck(:name, :id)
+    @timeline_names = Timeline.order(:name).where.not( id: timeline_ids.flatten.uniq, private: true ).pluck(:name, :id)
     @my_vote_likes = EdgeVote.where(user_id: current_user.id, value: true,
                                     edge_id: @edges.map{|e| e.id}).pluck(:edge_id)
     @my_vote_dislikes = EdgeVote.where(user_id: current_user.id, value: false,
