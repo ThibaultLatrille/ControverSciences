@@ -161,9 +161,15 @@
           <br><br>
           <div class="row text-center">
             <div class="col-xs-12 col-md-offset-3 col-md-6 center">
-            <a href="http://www.cnrs.fr/fr/COP21/comprendre.html" class="hvr-grow framed" target="_blank" style="padding: 0">
-              <%= image_tag("cop21", alt: "Cop21", :class => "img-responsive img-rounded center-block") %>
-            </a>
+              <% if rand(2) == 0 %>
+                <a href="https://controversciences.org/timelines/la-terre-va-t-elle-connaitre-un-petit-age-glaciaire-a-partir-de-2030" class="hvr-grow framed" style="padding: 0">
+                  <%= image_tag("cop21.png", alt: "Cop21", :class => "img-responsive img-rounded center-block") %>
+                </a>
+              <% else %>
+                  <a href="https://controversciences.org/timelines/y-a-t-il-eu-une-quot-pause-quot-dans-le-rechauffement-climatique-entre-1998-et-2012" class="hvr-grow framed" style="padding: 0">
+                    <%= image_tag("cop21_1", alt: "Cop21", :class => "img-responsive img-rounded center-block") %>
+                  </a>
+              <% end %>
             </div>
           </div>
           <div class="carousel-container" style="display: none">
