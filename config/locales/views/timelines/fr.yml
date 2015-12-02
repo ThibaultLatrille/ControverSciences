@@ -279,8 +279,8 @@ fr:
       edit: Souhaitez vous modifier votre contribution ?
       suggest: Vous pouvez suggérer des améliorations à l'auteur de cette contribution, qu'il sera le seul à pouvoir valider.
       yours_wait: Vos suggestions d'amélioration pour cette contribution sont en attentes.
-      why: Utilisez cette option pour les fautes de français et l'amélioration des tournures de phrases
-      version: Vous pouvez proposer une nouvelle version. Dans ces cas les contributeurs pourront voter entre les diffèrentes version et la meilleure sera mise en avant.
+      why: Utilisez cette option pour corriger des fautes de français ou améliorer des tournures de phrases.
+      version: Vous pouvez proposer une nouvelle version. Dans ce cas, les contributeurs pourront voter pour choisir la meilleure qui sera mise en avant.
       already: Vous avez déjà écrit votre propre version.
       why_version: Utilisez cette option si vous n'êtes d'accord avec aucune des contributions.
       all_contribs: Voir toutes les versions
