@@ -27,10 +27,10 @@
 <% end %>
 <% if @target.length > 0 %>
     <%= t('views.pluralize.target', count: @target.length) %>
-    <ul style="list-style-type: none; padding-left: 0;">
+    <ul class="list-links">
       <% @target.each do |link| %>
           <li>
-            <span class="center" style="float: left; width: 40px;">
+            <span>
               •
             </span>
             <%= link_to "#{link.year} - #{link.title_display}".html_safe,
@@ -44,10 +44,10 @@
 <% end %>
 <% if @from.length > 0 %>
     <%= t('views.pluralize.from', count: @from.length) %>
-    <ul style="list-style-type: none; padding-left: 0;">
+    <ul class="list-links">
       <% @from.each do |link| %>
           <li>
-            <span class="center" style="float: left; width: 40px;">
+            <span>
               •
             </span>
             <%= link_to "#{link.year} - #{link.title_display}".html_safe,

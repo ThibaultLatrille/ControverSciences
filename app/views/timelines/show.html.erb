@@ -470,16 +470,16 @@
                     <% if @summary.summary_links.count > 0 %>
                         <hr style="width: 250px"/>
                         <%= t('views.pluralize.edges', count: @summary.summary_links.count) %>
-                        <ul style="list-style-type: none; padding-left: 0;">
+                        <ul class="list-links">
                           <% @summary.summary_links.includes(:reference).each do |link| %>
                               <li>
-                    <span class="center" style="float: left; width: 40px;">
-                  <% if link.count %>
-                      [<%= link.count %>]
-                  <% else %>
-                      •
-                  <% end %>
-                    </span>
+                                <span>
+                              <% if link.count %>
+                                  [<%= link.count %>]
+                              <% else %>
+                                  •
+                              <% end %>
+                                </span>
                                 <%= link_to link.reference.title_display, reference_path(link.reference), target: "_blank", class: "linked-ref", "data-ref" => link.reference_id %>
                               </li>
                           <% end %>

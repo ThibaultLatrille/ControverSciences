@@ -1234,3 +1234,14 @@ del {
 .not-activated{
   display: none;
 }
+
+.list-links{
+  list-style-type: none;
+  padding-left: 0;
+  li span{
+    text-align: right;
+    float: left;
+    width: 40px;
+    padding-right: 5px;
+  }
+}
