@@ -157,9 +157,10 @@ class TimelinesController < ApplicationController
   end
 
   def network
-    @nodes = Timeline.select(:id, :slug, :name, :staging, :score).all
+    @nodes = Timeline.select(:id, :slug, :name, :staging, :score).where.not(private: true)
     @links = Edge.select(:id, :timeline_id, :target, :balance)
-                .all.to_a
+                 .where(target: @nodes.map{ |t| t.id } )
+                .where(timeline_id: @nodes.map{ |t| t.id } ).to_a
                 .reject{|i|  i.balance < 0 }
                 .uniq{ |e| [e.timeline_id,e.target].sort }
   end
