@@ -1,7 +1,7 @@
 fr:
   views:
     default:
-      patch: Suggérer une amélioration à l'auteur, ou proposez votre version.
+      patch: Suggérer une amélioration à l'auteur, ou proposer une autre version.
       confirm: Êtes-vous certain ?
       published: Publiée il y a
       by: par
