@@ -110,7 +110,7 @@
                     <% end %>
                     <li class="divider"></li>
                 <% end %>
-                <% if current_user.nb_notifs > 0 %>
+                <% if !current_user.private_timeline && current_user.nb_notifs > 0 %>
                     <li class="my-important"> <%= link_to "<b><span class=\"badge badge-li\">
                 #{current_user.nb_notifs}</span> #{t('views.header.notifs', count: current_user.nb_notifs)} </b>".html_safe,
                                                           notifications_important_path %>
@@ -124,7 +124,7 @@
                 <% end %>
                 <li><%= link_to "<b><span class='icon-user'></span> #{t('views.header.user')}</b>".html_safe,
                                 user_path(current_user) %> </li>
-                <% if current_user.notifications_all > 0 %>
+                <% if !current_user.private_timeline && current_user.notifications_all > 0 %>
                     <li class="divider"></li>
                     <li class="my-missing"><%= link_to "<b><span class=\"badge badge-li\">
                     #{current_user.notifications_all }</span> #{t('views.header.news', count: current_user.notifications_all)} </b>".html_safe,
