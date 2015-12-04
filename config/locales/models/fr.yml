@@ -2,10 +2,12 @@ fr:
   activerecord:
     attributes:
       user:
-        name: "Le nom"
-        email: "L'adresse électronique"
-        password: "Le mot de passe"
-        password_confirmation: "La confirmation de mot de passe"
+        first_name: "Prénom"
+        last_name: "Nom"
+        name: "Identifiant"
+        email: "Adresse électronique"
+        password: "Mot de passe"
+        password_confirmation: "Confirmation de mot de passe"
         terms_of_service: "Les conditions générales d'utilisation et la Magna Charta"
       timeline:
         name: "Le titre"

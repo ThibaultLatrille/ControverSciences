@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129132418) do
+ActiveRecord::Schema.define(version: 20151204183223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -746,6 +746,8 @@ ActiveRecord::Schema.define(version: 20151129132418) do
     t.integer  "nb_private",        default: 0
     t.integer  "my_patches",        default: 0
     t.integer  "target_patches",    default: 0
+    t.text     "first_name",        default: ""
+    t.text     "last_name",         default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

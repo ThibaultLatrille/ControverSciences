@@ -10,6 +10,19 @@
     <%= form_for @user do |f| %>
         <%= render 'shared/error_messages', object: f.object %>
 
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, class: 'form-control', placeholder: "Charles" %>
+            <br/>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, class: 'form-control', placeholder: "Darwin" %>
+            <br/>
+          </div>
+        </div>
+
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control', placeholder: "C. Darwin" %>
             <br/>
@@ -102,6 +115,35 @@ $(document).ready(function () {
             $('#test').html("<div class='alert alert-success' role='alert'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span><span class='sr-only'>Parfait: </span> <%= t('views.users.confirmation_pwd_ok') %></div>");
         } else {
             $('#test').html("<div class='alert alert-danger' role='alert'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span><span class='sr-only'></span> <%= t('views.users.confirmation_pwd_fail') %></div>");
+        }
+    });
+    String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase()
+    };
+    $('input#user_first_name').keyup(function () {
+        if ($('input#user_last_name').val() != "" ){
+            var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function(num) {
+                if (num[0]){
+                    return num[0].toUpperCase() + '.';
+                } else {
+                    return ""
+                }
+            }).join("");
+            var $ln = $('input#user_last_name').val().capitalize();
+            $('input#user_name').val($fn + " " + $ln);
+        }
+    });
+    $('input#user_last_name').keyup(function () {
+        if ($('input#user_first_name').val() != "" ){
+            var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function(num) {
+                if (num[0]){
+                    return num[0].toUpperCase() + '.';
+                } else {
+                    return ""
+                }
+            }).join("");
+            var $ln = $('input#user_last_name').val().capitalize();
+            $('input#user_name').val($fn + " " + $ln);
         }
     });
 });
