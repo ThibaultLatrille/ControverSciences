@@ -48,7 +48,7 @@
               </div>
               <br/>
               <br/>
-              <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+              <%= f.button "#{t('views.users.edit')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success pull-right',
                            data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
           <% end %>
@@ -102,7 +102,7 @@
                   <%= f.label :email %>
                   <%= f.text_field :email, class: 'form-control' %>
                   <br/>
-                  <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                  <%= f.button "#{t('views.users.ids')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                                class: 'btn btn-success pull-right',
                                data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
               <% end %>
@@ -131,7 +131,7 @@
                   <%= f.password_field :password_confirmation, class: 'form-control' %>
                   <br/>
                   <div id="test"> </div>
-                  <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                  <%= f.button "#{t('views.password.change')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                                class: 'btn btn-success pull-right',
                                data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
               <% end %>
