@@ -25,56 +25,57 @@ fr:
     book: ce livre
     phd: cette thèse
     category_explanation_intro: |-
-      L'introduction permet au lecteur de situer %{category} dans
-                                    la controverse et d'amorcer en douceur l’expérience et les résultats de l'étude.
-    category_explanation_experience: Résumé de l'expérience (ou des expériences) réalisé dans %{category}.
-    category_explanation_results: Résumé du résultat (ou des résultats) de l’expérience (ou des expériences) de %{category}.
+      L'introduction doit permetter au lecteur de situer %{category} dans
+                                    la controverse et d'amorcer en douceur son analyse.
+    category_explanation_experience: Résumé des expériences réalisées dans %{category}.
+    category_explanation_results: Résumé des résultats de %{category}.
     category_explanation_limits: |-
-      Un résumé des limites de %{category}, que ce soit méthodologique, conceptuelle ou
-                                philosophique. Toute étude à ses limites.
-    category_explanation_more: Ce que %{category} apporte de plus et comment cela permet d'éclairer la controverse.
+      Déclaration des doutes pouvant remettre en question la validité de %{category}.
+      e.g. Doutes concernant les auteurs et institutions à l'origine de l'article (financements, conflits d'intérêts...) -
+      Doutes ou erreurs portant sur la méthodologie
+    category_explanation_more: |-
+      Ce que %{category} plus et comment cela doit permettre d'avancer dans la controverse.
+      e.g. Réponses apportées - Nouvelles questions émergeant de l'article - redéfinition du problème
     category_explanation_remarque: |-
-      Toutes les remarques de %{category} qui ne rentrent pas dans les champs précédents.
-                                Cela peut être sur les affiliations ou les financements douteux de %{category}.
-                                Une anecdote sur ce papier ou ces auteurs, ou simplement une remarque totalement
-                                subjective.
+      Toutes les remarques sur %{category} qui ne rentrent pas dans les champs précédents.
+      e.g. Anecdotes sur le travail ou ses auteurs - Remarques totalement subjective
     category_explanation_summary: |-
       Le résumé de la %{category} permet au lecteur de
                         comprendre cette étude dans le cadre de cette controverse.
     category_hash_article_0: Introduction à l'article
     category_hash_article_1: Expériences de l'article
     category_hash_article_2: Résultats de l'article
-    category_hash_article_3: Limites de l'article
+    category_hash_article_3: Rigueur de l'article
     category_hash_article_4: Ce que cet article apporte au débat
-    category_hash_article_5: Remarque(s) sur l'article
+    category_hash_article_5: Remarques sur l'article
     category_hash_article_6: Titre de l'article
     category_hash_article_7: Figure
     category_hash_review_0: Résumé de la review
-    category_hash_review_3: Limites de la review
+    category_hash_review_3: Rigueur de la review
     category_hash_review_4: Ce que cette review apporte au débat
-    category_hash_review_5: Remarque(s) sur la review
+    category_hash_review_5: Remarques sur la review
     category_hash_review_6: Titre de la review
     category_hash_review_7: Figure
     category_hash_meta_0: Introduction à la méta-analyse
     category_hash_meta_1: Expériences de la méta-analyse
     category_hash_meta_2: Résultats de la méta-analyse
-    category_hash_meta_3: Limites de la méta-analyse
+    category_hash_meta_3: Rigueur de la méta-analyse
     category_hash_meta_4: Ce que cette méta-analyse apporte au débat
-    category_hash_meta_5: Remarque(s) sur la méta-analyse
+    category_hash_meta_5: Remarques sur la méta-analyse
     category_hash_meta_6: Titre de la méta-analyse
     category_hash_meta_7: Figure
     category_hash_book_0: Introduction au livre
     category_hash_book_1: Résumé et résultats du livre
-    category_hash_book_3: Limites du livre
+    category_hash_book_3: Rigueur du livre
     category_hash_book_4: Ce que ce livre apporte au débat
-    category_hash_book_5: Remarque(s) sur le livre
+    category_hash_book_5: Remarques sur le livre
     category_hash_book_6: Titre du Livre
     category_hash_book_7: Figure
     category_hash_phd_0: Introduction à la thèse
     category_hash_phd_1: Résumé et résultats de la thèse
-    category_hash_phd_3: Limites de la thèse
+    category_hash_phd_3: Rigueur de la thèse
     category_hash_phd_4: Ce que cette thèse apporte au débat
-    category_hash_phd_5: Remarque(s) sur cette thèse
+    category_hash_phd_5: Remarques sur cette thèse
     category_hash_phd_6: Intitulé de la thèse
     category_hash_phd_7: Figure
     meta_description: ControverSciences est un portail collaboratif et indépendant
