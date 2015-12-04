@@ -265,6 +265,8 @@ en:
       taken_into_account: Your suggestion was sent to the webmasters
     password:
       new: Ask for a new password
+      change: Change password
+      old: Old password
       reinit: Reset your password
       reset: To get your password back, please enter the email adress associated with your account
       save_new: Save new password
@@ -310,6 +312,7 @@ en:
       resend_welcome: Your account on ControverSciences has yet to be activated, you only have to clic on the following link to begin contributing to the project.
       participate: You were invited to participate in
     users:
+      ids: Edit your id
       edit: Edit your profile
       added: 'added '
       all: All contributors

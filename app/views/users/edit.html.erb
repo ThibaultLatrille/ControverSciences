@@ -1,9 +1,9 @@
 <% provide(:title, "Edition du profil") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
-  <div class="col-xs-12 <%= @user.private_timeline ? "col-md-offset-3 col-md-6" : "col-md-offset-1 col-md-5" %>">
-    <div class="panel panel-default">
-      <div class="panel-heading">
+  <div class="row">
+    <div class="col-xs-12 <%= @user.private_timeline ? "col-md-offset-3 col-md-6" : "col-md-offset-1 col-md-5" %>">
+      <div class="panel panel-default">
+        <div class="panel-heading">
         <span id="caption" style="display: none">
           <span id="original">
             <%= image_tag @user_detail.picture_url, class: "img-rounded", height: "80px" %>
@@ -12,116 +12,143 @@
             <%= image_tag '', class: "img-rounded", height: "80px" %>
           </span>
         </span>
-            <span style="font-size: 2em"> <%= t('views.users.edit') %> </span>
-      </div>
-      <div class="panel-body">
-        <%= form_for(@user_detail, html: {multipart: true}, url: user_details_path, method: :post) do |f| %>
-            <%= render 'shared/error_messages', object: f.object %>
+          <span style="font-size: 2em"> <%= t('views.users.edit') %> </span>
+        </div>
+        <div class="panel-body">
+          <%= form_for(@user_detail, html: {multipart: true}, url: user_details_path, method: :post) do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
 
-            <%= f.label :job, t('views.users.job') %>
-            <%= f.text_field :job, placeholder: "", class: 'form-control' %>
-            <br/>
-            <%= f.label :institution, t('views.users.institution') %>
-            <%= f.text_field :institution, placeholder: "", class: 'form-control' %>
-            <br/>
-            <%= f.label :website, t('views.users.website') %>
-            <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
-            <br/>
-            <%= f.check_box :send_email %>
-            <%= f.label :send_email, t('views.users.send_email') %>
-            <br/>
-            <br/>
-            <%= f.label :biography, t('views.users.biography') %>
-            <%= f.text_area :biography, placeholder: "", :id => "markdown-textarea", class: 'form-control textarea' %>
-            <br/>
-            <%= f.hidden_field :has_picture, value: @user_detail.picture? %>
-            <%= f.hidden_field :delete_picture, value: false %>
-            <div id="size-warning" class="row" style="display: none">
-              <div class="col-xs-10 col-xs-offset-1">
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                  <strong>
-                    <span class="glyphicon glyphicon-warning-sign"></span>
-                    <%= t('views.picture.invalid_profil') %>
-                  </strong>
+              <%= f.label :job, t('views.users.job') %>
+              <%= f.text_field :job, placeholder: "", class: 'form-control' %>
+              <br/>
+              <%= f.label :institution, t('views.users.institution') %>
+              <%= f.text_field :institution, placeholder: "", class: 'form-control' %>
+              <br/>
+              <%= f.label :website, t('views.users.website') %>
+              <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
+              <br/>
+              <%= f.check_box :send_email %>
+              <%= f.label :send_email, t('views.users.send_email') %>
+              <br/>
+              <br/>
+              <%= f.label :biography, t('views.users.biography') %>
+              <%= f.text_area :biography, placeholder: "", :id => "markdown-textarea", class: 'form-control textarea' %>
+              <br/>
+              <%= f.hidden_field :has_picture, value: @user_detail.picture? %>
+              <%= f.hidden_field :delete_picture, value: false %>
+              <div id="size-warning" class="row" style="display: none">
+                <div class="col-xs-10 col-xs-offset-1">
+                  <div class="alert alert-danger alert-dismissible" role="alert">
+                    <strong>
+                      <span class="glyphicon glyphicon-warning-sign"></span>
+                      <%= t('views.picture.invalid_profil') %>
+                    </strong>
+                  </div>
                 </div>
               </div>
+              <br/>
+              <br/>
+              <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-success pull-right',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
+          <% end %>
+          <div>
+            <div id="upload-btn" class="btn btn-default fileinput-button">
+              <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+              <span id="ajouter"> <%= t('views.picture.add_profil') %> </span>
+              <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
             </div>
-            <br/>
-            <br/>
-            <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                         class: 'btn btn-success pull-right',
-                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "}%>
-        <% end %>
-        <div>
-          <div id="upload-btn" class="btn btn-default fileinput-button">
-            <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-            <span id="ajouter"> <%= t('views.picture.add_profil') %> </span>
-            <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
-          </div>
-          <div id="progress" style="display: none">
-            <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-              <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
-                <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
-              </path>
-            </svg>
-          </div>
-          <div id="delete" class="btn btn-danger" style="display: none">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-            <%= t('views.picture.delete_profil') %>
+            <div id="progress" style="display: none">
+              <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                  <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                </path>
+              </svg>
+            </div>
+            <div id="delete" class="btn btn-danger" style="display: none">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+              <%= t('views.picture.delete_profil') %>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <% unless @user.private_timeline %>
-  <div class="col-xs-12 col-md-5">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3> <%= t('views.users.edit') %> </h3>
-      </div>
-      <div class="panel-body">
-        <%= form_for(@user) do |f| %>
-            <%= render 'shared/error_messages', object: f.object %>
-
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <%= f.label :first_name %>
-                <%= f.text_field :first_name, class: 'form-control', placeholder: "Charles" %>
-                <br/>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <%= f.label :last_name %>
-                <%= f.text_field :last_name, class: 'form-control', placeholder: "Darwin" %>
-                <br/>
-              </div>
+    <% unless @user.private_timeline %>
+        <div class="col-xs-12 col-md-5">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3> <%= t('views.users.ids') %> </h3>
             </div>
+            <div class="panel-body">
+              <%= form_for(@user) do |f| %>
+                  <%= render 'shared/error_messages', object: f.object %>
 
-            <%= f.label :name %>
-            <%= f.text_field :name, class: 'form-control' %>
-            <br/>
-            <%= f.label :email %>
-            <%= f.text_field :email, class: 'form-control' %>
-            <br/>
-            <%= f.label :password, t('views.model.password') %>
-            <%= f.password_field :password, class: 'form-control' %>
-            <br/>
-            <%= f.label :password_confirmation, t('views.model.password_confirm') %>
-            <%= f.password_field :password_confirmation, class: 'form-control' %>
-            <br/>
-            <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                         class: 'btn btn-success pull-right',
-                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "}%>
-        <% end %>
-      </div>
-    </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                      <%= f.label :first_name %>
+                      <%= f.text_field :first_name, class: 'form-control', placeholder: "Charles" %>
+                      <br/>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                      <%= f.label :last_name %>
+                      <%= f.text_field :last_name, class: 'form-control', placeholder: "Darwin" %>
+                      <br/>
+                    </div>
+                  </div>
+
+                  <%= f.label :name %>
+                  <%= f.text_field :name, class: 'form-control' %>
+                  <br/>
+                  <%= f.label :email %>
+                  <%= f.text_field :email, class: 'form-control' %>
+                  <br/>
+                  <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                               class: 'btn btn-success pull-right',
+                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <% unless @user_pwd.private_timeline %>
+        <div class="col-xs-12 col-md-5">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3> <%= t('views.password.change') %> </h3>
+            </div>
+            <div class="panel-body">
+              <%= form_for(@user_pwd) do |f| %>
+                  <%= render 'shared/error_messages', object: f.object %>
+
+                  <%= f.label :old_password, t('views.password.old') %>
+                  <%= f.password_field :old_password, class: 'form-control' %>
+                  <br/>
+
+                  <%= f.label :password, t('views.model.password') %>
+                  <%= f.password_field :password, class: 'form-control' %>
+                  <br/>
+                  <%= f.label :password_confirmation, t('views.model.password_confirm') %>
+                  <%= f.password_field :password_confirmation, class: 'form-control' %>
+                  <br/>
+                  <div id="test"> </div>
+                  <%= f.button "#{t('views.buttons.save_changes')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                               class: 'btn btn-success pull-right',
+                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
   </div>
-  <% end %>
-</div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
+    $(document).ready(function () {
+        $("#markdown-textarea").markdown({
+            autofocus: false,
+            savable: false,
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
+        });
         if ($('#user_detail_has_picture').val() === 'true') {
             $('#caption').show();
             $('#delete').show();
@@ -162,13 +189,24 @@
         $('#ajouter').text("<%= t('views.picture.add_profil') %>");
         $('#user_detail_delete_picture').val('true');
     });
-    String.prototype.capitalize = function() {
+    $('input#user_password_confirmation').keyup(function () {
+        $('#test').show();
+        var $pwc = $('input#user_password_confirmation').val();
+        var $pw = $('input#user_password').val();
+
+        if ($pwc == $pw) {
+            $('#test').html("<div class='alert alert-success' role='alert'><span class='glyphicon glyphicon-ok' aria-hidden='true'></span><span class='sr-only'>Parfait: </span> <%= t('views.users.confirmation_pwd_ok') %></div>");
+        } else {
+            $('#test').html("<div class='alert alert-danger' role='alert'><span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span><span class='sr-only'></span> <%= t('views.users.confirmation_pwd_fail') %></div>");
+        }
+    });
+    String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase()
     };
     $('input#user_first_name').keyup(function () {
-        if ($('input#user_last_name').val() != "" ){
-            var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function(num) {
-                if (num[0]){
+        if ($('input#user_last_name').val() != "") {
+            var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function (num) {
+                if (num[0]) {
                     return num[0].toUpperCase() + '.';
                 } else {
                     return ""
@@ -179,9 +217,9 @@
         }
     });
     $('input#user_last_name').keyup(function () {
-        if ($('input#user_first_name').val() != "" ){
-            var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function(num) {
-                if (num[0]){
+        if ($('input#user_first_name').val() != "") {
+            var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function (num) {
+                if (num[0]) {
                     return num[0].toUpperCase() + '.';
                 } else {
                     return ""

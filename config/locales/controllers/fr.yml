@@ -56,6 +56,7 @@ fr:
     user_updated: Les modifications apportées à votre profil ont été enregistrées.
     vote_ok: Votre vote a été pris en compte.
     wrong_pwd: Mauvais mot de passe pour cette adresse email.
+    wrong_short_pwd: Mauvais mot de passe.
     session_not_validated_html: "Votre compte est en cours de validation, vous recevrez un email dès que celui-ci sera validé"
     session_not_activated_html: "Veuillez <b>activer votre compte</b> en cliquant sur le <b>lien envoyé par email</b>. </br> Si vous ne trouvez pas cet email <a href=%{href}>cliquez ici</a> pour recevoir un nouveau lien d'activation"
     slack_already_invited: "Vous avez deja reçu l'invitation de Slack à l'adresse %{email}, mais vous n'avez pas encore activé votre compte. Veuillez contacter admin@controversciences.org si vous ne trouvez pas cet email"

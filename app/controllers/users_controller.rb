@@ -3,6 +3,15 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:destroy]
 
+
+  def fetch_user_detail
+    @user_detail = UserDetail.find_by_user_id(params[:id])
+    unless @user_detail
+      @user_detail            = UserDetail.new(user_id: params[:id])
+      @user_detail.send_email = true
+    end
+  end
+
   def new
     @user = User.new
   end
@@ -43,11 +52,8 @@ class UsersController < ApplicationController
 
   def edit
     @user        = User.find(params[:id])
-    @user_detail = UserDetail.find_by_user_id(params[:id])
-    unless @user_detail
-      @user_detail            = UserDetail.new(user_id: params[:id])
-      @user_detail.send_email = true
-    end
+    @user_pwd = User.find(params[:id])
+    fetch_user_detail
   end
 
   def create
@@ -77,16 +83,29 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if @user.update(user_params)
-      flash[:success] = t('controllers.user_updated')
-      redirect_to @user
-    else
-      @user_detail = UserDetail.find_by_user_id(params[:id])
-      unless @user_detail
-        @user_detail            = UserDetail.new(user_id: params[:id])
-        @user_detail.send_email = true
+    @user_pwd = User.find(params[:id])
+    if params[:user][:old_password].present?
+      if @user_pwd.authenticated?("password", params[:user][:old_password])
+        if @user_pwd.update(user_password_params)
+          flash[:success] = t('controllers.user_updated')
+          redirect_to @user
+        else
+          fetch_user_detail
+          render 'edit'
+        end
+      else
+        @user_pwd.errors.add(:base, t('controllers.wrong_short_pwd'))
+        fetch_user_detail
+        render 'edit'
       end
-      render 'edit'
+    else
+      if @user.update(user_no_password_params)
+        flash[:success] = t('controllers.user_updated')
+        redirect_to @user
+      else
+        fetch_user_detail
+        render 'edit'
+      end
     end
   end
 
@@ -177,6 +196,14 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_password_params
+    params.require(:user).permit(:password, :password_confirmation)
+  end
+
+  def user_no_password_params
+    params.require(:user).permit(:name, :email, :first_name, :last_name)
+  end
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :first_name, :last_name,
