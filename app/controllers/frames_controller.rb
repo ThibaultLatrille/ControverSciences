@@ -9,7 +9,6 @@ class FramesController < ApplicationController
       timeline           = Timeline.find(params[:timeline_id])
       @frame             = Frame.new
       frame              = Frame.find_by(best: true, timeline_id: params[:timeline_id])
-      @frame.content     = frame.content
       @frame.name        = frame.name
       @frame.timeline_id = params[:timeline_id]
       @frame.binary      = timeline.binary
