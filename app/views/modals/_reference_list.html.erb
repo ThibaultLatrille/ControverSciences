@@ -1,0 +1,50 @@
+<div class="modal fade" id="mylist" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"> <%= t('views.edition.add_reference_link') %> </h4>
+      </div>
+      <div class="modal-body">
+        <%= select("reference", "reference_id", references_list, {}, {id: "list-ref", class: 'form-control'}) %>
+        <br>
+        <div style="padding-left: 10px">
+            <span class="glyphicon glyphicon-info-sign"></span> Astuces pour les liens vers des références : <br>
+            <div style="padding: 10px">
+              <b>Numérotation automatique des liens en utilisant le caractère * </b><br>
+              &nbsp <b>e.g.</b> [*](<span class="my-number"></span>)
+              <span style="padding: 0 5px">&#8594;</span>
+              <a class="my-link" target="_blank" href=""><sup>[1]</sup></a>
+              <br>
+              <br>
+              <b>Texte personnalisé dans le lien</b><br>
+              &nbsp <b>e.g.</b> [mon texte ici](<span class="my-number"></span>)
+              <span style="padding: 0 5px">&#8594;</span>
+              <a class="my-link" target="_blank" href="">mon texte ici</a>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn"> <%= t('views.buttons.add') %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+    $('#save-btn').on('click', function (event) {
+        this.setAttribute("data-toggled", 'yes');
+    });
+    $('#list-ref').change(function (e) {
+        var valueSelected = this.value;
+        $('.my-number').text(valueSelected);
+        $('.my-link').attr('href', '/references/' + valueSelected);
+    });
+    $(document).ready(function () {
+        var valueSelected = $("#list-ref option:first").val();
+        $('.my-number').text(valueSelected);
+        $('.my-link').attr('href', '/references/' + valueSelected);
+    });
+</script>

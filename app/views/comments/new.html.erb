@@ -242,80 +242,12 @@
 </div>
 </div>
 
-<div class="modal fade" id="mytimlist" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">
-          <% if @tim_list.any? %>
-              <%= t('views.edition.add_timeline_link') %>
-          <% else %>
-              <%= t('views.edition.imposible') %>
-          <% end %>
-        </h4>
-      </div>
-      <% if @tim_list.any? %>
-          <div class="modal-body">
-            <%= select("timeline", "timeline_id", @tim_list, {}, {id: "list-tim", class: 'form-control'}) %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-tim"> <%= t('views.buttons.add') %>
-            </button>
-          </div>
-      <% else %>
-          <div class="modal-body">
-            <%= t('views.edition.timeline_not_linked') %>
-            <br/>
-            <br/>
-            <%= link_to "<span class=\"glyphicon glyphicon-link\" >
-        </span> #{t('views.edition.add_timeline_links')}".html_safe,
-                        edges_path(timeline_id: @comment.timeline_id),
-                        class: "btn btn-primary btn-block", target: "_blank" %>
-            <br/>
-            <br/>
-          </div>
-      <% end %>
-    </div>
-  </div>
-</div>
+<%= render 'modals/timelines_list', timelines_list: @tim_list, timeline_id: @comment.timeline_id  %>
 
-<div class="modal fade" id="mylist" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> <%= t('views.edition.add_reference_link') %> </h4>
-      </div>
-      <div class="modal-body">
-        <%= select("reference", "reference_id", @list, {}, {id: "list-ref", class: 'form-control'}) %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-tim"> <%= t('views.buttons.add') %>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'modals/reference_list', references_list: @list  %>
 
-<div class="modal fade" id="myref" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel"> <%= t('views.edition.add_href') %> </h4>
-      </div>
-      <div class="modal-body">
-        <input id="http-text" type="text" class="form-control" placeholder="http://">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" data-toggled="no" id="save-btn-http">
-          <%= t('views.buttons.add') %>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'modals/href' %>
+
 
 
 <script type="text/javascript">
@@ -359,15 +291,6 @@
         $('#delete').hide(300);
         $('#ajouter').text("<%= t('views.picture.add_figure') %>");
         $('#comment_delete_picture').val('true');
-    });
-    $('#save-btn').on('click', function (event) {
-        this.setAttribute("data-toggled", 'yes');
-    });
-    $('#save-btn-tim').on('click', function (event) {
-        this.setAttribute("data-toggled", 'yes');
-    });
-    $('#save-btn-http').on('click', function (event) {
-        this.setAttribute("data-toggled", 'yes');
     });
 </script>
 
