@@ -1,7 +1,6 @@
 $(document).ready(function(){
     $(".menu").each(function(i, v){
         $menu = $(v);
-        console.log($menu)
         var menuItemNum=$(".menu-item", $menu).length;
         var angle=120;
         var distance=90;

@@ -780,7 +780,6 @@
         });
         $('.sub-navigation').on("click", function () {
             $this = $(this);
-            console.log($this.data("parent"));
             $(".sub-navigation", "#head-" + $this.data("parent")).removeClass("active");
             $this.addClass("active");
             $(".sub-leading", "#body-" + $this.data("parent")).addClass("not-activated");

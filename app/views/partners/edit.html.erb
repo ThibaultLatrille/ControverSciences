@@ -110,7 +110,6 @@
             done: function (e, data) {
                 $('#upload-btn').show(300);
                 $('#progress').hide(300);
-                console.log(data.result);
                 if (data.result.id == null) {
                     $('#size-warning').show(300);
                 } else {
