@@ -15,7 +15,12 @@
         type="image/png"
         href="<%= path_to_image "favicon.png" %>">
   <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Ubuntu:400,700', :media => "all" %>
-  <%= javascript_include_tag 'application' %>
+
+  <% if logged_in? %>
+        <%= javascript_include_tag 'application' %>
+  <% else %>
+        <%= javascript_include_tag 'not_logged' %>
+  <% end %>
   <% if Rails.env.production? %>
       <script>
           (function (i, s, o, g, r, a, m) {
