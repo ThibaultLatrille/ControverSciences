@@ -935,7 +935,7 @@ del {
     white-space: nowrap;
     position: relative;
   }
-  .container-jets input#jetsSearch {
+  .container-jets input {
     width: 250px;
     border: none;
     border-bottom: 4px solid #26a69a;
@@ -949,18 +949,18 @@ del {
     -o-transition: background .55s ease;
     transition: background .55s ease;
   }
-  .container-jets input#jetsSearch::-webkit-input-placeholder {
+  .container-jets input::-webkit-input-placeholder {
     color: #65737e;
   }
-  .container-jets input#jetsSearch:-moz-placeholder {
+  .container-jets input:-moz-placeholder {
     /* Firefox 18- */
     color: #65737e;
   }
-  .container-jets input#jetsSearch::-moz-placeholder {
+  .container-jets input::-moz-placeholder {
     /* Firefox 19+ */
     color: #65737e;
   }
-  .container-jets input#jetsSearch:-ms-input-placeholder {
+  .container-jets input:-ms-input-placeholder {
     color: #65737e;
   }
   .container-jets .icon {
@@ -972,20 +972,20 @@ del {
     z-index: 1;
     color: #4f5b66;
   }
-  .container-jets input#jetsSearch:hover, .container-jets input#jetsSearch:focus, .container-jets input#jetsSearch:active {
+  .container-jets input:hover, .container-jets input:focus, .container-jets input:active {
     outline: none;
     background: #ffffff;
   }
-  .container-jets input#jetsSearch:focus::-webkit-input-placeholder {
+  .container-jets input:focus::-webkit-input-placeholder {
     color: #FDFDFD;
   }
-  .container-jets input#jetsSearch:focus:-moz-placeholder {
+  .container-jets input:focus:-moz-placeholder {
     color: #FDFDFD;
   }
-  .container-jets input#jetsSearch:focus::-moz-placeholder {
+  .container-jets input:focus::-moz-placeholder {
     color: #FDFDFD;
   }
-  .container-jets input#jetsSearch:focus:-ms-input-placeholder {
+  .container-jets input:focus:-ms-input-placeholder {
     color: #FDFDFD;
   }
 }

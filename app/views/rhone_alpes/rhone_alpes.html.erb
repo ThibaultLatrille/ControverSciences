@@ -19,248 +19,304 @@
   <base href="<%= root_url %>"/>
 </head>
 <body>
-<div id="container" class="container-fluid" style="margin-top: -50px">
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <h1>
-        La transition sociétale et écologique en Rhône-Alpes
-      </h1>
-      <br>
+<% answers = {} %>
+<% answers[6] ? nil : answers[6] = []; answers[6] << {id: 1, name: "Tristan JOLY", number_id: "6", content: "Bonjour et merci pour votre retour.
 
-      <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
+Je ne suis pas tout a fait d'accord avec votre analyse des enjeux de la Région en ce qui concerne les enjeux énergétiques de la Région. Il est vrai que  les transports sont très énergivore dans notre Région (22% de l'énergie finale) mais le principal secteur en terme de consommation est le résidentiel (37%).  Je vous invite à aller consulter le SRCAE de la Région Rhône Alpes disponible sur internet
 
-        <div class="box">
-          <div class="container-jets">
-            <span class="icon glyphicon glyphicon-filter"></span>
-            <input type="search" id="jetsSearch" placeholder="Filtrer"/>
-          </div>
-        </div>
-        <div id="jetsContent" data-toggle="buttons">
-          <%= render 'rhone_alpes/actors', number_id: "1", name: "Nadège Riotte" %>
-          <%= render 'rhone_alpes/actors', number_id: "1", name: "Jean Duverger" %>
-          <%= render 'rhone_alpes/actors', number_id: "1", name: "Alain Chabrolle" %>
-          <%= render 'rhone_alpes/actors', number_id: "1", name: "Maxime Meyer" %>
+2/ synthèse des acteurs. Il me semble nécessaire de hiérarchiser nos partenaires comme tel:
 
-          <%= render 'rhone_alpes/actors', number_id: "2", name: "Patricia Thillardon" %>
-          <%= render 'rhone_alpes/actors', number_id: "2", name: "Simone Larcade" %>
-          <%= render 'rhone_alpes/actors', number_id: "2", name: "Jean Louis Gagnaire" %>
+a/ élus et agents de la Région
+b/Ademe
+c/ DREAL
+d/IERA
+e/RAEE
+f/Partenaires privés
+f/CESER
 
-          <%= render 'rhone_alpes/actors', number_id: "3", name: "Gilles Martin" %>
-          <%= render 'rhone_alpes/actors', number_id: "3", name: "Georges Erome" %>
-          <%= render 'rhone_alpes/actors', number_id: "3", name: "Frederic Jacquemart" %>
+Enfin en ce qui concerne les problèmes et réponses votre analyse me semble beaucoup trop centrée sur le transport routier alors que notre travail s'articule nettement plus au tours du secteur du bâtiment (création de la SPL OSER, création des plateformes de rénovation énergétique du logement privée, Appels a projet régionaux, plan bâtiment durable…). De plus je trouve dommage que vous ne citiez pas les Territoires à énergie positive (TEPOS). Lancée en 2012 par la Région Rhône alpes et l'ADEME et depuis reprit pas l'Etat avec son appel à projet TEPCV, la Région Rhône alpes à toujours été chef de file national en ce qui concerne les TEPOS
+Enfin la Région est active dans le déploiement des EnR sur son territoire, elle est la première Région à avoir créer une Société Régionale de financement des ENR (Fonds OSER).
 
-          <%= render 'rhone_alpes/actors', number_id: "4", name: "Anne-Lise Exertier" %>
-          <%= render 'rhone_alpes/actors', number_id: "4", name: "Bernard Lacoste" %>
+Bien entendu je reste à votre disposition pour échanger plus longuement à ce sujet.".html_safe} %>
 
-          <%= render 'rhone_alpes/actors', number_id: "5", name: "Alain Chabrolle" %>
-          <%= render 'rhone_alpes/actors', number_id: "5", name: "Emeline Buame" %>
-          <%= render 'rhone_alpes/actors', number_id: "5", name: "Maxime Meyer" %>
+<% answers[18] ? nil : answers[18] = []; answers[18] << {id: 2, name: "Anne-Marie SCHMUTZ POUSSINEAU", number_id: "18", content: "Bravo pour votre travail qui est intéressant!
+Je vous envoie par mail quelques stats pour compléter vos données.
+Deux remarques:
+1)je regrette que vous n'ayez pas appréhendé le poids économique des AMAPs: effectivement, vous les placez au coeur du débat, ce qui est intéressant du point de vue du niveau d'engagement des consommateurs (dont vous brossez un portrait trop caricatural à mon goût!) . Si vous regardiez le poids économique de  ce système il est insignifiant dans les flux actuels de produits fermiers vendus en CC.
+2) je ne partage pas du tout votre approche sur les marchés qui est sous l'angle de vue unique du comportement :\"Tout d'abord, on peut estimer qu’aller “faire le marché” en achetant directement aux producteurs locaux est une forme de consommation alternative, même si elle est au sens propre la plus traditionnelle.\" Vous avez à mon sens loupé le coche sur ce sujet : une transition sociétale est possible sur les marchés, qui est , je le rappelle, la locomotive économique des circuits courts: marchés d'après midi, possibilité de précommande sur les marchés, marchés propres, développement des food-trucks proposant de la restauration rapide à base de produits locaux sur les marchés, développement croissant des marchés de producteurs et marchés bio.... sur ce point , les acteurs du publics ont encore beaucoup de choses à faire !!! Ce circuit existe depuis des lustres, cela ne signifie pas qu'il n'y a rien à faire pour le développer et l'améliorer.
+Voilà de quoi continuer la discussion!"} %>
 
-          <%= render 'rhone_alpes/actors', number_id: "6", name: "Véronique Moreira" %>
-          <%= render 'rhone_alpes/actors', number_id: "6", name: "Benoit Leclair" %>
-          <%= render 'rhone_alpes/actors', number_id: "6", name: "Eliane Giraud" %>
-          <%= render 'rhone_alpes/actors', number_id: "6", name: "Loïc Rigaud" %>
-          <%= render 'rhone_alpes/actors', number_id: "6", name: "Tristan Joly" %>
-          <%= render 'rhone_alpes/actors', number_id: "6", name: "Roxane Beneyton" %>
+<% answers[15] ? nil : answers[15] = []; answers[15] << {id: 3, name: "Jérome Blanc", number_id: "15", content: "Je trouve la partie discutant la gonette et ses enjeux et difficultés bien faite et pertinente, mais vous auriez pu aborder les choses d’un point de vue plus critique peut-être car la question de l’impact réel de ces monnaies sur l’économie locale reste un grand point d’interrogation de façon générale. Comme vous le dites, on a peu de chiffres ou de données permettant de l’évaluer. C’est sans doute que ces monnaies ne sont pas suffisamment développées pour avoir un impact visible. Il reste donc soit à raisonner sur les conditions de développement de ces monnaies, soit sur ce que peut faire une monnaie locale lorsque ses impacts économiques directs ne sont pas visibles (la question de la sensibilisation et de l’éducation populaire).
+Autre critique que je peux faire sur votre document, l’introduction qui présente succinctement la variété des systèmes est approximative (les SEL n’étant pas à confondre avec les banques de temps). Mais ce n’était pas le coeur de votre propos. "} %>
 
-          <%= render 'rhone_alpes/actors', number_id: "7", name: "Anne Lautredou" %>
-          <%= render 'rhone_alpes/actors', number_id: "7", name: "Hervé Piaton" %>
-          <%= render 'rhone_alpes/actors', number_id: "7", name: "G. Alamondi" %>
-          <%= render 'rhone_alpes/actors', number_id: "7", name: "E. Grassot" %>
+<% answers[15] ? nil : answers[15] = []; answers[15] << {id: 6, name: "Nicolas Briet pour La Gonette", number_id: "15", content: "J'ai relu votre article
+Je n'y vois pas d'erreurs"} %>
 
-          <%= render 'rhone_alpes/actors', number_id: "8", name: "Christine Puthod" %>
-          <%= render 'rhone_alpes/actors', number_id: "8", name: "Gaëlle Agnès" %>
-          <%= render 'rhone_alpes/actors', number_id: "8", name: "Jean-Michel Lebail" %>
-          <%= render 'rhone_alpes/actors', number_id: "8", name: "Farida Boudaoud" %>
-          <%= render 'rhone_alpes/actors', number_id: "8", name: "Olivier Tur" %>
-          <%= render 'rhone_alpes/actors', number_id: "8", name: "Cyril Kretzschmar" %>
-          <%= render 'rhone_alpes/actors', number_id: "8", name: "Coralie Echinard" %>
+<% answers[10] ? nil : answers[10] = []; answers[10] << {id: 4, name: "Pascale SIMARD", number_id: "10", content: "Je vous remercie pour cet envoi. Je n'ai malheureusement pas le temps de lire tous ces éléments en détail, mais je trouve ce concept d'organisation de l'information très intéressant. L'idée d'une plate-forme de controverse tout autant !
+J'ai transmis votre mail à plusieurs de mes collaborateurs. Vous aurez peut-être quelques retours plus précis.
+Quoiqu'il en soit, bravo à vous et à l'institut. En espérant une pérennisation de la démarche au-delà du 15 décembre."} %>
 
-          <%= render 'rhone_alpes/actors', number_id: "9", name: "Alain Chabrolle" %>
-          <%= render 'rhone_alpes/actors', number_id: "9", name: "Maxime Meyer" %>
+<% answers[7] ? nil : answers[7] = []; answers[7] << {id: 5, name: "Perrine Vandenbroucke", number_id: "7", content: "Je vous remercie pour votre sollicitation, j'ai consulté avec intérêt le site web. Concernant la synthèse sur les thématiques agriculture et eau ; je vous ai fait quelques commentaires sur le départ du paragraphe ; dans l'ensemble, les auteurs se sont saisis d'une problématique assez vaste ; mais du coup très partiellement traitée ; donc je ne sais pas bien comment réagir davantage par rapport aux avis d'experts sur lesquels vous vous appuyez.
+Bien cordialement,
+Bonne continuation,"} %>
 
-          <%= render 'rhone_alpes/actors', number_id: "10", name: "Gérard Leras" %>
-          <%= render 'rhone_alpes/actors', number_id: "10", name: "Edouard Simonian" %>
-          <%= render 'rhone_alpes/actors', number_id: "10", name: "Hervé Saulignac" %>
-          <%= render 'rhone_alpes/actors', number_id: "10", name: "Julie Laurain" %>
-          <%= render 'rhone_alpes/actors', number_id: "10", name: "D. Vitrolles" %>
-          <%= render 'rhone_alpes/actors', number_id: "10", name: "Jérémy Perez" %>
 
-          <%= render 'rhone_alpes/actors', number_id: "11", name: "Luc Voiturier" %>
 
-          <%= render 'rhone_alpes/actors', number_id: "12", name: "Luc Vogel" %>
-          <%= render 'rhone_alpes/actors', number_id: "12", name: "Fabienne Mania" %>
-          <%= render 'rhone_alpes/actors', number_id: "12", name: "Jean-François Débat" %>
 
-          <%= render 'rhone_alpes/actors', number_id: "13", name: "André Friedenberg" %>
-          <%= render 'rhone_alpes/actors', number_id: "13", name: "Maëva Lazare" %>
 
-          <%= render 'rhone_alpes/actors', number_id: "14", name: "Nadège Riotte" %>
-          <%= render 'rhone_alpes/actors', number_id: "14", name: "Jean Duverger" %>
+<div id="container" class="container-fluid" style="background-color: white; margin-top: -65px">
+  <h1>
+    La transition sociétale et écologique en Rhône-Alpes
+  </h1>
+  <br>
 
-          <%= render 'rhone_alpes/actors', number_id: "15", name: "Sol Violette" %>
-          <%= render 'rhone_alpes/actors', number_id: "15", name: "Sol Alpin" %>
-
-          <%= render 'rhone_alpes/actors', number_id: "16", name: "Laurent Legendre" %>
-          <%= render 'rhone_alpes/actors', number_id: "16", name: "Benoit Verzat" %>
-          <%= render 'rhone_alpes/actors', number_id: "16", name: "Vincent Fristot" %>
-          <%= render 'rhone_alpes/actors', number_id: "16", name: "Pascal Clouaire" %>
-          <%= render 'rhone_alpes/actors', number_id: "16", name: "Kitty de Bruin" %>
-
-          <%= render 'rhone_alpes/actors', number_id: "17", name: "Hugues Vernier" %>
-          <%= render 'rhone_alpes/actors', number_id: "17", name: "Philippe Mejean" %>
-
-          <%= render 'rhone_alpes/actors', number_id: "18", name: "Hervé Piaton" %>
-          <%= render 'rhone_alpes/actors', number_id: "18", name: "Anne-Marie Schmutz" %>
-        </div>
+  <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
+    Les acteurs
+    <div class="box">
+      <div class="container-jets">
+        <span class="icon glyphicon glyphicon-filter"></span>
+        <input type="search" id="jetsSearch" placeholder="Filtrer"/>
       </div>
-      <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
-        <div class="row">
-          <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <p style="text-align: justify;">Bienvenue sur la plateforme participative d&eacute;di&eacute;e &agrave;
-                  la
-                  transition soci&eacute;tale et &eacute;cologique en r&eacute;gion Rh&ocirc;ne-Alpes&nbsp;! Ce projet
-                  collaboratif a &eacute;t&eacute; initi&eacute; par les &eacute;tudiants du master BioSciences de l&rsquo;&Eacute;cole
-                  Normale Sup&eacute;rieure (ENS) de Lyon, sous la supervision de Ioan Negrutiu, professeur de
-                  biologie &agrave; l'ENS de Lyon, et avec le soutien de l'Institut Michel Serres. L'ensemble des
-                  travaux
-                  des &eacute;tudiants est ici accessibles &agrave; tous, sous forme de dossiers th&eacute;matiques
-                  disponibles pour la critique, la controverse, les &eacute;changes ou encore les mises &agrave; jour.
-                  Le r&eacute;sultat
-                  attendu est la p&eacute;rennisation collaborative et participative de cet espace d&rsquo;analyse, de
-                  coordination, d&rsquo;articulation et de validation, avec une capacit&eacute; d&rsquo;information et
-                  de
-                  suivi en temps quasi-r&eacute;el de la transition en r&eacute;gion.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <p style="text-align: justify;">Cette analyse est l&rsquo;amorce du travail collectif et collaboratif
-                  que nous proposons pour cette plateforme consacr&eacute;e &agrave; la transition en
-                  Rh&ocirc;ne-Alpes.</p>
+    </div>
+    <div id="jetsContent" data-toggle="buttons">
+      <%= render 'rhone_alpes/actors', number_id: "1", name: "Nadège Riotte" %>
+      <%= render 'rhone_alpes/actors', number_id: "1", name: "Jean Duverger" %>
+      <%= render 'rhone_alpes/actors', number_id: "1", name: "Alain Chabrolle" %>
+      <%= render 'rhone_alpes/actors', number_id: "1", name: "Maxime Meyer" %>
 
-                <div class="panel-group" role="tablist" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="heading1">
-                      <h4 class="panel-title clearfix">
-                        <a data-toggle="collapse" href="#CollapseG0" class="pull-right CollapseG1 glyphicon glyphicon-chevron-down"></a>
-                        <a data-toggle="collapse" href="#CollapseG0">
-                          Les acteurs de la transition sociétale et écologique en Rhône-Alpes : décryptage par les
-                          jeunes
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="CollapseG0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="panel-body clearfix">
-                        <%= render 'rhone_alpes/reponse', reponse: "synthese", title: "Synthèse" %>
-                        <%= render 'rhone_alpes/rhone_alpes_synthese' %>
-                        <%= render 'rhone_alpes/panel_group', response: false, parent: "CollapseG0", number_id: "synthese_annexes", title: "Annexes" %>
-                        <%= render 'rhone_alpes/panel_group', response: false, parent: "CollapseG0", number_id: "synthese_references", title: "Références" %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-default">
-              <div class="panel-body">
-                <p style="text-align: justify;">L&rsquo;analyse de la transition soci&eacute;tale et &eacute;cologique
-                  en Rh&ocirc;ne-Alpes a &eacute;t&eacute; organis&eacute;e en sous-th&egrave;mes, cliquez pour acc&eacute;der
-                  aux dossiers th&eacute;matiques qui les composent et pour r&eacute;pondre ou commenter.</p>
+      <%= render 'rhone_alpes/actors', number_id: "2", name: "Patricia Thillardon" %>
+      <%= render 'rhone_alpes/actors', number_id: "2", name: "Simone Larcade" %>
+      <%= render 'rhone_alpes/actors', number_id: "2", name: "Jean Louis Gagnaire" %>
 
-                <div class="panel-group" role="tablist" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="heading1">
-                      <h4 class="panel-title clearfix">
-                        <a data-toggle="collapse" href="#CollapseG1" class="pull-right CollapseG1 glyphicon glyphicon-chevron-down"></a>
-                        <a data-toggle="collapse" href="#CollapseG1">
-                          Les acteurs de la gouvernance
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="CollapseG1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="panel-body clearfix">
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "1", title: "Les acteurs politiques" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "2", title: "Les acteurs socio-économiques" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "3", title: "Les acteurs de la société civile" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "4", title: "Recherche et formation dans la transition écologique" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG1", number_id: "5", title: "La place de la transition écologique et sociétale dans le débat public" %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="panel-group" role="tablist" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="heading1">
-                      <h4 class="panel-title clearfix">
-                        <a data-toggle="collapse" href="#CollapseG2" class="pull-right CollapseG2 glyphicon glyphicon-chevron-down"></a>
-                        <a data-toggle="collapse" href="#CollapseG2">
-                          Les acteurs par secteurs territoriaux
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="CollapseG2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="panel-body clearfix">
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "6", title: "Énergie et transports" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "7", title: "Gestion de l'agriculture et de l'eau" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "10", title: "Aménagement du territoire et foncier, rural-urbain" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG2", number_id: "12", title: "Réglementation, normes, fiscalité et financement" %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="panel-group" role="tablist" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="heading1">
-                      <h4 class="panel-title clearfix">
-                        <a data-toggle="collapse" href="#CollapseG3" class="pull-right CollapseG3 glyphicon glyphicon-chevron-down"></a>
-                        <a data-toggle="collapse" href="#CollapseG3">
-                          Les acteurs par secteurs sociaux
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="CollapseG3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="panel-body clearfix">
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "8", title: "Économie, travail et inégalités" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "9", title: "Alimentation et santé" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "11", title: "Consommation, recyclage, démographie et éducation" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG3", number_id: "13", title: "Données et démocratie" %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="panel-group" role="tablist" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="heading1">
-                      <h4 class="panel-title clearfix">
-                        <a data-toggle="collapse" href="#CollapseG4" class="pull-right glyphicon CollapseG4 glyphicon-chevron-down"></a>
-                        <a data-toggle="collapse" href="#CollapseG4">
-                          Innovations et expérimentations alternatives en Rhône-Alpes
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="CollapseG4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                      <div class="panel-body clearfix">
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "14", title: "Les valeurs de la transition" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "15", title: "Les monnaies complémentaires" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "16", title: "Les villes en transition" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "17", title: "La Biovallée" %>
-                        <%= render 'rhone_alpes/panel_group', response: true, parent: "CollapseG4", number_id: "18", title: "Les circuits courts" %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <%= render 'rhone_alpes/actors', number_id: "3", name: "Gilles Martin" %>
+      <%= render 'rhone_alpes/actors', number_id: "3", name: "Georges Erome" %>
+      <%= render 'rhone_alpes/actors', number_id: "3", name: "Frederic Jacquemart" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "4", name: "Anne-Lise Exertier" %>
+      <%= render 'rhone_alpes/actors', number_id: "4", name: "Bernard Lacoste" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "5", name: "Alain Chabrolle" %>
+      <%= render 'rhone_alpes/actors', number_id: "5", name: "Emeline Buame" %>
+      <%= render 'rhone_alpes/actors', number_id: "5", name: "Maxime Meyer" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "6", name: "Véronique Moreira" %>
+      <%= render 'rhone_alpes/actors', number_id: "6", name: "Benoit Leclair" %>
+      <%= render 'rhone_alpes/actors', number_id: "6", name: "Eliane Giraud" %>
+      <%= render 'rhone_alpes/actors', number_id: "6", name: "Loïc Rigaud" %>
+      <%= render 'rhone_alpes/actors', number_id: "6", name: "Tristan Joly" %>
+      <%= render 'rhone_alpes/actors', number_id: "6", name: "Roxane Beneyton" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "7", name: "Anne Lautredou" %>
+      <%= render 'rhone_alpes/actors', number_id: "7", name: "Hervé Piaton" %>
+      <%= render 'rhone_alpes/actors', number_id: "7", name: "G. Alamondi" %>
+      <%= render 'rhone_alpes/actors', number_id: "7", name: "E. Grassot" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "8", name: "Christine Puthod" %>
+      <%= render 'rhone_alpes/actors', number_id: "8", name: "Gaëlle Agnès" %>
+      <%= render 'rhone_alpes/actors', number_id: "8", name: "Jean-Michel Lebail" %>
+      <%= render 'rhone_alpes/actors', number_id: "8", name: "Farida Boudaoud" %>
+      <%= render 'rhone_alpes/actors', number_id: "8", name: "Olivier Tur" %>
+      <%= render 'rhone_alpes/actors', number_id: "8", name: "Cyril Kretzschmar" %>
+      <%= render 'rhone_alpes/actors', number_id: "8", name: "Coralie Echinard" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "9", name: "Alain Chabrolle" %>
+      <%= render 'rhone_alpes/actors', number_id: "9", name: "Maxime Meyer" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "10", name: "Gérard Leras" %>
+      <%= render 'rhone_alpes/actors', number_id: "10", name: "Edouard Simonian" %>
+      <%= render 'rhone_alpes/actors', number_id: "10", name: "Hervé Saulignac" %>
+      <%= render 'rhone_alpes/actors', number_id: "10", name: "Julie Laurain" %>
+      <%= render 'rhone_alpes/actors', number_id: "10", name: "D. Vitrolles" %>
+      <%= render 'rhone_alpes/actors', number_id: "10", name: "Jérémy Perez" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "11", name: "Luc Voiturier" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "12", name: "Luc Vogel" %>
+      <%= render 'rhone_alpes/actors', number_id: "12", name: "Fabienne Mania" %>
+      <%= render 'rhone_alpes/actors', number_id: "12", name: "Jean-François Débat" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "13", name: "André Friedenberg" %>
+      <%= render 'rhone_alpes/actors', number_id: "13", name: "Maëva Lazare" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "14", name: "Nadège Riotte" %>
+      <%= render 'rhone_alpes/actors', number_id: "14", name: "Jean Duverger" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "15", name: "Sol Violette" %>
+      <%= render 'rhone_alpes/actors', number_id: "15", name: "Sol Alpin" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "16", name: "Laurent Legendre" %>
+      <%= render 'rhone_alpes/actors', number_id: "16", name: "Benoit Verzat" %>
+      <%= render 'rhone_alpes/actors', number_id: "16", name: "Vincent Fristot" %>
+      <%= render 'rhone_alpes/actors', number_id: "16", name: "Pascal Clouaire" %>
+      <%= render 'rhone_alpes/actors', number_id: "16", name: "Kitty de Bruin" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "17", name: "Hugues Vernier" %>
+      <%= render 'rhone_alpes/actors', number_id: "17", name: "Philippe Mejean" %>
+
+      <%= render 'rhone_alpes/actors', number_id: "18", name: "Hervé Piaton" %>
+      <%= render 'rhone_alpes/actors', number_id: "18", name: "Anne-Marie Schmutz" %>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <p style="text-align: justify;">Bienvenue sur la plateforme participative d&eacute;di&eacute;e &agrave;
+              la
+              transition soci&eacute;tale et &eacute;cologique en r&eacute;gion Rh&ocirc;ne-Alpes&nbsp;! Ce projet
+              collaboratif a &eacute;t&eacute; initi&eacute; par les &eacute;tudiants du master BioSciences de l&rsquo;&Eacute;cole
+              Normale Sup&eacute;rieure (ENS) de Lyon, sous la supervision de Ioan Negrutiu, professeur de
+              biologie &agrave; l'ENS de Lyon, et avec le soutien de l'Institut Michel Serres. L'ensemble des
+              travaux
+              des &eacute;tudiants est ici accessibles &agrave; tous, sous forme de dossiers th&eacute;matiques
+              disponibles pour la critique, la controverse, les &eacute;changes ou encore les mises &agrave; jour.
+              Le r&eacute;sultat
+              attendu est la p&eacute;rennisation collaborative et participative de cet espace d&rsquo;analyse, de
+              coordination, d&rsquo;articulation et de validation, avec une capacit&eacute; d&rsquo;information et
+              de
+              suivi en temps quasi-r&eacute;el de la transition en r&eacute;gion.</p>
           </div>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <p style="text-align: justify;">Cette analyse est l&rsquo;amorce du travail collectif et collaboratif
+              que nous proposons pour cette plateforme consacr&eacute;e &agrave; la transition en
+              Rh&ocirc;ne-Alpes.</p>
+
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading1">
+                  <h4 class="panel-title clearfix">
+                    <a data-toggle="collapse" href="#CollapseG0" class="pull-right CollapseG1 glyphicon glyphicon-chevron-down"></a>
+                    <a data-toggle="collapse" href="#CollapseG0">
+                      Les acteurs de la transition sociétale et écologique en Rhône-Alpes : décryptage par les
+                      jeunes
+                    </a>
+                  </h4>
+                </div>
+                <div id="CollapseG0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body clearfix">
+                    <%= render 'rhone_alpes/reponse', reponse: "synthese", title: "Synthèse" %>
+                    <%= render 'rhone_alpes/rhone_alpes_synthese' %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: false, parent: "CollapseG0", number_id: "synthese_annexes", title: "Annexes" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: false, parent: "CollapseG0", number_id: "synthese_references", title: "Références" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <p style="text-align: justify;">L&rsquo;analyse de la transition soci&eacute;tale et &eacute;cologique
+              en Rh&ocirc;ne-Alpes a &eacute;t&eacute; organis&eacute;e en sous-th&egrave;mes, cliquez pour acc&eacute;der
+              aux dossiers th&eacute;matiques qui les composent et pour r&eacute;pondre ou commenter.</p>
+
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading1">
+                  <h4 class="panel-title clearfix">
+                    <a data-toggle="collapse" href="#CollapseG1" class="pull-right CollapseG1 glyphicon glyphicon-chevron-down"></a>
+                    <a data-toggle="collapse" href="#CollapseG1">
+                      Les acteurs de la gouvernance
+                    </a>
+                  </h4>
+                </div>
+                <div id="CollapseG1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body clearfix">
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG1", number_id: "1", title: "Les acteurs politiques" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG1", number_id: "2", title: "Les acteurs socio-économiques" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG1", number_id: "3", title: "Les acteurs de la société civile" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG1", number_id: "4", title: "Recherche et formation dans la transition écologique" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG1", number_id: "5", title: "La place de la transition écologique et sociétale dans le débat public" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading1">
+                  <h4 class="panel-title clearfix">
+                    <a data-toggle="collapse" href="#CollapseG2" class="pull-right CollapseG2 glyphicon glyphicon-chevron-down"></a>
+                    <a data-toggle="collapse" href="#CollapseG2">
+                      Les acteurs par secteurs territoriaux
+                    </a>
+                  </h4>
+                </div>
+                <div id="CollapseG2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body clearfix">
+                    <%= render 'rhone_alpes/panel_group', answers: answers[6], response: true, parent: "CollapseG2", number_id: "6", title: "Énergie et transports" %>
+                    <%= render 'rhone_alpes/panel_group', answers: answers[7], response: true, parent: "CollapseG2", number_id: "7", title: "Gestion de l'agriculture et de l'eau" %>
+                    <%= render 'rhone_alpes/panel_group', answers: answers[10], response: true, parent: "CollapseG2", number_id: "10", title: "Aménagement du territoire et foncier, rural-urbain" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG2", number_id: "12", title: "Réglementation, normes, fiscalité et financement" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading1">
+                  <h4 class="panel-title clearfix">
+                    <a data-toggle="collapse" href="#CollapseG3" class="pull-right CollapseG3 glyphicon glyphicon-chevron-down"></a>
+                    <a data-toggle="collapse" href="#CollapseG3">
+                      Les acteurs par secteurs sociaux
+                    </a>
+                  </h4>
+                </div>
+                <div id="CollapseG3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body clearfix">
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG3", number_id: "8", title: "Économie, travail et inégalités" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG3", number_id: "9", title: "Alimentation et santé" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG3", number_id: "11", title: "Consommation, recyclage, démographie et éducation" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG3", number_id: "13", title: "Données et démocratie" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-group" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="heading1">
+                  <h4 class="panel-title clearfix">
+                    <a data-toggle="collapse" href="#CollapseG4" class="pull-right glyphicon CollapseG4 glyphicon-chevron-down"></a>
+                    <a data-toggle="collapse" href="#CollapseG4">
+                      Innovations et expérimentations alternatives en Rhône-Alpes
+                    </a>
+                  </h4>
+                </div>
+                <div id="CollapseG4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body clearfix">
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG4", number_id: "14", title: "Les valeurs de la transition" %>
+                    <%= render 'rhone_alpes/panel_group', answers: answers[15], response: true, parent: "CollapseG4", number_id: "15", title: "Les monnaies complémentaires" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG4", number_id: "16", title: "Les villes en transition" %>
+                    <%= render 'rhone_alpes/panel_group', answers: [], response: true, parent: "CollapseG4", number_id: "17", title: "La Biovallée" %>
+                    <%= render 'rhone_alpes/panel_group', answers: answers[18], response: true, parent: "CollapseG4", number_id: "18", title: "Les circuits courts" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
+    Les réponses
+    <div class="box">
+      <div class="container-jets">
+        <span class="icon glyphicon glyphicon-filter"></span>
+        <input type="search" id="answerJetsSearch" placeholder="Filtrer"/>
+      </div>
+    </div>
+    <div id="answerJetsContent" data-toggle="buttons">
+      <% answers.values.flatten.each do |answer| %>
+          <a class="answers" data-id="<%= answer[:id] %>" href="#Collapse<%= answer[:number_id] %>"><%= answer[:name] %>
+            <br></a>
+      <% end %>
     </div>
   </div>
 </div>
@@ -294,9 +350,30 @@
             return true
         }
     });
+    $('.answers').click(function (e) {
+        href = $(this).attr("href");
+        ref = $(href);
+        $(ref.data("parent")).collapse('show');
+        ref.collapse('show');
+        if (ref.length) {
+            e.stopPropagation();
+            e.preventDefault();
+            test = $('#answer' + $(this).data("id"));
+            $('html, body').animate({
+                scrollTop: test.offset().top - 120
+            }, 500);
+            return false
+        } else {
+            return true
+        }
+    });
     var jets = new Jets({
         searchTag: '#jetsSearch',
         contentTag: '#jetsContent'
+    });
+    var asnwer_jets = new Jets({
+        searchTag: '#answerJetsSearch',
+        contentTag: '#answerJetsContent'
     });
 </script>
 </body>

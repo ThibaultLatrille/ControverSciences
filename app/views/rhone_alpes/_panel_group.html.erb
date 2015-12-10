@@ -14,6 +14,21 @@
         <%= render 'rhone_alpes/reponse', reponse: number_id, title: title %>
         <% end %>
         <%= render "rhone_alpes/rhone_alpes_#{number_id}" %>
+        <% if answers.any? %>
+            <h4 style="color: rgb(38, 166, 154)">Les réponses :</h4>
+            <%  answers.each do |answer| %>
+                <div id="answer<%= answer[:id] %>" class="panel panel-default" role="tablist" aria-multiselectable="true">
+                  <div class="panel-body clearfix justify">
+                    <%= simple_format(answer[:content]) %>
+                    <br>
+                    <br>
+                    <div class="pull-right">
+                      <%= answer[:name] %>
+                    </div>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
       </div>
     </div>
   </div>
