@@ -306,12 +306,13 @@ Bonne continuation,"} %>
   </div>
   <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
     Les réponses
-    <div class="box">
+    <div class="box" style="display: none">
       <div class="container-jets">
         <span class="icon glyphicon glyphicon-filter"></span>
         <input type="search" id="answerJetsSearch" placeholder="Filtrer"/>
       </div>
     </div>
+    <br><br>
     <div id="answerJetsContent" data-toggle="buttons">
       <% answers.values.flatten.each do |answer| %>
           <a class="answers" data-id="<%= answer[:id] %>" href="#Collapse<%= answer[:number_id] %>"><%= answer[:name] %>
