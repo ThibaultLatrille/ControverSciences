@@ -1,0 +1,39 @@
+<% provide(:title, "Jesus Christ") %>
+<div id="my-container" class="container-fluid">
+  <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+    <div class="panel panel-default">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 col-lg-offset-1">
+          <br><br>
+          <style>
+              .iframe-responsive-wrapper{
+                  position: relative;
+                  padding-bottom: 56.25%;
+                  padding-top: 30px;
+                  height: 0;
+                  overflow: hidden;
+              }
+
+              .iframe-responsive-wrapper iframe {
+                  position: absolute !important;
+                  top: 0 !important;
+                  left: 0 !important;
+                  width: 100% !important;
+                  height: 100% !important;
+              }
+          </style>
+          <h1>
+            Jesus, seriously ?
+          </h1>
+          <div class="iframe-responsive-wrapper">
+            <iframe title="Rick Roll" class="youtube-player" type="text/html"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?iv_load_policy=3&hl=en&cc_lang_pref=en&cc_load_policy=1&autoplay=1&loop=1&origin=https://controversciences.org"
+                    width="640" height="360" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>
+            </iframe>
+          </div>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
