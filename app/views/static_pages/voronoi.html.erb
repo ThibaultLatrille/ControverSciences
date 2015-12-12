@@ -48,11 +48,9 @@
         addSite: function (x, y) {
             var sites = this.sites.slice(0);
             sites.push({x: x, y: y});
-            console.log(x,y)
             var diagram = this.voronoi.compute(sites, this.bbox);
             var site = sites[sites.length - 1];
             var neighbors = diagram.cells[site.voronoiId].getNeighborIds();
-            console.log(site)
             if (neighbors.length < 4) {
                 var excludePalette = palette.slice(0), nNeighbors = neighbors.length;
                 while (nNeighbors--) {
@@ -71,68 +69,70 @@
 
         render: function () {
             var ctx = this.canvas.getContext('2d');
-            ctx.save();
-            ctx.beginPath();
-            ctx.arc(400, 400, 300, 0, Math.PI * 2, false);
-
-            // Clip to the current path
-            ctx.clip();
-            // background
-            ctx.globalAlpha = 1;
-            ctx.beginPath();
-            ctx.rect(0, 0, this.canvas.width, this.canvas.height);
-            ctx.fillStyle = '#fff';
-            ctx.fill();
-            ctx.strokeStyle = '#000';
-            ctx.stroke();
-            // voronoi
-            if (!this.diagram) {
-                return;
-            }
-            ctx.strokeStyle = '#000';
-            // edges
-            var edges = this.diagram.edges,
-                    nEdges = edges.length,
-                    v;
-            if (nEdges) {
-                var edge;
+            var mask = new Image();
+            var self = this;
+            mask.crossOrigin="anonymous";
+            mask.src="<%= path_to_image "clipping/frog.png" %>";
+            mask.onload = function() {
+                ctx.drawImage(mask, 0, 0, 800, 800);
+                ctx.globalCompositeOperation = 'source-atop';
+                // background
+                ctx.globalAlpha = 1;
                 ctx.beginPath();
-                while (nEdges--) {
-                    edge = edges[nEdges];
-                    v = edge.va;
-                    ctx.moveTo(v.x, v.y);
-                    v = edge.vb;
-                    ctx.lineTo(v.x, v.y);
-                }
+                ctx.rect(0, 0, self.canvas.width, self.canvas.height);
+                ctx.fillStyle = '#fff';
+                ctx.fill();
+                ctx.strokeStyle = '#000';
                 ctx.stroke();
-            }
-            // highlight cell under mouse
-            var sites = this.sites, cell,
-                    nSites = sites.length;
-            if (!nSites) {
-                return;
-            }
-            while (nSites--) {
-                site = sites[nSites];
-                cell = this.diagram.cells[site.voronoiId];
-                if (cell) {
-                    var halfedges = cell.halfedges,
-                            nHalfedges = halfedges.length;
-                    if (nHalfedges > 0) {
-                        v = halfedges[0].getStartpoint();
-                        ctx.beginPath();
+                // voronoi
+                if (!self.diagram) {
+                    return;
+                }
+                ctx.strokeStyle = '#000';
+                // edges
+                var edges = self.diagram.edges,
+                        nEdges = edges.length,
+                        v;
+                if (nEdges) {
+                    var edge;
+                    ctx.beginPath();
+                    while (nEdges--) {
+                        edge = edges[nEdges];
+                        v = edge.va;
                         ctx.moveTo(v.x, v.y);
-                        for (var iHalfedge = 0; iHalfedge < nHalfedges; iHalfedge++) {
-                            v = halfedges[iHalfedge].getEndpoint();
-                            ctx.lineTo(v.x, v.y);
+                        v = edge.vb;
+                        ctx.lineTo(v.x, v.y);
+                    }
+                    ctx.stroke();
+                }
+                // highlight cell under mouse
+                var sites = self.sites, cell,
+                        nSites = sites.length;
+                if (!nSites) {
+                    return;
+                }
+                while (nSites--) {
+                    site = sites[nSites];
+                    cell = self.diagram.cells[site.voronoiId];
+                    if (cell) {
+                        var halfedges = cell.halfedges,
+                                nHalfedges = halfedges.length;
+                        if (nHalfedges > 0) {
+                            v = halfedges[0].getStartpoint();
+                            ctx.beginPath();
+                            ctx.moveTo(v.x, v.y);
+                            for (var iHalfedge = 0; iHalfedge < nHalfedges; iHalfedge++) {
+                                v = halfedges[iHalfedge].getEndpoint();
+                                ctx.lineTo(v.x, v.y);
+                            }
+                            ctx.fillStyle = site.color;
+                            ctx.fill();
                         }
-                        ctx.fillStyle = site.color;
-                        ctx.fill();
                     }
                 }
-            }
-            ctx.fill();
-            ctx.restore();
+                ctx.fill();
+            };
+
         }
     };
     $(document).ready(function () {
