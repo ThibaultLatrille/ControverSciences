@@ -39,15 +39,6 @@
         ["#FDF3F3", "#F8E7E7", "#A070A1", "#724060"]
     ];
 
-    var x0 = 0, y0 = 0, r = 0, teta = 0, data = [], a = Math.random() * 30 + 1, b = Math.random() * 2.6 + 1.5, c = Math.floor((Math.random() * 2)) * 2 - 1;
-    for (i = 0; i < 50; i++) {
-        r = r + a;
-        teta = teta + b * c;
-        x = r * Math.cos(teta) + x0;
-        y = r * Math.sin(teta) + y0;
-        data.push([x, y])
-    }
-
     var VoronoiDemo = {
         voronoi: new Voronoi(),
         sites: [],
@@ -60,22 +51,24 @@
             var me = this;
             this.canvas = document.getElementById('voronoiCanvas');
             this.canvas.onclick = function (e) {
-                me.randomSites(1, false);
+                me.randomSites();
                 me.render();
             };
-            this.randomSites(10, true);
+            this.randomSites();
             this.render();
         },
 
-        clearSites: function () {
-            // we want at least one site, the one tracking the mouse
+        randomSites: function () {
             this.sites = [];
             this.diagram = this.voronoi.compute(this.sites, this.bbox);
-        },
 
-        randomSites: function (n, clear) {
-            if (clear) {
-                this.sites = [];
+            var x0 = 0, y0 = 0, r = 0, teta = 0, data = [], a = Math.random() * 30 + 1, b = Math.random() * 2.6 + 1.5, c = Math.floor((Math.random() * 2)) * 2 - 1;
+            for (i = 0; i < Math.floor((Math.random() * 50)+25); i++) {
+                r = r + a;
+                teta = teta + b * c;
+                x = r * Math.cos(teta) + x0;
+                y = r * Math.sin(teta) + y0;
+                data.push([x, y])
             }
             var xo = this.margin;
             var dx = this.canvas.width - this.margin * 2;
@@ -195,7 +188,7 @@
               <h4 class="divhdr">Sites generator</h4>
 
               <div class="divinfo" id="voronoiGenerator">
-                <input type="button" value="Generate" onclick="VoronoiDemo.randomSites(parseInt(document.getElementById('voronoiNumberSites').value,5),true);VoronoiDemo.render();"/>
+                <input type="button" value="Generate" onclick="VoronoiDemo.randomSites();VoronoiDemo.render();"/>
                 <br>
               </div>
               <h4 class="divhdr">Canvas</h4>
