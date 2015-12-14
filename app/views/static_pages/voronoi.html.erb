@@ -4,12 +4,45 @@
 
 <script id="script" type="text/javascript">
 
-    var palette = ["#0b84a5", "#aed688", "#f5c767", "#ffa056"];
+    var palettess = [
+        ["#F9ED69", "#F08A5D", "#B83B5E", "#6A2C70"],
+        ["#222831", "#393E46", "#00ADB5", "#EEEEEE"],
+        ["#2B2E4A", "#E84545", "#903749", "#53354A"],
+        ["#48466D", "#3D84A8", "#46CDCF", "#ABEDD8"],
+        ["#56BFB5", "#38817A", "#F5F093", "#FBD66F"],
+        ["#2D4059", "#EA5455", "#F07B3F", "#FFD460"],
+        ["#EB586F", "#D8E9F0", "#4AA0D5", "#454553"],
+        ["#F0F5F9", "#C9D6DF", "#52616B", "#1E2022"],
+        ["#FF5335", "#DFE0D4", "#3E92A3", "#353940"],
+        ["#0C2233", "#065471", "#f5c767", "#ffa056"],
+        ["#EEFCA9", "#B7E576", "#83CC61", "#5A9E7C"],
+        ["#384137", "#406661", "#3BB873", "#94ED88"],
+        ["#081F37", "#5FC9F3", "#2E79BA", "#1E549F"],
+        ["#FF6464", "#FFBD67", "#F8FE85", "#5BE7A9"],
+        ["#EB2A5D", "#FF6F41", "#FFB44B", "#FFEB7D"],
+        ["#1A2634", "#203E5F", "#EEC550", "#F9E3A3"],
+        ["#F35F5F", "#CC435F", "#F1EA65", "#36A3EB"],
+        ["#FF9234", "#FFCD3C", "#FAFCB4", "#B0DB72"],
+        ["#2C5460", "#BBDC2F", "#61B136", "#CBE0E0"],
+        ["#1B4B4D", "#F3F66F", "#F1D15F", "#E8984A"],
+        ["#422B72", "#266D98", "#3CB29A", "#C4F080"],
+        ["#FFE0A3", "#E18237", "#943939", "#6A2634"],
+        ["#D93153", "#EB5033", "#FF9D00", "#FFD82C"],
+        ["#FDFBDA", "#D3D0A8", "#819F7F", "#2D4659"],
+        ["#FBE0D8", "#4D727E", "#283644", "#7A6552"],
+        ["#433751", "#2F576E", "#748B9C", "#F0E3E3"],
+        ["#FEED30", "#FF6868", "#924992", "#504077"],
+        ["#5D697A", "#383838", "#F66B34", "#F2D639"],
+        ["#FFFBE3", "#FFA9A9", "#6A425C", "#26271A"],
+        ["#217756", "#63B75D", "#B0D553", "#FCED25"],
+        ["#FADB3F", "#ECF7C5", "#EA5656", "#27332D"],
+        ["#FDF3F3", "#F8E7E7", "#A070A1", "#724060"]
+    ];
 
-    var x0 = 0, y0 = 0, r = 0, teta = 0, data = [], a = Math.random() * 30, b = Math.random() * 0.6;
+    var x0 = 0, y0 = 0, r = 0, teta = 0, data = [], a = Math.random() * 30 + 1, b = Math.random() * 2.6 + 1.5, c = Math.floor((Math.random() * 2)) * 2 - 1;
     for (i = 0; i < 50; i++) {
         r = r + a;
-        teta = teta + b;
+        teta = teta + b * c;
         x = r * Math.cos(teta) + x0;
         y = r * Math.sin(teta) + y0;
         data.push([x, y])
@@ -48,13 +81,14 @@
             var dx = this.canvas.width - this.margin * 2;
             var yo = this.margin;
             var dy = this.canvas.height - this.margin * 2;
-            for (var i = 0; i < n; i++) {
+            var palette = palettess[Math.floor((Math.random() * palettess.length))];
+            for (var i = 0; i < data.length; i++) {
                 this.addSite(self.Math.round(xo + (data[i][0] + r) / (2 * r) * dx),
-                        self.Math.round(yo + (data[i][1] + r) / (2 * r) * dy));
+                        self.Math.round(yo + (data[i][1] + r) / (2 * r) * dy), palette);
             }
         },
 
-        addSite: function (x, y) {
+        addSite: function (x, y, palette) {
             var sites = this.sites.slice(0);
             sites.push({x: x, y: y});
             var diagram = this.voronoi.compute(sites, this.bbox);
@@ -163,11 +197,6 @@
               <div class="divinfo" id="voronoiGenerator">
                 <input type="button" value="Generate" onclick="VoronoiDemo.randomSites(parseInt(document.getElementById('voronoiNumberSites').value,5),true);VoronoiDemo.render();"/>
                 <br>
-                <input type="button" value="Add" onclick="VoronoiDemo.randomSites(parseInt(document.getElementById('voronoiNumberSites').value,10),false);VoronoiDemo.render();"/>
-                <input id="voronoiNumberSites" type="text" value="10" size="5" maxlength="5"/>
-                sites randomly (Warning: performance might suffer the more sites you add.)
-                <br>
-                <input type="button" value="Add" onclick="VoronoiDemo.randomSites(1,false);VoronoiDemo.render();"/>
               </div>
               <h4 class="divhdr">Canvas</h4>
 
