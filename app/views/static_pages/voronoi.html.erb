@@ -6,6 +6,15 @@
 
     var palette = ["#0b84a5", "#aed688", "#f5c767", "#ffa056"];
 
+    var x0 = 0, y0 = 0, r = 0, teta = 0, data = [], a = Math.random() * 30, b = Math.random() * 0.6;
+    for (i = 0; i < 50; i++) {
+        r = r + a;
+        teta = teta + b;
+        x = r * Math.cos(teta) + x0;
+        y = r * Math.sin(teta) + y0;
+        data.push([x, y])
+    }
+
     var VoronoiDemo = {
         voronoi: new Voronoi(),
         sites: [],
@@ -40,8 +49,8 @@
             var yo = this.margin;
             var dy = this.canvas.height - this.margin * 2;
             for (var i = 0; i < n; i++) {
-                this.addSite(self.Math.round(xo + self.Math.random() * dx),
-                        self.Math.round(yo + self.Math.random() * dy));
+                this.addSite(self.Math.round(xo + (data[i][0] + r) / (2 * r) * dx),
+                        self.Math.round(yo + (data[i][1] + r) / (2 * r) * dy));
             }
         },
 
@@ -56,7 +65,7 @@
                 while (nNeighbors--) {
                     var cell = diagram.cells[neighbors[nNeighbors]];
                     if (cell) {
-                        excludePalette = $(excludePalette).filter(function( idx ) {
+                        excludePalette = $(excludePalette).filter(function (idx) {
                             return excludePalette[idx] != cell.site.color;
                         });
                     }
@@ -71,9 +80,9 @@
             var ctx = this.canvas.getContext('2d');
             var mask = new Image();
             var self = this;
-            mask.crossOrigin="anonymous";
-            mask.src="<%= path_to_image "clipping/frog.png" %>";
-            mask.onload = function() {
+            mask.crossOrigin = "anonymous";
+            mask.src = "<%= path_to_image "clipping/frog.png" %>";
+            mask.onload = function () {
                 ctx.drawImage(mask, 0, 0, 800, 800);
                 ctx.globalCompositeOperation = 'source-atop';
                 // background
