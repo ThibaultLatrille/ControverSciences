@@ -6,13 +6,10 @@
 
     var palettess = [
         ["#F9ED69", "#F08A5D", "#B83B5E", "#6A2C70"],
-        ["#222831", "#393E46", "#00ADB5", "#EEEEEE"],
         ["#2B2E4A", "#E84545", "#903749", "#53354A"],
         ["#48466D", "#3D84A8", "#46CDCF", "#ABEDD8"],
-        ["#56BFB5", "#38817A", "#F5F093", "#FBD66F"],
         ["#2D4059", "#EA5455", "#F07B3F", "#FFD460"],
         ["#EB586F", "#D8E9F0", "#4AA0D5", "#454553"],
-        ["#F0F5F9", "#C9D6DF", "#52616B", "#1E2022"],
         ["#FF5335", "#DFE0D4", "#3E92A3", "#353940"],
         ["#0C2233", "#065471", "#f5c767", "#ffa056"],
         ["#EEFCA9", "#B7E576", "#83CC61", "#5A9E7C"],
@@ -20,7 +17,6 @@
         ["#081F37", "#5FC9F3", "#2E79BA", "#1E549F"],
         ["#FF6464", "#FFBD67", "#F8FE85", "#5BE7A9"],
         ["#EB2A5D", "#FF6F41", "#FFB44B", "#FFEB7D"],
-        ["#1A2634", "#203E5F", "#EEC550", "#F9E3A3"],
         ["#F35F5F", "#CC435F", "#F1EA65", "#36A3EB"],
         ["#FF9234", "#FFCD3C", "#FAFCB4", "#B0DB72"],
         ["#2C5460", "#BBDC2F", "#61B136", "#CBE0E0"],
@@ -28,22 +24,17 @@
         ["#422B72", "#266D98", "#3CB29A", "#C4F080"],
         ["#FFE0A3", "#E18237", "#943939", "#6A2634"],
         ["#D93153", "#EB5033", "#FF9D00", "#FFD82C"],
-        ["#FDFBDA", "#D3D0A8", "#819F7F", "#2D4659"],
         ["#FBE0D8", "#4D727E", "#283644", "#7A6552"],
-        ["#433751", "#2F576E", "#748B9C", "#F0E3E3"],
         ["#FEED30", "#FF6868", "#924992", "#504077"],
         ["#5D697A", "#383838", "#F66B34", "#F2D639"],
-        ["#FFFBE3", "#FFA9A9", "#6A425C", "#26271A"],
         ["#217756", "#63B75D", "#B0D553", "#FCED25"],
-        ["#FADB3F", "#ECF7C5", "#EA5656", "#27332D"],
-        ["#FDF3F3", "#F8E7E7", "#A070A1", "#724060"]
+        ["#FADB3F", "#ECF7C5", "#EA5656", "#27332D"]
     ];
 
-    var images = [
-    ];
+    var images = [];
 
     <% (1..55).each do |i| %>
-       images.push("<%= path_to_image "clipping/path#{i}.png" %>");
+    images.push("<%= path_to_image "clipping/path#{i}.png" %>");
     <% end %>
 
     var VoronoiDemo = {
@@ -57,10 +48,6 @@
         init: function () {
             var me = this;
             this.canvas = document.getElementById('voronoiCanvas');
-            this.canvas.onclick = function (e) {
-                me.randomSites();
-                me.render();
-            };
             this.randomSites();
             this.render();
         },
@@ -70,7 +57,7 @@
             this.diagram = this.voronoi.compute(this.sites, this.bbox);
 
             var x0 = 0, y0 = 0, r = 0, teta = 0, data = [], a = Math.random() * 30 + 1, b = Math.random() * 2.6 + 1.5, c = Math.floor((Math.random() * 2)) * 2 - 1;
-            for (i = 0; i < Math.floor((Math.random() * 50)+25); i++) {
+            for (i = 0; i < Math.floor((Math.random() * 50) + 25); i++) {
                 r = r + a;
                 teta = teta + b * c;
                 x = r * Math.cos(teta) + x0;
@@ -82,6 +69,7 @@
             var yo = this.margin;
             var dy = this.canvas.height - this.margin * 2;
             var palette = palettess[Math.floor((Math.random() * palettess.length))];
+            console.log(palette)
             for (var i = 0; i < data.length; i++) {
                 this.addSite(self.Math.round(xo + (data[i][0] + r) / (2 * r) * dx),
                         self.Math.round(yo + (data[i][1] + r) / (2 * r) * dy), palette);
@@ -116,7 +104,7 @@
             var self = this;
             mask.crossOrigin = "controversciences.org";
             mask.src = images[Math.floor((Math.random() * images.length))];
-            function loaded () {
+            function loaded() {
                 ctx.globalCompositeOperation = 'source-over';
                 ctx.clearRect(0, 0, self.canvas.width, self.canvas.height);
                 ctx.drawImage(mask, 0, 0, 800, 800);
@@ -178,11 +166,12 @@
                 }
                 ctx.fill();
             }
+
             if (mask.complete) {
                 loaded()
             } else {
                 mask.addEventListener('load', loaded);
-                mask.addEventListener('error', function() {
+                mask.addEventListener('error', function () {
                     alert('error')
                 })
             }
@@ -197,24 +186,20 @@
   <div class="col-xs-12 col-lg-8 col-lg-offset-2">
     <div class="panel panel-default">
       <div class="row">
-        <div class="col-xs-12 col-md-10 col-lg-offset-1">
-
-          <div>
-
-            <div id="divroot" style="width:800px;">
-              <h4 class="divhdr">Sites generator</h4>
-
-              <div class="divinfo" id="voronoiGenerator">
-                <input type="button" value="Generate" onclick="VoronoiDemo.init();"/>
-                <br>
-              </div>
-              <h4 class="divhdr">Canvas</h4>
-
-              <div id="canvasParent">
-                <noscript>You need to enable Javascript in your browser for this page to display properly.</noscript>
-                <canvas id="voronoiCanvas" style="cursor:crosshair" width="800" height="800"></canvas>
-              </div>
-            </div>
+        <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+          <br>
+          <div class="clearfix">
+            <button type="button" class="btn btn-success pull-right" onclick="VoronoiDemo.init();">
+              <span class="glyphicon glyphicon-save"></span> Enregister comme image de profil
+            </button>
+            <button type="button" class="btn btn-primary" onclick="VoronoiDemo.init();">
+              <span class="glyphicon glyphicon-refresh"></span> Génération aléatoire
+            </button>
+          </div>
+          <br>
+          <div id="canvasParent center">
+            <noscript>You need to enable Javascript in your browser for this page to display properly.</noscript>
+            <canvas id="voronoiCanvas" class="img-responsive" width="800" height="800"></canvas>
           </div>
         </div>
       </div>
