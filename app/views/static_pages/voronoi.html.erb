@@ -39,6 +39,13 @@
         ["#FDF3F3", "#F8E7E7", "#A070A1", "#724060"]
     ];
 
+    var images = [
+    ];
+
+    <% (1..55).each do |i| %>
+       images.push("<%= path_to_image "clipping/path#{i}.png" %>");
+    <% end %>
+
     var VoronoiDemo = {
         voronoi: new Voronoi(),
         sites: [],
@@ -107,10 +114,13 @@
             var ctx = this.canvas.getContext('2d');
             var mask = new Image();
             var self = this;
-            mask.crossOrigin = "anonymous";
-            mask.src = "<%= path_to_image "clipping/frog.png" %>";
-            mask.onload = function () {
+            mask.crossOrigin = "controversciences.org";
+            mask.src = images[Math.floor((Math.random() * images.length))];
+            function loaded () {
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.clearRect(0, 0, self.canvas.width, self.canvas.height);
                 ctx.drawImage(mask, 0, 0, 800, 800);
+
                 ctx.globalCompositeOperation = 'source-atop';
                 // background
                 ctx.globalAlpha = 1;
@@ -167,8 +177,15 @@
                     }
                 }
                 ctx.fill();
-            };
-
+            }
+            if (mask.complete) {
+                loaded()
+            } else {
+                mask.addEventListener('load', loaded);
+                mask.addEventListener('error', function() {
+                    alert('error')
+                })
+            }
         }
     };
     $(document).ready(function () {
@@ -188,7 +205,7 @@
               <h4 class="divhdr">Sites generator</h4>
 
               <div class="divinfo" id="voronoiGenerator">
-                <input type="button" value="Generate" onclick="VoronoiDemo.randomSites();VoronoiDemo.render();"/>
+                <input type="button" value="Generate" onclick="VoronoiDemo.init();"/>
                 <br>
               </div>
               <h4 class="divhdr">Canvas</h4>
