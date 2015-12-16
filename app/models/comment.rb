@@ -24,8 +24,6 @@ class Comment < ActiveRecord::Base
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validate :content_validation
-  validates :caption, length: {maximum: 1001}
-  validates :title, length: {maximum: 180}
   validates_uniqueness_of :user_id, :scope => :reference_id
 
   def user_name
@@ -339,8 +337,8 @@ class Comment < ActiveRecord::Base
     if self.public
       ref = self.reference
       (category_limit[ref.category].keys - [6, 7] ).each do |field|
-        if self["f_#{field}_content".to_sym] && self["f_#{field}_content".to_sym].length > category_limit[ref.category][field]
-          errors.add("f_#{field}_content".to_sym, category_hash[ref.category][field] + " est trop long (pas plus de #{category_limit[ref.category][field]} caractères)")
+        if self["f_#{field}_content".to_sym] && self["f_#{field}_content".to_sym].length_sub > category_limit[ref.category][field]
+          errors.add("f_#{field}_content".to_sym, category_hash[ref.category][field] + I18n.t('errors.messages.too_long', count: category_limit[ref.category][field]))
         end
       end
       if ref.title_fr.blank? && self.title.blank?
@@ -351,6 +349,12 @@ class Comment < ActiveRecord::Base
           self.f_3_content.blank? && self.f_4_content.blank? &&
           self.f_5_content.blank? && self.caption.blank?
         errors.add(:base, "Un titre seul n'est pas une analyse !")
+      end
+      if self.title && self.title.length_sub > 180
+        errors.add(:title, I18n.t('errors.messages.too_long', count: 180))
+      end
+      if self.caption && self.caption.length_sub > 1000
+        errors.add(:caption, I18n.t('errors.messages.too_long', count: 1000))
       end
     end
   end

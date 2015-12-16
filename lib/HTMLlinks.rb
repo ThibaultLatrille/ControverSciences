@@ -44,3 +44,9 @@ class RenderWithoutWrap < Redcarpet::Render::HTML
     Regexp.new(/\A<p>(.*)<\/p>\Z/m).match(full_document)[1] rescue full_document
   end
 end
+
+class String
+  def length_sub
+    self.gsub("\r\n"," ").length
+  end
+end

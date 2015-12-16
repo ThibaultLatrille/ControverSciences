@@ -61,15 +61,15 @@ class Timeline < ActiveRecord::Base
 
   def content_valid?
     valid = true
-    if self.frame.length > 2500
+    if self.frame.length_sub > 2500
       self.errors.add(:frame, I18n.t('errors.messages.too_long', count: 2500))
       valid = false
     end
-    if self.frame.length < 180
-      self.errors.add(:frame, I18n.t('errors.messages.too_short', count: 2500))
+    if self.frame.length_sub < 180
+      self.errors.add(:frame, I18n.t('errors.messages.too_short', count: 180))
       valid = false
     end
-    if self.name.length > 180
+    if self.name.length_sub > 180
       self.errors.add(:name, I18n.t('errors.messages.too_long', count: 180))
       valid = false
     end

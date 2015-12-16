@@ -22,7 +22,8 @@ class Summary < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
-  validates :content, presence: true, length: {maximum: 12500}
+  validate :content_validation
+  validates :content, presence: true
 
   validates_uniqueness_of :user_id, :scope => :timeline_id
 
@@ -165,6 +166,14 @@ class Summary < ActiveRecord::Base
   end
 
   private
+
+  def content_validation
+    if self.public
+      if self.content && self.content.length_sub > 12500
+        errors.add(:content, I18n.t('errors.messages.too_long', count: 12500))
+      end
+    end
+  end
 
   def updating_with_public
     public = self.public_was

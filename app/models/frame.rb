@@ -132,6 +132,20 @@ class Frame < ActiveRecord::Base
 
   private
 
+  def content_validation
+    if self.public
+      if self.name && self.name.length_sub > 180
+        errors.add(:name, I18n.t('errors.messages.too_long', count: 180))
+      end
+      if self.content && self.content.length_sub < 180
+        errors.add(:frame, I18n.t('errors.messages.too_short', count: 180))
+      end
+      if self.content && self.content.length_sub > 2500
+        errors.add(:content, I18n.t('errors.messages.too_long', count: 2500))
+      end
+    end
+  end
+
   def update_timeline
     if self.best
       tim = self.timeline
