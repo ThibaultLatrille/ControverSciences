@@ -44,7 +44,7 @@
               <div id="characterLeft0"></div>
 
               <%= f.text_area :content, {rows:          3,
-                                         value: t('views.summaries.content_value'),
+                                         value: @summary.content.blank? ? t('views.summaries.content_value') : @summary.content,
                                          :placeholder => t('views.model.summary'),
                                          :class         => "form-control textarea",
                                          id:            "description0",

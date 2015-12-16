@@ -23,7 +23,7 @@
   </div>
     <% if @comment.user_id == current_user.id || current_user.admin %>
     <div class="list-group">
-        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.comments.edit')}".html_safe,
+        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.comments.delete')}".html_safe,
                     comment_path(@comment.id), method: :delete,
                     data:                                    {confirm: t('views.default.confirm')},
                     class:                                   "list-group-item list-group-item-danger" %>

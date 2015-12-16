@@ -69,7 +69,6 @@
             var yo = this.margin;
             var dy = this.canvas.height - this.margin * 2;
             var palette = palettess[Math.floor((Math.random() * palettess.length))];
-            console.log(palette)
             for (var i = 0; i < data.length; i++) {
                 this.addSite(self.Math.round(xo + (data[i][0] + r) / (2 * r) * dx),
                         self.Math.round(yo + (data[i][1] + r) / (2 * r) * dy), palette);

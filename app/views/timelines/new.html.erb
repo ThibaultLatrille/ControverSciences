@@ -24,7 +24,10 @@
 
               <div id="characterLeft0"></div>
               <br/>
-              <%= f.text_area :frame, class: 'form-control textarea', id: "description0" %>
+              <%= f.text_area :frame,
+                              class: 'form-control textarea',
+                              value: @timeline.frame.blank? ? t('views.frames.content_value') : @timeline.frame,
+                              id: "description0" %>
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <%= t('views.frames.edit_info_html') %>
