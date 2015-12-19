@@ -76,7 +76,6 @@
         <% end %>
       </div>
 
-      <% if @timeline.nb_references > 2 || @summary %>
           <% if logged_in? %>
               <div class="list-group">
                 <% if @summary && @timeline.nb_summaries > 1 %>
@@ -105,7 +104,6 @@
                             class: "list-group-item" %>
               </div>
           <% end %>
-      <% end %>
       <% if logged_in? %>
           <div class="list-group">
             <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
