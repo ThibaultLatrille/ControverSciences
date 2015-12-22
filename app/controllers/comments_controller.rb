@@ -2,26 +2,26 @@ class CommentsController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
 
   def new
-    comment = Comment.find_by( user_id: current_user.id, reference_id: params[:reference_id] )
+    comment = Comment.find_by(user_id: current_user.id, reference_id: params[:reference_id])
     if comment
-      redirect_to edit_comment_path( id: comment.id )
+      redirect_to edit_comment_path(id: comment.id)
     else
       @comment = Comment.new
-      reference = Reference.select(:id, :slug, :timeline_id).find( params[:reference_id] )
+      reference = Reference.select(:id, :slug, :timeline_id).find(params[:reference_id])
       @comment.reference_id = reference.id
       @comment.timeline_id = reference.timeline_id
-      @list = Reference.order(year: :desc).where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
-      @tim_list = Timeline.where( id: Edge.where(timeline_id:
-                @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )
-      @myreference = Reference.find( @comment.reference_id )
+      @list = Reference.order(year: :desc).where(timeline_id: @comment.timeline_id).pluck(:title, :id)
+      @tim_list = Timeline.where(id: Edge.where(timeline_id:
+                                                    @comment.timeline_id).pluck(:target)).pluck(:name, :id)
+      @myreference = Reference.find(@comment.reference_id)
     end
   end
 
   def create
-    @comment = Comment.new( comment_params )
+    @comment = Comment.new(comment_params)
     if comment_params[:has_picture] == 'true' && comment_params[:delete_picture] == 'false'
-      @comment.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
-                                                              reference_id: @comment.reference_id ).last.id
+      @comment.figure_id = Figure.order(:created_at).where(user_id: current_user.id,
+                                                           reference_id: @comment.reference_id).last.id
       @comment.caption = comment_params[:caption]
     end
     @comment.user_id = current_user.id
@@ -32,46 +32,56 @@ class CommentsController < ApplicationController
       flash[:success] = t('controllers.comment_saved')
       redirect_to @comment
     else
-      @myreference = Reference.find( @comment.reference_id )
-      @list = Reference.order(year: :desc).where( timeline_id: comment_params[:timeline_id] ).pluck( :title, :id )
-      @tim_list = Timeline.where( id: Edge.where(timeline_id:
-                                                     comment_params[:timeline_id] ).pluck(:target) ).pluck( :name, :id )
+      @myreference = Reference.find(@comment.reference_id)
+      @list = Reference.order(year: :desc).where(timeline_id: comment_params[:timeline_id]).pluck(:title, :id)
+      @tim_list = Timeline.where(id: Edge.where(timeline_id:
+                                                    comment_params[:timeline_id]).pluck(:target)).pluck(:name, :id)
       render 'new'
     end
   end
 
   def edit
-    @comment = Comment.find( params[:id] )
-    @myreference = Reference.find( @comment.reference_id )
-    @list = Reference.order(year: :desc).where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
-    @tim_list = Timeline.where( id: Edge.where(timeline_id:
-                                                   @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )
+    if GoPatch.where(comment_id: params[:id]).count > 0
+      flash[:danger] = t('controllers.patches_pending')
+      redirect_to patches_target_path(comment_id: params[:id])
+    else
+      @comment = Comment.find(params[:id])
+      @myreference = Reference.find(@comment.reference_id)
+      @list = Reference.order(year: :desc).where(timeline_id: @comment.timeline_id).pluck(:title, :id)
+      @tim_list = Timeline.where(id: Edge.where(timeline_id:
+                                                    @comment.timeline_id).pluck(:target)).pluck(:name, :id)
+    end
   end
 
   def update
-    @comment = Comment.find( params[:id] )
+    @comment = Comment.find(params[:id])
     if @comment.user_id == current_user.id || current_user.admin
-      @comment.public = comment_params[:public]
-      for fi in 0..5 do
-        @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
-      end
-      @comment.title = comment_params[:title]
-      @comment.caption = comment_params[:caption]
-      if comment_params[:delete_picture] == 'true'
-        @comment.figure_id = nil
-      elsif comment_params[:has_picture] == 'true'
-        @comment.figure_id = Figure.order( :created_at ).where( user_id: @comment.user_id,
-          reference_id: @comment.reference_id ).last.id
-      end
-      if @comment.update_with_markdown
-        flash[:success] = t('controllers.comment_updated')
-        redirect_to reference_path( @comment.reference_id, filter: :mine )
+      if GoPatch.where(comment_id: params[:id]).count > 0
+        flash[:danger] = t('controllers.patches_pending')
+        redirect_to patches_target_path(comment_id: params[:id])
       else
-        @myreference = Reference.find( @comment.reference_id )
-        @list = Reference.order(year: :desc).where( timeline_id: @comment.timeline_id ).pluck( :title, :id )
-        @tim_list = Timeline.where( id: Edge.where(timeline_id:
-                                                       @comment.timeline_id ).pluck(:target) ).pluck( :name, :id )
-        render 'edit'
+        @comment.public = comment_params[:public]
+        for fi in 0..5 do
+          @comment["f_#{fi}_content".to_sym] = comment_params["f_#{fi}_content".to_sym]
+        end
+        @comment.title = comment_params[:title]
+        @comment.caption = comment_params[:caption]
+        if comment_params[:delete_picture] == 'true'
+          @comment.figure_id = nil
+        elsif comment_params[:has_picture] == 'true'
+          @comment.figure_id = Figure.order(:created_at).where(user_id: @comment.user_id,
+                                                               reference_id: @comment.reference_id).last.id
+        end
+        if @comment.update_with_markdown
+          flash[:success] = t('controllers.comment_updated')
+          redirect_to reference_path(@comment.reference_id, filter: :mine)
+        else
+          @myreference = Reference.find(@comment.reference_id)
+          @list = Reference.order(year: :desc).where(timeline_id: @comment.timeline_id).pluck(:title, :id)
+          @tim_list = Timeline.where(id: Edge.where(timeline_id:
+                                                        @comment.timeline_id).pluck(:target)).pluck(:name, :id)
+          render 'edit'
+        end
       end
     else
       redirect_to @comment

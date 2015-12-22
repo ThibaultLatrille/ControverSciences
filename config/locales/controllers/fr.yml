@@ -67,3 +67,4 @@ fr:
     user_dont_exist: "Impossible de trouver ce contributeur dans la base de données"
     add_current_user: Vous avez été ajouté aux participants de cette controverse.
     particiate: vous avez été invité à participer à une controverse privée sur ControverSciences.
+    patches_pending: Vous avez des suggestions en attentes que vous devez valider ou refuser avant de modifier l'original.
