@@ -296,23 +296,55 @@
   <div class="col-xs-12 col-lg-8 col-lg-offset-2">
     <div class="panel panel-default">
       <div class="row">
-        <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+          <% if logged_in? %>
+              <br><br>
+              <% if logged_in? %>
+                  <div class="pull-right">
+                    <%= link_to "<span class=\"fat icon-techno\"></span> #{t('views.users.edit')}".html_safe,
+                                edit_user_path(current_user.id), class: "cadre hvr-grow" %>
+                  </div>
+              <% end %>
+              <div id="caption">
+          <span id="original">
+            <%= image_tag UserDetail.find_by(user_id: current_user.id).picture_url, class: "img-rounded", height: "80px" %>
+          </span>
+              <span style="font-size: 3em">
+      &nbsp <%= current_user.name %>
+    </span>
+              </div>
+          <% end %>
+          <br>
           <br>
 
-          <div class="clearfix">
-            <button type="button" class="btn btn-success pull-right" onclick="UploadPic();">
-              <span class="glyphicon glyphicon-save"></span> Enregister comme image de profil
-            </button>
-            <button type="button" class="btn btn-primary" onclick="VoronoiDemo.init();">
-              <span class="glyphicon glyphicon-refresh"></span> Génération aléatoire
-            </button>
+          <div class="panel panel-default">
+            <div class="clearfix">
+              <div class="pull-right" style="margin-right: 5px; margin-top: 5px">
+                <% if logged_in? %>
+                    <button id="upload-btn" type="button" class="btn btn-success" onclick="UploadPic();">
+                      <span class="glyphicon glyphicon-save"></span> Enregister comme image de profil
+                    </button>
+                    <div id="progress" style="display: none">
+                      <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                        <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                          <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                        </path>
+                      </svg>
+                    </div>
+                <% end %>
+                <br>
+                <button type="button" class="btn btn-primary pull-right" onclick="VoronoiDemo.init();" style="margin-top: 5px">
+                  <span class="glyphicon glyphicon-refresh"></span> Fabriquer un identicon
+                </button>
+              </div>
+            </div>
+            <div id="canvasParent center">
+              <noscript>You need to enable Javascript in your browser for this page to display properly.</noscript>
+              <canvas id="voronoiCanvas" class="img-responsive" width="800" height="800"></canvas>
+            </div>
           </div>
           <br>
-
-          <div id="canvasParent center">
-            <noscript>You need to enable Javascript in your browser for this page to display properly.</noscript>
-            <canvas id="voronoiCanvas" class="img-responsive" width="800" height="800"></canvas>
-          </div>
+          <br>
         </div>
       </div>
     </div>
@@ -321,13 +353,12 @@
 
 
 <script type="text/javascript">
+
     function UploadPic() {
 
         // Generate the image data
         var canvas = document.getElementById('voronoiCanvas');
-        $.ajaxSetup({
-            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
-        });
+
         if (canvas.toBlob) {
             canvas.toBlob(
                     function (blob) {
@@ -336,11 +367,20 @@
                         var formData = new FormData();
                         formData.append('file', blob, "Identicon.png");
 
+                        $('#upload-btn').hide();
+                        $('#progress').show();
+
                         var request = new XMLHttpRequest();
                         request.open("POST", "<%= identicon_figures_url + "?profil_picture=true" %>");
-
+                        request.onreadystatechange = function () {
+                            if (request.readyState == 4 && request.status == 200) {
+                                $('#upload-btn').show(300);
+                                $('#progress').hide(300);
+                                $('#original img').attr("src", jQuery.parseJSON(request.response).picture.url);
+                            }
+                        };
                         var metaTags = document.getElementsByTagName('meta');
-                        for ( var i = 0; i < metaTags.length; i++) {
+                        for (var i = 0; i < metaTags.length; i++) {
                             if (metaTags[i].name === 'csrf-token') {
                                 request.setRequestHeader('X-CSRF-Token', metaTags[i].content);
                             }
