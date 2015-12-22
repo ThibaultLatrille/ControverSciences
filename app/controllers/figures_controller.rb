@@ -33,4 +33,25 @@ class FiguresController < ApplicationController
       end
     end
   end
+
+  def identicon
+    figure = Figure.new
+    figure.user_id = current_user.id
+    figure.profil = true
+    figure.set_file_name
+    figure.picture = params[:file]
+    if figure.save
+      user_detail = UserDetail.find_by( user_id: current_user.id )
+      user_detail.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
+                                                                  profil: true ).last.id
+      user_detail.save
+      respond_to do |format|
+        format.json { render json: figure }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: figure }
+      end
+    end
+  end
 end

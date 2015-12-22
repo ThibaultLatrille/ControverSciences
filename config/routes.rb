@@ -40,7 +40,11 @@ Rails.application.routes.draw do
   resources :suggestion_child_votes, only: [:create]
   resources :issues, only: [:create]
   resources :reponses, only: [:create]
-  resources :figures, only: [:create]
+  resources :figures, only: [:create] do
+    collection do
+      post 'identicon'
+    end
+  end
   resources :invitations, only: [:create, :new]
   resources :edges, only: [:index, :create]
   resources :edge_votes, only: [:create, :destroy]

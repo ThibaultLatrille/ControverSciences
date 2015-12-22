@@ -38,7 +38,10 @@ class Figure < ActiveRecord::Base
 
   # Validates the size of an uploaded picture.
   def picture_size
-    if file_size > 5.megabytes
+    unless file_size
+      errors.add(:picture, 'Fichier non reconnu')
+    end
+    if file_size && file_size > 5.megabytes
       errors.add(:picture, 'Taille de la figure supérieure à 5 Mo.')
     end
     if is_image
@@ -46,7 +49,7 @@ class Figure < ActiveRecord::Base
         unless width > 1280 && height > 1280
           errors.add :picture, 'Doit faire au moins 1280px*1280px'
         end
-      elsif self.reference_id ||self.timeline_id
+      elsif self.reference_id || self.timeline_id
         unless width > 640 && height > 640
           errors.add :picture, 'Doit faire au moins 640px*640px'
         end
