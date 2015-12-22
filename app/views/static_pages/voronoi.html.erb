@@ -161,6 +161,7 @@
             this.canvas = document.getElementById('voronoiCanvas');
             this.randomSites();
             this.render();
+            $('#upload-btn').show(300);
         },
 
         randomSites: function () {
@@ -319,12 +320,12 @@
 
           <div class="panel panel-default">
             <div class="clearfix">
-              <div class="pull-right" style="margin-right: 5px; margin-top: 5px">
+              <div style="margin-top: 5px">
                 <% if logged_in? %>
-                    <button id="upload-btn" type="button" class="btn btn-success" onclick="UploadPic();">
-                      <span class="glyphicon glyphicon-save"></span> Enregister comme image de profil
+                    <button id="upload-btn" type="button" class="btn btn-success pull-right" onclick="UploadPic();" style="margin-right: 5px">
+                      Enregister comme image de profil <span class="glyphicon glyphicon-ok"></span>
                     </button>
-                    <div id="progress" style="display: none">
+                    <div id="progress" class="pull-right"  style="display: none">
                       <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
                         <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
                           <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
@@ -332,15 +333,19 @@
                       </svg>
                     </div>
                 <% end %>
-                <br>
-                <button type="button" class="btn btn-primary pull-right" onclick="VoronoiDemo.init();" style="margin-top: 5px">
-                  <span class="glyphicon glyphicon-refresh"></span> Fabriquer un identicon
+                <button type="button" class="btn btn-primary" onclick="VoronoiDemo.init();" style="margin-left: 5px">
+                  <span class="glyphicon glyphicon-refresh"></span> Relancer le générateur
                 </button>
               </div>
             </div>
-            <div id="canvasParent center">
+            <div id="canvasParent" class="center clearfix">
               <noscript>You need to enable Javascript in your browser for this page to display properly.</noscript>
-              <canvas id="voronoiCanvas" class="img-responsive" width="800" height="800"></canvas>
+              <div style="margin: 5px">
+                <canvas id="voronoiCanvas" class="img-responsive" width="800" height="800"></canvas>
+              </div>
+              <a id="download" type="button" class="btn btn-success pull-right"  style="margin-right: 5px; margin-bottom: 5px">
+                <span class="glyphicon glyphicon-save"></span> Télécharger cet identicon
+              </a>
             </div>
           </div>
           <br>
@@ -353,6 +358,15 @@
 
 
 <script type="text/javascript">
+
+    function downloadCanvas(link, canvasId, filename) {
+        link.href = document.getElementById(canvasId).toDataURL();
+        link.download = filename;
+    }
+
+    document.getElementById('download').addEventListener('click', function() {
+        downloadCanvas(this, 'voronoiCanvas', 'Identicon.png');
+    }, false);
 
     function UploadPic() {
 
@@ -374,7 +388,6 @@
                         request.open("POST", "<%= identicon_figures_url + "?profil_picture=true" %>");
                         request.onreadystatechange = function () {
                             if (request.readyState == 4 && request.status == 200) {
-                                $('#upload-btn').show(300);
                                 $('#progress').hide(300);
                                 $('#original img').attr("src", jQuery.parseJSON(request.response).picture.url);
                             }

@@ -3,7 +3,13 @@
   <div class="row">
     <div class="col-xs-12 <%= @user.private_timeline ? "col-md-offset-3 col-md-6" : "col-md-offset-1 col-md-5" %>">
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading clearfix">
+              <div class="pull-right">
+                <a href="<%= identicon_path %>" class="cadre hvr-grow">
+                  <%= image_tag "identicon.png", class: "img-rounded", height: "40px" %>
+                  <%= t('views.users.identicon') %>
+                </a>
+              </div>
         <span id="caption" style="display: none">
           <span id="original">
             <%= image_tag @user_detail.picture_url, class: "img-rounded", height: "80px" %>
@@ -15,6 +21,24 @@
           <span style="font-size: 2em"> <%= t('views.users.edit') %> </span>
         </div>
         <div class="panel-body">
+          <div>
+            <div id="upload-btn" class="btn btn-default fileinput-button">
+              <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+              <span id="ajouter"> <%= t('views.picture.add_profil') %> </span>
+              <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
+            </div>
+            <div id="progress" style="display: none">
+              <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                  <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                </path>
+              </svg>
+            </div>
+            <div id="delete" class="btn btn-danger" style="display: none">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+              <%= t('views.picture.delete_profil') %>
+            </div>
+          </div><br>
           <%= form_for(@user_detail, html: {multipart: true}, url: user_details_path, method: :post) do |f| %>
               <%= render 'shared/error_messages', object: f.object %>
 
@@ -52,24 +76,6 @@
                            class: 'btn btn-success pull-right',
                            data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
           <% end %>
-          <div>
-            <div id="upload-btn" class="btn btn-default fileinput-button">
-              <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-              <span id="ajouter"> <%= t('views.picture.add_profil') %> </span>
-              <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
-            </div>
-            <div id="progress" style="display: none">
-              <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
-                  <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
-                </path>
-              </svg>
-            </div>
-            <div id="delete" class="btn btn-danger" style="display: none">
-              <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-              <%= t('views.picture.delete_profil') %>
-            </div>
-          </div>
         </div>
       </div>
     </div>

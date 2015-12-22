@@ -344,6 +344,7 @@ fr:
       magna_charta: La Magna Charta
       website: 'Site web :'
       wrote: a écrit
+      identicon: Générer un identicon
       confirmation_pwd_ok: Votre mot de passe a bien été confirmé.
       confirmation_pwd_fail: Attention, Les deux mots de passe ne sont pas identiques !
     empty:
