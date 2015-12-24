@@ -38,6 +38,9 @@ class FiguresController < ApplicationController
     figure = Figure.new
     if current_user.admin && params[:admin]
       figure.user_id = UserDetail.where(figure_id: nil).pluck(:user_id).sample
+      unless figure.user_id
+        raise 'Tous les contributeurs ont une image de profil'
+      end
     end
     unless figure.user_id
       figure.user_id = current_user.id
