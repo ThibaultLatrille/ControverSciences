@@ -3,6 +3,9 @@ class UserDetail < ActiveRecord::Base
   belongs_to :user
   attr_accessor :delete_picture, :has_picture
 
+  validates :user_id, presence: true
+  validates_uniqueness_of :user_id
+
   before_save :save_with_markdown
 
   def picture?
@@ -37,7 +40,7 @@ class UserDetail < ActiveRecord::Base
         superscript:        true
     }
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
-    unless self.biography.empty?
+    if self.biography.present?
       self.content_markdown = redcarpet.render(self.biography)
     end
   end

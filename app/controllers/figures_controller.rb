@@ -36,13 +36,18 @@ class FiguresController < ApplicationController
 
   def identicon
     figure = Figure.new
-    figure.user_id = current_user.id
+    if current_user.admin && params[:admin]
+      figure.user_id = UserDetail.where(figure_id: nil).pluck(:user_id).sample
+    end
+    unless figure.user_id
+      figure.user_id = current_user.id
+    end
     figure.profil = true
     figure.set_file_name
     figure.picture = params[:file]
     if figure.save
-      user_detail = UserDetail.find_by( user_id: current_user.id )
-      user_detail.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
+      user_detail = UserDetail.find_by( user_id: figure.user_id )
+      user_detail.figure_id = Figure.order( :created_at ).where( user_id: figure.user_id,
                                                                   profil: true ).last.id
       user_detail.save
       respond_to do |format|

@@ -322,10 +322,16 @@
             <div class="clearfix">
               <div style="margin-top: 5px">
                 <% if logged_in? %>
-                    <button id="upload-btn" type="button" class="btn btn-success pull-right" onclick="UploadPic();" style="margin-right: 5px">
+                    <% if current_user.admin %>
+                        <button id="upload-btn" type="button" class="btn btn-success pull-right" onclick="UploadPic(true);" style="margin-right: 5px">
+                          Attribuer à utilisateur au hasard (admin)<span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                    <% else %>
+                    <button id="upload-btn" type="button" class="btn btn-success pull-right" onclick="UploadPic(false);" style="margin-right: 5px">
                       Enregister comme image de profil <span class="glyphicon glyphicon-ok"></span>
                     </button>
-                    <div id="progress" class="pull-right"  style="display: none">
+                    <% end %>
+                    <div id="progress" class="pull-right" style="display: none">
                       <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
                         <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
                           <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
@@ -343,7 +349,7 @@
               <div style="margin: 5px">
                 <canvas id="voronoiCanvas" class="img-responsive" width="800" height="800"></canvas>
               </div>
-              <a id="download" type="button" class="btn btn-success pull-right"  style="margin-right: 5px; margin-bottom: 5px">
+              <a id="download" type="button" class="btn btn-success pull-right" style="margin-right: 5px; margin-bottom: 5px">
                 <span class="glyphicon glyphicon-save"></span> Télécharger cet identicon
               </a>
             </div>
@@ -364,11 +370,11 @@
         link.download = filename;
     }
 
-    document.getElementById('download').addEventListener('click', function() {
+    document.getElementById('download').addEventListener('click', function () {
         downloadCanvas(this, 'voronoiCanvas', 'Identicon.png');
     }, false);
 
-    function UploadPic() {
+    function UploadPic(isAdmin) {
 
         // Generate the image data
         var canvas = document.getElementById('voronoiCanvas');
@@ -380,6 +386,10 @@
                         // e.g. creating a multipart form for file uploads:
                         var formData = new FormData();
                         formData.append('file', blob, "Identicon.png");
+
+                        if (isAdmin) {
+                            formData.append("admin", "true");
+                        }
 
                         $('#upload-btn').hide();
                         $('#progress').show();
