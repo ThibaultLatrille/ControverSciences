@@ -1,11 +1,15 @@
 <div class="modal fade" id="mylist" tabindex="-1">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel"> <%= t('views.edition.add_reference_link') %> </h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body clearfix">
+        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" data-toggled="no" id="save-btn">
+          <span class="icon icon-reference"></span>
+          <%= t('views.edition.add_link') %>
+        </button>
 
         <div class="box">
           <div class="container-jets">
@@ -15,10 +19,11 @@
         </div>
 
         <div id="jetsRefContent" data-toggle="buttons">
-            <% references_list.each do |name, id| %>
+            <% references_list.each do |name, id, author| %>
                 <div class="btn btn-default btn-block text-left timeline-private_timeline-check">
                   <%= radio_button_tag :reference_id, checked_value = id, unchecked_value = nil %>
-                  <%= name.html_safe %>
+                  <b><%= name.html_safe %></b><br>
+                  <i><%= author.html_safe %></i>
                   <span class="pull-right checked">
                             </span>
                 </div>
@@ -26,25 +31,24 @@
 
         </div>
         <br>
-        <div style="padding-left: 10px">
-            <span class="glyphicon glyphicon-info-sign"></span> Astuces pour les liens vers des références : <br>
-            <div style="padding: 10px">
-              <b>Numérotation automatique des liens en utilisant le caractère * </b><br>
-              &nbsp <b>e.g.</b> [*](<span class="my-number"></span>)
-              <span style="padding: 0 5px">&#8594;</span>
-              <a class="my-link" target="_blank" href=""><sup>[1]</sup></a>
-              <br>
-              <br>
-              <b>Texte personnalisé dans le lien</b><br>
-              &nbsp <b>e.g.</b> [mon texte ici](<span class="my-number"></span>)
-              <span style="padding: 0 5px">&#8594;</span>
-              <a class="my-link" target="_blank" href="">mon texte ici</a>
-            </div>
+
+      <div class="modal-footer">
+        <div class="pull-left" style="padding-left: 10px;text-align: left">
+          <span class="glyphicon glyphicon-info-sign"></span> Astuces pour les liens vers des références : <br>
+          <div style="padding: 10px">
+            <b>Numérotation automatique des liens en utilisant le caractère * </b><br>
+            &nbsp <b>e.g.</b> [*](<span class="my-number"></span>)
+            <span style="padding: 0 5px">&#8594;</span>
+            <a class="my-link" target="_blank" href=""><sup>[1]</sup></a>
+            <br>
+            <br>
+            <b>Texte personnalisé dans le lien</b><br>
+            &nbsp <b>e.g.</b> [mon texte ici](<span class="my-number"></span>)
+            <span style="padding: 0 5px">&#8594;</span>
+            <a class="my-link" target="_blank" href="">mon texte ici</a>
+          </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn"> <%= t('views.buttons.add') %>
-        </button>
       </div>
     </div>
   </div>
