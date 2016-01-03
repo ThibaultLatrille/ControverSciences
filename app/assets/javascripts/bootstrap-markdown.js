@@ -1064,14 +1064,13 @@
                         monelement.setAttribute("data-toggled", 'no');
                         var chunk, cursor,
                             selected = e.getSelection(), content = e.getContent()
-                        var elt = document.getElementById("list-ref")
                         if (selected.length == 0) {
                             // Give extra word
                             chunk = "*"
                         } else {
                             chunk = selected.text
                         }
-                        var link = elt.options[elt.selectedIndex].value
+                        var link = $("input[type='radio'][name='reference_id']:checked").val();
                         // transform selection and set the cursor into chunked text
                         e.replaceSelection('[' + chunk + '](' + link + ')')
                         cursor = selected.start+1

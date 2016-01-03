@@ -6,7 +6,25 @@
         <h4 class="modal-title" id="myModalLabel"> <%= t('views.edition.add_reference_link') %> </h4>
       </div>
       <div class="modal-body">
-        <%= select("reference", "reference_id", references_list, {}, {id: "list-ref", class: 'form-control'}) %>
+
+        <div class="box">
+          <div class="container-jets">
+            <span class="icon glyphicon glyphicon-filter"></span>
+            <input type="search" id="jetsRefSearch" placeholder="Filtrer"/>
+          </div>
+        </div>
+
+        <div id="jetsRefContent" data-toggle="buttons">
+            <% references_list.each do |name, id| %>
+                <div class="btn btn-default btn-block text-left timeline-private_timeline-check">
+                  <%= radio_button_tag :reference_id, checked_value = id, unchecked_value = nil %>
+                  <%= name.html_safe %>
+                  <span class="pull-right checked">
+                            </span>
+                </div>
+            <% end %>
+
+        </div>
         <br>
         <div style="padding-left: 10px">
             <span class="glyphicon glyphicon-info-sign"></span> Astuces pour les liens vers des références : <br>
@@ -37,14 +55,21 @@
     $('#save-btn').on('click', function (event) {
         this.setAttribute("data-toggled", 'yes');
     });
-    $('#list-ref').change(function (e) {
+    $("input[type='radio'][name='reference_id']").change(function (e) {
         var valueSelected = this.value;
         $('.my-number').text(valueSelected);
         $('.my-link').attr('href', '/references/' + valueSelected);
     });
     $(document).ready(function () {
-        var valueSelected = $("#list-ref option:first").val();
+        var input = $("input[type='radio'][name='reference_id']").first().prop('checked', true);
+        input.parent().addClass("active");
+        var valueSelected = input.val();
         $('.my-number').text(valueSelected);
         $('.my-link').attr('href', '/references/' + valueSelected);
+    });
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    var jets = new Jets({
+        searchTag: '#jetsRefSearch',
+        contentTag: '#jetsRefContent'
     });
 </script>
