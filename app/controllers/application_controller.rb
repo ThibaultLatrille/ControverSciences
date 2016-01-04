@@ -50,8 +50,8 @@ class ApplicationController < ActionController::Base
     end
     users             = User.all.where.not(id: UserDetail.where(send_email: false).pluck(:user_id), activated: false)
     @empty_comments   = Reference.where(title_fr: "").count
-    @empty_summaries  = Timeline.where(nb_summaries: 0).where.not(nb_references: 0..3).count
-    @empty_references = Timeline.where(nb_references: 0..3).count
+    @empty_summaries  = Timeline.where(nb_summaries: 0).where.not(private: true).where.not(nb_references: 0..3).count
+    @empty_references = Timeline.where(nb_references: 0..3).where.not(private: true).count
     mg_client         = Mailgun::Client.new ENV['MAILGUN_CS_API']
     names             = []
     users.find_each do |user|

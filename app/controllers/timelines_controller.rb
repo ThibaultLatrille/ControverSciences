@@ -102,7 +102,7 @@ class TimelinesController < ApplicationController
                          @timeline.id,
                          @timeline.id)
       timeline_ids = edges.map{ |e| [e.target, e.timeline_id] }
-      query = Timeline.includes(:tags).where( id: timeline_ids.flatten.uniq ).where.not( id: @timeline.id )
+      query = Timeline.includes(:tags).where( id: timeline_ids.flatten.uniq ).where.not(private: true).where.not( id: @timeline.id )
       if logged_in?
         visitetimeline = VisiteTimeline.find_or_create_by( user_id: current_user.id, timeline_id: @timeline.id )
         VisiteTimeline.increment_counter(:counter, visitetimeline.id)
