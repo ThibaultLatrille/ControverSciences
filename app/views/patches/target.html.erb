@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-xs-12 col-lg-8 col-lg-offset-2">
       <div class="panel panel-primary">
-        <% if @patch %>
+        <% if @patches.any? %>
             <br/>
             <br/>
             &nbsp &nbsp
@@ -14,15 +14,15 @@
 
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
-                <div class="center">
-                  <div class="panel panel-default">
-                    <div class="panel-body">
-
-                      <%= render 'patches/patch', patch: @patch %>
-
+                <% @patches.each do |patch| %>
+                    <div class="panel panel-default">
+                      <div class="panel-body">
+                        <%= render 'patches/patch', patch: patch %>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                    <br>
+                    <br>
+                <% end %>
               </div>
             </div>
         <% end %>
@@ -31,167 +31,4 @@
   </div>
 </div>
 
-<script type="text/javascript">
-    (function () {
-        $.fn.extend({
-            prettyTextDiff: function (options) {
-                var dmp, settings;
-                settings = {
-                    originalContainer: ".original",
-                    changedContainer: ".changed",
-                    diffContainer: ".diff",
-                    cleanup: true,
-                    debug: false
-                };
-                settings = $.extend(settings, options);
-                $.fn.prettyTextDiff.debug("Options: ", settings, settings);
-                dmp = new diff_match_patch();
-                return this.each(function () {
-                    var changed, diffs, original, patches;
-                    original = $(settings.originalContainer, this).text();
-                    patches = $.map($(settings.changedContainer, this), function (text_patch, i) {
-                        return ( dmp.patch_fromText($(text_patch).text()) );
-                    });
-                    $.fn.prettyTextDiff.debug("Original text found: ", original, settings);
-                    $.fn.prettyTextDiff.debug("Changed  text found: ", patches, settings);
-                    changed = dmp.patch_apply(patches, original)[0];
-                    diffs = dmp.diff_main(original, changed);
-                    dmp.diff_cleanupSemantic(diffs);
-                    $.fn.prettyTextDiff.debug("Diffs: ", diffs, settings);
-                    $.fn.prettyTextDiff.fillContainer(diffs, settings, this, dmp);
-                    return this;
-                });
-            }
-        });
-
-        $.fn.prettyTextDiff.debug = function (message, object, settings) {
-            if (settings.debug) {
-                return console.log(message, object);
-            }
-        };
-
-        $.fn.prettyTextDiff.fillContainer = function (diffs, settings, self, dmp) {
-            var diff_as_html = $.map(diffs, function (diff, i) {
-                return $.fn.prettyTextDiff.createHTML(diff, i, diffs);
-            });
-            $(settings.diffContainer, self).html(diff_as_html.join(''));
-            $(settings.diffContainer + " .patch-validate", self).off();
-            $(settings.diffContainer + " #accept-patches", self).off();
-            $(settings.diffContainer + " .patch-refuse", self).off();
-            // Re-add event handler for all matching elements
-            $(settings.diffContainer + " .patch-validate", self).on("click", function () {
-                var diff, index;
-                index = parseInt($(this).data('id'));
-                diff = diffs[index];
-                switch (diff[0]) {
-                    case DIFF_INSERT:
-                        diff[0] = 0;
-                        if (index != 0 && diffs[index - 1][0] == DIFF_DELETE) {
-                            diffs.splice(index - 1, 1);
-                        }
-                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
-                        return true;
-                    case DIFF_DELETE:
-                        diffs.splice(index, 1);
-                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
-                        return true;
-                }
-            });
-            $(settings.diffContainer + " .patch-refuse", self).on("click", function () {
-                var diff, index;
-                index = parseInt($(this).data('id'));
-                diff = diffs[index];
-                switch (diff[0]) {
-                    case DIFF_INSERT:
-                        if (index != 0 && diffs[index - 1][0] == DIFF_DELETE) {
-                            diffs[index - 1][0] = 0;
-                        }
-                        diffs.splice(index, 1);
-                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
-                        return true;
-                    case DIFF_DELETE:
-                        diff[0] = 0;
-                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
-                        return true;
-                }
-            });
-            $("#accept-patches", self).on("click", function () {
-                var $this = $(this);
-                $this.hide();
-                $this.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-                var new_content, patches;
-                patches = dmp.patch_toText(dmp.patch_make(diffs));
-                new_content = $.map(diffs, function (diff, i) {
-                    switch (diff[0]) {
-                        case DIFF_INSERT:
-                            return '';
-                        case DIFF_DELETE:
-                            return diff[1];
-                        case DIFF_EQUAL:
-                            return diff[1];
-                    }
-                }).join('');
-                $.ajax($this.data('validate'), {
-                    url: $this.data('validate'),
-                    data: {
-                        frame_id: $this.data('frame-id'),
-                        comment_id: $this.data('comment-id'),
-                        summary_id: $this.data('summary-id'),
-                        field: $this.data('field'),
-                        content: patches,
-                        parent_content: new_content},
-                    method: 'POST',
-                    statusCode: {
-                        201: function (response){
-                            $('.loader-like').remove();
-                            $this.show();
-                        },
-                        401: function (response){
-                            $('.loader-like').remove();
-                            $this.show();
-                        },
-                        409: function (response){
-                            $('.loader-like').remove();
-                            $this.show();
-                        }
-                    }
-                });
-            });
-            return true
-        };
-
-        $.fn.prettyTextDiff.createHTML = function (diff, i, diffs) {
-            var data, html, operation, pattern_amp, pattern_gt, pattern_lt, pattern_para, text, diffId, onClick;
-            html = [];
-            diffId = ' data-id="' + i + '"';
-            patchClick = '<span class="green patch-validate"' + diffId + '> yes </span>' + '<span class="red patch-refuse"' + diffId + '> no </span>';
-            pattern_amp = /&/g;
-            pattern_lt = /</g;
-            pattern_gt = />/g;
-            pattern_para = /\n/g;
-            operation = diff[0], data = diff[1];
-            if (data != "") {
-                text = data.replace(pattern_amp, '&amp;').replace(pattern_lt, '&lt;').replace(pattern_gt, '&gt;').replace(pattern_para, '<br>');
-                switch (operation) {
-                    case DIFF_INSERT:
-                        return '<ins>' + text + '</ins>' + patchClick;
-                    case DIFF_DELETE:
-                        if ((i != (diffs.length - 1)) && (diffs[i + 1][0] == DIFF_INSERT)) {
-                            return '<del>' + text + '</del>';
-                        } else {
-                            return '<del>' + text + '</del>' + patchClick;
-                        }
-                    case DIFF_EQUAL:
-                        return '<span' + diffId + '>' + text + '</span>';
-                }
-            }
-        };
-
-    }).call(this);
-    $(".pretty").prettyTextDiff({
-        cleanup: true,
-        originalContainer: "#original",
-        changedContainer: ".patches",
-        diffContainer: "#diff"
-    });
-</script>
+<%= render 'patches/accept' %>

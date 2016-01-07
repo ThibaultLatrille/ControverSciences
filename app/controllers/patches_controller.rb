@@ -52,25 +52,23 @@ class PatchesController < ApplicationController
   end
 
   def target
-    @patch = GoPatch.where(summary_id: get_params[:summary_id],
+    @patches = GoPatch.where(summary_id: get_params[:summary_id],
                              comment_id: get_params[:comment_id],
-                             field: get_params[:field],
                              frame_id: get_params[:frame_id])
     if current_user.admin
-      @patch = @patch.where.not(target_user_id: current_user.id)
+      @patches = @patches.where.not(target_user_id: current_user.id)
     else
-      @patch = @patch.where(target_user_id: current_user.id)
+      @patches = @patches.where(target_user_id: current_user.id)
     end
     if get_params[:summary_id]
-      @patch = @patch.includes(:summary)
+      @patches = @patches.includes(:summary)
     end
     if get_params[:comment_id]
-      @patch = @patch.includes(:summary)
+      @patches = @patches.includes(:summary)
     end
     if get_params[:frame_id]
-      @patch = @patch.includes(:frame)
+      @patches = @patches.includes(:frame)
     end
-    @patch = @patch.first
   end
 
   def index

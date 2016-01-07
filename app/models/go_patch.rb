@@ -80,11 +80,16 @@ class GoPatch < ActiveRecord::Base
   def accept_and_save(parent_content)
     parent_model = self.parent
     parent_model[self.parent_content_accessor] = parent_content
-    if parent_model.save_with_markdown && self.save
-      GoPatch.where(frame_id: self.frame_id,
-                    comment_id: self.comment_id,
-                    field: self.field,
-                    summary_id: self.summary_id).where.not(id: self.id).destroy_all
+    if parent_model.save_with_markdown
+      query = GoPatch.where(frame_id: self.frame_id,
+                            comment_id: self.comment_id,
+                            field: self.field,
+                            summary_id: self.summary_id)
+      if self.counter > 0
+        self.save
+        query = query.where.not(id: self.id)
+      end
+      query.destroy_all
       true
     else
       false
