@@ -17,6 +17,11 @@
         </div>
 
         <div class="panel-body">
+          <b>
+            <%= render 'patches/parent_header', patch: @patch %>
+          </b>
+          <br/>
+          <br/>
           <div id="prepend-errors"></div>
           <div id="patch-form">
             <b style="font-size: 1.4em">Correction</b>
@@ -33,7 +38,8 @@
             <div class="pull-right">
               <div id="edit-ok" class="btn btn-success">
                 <span class="glyphicon glyphicon-ok"></span>
-                <%= t('views.patches.send') %>
+                &nbsp;
+                Valider les suggestions
               </div>
             </div>
           </div>
@@ -47,9 +53,11 @@
               <div id="patches" style="display: none"><%= @patch.content %></div>
 
               <div id="diff" style="text-align: justify"></div>
+              <br>
               <div class="pull-right">
-                <div id="back-edit" class="btn btn-info">
-                  <span class="glyphicon glyphicon-remove"></span>
+                <div id="back-edit" class="btn btn-default">
+                  <span class="glyphicon glyphicon-edit"></span>
+                  &nbsp;
                   <%= "Revenir à l'édition" %>
                 </div>
                 <div id="send-patches" class="btn btn-success"
@@ -58,7 +66,8 @@
                      data-comment-id="<%= @patch.comment_id %>"
                      data-summary-id="<%= @patch.summary_id %>"
                      data-validate="<%= patches_path %>">
-                  <span class="glyphicon glyphicon-ok"></span>
+                  <span class="glyphicon glyphicon-send"></span>
+                  &nbsp;
                   <%= t('views.patches.send') %>
                 </div>
               </div>
