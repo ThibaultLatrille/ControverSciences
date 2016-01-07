@@ -71,69 +71,6 @@
   <% end %>
 </div>
 
-<% if logged_in? && (["etu.umontpellier.fr", "etud.univ-montp2.fr"].include? current_user.email.partition("@")[2]) %>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.js"></script>
-
-    <div id="to-stop" class="row">
-      <div class="col-xs-12 col-md-6 col-md-offset-1 col-lg-4 col-lg-offset-4">
-        <br><br>
-        <style>
-            .iframe-responsive-wrapper {
-                position: relative;
-                padding-bottom: 56.25%;
-                padding-top: 30px;
-                height: 0;
-                overflow: hidden;
-            }
-
-            .iframe-responsive-wrapper iframe {
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-            }
-        </style>
-
-        <div class="panel panel-default">
-          <div class="panel-body clearfix">
-            <div class="center" style="font-size: 1.2em">
-              L'équipe de ControverSciences vous propose un petit intermède musical pour vous aider à se (de)concentrer
-              <br>
-              <span class="glyphicon glyphicon-heart"></span>
-              <span class="glyphicon glyphicon-heart"></span>
-              <span class="glyphicon glyphicon-heart"></span>
-              <span class="glyphicon glyphicon-heart"></span>
-              <span class="glyphicon glyphicon-heart"></span>
-              <br>
-            </div>
-            <br>
-            <div class="iframe-responsive-wrapper">
-              <iframe title="Let's get musical" class="youtube-player" type="text/html"
-                      src="https://www.youtube.com/embed?list=PLrPhCtnQNkWZZofdSPtQBwS-tnAtCjJif&&index=<%= rand(200) %>&&iv_load_policy=3&hl=en&cc_lang_pref=en&cc_load_policy=1&autoplay=1&loop=1&origin=https://controversciences.org"
-                      width="640" height="360" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen>
-              </iframe>
-            </div>
-            <br>
-            <a id="stop-it" class="pull-right cursor-hvr">
-              STTOOOOPPPPPPP !
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script type="text/javascript">
-        if (Cookies.get('stop-it') === 'true') {
-            $("#to-stop").remove()
-        } else {
-            $("#stop-it").on("click", function () {
-                Cookies.set('stop-it', 'true');
-                $("#to-stop").remove()
-            });
-        }
-    </script>
-<% end %>
-
 <%= yield %>
 </body>
 <%= render 'layouts/footer' %>
