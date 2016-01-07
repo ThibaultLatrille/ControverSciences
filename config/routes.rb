@@ -53,7 +53,7 @@ Rails.application.routes.draw do
   resources :reference_user_tags, only: [:create, :update]
   resources :contributions, only: [:index]
   resources :patches, only: [:create, :show, :new, :index, :destroy]
-  get 'patches_accept' => 'patches#accept', as: 'patches_accept'
+  post 'patches_accept' => 'patches#accept', as: 'patches_accept'
   get 'patches_mine' => 'patches#mine', as: 'patches_mine'
   get 'patches_target' => 'patches#target', as: 'patches_target'
   get 'patches_modal' => 'patches#modal', as: 'patches_modal'

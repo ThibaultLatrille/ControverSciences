@@ -1272,3 +1272,74 @@ del {
   font-size: 1em;
   padding: 5px 10px !important;
 }
+
+#diff .validations-checkox {
+  position: relative;
+  display: inline;
+  .inside {
+    position: absolute;
+    width: 120px;
+    color: #FFFFFF;
+    background: #FFFFFF;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 6px;
+    box-shadow: 1px 1px 5px #FFF;
+    visibility: visible;
+    opacity: 0.8;
+    bottom: 20px;
+    left: 50%;
+    margin-left: -60px;
+    z-index: 999;
+    .glyphicon{
+      font-size: 19px;
+      line-height: 30px;
+    }
+    .patch-refuse {
+      position: absolute;
+      left: 0;
+      display: inline;
+      width: 60px;
+      height: 30px;
+      border-radius: 6px 0 0 6px;
+      background: $red-error;
+      opacity: 0.4;
+    }
+    .patch-refuse:hover {
+      background: $red-error;
+      cursor: pointer;
+      opacity: 1;
+    }
+    .patch-validate {
+      position: absolute;
+      right: 0;
+      display: inline;
+      width: 60px;
+      height: 30px;
+      border-radius: 0 6px 6px 0;
+      background: #5cb85c;
+      cursor: pointer;
+      opacity: 0.4;
+    }
+    .patch-validate:hover {
+      background: #5cb85c;
+      opacity: 1;
+    }
+  }
+  .inside:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -8px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid #808080;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+  }
+}
+#diff .validations-checkox .inside:hover {
+  opacity: 1;
+}

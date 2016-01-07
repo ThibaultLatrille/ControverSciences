@@ -7,7 +7,7 @@
     <%= t('views.model.summary') %> <br>
     <%= link_to patch.summary_short.timeline_name.html_safe, timeline_path(patch.summary_short.timeline_id) %>
 <% elsif patch.frame_id %>
-    <%= link_to t('views.model.frame'), frame_path(patch.frame_id) %> <br>
+    <%= link_to t("views.model.frame_#{patch.field}"), frame_path(patch.frame_id) %> <br>
     <%= t('views.model.of_timeline').downcase %> <br>
     <%= link_to patch.frame_short.timeline_name.html_safe, timeline_path(patch.frame_short.timeline_id) %>
 <% end %>

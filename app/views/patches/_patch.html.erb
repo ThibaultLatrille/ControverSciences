@@ -1,0 +1,26 @@
+<b>
+  <%= render 'patches/parent_header', patch: patch %>
+</b>
+<br/>
+<br/>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="pretty">
+      <div id="original" style="display: none"><%= patch.parent_content %></div>
+      <div id="patches" data-patchId="<%= patch.id %>" style="display: none"><%= patch.content %></div>
+      <div id="diff" style="text-align: justify"></div>
+      <div class="pull-right">
+        <div id="accept-patches" class="btn btn-success"
+             data-frame-id="<%= patch.frame_id %>"
+             data-field="<%= patch.field %>"
+             data-comment-id="<%=  patch.comment_id %>"
+             data-summary-id="<%=  patch.summary_id %>"
+             data-validate="<%= patches_accept_path %>" style="display: none">
+          <span class="glyphicon glyphicon-ok"></span> <%= "Sauvegarder les changements" %>
+        </div>
+      </div>
+    </div>
+    <br/>
+  </div>
+</div>

@@ -1,0 +1,2 @@
+$("#error_explanation").remove();
+$("#prepend-errors").prepend("<%= escape_javascript(render 'shared/error_messages', object: @patch )%>");

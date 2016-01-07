@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151204183223) do
+ActiveRecord::Schema.define(version: 20160106144822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,6 +242,7 @@ ActiveRecord::Schema.define(version: 20151204183223) do
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "counter",        default: 0
   end
 
   add_index "go_patches", ["comment_id"], name: "index_go_patches_on_comment_id", using: :btree

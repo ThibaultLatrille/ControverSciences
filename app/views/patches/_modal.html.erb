@@ -45,8 +45,7 @@
                 <br>
                 <br>
                 <br>
-                <% if GoPatch.where(user_id: current_user.id,
-                                    summary_id: patch.summary_id,
+                <% if GoPatch.where(summary_id: patch.summary_id,
                                     comment_id: patch.comment_id,
                                     frame_id: patch.frame_id,
                                     field: patch.field).count > 0 %>

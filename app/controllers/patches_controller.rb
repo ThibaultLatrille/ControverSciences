@@ -1,6 +1,5 @@
 class PatchesController < ApplicationController
   before_action :logged_in_user, only: [:accept, :mine, :modal, :new, :target, :create, :destroy, :index]
-  before_action :admin_user, only: [:index]
 
   def modal
     @patch = GoPatch.new(get_params)
@@ -12,109 +11,93 @@ class PatchesController < ApplicationController
   end
 
   def mine
-    patches = GoPatch.where(user_id: current_user.id,
-                            field: get_params[:field],
-                            summary_id: get_params[:summary_id],
-                            comment_id: get_params[:comment_id],
-                            frame_id: get_params[:frame_id])
-    dmp = DiffMatchPatch.new
-    @patch = patches.first
-    if @patch
-      @text = @patch.parent_content
-      @new_text = dmp.patch_apply(patches.map { |patch| dmp.patch_fromText(patch.content) }.flatten, @text)[0]
-    end
+    @patch = GoPatch.find_by(field: get_params[:field],
+                             summary_id: get_params[:summary_id],
+                             comment_id: get_params[:comment_id],
+                             frame_id: get_params[:frame_id])
   end
 
   def new
     @patch = GoPatch.new(get_params)
     @patch.target_user_id = @patch.parent.user_id
     @patch.user_id = current_user.id
-    @patch.content = @patch.parent_content
-    if params[:edit]
-      dmp = DiffMatchPatch.new
-      @patch.content = dmp.patch_apply(GoPatch.where(user_id: current_user.id,
-                                                     field: get_params[:field],
-                                                     summary_id: get_params[:summary_id],
-                                                     comment_id: get_params[:comment_id],
-                                                     frame_id: get_params[:frame_id])
-                                           .map { |patch| dmp.patch_fromText(patch.content) }
-                                           .flatten,
-                                       @patch.content)[0].force_encoding("UTF-8")
+    go_patch = GoPatch.find_by(field: get_params[:field],
+                               summary_id: get_params[:summary_id],
+                               comment_id: get_params[:comment_id],
+                               frame_id: get_params[:frame_id])
+    if go_patch
+      @patch.content = go_patch.content
     end
   end
 
   def create
-    @patch = GoPatch.new(patch_params)
+    @patch = GoPatch.new(frame_id: params[:frame_id],
+                         field: params[:field],
+                         comment_id: params[:comment_id],
+                         summary_id: params[:summary_id],
+                         counter: params[:counter],
+                         content: params[:content])
     @patch.target_user_id = @patch.parent.user_id
     @patch.user_id = current_user.id
-    parent_content = @patch.parent_content
-    if @patch.content_errors.full_messages.blank?
-      @patch.save_as_list(parent_content)
-      redirect_to patches_mine_path(frame_id: @patch.frame_id,
-                                    summary_id: @patch.summary_id,
-                                    comment_id: @patch.comment_id,
-                                    field: @patch.field)
+    @patch.content_errors(params[:length].to_i)
+    if @patch.errors.full_messages.blank? && @patch.save
+      GoPatch.where(frame_id: @patch.frame_id,
+                    comment_id: @patch.comment_id,
+                    field: @patch.field,
+                    summary_id: @patch.summary_id).where.not(id: @patch.id).destroy_all
+      render 'patches/success'
     else
-      @patch.content_errors.full_messages.each do |message|
-        @patch.errors.add(:base, message)
-      end
-      render 'new'
+      render 'patches/fail'
     end
   end
 
   def target
-    @patches = GoPatch.where(summary_id: get_params[:summary_id],
-                      comment_id: get_params[:comment_id],
-                      frame_id: get_params[:frame_id])
-    unless current_user.admin
-      @patches = @patches.where(target_user_id: current_user.id)
+    @patch = GoPatch.where(summary_id: get_params[:summary_id],
+                             comment_id: get_params[:comment_id],
+                             field: get_params[:field],
+                             frame_id: get_params[:frame_id])
+    if current_user.admin
+      @patch = @patch.where.not(target_user_id: current_user.id)
+    else
+      @patch = @patch.where(target_user_id: current_user.id)
     end
     if get_params[:summary_id]
-      @patches = @patches.includes(:summary)
+      @patch = @patch.includes(:summary)
     end
     if get_params[:comment_id]
-      @patches = @patches.includes(:summary)
+      @patch = @patch.includes(:summary)
     end
     if get_params[:frame_id]
-      @patches = @patches.includes(:frame)
+      @patch = @patch.includes(:frame)
     end
+    @patch = @patch.first
   end
 
   def index
-    @patches = GoPatch.includes(:frame).includes(:summary).includes(:comment).where.not(target_user_id: current_user.id )
+    @patches = GoPatch.includes(:frame).includes(:summary).includes(:comment).where.not(target_user_id: current_user.id)
   end
 
   def accept
-    @patch = GoPatch.find(params[:id])
-    @patch.apply_content(current_user.id, current_user.admin)
+    @patch = GoPatch.new(frame_id: params[:frame_id],
+                         field: params[:field],
+                         counter: params[:counter],
+                         comment_id: params[:comment_id],
+                         summary_id: params[:summary_id],
+                         content: params[:content])
+    @patch.target_user_id = @patch.parent.user_id
+    @patch.user_id = current_user.id
     if @patch.target_user_id == current_user.id || current_user.admin
-      @patch.destroy
-      User.increment_counter(:my_patches, @patch.user_id)
-      User.increment_counter(:target_patches, @patch.target_user_id)
-    end
-    if current_user.admin
-      redirect_to patches_path
+      if @patch.accept_and_save(params[:parent_content])
+        User.increment_counter(:target_patches, @patch.target_user_id)
+        render :nothing => true, :status => 201
+      else
+        render :nothing => true, :status => 409
+      end
     else
-      redirect_to patches_target_path(frame_id: @patch.frame_id,
-                                      summary_id: @patch.summary_id,
-                                      comment_id: @patch.comment_id)
+      render :nothing => true, :status => 403
     end
   end
-
-  def destroy
-    @patch = GoPatch.find(params[:id])
-    if @patch.target_user_id == current_user.id || current_user.admin
-      @patch.destroy
-    end
-    if current_user.admin
-      redirect_to patches_path
-    else
-      redirect_to patches_target_path(frame_id: @patch.frame_id,
-                                      summary_id: @patch.summary_id,
-                                      comment_id: @patch.comment_id)
-    end
-  end
-
+  
   private
 
   def get_params

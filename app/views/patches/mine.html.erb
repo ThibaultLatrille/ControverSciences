@@ -10,6 +10,11 @@
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
                 <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <b style="font-size: 1.2em">
+                    Des suggestions pour cette contribution existent déjà et attendent leur validation par l'auteur, mais vous pouvez en ajouter.
+                    </b>
+                  </div>
                   <div class="panel-body">
                     <b>
                       <%= render 'patches/parent_header', patch: @patch %>
@@ -18,12 +23,12 @@
                     <br/>
 
                     <div class="pretty">
-                      <div id="original" style="display: none"><%= @text %></div>
-                      <div id="changed" style="display: none"><%= @new_text.force_encoding("UTF-8") %></div>
+                      <div id="original" style="display: none"><%= @patch.parent_content %></div>
+                      <div id="changed" style="display: none"><%= @patch.content %></div>
                       <div id="diff"></div>
                     </div>
                     <br/>
-                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> Modifier mes suggestions".html_safe,
+                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> Ajouter des suggestions".html_safe,
                                 new_patch_path(frame_id: @patch.frame_id,
                                                comment_id: @patch.comment_id,
                                                summary_id: @patch.summary_id,
@@ -41,10 +46,75 @@
 </div>
 
 <script type="text/javascript">
+    (function () {
+
+        $.fn.extend({
+            prettyTextDiff: function () {
+                dmp = new diff_match_patch();
+                var changed, diffs, original;
+                original = $("#original").text();
+                changed = dmp.patch_apply(dmp.patch_fromText($('#changed').text()), $("#original").text())[0];
+                diffs = dmp.diff_main(original, changed);
+                dmp.diff_cleanupSemantic(diffs);
+                $.fn.prettyTextDiff.fillContainer(diffs, dmp);
+                return this
+            }
+        });
+
+        $.fn.prettyTextDiff.fillContainer = function (diffs) {
+            var diff_as_html = $.map(diffs, function (diff) {
+                return $.fn.prettyTextDiff.createHTML(diff);
+            });
+            $("#diff").html(diff_as_html.join(''));
+            return true
+        };
+
+        $.fn.prettyTextDiff.createHTML = function (diff) {
+            var data, html, operation, pattern_amp, pattern_gt, pattern_lt, pattern_para, text;
+            html = [];
+            pattern_amp = /&/g;
+            pattern_lt = /</g;
+            pattern_gt = />/g;
+            pattern_para = /\n/g;
+            operation = diff[0], data = diff[1];
+            if (data != "") {
+                text = data.replace(pattern_amp, '&amp;').replace(pattern_lt, '&lt;').replace(pattern_gt, '&gt;').replace(pattern_para, '<br>');
+                switch (operation) {
+                    case DIFF_INSERT:
+                        return '<ins>' + text + '</ins>';
+                    case DIFF_DELETE:
+                        return '<del>' + text + '</del>';
+                    case DIFF_EQUAL:
+                        return '<span>' + text + '</span>';
+                }
+            }
+        };
+
+    }).call(this);
+    $(document).ready(function () {
+        dmp = new diff_match_patch();
+        $('#description').val(dmp.patch_apply(dmp.patch_fromText($('#patches').text()), $("#original").text())[0]);
+        var max = <%= @patch.content_ch_max %>, min = <%= @patch.content_ch_min %>;
+
+        var len = $('#description').val().length;
+        if (len >= max) {
+            var ch = len - max;
+            $('#characterLeft').css({"color": "#a94442"});
+            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
+        } else if (len <= min) {
+            var ch = min - len;
+            $('#characterLeft').css({"color": "#a94442"});
+            $('#characterLeft').text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
+        } else {
+            var ch = max - len;
+            $('#characterLeft').css({"color": "#5cb85c"});
+            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
+        }
+    });
     $(".pretty").prettyTextDiff({
         cleanup: true,
         originalContainer: "#original",
-        changedContainer: "#changed",
+        changedContainer: ".patches",
         diffContainer: "#diff"
     });
 </script>

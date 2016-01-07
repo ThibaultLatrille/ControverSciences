@@ -119,7 +119,7 @@
                 <% if !current_user.private_timeline && current_user.notif_patches > 0  %>
                     <li class="my-important"> <%= link_to "<b><span class=\"badge badge-li\">
                 #{current_user.notif_patches}</span> #{t('views.header.patches', count: current_user.notif_patches)} </b>".html_safe,
-                                                          notifications_patches_path %>
+                                                          patches_path %>
                     </li>
                 <% end %>
                 <li><%= link_to "<b><span class='icon-user'></span> #{t('views.header.user')}</b>".html_safe,

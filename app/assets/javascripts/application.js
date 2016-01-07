@@ -25,7 +25,6 @@
 //= require readmore.js
 //= require grid.js
 //= require autosize.js
-//= require jquery.pretty-text-diff.js
 //= require jets.js
 //= require fancyBox.js
 //= require menu.js

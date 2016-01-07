@@ -92,7 +92,6 @@ GEM
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.2.5)
-    diff_match_patch (0.1.0)
     domain_name (0.5.25)
       unf (>= 0.0.5, < 1.0.0)
     email_validator (1.6.0)
@@ -460,7 +459,6 @@ DEPENDENCIES
   bullet
   carrierwave
   coffee-script
-  diff_match_patch
   email_validator
   exception_notification
   execjs

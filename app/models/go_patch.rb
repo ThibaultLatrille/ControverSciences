@@ -7,6 +7,9 @@ class GoPatch < ActiveRecord::Base
   belongs_to :comment
   belongs_to :target_user, class_name: "User", foreign_key: "target_user_id"
 
+  validates_numericality_of :counter, :only_integer => true,
+                            :greater_than_or_equal_to => 1
+
   def parent_content_accessor
     if !summary_id.blank?
       "content"
@@ -46,7 +49,7 @@ class GoPatch < ActiveRecord::Base
     if !summary_id.blank?
       self.summary.timeline.nb_summaries
     elsif !comment_id.blank?
-      CommentJoin.where( reference_id: self.comment.reference_id, field: self.field ).count
+      CommentJoin.where(reference_id: self.comment.reference_id, field: self.field).count
     elsif !frame_id.blank?
       self.frame.timeline.nb_frames
     end
@@ -62,26 +65,6 @@ class GoPatch < ActiveRecord::Base
     end
   end
 
-  def save_as_list(parent_content)
-    GoPatch.where(field: field,
-                  frame_id: frame_id,
-                  summary_id: summary_id,
-                  comment_id: comment_id,
-                  user_id: user_id).destroy_all
-    dmp = DiffMatchPatch.new
-    patches = dmp.patch_make(parent_content, self.content)
-    patches.each do |patch|
-      new = GoPatch.new(content: dmp.patch_toText([patch]),
-                        target_user_id: target_user_id,
-                        field: field,
-                        frame_id: frame_id,
-                        summary_id: summary_id,
-                        comment_id: comment_id,
-                        user_id: user_id)
-      new.save!
-    end
-  end
-
   def frame_short
     Frame.select(:id, :user_id, :timeline_id).find(self.frame_id)
   end
@@ -94,36 +77,15 @@ class GoPatch < ActiveRecord::Base
     Comment.select(:id, :user_id, :reference_id, :timeline_id).find(self.comment_id)
   end
 
-  def new_content(text)
-    dmp = DiffMatchPatch.new
-    dmp.patch_apply(dmp.patch_fromText(self.content), text)[0].force_encoding("UTF-8")
-  end
-
-  def apply_content(current_user_id, admin)
+  def accept_and_save(parent_content)
     parent_model = self.parent
-    if parent_model.user_id == current_user_id || admin
-      original = parent_model[self.parent_content_accessor]
-      modified = new_content(original)
-      parent_model[self.parent_content_accessor] = modified
-      dmp = DiffMatchPatch.new
-      patch_total = dmp.patch_make(original, modified)
-      if parent_model.save_with_markdown
-        GoPatch.where(field: field,
-                      frame_id: frame_id,
-                      summary_id: summary_id,
-                      comment_id: comment_id).where.not(id: self.id).each do |go_patch|
-          r = dmp.patch_fromText(go_patch.content)
-          text = dmp.patch_apply(patch_total + r, original)[0].force_encoding("UTF-8")
-          patch = dmp.patch_make(modified, text)
-          if patch.blank?
-            go_patch.destroy
-          else
-            go_patch.update_column(:content, dmp.patch_toText(patch))
-          end
-        end
-      else
-        false
-      end
+    parent_model[self.parent_content_accessor] = parent_content
+    if parent_model.save_with_markdown && self.save
+      GoPatch.where(frame_id: self.frame_id,
+                    comment_id: self.comment_id,
+                    field: self.field,
+                    summary_id: self.summary_id).where.not(id: self.id).destroy_all
+      true
     else
       false
     end
@@ -167,10 +129,15 @@ class GoPatch < ActiveRecord::Base
     end
   end
 
-  def content_errors
-    parent_model = self.parent
-    parent_model[self.parent_content_accessor] = self.content
-    parent_model.valid?
-    parent_model.errors
+  def content_errors(length)
+    if length > content_ch_max
+      errors.add(:base, I18n.t('errors.messages.too_long', count: content_ch_max))
+    end
+    if length < content_ch_min
+      errors.add(:base, I18n.t('errors.messages.too_short', count: content_ch_max))
+    end
+    if self.counter == 0 || self.counter.blank?
+      errors.add(:base, "Aucune suggestion n'a été apportée.")
+    end
   end
 end

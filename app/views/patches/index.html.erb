@@ -5,6 +5,30 @@
   <div class="row">
     <div class="col-xs-12 col-lg-8 col-lg-offset-2">
       <div class="panel panel-primary">
+        <% if current_user.can_switch_admin %>
+            <% if current_user.admin %>
+                <div class="panel panel-danger">
+                  <div class="panel-heading center">
+                    <span class="glyphicon glyphicon-danger"></span>
+                    Vous etes en mode GOD, et ainsi allez pouvoir valider toutes les suggestions des autres contributeurs
+                    <br>
+                    <%= link_to "<span class=\"glyphicon glyphicon-log-in\"></span> Be Human".html_safe,
+                                switch_admin_users_path %>
+                  </div>
+                </div>
+            <% else %>
+                <div class="panel panel-danger">
+                  <div class="panel-heading center">
+                    <span class="glyphicon glyphicon-danger"></span>
+                    Vous etes en mode HUMAN, et ne pouvez valider que les suggestions vous concernant
+                    <br>
+                    <%= link_to "<span class=\"glyphicon glyphicon-log-in\"></span> Be God".html_safe,
+                                switch_admin_users_path %>
+                  </div>
+                </div>
+            <% end %>
+            <br>
+        <% end %>
         <% if @patches.any? %>
             <br/>
             <br/>
@@ -15,36 +39,13 @@
             <div class="row">
               <div class="col-xs-10 col-xs-offset-1">
                 <% @patches.each do |patch| %>
-                    <hr style="margin: 1em 3em 1em 3em ">
                     <div class="panel panel-default">
                       <div class="panel-body">
-                        <b>
-                          <%= render 'patches/parent_header', patch: patch %>
-                        </b>
-                        <br/>
-                        <br/>
-
-                        <div class="pretty">
-                          <div id="original" style="display: none"><%= patch.parent_content %></div>
-                          <div id="changed" style="display: none"><%= patch.new_content(patch.parent_content) %></div>
-                          <div id="diff"></div>
-                        </div>
-                        <br/>
-
-                        <div class="pull-right">
-                          <%= link_to "<span class=\"glyphicon glyphicon-remove\" aria-hidden=\"true\"></span>  #{t('views.patches.refuse')}".html_safe,
-                                      patch_path(id: patch.id), method: :delete,
-                                      class: "btn btn-danger",
-                                      data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
-                                    &nbsp Suppression en cours"} %>
-                          <%= link_to "<span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>  #{t('views.patches.accept')}".html_safe,
-                                      patches_accept_path(id: patch.id),
-                                      class: "btn btn-success",
-                                      data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span>
-                                    &nbsp Enregistrement en cours "} %>
-                        </div>
+                        <%= render 'patches/patch', patch: patch %>
                       </div>
                     </div>
+                    <br>
+                    <br>
                 <% end %>
               </div>
             </div>
@@ -54,11 +55,6 @@
   </div>
 </div>
 
-<script type="text/javascript">
-    $(".pretty").prettyTextDiff({
-        cleanup: true,
-        originalContainer: "#original",
-        changedContainer: "#changed",
-        diffContainer: "#diff"
-    });
-</script>
+
+<%= render 'patches/accept' %>
+
