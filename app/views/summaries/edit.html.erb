@@ -221,40 +221,11 @@
     $('#save-btn-http').on('click', function (event) {
         this.setAttribute("data-toggled", 'yes');
     });
-    $.each(['0', '1'], function (index, value) {
-        $(document).ready(function () {
-            if (value === '0') {
-                var max = 12500;
-            } else {
-                var max = 1000;
-            }
-            var len = $('#description' + value).val().length;
-            if (len >= max) {
-                var ch = len - max;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
-            } else {
-                var ch = max - len;
-                $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
-            }
-        });
-        $('#description' + value).keyup(function () {
-            if (value === '0') {
-                var max = 12500;
-            } else {
-                var max = 1000;
-            }
-            var len = $(this).val().length;
-            if (len >= max) {
-                var ch = len - max;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
-            } else {
-                var ch = max - len;
-                $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
-            }
-        });
-    });
+</script>
+
+
+<%= render 'shared/length_counter' %>
+
+<script type="text/javascript">
+    setupLengthCounter([[0, 12500], [1, 1000]])
 </script>

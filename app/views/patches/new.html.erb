@@ -80,31 +80,14 @@
   </div>
 </div>
 
+
+<%= render 'shared/length_counter' %>
+
 <script type="text/javascript">
     $("#description").markdown({
         autofocus: false,
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
-    });
-    $(document).ready(function () {
-        var max = <%= @patch.content_ch_max %>, min = <%= @patch.content_ch_min %>;
-
-        $('#description').keyup(function () {
-            var len = $(this).val().length;
-            if (len >= max) {
-                var ch = len - max;
-                $('#characterLeft').css({"color": "#a94442"});
-                $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
-            } else if (len <= min) {
-                var ch = min - len;
-                $('#characterLeft').css({"color": "#a94442"});
-                $('#characterLeft').text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
-            } else {
-                var ch = max - len;
-                $('#characterLeft').css({"color": "#5cb85c"});
-                $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
-            }
-        });
     });
 </script>
 
@@ -193,22 +176,7 @@
     $(document).ready(function () {
         dmp = new diff_match_patch();
         $('#description').val(dmp.patch_apply(dmp.patch_fromText($('#patches').text()), $("#original").text())[0]);
-        var max = <%= @patch.content_ch_max %>, min = <%= @patch.content_ch_min %>;
-
-        var len = $('#description').val().length;
-        if (len >= max) {
-            var ch = len - max;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
-        } else if (len <= min) {
-            var ch = min - len;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
-        } else {
-            var ch = max - len;
-            $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
-        }
+        setupLengthCounter([[[''], <%= @patch.content_ch_max %>, [<%= @patch.content_ch_min %>]]])
     });
     $("#edit-ok").on("click", function () {
         $("#patch-form").hide();

@@ -124,50 +124,10 @@
             }
         });
     });
-    $.each(['0', '1'], function (index, value) {
-        $(document).ready(function () {
-            if (value === '0') {
-                var max = 2500,
-                        min = 180;
-            } else {
-                var max = 180;
-            }
-            var len = $('#description' + value).val().length;
-            if (len >= max) {
-                var ch = len - max;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
-            } else if (len <= min) {
-                var ch = min - len;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
-            } else {
-                var ch = max - len;
-                $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
-            }
-        });
-        $('#description' + value).keyup(function () {
-            if (value === '0') {
-                var max = 2500,
-                        min = 180;
-            } else {
-                var max = 180;
-            }
-            var len = $(this).val().length;
-            if (len >= max) {
-                var ch = len - max;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
-            } else if (len <= min) {
-                var ch = min - len;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
-            } else {
-                var ch = max - len;
-                $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
-            }
-        });
-    });
+</script>
+
+<%= render 'shared/length_counter' %>
+
+<script type="text/javascript">
+    setupLengthCounter([[0, 2500, 180], [1, 180]])
 </script>

@@ -43,16 +43,16 @@
               <%= f.label t('views.model.summary') %>
               <div id="characterLeft0"></div>
 
-              <%= f.text_area :content, {rows:          3,
+              <%= f.text_area :content, {rows: 3,
                                          value: @summary.content.blank? ? t('views.summaries.content_value') : @summary.content,
                                          :placeholder => t('views.model.summary'),
-                                         :class         => "form-control textarea",
-                                         id:            "description0",
+                                         :class => "form-control textarea",
+                                         id: "description0",
                                          "data-provide" => "markdown"} %>
               <div class="panel panel-info">
                 <div class="panel-heading">
-			<%= t('views.summaries.info_html')%>
-		</div>
+                  <%= t('views.summaries.info_html') %>
+                </div>
               </div>
               <br/>
               <%= f.hidden_field :has_picture, value: @summary.picture? %>
@@ -73,8 +73,8 @@
                     <br/>
 
                     <div id="characterLeft1"></div>
-                    <%= f.text_area :caption, {rows:          3, :placeholder => t('views.edition.caption'),
-                                               :class         => "form-control textarea", id: "description1",
+                    <%= f.text_area :caption, {rows: 3, :placeholder => t('views.edition.caption'),
+                                               :class => "form-control textarea", id: "description1",
                                                "data-provide" => "markdown"} %>
                     <div class="panel panel-danger">
                       <div class="panel-heading">
@@ -97,14 +97,14 @@
               </div>
               <br/>
               <br/>
-	      <%= f.button "#{t('views.summaries.create')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+              <%= f.button "#{t('views.summaries.create')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                            class: 'btn btn-success btn-lg pull-right',
-			   data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.publishing')} "} %>
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.publishing')} "} %>
           <% end %>
           <div>
             <div id="upload-btn" class="btn btn-default btn-lg fileinput-button">
               <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-              <span id="ajouter"> <%=t('views.picture.add_figure')%> </span>
+              <span id="ajouter"> <%= t('views.picture.add_figure') %> </span>
               <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
             </div>
             <div id="progress" style="display: none">
@@ -125,9 +125,9 @@
   </div>
 </div>
 
-<%= render 'modals/timelines_list', timelines_list: @tim_list, timeline_id: @summary.timeline_id  %>
+<%= render 'modals/timelines_list', timelines_list: @tim_list, timeline_id: @summary.timeline_id %>
 
-<%= render 'modals/reference_list', references_list: @list  %>
+<%= render 'modals/reference_list', references_list: @list %>
 
 <%= render 'modals/href' %>
 
@@ -173,40 +173,10 @@
         $('#ajouter').text("<%= t('views.picture.add_figure') %>");
         $('#summary_delete_picture').val('true');
     });
-    $.each(['0', '1'], function (index, value) {
-        $(document).ready(function () {
-            if (value === '0') {
-                var max = 12500;
-            } else {
-                var max = 1000;
-            }
-            var len = $('#description' + value).val().length;
-            if (len >= max) {
-                var ch = len - max;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
-            } else {
-                var ch = max - len;
-                $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
-            }
-        });
-        $('#description' + value).keyup(function () {
-            if (value === '0') {
-                var max = 12500;
-            } else {
-                var max = 1000;
-            }
-            var len = $(this).val().length;
-            if (len >= max) {
-                var ch = len - max;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
-            } else {
-                var ch = max - len;
-                $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
-            }
-        });
-    });
+</script>
+
+<%= render 'shared/length_counter' %>
+
+<script type="text/javascript">
+    setupLengthCounter([[0, 12500], [1, 1000]])
 </script>

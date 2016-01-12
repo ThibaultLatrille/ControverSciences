@@ -1,253 +1,252 @@
 <% provide(:title, "Nouvelle analyse") %>
 <div id="my-container" class="container-fluid">
-<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
-  <div class="list-group">
-    <%= link_to "<span class=\"icon-arrow-left normal\"></span>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
+      <div class="list-group">
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span>
     #{t('views.navigation.back_timeline')}".html_safe,
-                timeline_path(@comment.timeline_id),
-                class: "list-group-item" %>
-    <%= link_to "<span class=\"icon-arrow-left normal\"></span>
+                    timeline_path(@comment.timeline_id),
+                    class: "list-group-item" %>
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span>
     #{t('views.navigation.back_reference')}".html_safe,
-                reference_path(@comment.reference_id),
-                class: "list-group-item" %>
+                    reference_path(@comment.reference_id),
+                    class: "list-group-item" %>
 
-    <% if @myreference.user_id == current_user.id || current_user.admin %>
-          <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> #{t('views.references.edit')}".html_safe,
-                      edit_reference_path(@myreference),
-                      class: "list-group-item" %>
-          <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.references.delete')}".html_safe,
-                      reference_path(@myreference), method: :delete,
-                      data:                                    {confirm: t('views.default.confirm')},
-                      class:                                   "list-group-item list-group-item-danger" %>
-    <% end %>
-  </div>
-</div>
-
-<div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
-<div class="row">
-<div class="col-xs-12 col-lg-7">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2> <%= t('views.comments.new') %> </h2>
-      <br/>
-      <%= t('views.comments.from_reference') %>:
-
-      <%= link_to @myreference.title,
-                  reference_url(@comment.reference_id) %> <br>
-
-      <%= t('views.comments.from_timeline') %>:
-      <%= link_to @comment.timeline_name.html_safe,
-                  timeline_url(@comment.timeline_id) %>
-    </div>
-    <div class="panel-body">
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <%= t('views.comments.edit_help_html') %>
-        </div>
+        <% if @myreference.user_id == current_user.id || current_user.admin %>
+            <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> #{t('views.references.edit')}".html_safe,
+                        edit_reference_path(@myreference),
+                        class: "list-group-item" %>
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.references.delete')}".html_safe,
+                        reference_path(@myreference), method: :delete,
+                        data: {confirm: t('views.default.confirm')},
+                        class: "list-group-item list-group-item-danger" %>
+        <% end %>
       </div>
-      <%= form_for(@comment, html: {multipart: true}) do |f| %>
-          <%= render 'shared/error_messages', object: f.object %>
-          <div class="switcher pull-right">
-            <p class="fieldset">
-              <%= f.radio_button :public, true %>
-              <label for="comment_public_true"><%= t('views.default.public_f') %></label>
-              <%= f.radio_button :public, false %>
-              <label for="comment_public_false"><%= t('views.default.private_f') %></label>
-              <span class="switch"></span>
-            </p>
-          </div>
-          <br/>
-          <br/>
-          <%= f.label category_hash[@myreference.category][6] %>
-          <div id="characterLeft6"></div>
+    </div>
 
-          <%= f.text_area :title, {rows:          4, :class => "form-control textarea",
-                                   id:            "description6"} %>
-          <br/>
-          <% for fi in 0..5 %>
-              <% if category_limit[@myreference.category].keys.include?(fi) %>
-                  <%= f.label category_hash[@myreference.category][fi] %>
-                  <div id="characterLeft<%= fi %>"></div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-10">
+      <div class="row">
+        <div class="col-xs-12 col-lg-7">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h2> <%= t('views.comments.new') %> </h2>
+              <br/>
+              <%= t('views.comments.from_reference') %>:
 
-                  <%= f.text_area "f_#{fi}_content".to_sym, {rows:          3,
-                                                             :class         => "form-control textarea",
-                                                             id:            "description#{fi}",
-                                                             "data-provide" => "markdown"} %>
-                  <div class="panel panel-info">
-                    <div class="panel-heading">
-                      <%= category_explanation[@myreference.category][fi] %>
+              <%= link_to @myreference.title,
+                          reference_url(@comment.reference_id) %> <br>
+
+              <%= t('views.comments.from_timeline') %>:
+              <%= link_to @comment.timeline_name.html_safe,
+                          timeline_url(@comment.timeline_id) %>
+            </div>
+            <div class="panel-body">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <%= t('views.comments.edit_help_html') %>
+                </div>
+              </div>
+              <%= form_for(@comment, html: {multipart: true}) do |f| %>
+                  <%= render 'shared/error_messages', object: f.object %>
+                  <div class="switcher pull-right">
+                    <p class="fieldset">
+                      <%= f.radio_button :public, true %>
+                      <label for="comment_public_true"><%= t('views.default.public_f') %></label>
+                      <%= f.radio_button :public, false %>
+                      <label for="comment_public_false"><%= t('views.default.private_f') %></label>
+                      <span class="switch"></span>
+                    </p>
+                  </div>
+                  <br/>
+                  <br/>
+                  <%= f.label category_hash[@myreference.category][6] %>
+                  <div id="characterLeft6"></div>
+
+                  <%= f.text_area :title, {rows: 4, :class => "form-control textarea",
+                                           id: "description6"} %>
+                  <br/>
+                  <% for fi in 0..5 %>
+                      <% if category_limit[@myreference.category].keys.include?(fi) %>
+                          <%= f.label category_hash[@myreference.category][fi] %>
+                          <div id="characterLeft<%= fi %>"></div>
+
+                          <%= f.text_area "f_#{fi}_content".to_sym, {rows: 3,
+                                                                     :class => "form-control textarea",
+                                                                     id: "description#{fi}",
+                                                                     "data-provide" => "markdown"} %>
+                          <div class="panel panel-info">
+                            <div class="panel-heading">
+                              <%= category_explanation[@myreference.category][fi] %>
+                            </div>
+                          </div>
+                          <br/>
+                      <% end %>
+                  <% end %>
+                  <%= f.hidden_field :has_picture, value: @comment.picture? %>
+                  <%= f.hidden_field :delete_picture, value: false %>
+                  <%= f.hidden_field :reference_id, value: @comment.reference_id %>
+                  <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
+                  <div id="caption" style="display: none">
+                    <div class="row">
+                      <div class="col-xs-12 col-md-6">
+                        <div id="original">
+                          <%= image_tag @comment.picture_url, class: "img-rounded img-responsive" %>
+                        </div>
+                        <div id="uploaded" style="display: none">
+                          <%= image_tag '', class: "img-rounded img-responsive" %>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <strong> <%= t('views.edition.caption') %> </strong> <strong id="caption-name"></strong>
+                        <br/>
+
+                        <div id="characterLeft7"></div>
+                        <%= f.text_area :caption, {rows: 3,
+                                                   :class => "form-control textarea", id: "description7",
+                                                   "data-provide" => "markdown"} %>
+                        <div class="panel panel-info">
+                          <div class="panel-heading">
+                            <span class="glyphicon glyphicon-warning-sign"></span>
+                            <%= t('views.picture.source_figure') %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="size-warning" class="row" style="display: none">
+                    <div class="col-xs-10 col-xs-offset-1">
+                      <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>
+                          <span class="glyphicon glyphicon-warning-sign"></span>
+                          <%= t('views.picture.invalid_figure') %>
+                        </strong>
+                      </div>
                     </div>
                   </div>
                   <br/>
+                  <br/>
+
+                  <%= f.button "#{ t('views.comments.publish') } &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                               class: 'pull-right btn btn-success btn-lg',
+                               data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{ t('views.buttons.publishing') } "} %>
               <% end %>
-          <% end %>
-          <%= f.hidden_field :has_picture, value: @comment.picture? %>
-          <%= f.hidden_field :delete_picture, value: false %>
-          <%= f.hidden_field :reference_id, value: @comment.reference_id %>
-          <%= f.hidden_field :timeline_id, value: @comment.timeline_id %>
-          <div id="caption" style="display: none">
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div id="original">
-                  <%= image_tag @comment.picture_url, class: "img-rounded img-responsive" %>
+              <div>
+                <div id="upload-btn" class="btn btn-default btn-lg fileinput-button">
+                  <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+                  <span id="ajouter"> <%= t('views.picture.add_figure') %> </span>
+                  <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
                 </div>
-                <div id="uploaded" style="display: none">
-                  <%= image_tag '', class: "img-rounded img-responsive" %>
+                <div id="progress" style="display: none">
+                  <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                    <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                      <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                    </path>
+                  </svg>
+                </div>
+                <div id="delete" class="btn btn-danger btn-lg" style="display: none">
+                  <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                  <%= t('views.picture.delete_figure') %>
                 </div>
               </div>
-              <div class="col-xs-12 col-md-6">
-                <strong> <%= t('views.edition.caption') %> </strong> <strong id="caption-name"></strong>
-                <br/>
-
-                <div id="characterLeft7"></div>
-                <%= f.text_area :caption, {rows:          3,
-                                           :class         => "form-control textarea", id: "description7",
-                                           "data-provide" => "markdown"} %>
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <span class="glyphicon glyphicon-warning-sign"></span>
-                    <%= t('views.picture.source_figure') %>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-lg-5">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h6 class="panel-title"><%= category_names[@myreference.category] %> : <%= @myreference.title %> </h6>
+            </div>
+            <div class="panel-body">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  <div class="bold">
+                    <%= t('views.references.author') %>
+                  </div> <%= @myreference.author.html_safe %> </li>
+                <li class="list-group-item">
+                  <div class="bold">
+                    <%= t('views.references.year') %>
+                  </div> <%= @myreference.display_year %> </li>
+                <li class="list-group-item">
+                  <div class="bold">
+                    <%= category_source[@myreference.category] %>
                   </div>
-                </div>
-              </div>
+                  <i> <%= @myreference.journal.html_safe %></i>
+                </li>
+                <% unless @myreference.abstract_markdown.blank? %>
+                    <li class="list-group-item">
+                      <div class="bold">
+                        <%= t('views.references.abstract') %>
+                      </div>
+                      <div class="justify">
+                        <%= @myreference.abstract_markdown.html_safe %>
+                      </div>
+                    </li>
+                <% end %>
+                <% unless @myreference.doi.blank? %>
+                    <li class="list-group-item">
+                      <div class="bold">
+                        <%= t('views.references.doi') %>
+                      </div> <%= @myreference.doi %></li>
+                <% end %>
+                <li class="list-group-item clearfix">
+                  <% if logged_in? %>
+                      <div class="pull-right">
+                        <%= link_to '<span class="glyphicon glyphicon-fire"></span>'.html_safe,
+                                    dead_links_path(reference_id: @myreference.id),
+                                    method: :post,
+                                    title: t('views.references.dead_link'),
+                                    "data-toggle" => "tooltip",
+                                    class: "btn btn-default" %>
+                      </div>
+                  <% end %>
+                  <div class="bold">
+                    <%= @myreference.open_access ? "<span class=\"icon icon-lock normal\"></span> #{t('views.references.open_access')}".html_safe : "" %>
+                  </div>
+                  <%= link_to "<span class='glyphicon glyphicon-share-alt'></span> #{t('views.references.url')}".html_safe, @myreference.url, class: "break-word btn btn-default", target: "_blank" %>
+                  <% unless @myreference.open_access %>
+                      <div style="margin-top: 5px">
+                        <a class="btn btn-default"
+                           target="_blank"
+                           href="http://scholar.google.com.secure.sci-hub.io/scholar?q=<%= @myreference.title %>">
+                          <span class="bigger icon-pirate"></span>
+                          <%= t('views.references.url') + ' ' + t('views.references.sci_hub') %>
+                        </a>
+                      </div>
+                  <% end %>
+                </li>
+              </ul>
             </div>
-          </div>
-          <div id="size-warning" class="row" style="display: none">
-            <div class="col-xs-10 col-xs-offset-1">
-              <div class="alert alert-danger alert-dismissible" role="alert">
-                <strong>
-                  <span class="glyphicon glyphicon-warning-sign"></span>
-                  <%= t('views.picture.invalid_figure') %>
-                </strong>
-              </div>
-            </div>
-          </div>
-          <br/>
-          <br/>
-
-          <%= f.button "#{ t('views.comments.publish') } &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                       class: 'pull-right btn btn-success btn-lg',
-                       data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{ t('views.buttons.publishing') } "} %>
-      <% end %>
-      <div>
-        <div id="upload-btn" class="btn btn-default btn-lg fileinput-button">
-          <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-          <span id="ajouter"> <%= t('views.picture.add_figure') %> </span>
-          <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
-        </div>
-        <div id="progress" style="display: none">
-          <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-            <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
-              <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
-            </path>
-          </svg>
-        </div>
-        <div id="delete" class="btn btn-danger btn-lg" style="display: none">
-          <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-          <%= t('views.picture.delete_figure') %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="col-xs-12 col-lg-5">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h6 class="panel-title"><%= category_names[@myreference.category] %> : <%= @myreference.title %> </h6>
-    </div>
-    <div class="panel-body">
-      <ul class="list-group">
-        <li class="list-group-item">
-          <div class="bold">
-            <%= t('views.references.author') %>
-          </div> <%= @myreference.author.html_safe %> </li>
-        <li class="list-group-item">
-          <div class="bold">
-            <%= t('views.references.year') %>
-          </div> <%= @myreference.display_year %> </li>
-        <li class="list-group-item">
-          <div class="bold">
-            <%= category_source[@myreference.category] %>
-          </div> <i> <%= @myreference.journal.html_safe %></i>
-        </li>
-        <% unless @myreference.abstract_markdown.blank? %>
-            <li class="list-group-item">
-              <div class="bold">
-                <%= t('views.references.abstract') %>
-              </div>
-              <div class="justify">
-                <%= @myreference.abstract_markdown.html_safe %>
-              </div>
-            </li>
-        <% end %>
-        <% unless @myreference.doi.blank? %>
-            <li class="list-group-item">
-              <div class="bold">
-                <%= t('views.references.doi') %>
-              </div> <%= @myreference.doi %></li>
-        <% end %>
-        <li class="list-group-item clearfix">
-          <% if logged_in? %>
-              <div class="pull-right">
-                <%= link_to '<span class="glyphicon glyphicon-fire"></span>'.html_safe,
-                            dead_links_path(reference_id: @myreference.id),
-                            method: :post,
-                            title: t('views.references.dead_link'),
-                            "data-toggle" => "tooltip",
-                            class: "btn btn-default" %>
-              </div>
-          <% end %>
-          <div class="bold">
-            <%= @myreference.open_access ? "<span class=\"icon icon-lock normal\"></span> #{t('views.references.open_access')}".html_safe : "" %>
-          </div>
-          <%= link_to "<span class='glyphicon glyphicon-share-alt'></span> #{t('views.references.url')}".html_safe, @myreference.url, class: "break-word btn btn-default", target: "_blank" %>
-          <% unless @myreference.open_access %>
-              <div style="margin-top: 5px">
-                <a class="btn btn-default"
-                   target="_blank"
-                   href="http://scholar.google.com.secure.sci-hub.io/scholar?q=<%= @myreference.title  %>">
-                  <span class="bigger icon-pirate"></span>
-                  <%= t('views.references.url') + ' ' + t('views.references.sci_hub') %>
-                </a>
-              </div>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-    <div class="panel-footer clearfix">
+            <div class="panel-footer clearfix">
                 <span class="pull-right">
                   <br/>
                   <%= t('views.comments.reference_added_by') %> <%= link_to @myreference.user_name, user_path(@myreference.user_id) %>
                 </span>
 
-      <div class="sticky" data-placement="left"
-           data-toggle="tooltip"
-           title="<%= t('views.pluralize.users', count: @myreference.nb_contributors ) %>">
-        <span class="big icon-users"></span>
-        <%= @myreference.nb_contributors %>
-      </div>
-      <div class="sticky" data-placement="top"
-           data-toggle="tooltip"
-           title="<%= t('views.pluralize.comments', count: @myreference.nb_edits ) %>">
-        <span class="big icon-comment"></span>
-        <%= @myreference.nb_edits %>
+              <div class="sticky" data-placement="left"
+                   data-toggle="tooltip"
+                   title="<%= t('views.pluralize.users', count: @myreference.nb_contributors) %>">
+                <span class="big icon-users"></span>
+                <%= @myreference.nb_contributors %>
+              </div>
+              <div class="sticky" data-placement="top"
+                   data-toggle="tooltip"
+                   title="<%= t('views.pluralize.comments', count: @myreference.nb_edits) %>">
+                <span class="big icon-comment"></span>
+                <%= @myreference.nb_edits %>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-</div>
-</div>
-</div>
-</div>
 
-<%= render 'modals/timelines_list', timelines_list: @tim_list, timeline_id: @comment.timeline_id  %>
+<%= render 'modals/timelines_list', timelines_list: @tim_list, timeline_id: @comment.timeline_id %>
 
-<%= render 'modals/reference_list', references_list: @list  %>
+<%= render 'modals/reference_list', references_list: @list %>
 
 <%= render 'modals/href' %>
-
-
 
 <script type="text/javascript">
     $("#description6").markdown({
@@ -298,33 +297,9 @@
     });
 </script>
 
+
+<%= render 'shared/length_counter' %>
+
 <script type="text/javascript">
-    $.each(<%= raw category_limit[@myreference.category].to_a %>, function (index, limit) {
-        var max = limit[1];
-        var value = limit[0];
-        $(document).ready(function () {
-            var len = $('#description' + value).val().length;
-            if (len >= max) {
-                var ch = len - max;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
-            } else {
-                var ch = max - len;
-                $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
-            }
-        });
-        $('#description' + value).keyup(function () {
-            var len = $(this).val().length;
-            if (len >= max) {
-                var ch = len - max;
-                $('#characterLeft' + value).css({"color": "#a94442"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
-            } else {
-                var ch = max - len;
-                $('#characterLeft' + value).css({"color": "#5cb85c"});
-                $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
-            }
-        });
-    });
+    setupLengthCounter(<%= raw category_limit[@myreference.category].to_a %>)
 </script>
