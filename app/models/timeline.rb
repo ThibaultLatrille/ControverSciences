@@ -196,8 +196,8 @@ class Timeline < ActiveRecord::Base
   end
 
   def cascading_create_timeline
-    Frame.create( user_id: t.user_id, best: true,
-                   content: t.frame, name: t.name, timeline_id: t.id, binary: t.binary )
+    Frame.create( user_id: self.user_id, best: true,
+                   content: self.frame, name: self.name, timeline_id: self.id, binary: self.binary )
     unless self.private
       notifications = []
       User.all.pluck(:id).each do |user_id|
