@@ -201,10 +201,12 @@
             this.options.onBeforeFlip(this.current);
 
             this.isAnimating = true;
-            // update current value
+
             this.$current = this.$items.eq(this.current);
 
-            if (dir === 'next' && this.options.direction === 'ltr' || dir === 'prev' && this.options.direction === 'rtl') {
+            if ( page !== undefined ) {
+                this.current = page;
+            } else if (dir === 'next' && this.options.direction === 'ltr' || dir === 'prev' && this.options.direction === 'rtl') {
                 if (mouseIn) {
                     this.mouseIn = true;
                 }
@@ -278,7 +280,7 @@
                     // callback trigger
                     self.options.onEndFlip(self.previous, self.current, isLimit);
                     if (!self.mouseOut) {
-                        self._action(dir, null, true);
+                        self._action(dir, undefined, true);
                     }
 
                 }
@@ -440,7 +442,7 @@
         // public method: flips next
         nextHover: function () {
             this.mouseOut = false;
-            this._action(this.options.direction === 'ltr' ? 'next' : 'prev', null, true);
+            this._action(this.options.direction === 'ltr' ? 'next' : 'prev', undefined, true);
         },
         // public method: flips back
         prev: function () {
@@ -448,7 +450,7 @@
         },
         prevHover: function () {
             this.mouseOut = false;
-            this._action(this.options.direction === 'ltr' ? 'prev' : 'next', null, true);
+            this._action(this.options.direction === 'ltr' ? 'prev' : 'next', undefined, true);
         },
         hideHover: function () {
             if (this.mouseIn) {
@@ -456,13 +458,12 @@
                 this.$nextItem.show();
                 this.mouseIn = false;
                 this.isAnimating = false;
-                this.options.onEndFlip(this.previous, this.current, true);
             }
             this.mouseOut = true;
         },
         // public method: goes to a specific page
         jump: function (page) {
-
+            this.hideHover()
             page -= 1;
 
             if (page === this.current || page >= this.itemsCount || page < 0) {
@@ -516,7 +517,7 @@
 
             $window.off('debouncedresize');
         }
-    }
+    };
 
     var logError = function (message) {
         if (window.console) {

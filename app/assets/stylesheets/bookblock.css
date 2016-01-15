@@ -1,5 +1,8 @@
-.shadow-effect:before, .shadow-effect:after
-{
+#comics{
+    -webkit-transition-duration: 0.6s;
+    transition-duration: 0.6s;
+}
+.shadow-effect:before, .shadow-effect:after {
     z-index: -1;
     position: absolute;
     content: "";
@@ -18,8 +21,7 @@
     -ms-transform: rotate(-3deg);
     transform: rotate(-3deg);
 }
-.shadow-effect:after
-{
+.shadow-effect:after {
     -webkit-transform: rotate(3deg);
     -moz-transform: rotate(3deg);
     -o-transform: rotate(3deg);
@@ -37,8 +39,8 @@
     height: 100%;
     min-height: 100%;
     padding: 1em 0.5em;
-    border: 3px solid #07212B;
-    border-radius: 4px;
+    border: 2px solid #405899;
+    border-radius: 5px;
 }
 
 .bb-bookblock {
@@ -243,7 +245,31 @@
     opacity: 0;
 }
 
+.img-icons{
+    position: relative;
+    display: inline-block;
+    width: 9%;
+    max-width: 10%;
+    cursor: pointer;
+}
 
+.bb-current{
+    display: inline-block;
+    vertical-align: middle;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-transform: scale(1.25) !important;
+    transform: scale(1.25) !important;
+}
+
+#bb-zoom-in{
+    display: none;
+}
+
+@media (min-width: 992px) {
+    #bb-zoom-in{
+        display: inline-block;
+    }
+}
 /* No JS */
 .no-js .bb-bookblock, 
 .no-js ul.bb-custom-grid li {
@@ -255,3 +281,5 @@
 	display: block;
 	position: relative;
 }
+
+

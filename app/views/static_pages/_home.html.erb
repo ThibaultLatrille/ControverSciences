@@ -165,8 +165,23 @@
           </div>
           <br>
 
-          <div id="comics" class="row">
-            <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+          <div class="row">
+            <div id="comics" class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+              <br>
+              <div class="row">
+                <nav>
+                  <img class="img-responsive img-icons bb-current hvr-grow" src="<%= image_path "comics-icons/sphinx.png" %>" alt="Le sphinx"/>
+                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/enthousiaste.png" %>" alt="L’enthousiaste"/>
+                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/seigneur.png" %>" alt="Le Seigneur des titres"/>
+                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/encyclopedique.png" %>" alt="L'encyclopédique"/>
+                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/analyste.png" %>" alt="L’analyste"/>
+                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/juge.png" %>" alt="Le juge"/>
+                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/ecrivain.png" %>" alt="L’écrivain"/>
+                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/evaluateur.png" %>" alt="L’évaluateur"/>
+                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/bienveillant.png" %>" alt="Le bienveillant"/>
+                </nav>
+              </div>
+              <br>
               <div class="bb-custom-wrapper shadow-effect">
                 <div id="bb-bookblock" class="bb-bookblock">
                   <div id="bb-left-page">
@@ -174,40 +189,41 @@
                   <div id="bb-right-page">
                   </div>
                   <div id="opacity">
-                    <img class="bb-image img-responsive clearfix" src=<%= image_path "comics/sphinx.jpg" %>>
+                    <img class="bb-image img-responsive clearfix" src=<%= image_path "comics/sphinx.png" %>>
                   </div>
                   <div class="bb-item">
-                      <img class="img-responsive" src="<%= image_path "comics/sphinx.jpg" %>" alt="Le sphinx"/>
+                      <img class="img-responsive" src="<%= image_path "comics/sphinx.png" %>" alt="Le sphinx"/>
                   </div>
                   <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/enthousiaste.jpg" %>" alt="L’enthousiaste"/>
+                    <img class="img-responsive" src="<%= image_path "comics/enthousiaste.png" %>" alt="L’enthousiaste"/>
                   </div>
                   <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/seigneur.jpg" %>" alt="Le Seigneur des titres"/>
+                    <img class="img-responsive" src="<%= image_path "comics/seigneur.png" %>" alt="Le Seigneur des titres"/>
                   </div>
                   <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/encyclopedique.jpg" %>" alt="L'encyclopédique"/>
+                    <img class="img-responsive" src="<%= image_path "comics/encyclopedique.png" %>" alt="L'encyclopédique"/>
                   </div>
                   <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/analyste.jpg" %>" alt="L’analyste"/>
+                    <img class="img-responsive" src="<%= image_path "comics/analyste.png" %>" alt="L’analyste"/>
                   </div>
                   <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/juge.jpg" %>" alt="Le juge"/>
+                    <img class="img-responsive" src="<%= image_path "comics/juge.png" %>" alt="Le juge"/>
                   </div>
                   <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/ecrivain.jpg" %>" alt="L’écrivain"/>
+                    <img class="img-responsive" src="<%= image_path "comics/ecrivain.png" %>" alt="L’écrivain"/>
                   </div>
                   <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/evaluateur.jpg" %>" alt="L’évaluateur"/>
+                    <img class="img-responsive" src="<%= image_path "comics/evaluateur.png" %>" alt="L’évaluateur"/>
                   </div>
                   <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/bienveillant.jpg" %>" alt="Le bienveillant"/>
+                    <img class="img-responsive" src="<%= image_path "comics/bienveillant.png" %>" alt="Le bienveillant"/>
                   </div>
                 </div>
               </div>
               <br>
               <nav>
                 <a id="bb-nav-prev" href="#" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span> Page précèdente</a>
+                <a id="bb-zoom-in" href="#" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in"></span></a>
                 <a id="bb-nav-next" href="#" class="btn btn-default">Page suivante <span class="glyphicon glyphicon-menu-right"></span></a>
               </nav>
             </div>
@@ -215,6 +231,7 @@
                 var Page = (function () {
 
                     var config = {
+                                $nav: $('.img-icons'),
                                 $bookBlock: $('#bb-bookblock'),
                                 $pageRight: $('#bb-right-page'),
                                 $navNext: $('#bb-nav-next'),
@@ -225,8 +242,14 @@
                                 config.$bookBlock.bookblock({
                                     speed: 800,
                                     shadowSides: 0.8,
-                                    shadowFlip: 0.7
+                                    shadowFlip: 0.7,
+                                    onEndFlip: function (old, page, isLimit) {
+                                        config.$nav.removeClass( 'bb-current' );
+                                        config.$nav.eq(page).addClass( 'bb-current' );
+                                        return false;
+                                    }
                                 });
+
                                 initEvents();
                             },
                             initEvents = function () {
@@ -287,6 +310,14 @@
                                     return false;
                                 });
 
+                                // add navigation events
+                                config.$nav.each( function( i ) {
+                                    $( this ).on( 'click touchstart', function( event ) {
+                                        config.$bookBlock.bookblock( 'jump', i + 1 );
+                                        return false;
+                                    } );
+                                } );
+
                                 // add swipe events
                                 $slides.on({
                                     'swipeleft': function (event) {
@@ -323,9 +354,13 @@
                     return {init: init};
 
                 })();
-            </script>
-            <script>
                 Page.init();
+                $('#bb-zoom-in').on('click touchstart', function () {
+                    $('#comics').toggleClass("col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8");
+                    $('.glyphicon', this).toggleClass("glyphicon-zoom-in");
+                    $('.glyphicon', this).toggleClass("glyphicon-zoom-out");
+                    return false;
+                });
             </script>
           </div>
           <br><br>
