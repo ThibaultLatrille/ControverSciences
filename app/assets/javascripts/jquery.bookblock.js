@@ -351,70 +351,18 @@
             }, 25);
         },
         // adds the necessary sides (bb-page) to the layout
-        _addSide: function (side, dir) {
+        _addSide : function( side, dir ) {
             var $side;
 
             switch (side) {
                 case 'left':
-                    /*
-                     <div class="bb-page" style="z-index:102;">
-                     <div class="bb-back">
-                     <div class="bb-outer">
-                     <div class="bb-content">
-                     <div class="bb-inner">
-                     dir==='next' ? [content of current page] : [content of next page]
-                     </div>
-                     </div>
-                     <div class="bb-overlay"></div>
-                     </div>
-                     </div>
-                     </div>
-                     */
-                    $side = $('<div class="bb-page"><div class="bb-back"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">' + ( dir === 'next' ? this.$current.html() : this.$nextItem.html() ) + '</div></div><div class="bb-overlay"></div></div></div></div>').css('z-index', 102);
+                    $side = $('<div class="bb-page"><div class="bb-back"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">' + ( dir === 'next' ? this.$current.html() : this.$nextItem.html() ) + '</div></div><div class="bb-overlay"></div></div></div></div>').css( 'z-index', 102 );
                     break;
                 case 'middle':
-                    /*
-                     <div class="bb-page" style="z-index:103;">
-                     <div class="bb-front">
-                     <div class="bb-outer">
-                     <div class="bb-content">
-                     <div class="bb-inner">
-                     dir==='next' ? [content of current page] : [content of next page]
-                     </div>
-                     </div>
-                     <div class="bb-flipoverlay"></div>
-                     </div>
-                     </div>
-                     <div class="bb-back">
-                     <div class="bb-outer">
-                     <div class="bb-content">
-                     <div class="bb-inner">
-                     dir==='next' ? [content of next page] : [content of current page]
-                     </div>
-                     </div>
-                     <div class="bb-flipoverlay"></div>
-                     </div>
-                     </div>
-                     </div>
-                     */
-                    $side = $('<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">' + (dir === 'next' ? this.$current.html() : this.$nextItem.html()) + '</div></div><div class="bb-flipoverlay"></div></div></div><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:' + this.elWidth + 'px"><div class="bb-inner">' + ( dir === 'next' ? this.$nextItem.html() : this.$current.html() ) + '</div></div><div class="bb-flipoverlay"></div></div></div></div>').css('z-index', 103);
+                    $side = $('<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">' + (dir === 'next' ? this.$current.html() : this.$nextItem.html()) + '</div></div><div class="bb-flipoverlay"></div></div></div><div class="bb-back"><div class="bb-outer"><div class="bb-content" style="width:' + this.elWidth + 'px"><div class="bb-inner">' + ( dir === 'next' ? this.$nextItem.html() : this.$current.html() ) + '</div></div><div class="bb-flipoverlay"></div></div></div></div>').css( 'z-index', 103 );
                     break;
                 case 'right':
-                    /*
-                     <div class="bb-page" style="z-index:101;">
-                     <div class="bb-front">
-                     <div class="bb-outer">
-                     <div class="bb-content">
-                     <div class="bb-inner">
-                     dir==='next' ? [content of next page] : [content of current page]
-                     </div>
-                     </div>
-                     <div class="bb-overlay"></div>
-                     </div>
-                     </div>
-                     </div>
-                     */
-                    $side = $('<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">' + ( dir === 'next' ? this.$nextItem.html() : this.$current.html() ) + '</div></div><div class="bb-overlay"></div></div></div></div>').css('z-index', 101);
+                    $side = $('<div class="bb-page"><div class="bb-front"><div class="bb-outer"><div class="bb-content"><div class="bb-inner">' + ( dir === 'next' ? this.$nextItem.html() : this.$current.html() ) + '</div></div><div class="bb-overlay"></div></div></div></div>').css( 'z-index', 101 );
                     break;
             }
 
@@ -434,6 +382,9 @@
                 clearTimeout(this.slideshow);
                 this.options.autoplay = false;
             }
+        },
+        resize: function () {
+            this.elWidth = this.$el.width();
         },
         // public method: flips next
         next: function () {

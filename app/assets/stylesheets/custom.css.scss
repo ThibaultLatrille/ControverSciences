@@ -1158,6 +1158,11 @@ del {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
     filter: alpha(opacity=1);
   }
+  .title{
+    font-size: 2em;
+    text-align: center;
+    font-weight: bold;
+  }
   .caption {
     font-size: 1.5em;
     text-align: center;
@@ -1214,13 +1219,6 @@ del {
       font-size: 1.6em;
     }
     padding: 1em 2em;
-    background-image: none;
-    border: 2px solid #0f75bc;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-  #favorite-timeline:hover {
-    text-decoration: none;
   }
 }
 
@@ -1342,4 +1340,32 @@ del {
 }
 #diff .validations-checkox .inside:hover {
   opacity: 1;
+}
+.shadow-effect:before, .shadow-effect:after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 15px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width:300px;
+  background: #777;
+  -webkit-box-shadow: 0 15px 10px #777;
+  -moz-box-shadow: 0 15px 10px #777;
+  box-shadow: 0 15px 10px #777;
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.shadow-effect:after {
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 10px;
+  left: auto;
 }

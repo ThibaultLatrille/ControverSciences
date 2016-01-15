@@ -1,52 +1,21 @@
-#comics{
-    -webkit-transition-duration: 0.6s;
-    transition-duration: 0.6s;
-}
-.shadow-effect:before, .shadow-effect:after {
-    z-index: -1;
-    position: absolute;
-    content: "";
-    bottom: 15px;
-    left: 10px;
-    width: 50%;
-    top: 80%;
-    max-width:300px;
-    background: #777;
-    -webkit-box-shadow: 0 15px 10px #777;
-    -moz-box-shadow: 0 15px 10px #777;
-    box-shadow: 0 15px 10px #777;
-    -webkit-transform: rotate(-3deg);
-    -moz-transform: rotate(-3deg);
-    -o-transform: rotate(-3deg);
-    -ms-transform: rotate(-3deg);
-    transform: rotate(-3deg);
-}
-.shadow-effect:after {
-    -webkit-transform: rotate(3deg);
-    -moz-transform: rotate(3deg);
-    -o-transform: rotate(3deg);
-    -ms-transform: rotate(3deg);
-    transform: rotate(3deg);
-    right: 10px;
-    left: auto;
-}
-
 .bb-custom-wrapper{
     background-color: #FFFFFF;
     position: relative;
-    min-width: 100%;
     width: 100%;
+    min-width: 100%;
     height: 100%;
     min-height: 100%;
-    padding: 1em 0.5em;
+    padding: 1em;
     border: 2px solid #405899;
     border-radius: 5px;
 }
 
 .bb-bookblock {
-    min-width: 100%;
+    border: 2px solid #F2F2F2;
+    border-radius: 5px;
     width: 100%;
-	height: 100%;
+    min-width: 100%;
+    height: 100%;
     min-height: 100%;
 	margin: 0 auto;
 	position: relative;
@@ -104,8 +73,10 @@
 .bb-content,
 .bb-inner {
 	position: absolute;
-	height: 100%;
-	width: 100%;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    min-height: 100%;
 	top: 0;
 	left: 0;
 	-webkit-backface-visibility: hidden;
@@ -121,7 +92,10 @@
 }
 
 .bb-page > div {
-	width: 100%;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    min-height: 100%;
 	-webkit-transform-style: preserve-3d;
 	transform-style: preserve-3d;
 }
@@ -131,13 +105,11 @@
 	transform: rotateY(-180deg);
 }
 
-.bb-horizontal .bb-back {
-	-webkit-transform: rotateX(-180deg);
-	transform: rotateX(-180deg);
-}
-
 .bb-outer {
-	width: 100%;
+    width: 100%;
+    min-width: 100%;
+    height: 100%;
+    min-height: 100%;
 	overflow: hidden;
 	z-index: 999;
 }
@@ -149,7 +121,9 @@
 	top: 0px;
 	left: 0px;
 	width: 100%;
+    min-width: 100%;
 	height: 100%;
+    min-height: 100%;
 	opacity: 0;
 }
 
@@ -178,31 +152,20 @@
 	left: -100%;
 }
 
-.bb-horizontal .bb-front .bb-content {
-	top: -100%;
-}
-
 /* Flipping classes */
 .bb-vertical .bb-flip-next,
 .bb-vertical .bb-flip-initial {
+    height: 100%;
+    min-height: 100%;
 	-webkit-transform: rotateY(-180deg);
 	transform: rotateY(-180deg);
 }
 
 .bb-vertical .bb-flip-prev {
+    height: 100%;
+    min-height: 100%;
 	-webkit-transform: rotateY(0deg);
 	transform: rotateY(0deg);
-}
-
-.bb-horizontal .bb-flip-next,
-.bb-horizontal .bb-flip-initial {
-	-webkit-transform: rotateX(180deg);
-	transform: rotateX(180deg);
-}
-
-.bb-horizontal .bb-flip-prev {
-	-webkit-transform: rotateX(0deg);
-	transform: rotateX(0deg);
 }
 
 .bb-vertical .bb-flip-next-end {
@@ -215,19 +178,10 @@
 	transform: rotateY(-165deg);
 }
 
-.bb-horizontal .bb-flip-next-end {
-	-webkit-transform: rotateX(15deg);
-	transform: rotateX(15deg);
-}
-
-.bb-horizontal .bb-flip-prev-end {
-	-webkit-transform: rotateX(165deg);
-	transform: rotateX(165deg);
-}
-
 .bb-item {
     min-width: 100%;
 	width: 100%;
+    min-height: 100%;
 	height: 100%;
 	position: absolute;
 	top: 0;
@@ -245,20 +199,25 @@
     opacity: 0;
 }
 
-.img-icons{
+.img-icons, .slider{
     position: relative;
     display: inline-block;
     width: 9%;
-    max-width: 10%;
+    max-width: 9%;
     cursor: pointer;
 }
 
-.bb-current{
+.bb-current, .slider.active{
+    color: #337ab7;
     display: inline-block;
     vertical-align: middle;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);
     -webkit-transform: scale(1.25) !important;
     transform: scale(1.25) !important;
+}
+
+.slider:hover{
+    color: #2e6da4;
 }
 
 #bb-zoom-in{

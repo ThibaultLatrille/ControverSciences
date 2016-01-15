@@ -10,168 +10,69 @@
         <div class="framed">
           <div class="row">
             <div class="col-xs-12 col-md-4 center">
-              <div class="navigation btn btn-default btn-block active" data-body="controversciences">
-                <span class="glyphicon glyphicon-home bigger"></span> &nbsp
-                ControverSciences
+              <div class="navigation btn btn-default btn-block" data-body="contribuer">
+                <span class="icon icon-users"></span> &nbsp
+                Contribuer
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-4 center">
+              <div class="navigation btn btn-default btn-block" data-body="decouvrir">
+                <span class="icon icon-geography"></span> &nbsp
+                Découvrir
               </div>
             </div>
             <div class="col-xs-12 col-md-4 center">
               <div class="navigation btn btn-default btn-block" data-body="decouvrir">
                 <span class="icon icon-telescope"></span> &nbsp
-                Découvrir
-              </div>
-            </div>
-            <div class="col-xs-12 col-md-4 center">
-              <div class="navigation btn btn-default btn-block" data-body="contribuer">
-                <span class="icon icon-user"></span> &nbsp
-                Contribuer
-              </div>
-            </div>
-          </div>
-          <br>
-
-          <div class="row">
-            <div class="col-xs-12 col-md-10 col-md-offset-1">
-              <div id="head-controversciences" class="head">
-                <div class="center">
-                  <div class="menu">
-                    <div class="menu-wrapper">
-                      <ul class="menu-items">
-                        <li class="menu-item">
-                          <button class="sub-navigation menu-item-button active" data-target="controverse" data-parent="controversciences">
-                            <i class="icon icon-frog icon-menu-left"></i>
-                          </button>
-                          <div class="menu-item-bounce"></div>
-                        </li>
-                        <li class="menu-item">
-                          <button class="sub-navigation menu-item-button" data-target="piliers" data-parent="controversciences">
-                            <i class="icon icon-pillar icon-menu-top"></i>
-                          </button>
-                          <div class="menu-item-bounce"></div>
-                        </li>
-                        <li class="menu-item">
-                          <button class="sub-navigation menu-item-button" data-target="manifesto" data-parent="controversciences">
-                            <i class="icon icon-geography icon-menu-right"></i>
-                          </button>
-                          <div class="menu-item-bounce"></div>
-                        </li>
-                      </ul>
-                      <button class="menu-toggle-button">
-                        <i class="glyphicon glyphicon-home bigger"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="head-decouvrir" class="row head not-activated center">
-                <div class="paginate">
-                  <div class="pagination-navigation">
-                    <div class="pagination-current"></div>
-                    <div class="pagination-dots">
-                      <button class="pagination-dot">
-                        <span class="pagination-number">1</span>
-                      </button>
-                      <button class="pagination-dot">
-                        <span class="pagination-number">2</span>
-                      </button>
-                      <button class="pagination-dot">
-                        <span class="pagination-number">3</span>
-                      </button>
-                      <button class="pagination-dot">
-                        <span class="pagination-number">4</span>
-                      </button>
-                      <button class="pagination-dot">
-                        <span class="pagination-number">5</span>
-                      </button>
-                      <button class="pagination-dot">
-                        <span class="pagination-number">6</span>
-                      </button>
-                      <button class="pagination-dot">
-                        <span class="pagination-number">7</span>
-                      </button>
-                      <button class="pagination-dot">
-                        <span class="pagination-number">8</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div id="head-contribuer" class="row head not-activated">
-                <div class="center">
-                  <div class="menu">
-                    <div class="menu-wrapper">
-                      <ul class="menu-items">
-                        <li class="menu-item">
-                          <button class="sub-navigation menu-item-button active" data-target="enrichir" data-parent="contribuer">
-                            <i class="icon icon-reference icon-menu-left"></i>
-                          </button>
-                          <div class="menu-item-bounce"></div>
-                        </li>
-                        <li class="menu-item">
-                          <button class="sub-navigation menu-item-button" data-target="analyser" data-parent="contribuer">
-                            <i class="icon icon-comment icon-menu-top"></i>
-                          </button>
-                          <div class="menu-item-bounce"></div>
-                        </li>
-                        <li class="menu-item">
-                          <button class="sub-navigation menu-item-button" data-target="synthetiser" data-parent="contribuer">
-                            <i class="icon icon-summary icon-menu-right"></i>
-                          </button>
-                          <div class="menu-item-bounce"></div>
-                        </li>
-                      </ul>
-                      <button class="menu-toggle-button">
-                        <i class="icon icon-user"></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                Explorer
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div id="body-controversciences" class="leading activated">
-      <div id="controverse" class="activated sub-leading">
-        <div class="col-xs-12 col-md-offset-1 col-md-10 center">
-          <br>
-          <br>
+  </div>
+  <div id="body-controversciences" class="leading activated">
+    <div id="controverse" class="activated sub-leading">
+      <div class="col-xs-12 col-md-offset-1 col-md-10 center">
+        <br>
+        <br>
 
-          <div class="row">
-            <div class="col-xs-12 col-md-offset-3 col-md-6 center">
-              <% if @favorite %>
-                  <br><br>
+        <div class="row">
+          <div class="col-xs-12 col-md-offset-3 col-md-6 center">
+            <% if @favorite %>
+                <br><br>
+                <div id="favorite">
+                  <a id="favorite-timeline" class="bb-custom-wrapper hvr-grow" href="<%= timeline_path @favorite %>">
+                    <h4>
+                      <span class="glyphicon glyphicon-star-empty normal"></span>
+                      Controverse à l'affiche
+                      <span class="glyphicon glyphicon-star-empty normal"></span>
+                    </h4>
 
-                  <div id="favorite">
-                    <a id="favorite-timeline" class="hvr-grow" href="<%= timeline_path @favorite %>">
-                      <h4>
-                        <span class="glyphicon glyphicon-star-empty normal"></span>
-                        Controverse à l'affiche
-                        <span class="glyphicon glyphicon-star-empty normal"></span>
-                      </h4>
-
-                      <h3 class="shadowed">
-                        <%= @favorite.name.html_safe %>
-                      </h3>
-                    </a>
-                  </div>
-                  <br>
-                  <br>
-                  <br><br>
-              <% end %>
-              <%= link_to "Toutes les controverses", timelines_path, class: "btn btn-lg btn-primary" %>
-            </div>
+                    <h3 class="shadowed">
+                      <%= @favorite.name.html_safe %>
+                    </h3>
+                  </a>
+                </div>
+            <% end %>
           </div>
-          <br>
-
-          <div class="row">
-            <div id="comics" class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+        </div>
+        <br><br>
+        <%= link_to "<b>Toutes les controverses</b>".html_safe, timelines_path, class: "btn btn-lg btn-primary", style: "font-size: 1.6em" %>
+        <br><br><br>
+        <div class="row">
+          <div id="comics" class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+            <div class="bb-custom-wrapper shadow-effect">
+              <h1 style="font-size: 2.4em;">
+                Quel contributeur êtes-vous ?
+              </h1>
               <br>
+
               <div class="row">
                 <nav>
-                  <img class="img-responsive img-icons bb-current hvr-grow" src="<%= image_path "comics-icons/sphinx.png" %>" alt="Le sphinx"/>
-                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/enthousiaste.png" %>" alt="L’enthousiaste"/>
+                  <img class="img-responsive img-icons bb-current hvr-grow" src="<%= image_path "comics-icons/enthousiaste.png" %>" alt="L’enthousiaste"/>
+                  <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/sphinx.png" %>" alt="Le sphinx"/>
                   <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/seigneur.png" %>" alt="Le Seigneur des titres"/>
                   <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/encyclopedique.png" %>" alt="L'encyclopédique"/>
                   <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/analyste.png" %>" alt="L’analyste"/>
@@ -182,316 +83,409 @@
                 </nav>
               </div>
               <br>
-              <div class="bb-custom-wrapper shadow-effect">
-                <div id="bb-bookblock" class="bb-bookblock">
-                  <div id="bb-left-page">
+              <nav>
+                <a id="bb-nav-prev" href="#" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span>
+                  Profil précèdent</a>
+                <a id="bb-zoom-in" href="#" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in"></span></a>
+                <a id="bb-nav-next" href="#" class="btn btn-default">Profil suivant
+                  <span class="glyphicon glyphicon-menu-right"></span></a>
+              </nav>
+              <br>
+              <br>
+
+              <div id="bb-bookblock" class="bb-bookblock">
+                <div id="bb-left-page">
+                </div>
+                <div id="bb-right-page">
+                </div>
+                <div id="opacity">
+                  <img class="bb-image img-responsive clearfix" src=<%= image_path "comics/encyclopedique.png" %>>
+                </div>
+                <div class="bb-item">
+                  <img class="img-responsive" src="<%= image_path "comics/enthousiaste.png" %>" alt="L’enthousiaste"/>
+                </div>
+                <div class="bb-item">
+                  <img class="img-responsive" src="<%= image_path "comics/sphinx.png" %>" alt="Le sphinx"/>
+                </div>
+                <div class="bb-item">
+                  <img class="img-responsive" src="<%= image_path "comics/seigneur.png" %>" alt="Le Seigneur des titres"/>
+                </div>
+                <div class="bb-item">
+                  <img class="img-responsive" src="<%= image_path "comics/encyclopedique.png" %>" alt="L'encyclopédique"/>
+                </div>
+                <div class="bb-item">
+                  <img class="img-responsive" src="<%= image_path "comics/analyste.png" %>" alt="L’analyste"/>
+                </div>
+                <div class="bb-item">
+                  <img class="img-responsive" src="<%= image_path "comics/juge.png" %>" alt="Le juge"/>
+                </div>
+                <div class="bb-item">
+                  <img class="img-responsive" src="<%= image_path "comics/ecrivain.png" %>" alt="L’écrivain"/>
+                </div>
+                <div class="bb-item">
+                  <img class="img-responsive" src="<%= image_path "comics/evaluateur.png" %>" alt="L’évaluateur"/>
+                </div>
+                <div class="bb-item">
+                  <img class="img-responsive" src="<%= image_path "comics/bienveillant.png" %>" alt="Le bienveillant"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <script>
+              var Page = (function () {
+
+                  var config = {
+                              $nav: $('.img-icons'),
+                              $bookBlock: $('#bb-bookblock'),
+                              $pageRight: $('#bb-right-page'),
+                              $navNext: $('#bb-nav-next'),
+                              $pageLeft: $('#bb-left-page'),
+                              $navPrev: $('#bb-nav-prev')
+                          },
+                          init = function () {
+                              config.$bookBlock.bookblock({
+                                  speed: 800,
+                                  shadowSides: 0.8,
+                                  shadowFlip: 0.7,
+                                  onEndFlip: function (old, page, isLimit) {
+                                      config.$nav.removeClass('bb-current');
+                                      config.$nav.eq(page).addClass('bb-current');
+                                      return false;
+                                  }
+                              });
+
+                              initEvents();
+                          },
+                          initEvents = function () {
+
+                              var $slides = config.$bookBlock.children();
+
+                              // add navigation events
+
+                              config.$navPrev.on('click touchstart', function () {
+                                  config.$bookBlock.bookblock('prev');
+                                  return false;
+                              });
+
+                              config.$navPrev.on('mouseenter', function () {
+                                  config.$bookBlock.bookblock('prevHover');
+                                  return false;
+                              }).on('mouseleave', function () {
+                                  config.$bookBlock.bookblock('hideHover');
+                                  return false;
+                              });
+
+                              config.$pageLeft.on('click touchstart', function () {
+                                  config.$bookBlock.bookblock('prev');
+                                  return false;
+                              });
+
+                              config.$pageLeft.on('mouseenter', function () {
+                                  config.$bookBlock.bookblock('prevHover');
+                                  return false;
+                              }).on('mouseleave', function () {
+                                  config.$bookBlock.bookblock('hideHover');
+                                  return false;
+                              });
+
+                              config.$navNext.on('click touchstart', function () {
+                                  config.$bookBlock.bookblock('next');
+                                  return false;
+                              });
+
+                              config.$navNext.on('mouseenter', function () {
+                                  config.$bookBlock.bookblock('nextHover');
+                                  return false;
+                              }).on('mouseleave', function () {
+                                  config.$bookBlock.bookblock('hideHover');
+                                  return false;
+                              });
+
+                              config.$pageRight.on('click touchstart', function () {
+                                  config.$bookBlock.bookblock('next');
+                                  return false;
+                              });
+
+                              config.$pageRight.on('mouseenter', function () {
+                                  config.$bookBlock.bookblock('nextHover');
+                                  return false;
+                              }).on('mouseleave', function () {
+                                  config.$bookBlock.bookblock('hideHover');
+                                  return false;
+                              });
+
+                              // add navigation events
+                              config.$nav.each(function (i) {
+                                  $(this).on('click touchstart', function (event) {
+                                      config.$bookBlock.bookblock('jump', i + 1);
+                                      return false;
+                                  });
+                              });
+
+                              // add swipe events
+                              $slides.on({
+                                  'swipeleft': function (event) {
+                                      config.$bookBlock.bookblock('next');
+                                      return false;
+                                  },
+                                  'swiperight': function (event) {
+                                      config.$bookBlock.bookblock('prev');
+                                      return false;
+                                  }
+                              });
+
+                              // add keyboard events
+                              $(document).keydown(function (e) {
+                                  var keyCode = e.keyCode || e.which,
+                                          arrow = {
+                                              left: 37,
+                                              up: 38,
+                                              right: 39,
+                                              down: 40
+                                          };
+
+                                  switch (keyCode) {
+                                      case arrow.left:
+                                          config.$bookBlock.bookblock('prev');
+                                          break;
+                                      case arrow.right:
+                                          config.$bookBlock.bookblock('next');
+                                          break;
+                                  }
+                              });
+                          };
+
+                  return {init: init};
+
+              })();
+              Page.init();
+              $('#bb-zoom-in').on('click touchstart', function () {
+                  $('#comics').toggleClass("col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8");
+                  $('.glyphicon', this).toggleClass("glyphicon-zoom-in");
+                  $('.glyphicon', this).toggleClass("glyphicon-zoom-out");
+                  $('#bb-bookblock').delay(100).bookblock('resize');
+                  return false;
+              });
+          </script>
+        </div>
+        <br><br>
+
+        <div class="row">
+          <% if logged_in? %>
+              <%= link_to "<b><span class=\"icon-user bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
+                          user_path(current_user),
+                          class: "btn btn-lg btn-primary center" %>
+          <% else %>
+              <%= link_to "<b><span class=\"icon-4 bigger\" ></span> #{t('views.sessions.new_user')}</b>".html_safe,
+                          signup_path,
+                          class: "btn btn-lg btn-primary" %>
+              <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.header.login')}</b>".html_safe,
+                          login_path,
+                          class: "btn btn-lg btn-primary center" %>
+          <% end %>
+        </div>
+        <br><br>
+
+        <div class="row">
+          <div id="discover" class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+            <div class="bb-custom-wrapper shadow-effect">
+              <h1 style="font-size: 2.4em;">
+                Comment est construite une controverse ?
+              </h1>
+
+              <div class="panel-body">
+                <div id="myCarousel" class="col-xs-12 col-sm-offset-1 col-sm-10">
+                  <ul id="navigation">
+                    <li class="slider active hvr-grow">
+                      <span class="icon icon-staging"></span></li>
+                    <li class="slider hvr-grow">
+                      <span class="icon icon-reference"></span></li>
+                    <li class="slider hvr-grow">
+                      <span class="icon icon-comment"></span></li>
+                    <li class="slider hvr-grow">
+                      <span class="icon icon-summary"></span></li>
+                    <li class="slider hvr-grow">
+                      <span class="icon icon-flow-fork"></span></li>
+                    <li class="slider hvr-grow">
+                      <span class="icon icon-frog-laurel"></span></li>
+                    <li class="slider hvr-grow">
+                      <span class="icon icon-ribbon"></span></li>
+                    <li class="slider hvr-grow">
+                      <span class="icon icon-built"></span></li>
+                  </ul>
+                  <div class="row">
+                    <div class="go-left btn btn-default"><span class="glyphicon glyphicon-menu-left"></span>
+                      Revenir en arrière
+                    </div>
+                    <a id="dc-zoom-in" href="#" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in"></span></a>
+
+                    <div class="go-right btn btn-default">Suite du destin
+                      <span class="glyphicon glyphicon-menu-right"></span></div>
                   </div>
-                  <div id="bb-right-page">
-                  </div>
-                  <div id="opacity">
-                    <img class="bb-image img-responsive clearfix" src=<%= image_path "comics/sphinx.png" %>>
-                  </div>
-                  <div class="bb-item">
-                      <img class="img-responsive" src="<%= image_path "comics/sphinx.png" %>" alt="Le sphinx"/>
-                  </div>
-                  <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/enthousiaste.png" %>" alt="L’enthousiaste"/>
-                  </div>
-                  <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/seigneur.png" %>" alt="Le Seigneur des titres"/>
-                  </div>
-                  <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/encyclopedique.png" %>" alt="L'encyclopédique"/>
-                  </div>
-                  <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/analyste.png" %>" alt="L’analyste"/>
-                  </div>
-                  <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/juge.png" %>" alt="Le juge"/>
-                  </div>
-                  <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/ecrivain.png" %>" alt="L’écrivain"/>
-                  </div>
-                  <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/evaluateur.png" %>" alt="L’évaluateur"/>
-                  </div>
-                  <div class="bb-item">
-                    <img class="img-responsive" src="<%= image_path "comics/bienveillant.png" %>" alt="Le bienveillant"/>
+                  <br>
+
+                  <div class="row">
+                    <div class="col-xs-12 col-md-offset-1 col-md-10">
+                      <div id="items">
+                        <div id="slide-0" class="item opaque">
+                          <div class="title">
+                            <%= t('views.how_to.controverse_head') %>
+                          </div>
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-0.png' %>>
+
+                          <div class="caption clearfix">
+                            <%= t('views.how_to.controverse_body') %>
+                          </div>
+                          <br>
+                        </div>
+                        <div id="slide-1" class="item">
+                          <div class="title">
+                            <%= t('views.how_to.reference_head') %>
+                          </div>
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-1.png' %>>
+
+                          <div class="caption">
+                            <%= t('views.how_to.reference_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-2" class="item">
+                          <div class="title">
+                            <%= t('views.how_to.analyse_head') %>
+                          </div>
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-2.png' %>>
+
+                          <div class="caption">
+                            <%= t('views.how_to.analyse_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-3" class="item">
+                          <div class="title">
+                            <%= t('views.how_to.synthese_head') %>
+                          </div>
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-3.png' %>>
+
+                          <div class="caption">
+                            <%= t('views.how_to.synthese_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-4" class="item">
+                          <div class="title">
+                            <%= t('views.how_to.ameliorer_head') %>
+                          </div>
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-4.png' %>>
+
+                          <div class="caption">
+                            <%= t('views.how_to.ameliorer_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-5" class="item">
+                          <div class="title">
+                            <%= t('views.how_to.voter_head') %>
+                          </div>
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-5.png' %>>
+
+                          <div class="caption">
+                            <%= t('views.how_to.voter_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-6" class="item">
+                          <div class="title">
+                            <%= t('views.how_to.selectionner_head') %>
+                          </div>
+                          <img class="img-responsive" src=<%= path_to_image 'organisation-6.png' %>>
+
+                          <div class="caption">
+                            <%= t('views.how_to.selectionner_body') %>
+                          </div>
+                        </div>
+                        <div id="slide-7" class="item">
+                          <div class="title">
+                            <%= t('views.how_to.eclosion_head') %>
+                          </div>
+                          <div id="eclosion">
+                            <%= t('views.how_to.eclosion_body') %>
+                            <br><br>
+                            <span class="icon icon-staging"></span> <span class="arrow">&nbsp &#10137; &nbsp</span>
+                            <span class="icon icon-built"></span>
+                          </div>
+                        </div>
+                        <div id="is-transparent">
+                          <div class="title">
+                            <%= t('views.how_to.reference_head') %>
+                          </div>
+                          <img class="img-responsive clearfix" src=<%= path_to_image 'organisation-0.png' %>>
+
+                          <div class="caption clearfix">
+                            <%= t('views.how_to.reference_body') %>
+                          </div>
+                          <br>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <br>
-              <nav>
-                <a id="bb-nav-prev" href="#" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span> Page précèdente</a>
-                <a id="bb-zoom-in" href="#" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in"></span></a>
-                <a id="bb-nav-next" href="#" class="btn btn-default">Page suivante <span class="glyphicon glyphicon-menu-right"></span></a>
-              </nav>
             </div>
-            <script>
-                var Page = (function () {
-
-                    var config = {
-                                $nav: $('.img-icons'),
-                                $bookBlock: $('#bb-bookblock'),
-                                $pageRight: $('#bb-right-page'),
-                                $navNext: $('#bb-nav-next'),
-                                $pageLeft: $('#bb-left-page'),
-                                $navPrev: $('#bb-nav-prev')
-                            },
-                            init = function () {
-                                config.$bookBlock.bookblock({
-                                    speed: 800,
-                                    shadowSides: 0.8,
-                                    shadowFlip: 0.7,
-                                    onEndFlip: function (old, page, isLimit) {
-                                        config.$nav.removeClass( 'bb-current' );
-                                        config.$nav.eq(page).addClass( 'bb-current' );
-                                        return false;
-                                    }
-                                });
-
-                                initEvents();
-                            },
-                            initEvents = function () {
-
-                                var $slides = config.$bookBlock.children();
-
-                                // add navigation events
-
-                                config.$navPrev.on('click touchstart', function () {
-                                    config.$bookBlock.bookblock('prev');
-                                    return false;
-                                });
-
-                                config.$navPrev.on('mouseenter', function () {
-                                    config.$bookBlock.bookblock('prevHover');
-                                    return false;
-                                }).on('mouseleave', function () {
-                                    config.$bookBlock.bookblock('hideHover');
-                                    return false;
-                                });
-
-                                config.$pageLeft.on('click touchstart', function () {
-                                    config.$bookBlock.bookblock('prev');
-                                    return false;
-                                });
-
-                                config.$pageLeft.on('mouseenter', function () {
-                                    config.$bookBlock.bookblock('prevHover');
-                                    return false;
-                                }).on('mouseleave', function () {
-                                    config.$bookBlock.bookblock('hideHover');
-                                    return false;
-                                });
-
-                                config.$navNext.on('click touchstart', function () {
-                                    config.$bookBlock.bookblock('next');
-                                    return false;
-                                });
-
-                                config.$navNext.on('mouseenter', function () {
-                                    config.$bookBlock.bookblock('nextHover');
-                                    return false;
-                                }).on('mouseleave', function () {
-                                    config.$bookBlock.bookblock('hideHover');
-                                    return false;
-                                });
-
-                                config.$pageRight.on('click touchstart', function () {
-                                    config.$bookBlock.bookblock('next');
-                                    return false;
-                                });
-
-                                config.$pageRight.on('mouseenter', function () {
-                                    config.$bookBlock.bookblock('nextHover');
-                                    return false;
-                                }).on('mouseleave', function () {
-                                    config.$bookBlock.bookblock('hideHover');
-                                    return false;
-                                });
-
-                                // add navigation events
-                                config.$nav.each( function( i ) {
-                                    $( this ).on( 'click touchstart', function( event ) {
-                                        config.$bookBlock.bookblock( 'jump', i + 1 );
-                                        return false;
-                                    } );
-                                } );
-
-                                // add swipe events
-                                $slides.on({
-                                    'swipeleft': function (event) {
-                                        config.$bookBlock.bookblock('next');
-                                        return false;
-                                    },
-                                    'swiperight': function (event) {
-                                        config.$bookBlock.bookblock('prev');
-                                        return false;
-                                    }
-                                });
-
-                                // add keyboard events
-                                $(document).keydown(function (e) {
-                                    var keyCode = e.keyCode || e.which,
-                                            arrow = {
-                                                left: 37,
-                                                up: 38,
-                                                right: 39,
-                                                down: 40
-                                            };
-
-                                    switch (keyCode) {
-                                        case arrow.left:
-                                            config.$bookBlock.bookblock('prev');
-                                            break;
-                                        case arrow.right:
-                                            config.$bookBlock.bookblock('next');
-                                            break;
-                                    }
-                                });
-                            };
-
-                    return {init: init};
-
-                })();
-                Page.init();
-                $('#bb-zoom-in').on('click touchstart', function () {
-                    $('#comics').toggleClass("col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8");
+          </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#dc-zoom-in').on('click touchstart', function () {
+                    $('#discover').toggleClass("col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8");
                     $('.glyphicon', this).toggleClass("glyphicon-zoom-in");
                     $('.glyphicon', this).toggleClass("glyphicon-zoom-out");
                     return false;
                 });
-            </script>
-          </div>
-          <br><br>
-          <br><br>
+                $('.slider').on('click', function () {
+                    $("#items .item").removeClass("opaque");
 
-          <div class="carousel-container">
-            <div id="mycarousel" class="carousel slide" data-ride="carousel">
-              <div class="framed">
-                <div class="carousel-inner home-carrousel" role="listbox">
-                  <div class="item active center">
-                    <br/>
-                    <b><%= t('views.home.sentence_result') %> </b>
-                  </div>
-                  <% welcome_sentences_keys.each do |key| %>
-                      <div class="item center">
-                        <br/>
-                        <b><%= t(key) %></b>
-                      </div>
-                  <% end %>
-                  <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br>
-        </div>
-      </div>
+                    var newImage = $(this).index();
 
-      <div id="piliers" class="not-activated sub-leading center">
+                    $("#items .item").eq(newImage).addClass("opaque");
+
+                    $(".slider").removeClass("active");
+                    $(this).addClass("active");
+                });
+                $('.go-right').on("click", function () {
+                    var index = ($(".active", "#navigation").index() + 1) % $(".slider").size();
+                    $("#items .item").removeClass("opaque");
+                    $("#items .item").eq(index).addClass("opaque");
+                    $(".slider").removeClass("active");
+                    $("#navigation .slider").eq(index).addClass("active");
+                });
+                $('.go-left').on("click", function () {
+                    var index = ($(".active", "#navigation").index() - 1) % $(".slider").size();
+                    $("#items .item").removeClass("opaque");
+                    $("#items .item").eq(index).addClass("opaque");
+                    $(".slider").removeClass("active");
+                    $("#navigation .slider").eq(index).addClass("active");
+                });
+            });
+        </script>
+        <br><br>
+
+        <h1 style="font-size: 2.4em;">
+          Explorer les diffèrents recoin de ControverSciences
+        </h1>
+        <br>
+        <%= link_to "<b><span class=\"icon-users bigger\" ></span> Qui sont les contributeurs ?</b>".html_safe,
+                    users_path,
+                    class: "btn btn-lg btn-primary" %> <br> <br>
+        <%= link_to "<b><span class=\"icon-graph-int bigger\" ></span> ControverSciences est-il actif ?</b>".html_safe,
+                    contributions_path,
+                    class: "btn btn-lg btn-primary" %> <br> <br>
+        <%= link_to "<b><span class=\"icon-network bigger\" ></span> Les controverses ont-elles des liens entre elles ?</b>".html_safe,
+                    timelines_graph_path,
+                    class: "btn btn-lg btn-primary" %> <br> <br>
+        <%= link_to "<b><span class=\"icon-circo bigger\" ></span> Controversciences est-il inter-disciplinaire ?</b>".html_safe,
+                    tag_pairs_graph_path,
+                    class: "btn btn-lg btn-primary" %>
+        <br>
+        <br><br>
+        <br>
+
         <div class="row">
           <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
-            <br>
-            <br>
-
-            <div class="framed">
-              <br>
-
-              <h1 style="font-size: 2.4em">
-                Les 3 piliers de ControverSciences
-              </h1>
-              <br>
-              <br>
-
-              <div class="row text-center">
-                <div class="col-xs-12 col-sm-4">
-                  <div class="framed">
-                    <h1 style="font-size: 2.6em; padding-bottom: 0">
-                      Référencer
-                    </h1>
-
-                    <div class="center-block">
-                      <div class="row">
-                        <div class="col-xs-offset-3 col-xs-6">
-                          <div class="center">
-                            <%= image_tag("pillar-blue.svg", alt: "Référencer", :class => "img-responsive center-block") %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="text-center">
-                      <h4><br/>Si vous avez des arguments à apporter, une référence
-                        scientifique est nécessaire pour les justifier !</h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                  <div class="framed">
-                    <h1 style="font-size: 2.6em; padding-bottom: 0">
-                      Améliorer
-                    </h1>
-
-                    <div class="center-block">
-                      <div class="row">
-                        <div class="col-xs-offset-3 col-xs-6">
-                          <div class="center">
-                            <%= image_tag("pillar-yellow.svg", alt: "Ameliorer", :class => "img-responsive center-block") %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="text-center">
-                      <h4><br/>Si vous n’êtes pas d’accord avec une contribution, proposez la vôtre !
-                        Les contributeurs voteront pour décider laquelle est la plus pertinente.</h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                  <div class="framed">
-                    <h1 style="font-size: 2.6em; padding-bottom: 0">
-                      Sélectionner
-                    </h1>
-
-                    <div class="center-block">
-                      <div class="row">
-                        <div class="col-xs-offset-3 col-xs-6">
-                          <div class="center">
-                            <%= image_tag("pillar-red.svg", alt: "Selectionner", :class => "img-responsive center-block") %>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="text-center">
-                      <h4><br/>Les contenus de bonne qualité survivront, ceux de moindre qualité seront supprimés par un
-                        algorithme.</h4>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <br>
-              <br>
-            </div>
-          </div>
-          <br>
-          <br>
-        </div>
-      </div>
-
-      <div id="manifesto" class="not-activated sub-leading">
-        <div class="row">
-          <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
-            <br>
-            <br>
-
             <div class="framed">
               <h1 style="font-size: 2.4em">
                 Une passerelle entre la société et les scientifiques <br>
@@ -537,468 +531,36 @@
             <br>
           </div>
         </div>
+
+        <div class="carousel-container">
+          <div id="mycarousel" class="carousel slide" data-ride="carousel">
+            <div class="framed">
+              <div class="carousel-inner home-carrousel" role="listbox">
+                <div class="item active center">
+                  <br/>
+                  <b><%= t('views.home.sentence_result') %> </b>
+                </div>
+                <% welcome_sentences_keys.each do |key| %>
+                    <div class="item center">
+                      <br/>
+                      <b><%= t(key) %></b>
+                    </div>
+                <% end %>
+                <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
+                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
+                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+                <br/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
       </div>
     </div>
-    <div id="body-decouvrir" class="leading not-activated">
-      <br>
-      <br>
-
-      <div class="row">
-        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-8 col-md-offset-2">
-          <div class="framed">
-            <h1 style="font-size: 2.4em;">
-              <%= t('views.how_to.title') %>
-            </h1>
-
-            <div class="panel-body">
-              <div id="myCarousel" class="col-xs-offset-1 col-xs-10">
-                <div class="row">
-                  <div class="col-xs-12 col-md-3">
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <br>
-                        <br>
-                        <ul id="navigation" class="nav nav-pills nav-justified">
-                          <li class="slider active clearfix">
-                            <a href="#"><b><%= t('views.how_to.controverse_head') %></b></a></li>
-                          <li class="slider clearfix">
-                            <a href="#"><b><%= t('views.how_to.reference_head') %></b></a></li>
-                          <li class="slider clearfix">
-                            <a href="#"><b><%= t('views.how_to.analyse_head') %></b></a></li>
-                          <li class="slider clearfix">
-                            <a href="#"><b><%= t('views.how_to.synthese_head') %></b></a></li>
-                          <li class="slider clearfix">
-                            <a href="#"><b><%= t('views.how_to.ameliorer_head') %></b></a></li>
-                          <li class="slider clearfix">
-                            <a href="#"><b><%= t('views.how_to.voter_head') %></b></a></li>
-                          <li class="slider clearfix">
-                            <a href="#"><b><%= t('views.how_to.selectionner_head') %></b></a></li>
-                          <li class="slider clearfix">
-                            <a href="#"><b><%= t('views.how_to.eclosion_head') %></b></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xs-12 col-md-9">
-                    <div class="framed framed-white">
-                      <div id="items">
-                        <div id="slide-0" class="item opaque">
-                          <img class="img-responsive" src=<%= path_to_image 'organisation-0.png' %>>
-
-                          <div class="caption clearfix">
-                            <div class="pull-right go-right">
-                              <span class="glyphicon glyphicon-chevron-right"></span>
-                            </div>
-                            <div class="pull-left go-left">
-                              <span class="glyphicon glyphicon-chevron-left"></span>
-                            </div>
-                            <%= t('views.how_to.controverse_body') %>
-                          </div>
-                          <br>
-                        </div>
-                        <div id="slide-1" class="item">
-                          <img class="img-responsive" src=<%= path_to_image 'organisation-1.png' %>>
-
-                          <div class="caption">
-                            <div class="pull-right go-right">
-                              <span class="glyphicon glyphicon-chevron-right"></span>
-                            </div>
-                            <div class="pull-left go-left">
-                              <span class="glyphicon glyphicon-chevron-left"></span>
-                            </div>
-                            <%= t('views.how_to.reference_body') %>
-                          </div>
-                        </div>
-                        <div id="slide-2" class="item">
-                          <img class="img-responsive" src=<%= path_to_image 'organisation-2.png' %>>
-
-                          <div class="caption">
-                            <div class="pull-right go-right">
-                              <span class="glyphicon glyphicon-chevron-right"></span>
-                            </div>
-                            <div class="pull-left go-left">
-                              <span class="glyphicon glyphicon-chevron-left"></span>
-                            </div>
-                            <%= t('views.how_to.analyse_body') %>
-                          </div>
-                        </div>
-                        <div id="slide-3" class="item">
-                          <img class="img-responsive" src=<%= path_to_image 'organisation-3.png' %>>
-
-                          <div class="caption">
-                            <div class="pull-right go-right">
-                              <span class="glyphicon glyphicon-chevron-right"></span>
-                            </div>
-                            <div class="pull-left go-left">
-                              <span class="glyphicon glyphicon-chevron-left"></span>
-                            </div>
-                            <%= t('views.how_to.synthese_body') %>
-                          </div>
-                        </div>
-                        <div id="slide-4" class="item">
-                          <img class="img-responsive" src=<%= path_to_image 'organisation-4.png' %>>
-
-                          <div class="caption">
-                            <div class="pull-right go-right">
-                              <span class="glyphicon glyphicon-chevron-right"></span>
-                            </div>
-                            <div class="pull-left go-left">
-                              <span class="glyphicon glyphicon-chevron-left"></span>
-                            </div>
-                            <%= t('views.how_to.ameliorer_body') %>
-                          </div>
-                        </div>
-                        <div id="slide-5" class="item">
-                          <img class="img-responsive" src=<%= path_to_image 'organisation-5.png' %>>
-
-                          <div class="caption">
-                            <div class="pull-right go-right">
-                              <span class="glyphicon glyphicon-chevron-right"></span>
-                            </div>
-                            <div class="pull-left go-left">
-                              <span class="glyphicon glyphicon-chevron-left"></span>
-                            </div>
-                            <%= t('views.how_to.voter_body') %>
-                          </div>
-                        </div>
-                        <div id="slide-6" class="item">
-                          <img class="img-responsive" src=<%= path_to_image 'organisation-6.png' %>>
-
-                          <div class="caption">
-                            <div class="pull-right go-right">
-                              <span class="glyphicon glyphicon-chevron-right"></span>
-                            </div>
-                            <div class="pull-left go-left">
-                              <span class="glyphicon glyphicon-chevron-left"></span>
-                            </div>
-                            <%= t('views.how_to.selectionner_body') %>
-                          </div>
-                        </div>
-                        <div id="slide-7" class="item">
-                          <div id="eclosion">
-                            <%= t('views.how_to.eclosion_body') %>
-                            <br><br>
-                            <span class="icon icon-staging"></span> <span class="arrow">&nbsp &#10137; &nbsp</span>
-                            <span class="icon icon-built"></span>
-                          </div>
-                        </div>
-                        <div id="is-transparent">
-                          <img class="img-responsive clearfix" src=<%= path_to_image 'organisation-0.png' %>>
-
-                          <div class="caption clearfix">
-                            <div class="pull-right go-right">
-                              <span class="glyphicon glyphicon-chevron-right"></span>
-                            </div>
-                            <div class="pull-left go-left">
-                              <span class="glyphicon glyphicon-chevron-left"></span>
-                            </div>
-                            <%= t('views.how_to.reference_body') %>
-                          </div>
-                          <br>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br>
-          <br>
-        </div>
-      </div>
-      <script type="text/javascript">
-          $(document).ready(function () {
-              $('.slider').on('mouseover', function () {
-                  $("#items .item").removeClass("opaque");
-
-                  var newImage = $(this).index();
-
-                  $("#items .item").eq(newImage).addClass("opaque");
-
-                  $(".slider").removeClass("active");
-                  $(this).addClass("active");
-              });
-              $('.slider').on('click', function () {
-                  $("#items .item").removeClass("opaque");
-
-                  var newImage = $(this).index();
-
-                  $("#items .item").eq(newImage).addClass("opaque");
-
-                  $(".slider").removeClass("active");
-                  $(this).addClass("active");
-              });
-              $('.go-right').on("click", function () {
-                  var index = ($(".active", "#navigation").index() + 1) % $(".slider").size();
-                  $("#items .item").removeClass("opaque");
-                  $("#items .item").eq(index).addClass("opaque");
-                  $(".slider").removeClass("active");
-                  $("#navigation .slider").eq(index).addClass("active");
-              });
-              $('.go-left').on("click", function () {
-                  var index = ($(".active", "#navigation").index() - 1) % $(".slider").size();
-                  $("#items .item").removeClass("opaque");
-                  $("#items .item").eq(index).addClass("opaque");
-                  $(".slider").removeClass("active");
-                  $("#navigation .slider").eq(index).addClass("active");
-              });
-          });
-      </script>
-    </div>
-
-    <div id="body-contribuer" class="leading not-activated">
-      <div id="enrichir" class="sub-leading activated">
-        <br>
-
-        <div class="row">
-          <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
-            <div class="framed center">
-              <h1 style="font-size: 2.6em;">
-                Enrichir
-              </h1>
-
-              <div class="row">
-                <div class="col-xs-12 col-sm-5 vcenter">
-                  <a href="<%= empty_references_path %>" style="color: white" class="hvr-grow">
-                    <div class="center-block">
-                      <%= image_tag("3rules-1.png", alt: "Enrichir", :class => "img-responsive") %>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-xs-12 col-sm-6 center vcenter">
-                  <br>
-
-                  <div class="text-center">
-                    <h4>Des controverses ont besoin de références scientifiques, venez les enrichir !</h4>
-                  </div>
-                  <br>
-                  <br>
-                  <%= link_to "<b><span class=\"icon-4 bigger\" ></span> #{t('views.sessions.new_user')}</b>".html_safe,
-                              signup_path,
-                              class: "btn btn-lg btn-primary" %>
-                  <br>
-                  <br>
-                </div>
-              </div>
-              <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
-                          users_path,
-                          class: "btn btn-lg btn-primary center" %>
-              <br>
-              <br>
-            </div>
-            <br>
-            <br>
-          </div>
-        </div>
-      </div>
-
-      <div id="analyser" class="sub-leading not-activated">
-        <br>
-
-        <div class="row">
-          <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
-            <div class="framed center">
-              <h1 style="font-size: 2.6em;">
-                Analyser
-              </h1>
-
-              <div class="row">
-                <div class="col-xs-12 col-sm-5 vcenter">
-                  <a href="<%= empty_comments_path %>" style="color: white" class="hvr-grow">
-                    <div class="center-block">
-                      <%= image_tag("3rules-3.png", alt: "Analyser", :class => "img-responsive") %>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-xs-12 col-sm-6 center vcenter">
-                  <br>
-
-                  <div class="text-center">
-                    <h4>Des références n'ont pas encore d'analyse, soyez le premier à les décortiquer !</h4>
-                  </div>
-                  <br>
-                  <br>
-                  <%= link_to "<b><span class=\"icon-4 bigger\" ></span> #{t('views.sessions.new_user')}</b>".html_safe,
-                              signup_path,
-                              class: "btn btn-lg btn-primary" %>
-                  <br>
-                  <br>
-                </div>
-              </div>
-              <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
-                          users_path,
-                          class: "btn btn-lg btn-primary center" %>
-              <br>
-              <br>
-            </div>
-            <br>
-            <br>
-          </div>
-        </div>
-      </div>
-
-      <div id="synthetiser" class="sub-leading not-activated">
-        <br>
-
-        <div class="row">
-          <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
-            <div class="framed center">
-              <h1 style="font-size: 2.6em;">
-                Synthétiser
-              </h1>
-
-              <div class="row">
-                <div class="col-xs-12 col-sm-5 vcenter">
-                  <a href="<%= empty_summaries_path %>" style="color: white" class="hvr-grow">
-                    <div class="center-block">
-                      <%= image_tag("3rules-2.png", alt: "Synthétiser", :class => "img-responsive") %>
-                    </div>
-                  </a>
-                </div>
-                <div class="col-xs-12 col-sm-6 center vcenter">
-                  <br>
-
-                  <div class="text-center">
-                    <h4>Des controverses ont des références mais n'ont pas de synthèse,
-                      résumez la situation et apportez une vue d'ensemble au débat !</h4>
-                  </div>
-                  <br>
-                  <br>
-                  <%= link_to "<b><span class=\"icon-4 bigger\" ></span> #{t('views.sessions.new_user')}</b>".html_safe,
-                              signup_path,
-                              class: "btn btn-lg btn-primary" %>
-                  <br>
-                  <br>
-                </div>
-              </div>
-              <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
-                          users_path,
-                          class: "btn btn-lg btn-primary center" %>
-              <br>
-              <br>
-            </div>
-            <br>
-            <br>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
   </div>
 </div>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        var $dots = $(".pagination-dot")
-                , $current = $(".pagination-current")
-                , $items = $(".slider")
-
-                , spacing = parseFloat($dots.css("width")) + (parseFloat($dots.css("marginLeft")) * 2)
-                , halfSpacing = spacing / 2
-                , startPos
-
-                , lastItem = 0
-                , lastItemR = 0
-                , lastTime = Date.now()
-                ;
-
-        startPos = $dots.eq(0).position().left;
-        $current.data("pos", {x: startPos});
-
-        $dots.on('click', function (event) {
-            var $cur = $(this);
-            $items.eq($cur.index()).click();
-            var dest = ($cur.index()) * spacing;
-            TweenMax.to($current.data("pos"), 0.6, {
-                x: startPos + dest,
-                onUpdate: updatePos,
-                onComplete: updatePos,
-                ease: Quint.easeOut
-                // ease:Elastic.easeOut,
-                // easeParams:[1.1,0.6]
-            });
-        });
-
-        $items.on('mouseover', function () {
-            $dots.eq($(this).index()).click();
-        });
-
-        var dragging = false;
-        var startDrag = {x: 0, y: 0};
-
-        function updatePos() {
-            var pos = $current.data("pos").x - startPos;
-            var scale = pos % spacing;
-            if (scale > halfSpacing) {
-                scale = halfSpacing - (scale - halfSpacing);
-            }
-            scale = 1 - ((scale / halfSpacing) * 0.35);
-            TweenMax.set($current, {
-                x: pos + startPos,
-                scale: scale * 1.4,
-                force3D: true
-            });
-
-            var curItem = pos / spacing,
-                    curItemR = Math.round(curItem)
-                    ;
-            var now = Date.now();
-            var diff = now - lastTime;
-            var deltaTime = diff / (1000 / 60);
-            lastTime = now;
-            if (lastItemR != curItemR) {
-                var $bounceDot = $dots.eq(lastItemR);
-                TweenMax.to($bounceDot, 0.1, {
-                    x: 70 * ((curItem - lastItem) / deltaTime),
-                    ease: Quad.easeOut,
-                    onComplete: function () {
-                        TweenMax.to($bounceDot, 1, {
-                            x: 0,
-                            ease: Elastic.easeOut,
-                            easeParams: [1.1, 0.5]
-                        })
-                    }
-                })
-            }
-            lastItem = curItem;
-            lastItemR = curItemR;
-        }
-
-        $('.navigation').on("click", function () {
-            $(".navigation").removeClass("active");
-            $this = $(this);
-            $this.addClass("active");
-            $(".leading").addClass("not-activated");
-            $(".head").addClass("not-activated");
-            $("#head-" + $this.data("body")).removeClass("not-activated");
-            $("#body-" + $this.data("body")).removeClass("not-activated");
-            startPos = $dots.eq(0).position().left;
-            $current.data("pos", {x: startPos});
-            $dots.eq(0).click();
-            $(".menu-toggle-button").click();
-        });
-        $('.sub-navigation').on("click", function () {
-            $this = $(this);
-            $(".sub-navigation", "#head-" + $this.data("parent")).removeClass("active");
-            $this.addClass("active");
-            $(".sub-leading", "#body-" + $this.data("parent")).addClass("not-activated");
-            $("#" + $this.data("target")).removeClass("not-activated");
-        });
-        $(".menu-toggle-button").trigger("mousedown")
-    });
-</script>
-
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
-  <defs>
-    <filter id="goo">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
-      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"/>
-      <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-    </filter>
-  </defs>
-</svg>
