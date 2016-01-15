@@ -23,3 +23,4 @@
 //= require autosize.js
 //= require fancyBox.js
 //= require menu.js
+//= require jquery.bookblock.js

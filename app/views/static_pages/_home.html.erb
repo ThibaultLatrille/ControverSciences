@@ -6,6 +6,7 @@
     <div class="row">
       <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
         <br>
+
         <div class="framed">
           <div class="row">
             <div class="col-xs-12 col-md-4 center">
@@ -26,8 +27,9 @@
                 Contribuer
               </div>
             </div>
-            </div>
+          </div>
           <br>
+
           <div class="row">
             <div class="col-xs-12 col-md-10 col-md-offset-1">
               <div id="head-controversciences" class="head">
@@ -140,6 +142,7 @@
             <div class="col-xs-12 col-md-offset-3 col-md-6 center">
               <% if @favorite %>
                   <br><br>
+
                   <div id="favorite">
                     <a id="favorite-timeline" class="hvr-grow" href="<%= timeline_path @favorite %>">
                       <h4>
@@ -160,8 +163,174 @@
               <%= link_to "Toutes les controverses", timelines_path, class: "btn btn-lg btn-primary" %>
             </div>
           </div>
+          <br>
+
+          <div id="comics" class="row">
+            <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+              <div class="bb-custom-wrapper shadow-effect">
+                <div id="bb-bookblock" class="bb-bookblock">
+                  <div id="bb-left-page">
+                  </div>
+                  <div id="bb-right-page">
+                  </div>
+                  <div id="opacity">
+                    <img class="bb-image img-responsive clearfix" src=<%= image_path "comics/sphinx.jpg" %>>
+                  </div>
+                  <div class="bb-item">
+                      <img class="img-responsive" src="<%= image_path "comics/sphinx.jpg" %>" alt="Le sphinx"/>
+                  </div>
+                  <div class="bb-item">
+                    <img class="img-responsive" src="<%= image_path "comics/enthousiaste.jpg" %>" alt="L’enthousiaste"/>
+                  </div>
+                  <div class="bb-item">
+                    <img class="img-responsive" src="<%= image_path "comics/seigneur.jpg" %>" alt="Le Seigneur des titres"/>
+                  </div>
+                  <div class="bb-item">
+                    <img class="img-responsive" src="<%= image_path "comics/encyclopedique.jpg" %>" alt="L'encyclopédique"/>
+                  </div>
+                  <div class="bb-item">
+                    <img class="img-responsive" src="<%= image_path "comics/analyste.jpg" %>" alt="L’analyste"/>
+                  </div>
+                  <div class="bb-item">
+                    <img class="img-responsive" src="<%= image_path "comics/juge.jpg" %>" alt="Le juge"/>
+                  </div>
+                  <div class="bb-item">
+                    <img class="img-responsive" src="<%= image_path "comics/ecrivain.jpg" %>" alt="L’écrivain"/>
+                  </div>
+                  <div class="bb-item">
+                    <img class="img-responsive" src="<%= image_path "comics/evaluateur.jpg" %>" alt="L’évaluateur"/>
+                  </div>
+                  <div class="bb-item">
+                    <img class="img-responsive" src="<%= image_path "comics/bienveillant.jpg" %>" alt="Le bienveillant"/>
+                  </div>
+                </div>
+              </div>
+              <br>
+              <nav>
+                <a id="bb-nav-prev" href="#" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span> Page précèdente</a>
+                <a id="bb-nav-next" href="#" class="btn btn-default">Page suivante <span class="glyphicon glyphicon-menu-right"></span></a>
+              </nav>
+            </div>
+            <script>
+                var Page = (function () {
+
+                    var config = {
+                                $bookBlock: $('#bb-bookblock'),
+                                $pageRight: $('#bb-right-page'),
+                                $navNext: $('#bb-nav-next'),
+                                $pageLeft: $('#bb-left-page'),
+                                $navPrev: $('#bb-nav-prev')
+                            },
+                            init = function () {
+                                config.$bookBlock.bookblock({
+                                    speed: 800,
+                                    shadowSides: 0.8,
+                                    shadowFlip: 0.7
+                                });
+                                initEvents();
+                            },
+                            initEvents = function () {
+
+                                var $slides = config.$bookBlock.children();
+
+                                // add navigation events
+
+                                config.$navPrev.on('click touchstart', function () {
+                                    config.$bookBlock.bookblock('prev');
+                                    return false;
+                                });
+
+                                config.$navPrev.on('mouseenter', function () {
+                                    config.$bookBlock.bookblock('prevHover');
+                                    return false;
+                                }).on('mouseleave', function () {
+                                    config.$bookBlock.bookblock('hideHover');
+                                    return false;
+                                });
+
+                                config.$pageLeft.on('click touchstart', function () {
+                                    config.$bookBlock.bookblock('prev');
+                                    return false;
+                                });
+
+                                config.$pageLeft.on('mouseenter', function () {
+                                    config.$bookBlock.bookblock('prevHover');
+                                    return false;
+                                }).on('mouseleave', function () {
+                                    config.$bookBlock.bookblock('hideHover');
+                                    return false;
+                                });
+
+                                config.$navNext.on('click touchstart', function () {
+                                    config.$bookBlock.bookblock('next');
+                                    return false;
+                                });
+
+                                config.$navNext.on('mouseenter', function () {
+                                    config.$bookBlock.bookblock('nextHover');
+                                    return false;
+                                }).on('mouseleave', function () {
+                                    config.$bookBlock.bookblock('hideHover');
+                                    return false;
+                                });
+
+                                config.$pageRight.on('click touchstart', function () {
+                                    config.$bookBlock.bookblock('next');
+                                    return false;
+                                });
+
+                                config.$pageRight.on('mouseenter', function () {
+                                    config.$bookBlock.bookblock('nextHover');
+                                    return false;
+                                }).on('mouseleave', function () {
+                                    config.$bookBlock.bookblock('hideHover');
+                                    return false;
+                                });
+
+                                // add swipe events
+                                $slides.on({
+                                    'swipeleft': function (event) {
+                                        config.$bookBlock.bookblock('next');
+                                        return false;
+                                    },
+                                    'swiperight': function (event) {
+                                        config.$bookBlock.bookblock('prev');
+                                        return false;
+                                    }
+                                });
+
+                                // add keyboard events
+                                $(document).keydown(function (e) {
+                                    var keyCode = e.keyCode || e.which,
+                                            arrow = {
+                                                left: 37,
+                                                up: 38,
+                                                right: 39,
+                                                down: 40
+                                            };
+
+                                    switch (keyCode) {
+                                        case arrow.left:
+                                            config.$bookBlock.bookblock('prev');
+                                            break;
+                                        case arrow.right:
+                                            config.$bookBlock.bookblock('next');
+                                            break;
+                                    }
+                                });
+                            };
+
+                    return {init: init};
+
+                })();
+            </script>
+            <script>
+                Page.init();
+            </script>
+          </div>
           <br><br>
           <br><br>
+
           <div class="carousel-container">
             <div id="mycarousel" class="carousel slide" data-ride="carousel">
               <div class="framed">
@@ -546,12 +715,14 @@
     <div id="body-contribuer" class="leading not-activated">
       <div id="enrichir" class="sub-leading activated">
         <br>
+
         <div class="row">
           <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
             <div class="framed center">
               <h1 style="font-size: 2.6em;">
                 Enrichir
               </h1>
+
               <div class="row">
                 <div class="col-xs-12 col-sm-5 vcenter">
                   <a href="<%= empty_references_path %>" style="color: white" class="hvr-grow">
@@ -562,6 +733,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 center vcenter">
                   <br>
+
                   <div class="text-center">
                     <h4>Des controverses ont besoin de références scientifiques, venez les enrichir !</h4>
                   </div>
@@ -576,7 +748,7 @@
               </div>
               <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
                           users_path,
-                          class: "btn btn-lg btn-primary center"  %>
+                          class: "btn btn-lg btn-primary center" %>
               <br>
               <br>
             </div>
@@ -588,12 +760,14 @@
 
       <div id="analyser" class="sub-leading not-activated">
         <br>
+
         <div class="row">
           <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
             <div class="framed center">
               <h1 style="font-size: 2.6em;">
                 Analyser
               </h1>
+
               <div class="row">
                 <div class="col-xs-12 col-sm-5 vcenter">
                   <a href="<%= empty_comments_path %>" style="color: white" class="hvr-grow">
@@ -604,6 +778,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 center vcenter">
                   <br>
+
                   <div class="text-center">
                     <h4>Des références n'ont pas encore d'analyse, soyez le premier à les décortiquer !</h4>
                   </div>
@@ -618,7 +793,7 @@
               </div>
               <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
                           users_path,
-                          class: "btn btn-lg btn-primary center"  %>
+                          class: "btn btn-lg btn-primary center" %>
               <br>
               <br>
             </div>
@@ -630,12 +805,14 @@
 
       <div id="synthetiser" class="sub-leading not-activated">
         <br>
+
         <div class="row">
           <div class="col-xs-offset-1 col-xs-10 col-sm-offset-3 col-sm-6">
             <div class="framed center">
               <h1 style="font-size: 2.6em;">
                 Synthétiser
               </h1>
+
               <div class="row">
                 <div class="col-xs-12 col-sm-5 vcenter">
                   <a href="<%= empty_summaries_path %>" style="color: white" class="hvr-grow">
@@ -646,6 +823,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 center vcenter">
                   <br>
+
                   <div class="text-center">
                     <h4>Des controverses ont des références mais n'ont pas de synthèse,
                       résumez la situation et apportez une vue d'ensemble au débat !</h4>
@@ -661,7 +839,7 @@
               </div>
               <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe,
                           users_path,
-                          class: "btn btn-lg btn-primary center"  %>
+                          class: "btn btn-lg btn-primary center" %>
               <br>
               <br>
             </div>
@@ -680,81 +858,82 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-        var $dots=$(".pagination-dot")
-                ,$current=$(".pagination-current")
-                ,$items=$(".slider")
+    $(document).ready(function () {
+        var $dots = $(".pagination-dot")
+                , $current = $(".pagination-current")
+                , $items = $(".slider")
 
-                ,spacing=parseFloat($dots.css("width"))+(parseFloat($dots.css("marginLeft"))*2)
-                ,halfSpacing=spacing/2
-                ,startPos
+                , spacing = parseFloat($dots.css("width")) + (parseFloat($dots.css("marginLeft")) * 2)
+                , halfSpacing = spacing / 2
+                , startPos
 
-                ,lastItem=0
-                ,lastItemR=0
-                ,lastTime=Date.now()
+                , lastItem = 0
+                , lastItemR = 0
+                , lastTime = Date.now()
                 ;
 
-        startPos=$dots.eq(0).position().left;
-        $current.data("pos",{x:startPos});
+        startPos = $dots.eq(0).position().left;
+        $current.data("pos", {x: startPos});
 
-        $dots.on('click', function(event){
-            var $cur=$(this);
+        $dots.on('click', function (event) {
+            var $cur = $(this);
             $items.eq($cur.index()).click();
-            var dest=($cur.index())*spacing;
-            TweenMax.to($current.data("pos"),0.6,{
-                x:startPos+dest,
-                onUpdate:updatePos,
-                onComplete:updatePos,
-                ease:Quint.easeOut
+            var dest = ($cur.index()) * spacing;
+            TweenMax.to($current.data("pos"), 0.6, {
+                x: startPos + dest,
+                onUpdate: updatePos,
+                onComplete: updatePos,
+                ease: Quint.easeOut
                 // ease:Elastic.easeOut,
                 // easeParams:[1.1,0.6]
             });
         });
 
         $items.on('mouseover', function () {
-                $dots.eq($(this).index()).click();
+            $dots.eq($(this).index()).click();
         });
 
-        var dragging=false;
-        var startDrag={x:0,y:0};
+        var dragging = false;
+        var startDrag = {x: 0, y: 0};
 
-        function updatePos(){
-            var pos=$current.data("pos").x-startPos;
-            var scale=pos%spacing;
-            if(scale>halfSpacing){
-                scale=halfSpacing-(scale-halfSpacing);
+        function updatePos() {
+            var pos = $current.data("pos").x - startPos;
+            var scale = pos % spacing;
+            if (scale > halfSpacing) {
+                scale = halfSpacing - (scale - halfSpacing);
             }
-            scale=1-((scale/halfSpacing)*0.35);
-            TweenMax.set($current,{
-                x:pos+startPos,
-                scale:scale*1.4,
-                force3D:true
+            scale = 1 - ((scale / halfSpacing) * 0.35);
+            TweenMax.set($current, {
+                x: pos + startPos,
+                scale: scale * 1.4,
+                force3D: true
             });
 
-            var curItem=pos/spacing,
-                    curItemR=Math.round(curItem)
+            var curItem = pos / spacing,
+                    curItemR = Math.round(curItem)
                     ;
-            var now=Date.now();
-            var diff=now-lastTime;
-            var deltaTime=diff/(1000/60);
-            lastTime=now;
-            if(lastItemR!=curItemR){
-                var $bounceDot=$dots.eq(lastItemR);
-                TweenMax.to($bounceDot,0.1,{
-                    x:70*((curItem-lastItem)/deltaTime),
-                    ease:Quad.easeOut,
-                    onComplete:function(){
-                        TweenMax.to($bounceDot,1,{
-                            x:0,
-                            ease:Elastic.easeOut,
-                            easeParams:[1.1,0.5]
+            var now = Date.now();
+            var diff = now - lastTime;
+            var deltaTime = diff / (1000 / 60);
+            lastTime = now;
+            if (lastItemR != curItemR) {
+                var $bounceDot = $dots.eq(lastItemR);
+                TweenMax.to($bounceDot, 0.1, {
+                    x: 70 * ((curItem - lastItem) / deltaTime),
+                    ease: Quad.easeOut,
+                    onComplete: function () {
+                        TweenMax.to($bounceDot, 1, {
+                            x: 0,
+                            ease: Elastic.easeOut,
+                            easeParams: [1.1, 0.5]
                         })
                     }
                 })
             }
-            lastItem=curItem;
-            lastItemR=curItemR;
+            lastItem = curItem;
+            lastItemR = curItemR;
         }
+
         $('.navigation').on("click", function () {
             $(".navigation").removeClass("active");
             $this = $(this);
@@ -763,8 +942,8 @@
             $(".head").addClass("not-activated");
             $("#head-" + $this.data("body")).removeClass("not-activated");
             $("#body-" + $this.data("body")).removeClass("not-activated");
-            startPos=$dots.eq(0).position().left;
-            $current.data("pos",{x:startPos});
+            startPos = $dots.eq(0).position().left;
+            $current.data("pos", {x: startPos});
             $dots.eq(0).click();
             $(".menu-toggle-button").click();
         });
@@ -782,8 +961,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: none">
   <defs>
     <filter id="goo">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo"/>
       <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
     </filter>
   </defs>

@@ -21,6 +21,7 @@
  *= require fancyBox.css
  *= require menu.css
  *= require pagination.css
+ *= require bookblock.css
  */
 @font-face{
     font-family: 'Glyphicons Halflings';

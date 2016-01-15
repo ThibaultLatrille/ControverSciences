@@ -10,21 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery-1.11.1
+//= require not_logged
 //= require jquery.ui.widget.js
 //= require jquery.iframe-transport.js
 //= require jquery.fileupload.js
-//= require rails
-//= require bootstrap
 //= require bootstrap-markdown
-//= require modernizr.js
-//= require jquery.infinitescroll.js
-//= require page_timelines.js
-//= require page_comments.js
-//= require page_empty.js
-//= require readmore.js
-//= require grid.js
-//= require autosize.js
 //= require jets.js
 //= require fancyBox.js
-//= require menu.js
