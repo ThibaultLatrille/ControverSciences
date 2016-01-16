@@ -1239,10 +1239,18 @@ del {
 }
 
 .heading {
+  position: fixed;
   width: 100%;
   min-width: 100%;
-  position: absolute;
   top: 80px;
+  z-index: -1;
+}
+
+.rocket {
+  width: 100%;
+  min-width: 100%;
+  position: fixed;
+  bottom: 0;
   z-index: -1;
 }
 
@@ -1368,4 +1376,9 @@ del {
   transform: rotate(3deg);
   right: 10px;
   left: auto;
+}
+
+.see-through{
+  opacity: 0;
+  cursor: default !important;
 }

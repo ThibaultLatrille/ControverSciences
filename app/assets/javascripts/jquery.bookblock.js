@@ -276,6 +276,7 @@
                     self.$nextItem.show();
                     self.mouseIn = false;
                     self.isAnimating = false;
+                    self.isBlocked = false;
                     var isLimit = dir === 'next' && self.current === self.itemsCount - 1 || dir === 'prev' && self.current === 0;
                     // callback trigger
                     self.options.onEndFlip(self.previous, self.current, isLimit);
@@ -388,20 +389,26 @@
         },
         // public method: flips next
         next: function () {
+            this.isBlocked = true;
             this._action(this.options.direction === 'ltr' ? 'next' : 'prev');
         },
         // public method: flips next
         nextHover: function () {
-            this.mouseOut = false;
-            this._action(this.options.direction === 'ltr' ? 'next' : 'prev', undefined, true);
+            if (!this.isBlocked){
+                this.mouseOut = false;
+                this._action(this.options.direction === 'ltr' ? 'next' : 'prev', undefined, true);
+            }
         },
         // public method: flips back
         prev: function () {
+            this.isBlocked = true;
             this._action(this.options.direction === 'ltr' ? 'prev' : 'next');
         },
         prevHover: function () {
-            this.mouseOut = false;
-            this._action(this.options.direction === 'ltr' ? 'prev' : 'next', undefined, true);
+            if (!this.isBlocked){
+                this.mouseOut = false;
+                this._action(this.options.direction === 'ltr' ? 'prev' : 'next', undefined, true);
+            }
         },
         hideHover: function () {
             if (this.mouseIn) {

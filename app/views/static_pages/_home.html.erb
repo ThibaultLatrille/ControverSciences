@@ -1,47 +1,18 @@
-<div id="my-container" class="container-fluid" style="background: transparent url(<%= image_url "rocket.svg" %>); background-size: 100%; background-position: center bottom; background-repeat:no-repeat;">
-  <div class="heading">
-    <%= image_tag "stars.png", class: "img-responsive" %>
-  </div>
-  <div id="home">
-    <div class="row">
-      <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-        <br>
-
-        <div class="framed">
-          <div class="row">
-            <div class="col-xs-12 col-md-4 center">
-              <div class="navigation btn btn-default btn-block" data-body="contribuer">
-                <span class="icon icon-users"></span> &nbsp
-                Contribuer
-              </div>
-            </div>
-            <div class="col-xs-12 col-md-4 center">
-              <div class="navigation btn btn-default btn-block" data-body="decouvrir">
-                <span class="icon icon-geography"></span> &nbsp
-                Découvrir
-              </div>
-            </div>
-            <div class="col-xs-12 col-md-4 center">
-              <div class="navigation btn btn-default btn-block" data-body="decouvrir">
-                <span class="icon icon-telescope"></span> &nbsp
-                Explorer
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="heading">
+  <%= image_tag "stars.png", class: "img-responsive" %>
+</div>
+<div class="rocket">
+  <%= image_tag "rocket.svg", class: "img-responsive" %>
+</div>
+<div id="my-container" class="container-fluid">
   <div id="body-controversciences" class="leading activated">
     <div id="controverse" class="activated sub-leading">
       <div class="col-xs-12 col-md-offset-1 col-md-10 center">
-        <br>
-        <br>
-
         <div class="row">
           <div class="col-xs-12 col-md-offset-3 col-md-6 center">
             <% if @favorite %>
                 <br><br>
+
                 <div id="favorite">
                   <a id="favorite-timeline" class="bb-custom-wrapper hvr-grow" href="<%= timeline_path @favorite %>">
                     <h4>
@@ -50,7 +21,7 @@
                       <span class="glyphicon glyphicon-star-empty normal"></span>
                     </h4>
 
-                    <h3 class="shadowed">
+                    <h3 class="shadowed center">
                       <%= @favorite.name.html_safe %>
                     </h3>
                   </a>
@@ -59,8 +30,9 @@
           </div>
         </div>
         <br><br>
-        <%= link_to "<b>Toutes les controverses</b>".html_safe, timelines_path, class: "btn btn-lg btn-primary", style: "font-size: 1.6em" %>
+        <%= link_to "<b>Toutes les controverses</b>".html_safe, timelines_path, class: "btn btn-lg btn-primary", style: "font-size: 1.8em; padding: 0.5em 1.5em;" %>
         <br><br><br>
+
         <div class="row">
           <div id="comics" class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
             <div class="bb-custom-wrapper shadow-effect">
@@ -84,11 +56,17 @@
               </div>
               <br>
               <nav>
-                <a id="bb-nav-prev" href="#" class="btn btn-default"><span class="glyphicon glyphicon-menu-left"></span>
-                  Profil précèdent</a>
-                <a id="bb-zoom-in" href="#" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in"></span></a>
-                <a id="bb-nav-next" href="#" class="btn btn-default">Profil suivant
-                  <span class="glyphicon glyphicon-menu-right"></span></a>
+                <a id="bb-nav-prev" href="#" class="btn btn-default">
+                  <span class="glyphicon glyphicon-menu-left"></span>
+                  <span class="text">Le bienveillant</span>
+                </a>
+                <a id="bb-zoom-in" href="#" class="btn btn-default">
+                  <span class="glyphicon glyphicon-zoom-in"></span>
+                </a>
+                <a id="bb-nav-next" href="#" class="btn btn-default">
+                  <span class="text">Le sphinx</span>
+                  <span class="glyphicon glyphicon-menu-right"></span>
+                </a>
               </nav>
               <br>
               <br>
@@ -132,6 +110,7 @@
             </div>
           </div>
           <script>
+              var nameHash = ["L’enthousiaste", "Le sphinx", "Le Seigneur des titres", "L'encyclopédique", "L’analyste", "Le juge", "L’écrivain", "L’évaluateur", "Le bienveillant"];
               var Page = (function () {
 
                   var config = {
@@ -150,6 +129,8 @@
                                   onEndFlip: function (old, page, isLimit) {
                                       config.$nav.removeClass('bb-current');
                                       config.$nav.eq(page).addClass('bb-current');
+                                      $(".text", config.$navPrev).text(nameHash[page == 0 ? 8 : page - 1]);
+                                      $(".text", config.$navNext).text(nameHash[(page + 1) % 9]);
                                       return false;
                                   }
                               });
@@ -290,7 +271,7 @@
           <div id="discover" class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
             <div class="bb-custom-wrapper shadow-effect">
               <h1 style="font-size: 2.4em;">
-                Comment est construite une controverse ?
+                Quelles sont les étapes de la vie d'une controverse ?
               </h1>
 
               <div class="panel-body">
@@ -314,13 +295,16 @@
                       <span class="icon icon-built"></span></li>
                   </ul>
                   <div class="row">
-                    <div class="go-left btn btn-default"><span class="glyphicon glyphicon-menu-left"></span>
-                      Revenir en arrière
+                    <div class="go-left btn btn-default see-through">
+                      <span class="glyphicon glyphicon-menu-left"></span>
+                      <span class="text">Étape précédente</span>
                     </div>
                     <a id="dc-zoom-in" href="#" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in"></span></a>
 
-                    <div class="go-right btn btn-default">Suite du destin
-                      <span class="glyphicon glyphicon-menu-right"></span></div>
+                    <div class="go-right btn btn-default">
+                      <span class="text">Étape suivante</span>
+                      <span class="glyphicon glyphicon-menu-right"></span>
+                    </div>
                   </div>
                   <br>
 
@@ -436,57 +420,60 @@
                     $('.glyphicon', this).toggleClass("glyphicon-zoom-out");
                     return false;
                 });
-                $('.slider').on('click', function () {
-                    $("#items .item").removeClass("opaque");
-
+                var $slider = $(".slider"), $items = $(".item"),
+                        $goRight = $('.go-right'), $goLeft = $('.go-left');
+                function navigationStep(index){
+                    $items.removeClass("opaque");
+                    $items.eq(index).addClass("opaque");
+                    $slider.removeClass("active");
+                    $slider.eq(index).addClass("active");
+                    $goRight.removeClass("see-through");
+                    $goLeft.removeClass("see-through");
+                    if (index == 0) {
+                        $goLeft.addClass("see-through")
+                    } else if (index == $slider.size()-1) {
+                        $goRight.addClass("see-through")
+                    }
+                }
+                $slider.on('click', function () {
                     var newImage = $(this).index();
-
-                    $("#items .item").eq(newImage).addClass("opaque");
-
-                    $(".slider").removeClass("active");
-                    $(this).addClass("active");
+                    navigationStep(newImage)
                 });
-                $('.go-right').on("click", function () {
-                    var index = ($(".active", "#navigation").index() + 1) % $(".slider").size();
-                    $("#items .item").removeClass("opaque");
-                    $("#items .item").eq(index).addClass("opaque");
-                    $(".slider").removeClass("active");
-                    $("#navigation .slider").eq(index).addClass("active");
+                $goRight.on("click", function () {
+                    var index = $(".active", "#navigation").index() + 1;
+                    if (index < $slider.size()){
+                        navigationStep(index)
+                    }
                 });
-                $('.go-left').on("click", function () {
-                    var index = ($(".active", "#navigation").index() - 1) % $(".slider").size();
-                    $("#items .item").removeClass("opaque");
-                    $("#items .item").eq(index).addClass("opaque");
-                    $(".slider").removeClass("active");
-                    $("#navigation .slider").eq(index).addClass("active");
+                $goLeft.on("click", function () {
+                    var index = $(".active", "#navigation").index() - 1;
+                    if (index > - 1){
+                        navigationStep(index)
+                    }
                 });
             });
         </script>
         <br><br>
-
-        <h1 style="font-size: 2.4em;">
-          Explorer les diffèrents recoin de ControverSciences
-        </h1>
         <br>
         <%= link_to "<b><span class=\"icon-users bigger\" ></span> Qui sont les contributeurs ?</b>".html_safe,
                     users_path,
-                    class: "btn btn-lg btn-primary" %> <br> <br>
+                    class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %> <br> <br>
         <%= link_to "<b><span class=\"icon-graph-int bigger\" ></span> ControverSciences est-il actif ?</b>".html_safe,
                     contributions_path,
-                    class: "btn btn-lg btn-primary" %> <br> <br>
+                    class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %> <br> <br>
         <%= link_to "<b><span class=\"icon-network bigger\" ></span> Les controverses ont-elles des liens entre elles ?</b>".html_safe,
                     timelines_graph_path,
-                    class: "btn btn-lg btn-primary" %> <br> <br>
+                    class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %> <br> <br>
         <%= link_to "<b><span class=\"icon-circo bigger\" ></span> Controversciences est-il inter-disciplinaire ?</b>".html_safe,
                     tag_pairs_graph_path,
-                    class: "btn btn-lg btn-primary" %>
+                    class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %>
         <br>
         <br><br>
         <br>
 
         <div class="row">
-          <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
-            <div class="framed">
+          <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+            <div class="bb-custom-wrapper shadow-effect">
               <h1 style="font-size: 2.4em">
                 Une passerelle entre la société et les scientifiques <br>
                 autour de questions controversées.
@@ -534,7 +521,7 @@
 
         <div class="carousel-container">
           <div id="mycarousel" class="carousel slide" data-ride="carousel">
-            <div class="framed">
+            <div class="bb-custom-wrapper shadow-effect">
               <div class="carousel-inner home-carrousel" role="listbox">
                 <div class="item active center">
                   <br/>
