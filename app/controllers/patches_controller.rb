@@ -1,5 +1,5 @@
 class PatchesController < ApplicationController
-  before_action :logged_in_user, only: [:accept, :mine, :modal, :new, :target, :create, :destroy, :index]
+  before_action :logged_in_user, only: [:accept, :mine, :modal, :new, :target, :create, :index]
 
   def modal
     @patch = GoPatch.new(get_params)
@@ -72,7 +72,13 @@ class PatchesController < ApplicationController
   end
 
   def index
-    @patches = GoPatch.includes(:frame).includes(:summary).includes(:comment).where.not(target_user_id: current_user.id)
+    if current_user.admin
+      @patches = GoPatch.includes(:frame).includes(:summary).includes(:comment).where.not(target_user_id: current_user.id)
+
+    else
+      @patches = GoPatch.includes(:frame).includes(:summary).includes(:comment).where(target_user_id: current_user.id)
+
+    end
   end
 
   def accept
@@ -95,7 +101,7 @@ class PatchesController < ApplicationController
       render :nothing => true, :status => 403
     end
   end
-  
+
   private
 
   def get_params
