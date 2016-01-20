@@ -37,6 +37,7 @@
             <li><%= link_to "<b><span class=\"icon-graph-int bigger\" ></span> #{t('views.navigation.contributions')}</b>".html_safe, contributions_path %> </li>
             <li><%= link_to "<b><span class=\"icon-network bigger\" ></span> #{t('views.timelines.edges')}</b>".html_safe, timelines_graph_path %> </li>
             <li><%= link_to "<b><span class=\"icon-circo bigger\" ></span> Pluridisciplinarité</b>".html_safe, tag_pairs_graph_path %> </li>
+            <li><%= link_to  t('views.partners.index_html'), partners_path %> </li>
             <li class="divider"></li>
             <% if logged_in? && !current_user.private_timeline && current_user.empty_references > 0 %>
                 <li>
