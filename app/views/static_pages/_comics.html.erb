@@ -1,0 +1,236 @@
+<div class="row">
+  <div id="comics" class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+    <div class="bb-custom-wrapper shadow-effect">
+      <h1 style="font-size: 2.4em;">
+        <% if logged_in? %>
+            Quel contributeur êtes-vous ?
+        <% else %>
+            Quel contributeur seriez-vous ?
+        <% end %>
+
+      </h1>
+      <br>
+
+      <div class="row">
+        <nav>
+          <img class="img-responsive img-icons bb-current hvr-grow" src="<%= image_path "comics-icons/enthousiaste.png" %>" alt="L’enthousiaste"/>
+          <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/sphinx.png" %>" alt="Le sphinx"/>
+          <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/seigneur.png" %>" alt="Le Seigneur des titres"/>
+          <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/encyclopedique.png" %>" alt="L'encyclopédique"/>
+          <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/analyste.png" %>" alt="L’analyste"/>
+          <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/juge.png" %>" alt="Le juge"/>
+          <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/ecrivain.png" %>" alt="L’écrivain"/>
+          <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/evaluateur.png" %>" alt="L’évaluateur"/>
+          <img class="img-responsive img-icons hvr-grow" src="<%= image_path "comics-icons/bienveillant.png" %>" alt="Le bienveillant"/>
+        </nav>
+      </div>
+      <br>
+      <nav>
+        <a id="bb-nav-prev" href="#" class="btn btn-default">
+          <span class="glyphicon glyphicon-menu-left"></span>
+          <span class="text">Le bienveillant</span>
+        </a>
+        <a id="bb-zoom-in" href="#" class="btn btn-default">
+          <span class="glyphicon glyphicon-zoom-in"></span>
+        </a>
+        <a id="bb-nav-next" href="#" class="btn btn-default">
+          <span class="text">Le sphinx</span>
+          <span class="glyphicon glyphicon-menu-right"></span>
+        </a>
+      </nav>
+      <br>
+      <br>
+
+      <div id="bb-bookblock" class="bb-bookblock">
+        <div id="bb-left-page">
+        </div>
+        <div id="bb-right-page">
+        </div>
+        <div id="opacity">
+          <img class="bb-image img-responsive clearfix" src=<%= image_path "comics/encyclopedique.png" %>>
+        </div>
+        <div class="bb-item">
+          <img class="img-responsive" src="<%= image_path "comics/enthousiaste.png" %>" alt="L’enthousiaste"/>
+        </div>
+        <div class="bb-item">
+          <img class="img-responsive" src="<%= image_path "comics/sphinx.png" %>" alt="Le sphinx"/>
+        </div>
+        <div class="bb-item">
+          <img class="img-responsive" src="<%= image_path "comics/seigneur.png" %>" alt="Le Seigneur des titres"/>
+        </div>
+        <div class="bb-item">
+          <img class="img-responsive" src="<%= image_path "comics/encyclopedique.png" %>" alt="L'encyclopédique"/>
+        </div>
+        <div class="bb-item">
+          <img class="img-responsive" src="<%= image_path "comics/analyste.png" %>" alt="L’analyste"/>
+        </div>
+        <div class="bb-item">
+          <img class="img-responsive" src="<%= image_path "comics/juge.png" %>" alt="Le juge"/>
+        </div>
+        <div class="bb-item">
+          <img class="img-responsive" src="<%= image_path "comics/ecrivain.png" %>" alt="L’écrivain"/>
+        </div>
+        <div class="bb-item">
+          <img class="img-responsive" src="<%= image_path "comics/evaluateur.png" %>" alt="L’évaluateur"/>
+        </div>
+        <div class="bb-item">
+          <img class="img-responsive" src="<%= image_path "comics/bienveillant.png" %>" alt="Le bienveillant"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+      var nameHash = ["L’enthousiaste", "Le sphinx", "Le Seigneur des titres", "L'encyclopédique", "L’analyste", "Le juge", "L’écrivain", "L’évaluateur", "Le bienveillant"];
+      var Page = (function () {
+
+          var config = {
+                      $nav: $('.img-icons'),
+                      $bookBlock: $('#bb-bookblock'),
+                      $pageRight: $('#bb-right-page'),
+                      $navNext: $('#bb-nav-next'),
+                      $pageLeft: $('#bb-left-page'),
+                      $navPrev: $('#bb-nav-prev')
+                  },
+                  init = function () {
+                      config.$bookBlock.bookblock({
+                          speed: 800,
+                          shadowSides: 0.8,
+                          shadowFlip: 0.7,
+                          onEndFlip: function (old, page, isLimit) {
+                              config.$nav.removeClass('bb-current');
+                              config.$nav.eq(page).addClass('bb-current');
+                              $(".text", config.$navPrev).text(nameHash[page == 0 ? 8 : page - 1]);
+                              $(".text", config.$navNext).text(nameHash[(page + 1) % 9]);
+                              return false;
+                          }
+                      });
+
+                      initEvents();
+                  },
+                  initEvents = function () {
+
+                      var $slides = config.$bookBlock.children();
+
+                      // add navigation events
+
+                      config.$navPrev.on('click touchstart', function () {
+                          config.$bookBlock.bookblock('prev');
+                          return false;
+                      });
+
+                      config.$navPrev.on('mouseenter', function () {
+                          config.$bookBlock.bookblock('prevHover');
+                          return false;
+                      }).on('mouseleave', function () {
+                          config.$bookBlock.bookblock('hideHover');
+                          return false;
+                      });
+
+                      config.$pageLeft.on('click touchstart', function () {
+                          config.$bookBlock.bookblock('prev');
+                          return false;
+                      });
+
+                      config.$pageLeft.on('mouseenter', function () {
+                          config.$bookBlock.bookblock('prevHover');
+                          return false;
+                      }).on('mouseleave', function () {
+                          config.$bookBlock.bookblock('hideHover');
+                          return false;
+                      });
+
+                      config.$navNext.on('click touchstart', function () {
+                          config.$bookBlock.bookblock('next');
+                          return false;
+                      });
+
+                      config.$navNext.on('mouseenter', function () {
+                          config.$bookBlock.bookblock('nextHover');
+                          return false;
+                      }).on('mouseleave', function () {
+                          config.$bookBlock.bookblock('hideHover');
+                          return false;
+                      });
+
+                      config.$pageRight.on('click touchstart', function () {
+                          config.$bookBlock.bookblock('next');
+                          return false;
+                      });
+
+                      config.$pageRight.on('mouseenter', function () {
+                          config.$bookBlock.bookblock('nextHover');
+                          return false;
+                      }).on('mouseleave', function () {
+                          config.$bookBlock.bookblock('hideHover');
+                          return false;
+                      });
+
+                      // add navigation events
+                      config.$nav.each(function (i) {
+                          $(this).on('click touchstart', function (event) {
+                              config.$bookBlock.bookblock('jump', i + 1);
+                              return false;
+                          });
+                      });
+
+                      // add swipe events
+                      $slides.on({
+                          'swipeleft': function (event) {
+                              config.$bookBlock.bookblock('next');
+                              return false;
+                          },
+                          'swiperight': function (event) {
+                              config.$bookBlock.bookblock('prev');
+                              return false;
+                          }
+                      });
+
+                      // add keyboard events
+                      $(document).keydown(function (e) {
+                          var keyCode = e.keyCode || e.which,
+                                  arrow = {
+                                      left: 37,
+                                      up: 38,
+                                      right: 39,
+                                      down: 40
+                                  };
+
+                          switch (keyCode) {
+                              case arrow.left:
+                                  config.$bookBlock.bookblock('prev');
+                                  break;
+                              case arrow.right:
+                                  config.$bookBlock.bookblock('next');
+                                  break;
+                          }
+                      });
+                  };
+
+          return {init: init};
+
+      })();
+      Page.init();
+      $('#bb-zoom-in').on('click touchstart', function () {
+          $('#comics').toggleClass("col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8");
+          $('.glyphicon', this).toggleClass("glyphicon-zoom-in");
+          $('.glyphicon', this).toggleClass("glyphicon-zoom-out");
+          $('#bb-bookblock').delay(100).bookblock('resize');
+          return false;
+      });
+  </script>
+</div>
+<br><br>
+<div class="row">
+  <% if logged_in? %>
+      <%= link_to "<b><span class=\"icon-user bigger\" ></span> #{t('views.header.user')}</b>".html_safe,
+                  user_path(current_user),
+                  class: "btn btn-lg btn-primary center" %>
+  <% else %>
+      <%= link_to "<b><span class=\"icon-4 bigger\" ></span> #{t('views.sessions.new_user')}</b>".html_safe,
+                  signup_path,
+                  class: "btn btn-lg btn-primary" %>
+      <%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.header.login')}</b>".html_safe,
+                  login_path,
+                  class: "btn btn-lg btn-primary center" %>
+  <% end %>
+</div>

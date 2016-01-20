@@ -260,7 +260,7 @@ fr:
       description: Sa description
       url: Lien vers le site
       why: Pourquoi le faire apparaître sur ControverSciences ?
-      index_html: Le mur du <span class="glyphicon glyphicon-heart"></span>
+      index_html: <span class="glyphicon glyphicon-heart"></span> On aime, on partage !
       index_sub_html: Parce qu'on est fan de ce qu'ils font et qu'on veut le partager ici avec vous !
       taken_into_account: Votre suggestion a été envoyé aux admins
     password:

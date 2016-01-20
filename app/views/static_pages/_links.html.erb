@@ -1,0 +1,18 @@
+<br>
+<%= link_to "<b><span class=\"icon-users bigger\" ></span> Qui sont les contributeurs ?</b>".html_safe,
+            users_path,
+            class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %> <br> <br>
+<%= link_to "<b><span class=\"icon-graph-int bigger\" ></span> ControverSciences est-il actif ?</b>".html_safe,
+            contributions_path,
+            class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %> <br> <br>
+<%= link_to "<b><span class=\"icon-network bigger\" ></span> Les controverses ont-elles des liens entre elles ?</b>".html_safe,
+            timelines_graph_path,
+            class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %> <br> <br>
+<%= link_to "<b><span class=\"icon-circo bigger\" ></span> Controversciences est-il inter-disciplinaire ?</b>".html_safe,
+            tag_pairs_graph_path,
+            class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %> <br> <br>
+<%= link_to "<b>#{t('views.partners.index_html')}</b>".html_safe,
+            partners_path,
+            class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %>
+<br>
+<br>

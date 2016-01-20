@@ -1,0 +1,188 @@
+<div class="row">
+  <div id="discover" class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+    <div class="bb-custom-wrapper shadow-effect">
+      <h1 style="font-size: 2.4em;">
+        Quelles sont les étapes de la vie d'une controverse ?
+      </h1>
+
+      <div class="panel-body">
+        <div id="myCarousel" class="col-xs-12 col-sm-offset-1 col-sm-10">
+          <ul id="navigation">
+            <li class="slider active hvr-grow">
+              <span class="icon icon-staging"></span></li>
+            <li class="slider hvr-grow">
+              <span class="icon icon-reference"></span></li>
+            <li class="slider hvr-grow">
+              <span class="icon icon-comment"></span></li>
+            <li class="slider hvr-grow">
+              <span class="icon icon-summary"></span></li>
+            <li class="slider hvr-grow">
+              <span class="icon icon-flow-fork"></span></li>
+            <li class="slider hvr-grow">
+              <span class="icon icon-frog-laurel"></span></li>
+            <li class="slider hvr-grow">
+              <span class="icon icon-ribbon"></span></li>
+            <li class="slider hvr-grow">
+              <span class="icon icon-built"></span></li>
+          </ul>
+          <div class="row">
+            <div class="go-left btn btn-default see-through">
+              <span class="glyphicon glyphicon-menu-left"></span>
+              <span class="text">Étape précédente</span>
+            </div>
+            <a id="dc-zoom-in" href="#" class="btn btn-default"><span class="glyphicon glyphicon-zoom-in"></span></a>
+
+            <div class="go-right btn btn-default">
+              <span class="text">Étape suivante</span>
+              <span class="glyphicon glyphicon-menu-right"></span>
+            </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-offset-1 col-md-10">
+              <div id="items">
+                <div id="slide-0" class="item opaque">
+                  <div class="title">
+                    <%= t('views.how_to.controverse_head') %>
+                  </div>
+                  <img class="img-responsive" src=<%= path_to_image 'organisation-0.png' %>>
+
+                  <div class="caption clearfix">
+                    <%= t('views.how_to.controverse_body') %>
+                  </div>
+                  <br>
+                </div>
+                <div id="slide-1" class="item">
+                  <div class="title">
+                    <%= t('views.how_to.reference_head') %>
+                  </div>
+                  <img class="img-responsive" src=<%= path_to_image 'organisation-1.png' %>>
+
+                  <div class="caption">
+                    <%= t('views.how_to.reference_body') %>
+                  </div>
+                </div>
+                <div id="slide-2" class="item">
+                  <div class="title">
+                    <%= t('views.how_to.analyse_head') %>
+                  </div>
+                  <img class="img-responsive" src=<%= path_to_image 'organisation-2.png' %>>
+
+                  <div class="caption">
+                    <%= t('views.how_to.analyse_body') %>
+                  </div>
+                </div>
+                <div id="slide-3" class="item">
+                  <div class="title">
+                    <%= t('views.how_to.synthese_head') %>
+                  </div>
+                  <img class="img-responsive" src=<%= path_to_image 'organisation-3.png' %>>
+
+                  <div class="caption">
+                    <%= t('views.how_to.synthese_body') %>
+                  </div>
+                </div>
+                <div id="slide-4" class="item">
+                  <div class="title">
+                    <%= t('views.how_to.ameliorer_head') %>
+                  </div>
+                  <img class="img-responsive" src=<%= path_to_image 'organisation-4.png' %>>
+
+                  <div class="caption">
+                    <%= t('views.how_to.ameliorer_body') %>
+                  </div>
+                </div>
+                <div id="slide-5" class="item">
+                  <div class="title">
+                    <%= t('views.how_to.voter_head') %>
+                  </div>
+                  <img class="img-responsive" src=<%= path_to_image 'organisation-5.png' %>>
+
+                  <div class="caption">
+                    <%= t('views.how_to.voter_body') %>
+                  </div>
+                </div>
+                <div id="slide-6" class="item">
+                  <div class="title">
+                    <%= t('views.how_to.selectionner_head') %>
+                  </div>
+                  <img class="img-responsive" src=<%= path_to_image 'organisation-6.png' %>>
+
+                  <div class="caption">
+                    <%= t('views.how_to.selectionner_body') %>
+                  </div>
+                </div>
+                <div id="slide-7" class="item">
+                  <div class="title">
+                    <%= t('views.how_to.eclosion_head') %>
+                  </div>
+                  <div id="eclosion">
+                    <%= t('views.how_to.eclosion_body') %>
+                    <br><br>
+                    <span class="icon icon-staging"></span> <span class="arrow">&nbsp &#10137; &nbsp</span>
+                    <span class="icon icon-built"></span>
+                  </div>
+                </div>
+                <div id="is-transparent">
+                  <div class="title">
+                    <%= t('views.how_to.reference_head') %>
+                  </div>
+                  <img class="img-responsive clearfix" src=<%= path_to_image 'organisation-0.png' %>>
+
+                  <div class="caption clearfix">
+                    <%= t('views.how_to.reference_body') %>
+                  </div>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dc-zoom-in').on('click touchstart', function () {
+            $('#discover').toggleClass("col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8");
+            $('.glyphicon', this).toggleClass("glyphicon-zoom-in");
+            $('.glyphicon', this).toggleClass("glyphicon-zoom-out");
+            return false;
+        });
+        var $slider = $(".slider"), $items = $(".item"),
+                $goRight = $('.go-right'), $goLeft = $('.go-left');
+
+        function navigationStep(index) {
+            $items.removeClass("opaque");
+            $items.eq(index).addClass("opaque");
+            $slider.removeClass("active");
+            $slider.eq(index).addClass("active");
+            $goRight.removeClass("see-through");
+            $goLeft.removeClass("see-through");
+            if (index == 0) {
+                $goLeft.addClass("see-through")
+            } else if (index == $slider.size() - 1) {
+                $goRight.addClass("see-through")
+            }
+        }
+
+        $slider.on('click', function () {
+            var newImage = $(this).index();
+            navigationStep(newImage)
+        });
+        $goRight.on("click", function () {
+            var index = $(".active", "#navigation").index() + 1;
+            if (index < $slider.size()) {
+                navigationStep(index)
+            }
+        });
+        $goLeft.on("click", function () {
+            var index = $(".active", "#navigation").index() - 1;
+            if (index > -1) {
+                navigationStep(index)
+            }
+        });
+    });
+</script>
