@@ -10,13 +10,13 @@ class DeadLinksController < ApplicationController
     else
       flash[:danger] = t('controllers.dead_link_not_ok')
     end
-    redirect_to :back
+    redirect_to_back
   end
 
   def destroy
     dead_link = DeadLink.find(params[:id])
     dead_link.destroy
-    redirect_to :back
+    redirect_to_back
   end
 
   def index

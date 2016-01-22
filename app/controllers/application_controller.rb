@@ -13,6 +13,14 @@ class ApplicationController < ActionController::Base
     I18n.locale = extract_locale_from_subdomain || I18n.default_locale
   end
 
+  def redirect_to_back(default = root_url)
+    if request.env["HTTP_REFERER"].present? and request.env["HTTP_REFERER"] != request.env["REQUEST_URI"]
+      redirect_to :back
+    else
+      redirect_to default
+    end
+  end
+
   def before_render
     if logged_in?
       if current_user.private_timeline

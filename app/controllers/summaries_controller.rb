@@ -91,7 +91,7 @@ class SummariesController < ApplicationController
       @timeline = Timeline.select(:id, :slug, :nb_summaries, :name, :private).find(@summary.timeline_id)
       if @timeline.private && !logged_in?
         flash[:danger] = "Cette synthèse appartient à une controverse privée, vous ne pouvez pas y accèder !"
-        redirect_to :back
+        redirect_to_back timelines_path
       else
         if logged_in?
           @improve = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id).count == 1 ? false : true

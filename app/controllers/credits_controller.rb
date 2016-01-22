@@ -22,6 +22,6 @@ class CreditsController < ApplicationController
       credit.destroy
       credit.update_summary
     end
-    redirect_to :back
+    redirect_to_back
   end
 end

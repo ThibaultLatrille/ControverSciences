@@ -24,6 +24,6 @@ class VotesController < ApplicationController
       vote.destroy
       vote.update_comment
     end
-    redirect_to :back
+    redirect_to_back
   end
 end

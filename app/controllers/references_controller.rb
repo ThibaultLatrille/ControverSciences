@@ -159,7 +159,7 @@ class ReferencesController < ApplicationController
       @timeline = Timeline.select(:id, :slug, :private).find(@reference.timeline_id)
       if @timeline.private && !logged_in?
         flash[:danger] = "Cette référence appartient à une controverse privée, vous ne pouvez pas y accèder !"
-        redirect_to :back
+        redirect_to_back timelines_path
       else
         if logged_in?
           user_id = current_user.id

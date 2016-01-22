@@ -93,7 +93,7 @@ class TimelinesController < ApplicationController
       @timeline    = Timeline.find(params[:id])
       if @timeline.private && !logged_in?
         flash[:danger] = "Cette controverse est privée, vous ne pouvez pas y accèder !"
-        redirect_to :back
+        redirect_to_back timelines_path
       else
         Timeline.increment_counter(:views, @timeline.id )
         summary_best = SummaryBest.find_by(timeline_id: @timeline.id)
@@ -174,7 +174,7 @@ class TimelinesController < ApplicationController
     if current_user.private_timeline
       Timeline.where(id: params[:timeline_id]).update_all( private: false)
     end
-    redirect_to :back
+    redirect_to_back timelines_path
   end
 
   def switch_staging
@@ -198,7 +198,7 @@ class TimelinesController < ApplicationController
     else
       flash[:danger] = t('controllers.only_admins')
     end
-    redirect_to :back
+    redirect_to_back timelines_path
   end
 
   def switch_favorite
@@ -209,7 +209,7 @@ class TimelinesController < ApplicationController
     else
       flash[:danger] = t('controllers.only_admins')
     end
-    redirect_to :back
+    redirect_to_back timelines_path
   end
 
   def next

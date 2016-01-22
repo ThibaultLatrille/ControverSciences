@@ -22,7 +22,7 @@ class FrameCreditsController < ApplicationController
       frame_credit.destroy
       frame_credit.update_frame
     end
-    redirect_to :back
+    redirect_to_back
   end
 
 end
