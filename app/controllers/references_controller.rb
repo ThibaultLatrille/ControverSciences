@@ -156,48 +156,53 @@ class ReferencesController < ApplicationController
       Reference.increment_counter(:views, @reference.id )
       @target = Reference.select( :id, :year, :title, :title_fr ).where( id: ReferenceEdge.where(reference_id: @reference.id).pluck(:target) )
       @from = Reference.select( :id, :year, :title, :title_fr ).where( id: ReferenceEdge.where(target: @reference.id).pluck(:reference_id) )
-
-      if logged_in?
-        user_id = current_user.id
-        visitereference = VisiteReference.find_or_create_by( user_id: current_user.id, reference_id: @reference.id )
-        VisiteReference.increment_counter(:counter, visitereference.id)
-        visitereference.update_columns(updated_at: Time.current)
-        ref_user_tag = ReferenceUserTag.find_by(user_id: user_id,
-                                             reference_id: @reference.id)
-        if ref_user_tag
-          @tag_list = ref_user_tag.get_tag_list
-        else
-          @tag_list = []
-        end
-        @user_rating = @reference.ratings.find_by(user_id: user_id)
-        unless @user_rating.nil?
-          @user_rating = @user_rating.value
-        end
-        if @reference.binary != ''
-          @user_binary = @reference.binaries.find_by(user_id: user_id)
-          unless @user_binary.nil?
-            @user_binary = @user_binary.value
+      @timeline = Timeline.select(:id, :slug, :private).find(@reference.timeline_id)
+      if @timeline.private && !logged_in?
+        flash[:danger] = "Cette référence appartient à une controverse privée, vous ne pouvez pas y accèder !"
+        redirect_to :back
+      else
+        if logged_in?
+          user_id = current_user.id
+          visitereference = VisiteReference.find_or_create_by( user_id: current_user.id, reference_id: @reference.id )
+          VisiteReference.increment_counter(:counter, visitereference.id)
+          visitereference.update_columns(updated_at: Time.current)
+          ref_user_tag = ReferenceUserTag.find_by(user_id: user_id,
+                                                  reference_id: @reference.id)
+          if ref_user_tag
+            @tag_list = ref_user_tag.get_tag_list
+          else
+            @tag_list = []
           end
-        end
-        visit = VisiteReference.find_by( user_id: user_id, reference_id: @reference.id )
-        if visit
-          visit.update( updated_at: Time.zone.now )
-        else
-          VisiteReference.create( user_id: user_id, reference_id: @reference.id )
-        end
-        @my_votes = Vote.where(user_id: current_user.id, reference_id: @reference.id )
-        @comment = Comment.find_by( user_id: user_id, reference_id: @reference.id )
-        if params[:filter] == "my-vote"
-          @best_comment = BestComment.new
-          @my_votes.each do |vote|
-            @best_comment["f_#{vote.field}_comment_id"] = vote.comment_id
-            @best_comment["f_#{vote.field}_user_id"] = vote.comment_short.user_id
+          @user_rating = @reference.ratings.find_by(user_id: user_id)
+          unless @user_rating.nil?
+            @user_rating = @user_rating.value
+          end
+          if @reference.binary != ''
+            @user_binary = @reference.binaries.find_by(user_id: user_id)
+            unless @user_binary.nil?
+              @user_binary = @user_binary.value
+            end
+          end
+          visit = VisiteReference.find_by( user_id: user_id, reference_id: @reference.id )
+          if visit
+            visit.update( updated_at: Time.zone.now )
+          else
+            VisiteReference.create( user_id: user_id, reference_id: @reference.id )
+          end
+          @my_votes = Vote.where(user_id: current_user.id, reference_id: @reference.id )
+          @comment = Comment.find_by( user_id: user_id, reference_id: @reference.id )
+          if params[:filter] == "my-vote"
+            @best_comment = BestComment.new
+            @my_votes.each do |vote|
+              @best_comment["f_#{vote.field}_comment_id"] = vote.comment_id
+              @best_comment["f_#{vote.field}_user_id"] = vote.comment_short.user_id
+            end
+          else
+            @best_comment = BestComment.find_by_reference_id( @reference.id )
           end
         else
           @best_comment = BestComment.find_by_reference_id( @reference.id )
         end
-      else
-        @best_comment = BestComment.find_by_reference_id( @reference.id )
       end
     rescue ActiveRecord::RecordNotFound
       flash[:danger] = t('controllers.ref_record_not_found')

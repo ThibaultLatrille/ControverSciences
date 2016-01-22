@@ -91,12 +91,18 @@ class CommentsController < ApplicationController
   def show
     begin
       @comment = Comment.find(params[:id])
-      unless @comment.public
-        if current_user && current_user.id == @comment.user_id
-          flash.now[:info] = t('controllers.comment_private')
-        else
-          flash[:danger] = t('controllers.comment_privated')
-          redirect_to reference_path(@comment.reference_id)
+      @timeline = Timeline.select(:id, :slug, :private).find(@comment.timeline_id)
+      if @timeline.private && !logged_in?
+        flash[:danger] = "Cette analyse appartient à une controverse privée, vous ne pouvez pas y accèder !"
+        redirect_to :back
+      else
+        unless @comment.public
+          if current_user && current_user.id == @comment.user_id
+            flash.now[:info] = t('controllers.comment_private')
+          else
+            flash[:danger] = t('controllers.comment_privated')
+            redirect_to reference_path(@comment.reference_id)
+          end
         end
       end
     rescue ActiveRecord::RecordNotFound

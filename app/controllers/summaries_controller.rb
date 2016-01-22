@@ -88,12 +88,17 @@ class SummariesController < ApplicationController
       @summary = Summary.select(:id, :user_id, :timeline_id,
                                 :markdown, :balance, :best, :figure_id, :caption_markdown,
                                 :created_at).find(params[:id])
-      if logged_in?
-        @improve = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id).count == 1 ? false : true
-        @my_credit = Credit.find_by(user_id: current_user.id, timeline_id: @summary.timeline_id)
-        @only_one_summary = Summary.where(public: true, timeline_id: @summary.timeline_id).count == 1
+      @timeline = Timeline.select(:id, :slug, :nb_summaries, :name, :private).find(@summary.timeline_id)
+      if @timeline.private && !logged_in?
+        flash[:danger] = "Cette synthèse appartient à une controverse privée, vous ne pouvez pas y accèder !"
+        redirect_to :back
+      else
+        if logged_in?
+          @improve = Summary.where(user_id: current_user.id, timeline_id: @summary.timeline_id).count == 1 ? false : true
+          @my_credit = Credit.find_by(user_id: current_user.id, timeline_id: @summary.timeline_id)
+          @only_one_summary = Summary.where(public: true, timeline_id: @summary.timeline_id).count == 1
+        end
       end
-      @timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
     rescue ActiveRecord::RecordNotFound
       flash[:danger] = t('controllers.summary_record_not_found')
       redirect_to timelines_path
