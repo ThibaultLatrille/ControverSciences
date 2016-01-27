@@ -1405,6 +1405,10 @@ del {
   color: #ffffff !important;
   background-color: #d9534f !important;
   border-color: #d43f3a !important;
+  .badge-li{
+    background-color: #ffffff !important;
+    color: #d9534f !important;
+  }
 }
 .list-group-item-danger:hover,
 .list-group-item-danger:focus,
@@ -1414,4 +1418,7 @@ del {
   color: #ffffff !important;
   background-color: #c9302c !important;
   border-color: #ac2925 !important;
+  .badge-li{
+    color: #c9302c !important;
+  }
 }
