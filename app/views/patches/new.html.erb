@@ -22,6 +22,7 @@
           </b>
           <br/>
           <br/>
+
           <div id="prepend-errors"></div>
           <div id="patch-form">
             <b style="font-size: 1.4em">Correction</b>
@@ -54,6 +55,7 @@
 
               <div id="diff" style="text-align: justify"></div>
               <br>
+
               <div class="pull-right">
                 <div id="back-edit" class="btn btn-default">
                   <span class="glyphicon glyphicon-edit"></span>
@@ -80,16 +82,36 @@
   </div>
 </div>
 
+<% if @patch.summary_id || (@patch.comment_id && @patch.field != 6) %>
+    <%= render 'modals/timelines_list', timelines_list: @tim_list, timeline_id: @patch.parent.timeline_id %>
 
+    <%= render 'modals/reference_list', references_list: @list %>
+
+    <%= render 'modals/href' %>
+    <script type="text/javascript">
+        $("#description").markdown({
+            autofocus: true,
+            savable: false
+        });
+    </script>
+<% elsif @patch.frame_id && @patch.field == 1 %>
+    <script type="text/javascript">
+        $("#description").markdown({
+            autofocus: true,
+            savable: false,
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
+        });
+    </script>
+<% else %>
+    <script type="text/javascript">
+        $("#description").markdown({
+            autofocus: true,
+            savable: false,
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra', 'cmdList', 'cmdListO', 'cmdBold']
+        });
+    </script>
+<% end %>
 <%= render 'shared/length_counter' %>
-
-<script type="text/javascript">
-    $("#description").markdown({
-        autofocus: false,
-        savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
-    });
-</script>
 
 <script type="text/javascript">
     (function () {
