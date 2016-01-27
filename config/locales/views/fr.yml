@@ -226,8 +226,11 @@ fr:
       about: " A propos"
       close: Fermer
       issue: |-
-        Si vous avez déniché un bug, une faute, ou si vous avez des remarques sur le site,
-                      ne soyez pas égoïste, faites-le nous savoir, cette page est là pour ça ;-)
+        Si vous avez déniché un bug, ou si vous avez des remarques sur le site,
+                      ne soyez pas égoïste, faites-le nous savoir, cette page est là pour ça !
+      grammar_html: |-
+        Si une <b>faute de français</b> vous a ecorché les yeux, suggèrez une amélioration à
+        l'auteur de la contribution à l'aide de ce boutton
       issue_amelioration: Critique sur le fond
       issue_author: Auteur (facultatif)
       issue_body: Description

@@ -228,6 +228,8 @@ en:
       issue: |-
         If you found out about a bug, a mistake, or if you have any comments about the website,
                       don't be selfish, let us know, that's why there is this page ;-)
+      grammar_html: |-
+        If you found out <b>a mistake</b>, suggest an improvement to the author using this button
       issue_amelioration: Criticism on the content
       issue_author: Author (optional)
       issue_body: Description
