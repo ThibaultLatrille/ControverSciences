@@ -172,7 +172,7 @@ class TimelinesController < ApplicationController
 
   def set_public
     if current_user.admin
-      Timeline.find(params[:timeline_id]).send_notifications
+      Timeline.find(params[:timeline_id]).create_notifications
       Timeline.where(id: params[:timeline_id]).update_all( private: false)
     else
       flash[:danger] = t('controllers.only_admins')

@@ -178,9 +178,9 @@ class Timeline < ActiveRecord::Base
     Binary.where( timeline_id: self.id ).delete_all
   end
 
-  def send_notifications
+  def create_notifications
     notifications = []
-    User.all.pluck(:id).each do |user_id|
+    User.where(activated: true).pluck(:id).each do |user_id|
       unless self.user_id == user_id
         notifications << Notification.new( user_id: user_id, timeline_id: self.id, category: 1 )
       end
@@ -209,7 +209,7 @@ class Timeline < ActiveRecord::Base
     Frame.create( user_id: self.user_id, best: true,
                    content: self.frame, name: self.name, timeline_id: self.id, binary: self.binary )
     unless self.private
-      send_notifications
+      create_notifications
     end
     TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
   end

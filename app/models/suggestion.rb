@@ -45,7 +45,7 @@ class Suggestion < ActiveRecord::Base
   def cascading_save
     if self.timeline_id.blank?
       notifications = []
-      User.all.pluck(:id).each do |user_id|
+      User.where(activated: true).pluck(:id).each do |user_id|
         unless self.user_id == user_id
           notifications << Notification.new(user_id: user_id, suggestion_id: self.id,
                                             category: 7)
