@@ -371,12 +371,13 @@
         function toggleDestroyButton() {
             var itemsLength = $(".destroy-box:checked").length;
             $numberItem.text(itemsLength);
-            if (itemsLength > 0){
+            if (itemsLength > 0) {
                 $destroyButton.show()
             } else {
                 $destroyButton.hide()
             }
         }
+
         var $numberItem = $('#number-item'),
                 $destroyButton = $('#destroy-button'),
                 $destroyBox = $(".destroy-box");
