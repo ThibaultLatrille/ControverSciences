@@ -1400,3 +1400,18 @@ del {
     }
   }
 }
+
+.list-group-item-danger {
+  color: #ffffff !important;
+  background-color: #d9534f !important;
+  border-color: #d43f3a !important;
+}
+.list-group-item-danger:hover,
+.list-group-item-danger:focus,
+.list-group-item-danger.focus,
+.list-group-item-danger:active,
+.list-group-item-danger.active{
+  color: #ffffff !important;
+  background-color: #c9302c !important;
+  border-color: #ac2925 !important;
+}

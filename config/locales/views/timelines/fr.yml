@@ -253,7 +253,7 @@ fr:
       best_frames: Les améliorations de controverses qui ont pris la première place
       best_summaries: Les synthèses qui ont pris la première place
       delete: Supprimer ces notifications
-      delete_all: Supprimer toutes les notifications sur cette page
+      delete_all: Supprimer toutes les notifications
       delete_selected: Supprimer les notifications sélectionnées
       downvoted: Vos contributions qui ont perdu la première place
       new: 'Les nouvelles/nouveaux :'

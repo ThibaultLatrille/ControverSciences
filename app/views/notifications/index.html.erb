@@ -3,378 +3,398 @@
   <%= t('views.header.news', count: current_user.notifications_all) %>
 </h1>
 <div id="my-container" class="container-fluid">
-<%= form_for( :notification, url: notifications_delete_path, method: :post ) do |f| %>
-<div class="row">
+  <%= form_for(:notification, url: notifications_delete_path, method: :post) do |f| %>
+      <div class="row">
 
-<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
-<div class="list-group">
-    <div class="list-group-item">
-  <%= t('views.notifications.new') %>
-  </div>
-      <% { timeline: t('views.model.timelines'),
-           frame: t('views.model.frames'),
-           summary: t('views.model.summaries'),
-           reference: t('views.model.references'),
-           comment: t('views.model.comments')}.each do |key, value| %>
-          <%= link_to "<span class=\"badge\">#{current_user.send( "notifications_#{key}")}</span>
+        <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
+          <div class="list-group">
+            <div class="list-group-item">
+              <%= t('views.notifications.new') %>
+            </div>
+            <% {timeline: t('views.model.timelines'),
+                frame: t('views.model.frames'),
+                summary: t('views.model.summaries'),
+                reference: t('views.model.references'),
+                comment: t('views.model.comments')}.each do |key, value| %>
+                <%= link_to "<span class=\"badge\">#{current_user.send("notifications_#{key}")}</span>
           <span class=\"icon-#{key} font16\"></span> &nbsp ".html_safe+value,
-                      notifications_index_path(filter: key),
-                      class: "list-group-item" %>
-      <% end %>
-</div>
-  <br/>
-<div class="list-group">
-<div class="list-group-item">
-  <%= t('views.notifications.best_contrib') %>
-</div>
-    <% { frame_selection: t('views.model.frames'),
-         summary_selection: t('views.model.summaries'),
-         selection: t('views.model.comments')
-         }.each do |key, value| %>
-        <%= link_to "<span class=\"badge\">#{current_user.send( "notifications_#{key}")}</span>
+                            notifications_index_path(filter: key),
+                            class: "list-group-item" %>
+            <% end %>
+          </div>
+          <br/>
+
+          <div class="list-group">
+            <div class="list-group-item">
+              <%= t('views.notifications.best_contrib') %>
+            </div>
+            <% {frame_selection: t('views.model.frames'),
+                summary_selection: t('views.model.summaries'),
+                selection: t('views.model.comments')
+               }.each do |key, value| %>
+                <%= link_to "<span class=\"badge\">#{current_user.send("notifications_#{key}")}</span>
                     <span class=\"icon-#{key} font16\"></span> &nbsp ".html_safe+value,
-                    notifications_index_path(filter: key),
-                    class: "list-group-item" %>
-    <% end %>
-</div>
+                            notifications_index_path(filter: key),
+                            class: "list-group-item" %>
+            <% end %>
+          </div>
 
-</div>
-<div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
-<div class="panel panel-default">
-  <% if @filter == :timeline %>
-  <div class="panel-heading">
-    <%= t('views.notifications.new_timelines') %> (<%= @timelines.count %>)
-  </div>
-    <table id="notification-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> <%= t('views.model.timeline') %>  </th>
-        <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
-        <th class="col-xs-4"> <%= t('views.default.tags') %> </th>
-      </tr>
-      </thead>
-      <tbody class="page">
-      <% if !@timelines.any? %>
-          <tr class="notification-timeline">
-            <td></td>
-            <td> <%= t('views.notifications.no_news') %> </td>
-            <td></td>
-          </tr>
-      <% else %>
-          <% @timelines.each do |timeline| %>
-              <tr class="notification-timeline">
-                <td> <%= f.check_box :timeline_ids, { :multiple => true},
-                             checked_value = timeline.id, unchecked_value = nil %> </td>
-                <td> <%= link_to timeline.name.html_safe, notifications_timeline_url( id: timeline.id), class: "btn btn-primary" %> </td>
-                <td>  <%= link_to timeline.user_name, user_path(id: timeline.user_id ), class: "btn btn-primary"  %> </td>
-                <td>
-                  <% timeline.get_tag_list.each do |name| %>
-                      <span class="icon-<%= name %>"></span>
+        </div>
+        <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
+          <div class="panel panel-default">
+            <% if @filter == :timeline %>
+                <div class="panel-heading">
+                  <%= t('views.notifications.new_timelines') %> (<%= @timelines.count %>)
+                </div>
+                <table id="notification-timelines" class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
+                    <th class="col-xs-4"> <%= t('views.model.timeline') %>  </th>
+                    <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
+                    <th class="col-xs-4"> <%= t('views.default.tags') %> </th>
+                  </tr>
+                  </thead>
+                  <tbody class="page">
+                  <% if !@timelines.any? %>
+                      <tr class="notification-timeline">
+                        <td></td>
+                        <td> <%= t('views.notifications.no_news') %> </td>
+                        <td></td>
+                      </tr>
+                  <% else %>
+                      <% @timelines.each do |timeline| %>
+                          <tr class="notification-timeline">
+                            <td> <%= f.check_box :timeline_ids, {class: "destroy-box", :multiple => true},
+                                                 checked_value = timeline.id, unchecked_value = nil %> </td>
+                            <td> <%= link_to timeline.name.html_safe, notifications_timeline_url(id: timeline.id), class: "btn btn-primary" %> </td>
+                            <td>  <%= link_to timeline.user_name, user_path(id: timeline.user_id), class: "btn btn-primary" %> </td>
+                            <td>
+                              <% timeline.get_tag_list.each do |name| %>
+                                  <span class="icon-<%= name %>"></span>
+                              <% end %>
+                            </td>
+                          </tr>
+                      <% end %>
                   <% end %>
-                </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-    <%= paginate @timelines %>
+                  </tbody>
+                </table>
+                <%= paginate @timelines %>
 
-    <% elsif @filter == :frame %>
-    <div class="panel-heading">
-      <%= t('views.notifications.new_frames') %> (<%= @frames.count %>)
-    </div>
-    <table id="notification-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> <%= t('views.model.frame') %> </th>
-        <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
-        <th class="col-xs-4"> <%= t('views.model.of_timeline') %>  </th>
-      </tr>
-      </thead>
-      <tbody class="page">
-      <% if !@frames.any? %>
-          <tr class="notification-summary">
-            <td></td>
-            <td> <%= t('views.notifications.no_news') %> </td>
-            <td></td>
-            <td></td>
-          </tr>
-      <% else %>
-          <% @frames.each do |com| %>
-              <tr class="notification-summary">
-                <td> <%= f.check_box :frame_ids, { :multiple => true},
-                                     checked_value = com.id, unchecked_value = nil %> </td>
-                <td> <%= link_to "Voir la proposition", notifications_frame_path(id: com.id ), class: "btn btn-primary"  %> </td>
-                <td>  <%= link_to com.user_name, user_path(id: com.user_id ), class: "btn btn-primary"  %> </td>
-                <td>  <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary"  %>   </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-    <%= paginate @frames %>
+            <% elsif @filter == :frame %>
+                <div class="panel-heading">
+                  <%= t('views.notifications.new_frames') %> (<%= @frames.count %>)
+                </div>
+                <table id="notification-timelines" class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
+                    <th class="col-xs-4"> <%= t('views.model.frame') %> </th>
+                    <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
+                    <th class="col-xs-4"> <%= t('views.model.of_timeline') %>  </th>
+                  </tr>
+                  </thead>
+                  <tbody class="page">
+                  <% if !@frames.any? %>
+                      <tr class="notification-summary">
+                        <td></td>
+                        <td> <%= t('views.notifications.no_news') %> </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  <% else %>
+                      <% @frames.each do |com| %>
+                          <tr class="notification-summary">
+                            <td> <%= f.check_box :frame_ids, {class: "destroy-box", :multiple => true},
+                                                 checked_value = com.id, unchecked_value = nil %> </td>
+                            <td> <%= link_to "Voir la proposition", notifications_frame_path(id: com.id), class: "btn btn-primary" %> </td>
+                            <td>  <%= link_to com.user_name, user_path(id: com.user_id), class: "btn btn-primary" %> </td>
+                            <td>  <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>   </td>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  </tbody>
+                </table>
+                <%= paginate @frames %>
 
-    <% elsif @filter == :summary %>
-    <div class="panel-heading">
-      <%= t('views.notifications.new_summaries') %> (<%= @summaries.count %>)
-    </div>
-    <table id="notification-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> <%= t('views.model.summary') %>  </th>
-        <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
-        <th class="col-xs-4"> <%= t('views.model.in_timeline') %>  </th>
-      </tr>
-      </thead>
-      <tbody class="page">
-      <% if !@summaries.any? %>
-          <tr class="notification-summary">
-            <td></td>
-            <td> <%= t('views.notifications.no_news') %> </td>
-            <td></td>
-            <td></td>
-          </tr>
-      <% else %>
-          <% @summaries.each do |com| %>
-              <tr class="notification-summary">
-                <td> <%= f.check_box :summary_ids, { :multiple => true},
-                                     checked_value = com.id, unchecked_value = nil %> </td>
-                <td> <%= link_to "Voir la synthèse", notifications_summary_path(id: com.id ), class: "btn btn-primary"  %> </td>
-                <td>  <%= link_to com.user_name, user_path(id: com.user_id ), class: "btn btn-primary"  %> </td>
-                <td>  <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary"  %>   </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-    <%= paginate @summaries %>
-        
-    <% elsif @filter == :reference %>
-    <div class="panel-heading">
-      <%= t('views.notifications.new_references') %> (<%= @references.count %>)
-    </div>
-    <table id="notification-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-4"> <%= t('views.model.reference') %>  </th>
-        <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
-        <th class="col-xs-4"> <%= t('views.model.in_timeline') %> </th>
-      </tr>
-      </thead>
-      <tbody class="page">
-      <% if !@references.any? %>
-          <tr class="notification-reference">
-            <td></td>
-            <td> <%= t('views.notifications.no_news') %> </td>
-            <td></td>
-            <td></td>
-          </tr>
-      <% else %>
-          <% @references.each do |reference| %>
-              <tr class="notification-reference">
-                <td> <%= f.check_box :reference_ids, { :multiple => true},
-                                     checked_value = reference.id, unchecked_value = nil %> </td>
-                <td> <%= link_to reference.title,
-                            notifications_reference_path( id: reference.id ), class: "btn btn-primary"  %> </td>
-                <td>  <%= link_to reference.user_name, user_path(id: reference.user_id ), class: "btn btn-primary"  %> </td>
-                <td> <%= link_to reference.timeline_name.html_safe, timeline_path( reference.timeline_id ), class: "btn btn-primary"  %>   </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-  <%= paginate @references %>
-        
-  <% elsif @filter == :comment %>
-    <div class="panel-heading">
-      <%= t('views.notifications.new_comments') %> (<%= @comments.count %>)
-    </div>
-    <table id="notification-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-3"> <%= t('views.model.comment') %> </th>
-        <th class="col-xs-2"> <%= t('views.default.by_cap') %> </th>
-        <th class="col-xs-3"> <%= t('views.model.of_reference') %> </th>
-        <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
-      </tr>
-      </thead>
-      <tbody class="page">
-      <% if !@comments.any? %>
-          <tr class="notification-comment">
-            <td></td>
-            <td> <%= t('views.notifications.no_news') %> </td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-      <% else %>
-          <% @comments.each do |com| %>
-              <tr class="notification-comment">
-                <td> <%= f.check_box :comment_ids, { :multiple => true},
-                                     checked_value = com.id, unchecked_value = nil %> </td>
-                <td> <%= link_to "Voir l'analyse", notifications_comment_path(id: com.id ), class: "btn btn-primary" %> </td>
-                <td> <%= link_to com.user_name, user_path(id: com.user_id ), class: "btn btn-primary" %></td>
-                <td>  <%= link_to com.reference_title, reference_path(com.reference_id), class: "btn btn-primary" %></td>
-                <td>  <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary" %>   </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-  <%= paginate @comments %>
-        
-  <% elsif @filter == :selection %>
-    <div class="panel-heading">
-      <%= t('views.notifications.best_comments') %>
-      (<%= @selections.count %>)
-    </div>
-  <table id="notification-timelines" class="table table-striped table-hover">
-    <thead>
-    <tr>
-      <th class="col-xs-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-      <th class="col-xs-3"> <%= t('views.model.comment') %> </th>
-      <th class="col-xs-2"> <%= t('views.default.by_cap') %> </th>
-      <th class="col-xs-3"> <%= t('views.model.of_reference') %> </th>
-      <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
-    </tr>
-    </thead>
-    <tbody class="page">
-    <% if !@selections.any? %>
-        <tr class="notification-sel-comment">
-          <td></td>
-          <td> <%= t('views.notifications.no_news') %></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-    <% else %>
-        <% @selections.each do |notif| %>
-            <tr class="notification-sel-comment">
-              <td> <%= f.check_box :sel_comment_ids, { :multiple => true},
-                                   checked_value = notif.comment_id, unchecked_value = nil %> </td>
-              <td> <%= link_to category_hash[ notif.reference.category][notif.field],
-                               notifications_selection_path(id: notif.comment_id,
-                                                                        field: notif.field ), class: "btn btn-primary" %> </td>
-              <td> <%= link_to notif.comment.user_name, user_path( notif.comment.user_id ), class: "btn btn-primary" %> </td>
-              <td> <%= link_to notif.reference.title, reference_path(notif.reference_id), class: "btn btn-primary" %> </td>
-              <td>  <%= link_to notif.comment.timeline_name.html_safe, timeline_path(notif.timeline_id ), class: "btn btn-primary" %> </td>
-            </tr>
-        <% end %>
-    <% end %>
-    </tbody>
-  </table>
-  <%= paginate @selections %>
-  <% elsif @filter == :frame_selection %>
+            <% elsif @filter == :summary %>
+                <div class="panel-heading">
+                  <%= t('views.notifications.new_summaries') %> (<%= @summaries.count %>)
+                </div>
+                <table id="notification-timelines" class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
+                    <th class="col-xs-4"> <%= t('views.model.summary') %>  </th>
+                    <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
+                    <th class="col-xs-4"> <%= t('views.model.in_timeline') %>  </th>
+                  </tr>
+                  </thead>
+                  <tbody class="page">
+                  <% if !@summaries.any? %>
+                      <tr class="notification-summary">
+                        <td></td>
+                        <td> <%= t('views.notifications.no_news') %> </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  <% else %>
+                      <% @summaries.each do |com| %>
+                          <tr class="notification-summary">
+                            <td> <%= f.check_box :summary_ids, {class: "destroy-box", :multiple => true},
+                                                 checked_value = com.id, unchecked_value = nil %> </td>
+                            <td> <%= link_to "Voir la synthèse", notifications_summary_path(id: com.id), class: "btn btn-primary" %> </td>
+                            <td>  <%= link_to com.user_name, user_path(id: com.user_id), class: "btn btn-primary" %> </td>
+                            <td>  <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>   </td>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  </tbody>
+                </table>
+                <%= paginate @summaries %>
 
-    <div class="panel-heading">
-      <%= t('views.notifications.best_frames') %>
-      (<%= @frame_selections.count %>)
-    </div>
-    <table id="notification-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-1 col-sm-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-5 col-sm-4"> <%= t('views.model.frame') %> </th>
-        <th class="col-xs-6 col-sm-3"> <%= t('views.default.by_cap') %> </th>
-        <th class="col-xs-6 col-sm-4"> <%= t('views.model.of_timeline') %> </th>
-      </tr>
-      </thead>
-      <tbody class="page">
-      <% if !@frame_selections.any? %>
-          <tr class="notification-sel-summary">
-            <td></td>
-            <td> <%= t('views.notifications.no_news') %>   </td>
-            <td></td>
-            <td></td>
-          </tr>
-      <% else %>
-          <% @frame_selections.each do |com| %>
-              <tr class="notification-sel-summary">
-                <td> <%= f.check_box :sel_frame_ids, { :multiple => true},
-                                     checked_value = com.id, unchecked_value = nil %> </td>
-                <td>  <%= link_to "La proposition", notifications_frame_selection_path(id: com.id ), class: "btn btn-primary" %></td>
-                <td>  <%= link_to com.user_name, user_path( com.user_id ), class: "btn btn-primary" %></td>
-                <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary" %> </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-    <%= paginate @frame_selections %>
+            <% elsif @filter == :reference %>
+                <div class="panel-heading">
+                  <%= t('views.notifications.new_references') %> (<%= @references.count %>)
+                </div>
+                <table id="notification-timelines" class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
+                    <th class="col-xs-4"> <%= t('views.model.reference') %>  </th>
+                    <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
+                    <th class="col-xs-4"> <%= t('views.model.in_timeline') %> </th>
+                  </tr>
+                  </thead>
+                  <tbody class="page">
+                  <% if !@references.any? %>
+                      <tr class="notification-reference">
+                        <td></td>
+                        <td> <%= t('views.notifications.no_news') %> </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  <% else %>
+                      <% @references.each do |reference| %>
+                          <tr class="notification-reference">
+                            <td> <%= f.check_box :reference_ids, {class: "destroy-box", :multiple => true},
+                                                 checked_value = reference.id, unchecked_value = nil %> </td>
+                            <td> <%= link_to reference.title,
+                                             notifications_reference_path(id: reference.id), class: "btn btn-primary" %> </td>
+                            <td>  <%= link_to reference.user_name, user_path(id: reference.user_id), class: "btn btn-primary" %> </td>
+                            <td> <%= link_to reference.timeline_name.html_safe, timeline_path(reference.timeline_id), class: "btn btn-primary" %>   </td>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  </tbody>
+                </table>
+                <%= paginate @references %>
 
-  <% elsif @filter == :summary_selection %>
-    <div class="panel-heading">
-      <%= t('views.notifications.best_summaries') %>
-      (<%= @summary_selections.count %>)
-    </div>
-    <table id="notification-timelines" class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th class="col-xs-1 col-sm-1"> <input title="toggle all" type="checkbox" id="checktimelines"> </th>
-        <th class="col-xs-5 col-sm-4"> <%= t('views.model.summary') %> </th>
-        <th class="col-xs-6 col-sm-3"> <%= t('views.default.by_cap') %> </th>
-        <th class="col-xs-6 col-sm-4"> <%= t('views.model.of_timeline') %> </th>
-      </tr>
-      </thead>
-      <tbody class="page">
-      <% if !@summary_selections.any? %>
-          <tr class="notification-sel-summary">
-            <td></td>
-            <td> <%= t('views.notifications.no_news') %>  </td>
-            <td></td>
-            <td></td>
-          </tr>
-      <% else %>
-          <% @summary_selections.each do |com| %>
-              <tr class="notification-sel-summary">
-                <td> <%= f.check_box :sel_summary_ids, { :multiple => true},
-                                     checked_value = com.id, unchecked_value = nil %> </td>
-                <td>  <%= link_to "La synthèse", notifications_summary_selection_path(id: com.id ), class: "btn btn-primary" %></td>
-                <td>  <%= link_to com.user_name, user_path( com.user_id ), class: "btn btn-primary" %></td>
-                <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ), class: "btn btn-primary" %> </td>
-              </tr>
-          <% end %>
-      <% end %>
-      </tbody>
-    </table>
-    <%= paginate @summary_selections %>
-  <% end %>
-</div>
-</div>
-<div class="col-xs-12 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5 col-lg-offset-0 col-lg-2">
-  <div class="list-group">
-    <%= f.button "<span class=\"glyphicon glyphicon-trash bigger\"></span>&nbsp
+            <% elsif @filter == :comment %>
+                <div class="panel-heading">
+                  <%= t('views.notifications.new_comments') %> (<%= @comments.count %>)
+                </div>
+                <table id="notification-timelines" class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
+                    <th class="col-xs-3"> <%= t('views.model.comment') %> </th>
+                    <th class="col-xs-2"> <%= t('views.default.by_cap') %> </th>
+                    <th class="col-xs-3"> <%= t('views.model.of_reference') %> </th>
+                    <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
+                  </tr>
+                  </thead>
+                  <tbody class="page">
+                  <% if !@comments.any? %>
+                      <tr class="notification-comment">
+                        <td></td>
+                        <td> <%= t('views.notifications.no_news') %> </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  <% else %>
+                      <% @comments.each do |com| %>
+                          <tr class="notification-comment">
+                            <td> <%= f.check_box :comment_ids, {class: "destroy-box", :multiple => true},
+                                                 checked_value = com.id, unchecked_value = nil %> </td>
+                            <td> <%= link_to "Voir l'analyse", notifications_comment_path(id: com.id), class: "btn btn-primary" %> </td>
+                            <td> <%= link_to com.user_name, user_path(id: com.user_id), class: "btn btn-primary" %></td>
+                            <td>  <%= link_to com.reference_title, reference_path(com.reference_id), class: "btn btn-primary" %></td>
+                            <td>  <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>   </td>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  </tbody>
+                </table>
+                <%= paginate @comments %>
+
+            <% elsif @filter == :selection %>
+                <div class="panel-heading">
+                  <%= t('views.notifications.best_comments') %>
+                  (<%= @selections.count %>)
+                </div>
+                <table id="notification-timelines" class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
+                    <th class="col-xs-3"> <%= t('views.model.comment') %> </th>
+                    <th class="col-xs-2"> <%= t('views.default.by_cap') %> </th>
+                    <th class="col-xs-3"> <%= t('views.model.of_reference') %> </th>
+                    <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
+                  </tr>
+                  </thead>
+                  <tbody class="page">
+                  <% if !@selections.any? %>
+                      <tr class="notification-sel-comment">
+                        <td></td>
+                        <td> <%= t('views.notifications.no_news') %></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  <% else %>
+                      <% @selections.each do |notif| %>
+                          <tr class="notification-sel-comment">
+                            <td> <%= f.check_box :sel_comment_ids, {class: "destroy-box", :multiple => true},
+                                                 checked_value = notif.comment_id, unchecked_value = nil %> </td>
+                            <td> <%= link_to category_hash[notif.reference.category][notif.field],
+                                             notifications_selection_path(id: notif.comment_id,
+                                                                          field: notif.field), class: "btn btn-primary" %> </td>
+                            <td> <%= link_to notif.comment.user_name, user_path(notif.comment.user_id), class: "btn btn-primary" %> </td>
+                            <td> <%= link_to notif.reference.title, reference_path(notif.reference_id), class: "btn btn-primary" %> </td>
+                            <td>  <%= link_to notif.comment.timeline_name.html_safe, timeline_path(notif.timeline_id), class: "btn btn-primary" %> </td>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  </tbody>
+                </table>
+                <%= paginate @selections %>
+            <% elsif @filter == :frame_selection %>
+
+                <div class="panel-heading">
+                  <%= t('views.notifications.best_frames') %>
+                  (<%= @frame_selections.count %>)
+                </div>
+                <table id="notification-timelines" class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+                    <th class="col-xs-1 col-sm-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
+                    <th class="col-xs-5 col-sm-4"> <%= t('views.model.frame') %> </th>
+                    <th class="col-xs-6 col-sm-3"> <%= t('views.default.by_cap') %> </th>
+                    <th class="col-xs-6 col-sm-4"> <%= t('views.model.of_timeline') %> </th>
+                  </tr>
+                  </thead>
+                  <tbody class="page">
+                  <% if !@frame_selections.any? %>
+                      <tr class="notification-sel-summary">
+                        <td></td>
+                        <td> <%= t('views.notifications.no_news') %>   </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  <% else %>
+                      <% @frame_selections.each do |com| %>
+                          <tr class="notification-sel-summary">
+                            <td> <%= f.check_box :sel_frame_ids, {class: "destroy-box", :multiple => true},
+                                                 checked_value = com.id, unchecked_value = nil %> </td>
+                            <td>  <%= link_to "La proposition", notifications_frame_selection_path(id: com.id), class: "btn btn-primary" %></td>
+                            <td>  <%= link_to com.user_name, user_path(com.user_id), class: "btn btn-primary" %></td>
+                            <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %> </td>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  </tbody>
+                </table>
+                <%= paginate @frame_selections %>
+
+            <% elsif @filter == :summary_selection %>
+                <div class="panel-heading">
+                  <%= t('views.notifications.best_summaries') %>
+                  (<%= @summary_selections.count %>)
+                </div>
+                <table id="notification-timelines" class="table table-striped table-hover">
+                  <thead>
+                  <tr>
+                    <th class="col-xs-1 col-sm-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
+                    <th class="col-xs-5 col-sm-4"> <%= t('views.model.summary') %> </th>
+                    <th class="col-xs-6 col-sm-3"> <%= t('views.default.by_cap') %> </th>
+                    <th class="col-xs-6 col-sm-4"> <%= t('views.model.of_timeline') %> </th>
+                  </tr>
+                  </thead>
+                  <tbody class="page">
+                  <% if !@summary_selections.any? %>
+                      <tr class="notification-sel-summary">
+                        <td></td>
+                        <td> <%= t('views.notifications.no_news') %>  </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                  <% else %>
+                      <% @summary_selections.each do |com| %>
+                          <tr class="notification-sel-summary">
+                            <td> <%= f.check_box :sel_summary_ids, {class: "destroy-box", :multiple => true},
+                                                 checked_value = com.id, unchecked_value = nil %> </td>
+                            <td>  <%= link_to "La synthèse", notifications_summary_selection_path(id: com.id), class: "btn btn-primary" %></td>
+                            <td>  <%= link_to com.user_name, user_path(com.user_id), class: "btn btn-primary" %></td>
+                            <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %> </td>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  </tbody>
+                </table>
+                <%= paginate @summary_selections %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5 col-lg-offset-0 col-lg-2">
+          <div class="list-group">
+            <%= link_to "<span class=\"badge badge-li\">#{current_user.send("notifications_#{@filter}")}</span>
+                    <span class=\"glyphicon glyphicon-trash bigger\"></span> &nbsp ".html_safe+t('views.notifications.delete_all'),
+                        notifications_delete_all_path(filter: @filter),
+                        class: "list-group-item list-group-item-danger" %>
+            <%= f.button "<span id=\"number-item\" class=\"badge badge-li\"></span>
+    <span class=\"glyphicon glyphicon-trash bigger\"></span>&nbsp
     #{t('views.notifications.delete_selected')}".html_safe,
-                 class: 'list-group-item list-group-item-danger hover-red',
-		 data: {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp #{t('views.buttons.deleting')} "}%>
-    <%= link_to "<span class=\"badge badge-li\">#{current_user.send( "notifications_#{@filter}")}</span>
-                    <span class=\"icon-#{@filter} font16\"></span> &nbsp ".html_safe+t('views.notifications.delete_all'),
-                notifications_delete_all_path(filter: @filter),
-                class: "list-group-item list-group-item-danger" %>
-  </div>
-</div>
-</div>
-<% end %>
+                         class: 'list-group-item list-group-item-danger text-left',
+                         id: 'destroy-button',
+                         style: 'display: none',
+                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\"></span> &nbsp #{t('views.buttons.deleting')} "} %>
+          </div>
+        </div>
+      </div>
+  <% end %>
 </div>
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $('#checktimelines').click(function () {
-        if ($('#checktimelines').is(':checked')) {
-            $('#notification-timelines input[type=checkbox]').each(function () {
-                $(this).prop("checked", true);
-            });
-
-        } else {
-            $("#notification-timelines input[type=checkbox]").each(function () {
-                $(this).prop("checked", false);
-            });
+    $(document).ready(function () {
+        function toggleDestroyButton() {
+            var itemsLength = $(".destroy-box:checked").length;
+            $numberItem.text(itemsLength);
+            if (itemsLength > 0){
+                $destroyButton.show()
+            } else {
+                $destroyButton.hide()
+            }
         }
-    });
-})
+        var $numberItem = $('#number-item'),
+                $destroyButton = $('#destroy-button'),
+                $destroyBox = $(".destroy-box");
+        $destroyBox.on('click', function () {
+            toggleDestroyButton()
+        });
+        $('#checktimelines').click(function () {
+            if ($('#checktimelines').is(':checked')) {
+                $destroyBox.each(function () {
+                    $(this).prop("checked", true);
+                });
+                toggleDestroyButton()
+            } else {
+                $destroyBox.each(function () {
+                    $(this).prop("checked", false);
+                });
+                toggleDestroyButton()
+            }
+        });
+    })
 </script>
