@@ -6,7 +6,7 @@ class Reference < ActiveRecord::Base
 
   require 'HTMLlinks'
 
-  attr_accessor :tag_list
+  attr_accessor :tag_list, :user_binary, :user_rating
 
   belongs_to :user
   belongs_to :timeline

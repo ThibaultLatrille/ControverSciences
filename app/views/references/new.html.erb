@@ -14,28 +14,34 @@
         <div class="panel-heading">
           <h4>
             <%= t('views.references.new_to') %>
-            <%= link_to Timeline.find(params[:timeline_id]).name.html_safe, timeline_path(params[:timeline_id]) %>
+            <%= link_to @reference.timeline.name.html_safe, timeline_path(@reference.timeline) %>
           </h4>
         </div>
         <div class="panel-body">
           <br>
+
           <div class="clearfix">
             <%= form_for(@reference) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
                 <%= f.label t('views.references.title_original') + "*" %>
 
                 <div class="input-group">
-          <span class="input-group-btn">
-            <button class="btn btn-primary" name="title" type="submit" onclick="freeze()">
-              <span class="glyphicon glyphicon-refresh"></span></button>
-          </span>
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary"
+                                name="title"
+                                title="Complétion automatique à partir du titre de la référence"
+                                data-toggle="tooltip"
+                                type="submit"
+                                onclick="freeze()">
+                          <span class="glyphicon glyphicon-refresh"></span></button>
+                      </span>
                   <%= f.text_field :title, class: 'form-control myforms' %>
                 </div>
                 <br/>
                 <%= f.label t('views.references.categories') + "*" %>
                 <%= f.select :category, category_names.map { |key, value| [value, key] }, {}, {class: 'form-control myforms'} %>
                 <br/>
-                <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
+                <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                 <%= f.label :open_access do %>
                     <%= f.check_box :open_access %>
                     <span> &nbsp <%= t('views.references.is_open_access') %> </span>
@@ -65,12 +71,79 @@
                 <div class="container-fluid">
                   <div data-toggle="buttons">
                     <% tags_hash.each do |key, value| %>
-                        <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
-                          <div>
-                            <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
-                            <span class="fat icon-<%= key %>"></span> <%= value %>
-                          </div>
-                        </div>
+                        <% if @tag_list.include? key %>
+                            <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
+                              <div class="my-btn">
+                                <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
+                                <span class="fat icon-<%= key %>"></span> <%= value %>
+                              </div>
+                            </div>
+                        <% else %>
+                            <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+                              <div class="my-btn">
+                                <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
+                                <span class="fat icon-<%= key %>"></span> <%= value %>
+                              </div>
+                            </div>
+                        <% end %>
+                    <% end %>
+                  </div>
+                </div>
+                <% unless @reference.timeline.binary.blank? %>
+                    <div class="clearfix">
+                      <br>
+                      <b><%= @reference.timeline.name.html_safe %></b>
+
+                      <div class="center">
+                        <br/>
+                        <b style="font-size: 1.5em"><%= @reference.timeline.binary.split('&&')[0].humanize -%></b>
+                        &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "56") %>&nbsp
+                        <b style="font-size: 1.5em"><%= @reference.timeline.binary.split('&&')[1].humanize -%></b>
+                      </div>
+                      <br/><br/>
+                      <%= f.hidden_field :reference_id, value: @reference.id %>
+                      <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
+                      <% unless @reference.user_binary.nil? %>
+                          <b>
+                            <%= t('views.references.maybe_binary') %>
+                          </b>
+                      <% end %>
+                      <div class="btn-group-justified" data-toggle="buttons">
+                            <label class="btn btn-default <%= @reference.user_binary == "none" ? "active" : nil %>"
+                                   title="<%= t('views.references.delete_advise') %>" data-toggle="tooltip">
+                              <%= f.radio_button :user_binary, checked_value = "none",
+                                                 {id: "none", autocomplete: "off"} %>
+                              <span class="icon-no"></span>
+                            </label>
+                        <% (1..5).each do |key| %>
+                            <label class="btn btn-default btn-select <%= @reference.user_binary == key.to_s ? "active" : nil %> btn-frog<%= key %>"
+                                   title="<%= binary_value_explanation(@reference.timeline.binary, key) -%>" data-toggle="tooltip">
+                              <%= f.radio_button :user_binary, checked_value = key.to_s,
+                                                 {id: key, autocomplete: "off"} %>
+                              <span class="icon-frog cd-frog"></span>
+                            </label>
+                        <% end %>
+                      </div>
+                      <br/>
+                    </div>
+                <% end %>
+                <br>
+                <div class="clearfix">
+                  <%= f.label t('views.references.how_you_star') %>
+                  <div class="btn-group-justified" data-toggle="buttons">
+                    <label class="btn btn-default btn-select  <%= @reference.user_rating == "none" ? "active" : nil %>"
+                           title="<%= t('views.references.no_advise') %>" data-toggle="tooltip">
+                      <%= f.radio_button :user_rating, checked_value = "none",
+                                         {id: "none", autocomplete: "off"} %>
+                      <span class="icon-no"></span>
+                    </label>
+                    <% star_hash.each do |key, value| %>
+                        <label class="btn btn-default btn-select <%= @reference.user_rating == key.to_s ? "active" : nil %>"
+                               title="<%= value %>" data-toggle="tooltip">
+                          <%= f.radio_button :user_rating, checked_value = key.to_s,
+                                             {id: key, autocomplete: "off"} %>
+                          <span class="icon-<%= key %>"></span>
+                        </label>
                     <% end %>
                   </div>
                 </div>
@@ -102,14 +175,14 @@
     }
     var source = {};
     <% category_source.each do |key, value| %>
-        source[<%= key %>] = '<%= value %>';
+    source[<%= key %>] = '<%= value %>';
     <% end %>
     var unique_id = {};
     <% category_unique_id.each do |key, value| %>
-        unique_id[<%= key %>] = "<%= value %>";
+    unique_id[<%= key %>] = "<%= value %>";
     <% end %>
     $('#reference_category').change(function () {
         $('#source').html(source[$('#reference_category').val()] + ' *');
-        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[$('#reference_category').val()] );
+        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[$('#reference_category').val()]);
     });
 </script>

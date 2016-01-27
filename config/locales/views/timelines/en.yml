@@ -86,6 +86,7 @@ en:
         other: "%{count} contributors think that"
       added_by: Reference added by
       delete_advise: Retract your opinion
+      no_advise: No opinion
       how_star: 'How the contributors judge the scientific quality of this reference :'
       how_you_star: What do you think about the scientific quality of this paper?
       maybe_binary: You already gave an opinion about this, but maybe you changed your mind?

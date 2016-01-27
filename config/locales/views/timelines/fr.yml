@@ -88,6 +88,7 @@ fr:
         other: "%{count} contributeurs pensent que"
       added_by: Référence ajoutée par
       delete_advise: Retirer votre avis
+      no_advise: Sans avis
       how_star: 'Comment les contributeurs jugent la qualité scientifique de cette référence :'
       how_you_star: Comment évaluez-vous la qualité scientifique de ce papier ?
       maybe_binary: Vous avez déjà voté, mais vous avez peut être changé d'avis ?
