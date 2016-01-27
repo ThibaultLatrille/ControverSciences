@@ -419,8 +419,8 @@
         </div>
       </div>
       <% if @summary %>
-          <div class="panel panel-default comment">
-            <div class="panel-body">
+          <div id="summary-panel" class="panel panel-default comment">
+            <div id="summary-panel" class="panel-body">
               <div id="summary" class="clearfix">
                 <% if @summary.picture? %>
                     <div class="pull-right">
@@ -493,10 +493,14 @@
                 $(document).ready(function () {
                     $("#summary").readmore({
                         speed: 750,
+                        heightMargin: 100,
                         embedCSS: false,
                         collapsedHeight: 450,
-                        moreLink: '<a href="#" class="btn btn-default"><%= t('views.timelines.read_more') %></a>',
-                        lessLink: '<a href="#" class="btn btn-default"><%= t('views.timelines.read_less') %></a>'
+                        moreLink: '<div class="readmore"><a href="#" class="btn btn-lg btn-default">' +
+                        '<span class="glyphicon glyphicon-menu-down"></span> <%= t('views.timelines.read_more') %> ' +
+                        '<span class="glyphicon glyphicon-menu-down"></span> ' +
+                        '</a></div>',
+                        lessLink: '<div class="hidden"></div>'
                     });
                 });
             </script>
@@ -531,20 +535,27 @@
           </div>
           <script type="text/javascript">
               $(document).ready(function () {
-                  var versuschart = $("#versus-chart");
-                  $('#versus-click').click(function () {
+                  var $versusChart = $("#versus-chart"), $versusClick = $('#versus-click');
+                  $versusClick.on('inview', function(event, isInView) {
+                      if (isInView) {
+                          if (!$versusClick.hasClass("active")) {
+                              $versusClick.click()
+                          }
+                      }
+                  });
+                  $versusClick.click(function () {
                       if ($(this).hasClass("active")) {
                           $(this).removeClass("active");
                           $('.cd-color').addClass("uni-color");
                           $('.cd-orange').addClass("uni-orange");
                           $('#text-versus').text("<%= t('views.timelines.show_versus') %>");
-                          versuschart.hide(500);
+                          $versusChart.hide(500);
                       } else {
                           $(this).addClass("active");
                           $('#text-versus').text("<%= t('views.timelines.hide_versus') %>");
                           $('.cd-color').removeClass("uni-color");
                           $('.cd-orange').removeClass("uni-orange");
-                          versuschart.show(500, function () {
+                          $versusChart.show(500, function () {
                               var data = [
                                   {
                                       value: $('.binary1').length,

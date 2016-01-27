@@ -16,4 +16,3 @@
 //= require jquery.fileupload.js
 //= require bootstrap-markdown
 //= require jets.js
-//= require fancyBox.js

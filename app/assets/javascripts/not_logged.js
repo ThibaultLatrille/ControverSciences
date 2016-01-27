@@ -23,3 +23,4 @@
 //= require autosize.js
 //= require fancyBox.js
 //= require jquery.bookblock.js
+//= require jquery.inview.js

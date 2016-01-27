@@ -1382,3 +1382,21 @@ del {
   opacity: 0;
   cursor: default !important;
 }
+#summary-panel{
+  position: relative;
+  .readmore{
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 15px;
+    right: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    padding: 30px 5px 10px;
+    a{
+      border: 2px dashed #777;
+    }
+    a:hover{
+      border: 2px dashed #FFF;
+    }
+  }
+}
