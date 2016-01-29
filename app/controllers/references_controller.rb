@@ -100,6 +100,7 @@ class ReferencesController < ApplicationController
           @reference = fetch_reference( query )
           @reference.category = reference_params[:category]
           @reference.open_access = reference_params[:open_access]
+          @reference.timeline_id = reference_params[:timeline_id]
         rescue ArgumentError
           flash.now[:danger] = t('controllers.ref_argument_error')
         rescue ConnectionError
