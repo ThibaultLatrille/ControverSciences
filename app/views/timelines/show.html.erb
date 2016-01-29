@@ -508,8 +508,8 @@
       <% end %>
 
       <% if @references.any? && !@timeline.binary.blank? &&
-              (logged_in? ? Reference.where(timeline_id: self.id).where.not(binary_most: 0).count > 0 :
-                      Reference.where(timeline_id: self.id).where.not(binary_most: 0, title_fr: "").count > 0) %>
+              (logged_in? ? Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0).count > 0 :
+                      Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0, title_fr: "").count > 0) %>
           <div id="versus-chart" class="row" style="display: none">
             <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
               <div class="panel panel-default">

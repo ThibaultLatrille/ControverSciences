@@ -190,7 +190,6 @@ class Reference < ActiveRecord::Base
 
   def cascading_save_ref
     Timeline.increment_counter(:nb_references, self.timeline_id)
-    Timeline.increment_counter(:binary_0, self.timeline_id)
     ReferenceContributor.create({user_id: self.user_id, reference_id: self.id, bool: true})
     unless TimelineContributor.find_by({user_id: self.user_id, timeline_id: self.timeline_id})
       TimelineContributor.create({user_id: self.user_id, timeline_id: self.timeline_id, bool: true})

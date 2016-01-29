@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160106144822) do
+ActiveRecord::Schema.define(version: 20160128224715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160106144822) do
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "frame_id"
   end
 
   add_index "binaries", ["reference_id"], name: "index_binaries_on_reference_id", using: :btree
@@ -688,12 +689,6 @@ ActiveRecord::Schema.define(version: 20160106144822) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "binary",          default: ""
-    t.integer  "binary_0",        default: 0
-    t.integer  "binary_1",        default: 0
-    t.integer  "binary_2",        default: 0
-    t.integer  "binary_3",        default: 0
-    t.integer  "binary_4",        default: 0
-    t.integer  "binary_5",        default: 0
     t.integer  "nb_frames",       default: 0
     t.text     "frame",           default: ""
     t.integer  "figure_id"
