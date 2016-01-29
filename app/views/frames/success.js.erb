@@ -1,0 +1,2 @@
+$("#destroy-div-<%= params[:frame_id] %>").prepend("<%= escape_javascript(render partial: 'frames/alert') %>");
+$("#destroy-frame-<%= params[:frame_id] %>").hide();

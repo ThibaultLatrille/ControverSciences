@@ -127,6 +127,8 @@ fr:
       show_to: Cette contribution appartient à la controverse
       create: Publier votre proposition de titre et de cadre
       delete: Supprimer votre titre et votre cadre
+      destroy_binaries: Les votes ne sont plus pertinent ? Supprimer les tous...
+      destroyed_binaries: Les votes ont tous été supprimés.
       edit: Modifier votre titre et/ou votre cadre
       edit_title: Titre de la controverse
       edit_frame: Cadre, focus et mise au point de la controverse

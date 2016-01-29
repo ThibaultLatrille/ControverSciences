@@ -32,7 +32,11 @@ Rails.application.routes.draw do
   resources :newsletters, only: [:create]
   resources :summaries, only: [:show, :index, :new, :create, :edit, :update, :destroy]
   resources :credits, only: [:new, :create, :destroy]
-  resources :frames, only: [:show, :index, :new, :create, :edit, :update, :destroy]
+  resources :frames, only: [:show, :index, :new, :create, :edit, :update, :destroy] do
+    collection do
+      get 'destroy_binaries'
+    end
+  end
   resources :frame_credits, only: [:new, :create, :destroy]
   resources :suggestions, only: [:index, :create, :show, :edit, :update, :destroy]
   resources :suggestion_children, only: [:create, :show, :edit, :update, :destroy]

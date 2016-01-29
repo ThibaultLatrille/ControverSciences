@@ -1,5 +1,5 @@
 class FramesController < ApplicationController
-  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:new, :create, :edit, :update, :destroy, :destroy_binaries]
 
   def new
     frame = Frame.find_by(user_id: current_user.id, timeline_id: params[:timeline_id])
@@ -155,6 +155,20 @@ class FramesController < ApplicationController
     else
       flash[:danger] = t('controllers.frame_cannot_delete')
       redirect_to frame_path(params[:id])
+    end
+  end
+
+  def destroy_binaries
+    frame = Frame.find(params[:frame_id])
+    if current_user.id == frame.user_id || current_user.admin
+      Reference.where(timeline_id: frame.timeline_id).update_all(binary_most: 0,
+                                                       binary_1: 0, binary_2: 0,
+                                                       binary_3: 0, binary_4: 0, binary_5: 0)
+
+      Binary.where(frame_id: frame.id).destroy_all
+    end
+    respond_to do |format|
+      format.js { render 'frames/success', :content_type => 'text/javascript', :layout => false}
     end
   end
 
