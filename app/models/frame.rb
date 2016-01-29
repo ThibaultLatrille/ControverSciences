@@ -11,6 +11,7 @@ class Frame < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :notification_selections, dependent: :destroy
   has_many :go_patches, dependent: :destroy
+  has_many :binaries, dependent: :destroy
 
   before_validation :check_binary
 
@@ -93,7 +94,7 @@ class Frame < ActiveRecord::Base
     end
     tim = self.timeline
     tim.update_columns(name: self.name_markdown, frame: self.content_markdown)
-    tim.reset_binary(self.binary)
+    tim.reset_binary(self.binary, self.id)
     self.update_columns(best: true)
   end
 
@@ -130,6 +131,41 @@ class Frame < ActiveRecord::Base
     end
   end
 
+  def get_binary
+    if self.binary.downcase == "non&&oui"
+      self.binary = "Oui&&Non"
+    end
+  end
+
+  def binaries_dico
+    dico_most = {1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0}
+    Binary.where(frame_id: self.id).group_by { |t| t.reference_id }.map do |reference_id, binaries|
+      dico = {1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0}
+      binaries.group_by { |t| t.value }.map do |value, binaries_value|
+        dico[value] = binaries_value.count
+      end
+      most = dico.max_by { |k, v| v }
+      if most[1] > 0
+        dico_most[most[0]] += 1
+      end
+    end
+  end
+
+  def binary_explanation(value)
+    case value
+      when 1
+        return "Très fermement " + self.binary.split('&&')[0].downcase
+      when 2
+        return self.binary.split('&&')[0].humanize
+      when 3
+        return "Neutre"
+      when 4
+        return self.binary.split('&&')[1].humanize
+      when 5
+        return "Très fermement " + self.binary.split('&&')[1].downcase
+    end
+  end
+
   private
 
   def content_validation
@@ -151,7 +187,7 @@ class Frame < ActiveRecord::Base
       tim = self.timeline
       tim.update_columns(name: self.name_markdown, frame: self.content_markdown)
       if tim.binary != self.binary
-        tim.reset_binary(self.binary)
+        tim.reset_binary(self.binary, self.id)
       end
     end
   end

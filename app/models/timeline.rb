@@ -56,7 +56,7 @@ class Timeline < ActiveRecord::Base
   validate :binary_valid
 
   def user_name
-    User.select( :name ).find( self.user_id ).name
+    User.select(:name).find(self.user_id).name
   end
 
   def content_valid?
@@ -92,10 +92,6 @@ class Timeline < ActiveRecord::Base
     self.nb_summaries + self.nb_comments
   end
 
-  def total_binary
-    self.binary_1+self.binary_2+self.binary_3+self.binary_4+self.binary_5
-  end
-
   def nb_suggestions
     nb = self.suggestion.children
     if nb == 0
@@ -107,15 +103,7 @@ class Timeline < ActiveRecord::Base
     end
   end
 
-  def binary_font_size( value )
-    if self.nb_references > 0
-      12+56.0*self["binary_#{value}"]/self.nb_references
-    else
-      25.0
-    end
-  end
-
-  def binary_explanation( value )
+  def binary_explanation(value)
     case value
       when 1
         return "Très fermement " + self.binary.split('&&')[0].downcase
@@ -164,25 +152,35 @@ class Timeline < ActiveRecord::Base
     hash
   end
 
-  def compute_score( nb_contributors, nb_references, nb_comments, nb_summaries )
+  def compute_score(nb_contributors, nb_references, nb_comments, nb_summaries)
     4.0/(1.0/(1+Math.log(1+nb_contributors))+1.0/(1+Math.log(1+10*nb_references))+1.0/(1+Math.log(1+5*nb_comments))+1.0/(1+Math.log(1+20*nb_summaries)))
   end
 
-  def reset_binary(binary)
-    Reference.where( timeline_id: self.id ).update_all(binary_most: 0,:binary => binary,
-                                                        binary_1: 0, binary_2: 0,
-                                                       binary_3: 0, binary_4: 0, binary_5: 0)
-    Timeline.where( id: self.id ).update_all(binary_0: self.nb_references,
-                                             binary_1: 0, binary_2: 0,
-                                             binary_3: 0, binary_4: 0, binary_5: 0)
-    Binary.where( timeline_id: self.id ).delete_all
+  def reset_binary(binary, frame_id)
+    if binary.blank?
+      Binary.where(frame_id: frame_id).destroy_all
+      Reference.where(timeline_id: self.id).update_all(binary_most: 0, :binary => binary,
+                                                   binary_1: 0, binary_2: 0,
+                                                   binary_3: 0, binary_4: 0, binary_5: 0)
+    else
+      Binary.where(frame_id: frame_id).group_by { |t| t.reference_id }.map do |reference_id, binaries|
+        dico = {1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0}
+        binaries.group_by { |t| t.value }.map do |value, binaries_value|
+          dico[value] = binaries_value.count
+        end
+        most = dico.max_by { |k, v| v }
+        Reference.where(id: reference_id).update_all(binary_most: most[1] > 0 ? most[0] : 0, :binary => binary,
+                                                     binary_1: dico[1], binary_2: dico[2],
+                                                     binary_3: dico[3], binary_4: dico[4], binary_5: dico[5])
+      end
+    end
   end
 
   def create_notifications
     notifications = []
     User.where(activated: true).pluck(:id).each do |user_id|
       unless self.user_id == user_id
-        notifications << Notification.new( user_id: user_id, timeline_id: self.id, category: 1 )
+        notifications << Notification.new(user_id: user_id, timeline_id: self.id, category: 1)
       end
     end
     Notification.import notifications
@@ -206,8 +204,8 @@ class Timeline < ActiveRecord::Base
   end
 
   def cascading_create_timeline
-    Frame.create( user_id: self.user_id, best: true,
-                   content: self.frame, name: self.name, timeline_id: self.id, binary: self.binary )
+    Frame.create(user_id: self.user_id, best: true,
+                 content: self.frame, name: self.name, timeline_id: self.id, binary: self.binary)
     unless self.private
       create_notifications
     end

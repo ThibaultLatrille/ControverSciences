@@ -2,18 +2,25 @@ class Binary < ActiveRecord::Base
   belongs_to :timeline
   belongs_to :reference
   belongs_to :user
+  belongs_to :frame
 
+  before_create :fill_frame
   after_create  :cascading_save_binary
   around_update  :cascading_update_binary
   around_destroy  :cascading_destroy_binary
 
   validates :user_id, presence: true
+  validates :frame_id, presence: true
   validates :timeline_id, presence: true
   validates :reference_id, presence: true
   validates :value, presence: true, inclusion: { in: 1..5 }
-  validates_uniqueness_of :user_id, :scope => [:reference_id]
+  validates_uniqueness_of :user_id, :scope => [:reference_id, :frame_id]
 
   private
+
+  def fill_frame
+    self.frame_id = Frame.select(:id).find(timeline_id: self.timeline_id, best: true).id
+  end
 
   def cascading_save_binary
     Reference.update_counters( self.reference_id, "binary_#{self.value}".to_sym => 1 )

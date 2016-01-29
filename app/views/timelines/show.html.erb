@@ -507,7 +507,9 @@
           </div>
       <% end %>
 
-      <% if @references.any? && !@timeline.binary.blank? && @timeline.total_binary > 0 %>
+      <% if @references.any? && !@timeline.binary.blank? &&
+              (logged_in? ? Reference.where(timeline_id: self.id).where.not(binary_most: 0).count > 0 :
+                      Reference.where(timeline_id: self.id).where.not(binary_most: 0, title_fr: "").count > 0) %>
           <div id="versus-chart" class="row" style="display: none">
             <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
               <div class="panel panel-default">
@@ -642,18 +644,16 @@
                   });
               });
           </script>
-      <% end %>
-      <% if @references.any? %>
-          <% if !@timeline.binary.blank? && @timeline.total_binary > 0 %>
-              <div id="versus-click" class="btn btn-default">
-                <span class="icon-versus"></span> &nbsp
+          <div id="versus-click" class="btn btn-default">
+            <span class="icon-versus"></span> &nbsp
             <span id="text-versus">
                <%= t('views.timelines.show_versus') %>
             </span>
-              </div>
-              <br>
-              <br>
-          <% end %>
+          </div>
+          <br>
+          <br>
+      <% end %>
+      <% if @references.any? %>
           <% if Rating.where(timeline_id: @timeline.id).count > 0 %>
               <div id="star-click" class="btn btn-default">
                 <span class="icon-4"></span> &nbsp

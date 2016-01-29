@@ -1,29 +1,37 @@
 module MajHelper
 
+  def maj_v_13
+    ActiveRecord::Base.transaction do
+      Timeline.where.not(binary: "").find_each do |timeline|
+        Binary.where(timeline_id: timeline.id).update_all(frame_id: Frame.select(:id).find_by(timeline_id: timeline.id, best: true).id )
+      end
+    end
+  end
+
   def maj_v_12
     ActiveRecord::Base.transaction do
       Frame.where.not(binary: "").find_each do |frame|
         if frame.binary.downcase == "non&&oui"
-          frame.update_columns( binary: "Oui&&Non")
+          frame.update_columns(binary: "Oui&&Non")
         end
       end
       Timeline.where.not(binary: "").find_each do |timeline|
         if timeline.binary.downcase == "non&&oui"
-          timeline.update_columns( binary: "Oui&&Non",
-                                   binary_1: timeline.binary_5,
-                                   binary_2: timeline.binary_4,
-                                   binary_4: timeline.binary_2,
-                                   binary_5: timeline.binary_1)
+          timeline.update_columns(binary: "Oui&&Non",
+                                  binary_1: timeline.binary_5,
+                                  binary_2: timeline.binary_4,
+                                  binary_4: timeline.binary_2,
+                                  binary_5: timeline.binary_1)
           Reference.where(timeline_id: timeline.id).find_each do |reference|
-            reference.update_columns( binary: "Oui&&Non",
-                                      binary_1: reference.binary_5,
-                                      binary_2: reference.binary_4,
-                                      binary_4: reference.binary_2,
-                                      binary_5: reference.binary_1,
-                                      binary_most: (reference.binary_most == 0 ? reference.binary_most : (6 - reference.binary_most)))
+            reference.update_columns(binary: "Oui&&Non",
+                                     binary_1: reference.binary_5,
+                                     binary_2: reference.binary_4,
+                                     binary_4: reference.binary_2,
+                                     binary_5: reference.binary_1,
+                                     binary_most: (reference.binary_most == 0 ? reference.binary_most : (6 - reference.binary_most)))
           end
           Binary.where(timeline_id: timeline.id).find_each do |binary|
-            binary.update_columns( value: 6 - binary.value )
+            binary.update_columns(value: 6 - binary.value)
           end
         end
       end
@@ -34,18 +42,18 @@ module MajHelper
     ActiveRecord::Base.transaction do
       Reference.where(title_fr: nil).update_all(title_fr: "")
       Timeline.find_each do |timeline|
-        nb_references = Reference.where( timeline_id: timeline.id).where.not( title_fr: "" ).count
-        nb_comments = Comment.where( timeline_id: timeline.id, public: true).count
-        nb_summaries= Summary.where( timeline_id: timeline.id, public: true).count
-            timeline.update_columns( nb_references: nb_references, nb_comments: nb_comments, nb_summaries: nb_summaries )
+        nb_references = Reference.where(timeline_id: timeline.id).where.not(title_fr: "").count
+        nb_comments = Comment.where(timeline_id: timeline.id, public: true).count
+        nb_summaries= Summary.where(timeline_id: timeline.id, public: true).count
+        timeline.update_columns(nb_references: nb_references, nb_comments: nb_comments, nb_summaries: nb_summaries)
       end
       Reference.find_each do |reference|
-        nb_edits = Comment.where( reference_id: reference.id, public: true).count
-        reference.update_columns( nb_edits: nb_edits )
+        nb_edits = Comment.where(reference_id: reference.id, public: true).count
+        reference.update_columns(nb_edits: nb_edits)
       end
       User.find_each do |user|
-        nb_private = Comment.where( user_id: user.id, public: false).count + Summary.where( user_id: user.id, public: false).count
-        user.update_columns( nb_private: nb_private )
+        nb_private = Comment.where(user_id: user.id, public: false).count + Summary.where(user_id: user.id, public: false).count
+        user.update_columns(nb_private: nb_private)
       end
     end
   end
@@ -84,28 +92,28 @@ module MajHelper
         ref_user_tag.update_tags
       end
       Edge.find_each do |edge|
-        plus         = EdgeVote.where(edge_id: edge.id, value: true).count
-        minus        = EdgeVote.where(edge_id: edge.id, value: false).count
-        edge.plus    = plus
-        edge.minus   = minus
+        plus = EdgeVote.where(edge_id: edge.id, value: true).count
+        minus = EdgeVote.where(edge_id: edge.id, value: false).count
+        edge.plus = plus
+        edge.minus = minus
         edge.balance = plus - minus
         edge.save!
         EdgeVote.find_or_create_by(user_id: edge.user_id,
                                    edge_id: edge.id,
-                                   value:   true)
+                                   value: true)
       end
       ReferenceEdge.find_each do |ref_edge|
-        plus             = ReferenceEdgeVote.where(reference_edge_id: ref_edge.id, value: true, category: ref_edge.category).count
-        minus            = ReferenceEdgeVote.where(reference_edge_id: ref_edge.id, value: false, category: ref_edge.category).count
-        ref_edge.plus    = plus
-        ref_edge.minus   = minus
+        plus = ReferenceEdgeVote.where(reference_edge_id: ref_edge.id, value: true, category: ref_edge.category).count
+        minus = ReferenceEdgeVote.where(reference_edge_id: ref_edge.id, value: false, category: ref_edge.category).count
+        ref_edge.plus = plus
+        ref_edge.minus = minus
         ref_edge.balance = plus - minus
         ref_edge.save!
-        ReferenceEdgeVote.find_or_create_by(user_id:           ref_edge.user_id,
+        ReferenceEdgeVote.find_or_create_by(user_id: ref_edge.user_id,
                                             reference_edge_id: ref_edge.id,
-                                            category:          ref_edge.category,
-                                            timeline_id:       ref_edge.timeline_id,
-                                            value:             true)
+                                            category: ref_edge.category,
+                                            timeline_id: ref_edge.timeline_id,
+                                            value: true)
       end
     end
   end
@@ -153,7 +161,7 @@ module MajHelper
       ref = Reference.find(2)
       ref.update_columns(title_fr: Comment.find(2).title_markdown)
       while true
-        edge    = Edge.where(reversible: true).first
+        edge = Edge.where(reversible: true).first
         reverse = Edge.find_by(timeline_id: edge.target, target: edge.timeline_id)
         if reverse
           reverse.destroy
@@ -233,10 +241,10 @@ module MajHelper
         ref.binary_3 = Binary.where(reference_id: ref.id, value: 3).count
         ref.binary_3 = Binary.where(reference_id: ref.id, value: 3).count
         ref.binary_5 = Binary.where(reference_id: ref.id, value: 5).count
-        dico         = {1 => ref.binary_1, 2 => ref.binary_2,
-                        3 => ref.binary_3, 4 => ref.binary_4,
-                        5 => ref.binary_5}
-        most         = dico.max_by { |k, v| v }
+        dico = {1 => ref.binary_1, 2 => ref.binary_2,
+                3 => ref.binary_3, 4 => ref.binary_4,
+                5 => ref.binary_5}
+        most = dico.max_by { |k, v| v }
         if most[1] > 0
           ref.binary_most = most[0]
         else
@@ -247,10 +255,10 @@ module MajHelper
         ref.star_3 = Rating.where(reference_id: ref.id, value: 3).count
         ref.star_3 = Rating.where(reference_id: ref.id, value: 3).count
         ref.star_5 = Rating.where(reference_id: ref.id, value: 5).count
-        dico       = {1 => ref.star_1, 2 => ref.star_2,
-                      3 => ref.star_3, 4 => ref.star_4,
-                      5 => ref.star_5}
-        most       = dico.max_by { |k, v| v }
+        dico = {1 => ref.star_1, 2 => ref.star_2,
+                3 => ref.star_3, 4 => ref.star_4,
+                5 => ref.star_5}
+        most = dico.max_by { |k, v| v }
         if most[1] > 0
           ref.star_most = most[0]
         else
