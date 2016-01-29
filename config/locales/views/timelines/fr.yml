@@ -79,6 +79,7 @@ fr:
       previous: Référence précédente
       title_original: Titre original
       url: Accéder à la référence
+      url_new: URL de la référence
       user_no_comment: Vous n'avez pas encore écrit d'analyse
       user_tags:
         one: "%{count} contributeur pense que cette référence appartient au thème "

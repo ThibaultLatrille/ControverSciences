@@ -77,6 +77,7 @@ en:
       previous: Previous reference
       title_original: Original title
       url: Access the reference
+      url_new: Link to the reference
       user_no_comment: You haven't written any analysis yet
       user_tags:
         one: "%!!{count} contributor thinks this reference belongs with the theme "
