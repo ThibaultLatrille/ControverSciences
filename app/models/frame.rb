@@ -149,6 +149,7 @@ class Frame < ActiveRecord::Base
         dico_most[most[0]] += 1
       end
     end
+    dico_most
   end
 
   def binary_explanation(value)

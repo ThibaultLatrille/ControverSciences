@@ -63,39 +63,41 @@
               </div>
               <script type="text/javascript">
                   $(document).ready(function () {
-                      var context = "#frame-id-<%= frame.id %>";
+                      var binaries_dico = <%= raw frame.binaries_dico.to_json -%>, context = "#frame-id-<%= frame.id %>";
                       var $versusChart = $("#versus-chart", context), $versusClick = $('#versus-click', context);
                       $versusClick.on('inview', function (event, isInView) {
                           if (isInView) {
-                              if (!$versusClick.hasClass("active")) {
+                              if (!$versusClick.hasClass("active") && (binaries_dico[1] + binaries_dico[2] + binaries_dico[3] +
+                                      binaries_dico[4] + binaries_dico[5]) > 0) {
+                                  $versusClick.addClass("active");
                                   $versusChart.show(500, function () {
                                       var data = [
                                           {
-                                              value: <%= frame.binaries_dico[1] -%>,
+                                              value: binaries_dico[1],
                                               color: "rgba(11,132,165,1.0)",
                                               highlight: "rgba(11,132,165,0.6)",
                                               label: '<%= frame.binary_explanation(1) -%>'
                                           },
                                           {
-                                              value: <%= frame.binaries_dico[2] -%>,
+                                              value: binaries_dico[2],
                                               color: "rgba(174,214,136,1.0)",
                                               highlight: "rgba(174,214,136,0.6)",
                                               label: '<%= frame.binary_explanation(2) -%>'
                                           },
                                           {
-                                              value: <%= frame.binaries_dico[3] -%>,
+                                              value: binaries_dico[3],
                                               color: "rgba(245,199,103,1.0)",
                                               highlight: "rgba(245,199,103,0.6)",
                                               label: '<%= frame.binary_explanation(3) -%>'
                                           },
                                           {
-                                              value: <%= frame.binaries_dico[4] -%>,
+                                              value: binaries_dico[4],
                                               color: "rgba(255,160,86,1.0)",
                                               highlight: "rgba(255,160,86,0.6)",
                                               label: '<%= frame.binary_explanation(4) -%>'
                                           },
                                           {
-                                              value: <%= frame.binaries_dico[5] -%>,
+                                              value: binaries_dico[5],
                                               color: "rgba(202,71,47,1.0)",
                                               highlight: "rgba(202,71,47,0.6)",
                                               label: '<%= frame.binary_explanation(5) -%>'

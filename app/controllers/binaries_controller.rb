@@ -19,6 +19,7 @@ class BinariesController < ApplicationController
       @binary = Binary.new({user_id: current_user.id,
                             timeline_id: binary_params[:timeline_id],
                             reference_id: binary_params[:reference_id], value: binary_params[:value]})
+      @binary.frame_id = Frame.select(:id).find_by(timeline_id: @binary.timeline_id, best: true).id
       if @binary.save
         flash[:info] = t('controllers.vote_ok')
         redirect_to reference_url( binary_params[:reference_id] )

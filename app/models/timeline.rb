@@ -157,11 +157,11 @@ class Timeline < ActiveRecord::Base
   end
 
   def reset_binary(binary, frame_id)
+    Reference.where(timeline_id: self.id).update_all(binary_most: 0, :binary => binary,
+                                                     binary_1: 0, binary_2: 0,
+                                                     binary_3: 0, binary_4: 0, binary_5: 0)
     if binary.blank?
       Binary.where(frame_id: frame_id).destroy_all
-      Reference.where(timeline_id: self.id).update_all(binary_most: 0, :binary => binary,
-                                                   binary_1: 0, binary_2: 0,
-                                                   binary_3: 0, binary_4: 0, binary_5: 0)
     else
       Binary.where(frame_id: frame_id).group_by { |t| t.reference_id }.map do |reference_id, binaries|
         dico = {1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0}
@@ -169,7 +169,7 @@ class Timeline < ActiveRecord::Base
           dico[value] = binaries_value.count
         end
         most = dico.max_by { |k, v| v }
-        Reference.where(id: reference_id).update_all(binary_most: most[1] > 0 ? most[0] : 0, :binary => binary,
+        Reference.where(id: reference_id).update_all(binary_most: most[1] > 0 ? most[0] : 0,
                                                      binary_1: dico[1], binary_2: dico[2],
                                                      binary_3: dico[3], binary_4: dico[4], binary_5: dico[5])
       end
