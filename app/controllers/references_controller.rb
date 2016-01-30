@@ -190,7 +190,7 @@ class ReferencesController < ApplicationController
           end
           if @reference.binary != ''
             @user_binary = @reference.binaries.find_by(user_id: user_id,
-                                                       frame_id: Frame.select(:id).find(timeline_id: @binary.timeline_id, best: true).id)
+                                                       frame_id: Frame.select(:id).find_by(timeline_id: @reference.timeline_id, best: true).id)
             unless @user_binary.nil?
               @user_binary = @user_binary.value
             end
