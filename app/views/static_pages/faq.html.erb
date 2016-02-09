@@ -6,9 +6,7 @@
       <div class="list-group">
         <%= link_to "<strong>#{t('views.model.timelines')}</strong>".html_safe, timelines_path,
                     class: "list-group-item", style: "font-size: 1.3em;" %>
-        <%= link_to t('views.navigation.how_to'), how_to_path,
-                    class: "list-group-item" %>
-        <%= link_to t('views.navigation.how_to_edit'), how_to_edit_path,
+        <%= link_to "La charte du site", magna_charta_path,
                     class: "list-group-item" %>
         <div class="list-group-item list-group-item-default cursor-not-allowed">
           <%= t('views.navigation.faq_long') %>
@@ -19,8 +17,6 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3> <%= t('views.navigation.faq_long') %> </h3>
-          <br>
-          <h3 class="center"> <%= link_to t('views.users.magna_charta'), magna_charta_path %> </h3>
           <br>
         </div>
         <div class="panel-body">
