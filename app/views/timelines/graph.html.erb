@@ -12,7 +12,7 @@
     <span class="graph-caption">
       <%= t('views.timelines.timelines_built') %>
     </span>
-    <div class="graph-circle pull-left" style="background-color: rgb(174, 199, 232);"></div>
+    <div class="graph-circle pull-left" style="background-color: rgb(31, 119, 180);"></div>
   </div>
   <br>
 
@@ -20,12 +20,13 @@
     <span class="graph-caption">
        <%= t('views.timelines.timelines_staging') %>
     </span>
-    <div class="graph-circle pull-left" style="background-color: rgb(31, 119, 180);"></div>
+    <div class="graph-circle pull-left" style="background-color: rgb(174, 199, 232);"></div>
   </div>
 </div>
 
 <span id="d3-graph"></span>
 <script type="text/javascript">
+    var colors = {0: "rgb(31, 119, 180)", 1: "rgb(174, 199, 232)"};
     $('.my-btn').responsiveEqualHeightGrid();
     var margin = {top: 0, right: 0, bottom: 0, left: 0},
             width = $(window).width(),
@@ -96,7 +97,7 @@
                     return 3 * d.size;
                 })
                 .style("fill", function (d) {
-                    return color(d.group);
+                    return colors[d.group];
                 })
                 .call(force.drag);
         node.attr("title", function (d) {
