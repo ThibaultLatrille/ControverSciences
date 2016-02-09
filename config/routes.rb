@@ -82,8 +82,6 @@ Rails.application.routes.draw do
   get 'voronoi' => 'static_pages#voronoi'
   get 'identicon' => 'static_pages#voronoi'
   get 'jesus-christ-my-savior' => 'static_pages#rick_roll'
-  get 'how_to' => 'static_pages#how_to'
-  get 'how_to_edit' => 'static_pages#how_to_edit'
   get 'faq' => 'static_pages#faq'
   get 'terms' => 'static_pages#terms'
   get 'about' => 'static_pages#about'
