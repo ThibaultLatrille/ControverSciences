@@ -70,12 +70,7 @@
       </div>
       <script type="text/javascript">
           var data = {
-              labels: [
-                  <% (1..8).each do |n| %>
-                  "<%= user_profils[n] %>",
-                  <% end %>
-                  "<%= user_profils[9] %>"
-              ],
+              labels: <%= raw user_profils.values %>,
               datasets: [
                   {
                       label: "<%= @user.name %>",
@@ -85,19 +80,14 @@
                       pointStrokeColor: "#fff",
                       pointHighlightFill: "#fff",
                       pointHighlightStroke: "rgba(151,187,205,1)",
-                      data: [
-                          <% (1..8).each do |n| %>
-                          "<%= (0.5 + Float(@user_detail.profil[n.to_s])).round(2) %>",
-                          <% end %>
-                          "<%= (0.5 + Float(@user_detail.profil["9"])).round(2) %>"
-                      ]
+                      data: <%= raw @user_detail.profil.values.map{ |v| 0.5 + Float(v).round(2) } %>
                   }
               ]
           },
           labels = <%= raw user_profil_info %>;
           Chart.defaults.global.responsive = true;
           Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%><%%}%>";
-          Chart.defaults.global.scaleOverride = true;
+          Chart.defaults.global.scaleO*verride = true;
           // Number - The number of steps in a hard coded scale
           Chart.defaults.global.scaleSteps = 5;
           // Number - The value jump in the hard coded scale
