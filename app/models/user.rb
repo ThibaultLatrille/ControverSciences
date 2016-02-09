@@ -3,6 +3,15 @@ class User < ActiveRecord::Base
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
+  include PgSearch
+  pg_search_scope :search_by_name,
+                  :against => [:name],
+                  :ignoring => :accents,
+                  :using => {
+                      :tsearch => {},
+                      :trigram => {}
+                  }
+
   has_many :timelines, dependent: :destroy
   has_many :references, dependent: :destroy
   has_many :comments, dependent: :destroy

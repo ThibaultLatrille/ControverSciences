@@ -15,6 +15,19 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
+      <%= form_tag(:users, method: "get", class: "search-box") do %>
+          <div class="input-group">
+                  <span class="input-group-btn">
+                    <%= button_tag(:class => "btn btn-primary submit-search") do %>
+                    <span class="icon icon-search bigger"></span>
+                <% end %>
+                    </span>
+            <%= search_field_tag(:filter, params[:filter], placeholder: " " + t('views.default.search')) %>
+          </div>
+      <% end %>
+      <h1>
+        <%= t('views.pluralize.users', count: @users_count) %>
+      </h1><br>
       <div id="comments">
         <div class="row page">
           <%= render @users %>
