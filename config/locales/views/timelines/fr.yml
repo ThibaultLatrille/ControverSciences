@@ -295,7 +295,7 @@ fr:
       why: Utilisez cette option pour corriger des fautes de français ou améliorer des tournures de phrases.
       version: Vous pouvez proposer une nouvelle version. Dans ce cas, les contributeurs pourront voter pour choisir la meilleure qui sera mise en avant.
       already: Vous avez déjà écrit votre propre version.
-      why_version: Utilisez cette option si vous n'êtes d'accord avec aucune des contributions.
+      why_version: Utilisez cette option si vous n'êtes pas d'accord avec les contributions précédentes.
       all_contribs: Voir toutes les versions
     private_timelines:
       to_timeline: Voir les contributeurs participants à cette controverse privée.
