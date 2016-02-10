@@ -15,7 +15,7 @@ class AccountActivationsController < ApplicationController
       end
       flash[:success] = t('controllers.account_activated')
       log_in user
-      redirect_to identicon_path
+      redirect_to edit_user_path(user)
     else
       flash[:danger] = t('controllers.activation_invalid')
       redirect_to root_url

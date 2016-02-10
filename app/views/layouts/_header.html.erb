@@ -126,6 +126,8 @@
                 <% end %>
                 <li><%= link_to "<b><span class='icon-user'></span> #{t('views.header.user')}</b>".html_safe,
                                 user_path(current_user) %> </li>
+                <li><%= link_to "<span class=\"fat icon-techno\"></span> #{t('views.users.edit')}".html_safe,
+                            edit_user_path(current_user) %></li>
                 <% if !current_user.private_timeline && current_user.notifications_all > 0 %>
                     <li class="divider"></li>
                     <li class="my-missing"><%= link_to "<b><span class=\"badge badge-li\">
@@ -142,7 +144,6 @@
                 <% else %>
                     <li class="divider"></li>
                     <% if current_user.invited > 0 %>
-                        <li class="divider"></li>
                         <li>
                           <%= link_to "<span class=\"badge badge-li\"> #{current_user.invited} </span> #{t('views.private_timelines.invited',
                                                                                                                count: current_user.invited)}".html_safe,
