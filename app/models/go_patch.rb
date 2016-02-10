@@ -136,10 +136,10 @@ class GoPatch < ActiveRecord::Base
 
   def content_errors(length)
     if length > content_ch_max
-      errors.add(:base, I18n.t('errors.messages.too_long', count: content_ch_max))
+      errors.add(:base, I18n.t('errors.messages.text') + " " + I18n.t('errors.messages.too_long', count: content_ch_max))
     end
     if length < content_ch_min
-      errors.add(:base, I18n.t('errors.messages.too_short', count: content_ch_max))
+      errors.add(:base, I18n.t('errors.messages.text') + " " + I18n.t('errors.messages.too_short', count: content_ch_max))
     end
     if self.counter == 0 || self.counter.blank?
       errors.add(:base, "Aucune suggestion n'a été apportée.")
