@@ -299,7 +299,7 @@ fr:
       notif_edit_profil: "éditez votre profil"
       notif_empty_comments: références n'ont pas encore d'analyse, soyez le premier à les décortiquer !
       notif_empty_references: controverses n'ont pas assez de références scientifiques, venez les enrichir !
-      notif_empty_summaries: controverses ont des références mais n'ont pas synthèse, apportez votre vue d'ensemble et écrivez l'une d'entre elle !
+      notif_empty_summaries: controverses ont des références mais n'ont pas de synthèse, apportez votre vue d'ensemble et écrivez l'une d'entre elles !
       notif_handle: gérez vos
       notif_head: Il y a du nouveau sur votre compte
       notif_head_cs: ": les débats avancent !"
