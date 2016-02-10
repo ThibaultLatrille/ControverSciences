@@ -44,20 +44,20 @@
         </a>
       </div>
   <% end %>
-    <% if @user_detail && @user_detail.id && @user_detail.job != "" %>
+    <% if @user_detail && @user_detail.id && @user_detail.job.present? %>
       <b> <%= t('views.users.job') %> </b><br/>
             <%= @user_detail.job  %>
         <br/><br/>
     <% end %>
-    <% if @user_detail && @user_detail.id && @user_detail.institution != "" %>
+    <% if @user_detail && @user_detail.id && @user_detail.institution.present? %>
         <b> <%= t('views.users.institution') %> </b> <br/>
       <%= @user_detail.institution %>
       <br/><br/>
     <% end %>
-    <% if  @user_detail && @user_detail.id && @user_detail.biography != "" %>
+    <% if  @user_detail && @user_detail.id && @user_detail.biography.present? %>
         <b> <%= t('views.users.biography') %> </b> <%= @user_detail.content_markdown.html_safe %> <br/>
     <% end %>
-    <% if  @user_detail && @user_detail.id && @user_detail.website != "" %>
+    <% if  @user_detail && @user_detail.id && @user_detail.website.present? %>
       <b> <%= t('views.users.website') %> </b><br/>
       <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %> <br/><br/>
     <% end %>
