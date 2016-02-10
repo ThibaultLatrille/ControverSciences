@@ -336,7 +336,14 @@ fr:
       i_have_read: J'ai lu et j'accepte
       institution: 'Institution :'
       job: 'Fonction/métier :'
-      join_slack: Rejoindre le collectif sur Slack !
+      join_slack: Connectez-vous au Slack !
+      talk_slack: Discuter avec le collectif
+      why_slack_html: |-
+        Le slack est le lieu où tout le monde peut venir pour proposer ses idées pour améliorer
+        le site et participer à la vie virtuelle de la communauté qui anime Controversciences.
+        <br><br>
+        Si vous souhaitez dialoguer avec d'autres contributeurs ou les fondateurs du site,
+        n'hésitez pas à nous y rejoindre ! <br><br>
       next: Contributeur suivant
       pending: Votre incription est en cours de traitement, un email vous sera envoyé
         dès que la demande sera acceptée.

@@ -38,9 +38,9 @@
     <% end %>
     <% if logged_in? && current_user.id == @user.id %>
       <div class="pull-right" style="margin-right: 10px">
-        <a href="<%= slack_users_path %>" class="cadre hvr-grow">
+        <a href="#join-slack" data-toggle="modal" class="cadre hvr-grow">
           <%= image_tag("slack.png", alt: "Slack", height: "48px")%>
-          <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
+          <b style="font-size: 1.4em"><%= t('views.users.talk_slack') %></b>
         </a>
       </div>
   <% end %>
@@ -87,7 +87,7 @@
           labels = <%= raw user_profil_info %>;
           Chart.defaults.global.responsive = true;
           Chart.defaults.global.tooltipTemplate = "<%%if (toolLabel){%><%%=toolLabel%><%%}%>";
-          Chart.defaults.global.scaleO*verride = true;
+          Chart.defaults.global.scaleOverride = true;
           // Number - The number of steps in a hard coded scale
           Chart.defaults.global.scaleSteps = 5;
           // Number - The value jump in the hard coded scale

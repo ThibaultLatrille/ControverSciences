@@ -105,12 +105,7 @@
         <br/>
       </div>
       <div class="font12 modal-body clearfix center">
-        Le slack est le lieu où tout le monde peut venir pour proposer ses idées pour améliorer
-        le site et participer à la vie virtuelle de la communauté qui anime Controversciences.
-        <br><br>
-        Si vous souhaitez dialoguer avec d'autres contributeurs ou les fondateurs du site,
-        n'hésitez pas à nous y rejoindre !
-        <br><br>
+        <%= t('views.users.why_slack_html') %>
         <% if logged_in? %>
             <a href="<%= slack_users_path %>" class="cadre hvr-grow center">
               <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
