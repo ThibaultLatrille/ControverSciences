@@ -24,3 +24,4 @@
 //= require fancyBox.js
 //= require jquery.bookblock.js
 //= require jquery.inview.js
+//= require imagesloaded.pkgd.js

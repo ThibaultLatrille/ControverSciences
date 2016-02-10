@@ -3,10 +3,10 @@
     <div class="thumbnail timeline-body hvr-grow">
       <div style="width: auto; min-height: 140px; height: 140px;" class="center">
         <% if user.user_detail && user.user_detail.id && user.user_detail.picture? %>
-            <%= image_tag user.user_detail.picture_url, class: "img-rounded",
+            <%= image_tag user.user_detail.picture_url, class: "img-rounded image-user",
                           style: 'min-height: 140px; height: 140px;' %>
         <% else %>
-            <%= image_tag "favicon.svg", class: "img-rounded",
+            <%= image_tag "favicon.svg", class: "img-rounded image-user",
                           style: 'min-height: 140px; height: 140px;' %>
         <% end %>
       </div>

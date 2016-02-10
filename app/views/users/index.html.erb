@@ -39,6 +39,11 @@
 </div>
 
 <script type="text/javascript">
+    $('.image-user').imagesLoaded().progress( function( instance, image ) {
+        if (image.isLoaded) {
+            $(image.img).addClass("loaded");
+        }
+    });
     $('.timeline-body').responsiveEqualHeightGrid();
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
 </script>

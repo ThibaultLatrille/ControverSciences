@@ -5,6 +5,11 @@ $(document).ready(function () {
         nextSelector: "nav.pagination a[rel=next]",
         itemSelector: "#timelines div.timeline"
     }, function (arrayOfNewElems) {
+        $('.loading-image', arrayOfNewElems).imagesLoaded().progress( function( instance, image ) {
+            if (image.isLoaded) {
+                $(image.img).addClass("loaded");
+            }
+        });
         $('.timeline-name', arrayOfNewElems).responsiveEqualHeightGrid();
         $('.timeline-frame', arrayOfNewElems).responsiveEqualHeightGrid();
         $('.timeline-body', arrayOfNewElems).responsiveEqualHeightGrid();

@@ -403,6 +403,11 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('.loading-image').imagesLoaded().progress( function( instance, image ) {
+            if (image.isLoaded) {
+                $(image.img).addClass("loaded");
+            }
+        });
         $('.timeline-name').responsiveEqualHeightGrid();
         $('.timeline-frame').responsiveEqualHeightGrid();
         $('.timeline-body').responsiveEqualHeightGrid();

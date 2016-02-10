@@ -1,7 +1,7 @@
 <div class="timeline col-xs-12 col-sm-8 col-sm-offset-2 col-md-offset-0 col-md-<%= full_width ? "12" : "6" %> ">
-  <div class="panel panel-primary">
+  <div class="panel panel-primary" style="background-color: transparent">
     <div class="timeline-body">
-      <div class="panel-body" style="background: white url(<%= timeline.picture_url %>); background-size: 100%; background-repeat:no-repeat;">
+      <div class="panel-body" style="position: relative;">
         <div class="timeline-frame clearfix">
           <div class="timeline-name clearfix">
             <% if logged_in? && current_user.admin %>
@@ -98,6 +98,11 @@
             <span class="badge"><%= timeline.views %></span>
           </div>
         </div>
+        <div class="background">
+        </div>
+        <img class="loading-image" src="<%= timeline.picture_url %>" alt=""
+             style="background-size: 100%; background-repeat:no-repeat;">
+
       </div>
     </div>
   </div>
