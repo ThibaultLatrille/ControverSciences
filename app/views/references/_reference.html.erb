@@ -11,7 +11,7 @@
       <h2>
          <%= link_to "#{reference.title_display} <div style=\"margin-top: 8px; font-style: italic; font-size: 0.6em\"> #{reference.title} </div>".html_safe, reference, class: "hvr-grow1" %>
         <%= link_to "<span class=\"glyphicon glyphicon-chevron-down hvr-grow pull-right\"> </span>".html_safe,
-                    from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}" %>
+                    from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}", class: "fetcher" %>
         <span  id="ref-<%= reference.id %>" class="detail glyphicon glyphicon-chevron-up hvr-grow pull-right" style="display: none"></span>
       </h2>
       <div id="reference<%= reference.id %>" class="ref clearfix" style="display: none">

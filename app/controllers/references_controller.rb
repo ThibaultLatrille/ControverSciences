@@ -2,6 +2,7 @@ class ReferencesController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
 
   def from_timeline
+    sleep 1.5
     @best_comment = BestComment.find_by_reference_id(params[:reference_id])
     @ref = Reference.select(:id, :category).find(params[:reference_id])
     @target = Reference.select(:id, :year, :title, :title_fr).where(id: ReferenceEdge.where(reference_id: params[:reference_id]).pluck(:target))
