@@ -132,6 +132,8 @@ fr:
       edit: Modifier votre titre et/ou votre cadre
       edit_title: Titre de la controverse
       edit_frame: Cadre, focus et mise au point de la controverse
+      why: Pourquoi proposer cette alternative ?
+      why_info: Cette case ne sera visible que lors des votes afin de permettre aux autres contributeurs de comprendre vos motivations.
       content_value: |-
         A titre d'*exemple*, voici une ​​​​*structure*​​​​ de cadre qui s'efforce d'être complète en incorporant les principales informations nécessaires pour replacer les ​​​​*questions*​​​​ dans leurs ​​​​*contextes*​​​​.
 

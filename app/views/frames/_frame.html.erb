@@ -35,6 +35,11 @@
             <div class="cadre text-justify content<%= frame.id*10 + 1 %>">
               <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
               <%= frame.content_markdown.html_safe %>
+              <% unless frame.why_markdown.blank? %>
+                  <hr>
+                  <b style="font-size: 1.4em"><%= t('views.frames.why') %></b><br>
+                  <%= frame.why_markdown.html_safe %>
+              <% end %>
             </div>
             <br/>
         <% end %>
@@ -140,18 +145,18 @@
     </div>
     <% if logged_in? %>
         <div class="panel-heading">
-          <div id="destroy-div-<%=frame.id %>" class="clearfix">
+          <div id="destroy-div-<%= frame.id %>" class="clearfix">
             <% if (current_user.id == frame.user_id || current_user.admin) && frame.binaries.count > 0 %>
                 <div class="pull-right" style="margin-right: 8px;">
-                      <%= link_to "<span class=\"icon icon-ribbon\"></span> &#8594;
+                  <%= link_to "<span class=\"icon icon-ribbon\"></span> &#8594;
                                 <span class=\"glyphicon glyphicon-trash font12\"></span>".html_safe,
-                                  destroy_binaries_frames_path(frame_id: frame.id),
-                                  title: t('views.frames.destroy_binaries'),
-                                  remote: true,
-                                  id: "destroy-frame-#{frame.id}",
-                                  'data-toggle' => 'tooltip',
-                                  data: {confirm: t('views.default.confirm')},
-                                  class: "btn btn-danger" %>
+                              destroy_binaries_frames_path(frame_id: frame.id),
+                              title: t('views.frames.destroy_binaries'),
+                              remote: true,
+                              id: "destroy-frame-#{frame.id}",
+                              'data-toggle' => 'tooltip',
+                              data: {confirm: t('views.default.confirm')},
+                              class: "btn btn-danger" %>
                 </div>
 
             <% end %>

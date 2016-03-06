@@ -6,12 +6,12 @@ class FramesController < ApplicationController
     if frame
       redirect_to edit_frame_path(id: frame.id)
     else
-      timeline = Timeline.find(params[:timeline_id])
       @frame = Frame.new
       frame = Frame.find_by(best: true, timeline_id: params[:timeline_id])
       @frame.name = frame.name
+      @frame.content = frame.content
       @frame.timeline_id = params[:timeline_id]
-      @frame.binary = timeline.binary
+      @frame.binary = frame.binary
       if @frame.binary != ""
         @frame.binary_left = @frame.binary.split('&&')[0]
         @frame.binary_right = @frame.binary.split('&&')[1]
@@ -26,6 +26,7 @@ class FramesController < ApplicationController
   def create
     @frame = Frame.new(timeline_id: frame_params[:timeline_id],
                        content: frame_params[:content],
+                       why: frame_params[:why],
                        name: frame_params[:name])
     @frame.user_id = current_user.id
     if frame_params[:binary] != "0"
@@ -81,6 +82,7 @@ class FramesController < ApplicationController
         end
         @frame.content = frame_params[:content]
         @frame.name = frame_params[:name]
+        @frame.why = frame_params[:why]
         if @frame.save_with_markdown
           flash[:success] = t('controllers.frame_updated')
           redirect_to @frame
@@ -175,6 +177,6 @@ class FramesController < ApplicationController
   private
 
   def frame_params
-    params.require(:frame).permit(:timeline_id, :content, :name, :binary, :frame_timeline_id, :binary_left, :binary_right, :caption, :delete_picture, :has_picture)
+    params.require(:frame).permit(:timeline_id, :content, :name, :binary, :why, :frame_timeline_id, :binary_left, :binary_right, :caption, :delete_picture, :has_picture)
   end
 end

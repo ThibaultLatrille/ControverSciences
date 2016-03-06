@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160305213322) do
+ActiveRecord::Schema.define(version: 20160306123037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -228,6 +228,8 @@ ActiveRecord::Schema.define(version: 20160305213322) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "binary",           default: ""
+    t.text     "why",              default: ""
+    t.text     "why_markdown",     default: ""
   end
 
   add_index "frames", ["timeline_id"], name: "index_frames_on_timeline_id", using: :btree

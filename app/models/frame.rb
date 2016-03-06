@@ -64,6 +64,7 @@ class Frame < ActiveRecord::Base
     redcarpet_no_wrap = Redcarpet::Markdown.new(renderer_no_wrap, extensions)
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     self.content_markdown = redcarpet.render(self.content)
+    self.why_markdown = redcarpet.render(self.why)
     self.name_markdown = redcarpet_no_wrap.render(self.name)
   end
 

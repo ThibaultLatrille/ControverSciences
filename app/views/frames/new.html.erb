@@ -55,6 +55,15 @@
               <%= render 'static_pages/charte_frame' %>
               <br/>
               <br/>
+              <b style="font-size: 1.4em"><%= t('views.frames.why') %></b>
+              <br/>
+              <%= f.text_area :why, class: 'form-control textarea',
+                              value: @frame.why, id: "why" %>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <%= t('views.frames.why_info') %>
+                </div>
+              </div>
               <br/>
               <br/>
 
@@ -112,6 +121,7 @@
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra', 'cmdList', 'cmdListO', 'cmdBold']
     });
     $("#description0").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl']});
+    $("#why").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl']});
     $(document).ready(function () {
         if (!$('#check-box').is(':checked')) {
             $('#binary-box').hide()

@@ -125,6 +125,8 @@ en:
       show_to: This contribution is part of the controversy
       create: Publish your proposition for title and frame
       delete: Delete your title and frame
+      why: Pourquoi proposer cette alternative ?
+      why_info: Cette case ne sera visible que lors des votes afin de permettre aux autres contributeurs de comprendre vos motivations.
       edit: Edit your title and/or your frame
       edit_title: Title of the controversy
       edit_frame: !!Frame and focus of the controversy
