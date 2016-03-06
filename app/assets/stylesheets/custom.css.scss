@@ -217,7 +217,7 @@ header {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .navbar-nav > li > a {
     line-height: 35px;
   }
@@ -805,6 +805,18 @@ a:hover, a:active, a.active, a.focus, a:focus {
   .files img,
   .files canvas {
     max-width: 100%;
+  }
+  #tags{
+    display: block;
+  }
+  #tagCanvas{
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  #tags{
+    display: none;
   }
 }
 

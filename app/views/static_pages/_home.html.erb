@@ -30,10 +30,11 @@
           </div>
         </div>
         <div id="myCanvasContainer">
-          <canvas id="myCanvas" class="img-responsive" width="1920" height="480">
+          <canvas id="tagCanvas" class="img-responsive" width="1920" height="480">
           </canvas>
         </div>
-        <div id="tags" style="display: none">
+        <div id="tags">
+          <br>
           <% @choices.each do |choice| %>
               <%= link_to word_wrap(choice.name, line_width: 180).html_safe,
                           timeline_choices_path(timeline_id: choice.id,
@@ -45,11 +46,12 @@
         </div>
         <script type="text/javascript">
             $(document).ready(function () {
-                if (!$('#myCanvas').tagcanvas({
+                if (!$('#tagCanvas').tagcanvas({
                             textColour: '#3686BE',
                             outlineMethod: "colour",
                             outlineColour: "#24597E",
                             textFont: "Ubuntu, sans-serif",
+                            hideTags: false,
                             splitWidth: 800,
                             textHeight: "25",
                             maxSpeed: 0.03,
