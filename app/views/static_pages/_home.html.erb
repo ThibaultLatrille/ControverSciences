@@ -29,14 +29,44 @@
             <% end %>
           </div>
         </div>
-        <br><br>
+        <div id="myCanvasContainer">
+          <canvas id="myCanvas" class="img-responsive" width="1920" height="480">
+          </canvas>
+        </div>
+        <div id="tags" style="display: none">
+          <% @choices.each do |choice| %>
+              <%= link_to word_wrap(choice.name, line_width: 180).html_safe,
+                          timeline_choices_path(timeline_id: choice.id,
+                                                friendly_id: choice.slug,
+                                                choices: @choices.map { |t| t.id }),
+                          method: :post %> <br>
+              <br>
+          <% end %>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                if (!$('#myCanvas').tagcanvas({
+                            textColour: '#3686BE',
+                            outlineMethod: "colour",
+                            outlineColour: "#24597E",
+                            textFont: "Ubuntu, sans-serif",
+                            splitWidth: 800,
+                            textHeight: "25",
+                            maxSpeed: 0.03,
+                            depth: 0.75
+                        }, 'tags')) {
+                    $('#myCanvasContainer').hide();
+                }
+            });
+        </script>
+        <br>
         <%= link_to "<b>Toutes les controverses</b>".html_safe, timelines_path, class: "btn btn-lg btn-primary", style: "font-size: 1.8em; padding: 0.5em 1.5em;" %>
         <br><br><br>
-            <%= render 'static_pages/comics' %>
-            <br><br>
-            <%= render 'static_pages/discover' %>
-            <br><br>
-            <%= render 'static_pages/links' %>
+        <%= render 'static_pages/comics' %>
+        <br><br>
+        <%= render 'static_pages/discover' %>
+        <br><br>
+        <%= render 'static_pages/links' %>
         <br><br>
 
         <div class="row">
@@ -65,7 +95,8 @@
                     payant et on ne sait pas où chercher !
                     <br/>
                     <br/>
-                    <b>ControverSciences</b> a pour <b>mission</b> d’être une plateforme de <b>médiation scientifique</b>: c’est
+                    <b>ControverSciences</b> a pour <b>mission</b> d’être une plateforme de
+                    <b>médiation scientifique</b>: c’est
                     un lieu de <b>partage</b> de la science <b>accessible à tous</b>.
                     <br/>
                     <br/>
@@ -117,3 +148,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag 'home' %>

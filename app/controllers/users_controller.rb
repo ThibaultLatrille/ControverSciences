@@ -64,7 +64,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @favorite = Timeline.find_by(favorite: true, staging: false)
+      random_choices_and_favorite
       if @user.invalid_email
         PendingUser.create(user_id: @user.id, why: user_params[:why])
         render 'users/invalid'

@@ -1,5 +1,15 @@
 module ApplicationHelper
   # Returns the full title on a per-page basis.
+
+  def random_choices_and_favorite
+    @choices = Timeline.select(:slug, :id, :name).limit(8).order("RANDOM()")
+    if logged_in?
+      @favorite = Timeline.find_by(favorite: true, staging: true)
+    else
+      @favorite = Timeline.find_by(favorite: true, staging: false)
+    end
+  end
+
   def full_title(page_title = '')
     base_title = "ControverSciences"
     if page_title.empty?

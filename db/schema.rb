@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128224715) do
+ActiveRecord::Schema.define(version: 20160305213322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -663,6 +663,17 @@ ActiveRecord::Schema.define(version: 20160128224715) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "timeline_choices", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "timeline_id"
+    t.integer  "choices",     default: [], array: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "timeline_choices", ["timeline_id"], name: "index_timeline_choices_on_timeline_id", using: :btree
+  add_index "timeline_choices", ["user_id"], name: "index_timeline_choices_on_user_id", using: :btree
 
   create_table "timeline_contributors", force: true do |t|
     t.integer  "user_id"

@@ -1,10 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    if logged_in?
-      @favorite = Timeline.find_by(favorite: true, staging: true)
-    else
-      @favorite = Timeline.find_by(favorite: true, staging: false)
-    end
+    random_choices_and_favorite
   end
 
   def empty_comments

@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
   def send_activation
     user = User.find_by(email: params[:email].downcase)
     if user && !user.activated?
-      @favorite = Timeline.find_by(favorite: true, staging: false)
+      random_choices_and_favorite
       if PendingUser.find_by_user_id(user.id)
         render 'users/invalid'
       else

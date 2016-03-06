@@ -77,6 +77,7 @@ Rails.application.routes.draw do
       get 'add_current_user'
     end
   end
+  resources :timeline_choices, only: [:create]
   post 'notifications/delete'
   delete 'logout' => 'sessions#destroy'
   get 'voronoi' => 'static_pages#voronoi'

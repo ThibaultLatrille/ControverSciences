@@ -7,4 +7,5 @@ Rails.application.config.assets.version = '4.6'
 # Rails.application.conf*ig.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( chart.js )
 Rails.application.config.assets.precompile += %w( not_logged.js )
+Rails.application.config.assets.precompile += %w( home.js )
 Rails.application.config.assets.precompile += %w( voronoi.js )
