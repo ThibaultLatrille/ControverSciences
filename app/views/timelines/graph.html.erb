@@ -39,8 +39,8 @@
     var color = d3.scale.category20();
 
     var force = d3.layout.force()
-            .linkDistance(10)
-            .linkStrength(2)
+            .linkDistance(20)
+            .linkStrength(0.5)
             .size([width, height]);
 
     var svg = d3.select("#d3-graph").append("svg")
@@ -94,7 +94,7 @@
                 .append("circle")
                 .attr("class", "node")
                 .attr("r", function (d) {
-                    return 3 * d.size;
+                    return 1 * d.size;
                 })
                 .style("fill", function (d) {
                     return colors[d.group];
