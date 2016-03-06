@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   has_many :partners, dependent: :destroy
   has_many :partner_loves, class_name: "PartnerLove", dependent: :destroy
   has_many :private_timelines, dependent: :destroy
+  has_many :timeline_choices, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why,
                 :invalid_email, :terms_of_service, :invited, :timelines_count,

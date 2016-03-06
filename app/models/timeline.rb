@@ -31,6 +31,7 @@ class Timeline < ActiveRecord::Base
   has_many :edges_from, class_name: "Edge",
            foreign_key: "target",
            dependent: :destroy
+  has_many :timeline_choices, dependent: :destroy
 
   has_many :reference_edges, dependent: :destroy
   has_many :reference_edge_votes, dependent: :destroy
