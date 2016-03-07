@@ -7,14 +7,17 @@ class Suggestion < ActiveRecord::Base
   has_many :suggestion_votes, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-  validates :user_id, presence: true
-  validates :comment, presence: true, length: {maximum: 1200 }
+  validates :comment, presence: true, length: {maximum: 4000, minimum: 140}
 
   before_save :save_with_markdown
-  after_create  :cascading_save
+  after_create :cascading_save
 
   def user_name
-    User.select(:name).find(self.user_id).name
+    if self.user_id
+      User.select(:name).find(self.user_id).name
+    else
+      self.name
+    end
   end
 
   private
@@ -43,15 +46,13 @@ class Suggestion < ActiveRecord::Base
   end
 
   def cascading_save
-    if self.timeline_id.blank?
-      notifications = []
-      User.where(activated: true).pluck(:id).each do |user_id|
-        unless self.user_id == user_id
-          notifications << Notification.new(user_id: user_id, suggestion_id: self.id,
-                                            category: 7)
-        end
+    notifications = []
+    User.where(activated: true, can_switch_admin: true).pluck(:id).each do |user_id|
+      unless self.user_id == user_id
+        notifications << Notification.new(user_id: user_id, suggestion_id: self.id,
+                                          category: 10)
       end
-      Notification.import notifications
     end
+    Notification.import notifications
   end
 end

@@ -1,6 +1,4 @@
 class SuggestionChildrenController < ApplicationController
-  before_action :redirect_to_home
-
   def from_suggestion
     @suggestion_children = SuggestionChild.order( :created_at ).where( suggestion_id: params[:suggestion_id])
     if logged_in?
@@ -37,6 +35,7 @@ class SuggestionChildrenController < ApplicationController
     @my_sug_likes = SuggestionVote.where(user_id: current_user.id, value: true ).pluck(:suggestion_id)
     if current_user.id == @suggestion_child.user_id || current_user.admin
       @suggestion_child.comment = suggestion_child_params[:comment]
+      @suggestion_child.name = suggestion_child_params[:name]
       if @suggestion_child.save
         render 'suggestion_children/show'
       else
@@ -75,7 +74,7 @@ class SuggestionChildrenController < ApplicationController
   private
 
   def suggestion_child_params
-    params.require(:suggestion_child).permit(:id, :comment, :suggestion_id)
+    params.require(:suggestion_child).permit(:id, :comment, :name, :suggestion_id)
   end
 
 end

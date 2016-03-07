@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   resources :suggestion_children, only: [:create, :show, :edit, :update, :destroy]
   resources :suggestion_votes, only: [:create]
   resources :suggestion_child_votes, only: [:create]
+  get 'livre-d-or' => 'suggestions#index'
   resources :issues, only: [:create]
   resources :reponses, only: [:create]
   resources :figures, only: [:create] do
@@ -124,9 +125,10 @@ Rails.application.routes.draw do
   get 'assistant/selection' => 'assistant#selection'
   get 'assistant/profils' => 'assistant#profils'
   get 'notifications/index'
-  get 'notifications/important'
   get 'notifications/patches'
+  get 'notifications/redirect'
   get 'notifications/delete_all'
+  get 'notifications/important'
   get 'notifications/delete_all_important'
   get 'notifications/timeline'
   get 'notifications/reference'

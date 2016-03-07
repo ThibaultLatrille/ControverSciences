@@ -1,5 +1,30 @@
 module ApplicationHelper
   # Returns the full title on a per-page basis.
+  def sym_to_int_notifs_hash
+    {timeline: 1,
+     reference: 2,
+     summary: 3,
+     summary_selection: 4,
+     comment: 5,
+     selection: 6,
+     frame: 8,
+     frame_selection: 9,
+     suggestion: 10,
+     suggestion_child: 11}
+  end
+
+  def category_to_model_hash
+    {1 => :timeline_id,
+     2 => :reference_id,
+     3 => :summary_id,
+     4 => :summary_id,
+     5 => :comment_id,
+     6 => :comment_id,
+     8 => :frame_id,
+     9 => :frame_id,
+     10 => :suggestion_id,
+     11 => :suggestion_child_id}
+  end
 
   def random_choices_and_favorite
     @choices = Timeline.select(:slug, :id, :name).limit(8).order("RANDOM()")

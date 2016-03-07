@@ -133,36 +133,8 @@ class User < ActiveRecord::Base
     reset_sent_at < 15.days.ago
   end
 
-  def notifications_timeline
-    Notification.where(user_id: self.id, category: 1).count
-  end
-
-  def notifications_reference
-    Notification.where(user_id: self.id, category: 2).count
-  end
-
-  def notifications_summary
-    Notification.where(user_id: self.id, category: 3).count
-  end
-
-  def notifications_summary_selection
-    Notification.where(user_id: self.id, category: 4).count
-  end
-
-  def notifications_comment
-    Notification.where(user_id: self.id, category: 5).count
-  end
-
-  def notifications_selection
-    Notification.where(user_id: self.id, category: 6).count
-  end
-
-  def notifications_frame
-    Notification.where(user_id: self.id, category: 8).count
-  end
-
-  def notifications_frame_selection
-    Notification.where(user_id: self.id, category: 9).count
+  def notifications_model(category)
+    Notification.where(user_id: self.id, category: category).count
   end
 
   def notifications_all

@@ -1,12 +1,9 @@
-<% provide(:title, "Suggérer une amélioration") %>
+<% provide(:title, "Le livre d'or") %>
 <div id="my-container" class="container-fluid">
   <div class="row">
     <div class="col-xs-12">
-      <% if params[:filter] == "debate" %>
-          <h1> <span class="icon-frog bigger"></span> Discutez des controverses ! </h1>
-    <% else %>
-          <h1> <span class="icon-idea bigger"></span> Apportez vos idées ! </h1>
-    <% end %>
+      <h1><span class="icon-idea bigger"></span> Le livre d'or </h1>
+
       <div class="row">
         <div class="col-xs-12 col-lg-3">
           <div class="panel panel-default">
@@ -14,86 +11,40 @@
               <span class="glyphicon glyphicon-comment"></span> Vous souhaitez vous exprimer ? C'est ici !
             </div>
             <div class="panel-body">
-              <% if logged_in? %>
-                  <%= form_for(@suggestion) do |f| %>
-                      <%= render 'shared/error_messages', object: f.object %>
-                      <div class="form-group">
-                        <% if params[:filter] == "debate" %>
-                            <%= f.hidden_field :debate, value: 'true' %>
-                            <%= f.label :comment, "<span class=\"icon-frog bigger\"></span> Suggérer une controverse (1200 caractères max)".html_safe, class: 'control-label' %>
-                        <% else %>
-                            <%= f.label :comment, "<span class=\"icon-idea bigger\"></span> Apporter une idée (1200 caractères max)".html_safe, class: 'control-label' %>
-                        <% end %>
-                        <br>
+              <%= form_for(@suggestion) do |f| %>
+                  <%= render 'shared/error_messages', object: f.object %>
+                  <div class="form-group">
+                    <%= f.label :comment, "<span class=\"icon-idea bigger\"></span> Apporter une idée (1200 caractères max)".html_safe, class: 'control-label' %>
 
-                        <div id="characterLeft"></div>
-                        <%= f.text_area :comment, {rows:  3, id: "markdown-textarea",
-                                                   :class => "form-control textarea"} %>
-                        <span class="help-block"></span>
+                    <div id="characterLeft0"></div>
+                    <%= f.text_area :comment, {rows: 3, id: "description0",
+                                               :class => "form-control textarea"} %>
+                    <span class="help-block"></span>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="pull-right">
+                        <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                                     class: 'btn btn-success',
+                                     data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
                       </div>
-                      <div class="row">
-                        <div class="col-xs-12">
-                          <div class="pull-right">
-                            <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
-                                         class: 'btn btn-success',
-                                         data:  {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
-                          </div>
-                        </div>
-                      </div>
-                  <% end %>
-              <% else %>
-                  <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Créer un compte pour commenter".html_safe, new_user_path,
-                              class: "btn btn-primary pull-right" %>
+                    </div>
+                  </div>
               <% end %>
             </div>
           </div>
         </div>
         <div class="col-xs-12 col-lg-7">
           <div class="row">
-            <div class="col-xs-12 col-lg-10 col-lg-offset-1">
-              <div class="btn-group">
-                <button class="btn btn-lg btn-default dropdown-toggle" type="button"
-                        id="dropdownMenuTag" data-toggle="dropdown">
-                  <% if params[:filter] == "debate" %>
-                      Discuter des controverses
-                  <% else %>
-                      Boite à idées
-                  <% end %>
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li <%= params[:filter] == "debate" ? "class=selected" : nil %> >
-                    <%= link_to "<span class=\"icon-frog fat\"></span> Discuter des controverses".html_safe,
-                                suggestions_path(:filter => 'debate') %>
-                  </li>
-                  <li <%= params[:filter] != "debate" ? "class=selected" : nil %> >
-                    <%= link_to "<span class=\"icon-idea fat\"></span> Boite à idées".html_safe,
-                                suggestions_path %>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                </br>
-              </div>
-            </div>
             <div>
-            <%= render @suggestions, show_likes: true %>
+              <%= render @suggestions, show_likes: true %>
             </div>
             <div class="col-xs-12 col-lg-10 col-lg-offset-1">
-            <%= paginate @suggestions %>
+              <%= paginate @suggestions %>
               <br/>
               <br/>
               <br/>
             </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-lg-2">
-          <%= link_to "<strong>Les controverses</strong>".html_safe, timelines_path,
-                      class: "btn btn-block btn-primary", style: "font-size: 1.3em;" %>
-          <%= link_to "Foire aux questions (FAQ)", faq_path,
-                      class: "btn btn-block btn-primary" %>
-          <div class="btn btn-block btn-default cursor-not-allowed">
-            Venez discuter
           </div>
         </div>
       </div>
@@ -130,38 +81,16 @@
   </div>
 </div>
 
-<% if logged_in? %>
+<%= render 'shared/length_counter' %>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-        $("#markdown-textarea").markdown({autofocus: false, savable: false, hiddenButtons: ['cmdLinkInt', 'cmdUrl']});
-        var max = 1200;
-        var len = $('#markdown-textarea').val().length;
-        if (len >= max) {
-            var ch = len - max;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
-        } else {
-            var ch = max - len;
-            $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
-        }
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    $("textarea").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
     });
-    $('#markdown-textarea').keyup(function () {
-        var max = 1200;
-        var len = $(this).val().length;
-        if (len >= max) {
-            var ch = len - max;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
-        } else {
-            var ch = max - len;
-            $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
-        }
-    });
+    setupLengthCounter([[0, 4000, 140]])
 </script>
-<% end %>
 
 <script type="text/javascript">
     $(function () {
@@ -171,11 +100,13 @@
             self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
             $.ajax(self.data('validate'), {
                 url: self.data('validate'),
-                data: {id: self.val(),
-                    value: self.data('value')},
+                data: {
+                    id: self.val(),
+                    value: self.data('value')
+                },
                 method: 'POST',
                 statusCode: {
-                    201: function (response){
+                    201: function (response) {
                         $('.loader-like').remove();
                         self.show();
                         var like = $('.glyphicon', self);
@@ -185,7 +116,7 @@
                         self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
-                    204: function (response){
+                    204: function (response) {
                         $('.loader-like').remove();
                         self.show();
                         var like = $('.glyphicon', self);
@@ -195,7 +126,7 @@
                         self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
-                    401: function (response){
+                    401: function (response) {
                         $('.loader-like').remove();
                         self.show();
                         $('#iptaken').modal('show');

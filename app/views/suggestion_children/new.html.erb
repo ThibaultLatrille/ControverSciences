@@ -10,57 +10,51 @@
               <div class="text-justify">
                 <%= @suggestion.content_markdown.html_safe %>
               </div>
-              <% if @suggestion.timeline_id && @suggestion.timeline_id > 0 %>
-                  <br/>
-                  <%= link_to "<span class=\"icon-frog\"></span> #{t('views.navigation.back_timeline')}".html_safe,
-                              timeline_path(@suggestion.timeline_id), class: "btn btn-primary pull-right" %>
+              <% if logged_in? && (@suggestion.user_id == current_user.id || current_user.admin) %>
+                  <div class="pull-right">
+                    <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe,
+                                suggestion_path(@suggestion.id), method: :delete,
+                                data: {confirm: t('views.default.confirm')},
+                                class: "btn btn-danger" %>
+                    <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe,
+                                edit_suggestion_path(@suggestion.id),
+                                class: "btn btn-primary" %>
+                  </div>
+              <% end %>
+              <% if logged_in? && @suggestion.user_id == current_user.id %>
+                  <div class="sticky" style="color: #5cb85c;" data-placement="top"
+                       data-toggle="tooltip"
+                       title="<%= @suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
+                    <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.plus %></span>
+                  </div>
+                  <div class="sticky" style="color: #d9534f;" data-placement="right"
+                       data-toggle="tooltip"
+                       title="<%= @suggestion.minus.to_s + " contributeurs trouvent cette idée non constructive" %>">
+                    <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.minus %></span>
+                  </div>
               <% else %>
-                  <% if logged_in? && (@suggestion.user_id == current_user.id || current_user.admin) %>
-                      <div class="pull-right">
-                        <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe,
-                                    suggestion_path(@suggestion.id), method: :delete,
-                                    data:  {confirm: t('views.default.confirm')},
-                                    class: "btn btn-danger" %>
-                        <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe,
-                                    edit_suggestion_path(@suggestion.id),
-                                    class: "btn btn-primary" %>
-                      </div>
-                  <% end %>
-                  <% if logged_in? && @suggestion.user_id == current_user.id %>
-                      <div class="sticky" style="color: #5cb85c;" data-placement="top"
-                           data-toggle="tooltip"
-                           title="<%= @suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
-                        <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.plus %></span>
-                      </div>
-                      <div class="sticky" style="color: #d9534f;" data-placement="right"
-                           data-toggle="tooltip"
-                           title="<%= @suggestion.minus.to_s + " contributeurs trouvent cette idée non constructive" %>">
-                        <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.minus %></span>
-                      </div>
-                  <% else %>
-                      <div>
-                        <% if @my_sug_likes && @my_sug_likes.include?(@suggestion.id) %>
-                            <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
-                                    data-toggle="tooltip" value="<%= @suggestion.id %>" data-validate="/suggestion_votes"
-                                    title="Vous et <%= (@suggestion.plus - 1).to_s + " contributeurs trouvent cette idée constructive" %>">
-                              <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.plus %></span>
-                            </button>
-                        <% else %>
-                            <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
-                                    data-toggle="tooltip" value="<%= @suggestion.id %>" data-validate="/suggestion_votes"
-                                    title="<%= @suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
-                              <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.plus %></span>
-                            </button>
-                        <% end %>
-                      </div>
-                  <% end %>
+                  <div>
+                    <% if @my_sug_likes && @my_sug_likes.include?(@suggestion.id) %>
+                        <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
+                                data-toggle="tooltip" value="<%= @suggestion.id %>" data-validate="/suggestion_votes"
+                                title="Vous et <%= (@suggestion.plus - 1).to_s + " contributeurs trouvent cette idée constructive" %>">
+                          <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.plus %></span>
+                        </button>
+                    <% else %>
+                        <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
+                                data-toggle="tooltip" value="<%= @suggestion.id %>" data-validate="/suggestion_votes"
+                                title="<%= @suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
+                          <span class="glyphicon glyphicon-thumbs-up"> <%= @suggestion.plus %></span>
+                        </button>
+                    <% end %>
+                  </div>
               <% end %>
             </div>
             <div class="panel-footer clearfix">
               <div class="clearfix">
                   <span class="timestamp">
                     Publié il y a <%= time_ago_in_words(@suggestion.created_at) %> par
-                    <%= link_to @suggestion.user_name, user_path(@suggestion.user_id) %>
+                    <%= @suggestion.user_id ? (link_to @suggestion.user_name, user_path(@suggestion.user_id)) : " un inconnu." %>
                    </span>
               </div>
               <div id="children<%= @suggestion.id %>">
@@ -76,8 +70,11 @@
                           <%= f.hidden_field :suggestion_id, value: @suggestion_child.suggestion_id %>
                           <div class="form-group">
                             <%= f.label :comment, "Votre réponse", class: 'control-label' %><br>
+
                             <div id="characterLeft"></div>
-                            <%= f.text_area :comment, class: 'form-control textarea', id: "markdown-textarea" %>
+                            <%= f.text_area :comment,
+                                            class: 'form-control textarea',
+                                            id: "description0" %>
                             <span class="help-block"></span>
                           </div>
                           <div class="row">
@@ -85,7 +82,7 @@
                               <div class="pull-right">
                                 <%= f.button "Modifier &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                                              class: 'btn btn-success',
-                                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "}%>
+                                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
                               </div>
                             </div>
                           </div>
@@ -131,35 +128,18 @@
   </div>
 </div>
 
+<%= render 'shared/length_counter' %>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
-        var max = 1200;
-        var len = $('#markdown-textarea').val().length;
-        if (len >= max) {
-            var ch = len - max;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
-        } else {
-            var ch = max - len;
-            $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
-        }
-    });
-    $('#markdown-textarea' ).keyup(function () {
-        var max = 1200;
-        var len = $(this).val().length;
-        if (len >= max) {
-            var ch = len - max;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
-        } else {
-            var ch = max - len;
-            $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
-        }
-    });
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    $("textarea").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
+    });
+    setupLengthCounter([[0, 4000, 140]])
+</script>
+
+<script type="text/javascript">
     $(function () {
         $('[data-validate]').click(function () {
             var self = $(this);
@@ -167,11 +147,13 @@
             self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
             $.ajax(self.data('validate'), {
                 url: self.data('validate'),
-                data: {id: self.val(),
-                    value: self.data('value')},
+                data: {
+                    id: self.val(),
+                    value: self.data('value')
+                },
                 method: 'POST',
                 statusCode: {
-                    201: function (response){
+                    201: function (response) {
                         $('.loader-like').remove();
                         self.show();
                         var like = $('.glyphicon', self);
@@ -181,7 +163,7 @@
                         self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
                         like.text(' ' + (parseInt(like.text()) + 1));
                     },
-                    204: function (response){
+                    204: function (response) {
                         $('.loader-like').remove();
                         self.show();
                         var like = $('.glyphicon', self);
@@ -191,7 +173,7 @@
                         self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
                         like.text(' ' + (parseInt(like.text()) - 1));
                     },
-                    401: function (response){
+                    401: function (response) {
                         $('.loader-like').remove();
                         self.show();
                         $('#iptaken').modal('show');

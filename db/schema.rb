@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306123037) do
+ActiveRecord::Schema.define(version: 20160307134415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -343,6 +343,7 @@ ActiveRecord::Schema.define(version: 20160306123037) do
     t.integer  "field"
     t.integer  "suggestion_id"
     t.integer  "frame_id"
+    t.integer  "suggestion_child_id"
   end
 
   add_index "notifications", ["comment_id"], name: "index_notifications_on_comment_id", using: :btree
@@ -563,6 +564,7 @@ ActiveRecord::Schema.define(version: 20160306123037) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "content_markdown", default: ""
+    t.text     "name",             default: ""
   end
 
   add_index "suggestion_children", ["suggestion_id"], name: "index_suggestion_children_on_suggestion_id", using: :btree
@@ -581,7 +583,6 @@ ActiveRecord::Schema.define(version: 20160306123037) do
   create_table "suggestions", force: true do |t|
     t.integer  "user_id"
     t.text     "comment"
-    t.integer  "timeline_id"
     t.integer  "balance",          default: 0
     t.integer  "plus",             default: 0
     t.integer  "minus",            default: 0
@@ -589,6 +590,7 @@ ActiveRecord::Schema.define(version: 20160306123037) do
     t.datetime "updated_at"
     t.integer  "children",         default: 0
     t.text     "content_markdown", default: ""
+    t.text     "name",             default: ""
   end
 
   add_index "suggestions", ["user_id"], name: "index_suggestions_on_user_id", using: :btree

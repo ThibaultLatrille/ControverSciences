@@ -3,18 +3,7 @@ $("#button<%= params[:suggestion_id] %>").hide();
 $(document).ready(function() {
     var textarea = $('textarea', "#children<%= params[:suggestion_id] %>");
     textarea.markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
-    var charleft = $('#characterLeft', "#children<%= params[:suggestion_id] %>");
-    var max = 1200;
-    var len = textarea.val().length;
-    if (len >= max) {
-        var ch = len - max;
-        charleft.css({"color": "#a94442"});
-        charleft.text(ch + ' <%= t('views.edition.character_much') %>');
-    } else {
-        var ch = max - len;
-        charleft.css({"color": "#5cb85c"});
-        charleft.text(ch + ' <%= t('views.edition.character_left') %>');
-    }
+    setupLengthCounter([["C<%= params[:suggestion_id] %>", 4000, 140]]);
     autosize(textarea);
 });
 $(function () {
@@ -56,19 +45,5 @@ $(function () {
             }
         })
     });
-});
-$('textarea', "#children<%= params[:suggestion_id] %>").keyup(function () {
-    var charleft = $('#characterLeft', "#children<%= params[:suggestion_id] %>");
-    var max = 1200;
-    var len = $(this).val().length;
-    if (len >= max) {
-        var ch = len - max;
-        charleft.css({"color": "#a94442"});
-        charleft.text(ch + ' <%= t('views.edition.character_much') %>');
-    } else {
-        var ch = max - len;
-        charleft.css({"color": "#5cb85c"});
-        charleft.text(ch + ' <%= t('views.edition.character_left') %>');
-    }
 });
 $('[data-toggle="tooltip"]', "#children<%= params[:suggestion_id] %>").tooltip({container: 'body'});

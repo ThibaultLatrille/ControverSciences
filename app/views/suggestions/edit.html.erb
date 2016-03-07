@@ -12,8 +12,8 @@
               <div class="form-group">
                 <%= f.label :comment, "Votre commentaire", class: 'control-label' %>
                 <br>
-                <div id="characterLeft"></div>
-                <%= f.text_area :comment, class: 'form-control textarea', id: "markdown-textarea" %>
+                <div id="characterLeft0"></div>
+                <%= f.text_area :comment, class: 'form-control textarea', id: "description0" %>
                 <span class="help-block"></span>
               </div>
               <div class="row">
@@ -32,32 +32,13 @@
   </div>
 </div>
 
+<%= render 'shared/length_counter' %>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
-        var max = 1200;
-        var len = $('#markdown-textarea').val().length;
-        if (len >= max) {
-            var ch = len - max;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
-        } else {
-            var ch = max - len;
-            $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
-        }
+    $("textarea").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
     });
-    $('#markdown-textarea' ).keyup(function () {
-        var max = 1200;
-        var len = $(this).val().length;
-        if (len >= max) {
-            var ch = len - max;
-            $('#characterLeft').css({"color": "#a94442"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_much') %>');
-        } else {
-            var ch = max - len;
-            $('#characterLeft').css({"color": "#5cb85c"});
-            $('#characterLeft').text(ch + ' <%= t('views.edition.character_left') %>');
-        }
-    });
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    setupLengthCounter([[0, 4000, 140]])
 </script>

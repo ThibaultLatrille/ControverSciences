@@ -4,18 +4,22 @@ class SuggestionChild < ActiveRecord::Base
   belongs_to :user
   belongs_to :suggestion
   has_many :suggestion_child_votes, dependent: :destroy
-  has_one :notification_suggestion, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates :suggestion_id, presence: true
   validates :user_id, presence: true
-  validates :comment, presence: true, length: {maximum: 1200 }
+  validates :comment, presence: true, length: {maximum: 4000, minimum: 140}
 
   before_save :save_with_markdown
   after_create  :cascading_save
   after_destroy :cascading_destroy
 
   def user_name
-    User.select(:name).find(self.user_id).name
+    if self.user_id
+      User.select(:name).find(self.user_id).name
+    else
+      self.name
+    end
   end
 
   private
@@ -50,12 +54,13 @@ class SuggestionChild < ActiveRecord::Base
     notifications = []
     user_ids.uniq.each do |author_id|
       if self.user_id != author_id
-        notifications << NotificationSuggestion.new(user_id: author_id,
-                                      suggestion_id: self.suggestion_id,
-                                      suggestion_child_id: self.id)
+        notifications << Notification.new(user_id: user_id,
+                                          suggestion_id: self.suggestion_id,
+                                          suggestion_child_id: self.id,
+                                          category: 11)
       end
     end
-    NotificationSuggestion.import notifications
+    Notification.import notifications
   end
 
   def cascading_destroy
