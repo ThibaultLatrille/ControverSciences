@@ -14,9 +14,9 @@ class TimelinesController < ApplicationController
       params[:sort] = :nb_comments
     end
     query = Timeline.includes(:tags).order(params[:sort].blank? ? :score : params[:sort].to_sym =>
-                                            params[:order].blank? ? :desc : params[:order].to_sym,
-                                            created_at: params[:order].blank? ? :desc : params[:order].to_sym )
-                                            .where.not(private: true)
+                                               params[:order].blank? ? :desc : params[:order].to_sym,
+                                           created_at: params[:order].blank? ? :desc : params[:order].to_sym)
+                .where.not(private: true)
     unless params[:filter].blank?
       query = query.search_by_name(params[:filter])
       unless params[:tag].blank?
@@ -25,7 +25,7 @@ class TimelinesController < ApplicationController
     end
     unless params[:tag].blank? || params[:tag] == 'all' || params[:tag] == [""] || params[:tag] == ["all"]
       # This is just disgusting but do the job !!! refactor needed !!!
-      query = query.where( id: Tagging.where(tag_id: Tag.where(name: params[:tag]).pluck(:id)).pluck(:timeline_id))
+      query = query.where(id: Tagging.where(tag_id: Tag.where(name: params[:tag]).pluck(:id)).pluck(:timeline_id))
     end
     if logged_in?
       unless params[:interest].blank?
@@ -47,9 +47,9 @@ class TimelinesController < ApplicationController
   end
 
   def new
-    @timeline        = Timeline.new
+    @timeline = Timeline.new
     @timeline.binary = true
-    @tag_list        = []
+    @tag_list = []
     if current_user.private_timeline
       @timeline.private = true
     end
@@ -63,7 +63,7 @@ class TimelinesController < ApplicationController
   def create
     @timeline = Timeline.new(user_id: current_user.id, frame: timeline_params[:frame],
                              name: timeline_params[:name], staging: true,
-                             private: (current_user.private_timeline ? timeline_params[:private] : false ))
+                             private: (current_user.private_timeline ? timeline_params[:private] : false))
     if timeline_params[:binary] == "1"
       @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
     else
@@ -78,9 +78,9 @@ class TimelinesController < ApplicationController
     else
       @tag_list = @timeline.get_tag_list
       if @timeline.binary != ""
-        @timeline.binary_left  = @timeline.binary.split('&&')[0]
+        @timeline.binary_left = @timeline.binary.split('&&')[0]
         @timeline.binary_right = @timeline.binary.split('&&')[1]
-        @timeline.binary       = true
+        @timeline.binary = true
       else
         @timeline.binary = false
       end
@@ -90,39 +90,42 @@ class TimelinesController < ApplicationController
 
   def show
     begin
-      @timeline    = Timeline.find(params[:id])
+      @timeline = Timeline.find(params[:id])
       if @timeline.private && !logged_in?
         flash[:danger] = "Cette controverse est privée, vous ne pouvez pas y accèder !"
         redirect_to_back timelines_path
       else
-        Timeline.increment_counter(:views, @timeline.id )
+        Timeline.increment_counter(:views, @timeline.id)
         summary_best = SummaryBest.find_by(timeline_id: @timeline.id)
         if summary_best
           @summary = Summary.find(summary_best.summary_id)
         else
           @summary = nil
         end
-        edges = Edge.where("timeline_id = ? OR target = ?",
+        edges = Edge.select(:target, :timeline_id)
+                    .where("timeline_id = ? OR target = ?",
                            @timeline.id,
                            @timeline.id)
-        timeline_ids = edges.map{ |e| [e.target, e.timeline_id] }
-        query = Timeline.includes(:tags).where( id: timeline_ids.flatten.uniq ).where.not(private: true).where.not( id: @timeline.id )
+        timeline_ids = edges.map { |e| [e.target, e.timeline_id] }
+        @timelines = Timeline.select(:slug, :id, :name)
+                         .where(id: timeline_ids.flatten.uniq)
+                         .where.not(private: true)
+                         .where.not(id: @timeline.id).limit(7).order("RANDOM()")
         if logged_in?
-          visitetimeline = VisiteTimeline.find_or_create_by( user_id: current_user.id, timeline_id: @timeline.id )
+          visitetimeline = VisiteTimeline.find_or_create_by(user_id: current_user.id, timeline_id: @timeline.id)
           VisiteTimeline.increment_counter(:counter, visitetimeline.id)
           visitetimeline.update_columns(updated_at: Time.current)
-          @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
           @improve = Summary.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? false : true
           @my_frame = Frame.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
-        else
-          query = query.where(staging: false)
+          @my_like = Like.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
         end
         @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
-        @timelines = query
-        @titles     = Reference.where(timeline_id: @timeline.id, title_fr: "").count
-        ref_query = Reference.select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits).order(year: :desc).where(timeline_id: @timeline.id)
+        @titles = Reference.where(timeline_id: @timeline.id, title_fr: "").count
+        ref_query = Reference.select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits)
+                        .order(year: :desc)
+                        .where(timeline_id: @timeline.id)
         unless logged_in?
-          ref_query = ref_query.where.not( title_fr: "" )
+          ref_query = ref_query.where.not(title_fr: "")
         end
         @references = ref_query
       end
@@ -147,11 +150,11 @@ class TimelinesController < ApplicationController
         if timeline_params[:delete_picture] == 'true'
           timeline.figure_id = nil
         elsif timeline_params[:has_picture] == 'true'
-          timeline.figure_id = Figure.order( :created_at ).where( user_id: current_user.id,
-                                                                  img_timeline_id: timeline.id ).last.id
+          timeline.figure_id = Figure.order(:created_at).where(user_id: current_user.id,
+                                                               img_timeline_id: timeline.id).last.id
         end
         if timeline.save
-          Figure.where(id: timeline.figure_id).update_all( source: timeline_params[:source] )
+          Figure.where(id: timeline.figure_id).update_all(source: timeline_params[:source])
           render 'timelines/success'
         end
       end
@@ -164,16 +167,16 @@ class TimelinesController < ApplicationController
   def network
     @nodes = Timeline.select(:id, :slug, :name, :staging, :score).where.not(private: true)
     @links = Edge.select(:id, :timeline_id, :target, :balance)
-                 .where(target: @nodes.map{ |t| t.id } )
-                .where(timeline_id: @nodes.map{ |t| t.id } ).to_a
-                .reject{|i|  i.balance < 0 }
-                .uniq{ |e| [e.timeline_id,e.target].sort }
+                 .where(target: @nodes.map { |t| t.id })
+                 .where(timeline_id: @nodes.map { |t| t.id }).to_a
+                 .reject { |i| i.balance < 0 }
+                 .uniq { |e| [e.timeline_id, e.target].sort }
   end
 
   def set_public
     if current_user.admin
       Timeline.find(params[:timeline_id]).create_notifications
-      Timeline.where(id: params[:timeline_id]).update_all( private: false)
+      Timeline.where(id: params[:timeline_id]).update_all(private: false)
     else
       flash[:danger] = t('controllers.only_admins')
     end
@@ -206,9 +209,9 @@ class TimelinesController < ApplicationController
 
   def switch_favorite
     if current_user.admin
-      favorite_timeline = Timeline.select( :favorite, :staging ).find(params[:timeline_id])
-      Timeline.where(favorite: true, staging: favorite_timeline.staging ).update_all(favorite: false )
-      Timeline.where(id: params[:timeline_id]).update_all( favorite: !favorite_timeline.favorite )
+      favorite_timeline = Timeline.select(:favorite, :staging).find(params[:timeline_id])
+      Timeline.where(favorite: true, staging: favorite_timeline.staging).update_all(favorite: false)
+      Timeline.where(id: params[:timeline_id]).update_all(favorite: !favorite_timeline.favorite)
     else
       flash[:danger] = t('controllers.only_admins')
     end
@@ -220,7 +223,7 @@ class TimelinesController < ApplicationController
     unless logged_in?
       timelines.where(staging: false)
     end
-    i = timelines.index{|x| x.id == params[:id].to_i }
+    i = timelines.index { |x| x.id == params[:id].to_i }
     i ||= rand(timelines.length)
     if i == timelines.length - 1
       i = 0
@@ -259,16 +262,16 @@ class TimelinesController < ApplicationController
   def generate_bibtex(references)
     bib = BibTeX::Bibliography.new
     references.each do |reference|
-      bib << BibTeX::Entry.new({:bibtex_type      => :article,
-                                :author   => reference.author,
-                                :doi       => reference.doi,
-                                :journal   => reference.journal,
-                                :title     => reference.title,
+      bib << BibTeX::Entry.new({:bibtex_type => :article,
+                                :author => reference.author,
+                                :doi => reference.doi,
+                                :journal => reference.journal,
+                                :title => reference.title,
                                 :publisher => reference.publisher,
-                                :url       => reference.url,
-                                :year      => reference.year,
-                                :abstract  => reference.abstract
-                                })
+                                :url => reference.url,
+                                :year => reference.year,
+                                :abstract => reference.abstract
+                               })
     end
     bib
   end
@@ -276,6 +279,6 @@ class TimelinesController < ApplicationController
   def timeline_params
     params.require(:timeline).permit(:name, :binary, :frame, :binary_left,
                                      :binary_right, :img_timeline_id,
-                                     :delete_picture, :has_picture, :source, :private )
+                                     :delete_picture, :has_picture, :source, :private)
   end
 end

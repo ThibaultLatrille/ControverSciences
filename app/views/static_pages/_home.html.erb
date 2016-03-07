@@ -36,7 +36,7 @@
         <div id="tags">
           <br>
           <% @choices.each do |choice| %>
-              <%= link_to word_wrap(choice.name, line_width: 180).html_safe,
+              <%= link_to choice.name.html_safe,
                           timeline_choices_path(timeline_id: choice.id,
                                                 friendly_id: choice.slug,
                                                 choices: @choices.map { |t| t.id }),
