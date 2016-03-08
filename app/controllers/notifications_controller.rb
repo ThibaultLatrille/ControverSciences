@@ -1,50 +1,21 @@
 class NotificationsController < ApplicationController
+  include NotificationsHelper
+
   before_action :logged_in_user, only: [:index, :important, :delete, :delete_all,
                                         :delete_all_important, :redirect,
                                         :selection_redirect]
 
   def index
+    @category_count = Notification.select(:category)
+                          .where(user_id: current_user.id)
+                          .group_by { |t| t.category }
     if params[:filter]
       @filter = params[:filter].to_sym
     else
-      @filter = sym_to_int_notifs_hash.invert[Notification.select(:category)
-                                      .where(user_id: current_user.id)
-                                      .group_by { |t| t.category }
-                                      .max_by { |k, v| v.length }[0]]
+      @filter = sym_to_int_notifs_hash.invert[@category_count.max_by { |k, v| v.length }[0]]
     end
     @notification = Notification.new
-    category = sym_to_int_notifs_hash[@filter]
-    if category == 6
-      @selections = Notification.where(user_id: current_user.id, category: 6).page(params[:page]).per(20)
-    else
-      ids = Notification.where(user_id: current_user.id, category: category)
-                .pluck(category_to_model_hash[category])
-      case category
-        when 1
-          @timelines = Timeline.includes(:tags).select(:id, :slug, :name, :user_id)
-                           .where(id: ids).page(params[:page]).per(20)
-        when 2
-          @references = Reference.select(:id, :slug, :timeline_id, :title, :user_id)
-                        .where(id: ids).page(params[:page]).per(20)
-        when 3, 4
-          @summaries = Summary.select(:id, :timeline_id, :user_id)
-                           .where(id: ids).page(params[:page]).per(20)
-        when 5
-          @comments = Comment.select(:id, :timeline_id, :reference_id, :user_id)
-                          .where(id: ids).page(params[:page]).per(20)
-        when 8, 9
-          @frames = Frame.select(:id, :timeline_id, :user_id)
-                        .where(id: ids).page(params[:page]).per(20)
-        when 10
-          @suggestions = Suggestion.select(:id, :comment, :name, :user_id)
-                             .where(id: ids).page(params[:page]).per(20)
-        when 11
-          @suggestions = SuggestionChild.select(:id, :comment, :name, :user_id)
-                                     .where(id: ids).page(params[:page]).per(20)
-        else
-          nil
-      end
-    end
+    @models = notification_model_query(sym_to_int_notifs_hash[@filter]).page(params[:page]).per(20)
   end
 
   def important
