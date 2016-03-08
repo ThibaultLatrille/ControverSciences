@@ -8,11 +8,12 @@ class NotificationsController < ApplicationController
   def index
     @category_count = Notification.select(:category)
                           .where(user_id: current_user.id)
-                          .group_by { |t| t.category }
+                          .group( "category" ).count
+    @category_count.default = 0
     if params[:filter]
       @filter = params[:filter].to_sym
     else
-      @filter = sym_to_int_notifs_hash.invert[@category_count.max_by { |k, v| v.length }[0]]
+      @filter = sym_to_int_notifs_hash.invert[@category_count.max_by { |k, v| v }[0]]
     end
     @notification = Notification.new
     @models = notification_model_query(sym_to_int_notifs_hash[@filter]).page(params[:page]).per(20)
