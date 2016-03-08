@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 
   include ApplicationHelper
   include SessionsHelper
-  include ReferencesHelper
 
   before_action :set_locale
 
