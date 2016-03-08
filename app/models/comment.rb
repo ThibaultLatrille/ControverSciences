@@ -91,11 +91,14 @@ class Comment < ActiveRecord::Base
   end
 
   def get_most_comment(field)
-    ids = CommentJoin.where(reference_id: self.reference_id, field: field).pluck(:comment_id)
     if field == 6
-      most = Comment.select(:id, :reference_id, :timeline_id, :title_markdown, :user_id, :f_6_balance).where(id: ids).order(:f_6_balance => :desc).first
+      most = Comment.select(:id, :reference_id, :timeline_id, :title_markdown, :user_id, :f_6_balance)
+                 .joins(:comment_joins).where(comment_joins: {reference_id: self.reference_id, field: field})
+                 .order(:f_6_balance => :desc).first
     else
-      most = Comment.select(:id, :reference_id, :timeline_id, :user_id, "f_#{field}_balance".to_sym).where(id: ids).order("f_#{field}_balance".to_sym => :desc).first
+      most = Comment.select(:id, :reference_id, :timeline_id, :user_id, "f_#{field}_balance".to_sym)
+                 .joins(:comment_joins).where(comment_joins: {reference_id: self.reference_id, field: field})
+                 .order("f_#{field}_balance".to_sym => :desc).first
     end
     most
   end

@@ -55,7 +55,9 @@ class ApplicationController < ActionController::Base
         {:host => "127.0.0.1:3000"}
       end
     end
-    users             = User.all.where.not(id: UserDetail.where(send_email: false).pluck(:user_id), activated: false)
+    users             = User.joins(:user_detail)
+                            .where.not(user_details: {send_email: false})
+                            .where(activated: true)
     @empty_comments   = Reference.where(title_fr: "").count
     @empty_summaries  = Timeline.where(nb_summaries: 0).where.not(private: true).where.not(nb_references: 0..3).count
     @empty_references = Timeline.where(nb_references: 0..3).where.not(private: true).count
@@ -80,7 +82,9 @@ class ApplicationController < ActionController::Base
     client      = Slack::Web::Client.new
     admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
     client.chat_postMessage(channel: admin_group['id'], text: "#{names.count} #{t('controllers.email_sent')}")
-    not_activated_users = User.where(activated: false).where.not(id: PendingUser.where(refused: true).pluck(:user_id) )
+    not_activated_users = User.joins(:user_detail)
+                              .where.not(user_details: {refused: true})
+                              .where(activated: false)
     @resend_activation = true
     not_activated_users.find_each do |user|
       @user = user

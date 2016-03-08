@@ -6,8 +6,12 @@ class ReferencesController < ApplicationController
   def from_timeline
     @best_comment = BestComment.find_by_reference_id(params[:reference_id])
     @ref = Reference.select(:id, :category).find(params[:reference_id])
-    @target = Reference.select(:id, :year, :title, :title_fr).where(id: ReferenceEdge.where(reference_id: params[:reference_id]).pluck(:target))
-    @from = Reference.select(:id, :year, :title, :title_fr).where(id: ReferenceEdge.where(target: params[:reference_id]).pluck(:reference_id))
+    @target = Reference.select(:id, :year, :title, :title_fr)
+                  .joins('INNER JOIN "reference_edges" ON "reference_edges"."target" = "references"."id"')
+                  .where(reference_edges: {reference_id: params[:reference_id]})
+    @from = Reference.select(:id, :year, :title, :title_fr)
+                .joins(:reference_edges)
+                .where(reference_edges: {target: params[:reference_id]})
     respond_to do |format|
       format.html { render partial: 'references/best_comment',
                            locals: {best_comment: @best_comment} }
@@ -57,17 +61,17 @@ class ReferencesController < ApplicationController
     params[:timeline_id] = Reference.select(:timeline_id).find(params[:reference_id]).timeline_id
     case params[:field].to_i
       when 6
-        ids = CommentJoin.where(reference_id: params[:reference_id], field: 6).pluck(:comment_id)
-        @best_fields = Comment.select(:created_at, :id, :title_markdown, :user_id,
-                                      :f_6_balance).where(id: ids).order('random()')
+        @best_fields = Comment.select(:created_at, :id, :title_markdown, :user_id, :f_6_balance)
+                           .joins(:comment_joins).where(comment_joins: {reference_id: params[:reference_id], field: 6})
+                           .order('random()')
       when 7
-        ids = CommentJoin.where(reference_id: params[:reference_id], field: 7).pluck(:comment_id)
-        @best_fields = Comment.select(:created_at, :id, :caption_markdown, :user_id,
-                                      :figure_id, :f_7_balance).where(id: ids).order('random()')
+        @best_fields = Comment.select(:created_at, :id, :caption_markdown, :user_id, :figure_id, :f_7_balance)
+                           .joins(:comment_joins).where(comment_joins: {reference_id: params[:reference_id], field: 7})
+                           .order('random()')
       else
-        ids = CommentJoin.where(reference_id: params[:reference_id], field: params[:field].to_i).pluck(:comment_id)
-        @best_fields = Comment.select(:created_at, :id, "markdown_#{params[:field]}", :user_id,
-                                      "f_#{params[:field]}_balance").where(id: ids).order('random()')
+        @best_fields = Comment.select(:created_at, :id, "markdown_#{params[:field]}", :user_id, "f_#{params[:field]}_balance")
+                           .joins(:comment_joins).where(comment_joins: {reference_id: params[:reference_id], field: params[:field].to_i})
+                           .order('random()')
     end
     respond_to do |format|
       format.html { render partial: 'best_comments/best_fields',
@@ -167,8 +171,12 @@ class ReferencesController < ApplicationController
     begin
       @reference = Reference.find(params[:id])
       Reference.increment_counter(:views, @reference.id)
-      @target = Reference.select(:id, :year, :title, :title_fr).where(id: ReferenceEdge.where(reference_id: @reference.id).pluck(:target))
-      @from = Reference.select(:id, :year, :title, :title_fr).where(id: ReferenceEdge.where(target: @reference.id).pluck(:reference_id))
+      @target = Reference.select(:id, :year, :title, :title_fr)
+                    .joins('INNER JOIN "reference_edges" ON "reference_edges"."target" = "references"."id"')
+                    .where(reference_edges: {reference_id: @reference.id})
+      @from = Reference.select(:id, :year, :title, :title_fr)
+                  .joins(:reference_edges)
+                  .where(reference_edges: {target: @reference.id})
       @timeline = Timeline.select(:id, :slug, :private).find(@reference.timeline_id)
       if @timeline.private && !logged_in?
         flash[:danger] = "Cette référence appartient à une controverse privée, vous ne pouvez pas y accèder !"

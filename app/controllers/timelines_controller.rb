@@ -24,12 +24,13 @@ class TimelinesController < ApplicationController
       end
     end
     unless params[:tag].blank? || params[:tag] == 'all' || params[:tag] == [""] || params[:tag] == ["all"]
-      # This is just disgusting but do the job !!! refactor needed !!!
-      query = query.where(id: Tagging.where(tag_id: Tag.where(name: params[:tag]).pluck(:id)).pluck(:timeline_id))
+      query = query.joins(taggings: :tag)
+                  .where(tags: {name: params[:tag]})
     end
     if logged_in?
       unless params[:interest].blank?
-        query = query.where(id: Like.where(user_id: current_user.id).pluck(:timeline_id))
+        query = query.joins(:likes)
+                    .where(likes: {user_id: current_user.id})
       end
       @my_likes = Like.where(user_id: current_user.id).pluck(:timeline_id)
     end
