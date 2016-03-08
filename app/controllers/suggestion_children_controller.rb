@@ -37,6 +37,10 @@ class SuggestionChildrenController < ApplicationController
       @suggestion_child.comment = suggestion_child_params[:comment]
       @suggestion_child.name = suggestion_child_params[:name]
       if @suggestion_child.save
+        location = Location.new(suggestion_child_id: @suggestion_child.id, user_id: @suggestion_child.user_id)
+        location.ip_address = request.env['REMOTE_ADDR']
+        location.user_agent = request.env['HTTP_USER_AGENT']
+        location.save
         render 'suggestion_children/show'
       else
         render 'suggestion_children/edit'
@@ -50,6 +54,10 @@ class SuggestionChildrenController < ApplicationController
     @suggestion_child = SuggestionChild.new( suggestion_child_params)
     @suggestion_child.user_id = current_user.id
     if @suggestion_child.save
+      location = Location.new(suggestion_child_id: @suggestion_child.id, user_id: @suggestion_child.user_id)
+      location.ip_address = request.env['REMOTE_ADDR']
+      location.user_agent = request.env['HTTP_USER_AGENT']
+      location.save
       flash[:success] = "Commentaire ajouté."
       redirect_to suggestion_path( @suggestion_child.suggestion_id )
     else

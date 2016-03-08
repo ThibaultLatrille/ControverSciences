@@ -6,6 +6,7 @@ class Suggestion < ActiveRecord::Base
   has_many :suggestion_children, dependent: :destroy
   has_many :suggestion_votes, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :locations, dependent: :destroy
 
   validates :comment, presence: true, length: {maximum: 4000, minimum: 140}
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307134415) do
+ActiveRecord::Schema.define(version: 20160308163926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -303,6 +303,23 @@ ActiveRecord::Schema.define(version: 20160307134415) do
   add_index "links", ["reference_id"], name: "index_links_on_reference_id", using: :btree
   add_index "links", ["timeline_id"], name: "index_links_on_timeline_id", using: :btree
   add_index "links", ["user_id"], name: "index_links_on_user_id", using: :btree
+
+  create_table "locations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "suggestion_id"
+    t.integer  "suggestion_child_id"
+    t.text     "ip_address"
+    t.text     "user_agent"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.text     "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "locations", ["suggestion_child_id"], name: "index_locations_on_suggestion_child_id", using: :btree
+  add_index "locations", ["suggestion_id"], name: "index_locations_on_suggestion_id", using: :btree
+  add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
 
   create_table "newsletters", force: true do |t|
     t.text     "email"

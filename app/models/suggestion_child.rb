@@ -5,6 +5,7 @@ class SuggestionChild < ActiveRecord::Base
   belongs_to :suggestion
   has_many :suggestion_child_votes, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :locations, dependent: :destroy
 
   validates :suggestion_id, presence: true
   validates :user_id, presence: true

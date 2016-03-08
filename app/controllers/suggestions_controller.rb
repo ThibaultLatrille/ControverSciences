@@ -16,6 +16,10 @@ class SuggestionsController < ApplicationController
       @suggestion.comment = suggestion_params[:comment]
       @suggestion.name = suggestion_params[:name]
       if @suggestion.save
+        location = Location.new(suggestion_id: @suggestion.id, user_id: @suggestion.user_id)
+        location.ip_address = request.env['REMOTE_ADDR']
+        location.user_agent = request.env['HTTP_USER_AGENT']
+        location.save
         render 'suggestions/show'
       else
         render 'suggestions/edit'
@@ -39,6 +43,10 @@ class SuggestionsController < ApplicationController
       @suggestion.user_id = current_user.id
     end
     if @suggestion.save
+      location = Location.new(suggestion_id: @suggestion.id, user_id: @suggestion.user_id)
+      location.ip_address = request.env['REMOTE_ADDR']
+      location.user_agent = request.env['HTTP_USER_AGENT']
+      location.save
       flash[:success] = "Commentaire ajouté."
       redirect_to suggestions_path
     else
