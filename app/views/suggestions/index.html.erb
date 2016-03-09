@@ -21,20 +21,16 @@
                                                :class => "form-control textarea"} %>
                     <span class="help-block"></span>
                   </div>
-                  <div class="row">
-                    <div class="col-xs-12">
-                      <div class="pull-right">
-                        <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
-                                     class: 'btn btn-success',
-                                     data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
-                      </div>
-                    </div>
+                  <div class="pull-right">
+                    <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                                 class: 'btn btn-success',
+                                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
                   </div>
               <% end %>
             </div>
           </div>
         </div>
-        <div class="col-xs-12 col-lg-7">
+        <div class="col-xs-12 col-lg-6">
           <div class="row">
             <div>
               <%= render @suggestions, show_likes: true %>
@@ -44,6 +40,34 @@
               <br/>
               <br/>
               <br/>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-lg-3">
+          <h5> Comment nous rejoindre ?</h5>
+
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              Le Slack
+            </div>
+            <div class="panel-body">
+              <div class="font12">
+                <%= t('views.users.why_slack_html') %>
+              </div>
+              <div class="center">
+                <% if logged_in? %>
+                    <a href="<%= slack_users_path %>" class="cadre hvr-grow center">
+                      <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+                      <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
+                    </a>
+                <% else %>
+                    <a href="<%= new_user_path %>" class="cadre hvr-grow center">
+                      <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+                      <b style="font-size: 1.4em"><%= t('views.sessions.new_user_slack') %></b>
+                    </a>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
@@ -82,58 +106,17 @@
 </div>
 
 <%= render 'shared/length_counter' %>
+
+<%= render 'shared/suscribe' %>
+
 <script type="text/javascript">
-    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     $("textarea").markdown({
         autofocus: false,
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
     });
-    setupLengthCounter([[0, 4000, 140]])
-</script>
-
-<script type="text/javascript">
-    $(function () {
-        $('[data-validate]').click(function () {
-            var self = $(this);
-            self.hide();
-            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-            $.ajax(self.data('validate'), {
-                url: self.data('validate'),
-                data: {
-                    id: self.val(),
-                    value: self.data('value')
-                },
-                method: 'POST',
-                statusCode: {
-                    201: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.glyphicon', self);
-                        self.removeClass('green');
-                        self.addClass('btn-success');
-                        self.removeClass('btn-default');
-                        self.attr('data-original-title', "Vous et " + self.attr('data-original-title'));
-                        like.text(' ' + (parseInt(like.text()) + 1));
-                    },
-                    204: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.glyphicon', self);
-                        self.addClass('btn-default');
-                        self.removeClass('btn-success');
-                        self.addClass('green');
-                        self.attr('data-original-title', self.attr('data-original-title').replace('Vous et ', ''));
-                        like.text(' ' + (parseInt(like.text()) - 1));
-                    },
-                    401: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        $('#iptaken').modal('show');
-                    }
-                }
-            })
-        });
-    });
+    setupLengthCounter([[0, 4000, 140]]);
+    setupSuscribe();
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
 </script>
 

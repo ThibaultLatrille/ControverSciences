@@ -234,58 +234,12 @@
   </div>
 </div>
 
+
+<%= render 'shared/suscribe' %>
+
 <script type="text/javascript">
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    $(function () {
-        $('[data-validate]').click(function () {
-            var self = $(this);
-            self.hide();
-            self.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-            $.ajax(self.data('validate'), {
-                url: self.data('validate'),
-                data: {id: self.val(),
-                    value: self.data('value')},
-                method: 'POST',
-                statusCode: {
-                    201: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.icon', self);
-                        if (self.data('value') == true) {
-                            self.removeClass('green');
-                            self.addClass('btn-success');
-                        } else {
-                            self.removeClass('red');
-                            self.addClass('btn-danger');
-                        }
-                        self.removeClass('btn-default');
-                        self.attr('data-original-title', "<%= t('views.default.you_and')%>" + self.attr('data-original-title'));
-                        like.text(' ' + (parseInt(like.text()) + 1));
-                    },
-                    204: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        var like = $('.icon', self);
-                        self.addClass('btn-default');
-                        if (self.data('value') == true) {
-                            self.removeClass('btn-success');
-                            self.addClass('green');
-                        } else {
-                            self.removeClass('btn-danger');
-                            self.addClass('red');
-                        }
-                        self.attr('data-original-title', self.attr('data-original-title').replace('<%= t('views.default.you_and')%>', ''));
-                        like.text(' ' + (parseInt(like.text()) - 1));
-                    },
-                    401: function (response) {
-                        $('.loader-like').remove();
-                        self.show();
-                        $('#iptaken').modal('show');
-                    }
-                }
-            })
-        });
-    });
+    setupSuscribe();
     var jets = new Jets({
         searchTag: '#jetsSearch',
         contentTag: '#jetsContent'

@@ -16,20 +16,18 @@
             var min = limit[2];
             var value = limit[0];
             var $input = $('#description' + value);
+            var $charleft =  $('#characterLeft' + value);
             function doneTyping() {
                 var len = countCharacters($input.val());
                 if (len >= max) {
-                    var ch = len - max;
-                    $('#characterLeft' + value).css({"color": "#a94442"});
-                    $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_much') %>');
+                    $charleft.css({"color": "#a94442"});
+                    $charleft.text((len - max) + ' <%= t('views.edition.character_much') %>');
                 } else if (len <= min) {
-                    var ch = min - len;
-                    $('#characterLeft' + value).css({"color": "#a94442"});
-                    $('#characterLeft' + value).text('<%= t('views.default.at_least') %> ' + ch + ' <%= t('views.edition.character_miss') %>');
+                    $charleft.css({"color": "#a94442"});
+                    $charleft.text('<%= t('views.default.at_least') %> ' + (min - len) + ' <%= t('views.edition.character_miss') %>');
                 } else {
-                    var ch = max - len;
-                    $('#characterLeft' + value).css({"color": "#5cb85c"});
-                    $('#characterLeft' + value).text(ch + ' <%= t('views.edition.character_left') %>');
+                    $charleft.css({"color": "#5cb85c"});
+                    $charleft.text((max - len) + ' <%= t('views.edition.character_left') %>');
                 }
             }
 

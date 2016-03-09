@@ -4,38 +4,40 @@
       <div class="text-justify">
         <%= suggestion.content_markdown.html_safe %>
       </div>
-      <% if logged_in? && (suggestion.user_id == current_user.id || current_user.admin) %>
-          <div class="pull-right">
-            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_path(suggestion.id), method: :delete,
-                        data: {confirm: t('views.default.confirm')},
-                        class: "btn btn-danger" %>
-            <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe, edit_suggestion_path(suggestion.id),
-                        class: "btn btn-primary" %>
-          </div>
-      <% end %>
-      <% if logged_in? && suggestion.user_id == current_user.id %>
-          <div class="sticky" style="color: #5cb85c;" data-placement="top"
-               data-toggle="tooltip"
-               title="<%= suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
-            <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion.plus %></span>
-          </div>
-      <% elsif show_likes %>
-          <div>
-            <% if @my_sug_likes && @my_sug_likes.include?(suggestion.id) %>
-                <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
-                        data-toggle="tooltip" value="<%= suggestion.id %>" data-validate="/suggestion_votes"
-                        title="Vous et <%= (suggestion.plus - 1).to_s + " contributeurs trouvent cette idée constructive" %>">
-                  <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion.plus %></span>
-                </button>
-            <% else %>
-                <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
-                        data-toggle="tooltip" value="<%= suggestion.id %>" data-validate="/suggestion_votes"
-                        title="<%= suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
-                  <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion.plus %></span>
-                </button>
-            <% end %>
-          </div>
-      <% end %>
+      <div>
+        <% if logged_in? && (suggestion.user_id == current_user.id || current_user.admin) %>
+            <div class="pull-right">
+              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> Supprimer".html_safe, suggestion_path(suggestion.id), method: :delete,
+                          data: {confirm: t('views.default.confirm')},
+                          class: "btn btn-danger" %>
+              <%= link_to "<span class=\"glyphicon glyphicon-cog\"></span> Modifier".html_safe, edit_suggestion_path(suggestion.id),
+                          class: "btn btn-primary" %>
+            </div>
+        <% end %>
+        <% if logged_in? && suggestion.user_id == current_user.id %>
+            <div class="sticky" style="color: #5cb85c;" data-placement="top"
+                 data-toggle="tooltip"
+                 title="<%= suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
+              <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion.plus %></span>
+            </div>
+        <% elsif show_likes %>
+            <div>
+              <% if @my_sug_likes && @my_sug_likes.include?(suggestion.id) %>
+                  <button type="button" class="btn btn-sm btn-success" data-placement="top" data-value="true"
+                          data-toggle="tooltip" value="<%= suggestion.id %>" data-validate="/suggestion_votes"
+                          title="Vous et <%= (suggestion.plus - 1).to_s + " contributeurs trouvent cette idée constructive" %>">
+                    <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion.plus %></span>
+                  </button>
+              <% else %>
+                  <button type="button" class="btn btn-sm btn-default green" data-placement="top" data-value="true"
+                          data-toggle="tooltip" value="<%= suggestion.id %>" data-validate="/suggestion_votes"
+                          title="<%= suggestion.plus.to_s + " contributeurs trouvent cette idée constructive" %>">
+                    <span class="glyphicon glyphicon-thumbs-up"> <%= suggestion.plus %></span>
+                  </button>
+              <% end %>
+            </div>
+        <% end %>
+      </div>
     </div>
     <div class="panel-footer">
       <div class="clearfix">
@@ -45,9 +47,9 @@
               <%= link_to "<span class=\"glyphicon glyphicon-list\"></span> Voir les réactions (#{suggestion.children})".html_safe, fetch_children_path(:suggestion_id => suggestion.id),
                           :remote => true, id: "fetch", class: "btn btn-default" %>
           <% else %>
-                  <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Réagir".html_safe,
-                              fetch_children_path(:suggestion_id => suggestion.id),
-                              :remote => true, id: "fetch", class: "btn btn-default" %>
+              <%= link_to "<span class=\"glyphicon glyphicon-comment\"></span> Réagir".html_safe,
+                          fetch_children_path(:suggestion_id => suggestion.id),
+                          :remote => true, id: "fetch", class: "btn btn-default" %>
           <% end %>
         </div>
           <span class="timestamp">
