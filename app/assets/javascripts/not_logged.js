@@ -23,4 +23,5 @@
 //= require autosize.js
 //= require fancyBox.js
 //= require jquery.inview.js
+//= require bootstrap-markdown
 //= require imagesloaded.pkgd.js
