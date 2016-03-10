@@ -42,7 +42,7 @@
     <div class="panel-footer clearfix">
       <span class="timestamp">
         Publié il y a <%= time_ago_in_words(suggestion_child.created_at) %> par
-        <%= link_to suggestion_child.user_name, user_path(suggestion_child.user_id) %>
+        <%= suggestion_child.user_id ? ((link_to suggestion_child.user_name, user_path(suggestion_child.user_id))) : " un inconnu." %>
        </span>
     </div>
   </div>

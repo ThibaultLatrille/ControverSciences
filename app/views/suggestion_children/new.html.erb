@@ -132,12 +132,14 @@
 <%= render 'shared/suscribe' %>
 
 <script type="text/javascript">
-    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    $("textarea").markdown({
-        autofocus: false,
-        savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+        $("textarea").markdown({
+            autofocus: false,
+            savable: false,
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
+        });
+        setupLengthCounter([[0, 4000, 140]]);
+        setupSuscribe();
     });
-    setupLengthCounter([[0, 4000, 140]]);
-    setupSuscribe();
 </script>
