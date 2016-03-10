@@ -1,21 +1,20 @@
 <% provide(:title, "Le livre d'or") %>
 <div id="my-container" class="container-fluid">
+  <%= render 'livre_dor' %>
   <div class="row">
     <div class="col-xs-12">
-      <h1><span class="icon-idea bigger"></span> Le livre d'or </h1>
-
       <div class="row">
         <div class="col-xs-12 col-lg-3">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <span class="glyphicon glyphicon-comment"></span> Vous souhaitez vous exprimer ? C'est ici !
+              <h5>
+                <span class="glyphicon glyphicon-comment"></span> Apportez votre patte au livre d'or
+              </h5>
             </div>
             <div class="panel-body">
               <%= form_for(@suggestion) do |f| %>
                   <%= render 'shared/error_messages', object: f.object %>
                   <div class="form-group">
-                    <%= f.label :comment, "<span class=\"icon-idea bigger\"></span> Apporter une idée (1200 caractères max)".html_safe, class: 'control-label' %>
-
                     <div id="characterLeft0"></div>
                     <%= f.text_area :comment, {rows: 3, id: "description0",
                                                :class => "form-control textarea"} %>
@@ -45,11 +44,9 @@
         </div>
 
         <div class="col-xs-12 col-lg-3">
-          <h5> Comment nous rejoindre ?</h5>
-
           <div class="panel panel-default">
             <div class="panel-heading">
-              Le Slack
+              <h5> Venez discuter</h5>
             </div>
             <div class="panel-body">
               <div class="font12">
