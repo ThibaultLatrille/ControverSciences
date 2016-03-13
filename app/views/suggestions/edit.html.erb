@@ -1,32 +1,38 @@
 <div id="my-container" class="container-fluid">
-  <%= render 'livre_dor' %>
   <div class="row">
-    <div class="col-xs-12 col-lg-offset-3 col-lg-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3> Modifier un commentaire </h3>
-        </div>
-        <div class="panel-body">
-          <%= form_for(@suggestion) do |f| %>
-              <%= render 'shared/error_messages', object: f.object %>
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-6 col-lg-offset-1 col-lg-5">
+      <%= render 'livre_dor' %>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-6 col-lg-5">
+      <div class="row">
+        <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3> Modifier un commentaire </h3>
+            </div>
+            <div class="panel-body">
+              <%= form_for(@suggestion) do |f| %>
+                  <%= render 'shared/error_messages', object: f.object %>
 
-              <div class="form-group">
-                <%= f.label :comment, "Votre commentaire", class: 'control-label' %>
-                <br>
-                <div id="characterLeft0"></div>
-                <%= f.text_area :comment, class: 'form-control textarea', id: "description0" %>
-                <span class="help-block"></span>
-              </div>
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="pull-right">
-                    <%= f.button "Modifier &nbsp <span class=\"glyphicon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                                 class: 'btn btn-success',
-                                 data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
+                  <div class="form-group">
+                    <%= f.label :comment, "Votre commentaire", class: 'control-label' %>
+                    <br>
+                    <div id="characterLeft0"></div>
+                    <%= f.text_area :comment, class: 'form-control textarea', id: "description0" %>
+                    <span class="help-block"></span>
                   </div>
-                </div>
-              </div>
-          <% end %>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="pull-right">
+                        <%= f.button "Modifier &nbsp <span class=\"glyphicon glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                                     class: 'btn btn-success',
+                                     data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
+                      </div>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
