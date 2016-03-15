@@ -10,8 +10,7 @@ class SummariesController < ApplicationController
       @summary.timeline_id = params[:timeline_id]
       @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
       @list = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id).pluck(:title, :id, :author)
-      @tim_list = Timeline.where(id: Edge.where(timeline_id:
-                                                    @summary.timeline_id).pluck(:target)).pluck(:name, :id)
+      @tim_list = timelines_connected_to(@summary.timeline_id)
     end
   end
 
@@ -30,8 +29,7 @@ class SummariesController < ApplicationController
       redirect_to @summary
     else
       @list = Reference.order(year: :desc).where(timeline_id: summary_params[:timeline_id]).pluck(:title, :id, :author)
-      @tim_list = Timeline.where(id: Edge.where(timeline_id:
-                                                    summary_params[:timeline_id]).pluck(:target)).pluck(:name, :id)
+      @tim_list = timelines_connected_to(summary_params[:timeline_id])
       @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
       render 'new'
     end
@@ -45,8 +43,7 @@ class SummariesController < ApplicationController
       @summary = Summary.find(params[:id])
       @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
       @list = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id).pluck(:title, :id, :author)
-      @tim_list = Timeline.where(id: Edge.where(timeline_id:
-                                                    @summary.timeline_id).pluck(:target)).pluck(:name, :id)
+      @tim_list = timelines_connected_to(@summary.timeline_id)
     end
   end
 
@@ -73,8 +70,7 @@ class SummariesController < ApplicationController
         else
           @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
           @list = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id).pluck(:title, :id, :author)
-          @tim_list = Timeline.where(id: Edge.where(timeline_id:
-                                                        @summary.timeline_id).pluck(:target)).pluck(:name, :id)
+          @tim_list = timelines_connected_to(@summary.timeline_id)
           render 'edit'
         end
       end
@@ -85,10 +81,8 @@ class SummariesController < ApplicationController
 
   def show
     begin
-      @summary = Summary.select(:id, :user_id, :timeline_id,
-                                :markdown, :balance, :best, :figure_id, :caption_markdown,
-                                :created_at).find(params[:id])
-      @timeline = Timeline.select(:id, :slug, :nb_summaries, :name, :private).find(@summary.timeline_id)
+      @summary = Summary.find(params[:id])
+      @timeline = Timeline.find(@summary.timeline_id)
       if @timeline.private && !logged_in?
         flash[:danger] = "Cette synthèse appartient à une controverse privée, vous ne pouvez pas y accèder !"
         redirect_to_back timelines_path

@@ -9,6 +9,13 @@ module ApplicationHelper
     end
   end
 
+  def timelines_connected_to(timeline_id)
+    Timeline.joins(:edges)
+        .where(edges: {target: timeline_id}).pluck(:name, :id) +
+        Timeline.joins('INNER JOIN "edges" ON "edges"."target" = "timelines"."id"')
+            .where(edges: {timeline_id: timeline_id}).pluck(:name, :id)
+  end
+
   def full_title(page_title = '')
     base_title = "ControverSciences"
     if page_title.empty?

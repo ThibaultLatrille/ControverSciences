@@ -22,8 +22,7 @@ class PatchesController < ApplicationController
     @patch.target_user_id = @patch.parent.user_id
     @patch.user_id = current_user.id
     if @patch.summary_id || @patch.comment_id
-      @tim_list = Timeline.where(id: Edge.where(timeline_id:
-                                                    @patch.parent.timeline_id).pluck(:target)).pluck(:name, :id)
+      @tim_list = timelines_connected_to(@patch.parent.timeline_id)
       @list = Reference.order(year: :desc).where(timeline_id:  @patch.parent.timeline_id).pluck(:title, :id, :author)
     end
     go_patch = GoPatch.find_by(field: get_params[:field],

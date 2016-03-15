@@ -11,8 +11,7 @@ class CommentsController < ApplicationController
       @comment.reference_id = reference.id
       @comment.timeline_id = reference.timeline_id
       @list = Reference.order(year: :desc).where(timeline_id: @comment.timeline_id).pluck(:title, :id, :author)
-      @tim_list = Timeline.where(id: Edge.where(timeline_id:
-                                                    @comment.timeline_id).pluck(:target)).pluck(:name, :id)
+      @tim_list = timelines_connected_to(@comment.timeline_id)
       @myreference = Reference.find(@comment.reference_id)
     end
   end
@@ -34,8 +33,7 @@ class CommentsController < ApplicationController
     else
       @myreference = Reference.find(@comment.reference_id)
       @list = Reference.order(year: :desc).where(timeline_id: comment_params[:timeline_id]).pluck(:title, :id, :author)
-      @tim_list = Timeline.where(id: Edge.where(timeline_id:
-                                                    comment_params[:timeline_id]).pluck(:target)).pluck(:name, :id)
+      @tim_list = timelines_connected_to(comment_params[:timeline_id])
       render 'new'
     end
   end
@@ -48,8 +46,7 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
       @myreference = Reference.find(@comment.reference_id)
       @list = Reference.order(year: :desc).where(timeline_id: @comment.timeline_id).pluck(:title, :id, :author)
-      @tim_list = Timeline.where(id: Edge.where(timeline_id:
-                                                    @comment.timeline_id).pluck(:target)).pluck(:name, :id)
+      @tim_list = timelines_connected_to(@comment.timeline_id)
     end
   end
 
@@ -78,8 +75,7 @@ class CommentsController < ApplicationController
         else
           @myreference = Reference.find(@comment.reference_id)
           @list = Reference.order(year: :desc).where(timeline_id: @comment.timeline_id).pluck(:title, :id, :author)
-          @tim_list = Timeline.where(id: Edge.where(timeline_id:
-                                                        @comment.timeline_id).pluck(:target)).pluck(:name, :id)
+          @tim_list = timelines_connected_to(@comment.timeline_id)
           render 'edit'
         end
       end
