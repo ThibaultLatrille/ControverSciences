@@ -1,7 +1,7 @@
 <div class="clearfix">
   <div class="col-xs-12 col-lg-10 col-lg-offset-1">
     <a href="<%= livre_d_or_url %>" class="cadre hvr-grow center" style="display: block;">
-      <h1> Le livre d'or </h1>
+      <h1> Retour au livre d'or </h1>
       <object class="img-responsive"
               data="<%= path_to_image 'APBLS-Logo.svg' %>"
               style="pointer-events: none;">
@@ -9,29 +9,6 @@
     </a>
     <br>
     <br>
-  </div>
-</div>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h5>
-      <span class="glyphicon glyphicon-comment"></span> Apportez votre patte au livre d'or
-    </h5>
-  </div>
-  <div class="panel-body">
-    <%= form_for(@suggestion) do |f| %>
-        <%= render 'shared/error_messages', object: f.object %>
-        <div class="form-group">
-          <div id="characterLeft0"></div>
-          <%= f.text_area :comment, {rows: 6, id: "description0",
-                                     :class => "form-control textarea"} %>
-          <span class="help-block"></span>
-        </div>
-        <div class="pull-right">
-          <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
-                       class: 'btn btn-success',
-                       data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
-        </div>
-    <% end %>
   </div>
 </div>
 <div class="panel panel-default">

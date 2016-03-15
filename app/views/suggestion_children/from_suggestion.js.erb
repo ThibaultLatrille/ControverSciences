@@ -2,7 +2,7 @@ $("#children<%= params[:suggestion_id] %>").html("<%= escape_javascript(render p
 $("#button<%= params[:suggestion_id] %>").hide();
 $(document).ready(function() {
     setupSuscribe("#children<%= params[:suggestion_id] %>")
-    setupLengthCounter([["C<%= params[:suggestion_id] %>", 4000, 140]]);
+    setupLengthCounter([["C<%= params[:suggestion_id] %>", 4000, 40]]);
     var textarea = $('textarea', "#children<%= params[:suggestion_id] %>");
     textarea.markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
     autosize(textarea);

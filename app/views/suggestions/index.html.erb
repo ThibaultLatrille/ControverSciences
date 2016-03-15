@@ -2,7 +2,65 @@
 <div id="my-container" class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-6 col-lg-offset-1 col-lg-5">
-      <%= render 'livre_dor' %>
+      <div class="clearfix">
+        <div class="col-xs-12 col-lg-10 col-lg-offset-1">
+          <div class="cadre center" style="display: block;">
+            <h1> Bienvenue sur le livre d'or </h1>
+            <object class="img-responsive"
+                    data="<%= path_to_image 'APBLS-Logo.svg' %>">
+            </object>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5> Venez discuter</h5>
+        </div>
+        <div class="panel-body">
+          <div class="font12">
+            <%= t('views.users.why_slack_html') %>
+          </div>
+          <div class="center">
+            <% if logged_in? %>
+                <a href="<%= slack_users_path %>" class="cadre hvr-grow center">
+                  <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+                  <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
+                </a>
+            <% else %>
+                <a href="<%= new_user_path %>" class="cadre hvr-grow center">
+                  <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+                  <b style="font-size: 1.4em"><%= t('views.sessions.new_user_slack') %></b>
+                </a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h5>
+            <span class="glyphicon glyphicon-comment"></span> Apportez votre plume au livre d'or
+          </h5>
+        </div>
+        <div class="panel-body">
+          <%= form_for(@suggestion) do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
+              <div class="form-group">
+                <div id="characterLeft0"></div>
+                <%= f.text_area :comment, {rows: 6, id: "description0",
+                                           :class => "form-control textarea"} %>
+                <span class="help-block"></span>
+              </div>
+              <div class="pull-right">
+                <%= f.button "Publier &nbsp <span class=\"glyphicon glyphicon-send\" aria-hidden=\"true\"></span>".html_safe,
+                             class: 'btn btn-success',
+                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp Publication en cours "} %>
+              </div>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-6 col-lg-5">
       <div class="row">
@@ -55,7 +113,7 @@
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
     });
-    setupLengthCounter([[0, 4000, 140]]);
+    setupLengthCounter([[0, 4000, 40]]);
     setupSuscribe();
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
 </script>

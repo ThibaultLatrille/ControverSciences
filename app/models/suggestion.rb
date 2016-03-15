@@ -8,7 +8,7 @@ class Suggestion < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :locations, dependent: :destroy
 
-  validates :comment, presence: true, length: {maximum: 4000, minimum: 140}
+  validates :comment, presence: true, length: {maximum: 4000, minimum: 40}
 
   before_save :save_with_markdown
   after_create :cascading_save
