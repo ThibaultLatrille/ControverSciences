@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails',        '4.1.6'
+gem 'rails', '~>4.2'
 
 
 # Internationalization
@@ -16,7 +16,7 @@ gem 'therubyracer'
 gem 'execjs'
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt',               '3.1.7'
+gem 'bcrypt'
 
 # Pagination and infinit scrolling
 gem 'kaminari'
@@ -89,7 +89,7 @@ gem 'slack-notifier'
 gem 'awesome_print', require: 'ap'
 
 # Friendly id for SEO
-gem 'friendly_id', '~> 5.0.0'
+gem 'friendly_id'
 
 # Slack Api wrapper
 gem 'slack-ruby-client'
@@ -107,6 +107,9 @@ group :test do
 end
 
 group :development do
+  # Web console for development in view : "<%= console %>"
+  gem 'web-console', '~> 2.0'
+
   # Database seeding with fake data
   gem 'faker',                '1.4.2'
   gem 'spring',  '1.1.3'
@@ -136,6 +139,6 @@ group :development do
 end
 
 group :production do
-  gem 'rails_12factor', '0.0.2'
-  gem 'unicorn',        '4.8.3'
+  gem 'rails_12factor'
+  gem 'unicorn'
 end
