@@ -5,7 +5,7 @@
     </div>
     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-offset-0 col-md-6 col-lg-5">
       <div class="row">
-        <div class="col-xs-12 col-lg-offset-3 col-lg-6">
+        <div class="col-xs-12 col-lg-offset-1 col-lg-10">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3> Modifier un commentaire </h3>
@@ -17,6 +17,7 @@
                   <div class="form-group">
                     <%= f.label :comment, "Votre commentaire", class: 'control-label' %>
                     <br>
+
                     <div id="characterLeft0"></div>
                     <%= f.text_area :comment, class: 'form-control textarea', id: "description0" %>
                     <span class="help-block"></span>
@@ -47,5 +48,5 @@
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
     });
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    setupLengthCounter([[0, 4000, 40]])
+    setupLengthCounter([[0, 4000, 140]])
 </script>
