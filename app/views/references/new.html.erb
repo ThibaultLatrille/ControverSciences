@@ -90,6 +90,8 @@
                   </div>
                 </div>
                 <% unless @reference.timeline.binary.blank? %>
+                    <hr style="margin: 1em 5em">
+                    <br>
                     <div class="clearfix">
                       <br>
                       <b><%= @reference.timeline.name.html_safe %></b>
@@ -103,14 +105,9 @@
                       <br/><br/>
                       <%= f.hidden_field :reference_id, value: @reference.id %>
                       <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-                      <% unless @reference.user_binary.nil? %>
-                          <b>
-                            <%= t('views.references.maybe_binary') %>
-                          </b>
-                      <% end %>
                       <div class="btn-group-justified" data-toggle="buttons">
                             <label class="btn btn-default <%= @reference.user_binary == "none" ? "active" : nil %>"
-                                   title="<%= t('views.references.delete_advise') %>" data-toggle="tooltip">
+                                   title="<%= t('views.references.no_advise') %>" data-toggle="tooltip">
                               <%= f.radio_button :user_binary, checked_value = "none",
                                                  {id: "none", autocomplete: "off"} %>
                               <span class="icon-no"></span>
@@ -127,6 +124,7 @@
                       <br/>
                     </div>
                 <% end %>
+                <hr style="margin: 1em 5em">
                 <br>
                 <div class="clearfix">
                   <%= f.label t('views.references.how_you_star') %>

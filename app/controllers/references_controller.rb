@@ -5,7 +5,7 @@ class ReferencesController < ApplicationController
 
   def from_timeline
     @best_comment = BestComment.find_by_reference_id(params[:reference_id])
-    @ref = Reference.select(:id, :category).find(params[:reference_id])
+    @ref = Reference.select(:id, :category, :author).find(params[:reference_id])
     @target = Reference.select(:id, :year, :title, :title_fr)
                   .joins('INNER JOIN "reference_edges" ON "reference_edges"."target" = "references"."id"')
                   .where(reference_edges: {reference_id: params[:reference_id]})
