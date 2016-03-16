@@ -184,9 +184,7 @@ class ReferencesController < ApplicationController
       else
         if logged_in?
           user_id = current_user.id
-          visitereference = VisiteReference.find_or_create_by(user_id: current_user.id, reference_id: @reference.id)
-          VisiteReference.increment_counter(:counter, visitereference.id)
-          visitereference.update_columns(updated_at: Time.current)
+          @reference.update_visite_by_user(user_id)
           ref_user_tag = ReferenceUserTag.find_by(user_id: user_id,
                                                   reference_id: @reference.id)
           if ref_user_tag

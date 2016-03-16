@@ -136,6 +136,12 @@ class Reference < ActiveRecord::Base
     end
   end
 
+  def update_visite_by_user(user_id)
+    visitereference = VisiteReference.find_or_create_by(user_id: user_id, reference_id: self.id)
+    VisiteReference.increment_counter(:counter, visitereference.id)
+    visitereference.update_columns(updated_at: Time.current)
+  end
+
   private
 
   def to_markdown
