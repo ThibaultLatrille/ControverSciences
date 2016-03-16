@@ -59,7 +59,9 @@
     <% end %>
     <% if  @user_detail && @user_detail.id && @user_detail.website.present? %>
       <b> <%= t('views.users.website') %> </b><br/>
-      <%= link_to @user_detail.website, @user_detail.website, target: "_blank" %> <br/><br/>
+      <%= link_to @user_detail.website, (@user_detail.website[0..3] == 'http' ?
+                                              @user_detail.website[0..3] : 'http://' + @user_detail.website ),
+                  target: "_blank" %> <br/><br/>
     <% end %>
     <br/>
     <% if @user_detail && !@user_detail.profil.blank? %>
