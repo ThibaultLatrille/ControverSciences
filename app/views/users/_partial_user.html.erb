@@ -142,6 +142,36 @@
       </div>
       <br/>
       <% end %>
+      <% if @frames.any? %>
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingThree">
+              <h4 class="panel-title clearfix">
+                <a data-toggle="collapse" href="#collapseFour" class="pull-right glyphicon glyphicon-chevron-down"></a>
+                <a class="collapsed" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+                  <%= @user.name + " " + t('views.users.wrote') + " " + t('views.pluralize.frames', count: @frames.length) %>
+                </a>
+              </h4>
+            </div>
+            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+              <table id="notification-summaries" class="table table-striped table-hover">
+                <thead>
+                <tr>
+                  <th class="col-xs-5"> <%= t('views.model.frames') %> </th>
+                  <th class="col-xs-5"> <%= t('views.model.of_timeline') %> </th>
+                </tr>
+                </thead>
+                <tbody class="page">
+                <% @frames.each do |frame| %>
+                    <td> <%= link_to t('views.model.frame'), frame_path(frame.id ), class: "btn btn-primary" %>   </td>
+                    <td> <%= link_to frame.timeline.name.html_safe, timeline_path(frame.timeline ) %>   </td>
+                    </tr>
+                <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <br/>
+      <% end %>
       <% if @references.any? %>
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingTwo">
@@ -165,7 +195,7 @@
                 <% @references.each do |reference| %>
                     <tr class="notification-reference">
                       <td> <%= link_to reference.title, reference_path(reference) %>   </td>
-                      <td> <%= link_to reference.timeline_name.html_safe, timeline_path(reference.timeline_id ) %>   </td>
+                      <td> <%= link_to reference.timeline.name.html_safe, timeline_path(reference.timeline ) %>   </td>
                     </tr>
                 <% end %>
             </tbody>
@@ -197,7 +227,7 @@
                 <% @comments.each do |com| %>
                     <tr class="notification-comment">
                       <td> <%= link_to t('views.model.comment'), comment_path(com.id ), class: "btn btn-primary" %>   </td>
-                      <td> <%= link_to com.reference_title, reference_path(com.reference_id) %>   </td>
+                      <td> <%= link_to com.reference.title_display.html_safe, reference_path(com.reference) %>   </td>
                     </tr>
                 <% end %>
             </tbody>
@@ -227,7 +257,7 @@
                 <tbody class="page">
                 <% @summaries.each do |com| %>
                     <td> <%= link_to t('views.model.summary'), summary_path(com.id ), class: "btn btn-primary" %>   </td>
-                    <td> <%= link_to com.timeline_name.html_safe, timeline_path(com.timeline_id ) %>   </td>
+                    <td> <%= link_to com.timeline.name.html_safe, timeline_path(com.timeline ) %>   </td>
                     </tr>
                 <% end %>
                 </tbody>

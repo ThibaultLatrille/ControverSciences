@@ -90,6 +90,9 @@ fr:
       loves:
         one: "%{count} contributeur aime ce site"
         other: "%{count} contributeurs aiment ce site"
+      frames:
+        one: "%{count} proposition de titre et de cadre"
+        other: "%{count} propositions de titre et de cadre"
       reference_no_comment:
         one: "%{count} référence n'a pas d'analyse"
         other: "%{count} références n'ont pas d'analyse"

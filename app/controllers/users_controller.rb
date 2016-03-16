@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def fetch_user_detail
     @user_detail = UserDetail.find_by_user_id(params[:id])
     unless @user_detail
-      @user_detail            = UserDetail.new(user_id: params[:id])
+      @user_detail = UserDetail.new(user_id: params[:id])
       @user_detail.send_email = true
     end
   end
@@ -38,16 +38,19 @@ class UsersController < ApplicationController
 
   def show
     begin
-      @user        = User.find(params[:id])
+      @user = User.find(params[:id])
       @user_detail = @user.user_detail
-      @timelines   = Timeline.includes(:tags).select(:id, :slug, :name).where(user_id: @user.id)
-      @references  = Reference.select(:id, :slug, :timeline_id, :title).where(user_id: @user.id)
-      @comments    = Comment.select(:id, :reference_id, :title_markdown).where(user_id: @user.id)
-      @summaries   = Summary.select(:id, :timeline_id, :content).where(user_id: @user.id)
+      @timelines = Timeline.includes(:tags).select(:id, :slug, :name).where(user_id: @user.id)
+      @references = Reference.includes(:timeline).select(:id, :slug, :timeline_id, :title).where(user_id: @user.id)
+      @comments = Comment.includes(:reference).select(:id, :reference_id, :title_markdown).where(user_id: @user.id)
+      @summaries = Summary.includes(:timeline).select(:id, :timeline_id, :content).where(user_id: @user.id)
+      @frames = Frame.includes(:timeline).select(:id, :timeline_id, :name)
+                    .where(user_id: @user.id)
+                    .where.not(timeline_id: @timelines.map { |t| t.id })
       unless logged_in? && current_user.id == @user.id
-        @timelines   = @timelines.where.not(private: true)
-        @comments    = @comments.where(public: true)
-        @summaries   = @summaries.where(public: true)
+        @timelines = @timelines.where.not(private: true)
+        @comments = @comments.where(public: true)
+        @summaries = @summaries.where(public: true)
       end
     rescue ActiveRecord::RecordNotFound
       flash[:danger] = "Aucun contributeur à cette adresse ;-("
@@ -56,7 +59,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user        = User.find(params[:id])
+    @user = User.find(params[:id])
     @user_pwd = User.find(params[:id])
     fetch_user_detail
   end
@@ -71,11 +74,11 @@ class UsersController < ApplicationController
       else
         if Rails.env.production?
           mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']
-          message   = {
+          message = {
               :subject => t('controllers.activation_email'),
-              :from    => "ControverSciences.org <activation@controversciences.org>",
-              :to      => @user.email,
-              :html    => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
+              :from => "ControverSciences.org <activation@controversciences.org>",
+              :to => @user.email,
+              :html => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
           }
           mg_client.send_message "controversciences.org", message
         end
@@ -168,8 +171,8 @@ class UsersController < ApplicationController
 
   def previous
     users = User.select(:id, :slug, :score).order(score: :desc).where(activated: true)
-    i     = users.index { |x| x.id == params[:id].to_i }
-    i     ||= users.sample
+    i = users.index { |x| x.id == params[:id].to_i }
+    i ||= users.sample
     if i == 0
       i = users.length-1
     else
@@ -180,8 +183,8 @@ class UsersController < ApplicationController
 
   def next
     users = User.select(:id, :slug, :score).order(score: :desc).where(activated: true)
-    i     = users.index { |x| x.id == params[:id].to_i }
-    i     ||= users.sample
+    i = users.index { |x| x.id == params[:id].to_i }
+    i ||= users.sample
     if i == users.length-1
       i = 0
     else
@@ -191,13 +194,13 @@ class UsersController < ApplicationController
   end
 
   def network
-    @nodes = User.where(activated: true).select(:id, :slug, :name,  :score)
-    user_ids = @nodes.map{ |u| u.id }
+    @nodes = User.where(activated: true).select(:id, :slug, :name, :score)
+    user_ids = @nodes.map { |u| u.id }
     ids = []
     @nodes.each do |user|
-      ids += user_ids.sample(rand(user.score+2)).reject{ |u| u == user.id }.map{ |u| [u, user.id] }
+      ids += user_ids.sample(rand(user.score+2)).reject { |u| u == user.id }.map { |u| [u, user.id] }
     end
-    @links = ids.uniq{ |e| [e[0],e[1]].sort }
+    @links = ids.uniq { |e| [e[0], e[1]].sort }
   end
 
   private
