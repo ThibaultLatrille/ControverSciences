@@ -1466,4 +1466,12 @@ del {
   transition: opacity 1s ease;
 }
 
+.loaded-fade{
+  opacity: 0.25;
+  -webkit-transition: opacity 1s ease;
+  -moz-transition: opacity 1s ease;
+  -o-transition: opacity 1s ease;
+  transition: opacity 1s ease;
+}
+
 

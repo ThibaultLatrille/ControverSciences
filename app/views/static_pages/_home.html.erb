@@ -9,23 +9,45 @@
     <div id="controverse" class="activated sub-leading">
       <div class="col-xs-12 col-md-offset-1 col-md-10 center">
         <div class="row">
-          <div class="col-xs-12 col-md-offset-3 col-md-6 center">
+          <div class="col-xs-10 col-xs-offset-1 col-md-offset-3 col-md-6 center">
             <% if @favorite %>
-                <br><br>
+                <br>
+                <br>
+                <a href="<%= timeline_path(@favorite) %>" class="hvr-grow">
+                  <div class="bb-custom-wrapper" style="background-color: transparent; padding: 0">
+                    <div class="panel-body" style="position: relative;">
+                      <div class="clearfix">
 
-                <div id="favorite">
-                  <a id="favorite-timeline" class="bb-custom-wrapper hvr-grow" href="<%= timeline_path @favorite %>">
-                    <h4>
-                      <span class="glyphicon glyphicon-star-empty normal"></span>
-                      Controverse à l'affiche
-                      <span class="glyphicon glyphicon-star-empty normal"></span>
-                    </h4>
+                        <h3 class="shadowed center">
+                          <span class="glyphicon glyphicon-star-empty normal"></span>
+                          Controverse à l'affiche
+                          <span class="glyphicon glyphicon-star-empty normal"></span>
+                        </h3>
 
-                    <h3 class="shadowed center">
-                      <%= @favorite.name.html_safe %>
-                    </h3>
-                  </a>
-                </div>
+                        <h3 class="shadowed center">
+                          <%= @favorite.name.html_safe %>
+                        </h3>
+
+                      </div>
+                      <br/>
+
+                      <div class="background">
+                      </div>
+                      <img class="loading-image" src="<%= @favorite.picture_url %>" alt=""
+                           style="background-size: 100%; background-repeat:no-repeat;">
+                    </div>
+                  </div>
+                </a>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('.loading-image').imagesLoaded().progress(function (instance, image) {
+                            if (image.isLoaded) {
+                                $(image.img).addClass("loaded-fade");
+                            }
+                        });
+                    });
+                </script>
+
             <% end %>
           </div>
         </div>
