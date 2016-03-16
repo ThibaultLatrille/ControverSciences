@@ -23,24 +23,23 @@
           <div class="clearfix">
             <%= form_for(@reference) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
+                <br>
                 <div class="row">
-                  <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                    <div data-toggle="buttons">
+                  <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+                    <div class="btn-group-justified" data-toggle="buttons">
                       <% category_names.each do |key, value| %>
-                          <div class="btn btn-default btn-block text-left timeline-edge-check">
-                            <%= f.radio_button :category, key %>
-                            <span class="pull-right checked glyphicon glyphicon-ok"></span>
-                            <b><%= value.html_safe %></b>
-                          </div>
+                          <label class="btn btn-default btn-select">
+                            <%= f.radio_button :category, checked_value = key,
+                                               {id: key, autocomplete: "off"} %>
+                            <%= value %>
+                          </label>
                       <% end %>
                     </div>
                   </div>
                 </div>
-                <br>
                 <script type="text/javascript">
                     $(document).ready(function () {
-                        var input = $("input[type='radio'][name='reference[category]']").first().prop('checked', true);
-                        input.parent().addClass("active");
+                        $("input[type='radio'][name='reference[category]']:checked").parent().addClass("active");
                     });
                     var source = {};
                     <% category_source.each do |key, value| %>

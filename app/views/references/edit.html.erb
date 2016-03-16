@@ -14,28 +14,31 @@
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4> <%= t('views.references.edit_from') %> <%= link_to Timeline.find(@reference.timeline_id).name.html_safe,
-                                                                  Timeline.find(@reference.timeline_id) %></h4>
+          <h4> <%= t('views.references.edit_from') %> <%= link_to @reference.timeline.name.html_safe,
+                                                                  timeline_path(@reference.timeline) %></h4>
         </div>
         <div class="panel-body">
           <div class="clearfix">
             <%= form_for(@reference) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
+                <br>
                 <div class="row">
-                  <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-                    <div data-toggle="buttons">
+                  <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+                    <div class="btn-group-justified" data-toggle="buttons">
                       <% category_names.each do |key, value| %>
-                          <div class="btn btn-default btn-block text-left timeline-edge-check">
-                            <%= f.radio_button :category, key %>
-                            <span class="pull-right checked glyphicon glyphicon-ok"></span>
-                            <b><%= value.html_safe %></b>
-                          </div>
+                          <label class="btn btn-default btn-select">
+                            <%= f.radio_button :category, checked_value = key,
+                                               {id: key, autocomplete: "off"} %>
+                            <%= value %>
+                          </label>
                       <% end %>
                     </div>
                   </div>
                 </div>
-                <br>
                 <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("input[type='radio'][name='reference[category]']:checked").parent().addClass("active");
+                    });
                     var source = {};
                     <% category_source.each do |key, value| %>
                     source[<%= key %>] = '<%= value %>';
@@ -54,9 +57,6 @@
                 <%= f.label t('views.references.title_original') + "*" %>
                 <%= f.text_area :title, {:rows => 2,
                                          :class => "form-control textarea"} %>
-                <br/>
-                <%= f.label t('views.references.categories') + "*" %>
-                <%= f.select :category, category_names.map { |key, value| [value, key] }, {}, {class: 'form-control myforms'} %>
                 <br/>
                 <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                 <%= f.label :open_access do %>
@@ -101,17 +101,5 @@
             autofocus: false, savable: false,
             hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
         });
-    });
-    var source = {};
-    <% category_source.each do |key, value| %>
-    source[<%= key %>] = '<%= value %>';
-    <% end %>
-    var unique_id = {};
-    <% category_unique_id.each do |key, value| %>
-    unique_id[<%= key %>] = '<%= value %>';
-    <% end %>
-    $('#reference_category').change(function () {
-        $('#source').html(source[$('#reference_category').val()] + ' *');
-        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[$('#reference_category').val()]);
     });
 </script>
