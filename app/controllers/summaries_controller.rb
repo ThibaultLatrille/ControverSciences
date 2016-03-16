@@ -103,12 +103,7 @@ class SummariesController < ApplicationController
     @timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(params[:timeline_id])
     if logged_in?
       user_id = current_user.id
-      visit = VisiteTimeline.find_by(user_id: user_id, timeline_id: params[:timeline_id])
-      if visit
-        visit.update(updated_at: Time.zone.now)
-      else
-        VisiteTimeline.create(user_id: user_id, timeline_id: params[:timeline_id])
-      end
+      @timeline.update_visite_by_user(user_id)
       @improve = Summary.where(user_id: user_id, timeline_id: params[:timeline_id]).count == 1 ? false : true
       @my_credit = Credit.find_by(user_id: user_id, timeline_id: params[:timeline_id])
       if params[:filter] == "mine"

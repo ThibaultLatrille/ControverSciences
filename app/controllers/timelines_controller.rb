@@ -103,28 +103,28 @@ class TimelinesController < ApplicationController
         else
           @summary = nil
         end
-        edges = Edge.select(:target, :timeline_id)
-                    .where("timeline_id = ? OR target = ?",
-                           @timeline.id,
-                           @timeline.id)
-        timeline_ids = edges.map { |e| [e.target, e.timeline_id] }
-        @timelines = Timeline.select(:slug, :id, :name)
-                         .where(id: timeline_ids.flatten.uniq)
-                         .where.not(private: true)
-                         .where.not(id: @timeline.id).limit(7).order("RANDOM()")
+        timeline_ids = Edge.select(:target, :timeline_id)
+                           .where("timeline_id = ? OR target = ?",
+                                  @timeline.id,
+                                  @timeline.id).map { |e| [e.target, e.timeline_id] }.flatten.uniq
+        if timeline_ids.length > 2
+          @timelines = Timeline.select(:slug, :id, :name)
+                           .where(id: timeline_ids)
+                           .where.not(private: true)
+                           .where.not(id: @timeline.id).limit(7).order("RANDOM()")
+        else
+          @timelines = []
+        end
         if logged_in?
-          visitetimeline = VisiteTimeline.find_or_create_by(user_id: current_user.id, timeline_id: @timeline.id)
-          VisiteTimeline.increment_counter(:counter, visitetimeline.id)
-          visitetimeline.update_columns(updated_at: Time.current)
+          @timeline.update_visite_by_user(current_user.id)
           @improve = Summary.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? false : true
           @my_frame = Frame.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
           @my_like = Like.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
         end
         @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
         @titles = Reference.where(timeline_id: @timeline.id, title_fr: "").count
-        ref_query = Reference.select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits)
-                        .order(year: :desc)
-                        .where(timeline_id: @timeline.id)
+        ref_query = Reference.order(year: :desc).where(timeline_id: @timeline.id)
+                        .select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits)
         unless logged_in?
           ref_query = ref_query.where.not(title_fr: "")
         end

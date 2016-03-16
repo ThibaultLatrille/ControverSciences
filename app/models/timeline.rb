@@ -187,6 +187,12 @@ class Timeline < ActiveRecord::Base
     Notification.import notifications
   end
 
+  def update_visite_by_user(user_id)
+    visitetimeline = VisiteTimeline.find_or_create_by(user_id: user_id, timeline_id: self.id)
+    VisiteTimeline.increment_counter(:counter, visitetimeline.id)
+    visitetimeline.update_columns(updated_at: Time.current)
+  end
+
   private
 
   def binary_valid
