@@ -58,7 +58,7 @@
                 <div class="clearfix">
                   <span class="timestamp">
                     Publié il y a <%= time_ago_in_words(@suggestion.created_at) %> par
-                    <%= @suggestion.user_id ? link_to (@suggestion.user_name, user_path(@suggestion.user_id)) : " un inconnu." %>
+                    <%= @suggestion.user_id ? (link_to @suggestion.user_name, user_path(@suggestion.user_id)) : " un inconnu." %>
                    </span>
                 </div>
                 <div id="children<%= @suggestion.id %>">
