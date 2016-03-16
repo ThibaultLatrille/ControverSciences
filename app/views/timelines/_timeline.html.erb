@@ -24,7 +24,7 @@
                                   switch_staging_timelines_path(timeline_id: timeline.id),
                                   "data-toggle" => :tooltip,
                                   class: "btn btn-default green",
-                                  title: t('views.timelines.make_public') %>
+                                  title: t('views.timelines.remove_staging') %>
                   <% else %>
                       <%= link_to "<span class=\"icon icon-egg normal\"></span>".html_safe,
                                   switch_staging_timelines_path(timeline_id: timeline.id),

@@ -222,7 +222,8 @@ fr:
       strongly: Fermement
       make_favorite: Mettre cette controverse au premier plan
       remove_favorite: Enlever cette controverse du premier plan
-      make_staging: Retourner à l'état embryonnaire
+      make_staging: Retourner cette controverse à l'état embryonnaire
+      remove_staging: Faire éclore cette controverse
       is_staging_html: Cette controverse est encore à l'état embryonnaire&nbsp!
       is_staging_sub: Aidez la à éclore !
       is_built_html: Cette controverse a éclos, elle s'est ouverte au monde&nbsp!
