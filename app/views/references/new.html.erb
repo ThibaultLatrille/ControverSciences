@@ -23,6 +23,40 @@
           <div class="clearfix">
             <%= form_for(@reference) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                    <div data-toggle="buttons">
+                      <% category_names.each do |key, value| %>
+                          <div class="btn btn-default btn-block text-left timeline-edge-check">
+                            <%= f.radio_button :category, key %>
+                            <span class="pull-right checked glyphicon glyphicon-ok"></span>
+                            <b><%= value.html_safe %></b>
+                          </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        var input = $("input[type='radio'][name='reference[category]']").first().prop('checked', true);
+                        input.parent().addClass("active");
+                    });
+                    var source = {};
+                    <% category_source.each do |key, value| %>
+                    source[<%= key %>] = '<%= value %>';
+                    <% end %>
+                    var unique_id = {};
+                    <% category_unique_id.each do |key, value| %>
+                    unique_id[<%= key %>] = "<%= value %>";
+                    <% end %>
+                    $("input[type='radio'][name='reference[category]']").change(function (e) {
+                        var valueSelected = this.value;
+                        $('#source').html(source[valueSelected] + ' *');
+                        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[valueSelected]);
+                    });
+                </script>
+                <br/>
                 <%= f.label t('views.references.title_original') + "*" %>
 
                 <div class="input-group">
@@ -37,10 +71,7 @@
                       </span>
                   <%= f.text_field :title, class: 'form-control myforms' %>
                 </div>
-                <br/>
-                <%= f.label t('views.references.categories') + "*" %>
-                <%= f.select :category, category_names.map { |key, value| [value, key] }, {}, {class: 'form-control myforms'} %>
-                <br/>
+                <br>
                 <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                 <%= f.label :open_access do %>
                     <%= f.check_box :open_access %>
@@ -92,6 +123,7 @@
                 <% unless @reference.timeline.binary.blank? %>
                     <hr style="margin: 1em 5em">
                     <br>
+
                     <div class="clearfix">
                       <br>
                       <b><%= @reference.timeline.name.html_safe %></b>
@@ -106,12 +138,12 @@
                       <%= f.hidden_field :reference_id, value: @reference.id %>
                       <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                       <div class="btn-group-justified" data-toggle="buttons">
-                            <label class="btn btn-default <%= @reference.user_binary == "none" ? "active" : nil %>"
-                                   title="<%= t('views.references.no_advise') %>" data-toggle="tooltip">
-                              <%= f.radio_button :user_binary, checked_value = "none",
-                                                 {id: "none", autocomplete: "off"} %>
-                              <span class="icon-no"></span>
-                            </label>
+                        <label class="btn btn-default <%= @reference.user_binary == "none" ? "active" : nil %>"
+                               title="<%= t('views.references.no_advise') %>" data-toggle="tooltip">
+                          <%= f.radio_button :user_binary, checked_value = "none",
+                                             {id: "none", autocomplete: "off"} %>
+                          <span class="icon-no"></span>
+                        </label>
                         <% (1..5).each do |key| %>
                             <label class="btn btn-default btn-select <%= @reference.user_binary == key.to_s ? "active" : nil %> btn-frog<%= key %>"
                                    title="<%= binary_value_explanation(@reference.timeline.binary, key) -%>" data-toggle="tooltip">
@@ -126,6 +158,7 @@
                 <% end %>
                 <hr style="margin: 1em 5em">
                 <br>
+
                 <div class="clearfix">
                   <%= f.label t('views.references.how_you_star') %>
                   <div class="btn-group-justified" data-toggle="buttons">
@@ -171,16 +204,4 @@
         $("#submit-button").hide();
         $(".myforms").attr('readonly', true)
     }
-    var source = {};
-    <% category_source.each do |key, value| %>
-    source[<%= key %>] = '<%= value %>';
-    <% end %>
-    var unique_id = {};
-    <% category_unique_id.each do |key, value| %>
-    unique_id[<%= key %>] = "<%= value %>";
-    <% end %>
-    $('#reference_category').change(function () {
-        $('#source').html(source[$('#reference_category').val()] + ' *');
-        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[$('#reference_category').val()]);
-    });
 </script>

@@ -3,62 +3,92 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-4 col-lg-2">
       <div class="list-group">
-          <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
-                      timeline_path(@reference.timeline_id),
-                      class: "list-group-item" %>
-          <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_reference')}".html_safe,
-                      reference_path(@reference),
-                      class: "list-group-item" %>
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timeline')}".html_safe,
+                    timeline_path(@reference.timeline_id),
+                    class: "list-group-item" %>
+        <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_reference')}".html_safe,
+                    reference_path(@reference),
+                    class: "list-group-item" %>
       </div>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-lg-offset-1">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h4> <%= t('views.references.edit_from') %> <%= link_to Timeline.find(@reference.timeline_id).name.html_safe,
-                                                                             Timeline.find(@reference.timeline_id) %></h4>
+                                                                  Timeline.find(@reference.timeline_id) %></h4>
         </div>
         <div class="panel-body">
           <div class="clearfix">
-          <%= form_for(@reference) do |f| %>
-              <%= render 'shared/error_messages', object: f.object %>
-              <%= f.label t('views.references.title_original') + "*" %>
-              <%= f.text_area :title, {:rows => 2,
-                                       :class => "form-control textarea"} %>
-              <br/>
-              <%= f.label t('views.references.categories') + "*" %>
-              <%= f.select :category, category_names.map { |key, value| [value, key] }, {}, {class: 'form-control myforms'} %>
-              <br/>
-              <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-              <%= f.label :open_access do %>
-                  <%= f.check_box :open_access %>
-                  <span> &nbsp <%= t('views.references.is_open_access') %> </span>
-              <% end %>
-              <br/>
-              <br/>
-              <%= f.label t('views.references.url') + "*" %>
-              <%= f.text_field :url, class: 'form-control myforms' %>
-              <br/>
-              <%= f.label category_source[@reference.category] + "*", id: "source" %>
-              <%= f.text_field :journal, class: 'form-control myforms' %>
-              <br/>
-              <%= f.label t('views.references.year') + "*" %>
-              <%= f.select :year, (1859..Date.current.year).to_a.reverse.push(["Avant 1859", 0]), {:include_blank => true}, {class: 'form-control'} %>
-              <br/>
-              <%= f.label t('views.references.author') + "*" %>
-              <%= f.text_field :author, class: 'form-control' %>
-              <br/>
-              <%= f.label :abstract, t('views.references.abstract_fac') %>
-              <%= f.text_area :abstract, class: 'form-control textarea', id: "markdown-textarea" %>
-              <br/>
-              <%= f.label t('views.references.doi_fac') + category_unique_id[@reference.category], id: "unique_id" %>
-              <%= f.text_field :doi, class: 'form-control myforms' %>
-              <br/>
-	      <%= f.button "#{t('views.references.edit')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                           class: 'btn btn-success btn-lg pull-right',
-                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
-          <% end %>
-        </div>
-        <b>*</b> : <%= t('views.edition.necessary') %>
+            <%= form_for(@reference) do |f| %>
+                <%= render 'shared/error_messages', object: f.object %>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                    <div data-toggle="buttons">
+                      <% category_names.each do |key, value| %>
+                          <div class="btn btn-default btn-block text-left timeline-edge-check">
+                            <%= f.radio_button :category, key %>
+                            <span class="pull-right checked glyphicon glyphicon-ok"></span>
+                            <b><%= value.html_safe %></b>
+                          </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <script type="text/javascript">
+                    var source = {};
+                    <% category_source.each do |key, value| %>
+                    source[<%= key %>] = '<%= value %>';
+                    <% end %>
+                    var unique_id = {};
+                    <% category_unique_id.each do |key, value| %>
+                    unique_id[<%= key %>] = "<%= value %>";
+                    <% end %>
+                    $("input[type='radio'][name='reference[category]']").change(function (e) {
+                        var valueSelected = this.value;
+                        $('#source').html(source[valueSelected] + ' *');
+                        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[valueSelected]);
+                    });
+                </script>
+                <br/>
+                <%= f.label t('views.references.title_original') + "*" %>
+                <%= f.text_area :title, {:rows => 2,
+                                         :class => "form-control textarea"} %>
+                <br/>
+                <%= f.label t('views.references.categories') + "*" %>
+                <%= f.select :category, category_names.map { |key, value| [value, key] }, {}, {class: 'form-control myforms'} %>
+                <br/>
+                <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
+                <%= f.label :open_access do %>
+                    <%= f.check_box :open_access %>
+                    <span> &nbsp <%= t('views.references.is_open_access') %> </span>
+                <% end %>
+                <br/>
+                <br/>
+                <%= f.label t('views.references.url') + "*" %>
+                <%= f.text_field :url, class: 'form-control myforms' %>
+                <br/>
+                <%= f.label category_source[@reference.category] + "*", id: "source" %>
+                <%= f.text_field :journal, class: 'form-control myforms' %>
+                <br/>
+                <%= f.label t('views.references.year') + "*" %>
+                <%= f.select :year, (1859..Date.current.year).to_a.reverse.push(["Avant 1859", 0]), {:include_blank => true}, {class: 'form-control'} %>
+                <br/>
+                <%= f.label t('views.references.author') + "*" %>
+                <%= f.text_field :author, class: 'form-control' %>
+                <br/>
+                <%= f.label :abstract, t('views.references.abstract_fac') %>
+                <%= f.text_area :abstract, class: 'form-control textarea', id: "markdown-textarea" %>
+                <br/>
+                <%= f.label t('views.references.doi_fac') + category_unique_id[@reference.category], id: "unique_id" %>
+                <%= f.text_field :doi, class: 'form-control myforms' %>
+                <br/>
+                <%= f.button "#{t('views.references.edit')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                             class: 'btn btn-success btn-lg pull-right',
+                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
+            <% end %>
+          </div>
+          <b>*</b> : <%= t('views.edition.necessary') %>
         </div>
       </div>
     </div>
@@ -67,8 +97,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#markdown-textarea").markdown({autofocus: false, savable: false,
-            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']});
+        $("#markdown-textarea").markdown({
+            autofocus: false, savable: false,
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkIntra']
+        });
     });
     var source = {};
     <% category_source.each do |key, value| %>
@@ -80,6 +112,6 @@
     <% end %>
     $('#reference_category').change(function () {
         $('#source').html(source[$('#reference_category').val()] + ' *');
-        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[$('#reference_category').val()] );
+        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[$('#reference_category').val()]);
     });
 </script>
