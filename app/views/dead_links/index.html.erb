@@ -17,7 +17,7 @@
                 <tbody class="page">
                 <% @dead_links.each do |dead_link| %>
                     <tr class="notification-comment">
-                      <td> <%= link_to t('views.model.reference'), reference_path(dead_link.reference_id), class: "btn btn-primary" %>   </td>
+                      <td> <%= link_to dead_link.reference.title_display.html_safe, reference_path(dead_link.reference), class: "btn btn-primary" %>   </td>
                       <td> <%= link_to "<span class=\"glyphicon glyphicon-trash\"> </span>".html_safe,
                                        dead_link_path(dead_link.id), method: :delete,
                                        data:                         {confirm: t('views.default.confirm')} %>    </td>

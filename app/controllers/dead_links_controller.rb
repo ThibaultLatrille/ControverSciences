@@ -20,6 +20,6 @@ class DeadLinksController < ApplicationController
   end
 
   def index
-    @dead_links = DeadLink.all
+    @dead_links = DeadLink.includes(:references).all
   end
 end
