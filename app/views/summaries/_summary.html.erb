@@ -67,26 +67,7 @@
                               :style           => "padding: 8px; margin-left: 8px" %>
               <% end %>
           <% end %>
-          <div class="pull-right">
-            <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
-                        patches_modal_path(summary_id: summary.id),
-                        remote:       true,
-                        :class        => "btn btn-default",
-                        "data-toggle" => "tooltip",
-                        title:        t('views.default.patch'),
-                        :style        => "padding: 8px; margin-right: 8px" %>
-            <% if current_user.admin %>
-                <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                            edit_summary_path(id: summary.id),
-                            class: "btn btn-primary" %>
-                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                            summary_path(id: summary.id),
-                            method: :delete,
-                            data:   {confirm: t('views.default.confirm')},
-                            class:  "btn btn-danger",
-                            :style  => "margin-right: 8px" %>
-            <% end %>
-          </div>
+          <%= render 'patches/link_summary', summary_id: summary.id %>
         </div>
       </div>
   <% end %>

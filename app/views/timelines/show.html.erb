@@ -250,14 +250,7 @@
             <div class="clearfix">
 
               <% if logged_in? && @improve_frame %>
-                  <div class="pull-right">
-                    <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
-                                patches_modal_path(frame_id: @improve_frame.id, field: 0),
-                                remote: true,
-                                class: "btn btn-default", "data-toggle" => "tooltip",
-                                title: t('views.default.patch'),
-                                style: "padding: 8px; margin: 0px 8px;" %>
-                  </div>
+                  <%= render 'patches/link_frame', field: 0, frame_id: @improve_frame.id %>
               <% end %>
               <div class="pull-right">
                 <% if logged_in? && @my_like %>
@@ -375,13 +368,7 @@
           <div class="content">
             <% if @timeline.frame != "" %>
                 <% if logged_in? && @improve_frame %>
-                    <div class="pull-right">
-                      <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
-                                  patches_modal_path(frame_id: @improve_frame.id, field: 1), remote: true,
-                                  :class => "btn btn-default", "data-toggle" => "tooltip",
-                                  title: t('views.default.patch'),
-                                  :style => "padding: 8px; margin: 8px" %>
-                    </div>
+                    <%= render 'patches/link_frame', field: 1, frame_id: @improve_frame.id %>
                 <% end %>
                 <div class="cadre text-justify clearfix">
                   <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
@@ -402,15 +389,6 @@
                                   "data-toggle" => :tooltip,
                                   class: "btn btn-default green pull-right",
                                   title: t('views.timelines.make_favorite') %>
-                  <% end %>
-                  <% if @improve_frame %>
-                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                  edit_frame_path(@improve_frame.id),
-                                  class: "btn btn-primary" %>
-                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                  frame_path(@improve_frame.id), method: :delete,
-                                  data: {confirm: t('views.default.confirm')},
-                                  class: "btn btn-danger" %>
                   <% end %>
                 </div>
             <% end %>
@@ -447,23 +425,10 @@
                     <br/>
                     <br/>
                     <% if logged_in? %>
-                        <div class="pull-right">
-                          <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
-                                      patches_modal_path(summary_id: @summary.id), remote: true, :class => "btn btn-default", "data-toggle" => "tooltip",
-                                      title: t('views.default.patch'), :style => "padding: 6px; margin-right: 6px" %>
-                          <% if current_user.admin %>
-                              <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                          edit_summary_path(@summary.id),
-                                          class: "btn btn-primary" %>
-                              <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                          summary_path(@summary.id), method: :delete,
-                                          data: {confirm: t('views.default.confirm')},
-                                          class: "btn btn-danger" %>
-                          <% end %>
-                          <br/>
-                          <br/>
-                          <br/>
-                        </div>
+                        <%= render 'patches/link_summary', summary_id: @summary.id %>
+                        <br/>
+                        <br/>
+                        <br/>
                     <% end %>
                     <% if @summary.summary_links.count > 0 %>
                         <hr style="width: 250px"/>

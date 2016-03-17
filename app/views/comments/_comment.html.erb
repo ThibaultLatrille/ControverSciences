@@ -3,7 +3,10 @@
     <% unless comment.empty_field?( 6 ) %>
         <b> <%= category_hash[comment.category][6] %>
         </b> :
-        <h5> <%= comment.title_markdown.html_safe %>   </h5>
+        <div class="clearfix">
+          <h5> <%= comment.title_markdown.html_safe %>   </h5>
+          <%= render 'patches/link_comment', field: 6, comment_id: comment.id %>
+        </div>
         <br/>
     <% end %>
       <% if comment.picture? %>
@@ -13,10 +16,11 @@
             <%= image_tag comment.picture_url, class: "img-rounded img-responsive" %>
               <div class="glyphicon glyphicon-zoom-in"></div>
             </a>
-            <div class="caption">
+            <div class="caption clearfix">
               <b>  <%= category_hash[comment.category][7] %> :
               </b>
               <%= comment.caption_markdown.html_safe %>
+              <%= render 'patches/link_comment', field: 7, comment_id: comment.id %>
             </div>
           </div>
         </div>
@@ -26,8 +30,9 @@
         <% unless comment.empty_field?( fi ) %>
             <b>  <%= category_hash[comment.category][fi] %> :
             </b>
-            <div class="text-justify">
-            <%= comment["markdown_#{fi}".to_sym].html_safe %>
+            <div class="text-justify clearfix">
+              <%= comment["markdown_#{fi}".to_sym].html_safe %>
+              <%= render 'patches/link_comment', field: fi, comment_id: comment.id %>
             </div>
        <% end %>
     <% end %>

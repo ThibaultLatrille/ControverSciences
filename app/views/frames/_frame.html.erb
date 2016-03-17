@@ -4,16 +4,7 @@
   <div class="panel-footer clearfix">
     <div class="content">
       <div class="clearfix">
-        <% if logged_in? %>
-            <div class="pull-right">
-              <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
-                          patches_modal_path(frame_id: frame.id, field: 0),
-                          remote: true,
-                          :class => "btn btn-default", "data-toggle" => "tooltip",
-                          title: t('views.default.patch'),
-                          :style => "padding: 8px; margin-right: 8px" %>
-            </div>
-        <% end %>
+        <%= render 'patches/link_frame', field: 0, frame_id: frame.id %>
         <h1 class="shadowed">
           <br/>
         <span class="content<%= frame.id*10 + 0 %>">
@@ -22,16 +13,7 @@
           <br/><br/>
         </h1>
         <% if frame.content != "" %>
-            <% if logged_in? %>
-                <div class="pull-right">
-                  <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
-                              patches_modal_path(frame_id: frame.id, field: 1),
-                              remote: true,
-                              :class => "btn btn-default", "data-toggle" => "tooltip",
-                              title: t('views.default.patch'),
-                              :style => "padding: 8px; margin: 8px" %>
-                </div>
-            <% end %>
+            <%= render 'patches/link_frame', field: 1, frame_id: frame.id %>
             <div class="cadre text-justify content<%= frame.id*10 + 1 %>">
               <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
               <%= frame.content_markdown.html_safe %>
@@ -181,19 +163,6 @@
                                 class: "btn btn-lg btn-default green",
                                 :style => "padding: 8px; margin-left: 8px" %>
                 <% end %>
-                <div class="pull-right" style="margin-right: 8px;">
-                  <% if current_user.admin %>
-                      <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
-                                  edit_frame_path(frame.id),
-                                  class: "btn btn-primary" %>
-                      <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe,
-                                  frame_path(frame.id),
-                                  method: :delete,
-                                  data: {confirm: t('views.default.confirm')},
-                                  class: "btn btn-danger" %>
-                  <% end %>
-                </div>
-
             <% end %>
           </div>
         </div>
