@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317095033) do
+ActiveRecord::Schema.define(version: 20160317180708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -748,6 +748,7 @@ ActiveRecord::Schema.define(version: 20160317095033) do
     t.text     "content_markdown",             default: ""
     t.boolean  "send_email",                   default: true
     t.hstore   "profil"
+    t.integer  "countdown",                    default: 15
   end
 
   add_index "user_details", ["figure_id"], name: "index_user_details_on_figure_id", using: :btree
