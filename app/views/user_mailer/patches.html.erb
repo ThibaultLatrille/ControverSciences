@@ -66,7 +66,7 @@
                             <% @patches.each do |patch| %>
                                 <li style="Margin-top: 0;padding-left: 2px">
                                   <% if patch.comment_id %>
-                                      <%= t('views.pluralize.patches', count: patch.counter) %> -
+                                      <%= t('views.pluralize.patches', count: patch.counter) %> <br>
                                       <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
                                          href="<%= comment_url(patch.comment) %>">
                                         <%= category_hash[patch.comment.reference.category][patch.field] %></a>
@@ -76,7 +76,7 @@
                                         <%= patch.comment.reference.title_display.html_safe %>
                                       </a>
                                   <% elsif patch.summary_id %>
-                                      <%= t('views.pluralize.patches', count: patch.counter) %> -
+                                      <%= t('views.pluralize.patches', count: patch.counter) %> <br>
                                       <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
                                          href="<%= summary_url(patch.summary) %>">
                                         <%= t('views.model.summary') %></a>
@@ -85,7 +85,7 @@
                                          href="<%= timeline_url(patch.summary.timeline) %>">
                                         <%= patch.summary.timeline.name.html_safe %></a>
                                   <% elsif patch.frame_id %>
-                                      <%= t('views.pluralize.patches', count: patch.counter) %> -
+                                      <%= t('views.pluralize.patches', count: patch.counter) %> <br>
                                         <% if patch.field == 0 %>
                                           <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
                                              href="<%= frame_url(patch.frame) %>">
