@@ -123,6 +123,9 @@ fr:
       edges:
         one: "Cette synthèse se base sur %{count} référence analysée."
         other: "Cette synthèse se base sur %{count} références analysées."
+      patches:
+        one: "%{count} suggestion"
+        other: "%{count} suggestions"
     buttons:
       invit: Inviter
       advise: Enregister cet avis

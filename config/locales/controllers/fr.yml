@@ -29,6 +29,7 @@ fr:
     no_account_id: Aucun compte n'est lié à cette adresse mail.
     no_vote_selected: Vous n'avez pas sélectionné de vote.
     notifs_news: les nouveautés qui vous intéressent sur ControverSciences
+    notifs_patches: vos contributions ont reçu des suggestions d'amélioration.
     only_admins: Uniquement les admins peuvent effectuer ces actions.
     pwd_or_confirm_error: Erreur de mot de passe ou de confirmation.
     pwd_updated: Mot de passe modifié.

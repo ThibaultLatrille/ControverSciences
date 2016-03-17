@@ -1,0 +1,134 @@
+<html lang="fr">
+<head>
+  <meta name="format-detection" content="date=no">
+  <meta name="format-detection" content="email=no">
+</head>
+<body style="margin: 0; padding: 0;" bgcolor="#FFFFFF">
+<table width="100%" height="100%" style="min-width: 348px;" border="0" cellspacing="0" cellpadding="0">
+  <tr height="32px"></tr>
+  <tr align="center">
+    <td width="32px"></td>
+    <td>
+      <table border="0" cellspacing="0" cellpadding="0" style="max-width: 600px;">
+        <tr height="16"></tr>
+        <tr>
+          <td>
+            <table bgcolor="#4E7DC9" width="100%" border="0" cellspacing="0" cellpadding="0" style="min-width: 332px; max-width: 600px; border: 1px solid #E0E0E0; border-bottom: 0; border-top-left-radius: 3px; border-top-right-radius: 3px;">
+              <tr>
+                <td height="40px" colspan="3"></td>
+              </tr>
+              <tr>
+                <td width="28px"></td>
+                <td style="font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 22px; color: #FFFFFF; line-height: 1.25;">
+                  <%= t('views.mailer.hello') + " " + @target_user.name -%>,
+                </td>
+                <td width="32px"></td>
+              </tr>
+              <tr>
+                <td height="18px" colspan="3"></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table bgcolor="#FAFAFA" width="100%" border="0" cellspacing="0" cellpadding="0" style="min-width: 332px; max-width: 600px; border: 1px solid #F0F0F0; border-bottom: 1px solid #C0C0C0; border-top: 0; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;">
+              <tr height="16px">
+                <td width="32px" rowspan="3"></td>
+                <td></td>
+                <td width="32px" rowspan="3"></td>
+              </tr>
+              <tr>
+                <td>
+                  <table style="min-width: 300px;" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td style="font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 14px; color: #202020; line-height: 1.5;">
+                        <br>
+                        <b>
+                          Des contributeurs de
+                          <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
+                             href="<%= root_url %>">
+                            ControverSciences.org</a>
+                          ont proposé <%= t('views.pluralize.patches', count: @patches.sum(&:counter)) %> pour vos
+                          contributions.
+                        </b>
+                        <br>
+                        Ces suggestions sont en attente de validation ou de refus de votre part.
+                        <br><br>
+                        <a style="background-color: whitesmoke; border: 1px solid gainsboro; border-radius: 2px; color: #444; display: inline-block; font-size: 16px; font-weight: bold; height: 27px; line-height: 27px; margin-right: 16px; min-width: 54px; outline: 0px; padding: 3px 11px; text-align: center; text-decoration: none"
+                           target="_blank"
+                           href="<%= patches_url %>">
+                          Voir les suggestions d'amélioration
+                        </a>
+                        <br><br>
+                        <table border="0" cellspacing="0" cellpadding="0" style="margin-bottom: 12px;">
+                          <ul style="Margin-top: 12px;padding-left:0;font-size: 13px; color: #202020; line-height: 1.5;Margin-left: 20px;font-family:sans-serif;Margin-bottom: 8px">
+                            <% @patches.each do |patch| %>
+                                <li style="Margin-top: 0;padding-left: 2px">
+                                  <% if patch.comment_id %>
+                                      <%= t('views.pluralize.patches', count: patch.counter) %> -
+                                      <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
+                                         href="<%= comment_url(patch.comment) %>">
+                                        <%= category_hash[patch.comment.reference.category][patch.field] %></a>
+                                      <%= t('views.model.of_reference').downcase %>
+                                      <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
+                                         href="<%= reference_url(patch.comment.reference) %>">
+                                        <%= patch.comment.reference.title_display.html_safe %>
+                                      </a>
+                                  <% elsif patch.summary_id %>
+                                      <%= t('views.pluralize.patches', count: patch.counter) %> -
+                                      <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
+                                         href="<%= summary_url(patch.summary) %>">
+                                        <%= t('views.model.summary') %></a>
+                                      <%= t('views.model.of_timeline').downcase %>
+                                      <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
+                                         href="<%= timeline_url(patch.summary.timeline) %>">
+                                        <%= patch.summary.timeline.name.html_safe %></a>
+                                  <% elsif patch.frame_id %>
+                                      <%= t('views.pluralize.patches', count: patch.counter) %> -
+                                        <% if patch.field == 0 %>
+                                          <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
+                                             href="<%= frame_url(patch.frame) %>">
+                                            <%= t('views.model.frame_0') %></a>
+                                        <% else %>
+                                          <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
+                                             href="<%= frame_url(patch.frame) %>">
+                                            <%= t('views.model.frame_1') %></a>
+                                        <% end %>
+                                      <%= t('views.model.of_timeline').downcase %>
+                                      <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
+                                         href="<%= timeline_url(patch.frame.timeline) %>">
+                                        <%= patch.frame.timeline.name.html_safe %>
+                                      </a>
+                                  <% end %>
+                                </li>
+                                <br>
+                            <% end %>
+                          </ul>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr height="32px"></tr>
+                    <tr>
+                      <td style="font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 13px; color: #202020; line-height: 1.5;">
+                        <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted#454545" href='mailto:contact@controversciences.org'>
+                          <%= t('views.mailer.the_team') %></a> <%= t('views.mailer.notif_wish') %>
+                      </td>
+                    </tr>
+                    <tr height="16px"></tr>
+                  </table>
+                </td>
+              </tr>
+              <tr height="32px"></tr>
+            </table>
+          </td>
+        </tr>
+        <tr height="16"></tr>
+      </table>
+    </td>
+    <td width="32px"></td>
+  </tr>
+  <tr height="32px"></tr>
+</table>
+</body>
+</html>

@@ -120,6 +120,9 @@ en:
       edges:
         one: "This summary is based upon %{count} analysed reference."
         other: "This summary is based upon %{count} analysed references."
+      patches:
+        one: "%{count} suggestion"
+        other: "%{count} suggestions"
     buttons:
       invit: Invite
       advise: Save this opinion
