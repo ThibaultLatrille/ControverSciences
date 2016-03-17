@@ -57,45 +57,45 @@
                             <% if @user_notif.notifications_all > 2 %>
                                 <li style="Margin-top: 0;padding-left: 2px"><b>
                                   <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                                     href="<%= root_url + "/notifications/index" %>">
+                                     href="<%= notifications_index_url %>">
                                     <%= @user_notif.notifications_all.to_s + " " + t('views.mailer.notif_waiting') %></a> </b>
-                                </li>
+                                </li><br>
                             <% end %>
                             <% if @user_notif.nb_notifs > 2 %>
                                 <li style="Margin-top: 0;padding-left: 2px"><b>
 
                                   <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                                     href="<%= root_url + "/notifications/important" %>">
+                                     href="<%= notifications_important_url %>">
                                     <%= @user_notif.nb_notifs.to_s + " " + t('views.mailer.important_waiting') %></a> </b>
-                                </li>
+                                </li><br>
                             <% end %>
                             <% if @empty_comments > 2 && rand(3) == 0 %>
                                 <li style="Margin-top: 0;padding-left: 2px"><b>
                                   <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                                     href="<%= root_url + "/empty_comments" %>">
-                                    <%= @empty_comments.to_s + " " + t('views.mailer.notif_empty_comments') %></a> </b></li>
+                                     href="<%= empty_comments_url %>">
+                                    <%= @empty_comments.to_s + " " + t('views.mailer.notif_empty_comments') %></a> </b></li><br>
                             <% end %>
                             <% if @empty_summaries > 2 && rand(3) == 0 %>
                                 <li style="Margin-top: 0;padding-left: 2px"><b>
                                   <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                                     href="<%= root_url + "/empty_summaries" %>">
-                                    <%= @empty_summaries.to_s + " " + t('views.mailer.notif_empty_summaries') %></a> </b></li>
+                                     href="<%= empty_summaries_url %>">
+                                    <%= @empty_summaries.to_s + " " + t('views.mailer.notif_empty_summaries') %></a> </b></li><br>
                             <% end %>
                             <% if @empty_references > 2 && rand(3) == 0 %>
                                 <li style="Margin-top: 0;padding-left: 2px"><b>
                                   <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545"
-                                     href="<%= root_url + "/empty_references" %>">
+                                     href="<%= empty_references_url %>">
                                     <%= @empty_references.to_s + " " + t('views.mailer.notif_empty_references') %></a> </b>
-                                </li>
+                                </li><br>
                             <% end %>
                           </ul>
                         </table>
                         <%= t('views.mailer.notif_preferences') %> <br/>
                         •  <%= t('views.mailer.notif_handle') %>
-                        <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= root_url + "/likes" %>">
+                        <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= likes_url %>">
                           <%= t('views.mailer.notif_likes') %></a> ;<br/>
                         •
-                        <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= root_url + "/users/#{@user_notif.id}/edit" -%>">
+                        <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted #454545" href="<%= edit_user_url(@user_notif.id) -%>">
                           <%= t('views.mailer.notif_edit_profil') %></a>.
                       </td>
                     </tr>
