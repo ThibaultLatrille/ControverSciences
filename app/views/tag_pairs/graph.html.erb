@@ -181,6 +181,7 @@
         var svg = d3.select("#d3-graph").append("svg:svg")
                 .attr("width", w)
                 .attr("height", h)
+                .attr("class", "img-responsive")
                 .append("svg:g")
                 .attr("id", "circle")
                 .attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
@@ -231,10 +232,18 @@
                 .enter().append("svg:path")
                 .attr("class", "chord")
                 .style("stroke", function (d) {
-                    return d3.rgb(fill(d.target.index)).darker();
+                    if (d.source == d.target){
+                        return d3.rgb(fill(d.target.index)).darker();
+                    } else {
+                        return "#acacac";
+                    }
                 })
                 .style("fill", function (d) {
-                    return fill(d.target.index);
+                    if (d.source == d.target){
+                        return fill(d.target.index);
+                    } else {
+                        return "#cccccc";
+                    }
                 })
                 .attr("d", d3.svg.chord().radius(r0))
                 .on("mouseover", function (d) {

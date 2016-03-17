@@ -21,7 +21,7 @@
   left: 15px;
   float: left;
   border-radius: 0;
-  z-index: 9999;
+  z-index: 1000;
   background-color: rgba(255, 255, 255, 0);
 }
 
@@ -31,7 +31,7 @@
   right: 15px;
   float: right;
   border-radius: 0;
-  z-index: 9999;
+  z-index: 1000;
   background-color: rgba(255, 255, 255, 0);
 }
 
@@ -41,7 +41,13 @@
   left: 15px;
   float: left;
   border-radius: 0;
-  z-index: 9999;
+  z-index: 1000;
   background-color: rgba(255, 255, 255, 0);
+}
+
+@media (max-width: 766px) {
+  .side-bar, .side-bar-right, .side-bar-top{
+    display: none;
+  }
 }
 
