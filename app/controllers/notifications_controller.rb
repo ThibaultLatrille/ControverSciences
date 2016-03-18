@@ -10,17 +10,17 @@ class NotificationsController < ApplicationController
                           .where(user_id: current_user.id)
                           .group("category").count
     @category_count.default = 0
-    if params[:filter]
-      @filter = params[:filter].to_sym
+    if @category_count.blank?
+      flash[:info] = "Vous n'avez pas de nouvelles notifications."
+      redirect_to user_path(current_user)
     else
-      if @category_count.blank?
-        flash[:info] = "Vous n'avez pas de nouvelles notifications."
-        redirect_to user_path(current_user)
+      if params[:filter]
+        @filter = params[:filter].to_sym
       else
         @filter = sym_to_int_notifs_hash.invert[@category_count.max_by { |k, v| v }[0]]
-        @notification = Notification.new
-        @models = notification_model_query(sym_to_int_notifs_hash[@filter]).page(params[:page]).per(20)
       end
+      @notification = Notification.new
+      @models = notification_model_query(sym_to_int_notifs_hash[@filter]).page(params[:page]).per(20)
     end
   end
 
