@@ -27,25 +27,25 @@ module NotificationsHelper
     else
       case category
         when 1
-          query = Timeline.includes(:tags).select(:id, :slug, :name, :user_id)
+          query = Timeline.includes(:tags).select(:id, :slug, :name, :user_id, :created_at)
                       .includes(:user)
         when 2
-          query = Reference.select(:id, :slug, :timeline_id, :title, :user_id)
+          query = Reference.select(:id, :slug, :timeline_id, :title, :user_id, :created_at)
                       .includes(:timeline, :user)
         when 3, 4
-          query = Summary.select(:id, :timeline_id, :user_id)
+          query = Summary.select(:id, :timeline_id, :user_id, :created_at)
                       .includes(:timeline, :user)
         when 5
-          query = Comment.select(:id, :timeline_id, :reference_id, :user_id)
+          query = Comment.select(:id, :timeline_id, :reference_id, :user_id, :created_at)
                       .includes(:timeline, :reference, :user)
         when 8, 9
-          query = Frame.select(:id, :timeline_id, :user_id)
+          query = Frame.select(:id, :timeline_id, :user_id, :created_at)
                       .includes(:timeline, :user)
         when 10
-          query = Suggestion.select(:id, :comment, :name, :user_id)
+          query = Suggestion.select(:id, :comment, :name, :user_id, :created_at)
                       .includes(:user)
         when 11
-          query = SuggestionChild.select(:id, :comment, :name, :user_id)
+          query = SuggestionChild.select(:id, :comment, :name, :user_id, :created_at)
                       .includes(:user)
         else
           query = nil

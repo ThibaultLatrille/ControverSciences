@@ -58,10 +58,12 @@
                 <table id="notification-timelines" class="table table-striped table-hover">
                   <thead>
                   <tr>
-                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
-                    <th class="col-xs-4"> <%= t('views.model.timeline') %>  </th>
-                    <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
-                    <th class="col-xs-4"> <%= t('views.default.tags') %> </th>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines">
+                      <span class="glyphicon glyphicon-trash red"></span></th>
+                    <th class="col-xs-1"> <span class="glyphicon glyphicon-time"></span>  </th>
+                    <th class="col-xs-6"> <%= t('views.model.timeline') %>  </th>
+                    <th class="col-xs-2"> <%= t('views.default.by_cap') %>  </th>
+                    <th class="col-xs-2"> <%= t('views.default.tags') %> </th>
                   </tr>
                   </thead>
                   <tbody class="page">
@@ -76,6 +78,7 @@
                           <tr class="notification-timeline">
                             <td> <%= f.check_box :ids, {class: "destroy-box", :multiple => true},
                                                  checked_value = timeline.id, unchecked_value = nil %> </td>
+                            <td> <%= t('views.default.ago') %> <%= time_ago_in_words(timeline.created_at) %> </td>
                             <td> <%= link_to timeline.name.html_safe, notifications_redirect_path(id: timeline.id, filter: @filter), class: "btn btn-primary" %> </td>
                             <td>  <%= link_to timeline.user.name, user_path(id: timeline.user_id), class: "btn btn-primary" %> </td>
                             <td>
@@ -102,10 +105,12 @@
                 <table id="notification-timelines" class="table table-striped table-hover">
                   <thead>
                   <tr>
-                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
-                    <th class="col-xs-4"> <%= t('views.model.frame') %> </th>
-                    <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
-                    <th class="col-xs-4"> <%= t('views.model.of_timeline') %>  </th>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines">
+                      <span class="glyphicon glyphicon-trash red"></span></th>
+                    <th class="col-xs-1"> <span class="glyphicon glyphicon-time"></span>  </th>
+                    <th class="col-xs-2"> <%= t('views.model.frame') %> </th>
+                    <th class="col-xs-2"> <%= t('views.default.by_cap') %>  </th>
+                    <th class="col-xs-6"> <%= t('views.model.of_timeline') %>  </th>
                   </tr>
                   </thead>
                   <tbody class="page">
@@ -121,6 +126,7 @@
                           <tr class="notification-summary">
                             <td> <%= f.check_box :ids, {class: "destroy-box", :multiple => true},
                                                  checked_value = com.id, unchecked_value = nil %> </td>
+                            <td> <%= t('views.default.ago') %> <%= time_ago_in_words(com.created_at) %> </td>
                             <td> <%= link_to "La proposition", notifications_redirect_path(id: com.id, filter: @filter), class: "btn btn-primary" %> </td>
                             <td>  <%= link_to com.user.name, user_path(id: com.user_id), class: "btn btn-primary" %> </td>
                             <td>  <%= link_to com.timeline.name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>   </td>
@@ -143,15 +149,18 @@
                 <table id="notification-timelines" class="table table-striped table-hover">
                   <thead>
                   <tr>
-                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
-                    <th class="col-xs-4"> <%= t('views.model.summary') %>  </th>
-                    <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
-                    <th class="col-xs-4"> <%= t('views.model.in_timeline') %>  </th>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines">
+                      <span class="glyphicon glyphicon-trash red"></span></th>
+                    <th class="col-xs-1"> <span class="glyphicon glyphicon-time"></span>  </th>
+                    <th class="col-xs-2"> <%= t('views.model.summary') %>  </th>
+                    <th class="col-xs-2"> <%= t('views.default.by_cap') %>  </th>
+                    <th class="col-xs-6"> <%= t('views.model.in_timeline') %>  </th>
                   </tr>
                   </thead>
                   <tbody class="page">
                   <% if !@models.any? %>
                       <tr class="notification-summary">
+                        <td></td>
                         <td></td>
                         <td> <%= t('views.notifications.no_news') %> </td>
                         <td></td>
@@ -162,6 +171,7 @@
                           <tr class="notification-summary">
                             <td> <%= f.check_box :ids, {class: "destroy-box", :multiple => true},
                                                  checked_value = com.id, unchecked_value = nil %> </td>
+                            <td> <%= t('views.default.ago') %> <%= time_ago_in_words(com.created_at) %> </td>
                             <td> <%= link_to "La synthèse", notifications_redirect_path(id: com.id, filter: @filter), class: "btn btn-primary" %> </td>
                             <td>  <%= link_to com.user.name, user_path(id: com.user_id), class: "btn btn-primary" %> </td>
                             <td>  <%= link_to com.timeline.name.html_safe, timeline_path(com.timeline_id), class: "btn btn-primary" %>   </td>
@@ -179,10 +189,12 @@
                 <table id="notification-timelines" class="table table-striped table-hover">
                   <thead>
                   <tr>
-                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
-                    <th class="col-xs-4"> <%= t('views.model.reference') %>  </th>
-                    <th class="col-xs-3"> <%= t('views.default.by_cap') %>  </th>
-                    <th class="col-xs-4"> <%= t('views.model.in_timeline') %> </th>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines">
+                      <span class="glyphicon glyphicon-trash red"></span></th>
+                    <th class="col-xs-1"> <span class="glyphicon glyphicon-time"></span>  </th>
+                    <th class="col-xs-5"> <%= t('views.model.reference') %>  </th>
+                    <th class="col-xs-2"> <%= t('views.default.by_cap') %>  </th>
+                    <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
                   </tr>
                   </thead>
                   <tbody class="page">
@@ -198,6 +210,7 @@
                           <tr class="notification-reference">
                             <td> <%= f.check_box :ids, {class: "destroy-box", :multiple => true},
                                                  checked_value = reference.id, unchecked_value = nil %> </td>
+                            <td> <%= t('views.default.ago') %> <%= time_ago_in_words(reference.created_at) %> </td>
                             <td> <%= link_to reference.title,
                                              notifications_redirect_path(id: reference.id, filter: @filter), class: "btn btn-primary" %> </td>
                             <td>  <%= link_to reference.user.name, user_path(id: reference.user_id), class: "btn btn-primary" %> </td>
@@ -211,15 +224,17 @@
 
             <% elsif @filter == :comment %>
                 <div class="panel-heading">
-                  (<%= @models.length %>)
+                  <%= t('views.notifications.new_comments') %> (<%= @models.length %>)
                 </div>
                 <table id="notification-timelines" class="table table-striped table-hover">
                   <thead>
                   <tr>
-                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
-                    <th class="col-xs-3"> <%= t('views.model.comment') %> </th>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines">
+                      <span class="glyphicon glyphicon-trash red"></span></th>
+                    <th class="col-xs-1"> <span class="glyphicon glyphicon-time"></span>  </th>
+                    <th class="col-xs-1"> <%= t('views.model.comment') %> </th>
                     <th class="col-xs-2"> <%= t('views.default.by_cap') %> </th>
-                    <th class="col-xs-3"> <%= t('views.model.of_reference') %> </th>
+                    <th class="col-xs-4"> <%= t('views.model.of_reference') %> </th>
                     <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
                   </tr>
                   </thead>
@@ -237,6 +252,7 @@
                           <tr class="notification-comment">
                             <td> <%= f.check_box :ids, {class: "destroy-box", :multiple => true},
                                                  checked_value = com.id, unchecked_value = nil %> </td>
+                            <td> <%= t('views.default.ago') %> <%= time_ago_in_words(com.created_at) %> </td>
                             <td> <%= link_to "Voir l'analyse", notifications_redirect_path(id: com.id, filter: @filter), class: "btn btn-primary" %> </td>
                             <td> <%= link_to com.user.name, user_path(id: com.user_id), class: "btn btn-primary" %></td>
                             <td>  <%= link_to com.reference.title_display, reference_path(com.reference_id), class: "btn btn-primary" %></td>
@@ -256,10 +272,12 @@
                 <table id="notification-timelines" class="table table-striped table-hover">
                   <thead>
                   <tr>
-                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
-                    <th class="col-xs-3"> <%= t('views.model.comment') %> </th>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines">
+                      <span class="glyphicon glyphicon-trash red"></span></th>
+                    <th class="col-xs-1"> <span class="glyphicon glyphicon-time"></span>  </th>
+                    <th class="col-xs-1"> <%= t('views.model.comment') %> </th>
                     <th class="col-xs-2"> <%= t('views.default.by_cap') %> </th>
-                    <th class="col-xs-3"> <%= t('views.model.of_reference') %> </th>
+                    <th class="col-xs-4"> <%= t('views.model.of_reference') %> </th>
                     <th class="col-xs-3"> <%= t('views.model.in_timeline') %> </th>
                   </tr>
                   </thead>
@@ -277,6 +295,7 @@
                           <tr class="notification-sel-comment">
                             <td> <%= f.check_box :ids, {class: "destroy-box", :multiple => true},
                                                  checked_value = notif.comment_id, unchecked_value = nil %> </td>
+                            <td> <%= t('views.default.ago') %> <%= time_ago_in_words(notif.created_at) %> </td>
                             <td> <%= link_to category_hash[notif.reference.category][notif.field],
                                              notifications_redirect_path(id: notif.comment_id,
                                                                          field: notif.field, filter: @filter), class: "btn btn-primary" %> </td>
@@ -297,9 +316,11 @@
                 <table id="notification-timelines" class="table table-striped table-hover">
                   <thead>
                   <tr>
-                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines"></th>
-                    <th class="col-xs-3"> Le commentaire</th>
-                    <th class="col-xs-2"> Par</th>
+                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines">
+                      <span class="glyphicon glyphicon-trash red"></span></th>
+                    <th class="col-xs-2"> <span class="glyphicon glyphicon-time"></span>  </th>
+                    <th class="col-xs-6"> Le commentaire</th>
+                    <th class="col-xs-3"> Par</th>
                   </tr>
                   </thead>
                   <tbody class="page">
@@ -314,6 +335,7 @@
                           <tr class="notification-sel-comment">
                             <td> <%= f.check_box :ids, {class: "destroy-box", :multiple => true},
                                                  checked_value = sugg.id, unchecked_value = nil %> </td>
+                            <td> <%= t('views.default.ago') %> <%= time_ago_in_words(sugg.created_at) %> </td>
                             <td> <%= link_to truncate(sugg.comment, length: 140, separator: ' '),
                                              notifications_redirect_path(id: sugg.id, filter: @filter) %> </td>
 
