@@ -126,6 +126,8 @@
                         }
                         if (button.toggle == true) {
                             buttonContainer.attr('data-toggle', 'button');
+                        } else {
+                            buttonContainer.attr('data-tooltip', 'true');
                         }
                         buttonIconContainer = $('<span/>');
                         buttonIconContainer.addClass(buttonIcon);
@@ -284,7 +286,6 @@
                         instance.setFullscreen(true)
                     })
                 }
-
                 editor.append(editorHeader)
 
                 // Wrap the textarea
@@ -408,6 +409,7 @@
                 } else if (options.initialstate === 'fullscreen' && options.fullscreen.enable) {
                     this.setFullscreen(true)
                 }
+                $('[data-tooltip="true"]', this.$editor ).tooltip({container: 'body'});
 
             } else {
                 this.$editor.show()
@@ -1072,10 +1074,10 @@
                             if (monelement.dataset.toggled === 'yes') {
                                 monelement.setAttribute("data-toggled", 'no');
                                 var chunk, cursor,
-                                    selected = e.getSelection(), content = e.getContent()
+                                    selected = e.getSelection();
                                 if (selected.length == 0) {
                                     // Give extra word
-                                    chunk = "*"
+                                    chunk = $("input[type='radio'][name='reference_id']:checked").attr("title")
                                 } else {
                                     chunk = selected.text
                                 }
@@ -1104,15 +1106,14 @@
                             if (monelement.dataset.toggled === 'yes') {
                                 monelement.setAttribute("data-toggled", 'no');
                                 var chunk, cursor,
-                                    selected = e.getSelection(), content = e.getContent()
-                                var elt = document.getElementById("list-tim")
+                                    selected = e.getSelection();
                                 if (selected.length == 0) {
                                     // Give extra word
-                                    chunk = elt.options[elt.selectedIndex].text
+                                    chunk = $("input[type='radio'][name='timeline_id']:checked").attr("title")
                                 } else {
                                     chunk = selected.text
                                 }
-                                var link = elt.options[elt.selectedIndex].value
+                                var link = $("input[type='radio'][name='timeline_id']:checked").val();
                                 // transform selection and set the cursor into chunked text
                                 e.replaceSelection('[' + chunk + '](/timelines/' + link + ')')
                                 cursor = selected.start + 1

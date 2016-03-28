@@ -11,44 +11,56 @@
           <%= t('views.edition.add_link') %>
         </button>
 
-        <div class="box">
-          <div class="container-jets">
-            <span class="icon glyphicon glyphicon-filter"></span>
-            <input type="search" id="jetsRefSearch" placeholder="Filtrer"/>
-          </div>
-        </div>
-
+        <% if references_list.length > 3 %>
+            <div class="box">
+              <div class="container-jets">
+                <span class="icon glyphicon glyphicon-filter"></span>
+                <input type="search" id="jetsRefSearch" placeholder="Filtrer"/>
+              </div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var refJets = new Jets({
+                        searchTag: '#jetsRefSearch',
+                        contentTag: '#jetsRefContent'
+                    });
+                });
+            </script>
+        <% else %>
+            <br><br><br>
+        <% end %>
         <div id="jetsRefContent" data-toggle="buttons">
-            <% references_list.each do |name, id, author| %>
-                <div class="btn btn-default btn-block text-left timeline-private_timeline-check">
-                  <%= radio_button_tag :reference_id, checked_value = id, unchecked_value = nil %>
-                  <b><%= name.html_safe %></b><br>
-                  <i><%= author.html_safe %></i>
+          <% references_list.each do |name, id, author| %>
+              <div class="btn btn-default btn-block text-left timeline-private_timeline-check">
+                <%= radio_button_tag :reference_id, checked_value = id, unchecked_value = nil, title: name %>
+                <b><%= name.html_safe %></b><br>
+                <i><%= author.html_safe %></i>
                   <span class="pull-right checked">
                             </span>
-                </div>
-            <% end %>
+              </div>
+          <% end %>
 
         </div>
         <br>
 
-      <div class="modal-footer">
-        <div class="pull-left" style="padding-left: 10px;text-align: left">
-          <span class="glyphicon glyphicon-info-sign"></span> Astuces pour les liens vers des références : <br>
-          <div style="padding: 10px">
-            <b>Numérotation automatique des liens en utilisant le caractère * </b><br>
-            &nbsp <b>e.g.</b> [*](<span class="my-number"></span>)
-            <span style="padding: 0 5px">&#8594;</span>
-            <a class="my-link" target="_blank" href=""><sup>[1]</sup></a>
-            <br>
-            <br>
-            <b>Texte personnalisé dans le lien</b><br>
-            &nbsp <b>e.g.</b> [mon texte ici](<span class="my-number"></span>)
-            <span style="padding: 0 5px">&#8594;</span>
-            <a class="my-link" target="_blank" href="">mon texte ici</a>
+        <div class="modal-footer">
+          <div class="pull-left" style="padding-left: 10px;text-align: left">
+            <span class="glyphicon glyphicon-info-sign"></span> Astuces pour les liens vers des références : <br>
+
+            <div style="padding: 10px">
+              <b>Numérotation automatique des liens en utilisant le caractère * </b><br>
+              &nbsp <b>e.g.</b> [*](<span class="my-number"></span>)
+              <span style="padding: 0 5px">&#8594;</span>
+              <a class="my-link" target="_blank" href=""><sup>[1]</sup></a>
+              <br>
+              <br>
+              <b>Texte personnalisé dans le lien</b><br>
+              &nbsp <b>e.g.</b> [mon texte ici](<span class="my-number"></span>)
+              <span style="padding: 0 5px">&#8594;</span>
+              <a class="my-link" target="_blank" href="">mon texte ici</a>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
   </div>
@@ -72,8 +84,4 @@
         $('.my-link').attr('href', '/references/' + valueSelected);
     });
     $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    var jets = new Jets({
-        searchTag: '#jetsRefSearch',
-        contentTag: '#jetsRefContent'
-    });
 </script>
