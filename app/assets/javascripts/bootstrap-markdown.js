@@ -93,10 +93,30 @@
                             hotkeyCaption = typeof jQuery.hotkeys !== 'undefined' && hotkey !== '' ? ' (' + hotkey + ')' : ''
 
                         // Construct the button object
-                        buttonContainer = $('<button></button>');
+                        // Register handler and callback
+                        if (button.isHelp == true) {
+                            buttonContainer = $('<a></a>');
+                            buttonContainer.attr({
+                                'href': '/markdown-tutorial',
+                                'target': 'blank'
+                            });
+                            if (this.$options.hideHelp) {
+                                btnClass += " hidden"
+                            }
+                        } else {
+                            buttonContainer = $('<button></button>');
+                            handler.push(buttonHandler);
+                            callback.push(button.callback);
+                        }
                         buttonContainer.text(' ' + this.__localize(btnText)).addClass('btn-default btn-sm').addClass(btnClass);
                         if (btnClass.match(/btn\-(primary|success|info|warning|danger|link)/)) {
                             buttonContainer.removeClass('btn-default');
+                        }
+                        if (button.isHelp == true) {
+                            buttonContainer.attr({
+                                'href': '/markdown-tutorial',
+                                'target': 'blank'
+                            });
                         }
                         buttonContainer.attr({
                             'type': 'button',
@@ -136,9 +156,7 @@
                         // Attach the button object
                         btnGroupContainer.append(buttonContainer);
 
-                        // Register handler and callback
-                        handler.push(buttonHandler);
-                        callback.push(button.callback);
+
                     }
 
                     // Attach the button group into container dom
@@ -409,7 +427,7 @@
                 } else if (options.initialstate === 'fullscreen' && options.fullscreen.enable) {
                     this.setFullscreen(true)
                 }
-                $('[data-tooltip="true"]', this.$editor ).tooltip({container: 'body'});
+                $('[data-tooltip="true"]', this.$editor).tooltip({container: 'body'});
 
             } else {
                 this.$editor.show()
@@ -464,7 +482,7 @@
                 dataType: 'json',
                 statusCode: {
                     200: function (response) {
-                        $clmPreview.html("<span class=\"glyphicon glyphicon-edit\"></span> Éditer");
+                        $clmPreview.html("<span class=\"glyphicon glyphicon-edit\"></span>&nbsp &nbsp &nbsp Éditer &nbsp &nbsp &nbsp &nbsp");
                         $clmPreview.show();
                         $('.preview-loader').remove();
                         replacementContainer.html(response.responseText)
@@ -894,6 +912,7 @@
         width: 'inherit',
         height: 'inherit',
         resize: 'none',
+        hideHelp: false,
         iconlibrary: 'glyph',
         language: 'en',
         initialstate: 'editor',
@@ -1245,6 +1264,17 @@
                         }
                     }
                 }]
+            }, {
+                name: 'groupHelp',
+                data: [
+                    {
+                        name: 'cmdHelp',
+                        title: 'Tutoriel sur le markdown',
+                        isHelp: true,
+                        btnClass: 'btn btn-default btn-sm',
+                        icon: {glyph: 'glyphicon glyphicon-question-sign', fa: 'fa fa-list', 'fa-3': 'icon-list-ul'}
+                    }
+                ]
             }]
         ],
         additionalButtons: [], // Place to hook more buttons by code
@@ -1262,7 +1292,7 @@
                 },
                 fullscreenOff: {
                     fa: 'fa fa-compress',
-                    glyph: 'glyphicon glyphicon-fullscreen',
+                    glyph: 'glyphicon glyphicon-resize-small',
                     'fa-3': 'icon-resize-small'
                 }
             }

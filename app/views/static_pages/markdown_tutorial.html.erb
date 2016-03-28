@@ -14,7 +14,6 @@
               <p>
                 Markdown est un langage de balisage léger créé en 2004.
                 Son but est d'offrir une syntaxe facile à lire et à écrire.
-                En terme moins technique, cela permet faire du texte assez joli sans encombrer
               </p>
 
               <h3 id="bold-section"><strong>Gras et italique</strong></h3>
@@ -42,17 +41,17 @@ Par exemple notre GitHub est [ici](https://github.com/ThibaultLatrille/Controver
               <h3 id="link-section"><strong>Lien vers des références</strong></h3>
               <%= text_area_tag :link_tim, "Les liens vers des références sont des cas spéciaux de liens Markdown, utilisant le balisage conventionnel crochets suivi de parenthèses `[nom](adresse)` dont l'adresse est remplacé par l'identifiant de la référence.
 
-*e.g.* D'après l'étude de #{@list.sample(1).map{ |name, address, author| "[#{truncate(author, length: 32)}](#{address})" }.join}
+*e.g.* D'après l'étude de #{@list.sample(1).map{ |name, address, author| "[#{truncate(author, length: 44)}](#{address})" }.join}
 
 En remplaçant le nom du lien par le symbole `*`, la référence est numérotée automatiquement et ce numéro est mit en exposant.
 
 *e.g.* Plusieurs références viennent appuyer cette hypothèse#{@list.sample(4).map{ |name, address, author| "[*](#{address})" }.join} ou l'infirmer#{@list.sample(3).map{ |name, address, author| "[*](#{address})" }.join}
-", class: 'form-control textarea', id: "link-tim", rows: 8 %>
+".html_safe, class: 'form-control textarea', id: "link-tim", rows: 8 %>
 
               <h3 id="link-tim-section"><strong>Lien vers des controverses</strong></h3>
               <%= text_area_tag :link, "Les liens vers des controverses sont aussi des cas spéciaux de liens Markdown, utilisant le balisage conventionnel crochets suivi de parenthèses `[nom](adresse)` dont l'adresse est remplacé par l'identifiant de la controverses précédé du texte `/controverses/`.
 
-*e.g.* Comme précisé dans cette controverse #{@tim_list.sample(1).map{ |name, address| "[#{name}](/controverses/#{address})" }.join }".html_safe,
+*e.g.* Aller voir la controverse #{@tim_list.sample(1).map{ |name, address| "[#{name}](/controverses/#{address})" }.join }".html_safe,
                                 class: 'form-control textarea',
                                 id: "link", rows: 5 %>
               <h3 id="sandbox-section"><strong>Bac à sable</strong></h3>
@@ -73,36 +72,43 @@ En remplaçant le nom du lien par le symbole `*`, la référence est numérotée
 
 <script type="text/javascript">
     $("#bold").markdown({
+        hideHelp: true,
         autofocus: false,
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#script").markdown({
+        hideHelp: true,
         autofocus: false,
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic']
     });
     $("#list").markdown({
+        hideHelp: true,
         autofocus: false,
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#href").markdown({
+        hideHelp: true,
         autofocus: false,
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#link").markdown({
+        hideHelp: true,
         autofocus: false,
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#link-tim").markdown({
+        hideHelp: true,
         autofocus: false,
         savable: false,
         hiddenButtons: ['cmdLinkCVS', 'cmdUrl', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#sandbox").markdown({
+        hideHelp: true,
         autofocus: false,
         savable: false
     });
