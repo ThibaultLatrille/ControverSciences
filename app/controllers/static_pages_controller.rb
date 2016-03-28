@@ -3,6 +3,12 @@ class StaticPagesController < ApplicationController
     random_choices_and_favorite
   end
 
+  def markdown_tutorial
+    @timeline = Timeline.order(score: :desc).first
+    @list = Reference.order(year: :desc).where(timeline_id: @timeline.id).pluck(:title, :id, :author)
+    @tim_list = timelines_connected_to(@timeline.id)
+  end
+
   def empty_comments
     query = Reference.includes(:timeline).includes(:reference_user_tags).order(:created_at => :desc)
                     .where(title_fr: "")

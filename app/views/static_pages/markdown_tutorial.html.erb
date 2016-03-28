@@ -7,235 +7,56 @@
 
           <div id="magna-charta" class="panel-body">
             <h2>Markdown, un petit tuto</h2>
-            <div id="sommaire">
-              <ol>
-                <li><a href="#introduction">C'est quoi le markdown ?</a></li>
-                <li><a href="#introduction">Pourquoi du markdown sur ControverSciences</a></li>
-                <li><a href="#basics">Gras et Italique</a></li>
-                <li><a href="#sup">Indice et Exposant</a></li>
-                <li><a href="#liste">Liste à puce et ordonnée</a></li>
-                <li><a href="#contributeur">Lien externes</a></li>
-                <li><a href="#theme">Lien internes, controverses et références</a></li>
-                <li><a href="#pieges">Je veux jouer</a></li>
-              </ol>
-            </div>
+
             <div id="not-timeline">
               <h3 id="introduction"><strong>C'est quoi le markdown ?</strong></h3>
-                <p>
-                  Markdown est un langage de balisage léger créé en 2004.
-                  Son but est d'offrir une syntaxe facile à lire et à écrire.
-                  En terme moins technique, cela permet faire du texte assez joli sans encombrer
-                </p>
-              <h3 id="basics"><strong>Pourquoi du markdown sur ControverSciences</strong></h3>
-              <h4>Parce que c'est cool.
-              </h4>
-              <p>Inutile de préciser que la <strong>politesse</strong> est un prérequis même si le site a été conçu pour
-                empêcher les <strong>altercations</strong> entre contributeurs. Celui qui arriverait à contourner le
-                système pour s'en prendre à son prochain verra son <strong>compte supprimé</strong> sans avertissement.
+
+              <p>
+                Markdown est un langage de balisage léger créé en 2004.
+                Son but est d'offrir une syntaxe facile à lire et à écrire.
+                En terme moins technique, cela permet faire du texte assez joli sans encombrer
               </p>
 
-              <p>En dehors des <strong>attaques personnelles</strong>, il est envisageable d'appliquer des mesures moins
-                violentes vis à vis d'un vocabulaire légèrement <strong>grossier</strong>. Par contre, les modérateurs
-                seront <strong>intraitables</strong> concernant toute <strong>insulte</strong> ou tout
-                <strong>propos s'attaquant</strong> à une <strong>communauté</strong> définie par son origine, ses
-                pratiques, ses convictions …</p>
+              <h3 id="bold-section"><strong>Gras et italique</strong></h3>
+              <%= text_area_tag :bold, "Les balises * et _ peuvent toutes les deux servir à faire  du gras ou de l'italique.
+Un texte entouré par __deux balises__ est **en gras**.
+Alors qu'un texte entouré par _une seule balise_ est *en italique*.", class: 'form-control textarea', id: "bold", rows: 4 %>
 
-              <p>Tout acte de <strong>nuisance</strong> consistant à <strong>publier</strong> un <strong>lien</strong>
-                vers un contenu de nature à <strong>choquer</strong> ou sans rapport avec les controverses est aussi de
-                nature à motiver la <strong>suppression</strong> du <strong>compte</strong> associé.</p>
+              <h3 id="sup-section"><strong>Indice et Exposant</strong></h3>
+              <%= text_area_tag :script, "Le 1^(er) ingrédient, du glucose (C^(_6)H^(_12)O^(_6))", class: 'form-control textarea', id: "script", rows: 3 %>
 
-              <p>Certaines <strong>fonctions</strong> sont réservées aux administrateurs pour des raisons
-                <strong>juridiques</strong>. La possibilité d'ajouter des images en fond des controverses nécessite, par
-                exemple, de s'assurer que celles-ci soient libres de droit. Le contrôle systématique de cette donnée
-                demanderait du temps et une connaissance du système de copyright dont l'équipe de ControverSciences ne
-                dispose pas <em>a priori</em>.</p>
+              <h3 id="liste-section"><strong>Liste à puce et ordonnée</strong></h3>
+              <%= text_area_tag :list, "Liste à puce :
+- 6 œufs
+- 200g de farine
 
-              <h3 id="demarche"><strong>Quelle est la démarche de ControverSciences ?</strong></h3>
-              <h4>ControverSciences est un <strong>portail</strong> <strong>collaboratif</strong> et
-                <strong>indépendant</strong> qui rassemble
-                les <strong>publications</strong> <strong>scientifiques</strong> autour de <strong>questions</strong>
-                <strong>controversées</strong>, en les rendant <strong>accessibles</strong> <strong>à tous</strong>.
-              </h4>
+Liste ordonnée :
+1. Mettre les œufs dans la farine
+2. Mélanger le tout", class: 'form-control textarea', id: "list", rows: 8 %>
 
-              <p>Prendre la <strong>responsabilité</strong> de saisir au vol des débats de notre époque et les replacer
-                dans un cadre scientifique rigoureux est un défi de taille. En faisant des
-                <strong>publications scientifiques</strong> la base de tout contenu du site, l'objectif est double :
-                faire<strong> sortir de l'ombre</strong> les publications austères, techniques, parfois inaccessibles et
-                encourager les scientifiques qui participent activement à ControverSciences à ne pas succomber à la
-                tentation d’une <strong>analyse partisane</strong>.</p>
+              <h3 id="href-section"><strong>Lien externes</strong></h3>
+              <%= text_area_tag :href, "Les liens sont composés de deux parties : le nom du lien entre crochets `[]`, suivi de l'adresse du lien entre parenthèses `()`.
 
-              <p>Éviter les analyses partisanes ne veut cependant pas dire que seuls des articles dont les résultats
-                font <strong>consensus</strong> dans la communauté scientifique sont considérés. Toute publication
-                ajoutée sur le site n'a pas vocation à être détentrice d'une vérité mais à fournir des résultats qui
-                peuvent être contestés et à illustrer l'état de la discussion. En effet, donner au lecteur un
-                <strong>aperçu</strong> <strong>général</strong> d'une question passe autant par la mise en avant des
-                contenus <strong>solides</strong> que par la critique des contenus pour lesquels un
-                <strong>doute</strong> ou une <strong>réfutation</strong> existe.</p>
+Par exemple notre GitHub est [ici](https://github.com/ThibaultLatrille/ControverSciences) et notre Slack à l'adresse [https://controversciences.slack.com](https://controversciences.slack.com)", class: 'form-control textarea', id: "href", rows: 3 %>
 
-              <p>Les termes <strong><em>médiation</em></strong> et
-                <strong><em>diffusion/partage des connaissances</em></strong>, bien que sémantiquement malléables,
-                peuvent tous être utilisés pour <strong>décrire</strong> ControverSciences tant qu’il est gardé en tête
-                que la <strong>démarche</strong> du site est essentiellement <strong>définie</strong> par la
-                <strong>pratique</strong> qu'il met en place et non par les mots choisis pour la décrire.</p>
+              <h3 id="link-section"><strong>Lien vers des références</strong></h3>
+              <%= text_area_tag :link_tim, "Les liens vers des références sont des cas spéciaux de liens Markdown, utilisant le balisage conventionnel crochets suivi de parenthèses `[nom](adresse)` dont l'adresse est remplacé par l'identifiant de la référence.
 
-              <p><strong></strong></p>
+*e.g.* D'après l'étude de #{@list.sample(1).map{ |name, address, author| "[#{truncate(author, length: 32)}](#{address})" }.join}
 
-              <h3 id="controverse"><strong>Qu’est ce qu’une controverse ?</strong></h3>
-              <H4>Par <strong>controverse</strong>, on entend : la<strong> discussion </strong>de <strong>toute position
-              </strong>ou de<strong> toute opposition chargée d'enjeux sociaux</strong>.</H4>
+En remplaçant le nom du lien par le symbole `*`, la référence est numérotée automatiquement et ce numéro est mit en exposant.
 
-              <p>Face aux discours basés sur des connaissances de bon sens, philosophiques et politiques,
-                ControverSciences se fixe l'objectif de rendre plus visibles les <strong>résultats</strong> issus de la
-                <strong>recherche scientifique</strong>.</p>
+*e.g.* Plusieurs références viennent appuyer cette hypothèse#{@list.sample(4).map{ |name, address, author| "[*](#{address})" }.join} ou l'infirmer#{@list.sample(3).map{ |name, address, author| "[*](#{address})" }.join}
+", class: 'form-control textarea', id: "link-tim", rows: 8 %>
 
-              <p>La controverse et sa formulation doivent donc être
-                <strong>compatibles avec la méthode scientifique</strong>. Ce qui revient à la tautologie suivante : la
-                méthode scientifique ne peut prétendre proposer de conclusions que dans un cadre où son application est
-                possible.</p>
+              <h3 id="link-tim-section"><strong>Lien vers des controverses</strong></h3>
+              <%= text_area_tag :link, "Les liens vers des controverses sont aussi des cas spéciaux de liens Markdown, utilisant le balisage conventionnel crochets suivi de parenthèses `[nom](adresse)` dont l'adresse est remplacé par l'identifiant de la controverses précédé du texte `/controverses/`.
 
-              <p>En revanche, les <strong>controverses non tranchées</strong> aux yeux des scientifiques sont toutes
-                aussi acceptables que les questions au sujet desquelles il existe un <strong>consensus</strong> dans la
-                communauté scientifique.</p>
-
-              <p>Enfin, l'identification exhaustive des thèses et positionnements associés aux controverses n'est pas
-                cruciale. Il faut cependant faire attention à ne pas sombrer dans une <strong>caricature</strong>
-                brutale qui, en dénaturant une position, supprimerait aussi la plupart des <strong>enjeux</strong> de sa
-                remise en question.</p>
-
-              <p><strong></strong></p>
-
-              <h3 id="reference"><strong>Qu’est ce qu’une référence ?</strong></h3>
-              <h4>Sous le terme <strong>référence</strong> sont regroupés les différents
-                <strong>types de publication</strong> considérés
-                comme <strong>recevables</strong> par la <strong>communauté scientifique contemporaine</strong>.</h4>
-
-              Dans le détail, sont acceptés : les comptes-rendus de congrès scientifiques à
-              <strong>comité de lecture</strong> – les revues scientifiques à comité de lecture – les monographies et
-              manuscrits de thèses – les ouvrages de recherche. Une classification usuelle de la forme distingue les
-              articles, reviews, systematic reviews, thèses, comptes-rendus de congrès et livres.</p>
-              <p>Sont donc, entre autre, <strong>exclus</strong> comme sources : les <strong>témoignages</strong> – les
-                <strong>sites</strong> internet – les articles de <strong>presse</strong> (même de vulgarisation) – les
-                avis d'<strong>experts</strong>... Les <strong>sources exclues </strong>mais<strong>
-                nécessaires</strong> à une bonne compréhension de la controverse et de ses enjeux peuvent figurer dans
-                la <strong>synthèse</strong> ou dans le <strong>cadre</strong> de celle-ci et non au côté des éléments
-                de preuve.</p>
-
-              <p>Pour aller jusqu'au bout de la démarche d'exhumation des articles et <strong>inciter</strong> les
-                scientifiques à appuyer aussi solidement leurs propos quand ils s'adressent au <strong>public</strong>
-                qu'à leurs <strong>confrères</strong>, les <strong>liens</strong> vers les publications doivent presque
-                toujours mener vers une <strong>version complète </strong>et<strong> téléchargeable</strong> de
-                l'article ; dans la mesure du possible, il est préférable que les <strong>contributeurs</strong>
-                fournissent eux-mêmes un tel <strong>lien</strong>. Dans les cas difficiles, la grenouille pourra sinon
-                faire appel à un petit tour de passe-passe…</p>
-
-              <p>Pour conclure, il paraît important de préciser que, sur ControverSciences, le
-                <strong>recours exclusif</strong> aux modes de production des <strong>connaissances</strong> aujourd'hui
-                <strong>institutionnalisés</strong>, est un choix <strong>arbitraire</strong> mais
-                <strong>conscient</strong>.</p>
-
-              <h3 id="contributeur"><strong>Qu’est-ce qu’un contributeur ?</strong></h3>
-              <h4>Il est nécessaire d'avoir un <strong>compte</strong> <strong>contributeur</strong> sur
-                ControverSciences
-                pour pouvoir <strong>ajouter</strong> ou <strong>évaluer</strong> du <strong>contenu,</strong> mais pas
-                pour le <strong>consulter</strong>.</h4>
-
-              <p>Il est possible de consulter le site en tant que <strong>visiteur</strong> ou en tant que
-                <strong>contributeur</strong>. Théoriquement, cette division qui passe par la création d'un
-                <strong>compte</strong> et la connexion à ce dernier
-                <strong>différencie les scientifiques qui contribuent du public qui consulte</strong>. En réalité, la
-                frontière entre ces deux catégories est trouble. Hors de son domaine, un chercheur fait en quelque sorte
-                parti du public d'un autre spécialiste. On peut néanmoins considérer qu'une certaine
-                <strong>maîtrise </strong>de la<strong> méthode scientifique </strong>et des<strong> pratiques
-                associées </strong>est<strong> suffisante</strong> pour analyser la plupart des publications.</p>
-
-              <p>Pour créer un compte, il faut avoir une adresse mail appartenant à une
-                <strong>institution scientifique</strong> ou, à défaut, indiquer ses <strong>intentions</strong>. Cette
-                contrainte est destinée à garantir que les contributions soient le fruit de personnes apportant la
-                preuve de leur <strong>motivation </strong>et de leur<strong> esprit scientifique</strong>.</p>
-
-              <p>La question des <strong>lobbies</strong>, ou plus généralement des personnes disposées à user de
-                <strong>malhonnêteté intellectuelle</strong>, est malheureusement quasi insolvable. Le premier outil de
-                dissuasion à portée est une <strong>modération attentive</strong> épaulée par la
-                <strong>vigilance</strong> des contributeurs. Un second moyen pour décourager ces pratiques consisterait
-                à développer un outil de <strong>détection des publications biaisées</strong>. Ce projet est en bonne
-                place dans la liste des priorités de l’équipe.</p>
-
-              <p><strong></strong></p>
-
-              <h3 id="theme"><strong>Qu’est-ce qu’un thème ?</strong></h3>
-
-              <p>Le <strong>thèmes</strong> sont attachés aux <strong>publications</strong> et désignent la
-                <strong>méthodologie employée</strong>.</p>
-
-              <p>Les thèmes d'une <strong>controverse </strong>correspondent au résumé des thèmes des références
-                déposées. Ils ne sont donc pas définis par la question mais par la <strong>nature des réponses</strong>
-                proposées.</p>
-
-              <p><strong></strong></p>
-
-              <p>Les différences entre les <strong>disciplines</strong> scientifiques ne se situent pas tant au niveau
-                des <strong>objets</strong> qu'elles traitent qu'au niveau de la façon dont ils sont traités. Les
-                <strong>questions</strong>, les <strong>méthodes</strong> et les <strong>techniques</strong> sont les
-                principales particularités responsables de la différence de nature des résultats issus de champs
-                scientifiques distincts. L'objectif d'une définition des thèmes au niveau des
-                <strong>références</strong> et non du <strong>questionnement</strong> est aussi d'éviter que cette
-                <strong>classification</strong> incite certains à se délimiter un territoire et d’autres à s'en sentir
-                exclus<em>.</em></p>
-
-              <p>Les thèmes ont été choisis selon <strong>deux critères</strong> : ne pas en multiplier le nombre à
-                l<strong>'infini</strong> en évitant les <strong>subdivisions</strong> en sous disciplines – donner une
-                <strong>représentativité</strong> <strong>équivalente</strong> aux sciences expérimentales, sociales ou
-                théoriques en essayant de lutter contre certaines <strong>hiérarchisations</strong> parfois
-                inconscientes.</p>
-
-              <p>Les connexions, appartenances, hiérarchies ou conceptions des domaines étant extrêmement variables, il
-                est peu probable que la palette des thèmes soit un jour <strong>indiscutable</strong>.</p>
-
-              <h3 id="pieges"><strong>Quelques pièges à éviter</strong></h3>
-
-              <p>Sans même parler de style ou d'élégance, certains termes et certaines constructions de phrases génèrent
-                des imprécisions sur lesquelles il est facile de glisser, détournant ainsi la controverse. Voici une
-                petite liste non exhaustive mais destinée à évoluer en même temps que le site.</p>
-              <ul>
-                <li>En fonction du contexte, certain concepts sont <strong>définis négativement</strong>, c'est à dire
-                  comme opposition à un autre concept. Il y a un risque que le questionnement s'<strong>enlise</strong>
-                  s'il se focalise sur des termes cristallisant l'essentiel du débat par leur
-                  <strong>antagonisme</strong>. Une bonne pratique consiste ainsi à identifier les concept définis
-                  <strong>positivement</strong> et à n’intégrer que ceux-ci dans la formulation de la question.<br/>L'opposition
-                  <strong>naturel-social</strong> est un cas d'école. Dans de nombreux contextes, le naturel est compris
-                  comme un non-social/non-humain. En général, il vaut mieux formuler la question à partir de concepts se
-                  rattachant à la <strong>singularité sociale </strong>qu’à partir de la
-                  <strong>norme naturelle</strong>.
-                </li>
-              </ul>
-              <ul>
-                <li>L'usage des <strong>guillemets</strong> est à proscrire à l'exception du cas où la controverse
-                  concerne directement la <strong>légitimité</strong> de la notion cernée. Les guillemets ne doivent pas
-                  correspondre à une prise de recul de l'utilisateur par rapport à son propre vocabulaire. Si un mot est
-                  ressenti comme <strong>problématique</strong>, il est important de chercher soit même une
-                  <strong>alternative convenable</strong>, plutôt que de transmettre le <strong>trouble</strong> au
-                  lecteur en se défilant.
-                </li>
-              </ul>
-              <ul>
-                <li>L'effet de manche produit par un <strong>conditionnel</strong> mal géré est aussi un grand classique
-                  particulièrement affectionné par les journalistes. Pour ne pas provoquer de <strong>confusion</strong>
-                  ou pire, en jouer, il est préférable de formuler une <strong>incertitude</strong> sous forme de
-                  <strong>question</strong>. En l'<strong>absence de preuve</strong>, suggérer une proposition en
-                  utilisant le conditionnel relève de la <strong>malhonnêteté intellectuelle</strong>. S’il existe des
-                  <strong>résultats</strong> ne suffisant pas pour <strong>établir</strong> une <strong>preuve</strong>,
-                  ces derniers « suggèrent à la condition que » et non « suggéreraient ».
-                </li>
-              </ul>
-              <p><strong></strong></p>
-
-              <p>Dans la logique de cette liste, certaines tournures de l'ordre du <strong>sophisme</strong> sont
-                regroupées sous le terme de <strong>moisissures argumentatives</strong>. Consultez sans modération le
-                site du cortecs! Les <strong>identifier</strong> est un premier pas pour les <strong>éviter</strong>.
-              </p>
-
-              <p><br/><br/></p>
-
+*e.g.* Comme précisé dans cette controverse #{@tim_list.sample(1).map{ |name, address| "[#{name}](/controverses/#{address})" }.join }".html_safe,
+                                class: 'form-control textarea',
+                                id: "link", rows: 5 %>
+              <h3 id="sandbox-section"><strong>Bac à sable</strong></h3>
+              <%= text_area_tag :sandbox, "Pour vous entrainer", class: 'form-control textarea', id: "sandbox", rows: 3 %>
             </div>
           </div>
         </div>
@@ -244,8 +65,46 @@
   </div>
 </div>
 
+<%= render 'modals/timelines_list', timelines_list: @tim_list, timeline_id: @timeline.id %>
+
+<%= render 'modals/reference_list', references_list: @list %>
+
+<%= render 'modals/href' %>
+
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#markdown-textarea").markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
+    $("#bold").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdSuperScript', 'cmdSubScript']
     });
+    $("#script").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic']
+    });
+    $("#list").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
+    });
+    $("#href").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
+    });
+    $("#link").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
+    });
+    $("#link-tim").markdown({
+        autofocus: false,
+        savable: false,
+        hiddenButtons: ['cmdLinkCVS', 'cmdUrl', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
+    });
+    $("#sandbox").markdown({
+        autofocus: false,
+        savable: false
+    });
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
 </script>
