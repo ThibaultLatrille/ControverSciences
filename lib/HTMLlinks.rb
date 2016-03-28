@@ -1,9 +1,9 @@
 class Redcarpet::Render::HTML
   def superscript(text)
     if text[0] == "_"
-      "<sub>[#{text[1..-1]}]</sub>"
+      "<sub>#{text[1..-1]}</sub>"
     else
-      "<sup>[#{text}]</sup>"
+      "<sup>#{text}</sup>"
     end
   end
 end
