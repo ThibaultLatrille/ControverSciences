@@ -4,7 +4,7 @@ $(document).ready(function() {
     setupSuscribe("#children<%= params[:suggestion_id] %>")
     setupLengthCounter([["C<%= params[:suggestion_id] %>", 4000, 40]]);
     var textarea = $('textarea', "#children<%= params[:suggestion_id] %>");
-    textarea.markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkIntra']});
+    textarea.markdown({autofocus:false,savable:false,hiddenButtons:['cmdLinkInt','cmdUrl','cmdLinkCVS']});
     autosize(textarea);
 });
 $('[data-toggle="tooltip"]', "#children<%= params[:suggestion_id] %>").tooltip({container: 'body'});
