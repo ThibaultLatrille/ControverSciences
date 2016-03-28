@@ -1095,7 +1095,7 @@
                         })
                     }
                 }, {
-                    name: 'cmdLinkIntra',
+                    name: 'cmdLinkCVS',
                     htim: true,
                     title: 'Lien vers une autre controverse',
                     hotkey: 'Ctrl+G',
@@ -1115,7 +1115,7 @@
                                 }
                                 var link = $("input[type='radio'][name='timeline_id']:checked").val();
                                 // transform selection and set the cursor into chunked text
-                                e.replaceSelection('[' + chunk + '](/timelines/' + link + ')')
+                                e.replaceSelection('[' + chunk + '](/controverses/' + link + ')')
                                 cursor = selected.start + 1
 
                                 // Set the cursor

@@ -32,7 +32,7 @@ class HTMLlinks < Redcarpet::Render::HTML
       end
     elsif (link[0..6] == "http://") || (link[0..7] == "https://")
       "<a href=\"#{link}\" target=\"_blank\">#{content}</a>"
-    elsif link[0..10] == "/timelines/"
+    elsif link[0..10] == "/timelines/" || link[0..13] == "/controverses/"
       "<a href=\"#{self.root_url + link }\" target=\"_blank\">#{content}</a>"
     else
       content

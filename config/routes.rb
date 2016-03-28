@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get 'mine'
     end
   end
+  get 'controverses/:id' => 'timelines#show'
   resources :comments, only: [:show, :new, :create, :edit, :update, :destroy]
   resources :votes, only: [:new, :create, :destroy]
   resources :ratings, only: [:create, :destroy]
