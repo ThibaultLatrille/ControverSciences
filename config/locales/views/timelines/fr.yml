@@ -278,6 +278,7 @@ fr:
       edit_version: Modifier votre contribution
       new_patch: Suggérer une amélioration
       see_patch: Vos suggestions d'amélioration
+      some_patch: Voir les suggestions d'amélioration existantes
       edit_contrib: Modifier votre contribution
       show_patches: Étudier les améliorations qui vous ont été suggerées
       accept: Accepter la suggestion
@@ -288,7 +289,7 @@ fr:
         Si une faute de français vous a brulé les yeux, ou si vous avez une suggestion à proposer à l'auteur, vous êtes sur la bonne page ! <br/>
                           Celle-ci lui sera envoyée pour être soumise à validation.
       refuse: Refuser la suggestion
-      send: Envoyer la suggestion d'amélioration
+      send: Envoyer le message et la suggestion d'amélioration
       sent: Votre suggestion d'amélioration a bien été envoyée à l'auteur.
       to_valid: Vos suggestions d'amélioration à valider
       waiting: Vous avez des suggestions d'amélioration en attentes pour cette contribution

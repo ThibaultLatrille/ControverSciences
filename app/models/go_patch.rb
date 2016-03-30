@@ -1,12 +1,18 @@
 class GoPatch < ActiveRecord::Base
   include ApplicationHelper
 
+  has_many :patch_messages, dependent: :destroy
   belongs_to :user
   belongs_to :frame
   belongs_to :summary
   belongs_to :comment
   belongs_to :target_user, class_name: "User", foreign_key: "target_user_id"
 
+  validates_uniqueness_of :field, :if => Proc.new { |c| not c.frame_id.blank? }, :scope => [:frame_id]
+  validates_uniqueness_of :field, :if => Proc.new { |c| not c.comment_id.blank? }, :scope => [:comment_id]
+  validates_uniqueness_of :summary_id, :if => Proc.new { |c| not c.summary_id.blank? }
+
+  attr_accessor :message
   validates_numericality_of :counter, :only_integer => true,
                             :greater_than_or_equal_to => 1
 
@@ -81,15 +87,11 @@ class GoPatch < ActiveRecord::Base
     parent_model = self.parent
     parent_model[self.parent_content_accessor] = parent_content
     if parent_model.save_with_markdown
-      query = GoPatch.where(frame_id: self.frame_id,
-                            comment_id: self.comment_id,
-                            field: self.field,
-                            summary_id: self.summary_id)
-      if self.counter > 0
+      if self.counter == 0
+        self.destroy
+      else
         self.save
-        query = query.where.not(id: self.id)
       end
-      query.destroy_all
       true
     else
       false
@@ -135,6 +137,9 @@ class GoPatch < ActiveRecord::Base
   end
 
   def content_errors(length)
+    if self.message.length > 2500
+      errors.add(:base, "Le message " + I18n.t('errors.messages.too_long', count: 2500))
+    end
     if length > content_ch_max
       errors.add(:base, I18n.t('errors.messages.text') + " " + I18n.t('errors.messages.too_long', count: content_ch_max))
     end
@@ -144,5 +149,11 @@ class GoPatch < ActiveRecord::Base
     if self.counter == 0 || self.counter.blank?
       errors.add(:base, "Aucune suggestion n'a été apportée.")
     end
+  end
+
+  def save_message
+    patch_message = PatchMessage.find_or_initialize_by(go_patch_id: self.id, user_id: self.user_id)
+    patch_message.message = self.message
+    patch_message.save
   end
 end

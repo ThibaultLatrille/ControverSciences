@@ -13,7 +13,7 @@
             var typingTimer;                //timer identifier
             var doneTypingInterval = 100;  //time in ms, 5 second for example
             var max = limit[1];
-            var min = limit[2];
+            var min = limit[2] ? limit[2] : -1;
             var value = limit[0];
             var $input = $('#description' + value);
             var $charleft =  $('#characterLeft' + value);

@@ -3,12 +3,7 @@
 
 <div id="my-container" class="container-fluid">
   <div class="row">
-    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-3 col-md-offset-0 col-lg-2">
-      <div class="list-group">
-      </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-lg-offset-2 col-lg-8">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h2> <%= t('views.patches.if_not_yours_html') %>
@@ -23,15 +18,21 @@
           <br/>
           <br/>
 
+          <b style="font-size: 1.4em">Message pour l'auteur</b> (facultatif)
+          <br>
+
+          <div id="characterLeft1"></div>
+
+          <textarea id="description1" class="form-control textarea" value="<%= @patch.message %>"><%= @patch.message %></textarea>
+
+          <br>
           <div id="patch-form">
-            <b style="font-size: 1.4em">Correction</b>
+            <b style="font-size: 1.4em">Suggestions</b>
             <br>
 
             <div id="characterLeft"></div>
 
-              <textarea id="description" class="form-control textarea" value="<%= @patch.parent_content %>">
-
-              </textarea>
+              <textarea id="description" class="form-control textarea" value="<%= @patch.parent_content %>"></textarea>
 
             <br>
 
@@ -45,7 +46,7 @@
           </div>
 
           <div id="patch-validate" style="display: none">
-            <b style="font-size: 1.4em">Correction</b>
+            <b style="font-size: 1.4em">Suggestions</b>
             <br>
 
             <div class="pretty">
@@ -77,6 +78,7 @@
             </div>
             <br/>
           </div>
+
         </div>
       </div>
     </div>
@@ -150,7 +152,8 @@
                         comment_id: $this.data('comment-id'),
                         summary_id: $this.data('summary-id'),
                         field: $this.data('field'),
-                        length: $('#description').val().length,
+                        message: $('#description1').val(),
+                        length: countCharacters($('#description').val()),
                         counter: patches.length,
                         content: patchesText
                     },
@@ -199,7 +202,7 @@
     $(document).ready(function () {
         dmp = new diff_match_patch();
         $('#description').val(dmp.patch_apply(dmp.patch_fromText($('#patches').text()), $("#original").text())[0]);
-        setupLengthCounter([[[''], <%= @patch.content_ch_max %>, [<%= @patch.content_ch_min %>]]])
+        setupLengthCounter([['', <%= @patch.content_ch_max %>, <%= @patch.content_ch_min %>], ['1', 2500, 0]])
     });
     $("#edit-ok").on("click", function () {
         $("#patch-form").hide();
@@ -207,6 +210,7 @@
         $('#description').prettyTextDiff();
     });
     $("#back-edit").on("click", function () {
+        $("#error_explanation").remove();
         $("#patch-form").show();
         $("#patch-validate").hide();
     });

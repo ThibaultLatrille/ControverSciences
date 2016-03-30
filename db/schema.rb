@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317180708) do
+ActiveRecord::Schema.define(version: 20160330071358) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -399,6 +399,17 @@ ActiveRecord::Schema.define(version: 20160317180708) do
   end
 
   add_index "partners", ["user_id"], name: "index_partners_on_user_id", using: :btree
+
+  create_table "patch_messages", force: :cascade do |t|
+    t.integer  "go_patch_id"
+    t.integer  "user_id"
+    t.text     "message"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "patch_messages", ["go_patch_id"], name: "index_patch_messages_on_go_patch_id", using: :btree
+  add_index "patch_messages", ["user_id"], name: "index_patch_messages_on_user_id", using: :btree
 
   create_table "pending_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -821,4 +832,6 @@ ActiveRecord::Schema.define(version: 20160317180708) do
   add_index "votes", ["reference_id"], name: "index_votes_on_reference_id", using: :btree
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
+  add_foreign_key "patch_messages", "go_patches"
+  add_foreign_key "patch_messages", "users"
 end

@@ -52,6 +52,7 @@ class User < ActiveRecord::Base
   has_many :private_timelines, dependent: :destroy
   has_many :timeline_choices, dependent: :destroy
   has_many :locations, dependent: :destroy
+  has_many :patch_messages, dependent: :destroy
 
   attr_accessor :remember_token, :activation_token, :reset_token, :why,
                 :invalid_email, :terms_of_service, :invited, :timelines_count,

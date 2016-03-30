@@ -11,17 +11,11 @@
       </div>
       <div class="modal-body center font12 clearfix">
         <% if patch.target_user_id == current_user.id %>
-            <% if GoPatch.where(target_user_id: current_user.id,
-                                summary_id: patch.summary_id,
-                                comment_id: patch.comment_id,
-                                frame_id: patch.frame_id).count > 0 %>
+            <% if @user_counter > 0 %>
                 <%= t('views.patches.waiting') %>
                 <br>
                 <br>
-                <%= link_to "<span class=\"badge badge-li\"> #{GoPatch.where(target_user_id: current_user.id,
-                                                                             summary_id: patch.summary_id,
-                                                                             comment_id: patch.comment_id,
-                                                                             frame_id: patch.frame_id ).count}</span> #{t('views.patches.show_patches')}".html_safe,
+                <%= link_to "<span class=\"badge badge-li\"> #{@user_counter}</span> #{t('views.patches.show_patches')}".html_safe,
                             patches_target_path(frame_id: patch.frame_id,
                                                 summary_id: patch.summary_id,
                                                 comment_id: patch.comment_id),
@@ -45,11 +39,8 @@
                 <br>
                 <br>
                 <br>
-                <% if GoPatch.where(summary_id: patch.summary_id,
-                                    comment_id: patch.comment_id,
-                                    frame_id: patch.frame_id,
-                                    field: patch.field).count > 0 %>
-                    <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> <br> #{t('views.patches.see_patch')}".html_safe,
+                <% if @counter > 0 %>
+                    <%= link_to "<span class=\"badge badge-li\"> #{@counter}</span> <br> #{t('views.patches.some_patch')}".html_safe,
                                 patches_mine_path(frame_id: patch.frame_id,
                                                   summary_id: patch.summary_id,
                                                   comment_id: patch.comment_id,

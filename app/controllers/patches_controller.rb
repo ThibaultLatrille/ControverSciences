@@ -5,50 +5,50 @@ class PatchesController < ApplicationController
     @patch = GoPatch.new(get_params)
     @patch.target_user_id = @patch.parent.user_id
     @patch.user_id = current_user.id
+    if @patch.target_user_id == current_user.id
+      @user_counter = GoPatch.where(target_user_id: current_user.id,
+                               summary_id: @patch.summary_id,
+                               comment_id: @patch.comment_id,
+                               frame_id: @patch.frame_id).sum(:counter)
+      else
+      @counter = GoPatch.where(field: @patch.field,
+                               summary_id: @patch.summary_id,
+                               comment_id: @patch.comment_id,
+                               frame_id: @patch.frame_id).sum(:counter)
+    end
     respond_to do |format|
       format.js { render 'patches/modal', :content_type => 'text/javascript', :layout => false }
     end
   end
 
   def mine
-    @patch = GoPatch.find_by(field: get_params[:field],
-                             summary_id: get_params[:summary_id],
-                             comment_id: get_params[:comment_id],
-                             frame_id: get_params[:frame_id])
+    @patch = GoPatch.find_by(get_params)
   end
 
   def new
-    @patch = GoPatch.new(get_params)
-    @patch.target_user_id = @patch.parent.user_id
-    @patch.user_id = current_user.id
+    @patch = GoPatch.find_or_initialize_by(get_params)
+    if @patch.id
+      message = PatchMessage.find_by(go_patch_id: @patch.id, user_id: current_user.id)
+      if message
+        @patch.message = message.message
+      end
+    end
     if @patch.summary_id || @patch.comment_id
       @tim_list = timelines_connected_to(@patch.parent.timeline_id)
-      @list = Reference.order(year: :desc).where(timeline_id:  @patch.parent.timeline_id).pluck(:title, :id, :author)
-    end
-    go_patch = GoPatch.find_by(field: get_params[:field],
-                               summary_id: get_params[:summary_id],
-                               comment_id: get_params[:comment_id],
-                               frame_id: get_params[:frame_id])
-    if go_patch
-      @patch.content = go_patch.content
+      @list = Reference.order(year: :desc).where(timeline_id: @patch.parent.timeline_id).pluck(:title, :id, :author)
     end
   end
 
   def create
-    @patch = GoPatch.new(frame_id: params[:frame_id],
-                         field: params[:field],
-                         comment_id: params[:comment_id],
-                         summary_id: params[:summary_id],
-                         counter: params[:counter],
-                         content: params[:content])
+    @patch = GoPatch.find_or_initialize_by(get_params)
+    @patch.counter = params[:counter]
+    @patch.content = params[:content]
+    @patch.message = params[:message]
     @patch.target_user_id = @patch.parent.user_id
     @patch.user_id = current_user.id
     @patch.content_errors(params[:length].to_i)
     if @patch.errors.full_messages.blank? && @patch.save
-      GoPatch.where(frame_id: @patch.frame_id,
-                    comment_id: @patch.comment_id,
-                    field: @patch.field,
-                    summary_id: @patch.summary_id).where.not(id: @patch.id).destroy_all
+      @patch.save_message
       render 'patches/success'
     else
       render 'patches/fail'
@@ -58,7 +58,7 @@ class PatchesController < ApplicationController
   def target
     @patches = GoPatch.where(summary_id: get_params[:summary_id],
                              comment_id: get_params[:comment_id],
-                             frame_id: get_params[:frame_id])
+                             frame_id: get_params[:frame_id]).includes(:patch_messages)
     if current_user.admin
       @patches = @patches.where.not(target_user_id: current_user.id)
     else
@@ -76,24 +76,19 @@ class PatchesController < ApplicationController
   end
 
   def index
+    query = GoPatch.includes(:frame).includes(:summary).includes(:comment).includes(:patch_messages)
     if current_user.admin
-      @patches = GoPatch.includes(:frame).includes(:summary).includes(:comment).where.not(target_user_id: current_user.id)
+      @patches = query.where.not(target_user_id: current_user.id)
 
     else
-      @patches = GoPatch.includes(:frame).includes(:summary).includes(:comment).where(target_user_id: current_user.id)
-
+      @patches = query.where(target_user_id: current_user.id)
     end
   end
 
   def accept
-    @patch = GoPatch.new(frame_id: params[:frame_id],
-                         field: params[:field],
-                         counter: params[:counter],
-                         comment_id: params[:comment_id],
-                         summary_id: params[:summary_id],
-                         content: params[:content])
-    @patch.target_user_id = @patch.parent.user_id
-    @patch.user_id = current_user.id
+    @patch = GoPatch.find_by(get_params)
+    @patch.counter = params[:counter]
+    @patch.content = params[:content]
     if @patch.target_user_id == current_user.id || current_user.admin
       if @patch.accept_and_save(params[:parent_content])
         User.increment_counter(:target_patches, @patch.target_user_id)
@@ -109,7 +104,13 @@ class PatchesController < ApplicationController
   private
 
   def get_params
-    params.permit(:comment_id, :summary_id, :field, :frame_id)
+    if params[:comment_id].present?
+      params.permit(:comment_id, :field)
+    elsif params[:summary_id].present?
+      params.permit(:summary_id)
+    elsif params[:frame_id].present?
+      params.permit(:field, :frame_id)
+    end
   end
 
   def patch_params
