@@ -6,7 +6,7 @@
                   :class        => "btn btn-default",
                   "data-toggle" => "tooltip",
                   title:        t('views.default.patch'),
-                  :style        => "padding: 8px; margin-right: 8px" %>
+                  :style        => "padding: 8px; margin-right: 8px; margin-top: 8px" %>
       <% if current_user.admin %>
           <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
                       edit_comment_path(comment_id),
