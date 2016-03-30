@@ -1,0 +1,56 @@
+<br>
+<div class="row" id="patch-messages">
+  <div class="col-xs-12 col-md-10 col-md-offset-1">
+    <div class="panel panel-info">
+      <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title clearfix">
+          <a data-toggle="collapse" href="#collapseOne" class="pull-right glyphicon glyphicon-chevron-down"></a>
+          <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <%= t('views.pluralize.patch_messages', count: patch_messages.length) %>
+          </a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <br>
+        <% patch_messages.each do |patch_message| %>
+            <div id="patch-message-<%= patch_message.id %>">
+              <div class="row">
+                <div class="col-xs-12 col-md-10 col-md-offset-1">
+                  <div class="panel panel-default">
+                    <div class="panel-body clearfix">
+                      <div class="text-justify clearfix">
+                        <%= link_to "<span class=\"glyphicon glyphicon-trash font12\"></span>".html_safe,
+                                    patch_message_path(patch_message.id),
+                                    title: "Supprimer ce message",
+                                    remote: true,
+                                    method: :delete,
+                                    'data-toggle' => 'tooltip',
+                                    data: {confirm: t('views.default.confirm')},
+                                    class: "btn btn-default pull-right red" %>
+                        <%= patch_message.message %>
+                        <br><br>
+                          <div class="cadre pull-right">
+                            <%= "#{t('views.default.published')} #{time_ago_in_words(patch_message.updated_at)}" %>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $('[data-toggle="tooltip"]', '#patch-messages').tooltip({container: 'body'});
+    $('.collapse', '#patch-messages').on('show.bs.collapse', function () {
+        $(this).parent(".panel").find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+
+    });
+    $('.collapse', '#patch-messages').on('hide.bs.collapse', function () {
+        $(this).parent("div").parent("div").find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+    });
+</script>

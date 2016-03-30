@@ -37,6 +37,9 @@
           </h3>
         </div>
         <div class="panel-body">
+          <% if logged_in? && (@frame.user_id == current_user.id ||current_user.admin) && @frame.patch_messages.any? %>
+              <%= render 'patch_messages/messages', patch_messages: @frame.patch_messages %>
+          <% end %>
           <%= render @frame %>
         </div>
       </div>

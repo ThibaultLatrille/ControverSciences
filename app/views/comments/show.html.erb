@@ -35,6 +35,9 @@
               </h4>
             </div>
             <div class="panel-body">
+              <% if logged_in? && (@comment.user_id == current_user.id ||current_user.admin) && @comment.patch_messages.any? %>
+                  <%= render 'patch_messages/messages', patch_messages: @comment.patch_messages %>
+              <% end %>
               <%= render @comment %>
             </div>
           </div>

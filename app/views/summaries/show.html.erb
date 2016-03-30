@@ -35,6 +35,9 @@
           </h3>
         </div>
         <div class="panel-body">
+          <% if logged_in? && (@summary.user_id == current_user.id ||current_user.admin) && @summary.patch_messages.any? %>
+              <%= render 'patch_messages/messages', patch_messages: @summary.patch_messages %>
+          <% end %>
           <%= render @summary %>
         </div>
       </div>

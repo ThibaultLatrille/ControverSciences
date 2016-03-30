@@ -15,6 +15,7 @@ class Summary < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :notification_selections, dependent: :destroy
   has_many :go_patches, dependent: :destroy
+  has_many :patch_messages, dependent: :destroy
 
   after_create :cascading_save_summary
 

@@ -126,6 +126,9 @@ fr:
       patches:
         one: "%{count} suggestion"
         other: "%{count} suggestions"
+      patch_messages:
+        one: "Vous avez %{count} message concernant cette contribution"
+        other: "Vous avez %{count} messages concernant cette contribution"
     buttons:
       invit: Inviter
       advise: Enregister cet avis

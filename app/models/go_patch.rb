@@ -1,7 +1,7 @@
 class GoPatch < ActiveRecord::Base
   include ApplicationHelper
 
-  has_many :patch_messages, dependent: :destroy
+  has_many :patch_messages
   belongs_to :user
   belongs_to :frame
   belongs_to :summary
@@ -15,6 +15,8 @@ class GoPatch < ActiveRecord::Base
   attr_accessor :message
   validates_numericality_of :counter, :only_integer => true,
                             :greater_than_or_equal_to => 1
+
+  after_destroy :reset_patch_messages
 
   def parent_content_accessor
     if !summary_id.blank?
@@ -152,8 +154,16 @@ class GoPatch < ActiveRecord::Base
   end
 
   def save_message
-    patch_message = PatchMessage.find_or_initialize_by(go_patch_id: self.id, user_id: self.user_id)
+    patch_message = PatchMessage.find_or_initialize_by(go_patch_id: self.id,
+                                                       user_id: self.user_id)
+    patch_message.comment_id = self.comment_id
+    patch_message.summary_id = self.summary_id
+    patch_message.frame_id = self.frame_id
     patch_message.message = self.message
     patch_message.save
+  end
+
+  def reset_patch_messages
+    PatchMessage.where(go_patch_id: self.id).update_all(go_patch_id: nil)
   end
 end

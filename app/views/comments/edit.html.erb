@@ -52,6 +52,9 @@
           <%= t('views.comments.edit_help_html') %>
         </div>
       </div>
+      <% if @comment.patch_messages.any? %>
+          <%= render 'patch_messages/messages', patch_messages: @comment.patch_messages %>
+      <% end %>
       <%= form_for(@comment, html: {multipart: true}) do |f| %>
           <%= render 'shared/error_messages', object: f.object %>
           <div class="switcher pull-right">

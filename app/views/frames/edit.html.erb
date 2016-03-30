@@ -35,6 +35,9 @@
                       timeline_url(@frame.timeline_id) %>
         </div>
         <div class="panel-body">
+          <% if @frame.patch_messages.any? %>
+              <%= render 'patch_messages/messages', patch_messages: @frame.patch_messages %>
+          <% end %>
           <%= form_for(@frame) do |f| %>
               <%= render 'shared/error_messages', object: f.object %>
               <b style="font-size: 1.4em"><%= t('views.frames.edit_title') %></b>

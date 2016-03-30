@@ -36,6 +36,9 @@
                       timeline_url(@summary.timeline_id) %>
         </div>
         <div class="panel-body">
+          <% if @summary.patch_messages.any? %>
+              <%= render 'patch_messages/messages', patch_messages: @summary.patch_messages %>
+          <% end %>
           <%= form_for(@summary, html: {multipart: true}) do |f| %>
               <%= render 'shared/error_messages', object: f.object %>
 
