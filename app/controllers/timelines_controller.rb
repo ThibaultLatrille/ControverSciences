@@ -13,9 +13,9 @@ class TimelinesController < ApplicationController
     if params[:sort] == "nb_edits"
       params[:sort] = :nb_comments
     end
-    query = Timeline.includes(:tags).order(params[:sort].blank? ? :score : params[:sort].to_sym =>
-                                               params[:order].blank? ? :desc : params[:order].to_sym,
-                                           created_at: params[:order].blank? ? :desc : params[:order].to_sym)
+    params[:order] = (params[:order].present? && (params[:order] == 'asc' || params[:order] == 'desc')) ? params[:order] : "desc"
+    query = Timeline.includes(:tags).order(params[:sort].blank? ? :score : params[:sort].to_sym => params[:order],
+                                           created_at: params[:order])
                 .where.not(private: true)
     unless params[:filter].blank?
       query = query.search_by_name(params[:filter])
