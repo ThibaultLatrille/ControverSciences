@@ -29,11 +29,11 @@
                 return $.fn.prettyTextDiff.createHTML(diff, i, diffs);
             });
             $(settings.diffContainer, self).html(diff_as_html.join(''));
-            $(settings.diffContainer + " .patch-validate", self).off();
-            $(settings.diffContainer + " #accept-patches", self).off();
-            $(settings.diffContainer + " .patch-refuse", self).off();
+            $(".patch-validate", self).off();
+            $("#accept-patches", self).off();
+            $(".patch-refuse", self).off();
             // Re-add event handler for all matching elements
-            $(settings.diffContainer + " .patch-validate", self).on("click", function () {
+            $(".patch-validate", self).on("click", function () {
                 var diff, index;
                 index = parseInt($(this).data('id'));
                 diff = diffs[index];
@@ -52,7 +52,7 @@
                         return true;
                 }
             });
-            $(settings.diffContainer + " .patch-refuse", self).on("click", function () {
+            $(".patch-refuse", self).on("click", function () {
                 var diff, index;
                 index = parseInt($(this).data('id'));
                 diff = diffs[index];
@@ -88,7 +88,7 @@
                             return diff[1];
                     }
                 }).join('');
-                $.ajax($this.data('validate'), {
+                $.ajax({
                     url: $this.data('validate'),
                     data: {
                         frame_id: $this.data('frame-id'),
