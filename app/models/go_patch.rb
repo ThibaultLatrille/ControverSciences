@@ -16,7 +16,7 @@ class GoPatch < ActiveRecord::Base
   validates_numericality_of :counter, :only_integer => true,
                             :greater_than_or_equal_to => 1
 
-  after_destroy :reset_patch_messages
+  before_destroy :reset_patch_messages
 
   def parent_content_accessor
     if !summary_id.blank?
@@ -156,11 +156,15 @@ class GoPatch < ActiveRecord::Base
   def save_message
     patch_message = PatchMessage.find_or_initialize_by(go_patch_id: self.id,
                                                        user_id: self.user_id)
-    patch_message.comment_id = self.comment_id
-    patch_message.summary_id = self.summary_id
-    patch_message.frame_id = self.frame_id
-    patch_message.message = self.message
-    patch_message.save
+    if patch_message.id && self.message.blank?
+      patch_message.destroy
+    elsif self.message.present?
+      patch_message.comment_id = self.comment_id
+      patch_message.summary_id = self.summary_id
+      patch_message.frame_id = self.frame_id
+      patch_message.message = self.message
+      patch_message.save
+    end
   end
 
   def reset_patch_messages
