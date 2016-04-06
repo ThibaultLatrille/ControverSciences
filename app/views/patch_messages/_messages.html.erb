@@ -14,25 +14,22 @@
         <br>
         <% patch_messages.each do |patch_message| %>
             <div id="patch-message-<%= patch_message.id %>">
-              <div class="row">
-                <div class="col-xs-12 col-md-10 col-md-offset-1">
-                  <div class="panel panel-default">
-                    <div class="panel-body clearfix">
-                      <div class="text-justify clearfix">
-                        <%= link_to "<span class=\"glyphicon glyphicon-trash font12\"></span>".html_safe,
-                                    patch_message_path(patch_message.id),
-                                    title: "Supprimer ce message",
-                                    remote: true,
-                                    method: :delete,
-                                    'data-toggle' => 'tooltip',
-                                    data: {confirm: t('views.default.confirm')},
-                                    class: "btn btn-default pull-right red" %>
-                        <%= patch_message.message %>
-                        <br><br>
-                          <div class="cadre pull-right">
-                            <%= "#{t('views.default.published')} #{time_ago_in_words(patch_message.updated_at)}" %>
-                          </div>
-                      </div>
+              <div class="panel panel-default" style="margin: 5px 15px 15px">
+                <div class="panel-body clearfix">
+                  <div class="text-justify clearfix">
+                    <%= link_to "<span class=\"glyphicon glyphicon-trash font12\"></span>".html_safe,
+                                patch_message_path(patch_message.id),
+                                title: "Supprimer ce message",
+                                remote: true,
+                                method: :delete,
+                                'data-toggle' => 'tooltip',
+                                data: {confirm: t('views.default.confirm')},
+                                class: "btn btn-default pull-right red" %>
+                    <%= patch_message.message %>
+                    <br><br>
+
+                    <div class="cadre pull-right">
+                      <%= "#{t('views.default.published')} #{time_ago_in_words(patch_message.updated_at)}" %>
                     </div>
                   </div>
                 </div>
