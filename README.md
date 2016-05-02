@@ -13,7 +13,7 @@ $ cd /ControverSciences
 
 Follow steps in
 https://rvm.io/
-
+Don't forget to append '--rails --ruby' for a all in one installation
 ControverSciences is currently using ruby 2.1.2
 
 ### Install PostgreSQL 9.4 and create role
@@ -28,8 +28,9 @@ $ sudo apt-get install libpq-dev
 Then create the user (AKA "role") inside PostgreSQL:
 
 ```
+$ sudo su - postgres
 $ psql -d postgres
-postgres=# create role controversciences login createdb password 'password';
+postgres=# create role controversciences login superuser password 'password';
 postgres=# \q
 ```
 
