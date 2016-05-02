@@ -20,6 +20,7 @@ fr:
       search: Rechercher
       close: Fermer
       creation_confirmed: Création confirmée
+      timeout: Connexion avec le serveur perdue
     navigation:
       back_timeline: Revenir à la controverse
       back_timelines: Revenir aux controverses

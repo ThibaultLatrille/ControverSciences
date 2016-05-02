@@ -58,6 +58,12 @@
 
               <div id="prepend-errors"></div>
 
+              <div id="timeout-errors" style="display: none">
+                <div class="alert alert-danger">
+                  <%= t('views.default.timeout') %>
+                </div>
+              </div>
+
               <div class="pull-right">
                 <div id="back-edit" class="btn btn-default">
                   <span class="glyphicon glyphicon-edit"></span>
@@ -117,6 +123,11 @@
 <%= render 'shared/length_counter' %>
 
 <script type="text/javascript">
+    $("#description1").markdown({
+        autofocus: true,
+        savable: false,
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS']
+    });
     (function () {
 
         $.fn.extend({
@@ -147,6 +158,7 @@
                 patchesText = dmp.patch_toText(patches);
                 $.ajax($this.data('validate'), {
                     url: $this.data('validate'),
+                    timeout: 15000,
                     data: {
                         frame_id: $this.data('frame-id'),
                         comment_id: $this.data('comment-id'),
@@ -158,19 +170,15 @@
                         content: patchesText
                     },
                     method: 'POST',
-                    statusCode: {
-                        200: function (response) {
-                            $('.loader-like').remove();
-                            $this.show();
-                        },
-                        401: function (response) {
-                            $('.loader-like').remove();
-                            $this.show();
-                        },
-                        409: function (response) {
-                            $('.loader-like').remove();
-                            $this.show();
-                        }
+                    success: function(data) {
+                        $('.loader-like').remove();
+                        $('#timeout-errors').hide();
+                        $this.show();
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        $('.loader-like').remove();
+                        $('#timeout-errors').show();
+                        $this.show();
                     }
                 });
             });

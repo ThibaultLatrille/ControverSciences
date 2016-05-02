@@ -36,7 +36,6 @@ class Reference < ActiveRecord::Base
 
   before_save :to_markdown
 
-
   validates :user_id, presence: true
   validates :timeline_id, presence: true
 

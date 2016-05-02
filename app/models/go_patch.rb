@@ -139,7 +139,7 @@ class GoPatch < ActiveRecord::Base
   end
 
   def content_errors(length)
-    if self.message.length > 2500
+    if self.message.length_sub > 2500
       errors.add(:base, "Le message " + I18n.t('errors.messages.too_long', count: 2500))
     end
     if length > content_ch_max
