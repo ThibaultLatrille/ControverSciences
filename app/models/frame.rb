@@ -22,8 +22,9 @@ class Frame < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
-  validates :name, presence: true, length: {maximum: 180}
-  validates :content, length: {minimum: 180, maximum: 2500}
+  validates :name, presence: true
+  validates :content, presence: true
+  validate :content_validation
 
   validates_uniqueness_of :user_id, :scope => :timeline_id
 
@@ -169,19 +170,15 @@ class Frame < ActiveRecord::Base
     end
   end
 
-  private
-
   def content_validation
-    if self.public
-      if self.name && self.name.length_sub > 180
-        errors.add(:name, I18n.t('errors.messages.too_long', count: 180))
-      end
-      if self.content && self.content.length_sub < 180
-        errors.add(:frame, I18n.t('errors.messages.too_short', count: 180))
-      end
-      if self.content && self.content.length_sub > 2500
-        errors.add(:content, I18n.t('errors.messages.too_long', count: 2500))
-      end
+    if self.name && self.name.length_sub > 180
+      errors.add(:name, I18n.t('errors.messages.too_long', count: 180))
+    end
+    if self.content && self.content.length_sub < 180
+      errors.add(:frame, I18n.t('errors.messages.too_short', count: 180))
+    end
+    if self.content && self.content.length_sub > 2500
+      errors.add(:content, I18n.t('errors.messages.too_long', count: 2500))
     end
   end
 
