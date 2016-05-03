@@ -12,9 +12,16 @@ $ cd /ControverSciences
 ### Install RVM for managing ruby version
 
 Follow steps in
-https://rvm.io/
+[https://rvm.io/](https://rvm.io/)
+
 Don't forget to append '--rails --ruby' for a all in one installation
+
 ControverSciences is currently using ruby 2.1.2
+```
+rvm install 2.1.2
+rvm use 2.1.2
+gem install bundler
+```
 
 ### Install PostgreSQL 9.4 and create role
 
