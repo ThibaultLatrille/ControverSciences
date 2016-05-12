@@ -32,6 +32,22 @@ body {
   color: #07212B;
 }
 
+.home-btn{
+  font-size: 1.4em;
+  padding: 0.7em 1.5em;
+  margin: 1.2em 1.2em;
+  em{
+    display: inline-block;
+    padding: 0.5em 0 0;
+    font-size: 1.4em;
+  }
+  em{
+    display: inline-block;
+    padding: 0.5em 0 0;
+    font-size: 0.75em;
+  }
+}
+
 #my-container {
   min-height: 100%;
   padding-top: 10px;
@@ -548,7 +564,7 @@ section h1 {
     .btn-default {
       background-color: $background;
     }
-    .btn-default:hover, .btn-default:focus, .btn-default:active, {
+    .btn-default:hover, .btn-default:focus, .btn-default:active{
       background-color: $nav_hover;
     }
     .list-group-item {
@@ -1474,4 +1490,11 @@ del {
   transition: opacity 1s ease;
 }
 
-
+.mirrors{
+  display: inline-block;
+  -moz-transform: scale(-1, 1);
+  -webkit-transform: scale(-1, 1);
+  -o-transform: scale(-1, 1);
+  -ms-transform: scale(-1, 1);
+  transform: scale(-1, 1);
+}

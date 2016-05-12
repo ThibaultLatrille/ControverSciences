@@ -85,7 +85,7 @@
   <% if logged_in? %>
       <%= link_to "<b><span class=\"icon-user bigger\" ></span> #{t('views.header.user')}</b>".html_safe,
                   user_path(current_user),
-                  class: "btn btn-lg btn-primary center" %>
+                  class: "btn btn-lg btn-primary home-btn center" %>
   <% else %>
       <%= link_to "<b><span class=\"icon-4 bigger\" ></span> #{t('views.sessions.new_user')}</b>".html_safe,
                   signup_path,

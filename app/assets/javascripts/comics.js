@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery.bookblock.js
-//= require tagcanvas.js
 
 var nameHash = ["L’enthousiaste", "Le sphinx", "Le Seigneur des titres", "L'encyclopédique", "L’analyste", "Le juge", "L’écrivain", "L’évaluateur", "Le bienveillant"];
 var Page = (function () {
