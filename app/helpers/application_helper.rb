@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def random_choices_and_favorite
-    @choices = Timeline.select(:slug, :id, :name).limit(8).order("RANDOM()")
+    @choices = Timeline.includes(:tags).select(:slug, :id, :name).limit(8).order("RANDOM()")
     if logged_in?
       @favorite = Timeline.find_by(favorite: true, staging: true)
     else

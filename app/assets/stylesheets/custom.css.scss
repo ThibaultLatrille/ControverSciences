@@ -33,9 +33,14 @@ body {
 }
 
 .home-btn{
+  position: relative;
   font-size: 1.4em;
   padding: 0.7em 1.5em;
   margin: 1.2em 1.2em;
+  overflow: hidden;
+  background-color: whitesmoke;
+  color: #07212B;
+  border: 2px solid lightgray;
   em{
     display: inline-block;
     padding: 0.5em 0 0;
@@ -46,6 +51,21 @@ body {
     padding: 0.5em 0 0;
     font-size: 0.75em;
   }
+  .full{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    min-height: 100%;
+    height: 100%;
+    font-size: 2.2em;
+    opacity: 0.10;
+  }
+}
+
+.home-btn:hover, .home-btn.hover{
+  background-color: $nav_back;
+  color: whitesmoke;
+  border: 2px solid $nav_hover;
 }
 
 #my-container {
@@ -105,7 +125,7 @@ footer #about-link a:hover {
 
 .badge-li {
   color: #FDFDFD;
-  background-color: #4E7DC9;
+  background-color: $nav_back;
 }
 
 header {
@@ -115,12 +135,12 @@ header {
     }
   }
   .my-missing {
-    background-color: #4E7DC9;
+    background-color: $nav_back;
     a {
       color: white !important;
     }
     .badge-li {
-      color: #4E7DC9;
+      color: $nav_back;
       background-color: #FDFDFD;
     }
   }

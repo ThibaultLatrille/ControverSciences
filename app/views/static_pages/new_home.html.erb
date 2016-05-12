@@ -5,150 +5,169 @@
   <%= image_tag "rocket.svg", class: "img-responsive" %>
 </div>
 <div class="container-fluid">
-  <div id="controverse" class="activated sub-leading">
-      <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 center">
-        <br><br>
-        <br>
-        <a href="<%= timeline_path(@favorite) %>" class="home-btn btn btn-lg btn-primary"><b>
-          <%= @favorite.name.html_safe %></b><br><em>
-          <span class="icon icon-rocket bigger"></span>
-          Controverse à l'affiche
-          <span class="icon icon-rocket bigger mirrors"></span> </em>
+  <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 center">
+    <br>
+    <a href="<%= timeline_path(@favorite) %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-rocket mirrors"></span>
+          </span><b>
+      <%= @favorite.name.html_safe %></b><br><em>
+      <span class="icon icon-rocket bigger mirrors"></span>
+      Controverse à l'affiche
+      <span class="icon icon-rocket bigger"></span> </em>
+    </a>
+    <a href="<%= timelines_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-search"></span>
+          </span><b>
+      <% if logged_in? %> Toutes les controverses
+      <% else %> Les controverses écloses
+      <% end %></b><br><em>
+      <span class="icon-search bigger"></span> Partez en
+      exploration &nbsp;<span class="icon-search bigger mirrors"></span> </em>
+    </a>
+    <a href="<%= timelines_graph_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-network"></span>
+          </span><b>
+      Les controverses sont-elles liées ? </b><br><em>
+      <span class="icon-network bigger"></span> Carte
+      interactive &nbsp;<span class="icon-network mirrors bigger"></span> </em>
+    </a>
+    <a href="<%= discover_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-layers"></span>
+          </span><b>
+      Quel est le cycle de vie d'une controverse ? </b><br><em>
+      <span class="icon-layers bigger"></span> Animation &nbsp;<span class="inline icon-layers bigger mirrors"></span>
+    </em>
+    </a>
+    <a href="<%= contributions_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-graph-int"></span>
+          </span><b>
+      ControverSciences évolue-t-il ? </b><br><em>
+      <span class="icon-graph-int mirrors bigger"></span> Graphe
+      interactif &nbsp;<span class="icon-graph-int bigger mirrors"></span> </em>
+    </a>
+    <a href="<%= tag_pairs_graph_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-circo"></span>
+          </span><b>
+      ControverSciences est-il inter-disciplinaire ? </b><br><em>
+      <span class="icon-circo bigger"></span> Diagramme à cordes
+      interactif &nbsp;<span class="icon-circo bigger mirrors"></span> </em>
+    </a>
+    <a href="<%= users_path %>" class="home-btn btn">
+          <span class="full" style="top: 15%">
+            <span class="icon icon-users"></span>
+          </span><b>
+      Qui sont les contributeurs ?</b><br><em>
+      <span class="icon-users bigger"></span> Rencontrez les &nbsp; <span class="icon-users bigger mirrors"></span>
+    </em>
+    </a>
+    <a href="<%= about_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-frog"></span>
+          </span><b>
+      Qui sommes nous ?</b><br><em>
+      <span class="icon-frog bigger"></span> Visite des
+      locaux &nbsp;<span class="icon-frog mirrors bigger"></span></em>
+    </a>
+    <a href="<%= comics_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-superman mirrors"></span>
+          </span><b>
+      <% if logged_in? %> Quel contributeur êtes-vous ?
+      <% else %> Quel contributeur seriez-vous ?
+      <% end %></b><br><em>
+      <span class="icon-superman bigger"></span> La bande
+      dessinée &nbsp;<span class="icon-superman mirrors bigger"></span></em>
+    </a>
+    <% if logged_in? %>
+        <a href="<%= user_path(current_user) %>" class="home-btn btn">
+              <span class="full">
+            <span class="icon icon-user"></span>
+          </span><b>
+          Qui êtes-vous ?</b><br><em>
+          <span class="icon-user bigger"></span> <%= t('views.header.user') %> &nbsp;<span class="icon-user mirrors bigger"></span></em>
         </a>
-        <a href="<%= timelines_path %>" class="home-btn btn btn-lg btn-primary"><b>
-          <% if logged_in? %> Toutes les controverses <% else %> Les controverses écloses <% end %></b><br><em>
-          <span class="icon-search bigger" ></span> Partez en exploration  &nbsp;<span class="icon-search bigger mirrors" ></span> </em>
-        </a>
-        <a href="<%= timelines_graph_path %>" class="home-btn btn btn-lg btn-primary"><b>
-          Les controverses sont-elles liées ? </b><br><em>
-          <span class="icon-network bigger" ></span> Carte interactive  &nbsp;<span class="icon-network mirrors bigger" ></span> </em>
-        </a>
-        <a href="<%= discover_path %>" class="home-btn btn btn-lg btn-primary"><b>
-          Quel est le cycle de vie d'une controverse ? </b><br><em>
-          <span class="icon-layers bigger" ></span> Animation  &nbsp;<span class="inline icon-layers bigger mirrors" ></span> </em>
-        </a>
-        <a href="<%= contributions_path %>" class="home-btn btn btn-lg btn-primary"><b>
-          ControverSciences évolue-t-il ? </b><br><em>
-          <span class="icon-graph-int bigger" ></span> Graphe interactif  &nbsp;<span class="icon-graph-int bigger mirrors" ></span> </em>
-        </a>
-        <a href="<%= tag_pairs_graph_path %>" class="home-btn btn btn-lg btn-primary"><b>
-          ControverSciences est-il inter-disciplinaire ? </b><br><em>
-          <span class="icon-circo bigger" ></span>  Diagramme à cordes interactif  &nbsp;<span class="icon-circo bigger mirrors" ></span> </em>
-        </a>
-        <a href="<%= users_path %>" class="home-btn btn btn-lg btn-primary"><b>
-          Qui sont les contributeurs ?</b><br><em>
-          <span class="icon-users bigger" ></span> Rencontrez les &nbsp; <span class="icon-users bigger mirrors" ></span> </em>
-        </a>
-        <a href="<%= about_path %>" class="home-btn btn btn-lg btn-primary"><b>
-          Qui sommes nous ?</b><br><em>
-          <span class="icon-frog bigger" ></span> Visite des locaux &nbsp;<span class="icon-frog mirrors bigger" ></span></em>
-        </a>
-        <a href="<%= comics_path %>" class="home-btn btn btn-lg btn-primary"><b>
-          <% if logged_in? %> Quel contributeur êtes-vous ? <% else %> Quel contributeur seriez-vous ?<% end %></b><br><em>
-          <span class="icon-superman bigger" ></span>  La bande dessinée  &nbsp;<span class="icon-superman mirrors bigger" ></span></em>
-        </a>
-        <% if logged_in? %>
-            <a href="<%= user_path(current_user) %>" class="home-btn btn btn-lg btn-primary"><b>
-              Qui êtes-vous ?</b><br><em>
-              <span class="icon-user bigger" ></span> <%= t('views.header.user') %> &nbsp;<span class="icon-user mirrors bigger" ></span></em>
-            </a>
-        <% end %>
-        <br><br>
-        <div class="carousel-container">
-          <div id="mycarousel" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner home-carrousel" role="listbox">
-                <div class="item active center">
-                  <br/>
-                  <b><%= t('views.home.sentence_result') %> </b>
-                </div>
-                <% welcome_sentences_keys.each do |key| %>
-                    <div class="item center">
-                      <br/>
-                      <b><%= t(key) %></b>
-                    </div>
-                <% end %>
-                <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
-                  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
-                  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-                <br/>
-            </div>
+    <% end %>
+    <br><br>
+    <div class="carousel-container">
+      <div id="mycarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner home-carrousel" role="listbox">
+          <div class="item active center">
+            <br/>
+            <b><%= t('views.home.sentence_result') %> </b>
           </div>
+          <% welcome_sentences_keys.each do |key| %>
+              <div class="item center">
+                <br/>
+                <b><%= t(key) %></b>
+              </div>
+          <% end %>
+          <a class="left carousel-control" href="#mycarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#mycarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+          <br/>
         </div>
-        <br>
       </div>
+    </div>
+    <br>
   </div>
 </div>
 <hr style="height: 0; margin: 0; border-top: 2px solid #ccc">
 <%= image_tag "bridge.jpg", class: "img-responsive" %>
 <hr style="height: 0; margin: 0; border-top: 2px solid #ccc">
-
 <div id="my-container" class="container-fluid">
-  <div id="body-controversciences" class="leading activated">
-    <div id="controverse" class="activated sub-leading">
-      <div class="col-xs-12 col-md-offset-1 col-md-10 center">
-        <div id="myCanvasContainer">
-          <canvas id="tagCanvas" class="img-responsive" width="1920" height="480">
-          </canvas>
-        </div>
-        <div id="tags">
-          <br>
-          <% @choices.each do |choice| %>
-              <%= link_to choice.name.html_safe,
-                          timeline_choices_path(timeline_id: choice.id,
-                                                friendly_id: choice.slug,
-                                                choices: @choices.map { |t| t.id }),
-                          method: :post %> <br>
-              <br>
-          <% end %>
-        </div>
-        <script type="text/javascript">
-          $(document).ready(function () {
-            if (!$('#tagCanvas').tagcanvas({
-                  textColour: '#3686BE',
-                  outlineMethod: "colour",
-                  outlineColour: "#24597E",
-                  textFont: "Ubuntu, 700",
-                  wheelZoom: false,
-                  hideTags: false,
-                  splitWidth: 800,
-                  textHeight: "25",
-                  maxSpeed: 0.03,
-                  depth: 0.75
-                }, 'tags')) {
-              $('#myCanvasContainer').hide();
-            }
-          });
-        </script>
+  <div id="body-controversciences">
+    <div class="col-xs-12 col-md-offset-1 col-md-10 center">
+      <div>
         <br>
+        <% @choices.each do |choice| %>
+            <a rel="nofollow" data-method="post"
+               href="<%= timeline_choices_path(timeline_id: choice.id,
+                                               friendly_id: choice.slug,
+                                               choices: @choices.map { |t| t.id }) %>"
+               class="home-btn btn" style="font-size: 1.1em">
+                <span class="full">
+            <span class="icon icon-<%= choice.tags.any? ? choice.tags.first.name : nil %>"></span>
+          </span>
+              <b><%= simple_format(word_wrap(choice.name, line_width: 40)) %></b>
+            </a>
+        <% end %>
+      </div>
+      <br>
+      <a href="<%= timelines_path %>" class="home-btn btn"><b>
+        <% if logged_in? %> Toutes les controverses
+        <% else %> Les controverses écloses
+        <% end %></b><br><em>
+        <span class="icon-search bigger"></span> Partez en
+        exploration &nbsp;<span class="icon-search bigger mirrors"></span> </em>
+      </a>
+      <br><br>
+      <br>
+      <div class="row">
+        <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+          <div class="bb-custom-wrapper shadow-effect">
+            <b style="font-size: 2em; color: #414042;">
+              Organiser, analyser et synthètiser <br>
+              la connaissance scientifique
+            </b>
+            <br> <br>
 
-        <a href="<%= timelines_path %>" class="home-btn btn btn-lg btn-primary"><b>
-          <% if logged_in? %> Toutes les controverses <% else %> Les controverses écloses <% end %></b><br><em>
-          <span class="icon-search bigger" ></span> Partez en exploration  &nbsp;<span class="icon-search bigger mirrors" ></span> </em>
-        </a>
-        <br><br>
-        <br>
-        <div class="row">
-          <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-            <div class="bb-custom-wrapper shadow-effect">
-              <b style="font-size: 2em">
-                Organiser, analyser et synthètiser <br>
-                la connaissance scientifique
-              </b>
-              <br> <br>
-
-              <%= image_tag "3rules.jpg", class: "img-responsive" %>
-            </div>
-            <br>
-            <br>
+            <%= image_tag "3rules.jpg", class: "img-responsive" %>
           </div>
+          <br>
+          <br>
         </div>
       </div>
     </div>
   </div>
 </div>
-<%= javascript_include_tag 'tagcanvas.js' %>
