@@ -1,6 +1,10 @@
 <% provide(:title, "Controverses") %>
-<% @tips = (I18n.t('tips.timeline_index').is_a? String ) ? nil : I18n.t('tips.timeline_index').values %>
-
+<div class="heading">
+  <%= image_tag "stars.png", class: "img-responsive", style: "opacity: 0.4;" %>
+</div>
+<div class="rocket">
+  <%= image_tag "rocket.svg", class: "img-responsive" %>
+</div>
 <div id="my-container" class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-offset-2 col-lg-8">
