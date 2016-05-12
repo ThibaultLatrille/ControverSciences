@@ -1,519 +1,594 @@
 <% provide(:title, "A propos") %>
-
+<div class="heading">
+  <%= image_tag "stars.png", class: "img-responsive", style: "opacity: 0.4;" %>
+</div>
+<div class="rocket">
+  <%= image_tag "rocket.svg", class: "img-responsive" %>
+</div>
 <div id="my-container" class="container-fluid">
-<div class="row">
-<div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-<div class="panel panel-default">
-<div class="panel-heading">
-  <h1> A propos de ControverSciences</h1>
-</div>
-<div class="panel-body clearfix">
-
-<div style="margin: 30px">
-<h5> Genèse</h5>
-<p>
-  En aout 2014, Thibault se demande en toute candeur si un meilleur
-  <b>accès</b> aux données scientifiques ne permettrait
-  pas de dénouer un bon nombre de controverses, de débats et de discussions.
-  <br/>
-  Mais comment rendre accessible au plus grand nombre les <b>publications</b> qui
-  constituent aujourd’hui l’outil principal de communication des <b>résultats scientifiques</b> ?
-  <br/>
-  De la frustration de voir ces connaissances tourner uniquement dans des cercles initiés,
-  naquit l’idée d’une <b>plateforme</b> de médiation scientifique axée sur l’analyse de publications en rapport avec des controverses actuelles.
-  Idée qui portera, plus tard le nom de <b>ControverSciences</b>.
-</p>
-<br/>
-<h5> Développement</h5>
-<p>
-  Un état des lieux des sites existant révéla qu’aucun d’entre eux ne mettait au premier plan
-  les publications scientifiques en les organisant autour de <b>questions controversées</b>.
-  Ces sites n’avaient pas réussi à passer <b>rigoureusement</b> les sujets délicats par le prisme
-  de la <b>méthode scientifique</b>.
-  <br/>
-  ControverSciences a été conçu pour combler cette niche vide et se donne pour
-  mission d’<b>informer et de partager</b>.
-</p>
-<br/>
-
-<h2>
-  ControverSciences est conçu pour être accessible à tous et pour tous.
-</h2>
-<h2>
-  Prendre la responsabilité de saisir au vol des débats de notre époque <br/>
-  et les replacer dans un cadre scientifique rigoureux est un défi de taille... <br/>
-  Soyons ambitieux !
-</h2>
-</div>
-<br/>
-<h5> Nos partenaires </h5>
-<br/>
-
-<div class="row">
-<div class="col-xs-10 col-xs-offset-1 col-md-offset-0 col-md-12">
   <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <a href="<%= user_path("universite-de-montpellier") %>" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("umontpellier.png", alt: "Université de Montpellier", :class => "img-responsive img-rounded", style: "width:100%;") %>
+    <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h1> Qui sommes nous ?</h1>
         </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>Université de Montpellier</h3>
+        <div class="panel-body clearfix">
 
-          <p style="color: #000000">ControverSciences est utilisé comme outil d'enseignement à l'université de
-            Montpellier depuis Septembre 2015.
+          <div style="margin: 20px">
+            <h2>
+              ControverSciences est conçu pour être accessible à tous et pour tous.
+            </h2>
+            <h2>
+              Prendre la responsabilité de saisir au vol des débats de notre époque <br/>
+              et les replacer dans un cadre scientifique rigoureux est un défi de taille... <br/>
+              Soyons ambitieux !
+            </h2>
+          </div>
+          <br/>
+          <h5> Nos partenaires </h5>
+          <br/>
+
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1 col-md-offset-0 col-md-12">
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <a href="<%= user_path("universite-de-montpellier") %>" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("umontpellier.png", alt: "Université de Montpellier", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>Université de Montpellier</h3>
+
+                      <p style="color: #000000">ControverSciences est utilisé comme outil d'enseignement à l'université
+                        de
+                        Montpellier depuis Septembre 2015.
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <a href="http://www.ens-lyon.eu/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("ens-lyon.png", alt: "ENS Lyon", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7 text-right">
+                      <h3>ENS Lyon</h3>
+
+                      <p style="color: #000000">ControverSciences est utilisé comme outil d'enseignement à l'école
+                        Normale Supérieure de Lyon depuis Septembre 2015.
+                      </p>
+                    </div>
+                  </a>
+                </div>
+
+                <div class="col-xs-12 col-md-6">
+                  <a href="http://www.lirmm.fr/~retore/AREN/index.html" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("Investissements-avenir.jpg", alt: "Investissements d'avenir", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7 text-right">
+                      <h3>Projet AREN</h3>
+
+                      <p style="color: #000000">ControverSciences participe au projet AREN (ARgumentation Et Numérique),
+                        projet financé par le programme d'investissement d'avenir et
+                        piloté par la Caisse des Dépots et Consignations
+                      </p>
+                    </div>
+                  </a>
+                </div>
+
+
+              </div>
+              <div class="font12">
+                Si vous aussi vous êtes interessé pour utiliser ControverSciences dans vos cours, nous serons ravis de
+                consolider la passerelle avec vous.
+                <br>Contactez nous à
+                <a href="mailto:enseignement@controversciences.org">enseignement@controversciences.org</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-offset-1 col-xs-10 col-sm-offset-4 col-sm-4 col-md-offset-5 col-md-2 vcenter">
+              <object class="img-responsive" data=<%= path_to_image 'help-mission.svg' %>>
+              </object>
+            </div>
+          </div>
+          <h5>Notre collectif, porté par l'association
+            <a href="http://www.net1901.org/association/CONTROVERSCIENCES-ET-AL,1456796.html">ControverSciences
+              <i>et al.</i></a></h5>
+
+          <p>
+            Ils ont construit le ControverSciences d'aujourd'hui.
+            <b>Vos idées construiront celui de demain !</b>
           </p>
-        </div>
-      </a>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <a href="http://www.ens-lyon.eu/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("ens-lyon.png", alt: "ENS Lyon", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7 text-right">
-          <h3>ENS Lyon</h3>
+          <br/>
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+              <div id="collectif">
+                <div class="row">
+                  <div class="pull-left">
+                    <%= image_tag("thibault-latrille.jpg", alt: "Thibault Latrille", :class => "img-responsive img-rounded img-collectif") %>
+                  </div>
+                  <div>
+                    <h3><a href="<%= user_path("t-latrille") %>" target="_blank">Thibault Latrille</a> - Créateur
+                      omnichiant &nbsp
+                      <a href="mailto:thibault.latrille@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </h3>
+                    <div class="justify">
+                      Partager mes connaissances a toujours été une passion, mais dans certains débats celles-ci étaient
+                      bien trop
+                      souvent limitées.
+                      Alors plutot que de me plaindre de ne pas trouver aisément de ressources sur la toile,
+                      chercher et trouver une solution me parut bien plus intéressant.
+                      Depuis, bâtir ControverSciences est une aventure dans laquelle je suis investi jours et – parfois
+                      – nuits.
+                      Heureusement, je n'étais pas seul, des personnes remarquables m’ont rejoint,
+                      elles aussi ont le sentiment que le partage du savoir scientifique doit aller plus loin.
+                      Sans elles, ControverSciences serait resté un têtard qui barbote dans sa marre,
+                      mais maintenant sa métamorphose a commencé et la suite est à écrire !
+                    </div>
+                  </div>
+                </div>
+                <br/>
 
-          <p style="color: #000000">ControverSciences est utilisé comme outil d'enseignement à l'école Normale Supérieure de Lyon depuis Septembre 2015.
-          </p>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="font12">
-    Si vous aussi vous êtes interessé pour utiliser ControverSciences dans vos cours, nous serons ravis de consolider la passerelle avec vous.
-    <br>Contactez nous à
-    <a href="mailto:enseignement@controversciences.org">enseignement@controversciences.org</a>
-  </div>
-</div>
-</div>
+                <div class="row">
+                  <div class="pull-left">
+                    <%= image_tag("florent-giry.jpg", alt: "Florent Giry", :class => "img-responsive img-rounded img-collectif") %>
+                  </div>
+                  <div>
+                    <h3><a href="<%= user_path("f-giry") %>" target="_blank">Florent Giry</a> - Une idée de perdue, 10
+                      de retrouvées &nbsp
+                      <a href="mailto:florent.giry@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </h3>
+                    <div class="justify">
+                      J'ai découvert la grenouille ControverSciences après son éclosion,
+                      et j'ai tout de suite accroché.
+                      Rejoindre le projet en cours de route m'a permis d'y apporter un regard neuf.
+                      Agronome et économiste de formation, mon rôle dans l'équipe est de trouver des idées pour
+                      optimiser les fonctionnalités du portail et pour en créer de nouvelles.
+                      Je pars aussi à la chasse aux bugs pour rendre l'expérience ControverSciences la plus agréable
+                      possible pour tous les contributeurs et visiteurs !
+                    </div>
+                  </div>
+                </div>
+                <br/>
 
-<h5>Le collectif</h5>
+                <div class="row">
+                  <div class="pull-left">
+                    <%= image_tag("paul-guille-escuret.jpg", alt: "Paul Guille-Escuret", :class => "img-responsive img-rounded img-collectif") %>
+                  </div>
+                  <div>
+                    <h3><a href="<%= user_path("p-guille-escuret") %>" target="_blank">Paul Guille-Escuret</a> - Flic
+                      epistémologique &nbsp
+                      <a href="mailto:paul.guille-escuret@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </h3>
 
-<p>
-  Ils ont construit le ControverSciences d'aujourd'hui.
-  <b>Vos idées construiront celui de demain !</b>
-</p>
-<br/>
+                    <div class="justify">
+                      Quand on construit une maison, on remplit un contrat et on rend accessible un bien à des hommes.
+                      J’estime que le scientifique doit répondre aux mêmes exigences et donc partager le fruit de son
+                      travail.
+                      Biologiste axé sur l’entomologie médicale, j’essaye d’envisager les différentes disciplines dont
+                      j’ai
+                      croisé la route au cours de mon parcours dans une approche épistémologique.
+                      C’est sur cette thématique que Thibault m’a entrainé dans le processus de définition et de
+                      conception du site.
+                      Malgré quelques prises de becs -sans noms d'oiseaux-, ControverSciences est devenu une combinaison
+                      d’ambition, de rire et de sérieux.
+                      La grenouille n’est que science et amour !
+                    </div>
+                  </div>
+                </div>
+                <br/>
 
-<div class="row">
-  <div class="col-xs-10 col-xs-offset-1">
-    <div id="collectif">
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("thibault-latrille.jpg", alt: "Thibault Latrille", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("t-latrille") %>" target="_blank">Thibault Latrille</a> - Créateur omnichiant &nbsp
-            <a href="mailto:thibault.latrille@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-          <div class="justify">
-            Partager mes connaissances a toujours été une passion, mais dans certains débats celles-ci étaient bien trop
-            souvent limitées.
-            Alors plutot que de me plaindre de ne pas trouver aisément de ressources sur la toile,
-            chercher et trouver une solution me parut bien plus intéressant.
-            Depuis, bâtir ControverSciences est une aventure dans laquelle je suis investi jours et – parfois – nuits.
-            Heureusement, je n'étais pas seul, des personnes remarquables m’ont rejoint,
-            elles aussi ont le sentiment que le partage du savoir scientifique doit aller plus loin.
-            Sans elles, ControverSciences serait resté un têtard qui barbote dans sa marre,
-            mais maintenant sa métamorphose a commencé et la suite est à écrire !
+                <div class="row">
+                  <div class="pull-left">
+                    <%= image_tag("irene-courtin.jpg", alt: "Irene Courtin", :class => "img-responsive img-rounded img-collectif") %>
+                  </div>
+                  <div>
+                    <h3><a href="<%= user_path("irenel") %>" target="_blank">Irène Courtin</a> - Zet éthique &nbsp
+                      <a href="mailto:irene.courtin@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </h3>
+                    <div class="justify">
+                      J'ai découvert ControverSciences sur les réseaux sociaux, par connaissances interposées.
+                      L'idée m'a immédiatement séduite, sûrement de par de mon intérêt premier pour la diffusion des
+                      outils de l'esprit critique...
+                      Donner accès aux références scientifiques et ainsi contribuer à la construction autonome d'une
+                      opinion plutôt qu'imposer un contenu :
+                      ça me parle ! Comme Florent, j'ai donc rejoint l'aventure en cours de route.
+                      J'espère y apporter un regard complémentaire grâce à ma formation en sciences humaines et
+                      sociales.
+                    </div>
+                  </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                  <div class="pull-left">
+                    <%= image_tag("thibault-lorin.jpg", alt: "Thibault Lorin", :class => "img-responsive img-rounded img-collectif") %>
+                  </div>
+                  <div>
+                    <h3><a href="<%= user_path("t-lorin") %>" target="_blank">Thibault Lorin</a> - Sergent major, enragé
+                      volontaire &nbsp
+                      <a href="mailto:thibault.lorin@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </h3>
+
+                    <div class="justify">
+                      Encore tout jeune chercheur en biologie, et avec un cursus plus général orienté Sciences de la Vie
+                      et de la
+                      Terre, le projet de Thibault est un projet auquel j'ai tout de suite adhéré.
+                      Je suis fermement convaincu que notre rôle en tant que scientifique est de participer à la
+                      diffusion du
+                      savoir.
+                      Repousser les idées reçues et les non-sens scientifiques est plus qu'un devoir,
+                      c'est une mission qui me tient à coeur !
+                    </div>
+                  </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                  <div class="pull-left">
+                    <%= image_tag("nicolas-clairis.png", alt: "Nicolas Clairis", :class => "img-responsive img-rounded img-collectif") %>
+                  </div>
+                  <div>
+                    <h3><a href="<%= user_path("n-clairis") %>" target="_blank">Nicolas Clairis</a> - Neuro transmetteur
+                      &nbsp
+                      <a href="mailto:nicolas.clairis@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </h3>
+                    <div class="justify">
+                      J'ai obtenu mon master en Biologie à l'ENS en 2014, plutôt orienté vers les neurosciences. Je
+                      trouve que
+                      l'idée
+                      du projet ControverSciences est très intéressante afin de partager et de démocratiser le savoir
+                      des
+                      scientifiques.
+                      Il ne faut pas que ce savoir reste confiné aux 4 murs de nos laboratoires mais que tout le monde
+                      puisse y
+                      avoir
+                      accès aussi facilement que possible.
+                    </div>
+                  </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                  <div class="pull-left">
+                    <%= image_tag("adrien-boniface.png", alt: "Adrien Boniface", :class => "img-responsive img-rounded img-collectif") %>
+                  </div>
+                  <div>
+                    <h3><a href="<%= user_path("a-boniface") %>" target="_blank">Adrien Boniface</a> - Agrégé
+                      controversé &nbsp
+                      <a href="mailto:adrien.boniface@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </h3>
+                    <div class="justify">
+                      ControverSciences est un projet ambitieux mais nécessaire,
+                      qui donne enfin une voix aux scientifiques pour faire connaître clairement au grand public l'avis
+                      de la science sur les questions que les gens se posent,
+                      sans parti pris. C'est pour moi une composante fondamentale du rôle des enseignants et des
+                      chercheurs dans la société et c'est pourquoi,
+                      une fois l'agrégation de SVT en poche,
+                      j'ai décidé de me lancer dans l'aventure pour apporter ma pierre à l'édifice.
+                    </div>
+                  </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                  <div class="pull-left">
+                    <%= image_tag("nais-rivel.jpg", alt: "Nais Rivel", :class => "img-responsive img-rounded img-collectif") %>
+                  </div>
+                  <div>
+                    <h3><a href="<%= user_path("n-rivel") %>" target="_blank">Nais Rivel</a> - The social network &nbsp
+                      <a href="mailto:nais.rivel@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </h3>
+                  </div>
+                  <div class="justify">
+                    Il y a plusieurs mois Thibault est venu me voir avec un gros projet entre les mains.
+                    Je suis la seule personne en Ecole de Commerce au milieu de scientifiques; mais ce jour-là, mon
+                    savoir en
+                    communication a eu son avantage.
+                    Il m’a montré son site, son bébé grenouille, et ses propos passionés m’ont embarquée avec lui !
+                    Travailler avec Thibault n’est que du bonheur, on se complète. On apprend chacun de l’autre dans une
+                    continuelle
+                    quête curieuse. - Seuls ceux sont qui sont assez fous pour croire qu’ils peuvent changer le monde
+                    sont ceux qui le font !
+                  </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                  <div class="pull-left">
+                    <%= image_tag("alain-danet.jpg", alt: "Alain Danet", :class => "img-responsive img-rounded img-collectif") %>
+                  </div>
+                  <div>
+                    <h3><a href="<%= user_path("a-danet") %>" target="_blank">Alain Danet</a> - Notre autoroute du
+                      soleil &nbsp
+                      <a href="mailto:alain.danet@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
+                    </h3>
+                  </div>
+                </div>
+                <br/>
+
+                <div class="row">
+                  <div>
+                    <h3>... Et tant d'autres qui ont apporté leur pierre à l'édifice.</h3>
+                  </div>
+                </div>
+                <br/>
+
+                <hr>
+                <div class="row">
+                  <div class="col-xs-12 col-md-offset-2 col-md-8">
+                    <h5> Comment nous rejoindre ?</h5>
+                    <div class="font12">
+                      <%= t('views.users.why_slack_html') %>
+                    </div>
+                  </div>
+                </div>
+                <div class="center">
+                  <% if logged_in? %>
+                      <a href="<%= slack_users_path %>" class="cadre hvr-grow center">
+                        <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+                        <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
+                      </a>
+                  <% else %>
+                      <a href="<%= new_user_path %>" class="cadre hvr-grow center">
+                        <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
+                        <b style="font-size: 1.4em"><%= t('views.sessions.new_user_slack') %></b>
+                      </a>
+                  <% end %>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <br/>
-
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("florent-giry.jpg", alt: "Florent Giry", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("f-giry") %>" target="_blank">Florent Giry</a> - Une idée de perdue, 10 de retrouvées &nbsp
-            <a href="mailto:florent.giry@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-          <div class="justify">
-            J'ai découvert la grenouille ControverSciences après son éclosion,
-            et j'ai tout de suite accroché.
-            Rejoindre le projet en cours de route m'a permis d'y apporter un regard neuf.
-            Agronome et économiste de formation, mon rôle dans l'équipe est de trouver des idées pour optimiser les fonctionnalités du portail et pour en créer de nouvelles.
-            Je pars aussi à la chasse aux bugs pour rendre l'expérience ControverSciences la plus agréable possible pour tous les contributeurs et visiteurs !
+          <div class="row">
+            <div class="col-xs-offset-1 col-xs-10 col-sm-offset-4 col-sm-4 col-md-offset-5 col-md-2 vcenter">
+              <object class="img-responsive" data=<%= path_to_image 'help-mission.svg' %>>
+              </object>
+            </div>
           </div>
-        </div>
-      </div>
-      <br/>
-
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("paul-guille-escuret.jpg", alt: "Paul Guille-Escuret", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("p-guille-escuret") %>" target="_blank">Paul Guille-Escuret</a> - Flic epistémologique &nbsp
-            <a href="mailto:paul.guille-escuret@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-
-          <div class="justify">
-            Quand on construit une maison, on remplit un contrat et on rend accessible un bien à des hommes.
-            J’estime que le scientifique doit répondre aux mêmes exigences et donc partager le fruit de son travail.
-            Biologiste axé sur l’entomologie médicale, j’essaye d’envisager les différentes disciplines dont j’ai
-            croisé la route au cours de mon parcours dans une approche épistémologique.
-            C’est sur cette thématique que Thibault m’a entrainé dans le processus de définition et de conception du site.
-            Malgré quelques prises de becs -sans noms d'oiseaux-, ControverSciences est devenu une combinaison d’ambition, de rire et de sérieux.
-            La grenouille n’est que science et amour !
+          <br/>
+          <h5> Nos ressources et apparition dans les médias</h5>
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1">
+              <h4><span class="glyphicon glyphicon-facetime-video"></span> Vidéos : </h4>
+              <a href="https://www.youtube.com/watch?v=Mn-H8KZBtss">Dans la tronche de ControverSciences - La tronche en
+                biais</a> <br>
+              <a href="https://www.youtube.com/watch?v=U3eA0JuTabY">Mais qui vulgarise les controverses scientifiques ?
+               @LyonScience2016 - Space Opera </a> <br>
+              <a href="https://www.youtube.com/watch?v=k62077OzHnw">Présentation de ControverSciences.org - Christophe
+                Batier</a> <br>
+              <a href="https://youtu.be/vqcBaFeAE64?t=24m20s">Student Demo Cup - Open Source Summit </a> <br>
+              <h4><span class="glyphicon glyphicon-volume-up"></span> Audio :</h4>
+              <a href="https://blogs.radiocanut.org/lacauserie/2016/02/19/la-causerie-n141-du-21-fevrier-2016-avec-controversciences/">La
+                causerie - Radio Canut </a> <br>
+              <a href="https://rcf.fr/actualite/controversciences-un-site-de-polemiques-scientifiques-lyonnais">RCF </a>
+              <br>
+              <h4><span class="glyphicon glyphicon-list-alt"></span> Média :</h4>
+              <a href="http://www.la-croix.com/Economie/Social/Des-etudiants-eclairent-controverses-scientifiques-2016-01-11-1200728859">La
+                croix</a> <br>
+              <a href="http://presse.inserm.fr/jeudi-7-janvier-2016/21957/">Presse Inserm</a> <br>
+              <a href="http://www.tribunedelyon.fr/?actualite/societe/45412-web-un-site-inedit-pour-comprendre-les-controverses-scientifiques">La
+                tribune de Lyon</a> <br>
+            </div>
           </div>
-        </div>
-      </div>
-      <br/>
+          <br>
+          <h5> Et derrière le décor ?</h5>
+          <br/>
 
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("irene-courtin.jpg", alt: "Irene Courtin", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("irenel") %>" target="_blank">Irène Courtin</a> - Zet éthique &nbsp
-            <a href="mailto:irene.courtin@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-          <div class="justify">
-            J'ai découvert ControverSciences sur les réseaux sociaux, par connaissances interposées.
-            L'idée m'a immédiatement séduite, sûrement de par de mon intérêt premier pour la diffusion des outils de l'esprit critique...
-            Donner accès aux références scientifiques et ainsi contribuer à la construction autonome d'une opinion plutôt qu'imposer un contenu :
-            ça me parle ! Comme Florent, j'ai donc rejoint l'aventure en cours de route.
-            J'espère y apporter un regard complémentaire grâce à ma formation en sciences humaines et sociales.
+          <div class="row">
+            <div class="col-xs-10 col-xs-offset-1 col-md-offset-0 col-md-12">
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <a href="https://controversciences.slack.com/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("slack.png", alt: "Slack", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>Slack</h3>
+
+                      <p style="color: #000000">Slack est une plate-forme de communication collaborative ainsi qu'un
+                        logiciel
+                        de gestion de projets.
+                        C'est un peu le forum ou se retrouve l'équipe de ControverSciences !</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <a href="https://github.com/ThibaultLatrille/ControverSciences" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("github.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7 text-right">
+                      <h3>GitHub</h3>
+
+                      <p style="color: #000000">GitHub est un service web d'hébergement et de gestion de développement
+                        de logiciels,
+                        utilisant le logiciel de gestion de versions Git.
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <a href="http://rubyonrails.org/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("ruby-on-Rails.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>Ruby on Rails</h3>
+
+                      <p style="color: #000000">Ruby on Rails, est un framework web libre écrit en Ruby.
+                        En tant que framework, il propose une structure au programmeur qui lui permet de développer plus
+                        vite et
+                        plus
+                        intuitivement.
+                        C'est le framework de développement de ControverSciences.
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <a href="https://jquery.com/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("jquery.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7 text-right">
+                      <h3>Jquery</h3>
+
+                      <p style="color: #000000">jQuery est une bibliothèque JavaScript libre et multi-plateforme
+                        créée pour faciliter l'écriture de scripts côté client dans le code HTML des pages web.
+                        Les pages sur ControverSciences sont intéractives grâce à jQuery.</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <a href="http://getbootstrap.com/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("bootstrap.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>Bootstrap</h3>
+
+                      <p style="color: #000000">Twitter Bootstrap est une collection d'outils utiles à la création de
+                        sites et
+                        d'applications web.
+                        On peut le dire, sans Bootstrap ControverSciences serait beaucoup plus moche.
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <a href="https://thenounproject.com/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("the-noun-project.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>The Noun Project</h3>
+
+                      <p style="color: #000000">The Noun Project est une bibliothèque d'images à la disposition des
+                        personnes
+                        cherchant des symboles
+                        graphiques.
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <a href="http://www.postgresql.org/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("postgres.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>PostgreSQL</h3>
+
+                      <p style="color: #000000">PostgreSQL est un système de gestion de base de données relationnelle et
+                        objet
+                        (SGBDRO).
+                        La base de données de ControverSciences utilise PostgreSQL. </p>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <a href="https://www.heroku.com/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("heroku.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>Heroku</h3>
+
+                      <p style="color: #000000">Heroku est un service de cloud computing de type plate-forme en tant que
+                        service.
+                        Il permet le déploiement de ControverSciences sur des serveurs. </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <a href="https://mailgun.com/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("mailgun.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>MailGun</h3>
+
+                      <p style="color: #000000">Mailgun est le service de Rackspace permettant de recevoir, d'envoyer et
+                        de suivre
+                        les messages
+                        électroniques.
+                        Il gére les emails (envoyés et reçus) avec le nom de domaine @controversciences.org.
+                      </p>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <a href="http://aws.amazon.com/fr/s3/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("aws.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>Amazon S3</h3>
+
+                      <p style="color: #000000">Amazon S3 (Amazon Simple Storage Service) est un site d'hébergement de
+                        fichiers
+                        offert par Amazon Web
+                        Services.
+                        Il stocke les images de ControverSciences.</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <a href="https://www.cloudflare.com/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("cloudflare.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>CloudFlare</h3>
+
+                      <p style="color: #000000">CloudFlare est un CDN (service de diffusion de contenus) et un service
+                        de serveurs
+                        de noms de domaines
+                        distribués.
+                        Il améliore les performances, la sécurité et la rapidité de ControverSciences.</p>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                  <a href="http://www.pexels.com/" target="_blank" class="hvr-grow">
+                    <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
+                      <%= image_tag("pexels.png", alt: "Pexels", :class => "img-responsive img-rounded", style: "width:100%;") %>
+                    </div>
+                    <div class="col-xs-12 col-md-8 col-lg-7">
+                      <h3>Pexels</h3>
+
+                      <p style="color: #000000">Images et vidéos libres de droit.</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
+          <br/><br/>
+          <h5> Notre politique de confidentialité</h5>
+          <%= link_to t('views.users.terms'), terms_path, class: "btn btn-primary", target: "_blank" %>
+          <br/>
+          <br/><br/>
+          <h5> Notre Charte du site</h5>
+          <%= link_to t('views.users.magna_charta'), magna_charta_path, class: "btn btn-primary", target: "_blank" %>
+          <br/>
+          <br/><br/>
         </div>
-      </div>
-      <br/>
-
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("thibault-lorin.jpg", alt: "Thibault Lorin", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("t-lorin") %>" target="_blank">Thibault Lorin</a> - Sergent major, enragé volontaire &nbsp
-            <a href="mailto:thibault.lorin@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-
-          <div class="justify">
-            Encore tout jeune chercheur en biologie, et avec un cursus plus général orienté Sciences de la Vie et de la
-            Terre, le projet de Thibault est un projet auquel j'ai tout de suite adhéré.
-            Je suis fermement convaincu que notre rôle en tant que scientifique est de participer à la diffusion du
-            savoir.
-            Repousser les idées reçues et les non-sens scientifiques est plus qu'un devoir,
-            c'est une mission qui me tient à coeur !
-          </div>
-        </div>
-      </div>
-      <br/>
-
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("nicolas-clairis.png", alt: "Nicolas Clairis", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("n-clairis") %>" target="_blank">Nicolas Clairis</a> - Neuro transmetteur &nbsp
-            <a href="mailto:nicolas.clairis@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-          <div class="justify">
-            J'ai obtenu mon master en Biologie à l'ENS en 2014, plutôt orienté vers les neurosciences. Je trouve que
-            l'idée
-            du projet ControverSciences est très intéressante afin de partager et de démocratiser le savoir des
-            scientifiques.
-            Il ne faut pas que ce savoir reste confiné aux 4 murs de nos laboratoires mais que tout le monde puisse y
-            avoir
-            accès aussi facilement que possible.
-          </div>
-        </div>
-      </div>
-      <br/>
-
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("adrien-boniface.png", alt: "Adrien Boniface", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("a-boniface") %>" target="_blank">Adrien Boniface</a> - Agrégé controversé &nbsp
-            <a href="mailto:adrien.boniface@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-          <div class="justify">
-            ControverSciences est un projet ambitieux mais nécessaire,
-            qui donne enfin une voix aux scientifiques pour faire connaître clairement au grand public l'avis de la science sur les questions que les gens se posent,
-            sans parti pris. C'est pour moi une composante fondamentale du rôle des enseignants et des chercheurs dans la société et c'est pourquoi,
-            une fois l'agrégation de SVT en poche,
-            j'ai décidé de me lancer dans l'aventure pour apporter ma pierre à l'édifice.
-          </div>
-        </div>
-      </div>
-      <br/>
-
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("nais-rivel.jpg", alt: "Nais Rivel", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("n-rivel") %>" target="_blank">Nais Rivel</a> - The social network &nbsp
-            <a href="mailto:nais.rivel@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-        </div>
-        <div class="justify">
-          Il y a plusieurs mois Thibault est venu me voir avec un gros projet entre les mains.
-          Je suis la seule personne en Ecole de Commerce au milieu de scientifiques; mais ce jour-là, mon savoir en
-          communication a eu son avantage.
-          Il m’a montré son site, son bébé grenouille, et ses propos passionés m’ont embarquée avec lui !
-          Travailler avec Thibault n’est que du bonheur, on se complète. On apprend chacun de l’autre dans une continuelle
-          quête curieuse. - Seuls ceux sont qui sont assez fous pour croire qu’ils peuvent changer le monde sont ceux qui le font !
-        </div>
-      </div>
-      <br/>
-
-      <div class="row">
-        <div class="pull-left">
-          <%= image_tag("alain-danet.jpg", alt: "Alain Danet", :class => "img-responsive img-rounded img-collectif") %>
-        </div>
-        <div>
-          <h3><a href="<%= user_path("a-danet") %>" target="_blank">Alain Danet</a> - Notre autoroute du soleil &nbsp
-            <a href="mailto:alain.danet@controversciences.org" class="small"><span class="glyphicon glyphicon-envelope"></span></a>
-          </h3>
-        </div>
-      </div>
-      <br/>
-
-      <div class="row">
-        <div>
-          <h3>... Et tant d'autres qui ont apporté leur pierre à l'édifice.</h3>
-        </div>
-      </div>
-      <br/>
-
-      <hr>
-      <div class="row">
-        <div class="col-xs-12 col-md-offset-2 col-md-8">
-          <h5> Comment nous rejoindre ?</h5>
-          <div class="font12">
-            <%= t('views.users.why_slack_html') %>
-          </div>
-        </div>
-      </div>
-      <div class="center">
-        <% if logged_in? %>
-            <a href="<%= slack_users_path %>" class="cadre hvr-grow center">
-              <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
-              <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
-            </a>
-        <% else %>
-            <a href="<%= new_user_path %>" class="cadre hvr-grow center">
-              <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
-              <b style="font-size: 1.4em"><%= t('views.sessions.new_user_slack') %></b>
-            </a>
-        <% end %>
       </div>
     </div>
   </div>
-</div>
-<br/>
-<h5> Et derrière le décor ?</h5>
-<br/>
-
-<div class="row">
-  <div class="col-xs-10 col-xs-offset-1 col-md-offset-0 col-md-12">
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <a href="https://controversciences.slack.com/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("slack.png", alt: "Slack", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>Slack</h3>
-
-          <p style="color: #000000">Slack est une plate-forme de communication collaborative ainsi qu'un logiciel
-            de gestion de projets.
-            C'est un peu le forum ou se retrouve l'équipe de ControverSciences !</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <a href="https://github.com/ThibaultLatrille/ControverSciences" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("github.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7 text-right">
-          <h3>GitHub</h3>
-
-          <p style="color: #000000">GitHub est un service web d'hébergement et de gestion de développement de logiciels,
-            utilisant le logiciel de gestion de versions Git.
-          </p>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <a href="http://rubyonrails.org/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("ruby-on-Rails.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>Ruby on Rails</h3>
-
-          <p style="color: #000000">Ruby on Rails, est un framework web libre écrit en Ruby.
-            En tant que framework, il propose une structure au programmeur qui lui permet de développer plus vite et
-            plus
-            intuitivement.
-            C'est le framework de développement de ControverSciences.
-          </p>
-        </div>
-      </a>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <a href="https://jquery.com/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("jquery.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7 text-right">
-          <h3>Jquery</h3>
-
-          <p style="color: #000000">jQuery est une bibliothèque JavaScript libre et multi-plateforme
-            créée pour faciliter l'écriture de scripts côté client dans le code HTML des pages web.
-            Les pages sur ControverSciences sont intéractives grâce à jQuery.</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <a href="http://getbootstrap.com/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("bootstrap.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>Bootstrap</h3>
-
-          <p style="color: #000000">Twitter Bootstrap est une collection d'outils utiles à la création de sites et
-            d'applications web.
-            On peut le dire, sans Bootstrap ControverSciences serait beaucoup plus moche.
-          </p>
-        </div>
-      </a>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <a href="https://thenounproject.com/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("the-noun-project.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>The Noun Project</h3>
-
-          <p style="color: #000000">The Noun Project est une bibliothèque d'images à la disposition des personnes
-            cherchant des symboles
-            graphiques.
-          </p>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <a href="http://www.postgresql.org/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("postgres.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>PostgreSQL</h3>
-
-          <p style="color: #000000">PostgreSQL est un système de gestion de base de données relationnelle et objet
-            (SGBDRO).
-            La base de données de ControverSciences utilise PostgreSQL. </p>
-        </div>
-      </a>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <a href="https://www.heroku.com/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("heroku.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>Heroku</h3>
-
-          <p style="color: #000000">Heroku est un service de cloud computing de type plate-forme en tant que service.
-            Il permet le déploiement de ControverSciences sur des serveurs. </p>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <a href="https://mailgun.com/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("mailgun.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>MailGun</h3>
-
-          <p style="color: #000000">Mailgun est le service de Rackspace permettant de recevoir, d'envoyer et de suivre
-            les messages
-            électroniques.
-            Il gére les emails (envoyés et reçus) avec le nom de domaine @controversciences.org.
-          </p>
-        </div>
-      </a>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <a href="http://aws.amazon.com/fr/s3/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("aws.png", alt: "Javascript", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>Amazon S3</h3>
-
-          <p style="color: #000000">Amazon S3 (Amazon Simple Storage Service) est un site d'hébergement de fichiers
-            offert par Amazon Web
-            Services.
-            Il stocke les images de ControverSciences.</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-md-6">
-      <a href="https://www.cloudflare.com/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("cloudflare.png", alt: "Ruby on Rails", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>CloudFlare</h3>
-
-          <p style="color: #000000">CloudFlare est un CDN (service de diffusion de contenus) et un service de serveurs
-            de noms de domaines
-            distribués.
-            Il améliore les performances, la sécurité et la rapidité de ControverSciences.</p>
-        </div>
-      </a>
-    </div>
-    <div class="col-xs-12 col-md-6">
-      <a href="http://www.pexels.com/" target="_blank" class="hvr-grow">
-        <div class="col-xs-offset-3 col-xs-6 col-md-offset-0 col-md-4 col-lg-offset-1 col-lg-3">
-          <%= image_tag("pexels.png", alt: "Pexels", :class => "img-responsive img-rounded", style: "width:100%;") %>
-        </div>
-        <div class="col-xs-12 col-md-8 col-lg-7">
-          <h3>Pexels</h3>
-
-          <p style="color: #000000">Images et vidéos libres de droit.</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  </div>
-</div>
-  <br/><br/>
-<h5> Politique de confidentialité</h5>
-<%= link_to t('views.users.terms'), terms_path, class: "btn btn-primary", target: "_blank" %>
-<br/>
-  <br/><br/>
-<h5> La Charte du site</h5>
-<%= link_to t('views.users.magna_charta'), magna_charta_path, class: "btn btn-primary", target: "_blank" %>
-<br/>
-  <br/><br/>
-</div>
-</div>
-</div>
-</div>
 </div>
 
 
