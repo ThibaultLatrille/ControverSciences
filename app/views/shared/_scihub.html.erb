@@ -1,0 +1,13 @@
+<form style="margin-top: 5px" action="http://31.184.194.81/" method="post" target="_blank">
+  <button class="btn btn-default"
+          name="request"
+          value="<%= reference.doi.present? ?
+                         reference.doi
+                             .sub(/^https?\:\/\//, '')
+                             .sub(/^www./,'')
+                             .sub(/^doi:/,'')
+                             .sub(' ','')  : reference.title %>">
+    <span class="bigger icon-pirate"></span>
+    <%= t('views.references.url') + ' ' + t('views.references.sci_hub') %>
+  </button>
+</form>

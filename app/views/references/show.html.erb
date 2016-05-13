@@ -262,14 +262,7 @@
         </div>
         <%= link_to "<span class='glyphicon glyphicon-share-alt'></span> #{t('views.references.url')}".html_safe, @reference.url, class: "break-word btn btn-default", target: "_blank" %>
         <% unless @reference.open_access %>
-            <div style="margin-top: 5px">
-              <a class="btn btn-default"
-                 target="_blank"
-                 href="http://scholar.google.com.secure.sci-hub.io/scholar?q=<%= @reference.title  %>">
-                <span class="bigger icon-pirate"></span>
-                <%= t('views.references.url') + ' ' + t('views.references.sci_hub') %>
-              </a>
-            </div>
+            <%= render 'shared/scihub', reference: @reference %>
         <% end %>
       </li>
       <li class="list-group-item">
