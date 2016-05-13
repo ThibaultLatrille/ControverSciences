@@ -1,0 +1,14 @@
+<% if subscribed %>
+    <button type="button" class="btn btn-success" data-placement="left"
+            data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
+            title="<%= t('views.likes.unsubscribe') %>">
+      <%= t('views.pluralize.subscribed_html', count: timeline.nb_likes) %>
+      </span>
+    </button>
+<% else %>
+    <button type="button" class="btn btn-default green" data-placement="left"
+            data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
+            title="<%= t('views.likes.subscribe') %>">
+      <%= t('views.pluralize.subscribed_html', count: timeline.nb_likes) %>
+    </button>
+<% end %>

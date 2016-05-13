@@ -4,5 +4,13 @@ class PrivateTimeline < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
-  validates_uniqueness_of :timeline_id, :scope => [:user_id]
+  validates_uniqueness_of :user_id, :scope => [:timeline_id]
+
+  after_create :cascading_save
+
+  private
+
+  def cascading_save
+    Like.create(user_id: self.user_id, timeline_id: self.timeline_id)
+  end
 end

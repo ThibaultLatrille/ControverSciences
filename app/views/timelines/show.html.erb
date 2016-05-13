@@ -129,22 +129,22 @@
                       </div>
                       <div class="modal-body">
                         <div class="row">
-                          <div class="col-xs-12 col-md-3">
+                          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
                             <%= link_to image_tag("bib.png", alt: "Bibtex", :class => "img-responsive", style: "width:100%;"),
                                         timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
                                         class: "hvr-grow" %>
                           </div>
-                          <div class="col-xs-12 col-md-3">
+                          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
                             <%= link_to image_tag("xml.png", alt: "Xml", :class => "img-responsive", style: "width:100%;"),
                                         timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
                                         class: "hvr-grow" %>
                           </div>
-                          <div class="col-xs-12 col-md-3">
+                          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
                             <%= link_to image_tag("json.png", alt: "json", :class => "img-responsive", style: "width:100%;"),
                                         timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
                                         class: "hvr-grow" %>
                           </div>
-                          <div class="col-xs-12 col-md-3">
+                          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
                             <%= link_to image_tag("yaml.png", alt: "yaml", :class => "img-responsive", style: "width:100%;"),
                                         timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
                                         class: "hvr-grow" %>
@@ -252,20 +252,8 @@
               <% if logged_in? && @improve_frame %>
                   <%= render 'patches/link_frame', field: 0, frame_id: @improve_frame.id %>
               <% end %>
-              <div class="pull-right">
-                <% if logged_in? && @my_like %>
-                    <button type="button" class="btn btn-success" data-placement="left"
-                            data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                            title="<%= t('views.default.you_and') + " " + t('views.pluralize.likes', count: @timeline.nb_likes - 1) %>">
-                      <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
-                    </button>
-                <% else %>
-                    <button type="button" class="btn btn-default green" data-placement="left"
-                            data-toggle="tooltip" value="<%= @timeline.id %>" data-validate="/likes"
-                            title="<%= t('views.pluralize.likes', count: @timeline.nb_likes) %>">
-                      <span class="glyphicon glyphicon-thumbs-up"> <%= @timeline.nb_likes %></span>
-                    </button>
-                <% end %>
+              <div class="pull-right" style="margin: 8px 5px 0 0">
+                <%= render 'likes/subscription', subscribed: (logged_in? && @my_like), timeline: @timeline %>
               </div>
               <% @timeline.get_tag_list.each do |name| %>
                   <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
@@ -783,11 +771,11 @@
   </div>
 </div>
 
-<%= render 'shared/suscribe' %>
+<%= render 'shared/subscription' %>
 
 <script type="text/javascript">
     $(document).ready(function () {
-        setupSuscribe();
+        setupSubscription();
         $('[data-toggle="tooltip"]').tooltip({container: 'body'});
     });
 </script>

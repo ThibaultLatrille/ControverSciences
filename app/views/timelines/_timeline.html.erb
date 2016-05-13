@@ -35,19 +35,7 @@
                 </div>
             <% end %>
           <div class="pull-right" style="margin-left: 10px">
-            <% if my_likes && my_likes.include?(timeline.id) %>
-                <button type="button" class="btn btn-success" data-placement="left"
-                        data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
-                        title="<%= t('views.default.you_and' ) + " " + t('views.pluralize.likes', count: timeline.nb_likes - 1 ) %>">
-                  <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
-                </button>
-            <% else %>
-                <button type="button" class="btn btn-default green" data-placement="left"
-                        data-toggle="tooltip" value="<%= timeline.id %>" data-validate="/likes"
-                        title="<%= t('views.pluralize.likes', count: timeline.nb_likes ) %>">
-                  <span class="glyphicon glyphicon-thumbs-up"> <%= timeline.nb_likes %></span>
-                </button>
-            <% end %>
+            <%= render 'likes/subscription', subscribed: my_likes && my_likes.include?(timeline.id), timeline: timeline %>
           </div>
           <a href="<%=  timeline_path(timeline) %>">
             <div class="transparent flex hvr-grow1">

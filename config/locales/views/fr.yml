@@ -86,8 +86,11 @@ fr:
         one: "%{count} analyse"
         other: "%{count} analyses"
       likes:
-        one: "%{count} contributeur est intéressé par cette controverse"
-        other: "%{count} contributeurs sont intéressés par cette controverse"
+        one: "%{count} contributeur est abonné à cette controverse"
+        other: "%{count} contributeurs sont abonnés à cette controverse"
+      subscribed_html:
+        one: "<span class='int'>%{count}</span> abonné"
+        other: "<span class='int'>%{count}</span> abonnés"
       loves:
         one: "%{count} contributeur aime ce site"
         other: "%{count} contributeurs aiment ce site"

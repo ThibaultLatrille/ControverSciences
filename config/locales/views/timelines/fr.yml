@@ -245,6 +245,8 @@ fr:
       clic_on: Cliquer sur les buttons
       get_notified: pour être notifié des changements dans ces controverses.
       index: "Ces controverses vous intéressent :"
+      subscribe: Abonnez-vous à cette controverse si vous souhaitez suivre les nouveautés la concernant.
+      unsubscribe: Vous suivez actuellement cette controverse et recevez les nouveautés la concernant.
     my_items:
       new_timeline: Créer une nouvelle controverse
       no_items: Vous n'avez pas encore de contributions. Cette page référence l'ensemble de vos contributions sur le site.

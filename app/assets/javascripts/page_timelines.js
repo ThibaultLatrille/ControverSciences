@@ -14,6 +14,6 @@ $(document).ready(function () {
         $('.timeline-frame', arrayOfNewElems).responsiveEqualHeightGrid();
         $('.timeline-body', arrayOfNewElems).responsiveEqualHeightGrid();
         $('[data-toggle="tooltip"]', arrayOfNewElems).tooltip({container: 'body'});
-        setupSuscribe(arrayOfNewElems);
+        setupSubscription(arrayOfNewElems);
     });
 });
