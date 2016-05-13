@@ -65,6 +65,8 @@
 </head>
 <body>
 <%= render 'layouts/header' %>
+<div id="notifications">
+</div>
 <div id="error-container" class="container-fluid">
   <% flash.each do |message_type, message| %>
       <%= content_tag(:div, message,

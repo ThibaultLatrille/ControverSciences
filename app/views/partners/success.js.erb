@@ -1,4 +1,4 @@
 $('#newpartner').modal('hide');
 $('form > input[type=reset]','#newpartner').trigger('click');
 $('.active','#newpartner').removeClass("active");
-$("#my-container").prepend("<%= escape_javascript(render partial: 'partners/alert') %>");
+$("#notifications").prepend("<%= escape_javascript(render partial: 'partners/alert') %>");
