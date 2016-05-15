@@ -243,7 +243,7 @@ fr:
                       ne soyez pas égoïste, faites-le nous savoir, cette page est là pour ça !
       grammar_html: |-
         Si une <b>faute de français</b> vous a ecorché les yeux, suggérez une amélioration à
-        l'auteur de la contribution avec ce boutton
+        l'auteur de la contribution avec ce bouton
       issue_amelioration: Critique sur le fond
       issue_author: Auteur (facultatif)
       issue_body: Description
