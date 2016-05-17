@@ -100,7 +100,7 @@ fr:
       new_edge: Ajouter des nouveaux liens
       to_timeline: Les liens concernant la controverse
       with_timeline: Liens avec la controverse...
-      with_timelines: Liens avec les controverses
+      with_timelines: Liens avec les controverses 
       add_edge: Ajouter les liens sélectionnés
       impossible: "Opération impossible : vous avez précédemment émis un avis contraire sur ce sujet.
                                  Annulez d'abord votre vote précédent (en cliquant à nouveau sur le bouton correspondant)."
