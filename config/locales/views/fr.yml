@@ -362,12 +362,12 @@ fr:
         dès que la demande sera acceptée.
       pending_confirm: Confirmation en attente
       previous: Contributeur précédent
-      send_email: Etre notifié par email si vous avez des notifications non lues (une fois par semaine)
+      send_email: Recevoir par email les notifications non lues
       terms: Les conditions générales d'utilisation
       magna_charta: La Magna Charta
       website: 'Site web :'
       wrote: a écrit
-      identicon: Générer un identicon
+      identicon: Générer votre identicon
       confirmation_pwd_ok: Votre mot de passe a bien été confirmé.
       confirmation_pwd_fail: Attention, Les deux mots de passe ne sont pas identiques !
     empty:

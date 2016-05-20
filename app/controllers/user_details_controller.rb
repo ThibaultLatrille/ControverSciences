@@ -20,15 +20,13 @@ class UserDetailsController < ApplicationController
                                                                     profil: true ).last.id
       end
     end
+    @user_detail.send_email = @user_detail.frequency == 0 ? false : true
     if @user_detail.save
       flash[:info] = t('controllers.user_updated')
       redirect_to user_path(id: user_id )
     else
-      @user = User.find( user_id )
-      @timelines = Timeline.select(:id, :slug, :name).where(user_id: user_id )
-      @references = Reference.select(:id, :slug, :timeline_id, :title).where(user_id: user_id )
-      @user_detail = user_detail.select(:id, :reference_id, :title_markdown ).where(user_id: user_id )
-      @summaries = Summary.select(:id, :timeline_id, :content ).where(user_id: user_id )
+      @user = User.find(user_id)
+      @user_pwd = User.find(user_id)
       render 'users/edit'
     end
   end
@@ -36,6 +34,6 @@ class UserDetailsController < ApplicationController
   private
 
   def user_detail_params
-    params.require(:user_detail).permit( :job, :institution, :website, :biography, :has_picture, :delete_picture, :send_email)
+    params.require(:user_detail).permit( :job, :institution, :website, :biography, :has_picture, :delete_picture, :send_email, :frequency)
   end
 end

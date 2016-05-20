@@ -60,7 +60,7 @@ class TasksController < ApplicationController
         mg_client.send_message "controversciences.org", message
         @emails ||= 0
         @emails +=1
-        UserDetail.update_counters(@user.user_detail.id, countdown: (15+rand(30)))
+        UserDetail.update_counters(@user.user_detail.id, countdown: @user.user_detail.frequency)
       end
     end
     not_activated_users = User.joins(:user_detail)

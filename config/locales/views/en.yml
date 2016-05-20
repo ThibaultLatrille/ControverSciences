@@ -343,7 +343,7 @@ en:
         as soon as the request is accepted.
       pending_confirm: Confirmation awaiting processing
       previous: Previous contribution
-      send_email: Be notified by email if you have unread notifications (once a week)
+      send_email: Be notified by email if you have unread notifications
       terms: Terms of use
       website: 'Website:'
       wrote: wrote

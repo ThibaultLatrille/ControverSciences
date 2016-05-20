@@ -1,4 +1,15 @@
 module MajHelper
+  def maj_v_14
+    ActiveRecord::Base.transaction do
+      UserDetail.find_each do |user_detail|
+        unless user_detail.send_email
+          user_detail.frequency = 5
+          user_detail.save
+        end
+      end
+    end
+  end
+
   def maj_v_13
     ActiveRecord::Base.transaction do
       Timeline.where.not(binary: "").find_each do |timeline|

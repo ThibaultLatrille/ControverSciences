@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     unless @user_detail
       @user_detail = UserDetail.new(user_id: params[:id])
       @user_detail.send_email = true
+      @user_detail.frequency = 15
     end
   end
 

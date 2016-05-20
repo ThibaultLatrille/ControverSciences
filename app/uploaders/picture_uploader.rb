@@ -79,7 +79,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   end
 
   def is_profil_picture?(picture)
-    model.profil
+    is_image?(self) && model.profil ? true : false
   end
 
 end
