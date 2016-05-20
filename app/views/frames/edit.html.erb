@@ -140,13 +140,6 @@
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS']
     });
-    $('#check-box').click(function () {
-        if ($(this).is(':checked')) {
-            $('#binary-box').show(500)
-        } else {
-            $('#binary-box').hide(500)
-        }
-    });
     $(document).ready(function () {
         if (!$('#check-box').is(':checked')) {
             $('#binary-box').hide()
