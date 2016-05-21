@@ -7,6 +7,7 @@
 <div class="container-fluid">
   <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 center">
     <br>
+    <% if @favorite %>
     <a href="<%= timeline_path(@favorite) %>" class="home-btn btn">
           <span class="full">
             <span class="icon icon-rocket mirrors"></span>
@@ -16,6 +17,8 @@
       Controverse à l'affiche
       <span class="icon icon-rocket bigger"></span> </em>
     </a>
+      <br>
+    <% end %>
     <a href="<%= timelines_path %>" class="home-btn btn">
           <span class="full">
             <span class="icon icon-search"></span>
@@ -26,14 +29,6 @@
       <span class="icon-search bigger"></span> Partez en
       exploration &nbsp;<span class="icon-search bigger mirrors"></span> </em>
     </a>
-    <a href="<%= timelines_graph_path %>" class="home-btn btn">
-          <span class="full">
-            <span class="icon icon-network"></span>
-          </span><b>
-      Les controverses sont-elles liées ? </b><br><em>
-      <span class="icon-network bigger"></span> Carte
-      interactive &nbsp;<span class="icon-network mirrors bigger"></span> </em>
-    </a>
     <a href="<%= discover_path %>" class="home-btn btn">
           <span class="full">
             <span class="icon icon-layers"></span>
@@ -42,15 +37,23 @@
       <span class="icon-layers bigger"></span> Animation &nbsp;<span class="inline icon-layers bigger mirrors"></span>
     </em>
     </a>
-    <a href="<%= contributions_path %>" class="home-btn btn">
+    <a href="<%= timelines_graph_path %>" class="home-btn btn home-btn-sm">
+          <span class="full">
+            <span class="icon icon-network"></span>
+          </span><b>
+      Les controverses sont-elles liées ? </b><br><em>
+      <span class="icon-network bigger"></span> Carte
+      interactive &nbsp;<span class="icon-network mirrors bigger"></span> </em>
+    </a>
+    <a href="<%= contributions_path %>" class="home-btn btn home-btn-sm">
           <span class="full">
             <span class="icon icon-graph-int"></span>
           </span><b>
       ControverSciences évolue-t-il ? </b><br><em>
       <span class="icon-graph-int mirrors bigger"></span> Graphe
-      interactif &nbsp;<span class="icon-graph-int bigger mirrors"></span> </em>
+      interactif &nbsp;<span class="icon-graph-int bigger"></span> </em>
     </a>
-    <a href="<%= tag_pairs_graph_path %>" class="home-btn btn">
+    <a href="<%= tag_pairs_graph_path %>" class="home-btn btn home-btn-sm">
           <span class="full">
             <span class="icon icon-circo"></span>
           </span><b>
@@ -58,7 +61,7 @@
       <span class="icon-circo bigger"></span> Diagramme à cordes
       interactif &nbsp;<span class="icon-circo bigger mirrors"></span> </em>
     </a>
-    <a href="<%= users_path %>" class="home-btn btn">
+    <a href="<%= users_path %>" class="home-btn btn home-btn-sm">
           <span class="full" style="top: 15%">
             <span class="icon icon-users"></span>
           </span><b>
@@ -66,7 +69,7 @@
       <span class="icon-users bigger"></span> Rencontrez les &nbsp; <span class="icon-users bigger mirrors"></span>
     </em>
     </a>
-    <a href="<%= about_path %>" class="home-btn btn">
+    <a href="<%= about_path %>" class="home-btn btn home-btn-sm">
           <span class="full">
             <span class="icon icon-frog"></span>
           </span><b>
@@ -74,7 +77,7 @@
       <span class="icon-frog bigger"></span> Visite des
       locaux &nbsp;<span class="icon-frog mirrors bigger"></span></em>
     </a>
-    <a href="<%= comics_path %>" class="home-btn btn">
+    <a href="<%= comics_path %>" class="home-btn btn home-btn-sm">
           <span class="full">
             <span class="icon icon-superman mirrors"></span>
           </span><b>
@@ -85,7 +88,7 @@
       dessinée &nbsp;<span class="icon-superman mirrors bigger"></span></em>
     </a>
     <% if logged_in? %>
-        <a href="<%= user_path(current_user) %>" class="home-btn btn">
+        <a href="<%= user_path(current_user) %>" class="home-btn btn home-btn-sm">
               <span class="full">
             <span class="icon icon-user"></span>
           </span><b>
@@ -135,7 +138,7 @@
                href="<%= timeline_choices_path(timeline_id: choice.id,
                                                friendly_id: choice.slug,
                                                choices: @choices.map { |t| t.id }) %>"
-               class="home-btn btn" style="font-size: 1.1em">
+               class="home-btn btn home-btn-sm">
                 <span class="full">
             <span class="icon icon-<%= choice.tags.any? ? choice.tags.first.name : nil %>"></span>
           </span>
@@ -144,7 +147,7 @@
         <% end %>
       </div>
       <br>
-      <a href="<%= timelines_path %>" class="home-btn btn"><b>
+      <a href="<%= timelines_path %>" class="home-btn btn" style="font-size: 2em;"><b>
         <% if logged_in? %> Toutes les controverses
         <% else %> Les controverses écloses
         <% end %></b><br><em>

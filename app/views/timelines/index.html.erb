@@ -22,7 +22,7 @@
                   <%= params[:sort]=='nb_references' ? t('views.sorting.nb_references') : nil %>
                   <%= params[:sort]=='nb_comments' ? t('views.sorting.nb_comments') : nil %>
                   <%= params[:sort]=='nb_summaries' ? t('views.sorting.nb_summaries') : nil %>
-                  <%= params[:sort]=='nb_likes' ? t('views.sorting.nb_likes_html') : nil %>
+                  <%= params[:sort]=='nb_likes' ? t('views.sorting.nb_likes') : nil %>
               <% end %>
               <span class="caret"></span>
             </button>
@@ -49,7 +49,7 @@
                 <%= link_to t('views.sorting.nb_summaries'), timelines_path(:sort => 'nb_summaries', :filter => params[:filter], :interest => params[:interest],
                                                                             :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
               <li <%= params[:sort]=='nb_likes' ? "class=selected" : nil %> >
-                <%= link_to t('views.sorting.nb_likes_html'),
+                <%= link_to t('views.sorting.nb_likes'),
                             timelines_path(:sort => 'nb_likes', :interest => params[:interest],
                                            :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
             </ul>

@@ -160,7 +160,7 @@ fr:
       nb_references: Nombre de références
       nb_comments: Nombre d'analyses
       nb_summaries: Nombre de synthèses
-      nb_likes_html: "Nombre de &nbsp<span class=\"glyphicon glyphicon-thumbs-up\"></span>"
+      nb_likes: "Nombre d'abonnés"
       asc: Croissant
       asc_sort: Ordre croissant
       desc: Décroissant (par défaut)
