@@ -121,27 +121,27 @@ $(document).ready(function () {
         return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase()
     };
     $('input#user_first_name').keyup(function () {
-        if ($('input#user_last_name').val() != "" ){
+        if ($('input#user_last_name').val() != '' ){
             var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function(num) {
                 if (num[0]){
                     return num[0].toUpperCase() + '.';
                 } else {
-                    return ""
+                    return ''
                 }
-            }).join("");
+            }).join('');
             var $ln = $('input#user_last_name').val().capitalize();
             $('input#user_name').val($fn + " " + $ln);
         }
     });
     $('input#user_last_name').keyup(function () {
-        if ($('input#user_first_name').val() != "" ){
+        if ($('input#user_first_name').val() != '' ){
             var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function(num) {
                 if (num[0]){
                     return num[0].toUpperCase() + '.';
                 } else {
-                    return ""
+                    return ''
                 }
-            }).join("");
+            }).join('');
             var $ln = $('input#user_last_name').val().capitalize();
             $('input#user_name').val($fn + " " + $ln);
         }

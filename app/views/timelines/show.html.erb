@@ -354,7 +354,7 @@
         </div>
         <div id="uploaded" class="panel-body">
           <div class="content">
-            <% if @timeline.frame != "" %>
+            <% if @timeline.frame != '' %>
                 <% if logged_in? && @improve_frame %>
                     <%= render 'patches/link_frame', field: 1, frame_id: @improve_frame.id %>
                 <% end %>
@@ -462,7 +462,7 @@
 
       <% if @references.any? && !@timeline.binary.blank? &&
               (logged_in? ? Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0).count > 0 :
-                      Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0, title_fr: "").count > 0) %>
+                      Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0, title_fr: '').count > 0) %>
           <%= javascript_include_tag 'chart' %>
 
           <div id="versus-chart" class="row" style="display: none">

@@ -23,7 +23,7 @@ module ReferencesHelper
     end
     begin
       authors_match = /^([\D]+,\s)*\d{4}/.match(fullcit)[1]
-      ref.author = authors_match.nil? ? "" : authors_match[0..-3]
+      ref.author = authors_match.nil? ? '' : authors_match[0..-3]
     rescue StandardError
       logger.warn "The citation doesn't contain authors."
       nil

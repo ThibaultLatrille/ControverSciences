@@ -54,7 +54,7 @@
                     </tr>
                     <tr>
                       <td  class="w520" width="520" >
-                        <h1 style="font-size:30px;line-height:45px;"> <%= t('views.mailer.hello') + (@invitation.target_name.blank? ? "" : " #{@invitation.target_name}" )  %>,
+                        <h1 style="font-size:30px;line-height:45px;"> <%= t('views.mailer.hello') + (@invitation.target_name.blank? ? '' : " #{@invitation.target_name}" )  %>,
                         </h1>
                       </td>
                     </tr>
@@ -62,11 +62,11 @@
                       <td class="w520" width="520" style="line-height:30px">
                         <div>
                           <p>
-                            <% if @invitation.message && @invitation.message.strip != "" %>
+                            <% if @invitation.message && @invitation.message.strip != '' %>
                                 <%= @invitation.message %>
                                 <br/>
                             <% end %>
-                            <% if @invitation.user_name && @invitation.user_name.strip != "" %>
+                            <% if @invitation.user_name && @invitation.user_name.strip != '' %>
                                 <%= @invitation.user_name + " " + t('views.mailer.and') %> <%= link_to "ControverSciences", root_url %> <%= t('views.mailer.invite_you') %>
                             <% else %>
                                 <%= t('views.mailer.participate') %>

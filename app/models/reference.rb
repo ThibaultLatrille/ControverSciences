@@ -171,8 +171,8 @@ class Reference < ActiveRecord::Base
     yield
     if category != self.category
       if self.category == 1
-        Comment.where(reference_id: self.id).update_all(f_1_content: "", f_2_content: "",
-                                                        markdown_1: "", markdown_2: "",
+        Comment.where(reference_id: self.id).update_all(f_1_content: '', f_2_content: '',
+                                                        markdown_1: '', markdown_2: '',
                                                         f_1_balance: 0, f_2_balance: 0,
                                                         f_1_score: 0.0, f_2_score: 0.0)
         CommentJoin.where(reference_id: self.id, field: 1..2).destroy_all
@@ -180,7 +180,7 @@ class Reference < ActiveRecord::Base
         BestComment.where(reference_id: self.id).update_all(f_1_comment_id: nil, f_2_comment_id: nil,
                                                             f_1_user_id: nil, f_2_user_id: nil)
       elsif self.category == 3 || self.category == 4
-        Comment.where(reference_id: self.id).update_all(f_2_content: "", markdown_2: "",
+        Comment.where(reference_id: self.id).update_all(f_2_content: '', markdown_2: '',
                                                         f_2_balance: 0, f_2_score: 0.0)
         CommentJoin.where(reference_id: self.id, field: 2).destroy_all
         Vote.where(reference_id: self.id, field: 2).destroy_all

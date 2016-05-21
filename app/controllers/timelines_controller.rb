@@ -23,7 +23,7 @@ class TimelinesController < ApplicationController
         params[:tag] = params[:tag].split
       end
     end
-    unless params[:tag].blank? || params[:tag] == 'all' || params[:tag] == [""] || params[:tag] == ["all"]
+    unless params[:tag].blank? || params[:tag] == 'all' || params[:tag] == [''] || params[:tag] == ["all"]
       query = query.joins(taggings: :tag)
                   .where(tags: {name: params[:tag]})
     end
@@ -68,7 +68,7 @@ class TimelinesController < ApplicationController
     if timeline_params[:binary] == "1"
       @timeline.binary = "#{timeline_params[:binary_left].strip}&&#{timeline_params[:binary_right].strip}"
     else
-      @timeline.binary = ""
+      @timeline.binary = ''
     end
     if @timeline.binary.downcase == "non&&oui"
       @timeline.binary = "Oui&&Non"
@@ -78,7 +78,7 @@ class TimelinesController < ApplicationController
       redirect_to @timeline
     else
       @tag_list = @timeline.get_tag_list
-      if @timeline.binary != ""
+      if @timeline.binary != ''
         @timeline.binary_left = @timeline.binary.split('&&')[0]
         @timeline.binary_right = @timeline.binary.split('&&')[1]
         @timeline.binary = true
@@ -122,11 +122,11 @@ class TimelinesController < ApplicationController
           @my_like = Like.where(user_id: current_user.id, timeline_id: @timeline.id).count == 1 ? true : false
         end
         @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
-        @titles = Reference.where(timeline_id: @timeline.id, title_fr: "").count
+        @titles = Reference.where(timeline_id: @timeline.id, title_fr: '').count
         ref_query = Reference.order(year: :desc).where(timeline_id: @timeline.id)
                         .select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits)
         unless logged_in?
-          ref_query = ref_query.where.not(title_fr: "")
+          ref_query = ref_query.where.not(title_fr: '')
         end
         @references = ref_query
       end

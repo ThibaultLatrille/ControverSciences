@@ -113,19 +113,19 @@ class Comment < ActiveRecord::Base
           if field == 6
             com = Comment.select(:id, :title).find(best_comment["f_#{field}_comment_id"])
             if com.title == self.title
-              self.title = ""
+              self.title = ''
               flag       = true
             end
           elsif field == 7
             com = Comment.select(:id, :caption).find(best_comment["f_#{field}_comment_id"])
             if com.caption == self.caption
-              self.title = ""
+              self.title = ''
               flag       = true
             end
           else
             com = Comment.select(:id, "f_#{field}_content").find(best_comment["f_#{field}_comment_id"])
             if com["f_#{field}_content"] == self["f_#{field}_content"]
-              self["f_#{field}_content"] = ""
+              self["f_#{field}_content"] = ''
               flag                       = true
             end
           end
@@ -237,8 +237,8 @@ class Comment < ActiveRecord::Base
           best_comment["f_#{field}_user_id"]    = nil
           best_comment["f_#{field}_comment_id"] = nil
           if field == 6
-            Reference.update(self.reference_id, title_fr: "")
-            Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: "").count)
+            Reference.update(self.reference_id, title_fr: '')
+            Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: '').count)
           end
         end
       end
@@ -258,7 +258,7 @@ class Comment < ActiveRecord::Base
           best_comment["f_#{field}_comment_id"] = self.id
           if field == 6
             Reference.update(self.reference_id, title_fr: self.title_markdown)
-            Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: "").count)
+            Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: '').count)
           end
         end
       elsif best_comment["f_#{field}_user_id"] == self.user_id
@@ -270,13 +270,13 @@ class Comment < ActiveRecord::Base
             best_comment["f_#{field}_user_id"]    = nil
             best_comment["f_#{field}_comment_id"] = nil
             if field == 6
-              Reference.update(self.reference_id, title_fr: "")
-              Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: "").count)
+              Reference.update(self.reference_id, title_fr: '')
+              Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: '').count)
             end
           end
         elsif field == 6
           Reference.update(self.reference_id, title_fr: self.title_markdown)
-          Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: "").count)
+          Timeline.update(self.timeline_id, nb_references: Reference.where(timeline_id: self.timeline_id).where.not(title_fr: '').count)
         end
       end
     end
@@ -326,8 +326,8 @@ class Comment < ActiveRecord::Base
   def destroy_with_counters
     empty_best_comment
     if self.public
-      Timeline.decrement_counter(:nb_comments, self.timeline_id)
       Reference.update_counters(self.reference_id, nb_edits: -1)
+      Timeline.update_counters(self.timeline_id, nb_comments: -1)
     else
       User.decrement_counter(:nb_private, self.user_id)
     end

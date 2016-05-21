@@ -43,16 +43,16 @@
               <%= render 'shared/error_messages', object: f.object %>
 
               <%= f.label :job, t('views.users.job') %>
-              <%= f.text_field :job, placeholder: "", class: 'form-control' %>
+              <%= f.text_field :job, placeholder: '', class: 'form-control' %>
               <br/>
               <%= f.label :institution, t('views.users.institution') %>
-              <%= f.text_field :institution, placeholder: "", class: 'form-control' %>
+              <%= f.text_field :institution, placeholder: '', class: 'form-control' %>
               <br/>
               <%= f.label :website, t('views.users.website') %>
               <%= f.text_field :website, placeholder: "http://", class: 'form-control' %>
               <br/>
               <%= f.label :biography, t('views.users.biography') %>
-              <%= f.text_area :biography, placeholder: "", :id => "markdown-textarea", class: 'form-control textarea' %>
+              <%= f.text_area :biography, placeholder: '', :id => "markdown-textarea", class: 'form-control textarea' %>
               <br/>
               <%= f.label :send_email, t('views.users.send_email') %>
               <div id="binary-box" class="btn-group-justified" data-toggle="buttons">
@@ -226,27 +226,27 @@
         return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase()
     };
     $('input#user_first_name').keyup(function () {
-        if ($('input#user_last_name').val() != "") {
+        if ($('input#user_last_name').val() != '') {
             var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function (num) {
                 if (num[0]) {
                     return num[0].toUpperCase() + '.';
                 } else {
-                    return ""
+                    return ''
                 }
-            }).join("");
+            }).join('');
             var $ln = $('input#user_last_name').val().capitalize();
             $('input#user_name').val($fn + " " + $ln);
         }
     });
     $('input#user_last_name').keyup(function () {
-        if ($('input#user_first_name').val() != "") {
+        if ($('input#user_first_name').val() != '') {
             var $fn = $('input#user_first_name').val().replace("-", " ").split(' ').map(function (num) {
                 if (num[0]) {
                     return num[0].toUpperCase() + '.';
                 } else {
-                    return ""
+                    return ''
                 }
-            }).join("");
+            }).join('');
             var $ln = $('input#user_last_name').val().capitalize();
             $('input#user_name').val($fn + " " + $ln);
         }

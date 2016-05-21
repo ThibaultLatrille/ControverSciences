@@ -12,7 +12,7 @@
         </span>
           <br/><br/>
         </h1>
-        <% if frame.content != "" %>
+        <% if frame.content != '' %>
             <%= render 'patches/link_frame', field: 1, frame_id: frame.id %>
             <div class="cadre text-justify content<%= frame.id*10 + 1 %>">
               <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>

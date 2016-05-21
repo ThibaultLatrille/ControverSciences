@@ -12,7 +12,7 @@ class FramesController < ApplicationController
       @frame.content = frame.content
       @frame.timeline_id = params[:timeline_id]
       @frame.binary = frame.binary
-      if @frame.binary != ""
+      if @frame.binary != ''
         @frame.binary_left = @frame.binary.split('&&')[0]
         @frame.binary_right = @frame.binary.split('&&')[1]
         @frame.binary = true
@@ -32,13 +32,13 @@ class FramesController < ApplicationController
     if frame_params[:binary] != "0"
       @frame.binary = "#{frame_params[:binary_left].strip}&&#{frame_params[:binary_right].strip}"
     else
-      @frame.binary = ""
+      @frame.binary = ''
     end
     if @frame.save
       flash[:success] = t('controllers.frame_saved')
       redirect_to frames_path(filter: "mine", timeline_id: @frame.timeline_id)
     else
-      if @frame.binary != ""
+      if @frame.binary != ''
         @frame.binary_left = @frame.binary.split('&&')[0]
         @frame.binary_right = @frame.binary.split('&&')[1]
         @frame.binary = true
@@ -57,7 +57,7 @@ class FramesController < ApplicationController
       redirect_to patches_target_path(frame_id: params[:id])
     else
       @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
-      if @frame.binary != ""
+      if @frame.binary != ''
         @frame.binary_left = @frame.binary.split('&&')[0]
         @frame.binary_right = @frame.binary.split('&&')[1]
         @frame.binary = true
@@ -78,7 +78,7 @@ class FramesController < ApplicationController
         if frame_params[:binary] != "0"
           @frame.binary = "#{frame_params[:binary_left].strip}&&#{frame_params[:binary_right].strip}"
         else
-          @frame.binary = ""
+          @frame.binary = ''
         end
         @frame.content = frame_params[:content]
         @frame.name = frame_params[:name]

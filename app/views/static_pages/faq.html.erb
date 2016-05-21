@@ -86,10 +86,10 @@
                   <%= form_for(:question, url: questions_path, method: :post) do |f| %>
                       <br/>
                       <%= f.label :title %>
-                      <%= f.text_area :title, placeholder: "", :id => "markdown-title", class: 'form-control textarea' %>
+                      <%= f.text_area :title, placeholder: '', :id => "markdown-title", class: 'form-control textarea' %>
                       <br/>
                       <%= f.label :content %>
-                      <%= f.text_area :content, placeholder: "", :id => "markdown-content", class: 'form-control textarea' %>
+                      <%= f.text_area :content, placeholder: '', :id => "markdown-content", class: 'form-control textarea' %>
 
                       <br/>
                       <%= f.button "#{t('views.buttons.save')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,

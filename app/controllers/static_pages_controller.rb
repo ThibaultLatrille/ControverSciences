@@ -15,7 +15,7 @@ class StaticPagesController < ApplicationController
 
   def empty_comments
     query = Reference.includes(:timeline).includes(:reference_user_tags).order(:created_at => :desc)
-                    .where(title_fr: "")
+                    .where(title_fr: '')
     if logged_in?
       @like_ids = Like.where(user_id: current_user.id).pluck(:timeline_id)
       if params[:filter] == "mine"

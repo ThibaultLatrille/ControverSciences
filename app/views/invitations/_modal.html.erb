@@ -36,7 +36,7 @@
               <%= f.text_area :message, class: 'form-control textarea' %>
               <br>
               <%= f.label t('views.invitations.user_name') %>
-              <%= f.text_field :user_name, value: logged_in? ? current_user.name : "", class: 'form-control' %>
+              <%= f.text_field :user_name, value: logged_in? ? current_user.name : '', class: 'form-control' %>
               <br/>
               <div class="actions pull-right">
                 <br/>

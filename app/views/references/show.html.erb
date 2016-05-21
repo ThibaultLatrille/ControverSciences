@@ -3,7 +3,7 @@
 <% if @best_comment && @best_comment.not_empty %>
     <% provide(:meta, @best_comment.first_data.html_safe) %>
 <% else %>
-    <% provide(:meta, "") %>
+    <% provide(:meta, '') %>
 <% end %>
 
 <div id="my-container" class="container-fluid">
@@ -258,7 +258,7 @@
             </div>
         <% end %>
         <div class="bold">
-          <%= @reference.open_access ? "<span class=\"icon icon-lock normal\"></span> #{t('views.references.open_access')}".html_safe : "" %>
+          <%= @reference.open_access ? "<span class=\"icon icon-lock normal\"></span> #{t('views.references.open_access')}".html_safe : '' %>
         </div>
         <%= link_to "<span class='glyphicon glyphicon-share-alt'></span> #{t('views.references.url')}".html_safe, @reference.url, class: "break-word btn btn-default", target: "_blank" %>
         <% unless @reference.open_access %>

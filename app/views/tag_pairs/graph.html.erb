@@ -221,7 +221,7 @@
                 .attr("transform", function (d) {
                     return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
                             + "translate(" + (r0 + 26) + ")"
-                            + (d.angle > Math.PI ? "rotate(180)" : "");
+                            + (d.angle > Math.PI ? "rotate(180)" : '');
                 })
                 .text(function (d) {
                     return tag_hash[rdr(d).gname];

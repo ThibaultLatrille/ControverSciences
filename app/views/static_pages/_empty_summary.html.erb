@@ -29,13 +29,13 @@
           </div>
         </div>
       </div>
-      <% if empty_summary.frame != "" %>
+      <% if empty_summary.frame != '' %>
           <div class="cadre text-justify">
             <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
             <%= empty_summary.frame.html_safe %>
           </div>
       <% end %>
-      <% if empty_summary.binary != "" %>
+      <% if empty_summary.binary != '' %>
           <div class="center">
             <br/>
             <b style="font-size: 2.2em"><%= empty_summary.binary.split('&&')[0].humanize -%></b>

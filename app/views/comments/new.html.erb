@@ -200,7 +200,7 @@
                       </div>
                   <% end %>
                   <div class="bold">
-                    <%= @myreference.open_access ? "<span class=\"icon icon-lock normal\"></span> #{t('views.references.open_access')}".html_safe : "" %>
+                    <%= @myreference.open_access ? "<span class=\"icon icon-lock normal\"></span> #{t('views.references.open_access')}".html_safe : '' %>
                   </div>
                   <%= link_to "<span class='glyphicon glyphicon-share-alt'></span> #{t('views.references.url')}".html_safe, @myreference.url, class: "break-word btn btn-default", target: "_blank" %>
                   <% unless @myreference.open_access %>

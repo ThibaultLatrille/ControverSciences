@@ -23,18 +23,18 @@
       <div class="list-group">
         <%= link_to "<span class=\"icon-comment bigger\"></span>
                                     #{t('views.empty.comments')}
-                                    <span class=\"badge\">#{Reference.where(title_fr: "").count}</span>".html_safe,
+                                    <span class=\"badge\">#{Reference.where(title_fr: '').count}</span>".html_safe,
                     empty_comments_path,
                     class: "list-group-item clearfix" %>
         <% if logged_in? %>
             <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up bigger\"></span>
                         #{t('views.empty.my_comments')}
-                        <span class=\"badge\">#{Reference.where(timeline_id: @like_ids).where(title_fr: "").count}</span>".html_safe,
+                        <span class=\"badge\">#{Reference.where(timeline_id: @like_ids).where(title_fr: '').count}</span>".html_safe,
                         empty_comments_path(filter: "interest"),
                         class: "list-group-item clearfix" %>
             <%= link_to "<span class=\"icon-user bigger\"></span>
                                 #{t('views.header.empty_comments')}
-                                <span class=\"badge\">#{Reference.where(user_id: current_user.id).where(title_fr: "").count}</span>".html_safe,
+                                <span class=\"badge\">#{Reference.where(user_id: current_user.id).where(title_fr: '').count}</span>".html_safe,
                         empty_comments_path(filter: "mine"),
                         class: "list-group-item clearfix" %>
         <% end %>
@@ -44,18 +44,18 @@
                                     #{t('views.empty.summaries')}
                                     <span class=\"badge\">#{Timeline.where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).where.not(private: true).count}</span>".html_safe,
                     empty_summaries_path,
-                    class: "list-group-item clearfix #{ ((!logged_in?)||(params[:filter].blank?)) ? "list-group-item-default cursor-not-allowed" : ""}" %>
+                    class: "list-group-item clearfix #{ ((!logged_in?)||(params[:filter].blank?)) ? "list-group-item-default cursor-not-allowed" : ''}" %>
         <% if logged_in? %>
             <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up bigger\"></span>
                         #{t('views.empty.my_summaries')}
                         <span class=\"badge\">#{Timeline.where(id: @like_ids).where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).where.not(private: true).count}</span>".html_safe,
                         empty_summaries_path(filter: "interest"),
-                        class: "list-group-item clearfix #{ (params[:filter] == "interest") ? "list-group-item-default cursor-not-allowed" : ""}" %>
+                        class: "list-group-item clearfix #{ (params[:filter] == "interest") ? "list-group-item-default cursor-not-allowed" : ''}" %>
             <%= link_to "<span class=\"icon-user bigger\"></span>
                                 #{t('views.header.empty_summaries')}
                                 <span class=\"badge\">#{Timeline.where(user_id: current_user.id).where(nb_summaries: 0).where.not(nb_references: 0..3).where.not(nb_comments: 0..3).where.not(private: true).count}</span>".html_safe,
                         empty_summaries_path(filter: "mine"),
-                        class: "list-group-item clearfix #{ (params[:filter] == "mine") ? "list-group-item-default cursor-not-allowed" : ""}" %>
+                        class: "list-group-item clearfix #{ (params[:filter] == "mine") ? "list-group-item-default cursor-not-allowed" : ''}" %>
         <% end %>
       </div>
     </div>

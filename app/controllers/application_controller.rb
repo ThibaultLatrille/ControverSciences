@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
         current_user.timelines_count = Timeline.where(user_id: current_user.id, private: true).count
       else
         current_user.empty_references = Timeline.where(user_id: current_user.id, nb_references: 0..3).count
-        current_user.empty_comments   = Reference.where(user_id: current_user.id, title_fr: "").count
+        current_user.empty_comments   = Reference.where(user_id: current_user.id, title_fr: '').count
         current_user.empty_summaries  = Timeline.where(user_id: current_user.id, nb_summaries: 0)
                                             .where.not(nb_references: 0..3).count
         current_user.invited = PrivateTimeline.where(user_id: current_user.id).count

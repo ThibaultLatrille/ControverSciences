@@ -96,7 +96,7 @@ class Timeline < ActiveRecord::Base
   def nb_suggestions
     nb = self.suggestion.children
     if nb == 0
-      ""
+      ''
     elsif nb == 1
       " (#{nb} réponse)"
     else
@@ -196,7 +196,7 @@ class Timeline < ActiveRecord::Base
   private
 
   def binary_valid
-    if self.binary != ""
+    if self.binary != ''
       if self.binary.split('&&')[0].blank?
         errors.add(:base, I18n.t('activerecord.attributes.timeline.binary') + " " + I18n.t('errors.messages.empty'))
       elsif self.binary.split('&&')[0].length > 20

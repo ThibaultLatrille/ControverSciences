@@ -44,7 +44,7 @@ class TasksController < ApplicationController
                 .where.not(user_details: {send_email: false})
                 .where(user_details: {countdown: 0})
                 .where(activated: true)
-    @empty_comments = Reference.where(title_fr: "").count
+    @empty_comments = Reference.where(title_fr: '').count
     @empty_summaries = Timeline.where(nb_summaries: 0).where.not(private: true).where.not(nb_references: 0..3).count
     @empty_references = Timeline.where(nb_references: 0..3).where.not(private: true).count
     mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']

@@ -8,7 +8,7 @@ class TagPairsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        headers['Content-Disposition'] = "attachment; filename=\"reference-pairs\""
+        headers['Content-Disposition'] = "attachment; filename=\"reference-pairs\''
         headers['Content-Type'] ||= 'text/csv'
       end
     end
@@ -19,7 +19,7 @@ class TagPairsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        headers['Content-Disposition'] = "attachment; filename=\"timeline-pairs\""
+        headers['Content-Disposition'] = "attachment; filename=\"timeline-pairs\''
         headers['Content-Type'] ||= 'text/csv'
       end
     end

@@ -233,7 +233,7 @@ module ApplicationHelper
       when 5
         return text + I18n.t('helpers.binary_value_5') + binary.split('&&')[1].downcase + "."
       else
-        return ""
+        return ''
     end
   end
 
