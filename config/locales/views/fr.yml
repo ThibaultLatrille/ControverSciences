@@ -362,7 +362,7 @@ fr:
         dès que la demande sera acceptée.
       pending_confirm: Confirmation en attente
       previous: Contributeur précédent
-      send_email: Recevoir par email les notifications non lues
+      send_email: "Fréquence d'envoi d'emails si vous avez des notifications non lues :"
       terms: Les conditions générales d'utilisation
       magna_charta: La Magna Charta
       website: 'Site web :'

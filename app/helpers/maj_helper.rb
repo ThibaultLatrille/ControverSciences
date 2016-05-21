@@ -3,7 +3,7 @@ module MajHelper
     ActiveRecord::Base.transaction do
       UserDetail.find_each do |user_detail|
         unless user_detail.send_email
-          user_detail.frequency = 5
+          user_detail.frequency = 0
           user_detail.save
         end
       end

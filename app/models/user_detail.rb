@@ -5,6 +5,7 @@ class UserDetail < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates_uniqueness_of :user_id
+  validates :frequency, presence: true, inclusion: { in: [0, 1, 7, 15, 30]}
 
   before_save :save_with_markdown
 
