@@ -216,8 +216,8 @@ fr:
     header:
       login: S'identifier
       patches:
-        one: Correction en attente
-        other: Corrections en attente
+        one: Suggestion en attente
+        other: Suggestions en attente
       dead_links:
         one: Lien mort
         other: Liens morts
@@ -235,6 +235,9 @@ fr:
       news:
         one: Nouveauté
         other: Nouveautés
+      pending_patches:
+        one: Votre suggestion
+        other: Vos suggestions
     footer:
       about: " A propos"
       close: Fermer

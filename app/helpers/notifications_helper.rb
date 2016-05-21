@@ -9,7 +9,26 @@ module NotificationsHelper
      frame: 8,
      frame_selection: 9,
      suggestion: 10,
-     suggestion_child: 11}
+     suggestion_child: 11,
+     patch_frame: 12,
+     patch_summary: 13,
+     patch_comment: 14}
+  end
+
+  def category_to_model_hash
+    {1 => :timeline_id,
+     2 => :reference_id,
+     3 => :summary_id,
+     4 => :summary_id,
+     5 => :comment_id,
+     6 => :comment_id,
+     8 => :frame_id,
+     9 => :frame_id,
+     10 => :suggestion_id,
+     11 => :suggestion_child_id,
+     12 => :frame_id,
+     13 => :summary_id,
+     14 => :comment_id}
   end
 
   def total_new_content(hash)
@@ -17,7 +36,11 @@ module NotificationsHelper
   end
 
   def total_new_selection(hash)
-    hash[4] + hash[6] +hash[9]
+    hash[4] + hash[6] + hash[9]
+  end
+
+  def total_new_patch(hash)
+    hash[12] + hash[13] + hash[14]
   end
 
   def notification_model_query(category)
@@ -32,13 +55,13 @@ module NotificationsHelper
         when 2
           query = Reference.select(:id, :slug, :timeline_id, :title, :user_id, :created_at)
                       .includes(:timeline, :user)
-        when 3, 4
+        when 3, 4, 13
           query = Summary.select(:id, :timeline_id, :user_id, :created_at)
                       .includes(:timeline, :user)
-        when 5
+        when 5, 14
           query = Comment.select(:id, :timeline_id, :reference_id, :user_id, :created_at)
                       .includes(:timeline, :reference, :user)
-        when 8, 9
+        when 8, 9, 12
           query = Frame.select(:id, :timeline_id, :user_id, :created_at)
                       .includes(:timeline, :user)
         when 10
@@ -52,18 +75,5 @@ module NotificationsHelper
       end
       query.joins(:notifications).where(notifications: {user_id: current_user.id, category: category})
     end
-  end
-
-  def category_to_model_hash
-    {1 => :timeline_id,
-     2 => :reference_id,
-     3 => :summary_id,
-     4 => :summary_id,
-     5 => :comment_id,
-     6 => :comment_id,
-     8 => :frame_id,
-     9 => :frame_id,
-     10 => :suggestion_id,
-     11 => :suggestion_child_id}
   end
 end

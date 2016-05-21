@@ -127,6 +127,12 @@
                                 user_path(current_user) %> </li>
                 <li><%= link_to "<span class=\"fat icon-techno\"></span> #{t('views.users.edit')}".html_safe,
                             edit_user_path(current_user) %></li>
+                <% if !current_user.private_timeline && current_user.pending_patches > 0 %>
+                    <li class="divider"></li>
+                    <li class="my-missing"><%= link_to "<b><span class=\"badge badge-li\">
+                    #{current_user.pending_patches }</span> #{t('views.header.pending_patches', count: current_user.pending_patches)} </b>".html_safe,
+                                                       user_patches_path %> </li>
+                <% end %>
                 <% if !current_user.private_timeline && current_user.notifications_all > 0 %>
                     <li class="divider"></li>
                     <li class="my-missing"><%= link_to "<b><span class=\"badge badge-li\">

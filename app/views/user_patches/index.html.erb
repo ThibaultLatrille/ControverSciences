@@ -1,12 +1,12 @@
-<% provide(:title, "Notifications") %>
+<% provide(:title, "Vos ") %>
 <%= javascript_include_tag 'diff_match_patch' %>
-
+<h1></h1>
 <div id="my-container" class="container-fluid">
   <div class="row">
     <div class="col-xs-12 col-lg-8 col-lg-offset-2">
       <div class="panel panel-primary">
-        <% if @patch %>
-            <%= render 'patches/mine', patch: @patch %>
+        <% @user_patches.each do |user_patch| %>
+            <%= render 'patches/mine', patch: user_patch.go_patch %>
         <% end %>
       </div>
     </div>
@@ -14,4 +14,5 @@
 </div>
 
 <%= javascript_include_tag 'prettyDiff' %>
+
 

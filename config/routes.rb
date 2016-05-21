@@ -81,6 +81,7 @@ Rails.application.routes.draw do
   end
   resources :timeline_choices, only: [:create]
   resources :patch_messages, only: [:destroy]
+  resources :user_patches, only: [:index]
   post 'notifications/delete'
   delete 'logout' => 'sessions#destroy'
   get 'voronoi' => 'static_pages#voronoi'

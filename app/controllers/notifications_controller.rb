@@ -58,11 +58,11 @@ class NotificationsController < ApplicationController
         redirect_to timeline_path(notification_params)
       when 2
         redirect_to reference_path(notification_params)
-      when 3, 4
+      when 3, 4, 13
         redirect_to summary_path(notification_params)
-      when 5, 6
+      when 5, 6, 14
         redirect_to comment_path(notification_params)
-      when 8, 9
+      when 8, 9, 12
         redirect_to frame_path(notification_params)
       when 10
         redirect_to suggestion_path(notification_params)

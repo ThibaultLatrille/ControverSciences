@@ -2,6 +2,7 @@ class GoPatch < ActiveRecord::Base
   include ApplicationHelper
 
   has_many :patch_messages
+  has_many :user_patches, dependent: :destroy
   belongs_to :user
   belongs_to :frame
   belongs_to :summary
@@ -16,7 +17,8 @@ class GoPatch < ActiveRecord::Base
   validates_numericality_of :counter, :only_integer => true,
                             :greater_than_or_equal_to => 1
 
-  before_destroy :reset_patch_messages
+  before_destroy :send_notification_and_reset, prepend: true
+  after_save :create_user_patch
 
   def parent_content_accessor
     if !summary_id.blank?
@@ -167,7 +169,24 @@ class GoPatch < ActiveRecord::Base
     end
   end
 
-  def reset_patch_messages
+  def send_notification_and_reset
     PatchMessage.where(go_patch_id: self.id).update_all(go_patch_id: nil)
+    notifications = []
+    category = self.frame_id.present? ? 12 : (self.summary_id.present? ? 13 : 14)
+    self.user_patches.each do |user_patch|
+      notifications << Notification.new(user_id: user_patch.user_id,
+                                        frame_id: self.frame_id,
+                                        summary_id: self.summary_id,
+                                        comment_id: self.comment_id,
+                                        category: category)
+    end
+    Notification.import notifications
+  end
+
+  private
+
+  def create_user_patch
+    UserPatch.find_or_initialize_by(go_patch_id: self.id,
+                                  user_id: self.user_id).save
   end
 end

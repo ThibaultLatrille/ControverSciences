@@ -1,0 +1,34 @@
+<br>
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <b style="font-size: 1.2em">
+          Des suggestions pour cette contribution existent déjà et attendent leur validation par l'auteur, mais vous
+          pouvez en ajouter.
+        </b>
+      </div>
+      <div class="panel-body">
+        <b>
+          <%= render 'patches/parent_header', patch: patch %>
+        </b>
+        <br/>
+        <br/>
+
+        <div class="pretty">
+          <div id="original" style="display: none"><%= patch.parent_content %></div>
+          <div id="patches" style="display: none"><%= patch.content %></div>
+          <div id="diff"></div>
+        </div>
+        <br/>
+        <%= link_to "<span class=\"fat icon-bug-#{rand(18)}\"></span> Ajouter des suggestions".html_safe,
+                    new_patch_path(frame_id: patch.frame_id,
+                                   comment_id: patch.comment_id,
+                                   summary_id: patch.summary_id,
+                                   field: patch.field, edit: true),
+                    class: "btn btn-primary pull-right",
+                    style: "padding: 8px; margin: 0px 8px;" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
                                             .where.not(nb_references: 0..3).count
         current_user.invited = PrivateTimeline.where(user_id: current_user.id).count
         current_user.notif_patches = GoPatch.where(target_user_id: current_user.id).sum(:counter)
+        current_user.pending_patches = UserPatch.where(user_id: current_user.id).count
         if current_user.can_switch_admin
           current_user.admin_patches = GoPatch.where.not(target_user_id: current_user.id ).sum(:counter)
           current_user.admin_dead_links = DeadLink.all.count

@@ -48,6 +48,23 @@
                 <% end %>
               </div>
           <% end %>
+          <% if total_new_patch(@category_count) > 0 %>
+              <div class="list-group">
+                <div class="list-group-item">
+                  <%= t('views.notifications.patches') %>
+                </div>
+                <% {patch_frame: t('views.model.frames'),
+                    patch_summary: t('views.model.summaries'),
+                    patch_comment: t('views.model.comments')}.each do |key, value| %>
+                    <% if @category_count[sym_to_int_notifs_hash[key]] > 0 %>
+                        <%= link_to "<span class=\"badge\">#{@category_count[sym_to_int_notifs_hash[key]]}</span>
+                    <span class=\"icon-bug-#{rand(18)} font16\"></span> &nbsp ".html_safe+value,
+                                    notifications_index_path(filter: key),
+                                    class: "list-group-item" %>
+                    <% end %>
+                <% end %>
+              </div>
+          <% end %>
         </div>
         <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
           <div class="panel panel-default">
@@ -91,14 +108,14 @@
                   <% end %>
                   </tbody>
                 </table>
-                <%= paginate @models %>
-
-            <% elsif @filter == :frame or @filter == :frame_selection %>
+            <% elsif @filter == :frame  or @filter == :frame_selection or @filter == :patch_frame %>
                 <div class="panel-heading">
                   <% if @filter == :frame %>
                       <%= t('views.notifications.new_frames') %>
-                  <% else %>
+                  <% elsif filter == :frame_selection %>
                       <%= t('views.notifications.best_frames') %>
+                  <% else %>
+                      <%= t('views.notifications.patch_frames') %>
                   <% end %>
                   (<%= @models.length %>)
                 </div>
@@ -135,14 +152,14 @@
                   <% end %>
                   </tbody>
                 </table>
-                <%= paginate @models %>
-
-            <% elsif @filter == :summary or @filter == :summary_selection %>
+            <% elsif @filter == :summary or @filter == :summary_selection or @filter == :patch_summary %>
                 <div class="panel-heading">
                   <% if @filter == :summary %>
                       <%= t('views.notifications.new_summaries') %>
-                  <% else %>
+                  <% elsif @filter == :summary_selection %>
                       <%= t('views.notifications.best_summaries') %>
+                  <% else %>
+                      <%= t('views.notifications.patch_summary') %>
                   <% end %>
                   (<%= @models.length %>)
                 </div>
@@ -180,8 +197,6 @@
                   <% end %>
                   </tbody>
                 </table>
-                <%= paginate @models %>
-
             <% elsif @filter == :reference %>
                 <div class="panel-heading">
                   <%= t('views.notifications.new_references') %> (<%= @models.length %>)
@@ -220,11 +235,14 @@
                   <% end %>
                   </tbody>
                 </table>
-                <%= paginate @models %>
-
-            <% elsif @filter == :comment %>
+            <% elsif @filter == :comment or @filter == :patch_comment%>
                 <div class="panel-heading">
-                  <%= t('views.notifications.new_comments') %> (<%= @models.length %>)
+                  <% if @filter == :comment %>
+                      <%= t('views.notifications.new_comments') %>
+                <% else %>
+                      <%= t('views.notifications.patch_comment') %>
+                  <% end %>
+                  (<%= @models.length %>)
                 </div>
                 <table id="notification-timelines" class="table table-striped table-hover">
                   <thead>
@@ -262,8 +280,6 @@
                   <% end %>
                   </tbody>
                 </table>
-                <%= paginate @models %>
-
             <% elsif @filter == :selection %>
                 <div class="panel-heading">
                   <%= t('views.notifications.best_comments') %>
@@ -307,7 +323,6 @@
                   <% end %>
                   </tbody>
                 </table>
-                <%= paginate @models %>
             <% elsif @filter == :suggestion or @filter == :suggestion_child %>
                 <div class="panel-heading">
                   Les nouveaux commentaires sur controversciences
@@ -349,8 +364,10 @@
                   <% end %>
                   </tbody>
                 </table>
-                <%= paginate @models %>
             <% end %>
+          </div>
+          <div>
+            <%= paginate @models %>
           </div>
         </div>
         <div class="col-xs-12 col-sm-4 col-sm-offset-4 col-md-2 col-md-offset-5 col-lg-offset-0 col-lg-2">
