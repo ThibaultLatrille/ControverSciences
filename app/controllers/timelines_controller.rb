@@ -10,8 +10,11 @@ class TimelinesController < ApplicationController
   end
 
   def index
-    if params[:sort] == "nb_edits"
-      params[:sort] = :nb_comments
+    if params[:sort] == 'nb_edits'
+      params[:sort] = 'nb_comments'
+    end
+    unless %w(score score_recent created_at nb_contributors nb_references  nb_comments nb_summaries nb_likes).include? params[:sort]
+      params[:sort] = 'score'
     end
     params[:order] = (params[:order].present? && (params[:order] == 'asc' || params[:order] == 'desc')) ? params[:order] : "desc"
     query = Timeline.includes(:tags).order(params[:sort].blank? ? :score : params[:sort].to_sym => params[:order],
