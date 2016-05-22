@@ -764,7 +764,7 @@ ActiveRecord::Schema.define(version: 20160521123529) do
     t.boolean  "send_email",                   default: true
     t.hstore   "profil"
     t.integer  "countdown",                    default: 15
-    t.integer  "frequency",                    default: 0
+    t.integer  "frequency",                    default: 15
   end
 
   add_index "user_details", ["figure_id"], name: "index_user_details_on_figure_id", using: :btree
