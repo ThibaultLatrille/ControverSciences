@@ -112,7 +112,7 @@
                 <div class="panel-heading">
                   <% if @filter == :frame %>
                       <%= t('views.notifications.new_frames') %>
-                  <% elsif filter == :frame_selection %>
+                  <% elsif @filter == :frame_selection %>
                       <%= t('views.notifications.best_frames') %>
                   <% else %>
                       <%= t('views.notifications.patch_frames') %>
