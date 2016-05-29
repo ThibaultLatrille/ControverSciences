@@ -1,9 +1,6 @@
 $("body").append("<%= escape_javascript(render partial: 'patches/modal',
         locals: { patch: @patch } ) %>");
 $('#newpatch').modal('show');
-$('#newpatch').on('shown.bs.modal', function () {
-    autosize($('textarea', "#newpatch"));
-});
 $("#newpatch").on('hidden.bs.modal', function () {
     $(this).remove()
 });

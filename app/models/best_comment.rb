@@ -29,15 +29,23 @@ class BestComment < ActiveRecord::Base
   end
 
   def authors
-    list = []
-    for fi in 0..7 do
-      list << self["f_#{fi}_user_id".to_sym]
-    end
-    list.compact.uniq
+    self.editors.length + self.contributors.count
   end
 
-  def user_name( fi )
-    User.select( :name ).find( self["f_#{fi}_user_id".to_sym] ).name
+  def editors
+    (0..7).map{ |fi| self["f_#{fi}_user_id".to_sym] }.compact.uniq
+  end
+
+  def contributors
+    ContributorComment.where(comment_id: (0..7).map{ |fi| self["f_#{fi}_comment_id".to_sym] }.compact.uniq)
+  end
+
+  def user_name( fi=false )
+    User.select( :name ).find( fi.present? ? self["f_#{fi}_user_id".to_sym] : self.editors.first ).name
+  end
+
+  def user_id
+    self.editors.first
   end
 
   def user_fi_id( fi )

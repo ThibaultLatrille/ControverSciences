@@ -19,7 +19,7 @@
         <%= summary.markdown.html_safe %>
             <div class="pull-right">
               <%= "#{t('views.default.published')} #{time_ago_in_words(summary.created_at)} #{t('views.default.by')}" %>
-              <%= link_to summary.user_name, user_path(summary.user_id) %>
+              <%= render 'users/link_contributors', model: summary %>
             </div>
         <% if summary.summary_links.count > 0 %>
             <hr style="width: 250px"/>

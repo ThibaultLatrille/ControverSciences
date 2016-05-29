@@ -123,7 +123,7 @@
     <% end %>
     <div class="cadre pull-right">
       <%= "#{t('views.default.published')} #{time_ago_in_words(frame.created_at)} #{t('views.default.by')}" %>
-      <%= link_to frame.user_name, user_path(frame.user_id) %>
+      <%= render 'users/link_contributors', model: frame %>
     </div>
     <% if logged_in? %>
         <div class="panel-heading">

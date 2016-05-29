@@ -60,6 +60,11 @@
       <% end %>
     </ul>
 <% end %>
+<div class="clearfix">
+  <div class="pull-right">
+    <%= render 'users/link_contributors', model: best_comment %>
+  </div>
+</div>
 <% @ref.get_tag_list.each do |name| %>
     <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
                 timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),

@@ -13,6 +13,18 @@
       <% if (patch.target_user_id == current_user.id || current_user.admin  ) && patch.patch_messages.any? %>
           <%= render 'patch_messages/messages', patch_messages: patch.patch_messages %>
       <% end %>
+      <br>
+      <% if patch.user_patches.any? %>
+        Suggestions par :
+          <% patch.user_patches.each_with_index do |user_patch, index| %>
+          <%= link_to user_patch.user.name, user_path(user_patch.user) %>
+              <% if index < patch.user_patches.length - 2  %>
+              ,
+              <% elsif index == patch.user_patches.length - 2 %>
+               et
+              <% end %>
+          <% end %>
+      <% end %>
       <div class="pull-right">
         <div id="accept-patches" class="btn btn-success"
              data-frame-id="<%= patch.frame_id %>"

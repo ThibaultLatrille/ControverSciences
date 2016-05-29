@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160529151451) do
+ActiveRecord::Schema.define(version: 20160529183704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,36 @@ ActiveRecord::Schema.define(version: 20160529151451) do
   add_index "comments", ["reference_id"], name: "index_comments_on_reference_id", using: :btree
   add_index "comments", ["timeline_id"], name: "index_comments_on_timeline_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "contributor_comments", force: :cascade do |t|
+    t.integer  "comment_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "contributor_comments", ["comment_id"], name: "index_contributor_comments_on_comment_id", using: :btree
+  add_index "contributor_comments", ["user_id"], name: "index_contributor_comments_on_user_id", using: :btree
+
+  create_table "contributor_frames", force: :cascade do |t|
+    t.integer  "frame_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "contributor_frames", ["frame_id"], name: "index_contributor_frames_on_frame_id", using: :btree
+  add_index "contributor_frames", ["user_id"], name: "index_contributor_frames_on_user_id", using: :btree
+
+  create_table "contributor_summaries", force: :cascade do |t|
+    t.integer  "summary_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "contributor_summaries", ["summary_id"], name: "index_contributor_summaries_on_summary_id", using: :btree
+  add_index "contributor_summaries", ["user_id"], name: "index_contributor_summaries_on_user_id", using: :btree
 
   create_table "credits", force: :cascade do |t|
     t.integer  "user_id"
@@ -848,6 +878,12 @@ ActiveRecord::Schema.define(version: 20160529151451) do
   add_index "votes", ["reference_id"], name: "index_votes_on_reference_id", using: :btree
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
+  add_foreign_key "contributor_comments", "comments"
+  add_foreign_key "contributor_comments", "users"
+  add_foreign_key "contributor_frames", "frames"
+  add_foreign_key "contributor_frames", "users"
+  add_foreign_key "contributor_summaries", "summaries"
+  add_foreign_key "contributor_summaries", "users"
   add_foreign_key "patch_messages", "go_patches"
   add_foreign_key "patch_messages", "users"
   add_foreign_key "user_patches", "go_patches"

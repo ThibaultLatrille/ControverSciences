@@ -1,0 +1,8 @@
+<% if model.authors > 1 %>
+    <%= link_to "#{model.user_name} <i><b> et al</b></i>".html_safe,
+                contributors_path(editors: model.editors,
+                                  contributors: model.contributors.map(&:user_id)),
+                remote: true %>
+<% else %>
+    <%= link_to model.user_name, user_path(model.user_id)%>
+<% end %>

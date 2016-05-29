@@ -363,7 +363,7 @@
             <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 1 %>">
               <%= @timeline.frame.html_safe %>
               <span class="pull-right">
-                <%= link_to @improve_frame.user_name, user_path(@improve_frame.user_id) %>
+                <%= render 'users/link_contributors', model: @improve_frame %>
                 </span>
            </span>
                 </div>
@@ -408,8 +408,8 @@
                     <%= @summary.markdown.html_safe %>
 
                     <span class="pull-right">
-                <%= link_to @summary.user_name, user_path(@summary.user_id) %>
-            </span>
+                      <%= render 'users/link_contributors', model: @summary %>
+                    </span>
                     <br/>
                     <br/>
                     <% if logged_in? %>

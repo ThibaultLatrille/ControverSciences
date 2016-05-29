@@ -37,7 +37,8 @@
        <% end %>
     <% end %>
     <div class="pull-right">
-      <%= "#{t('views.default.published')} #{time_ago_in_words(comment.created_at)} #{t('views.default.by')}" %> <%= link_to comment.user_name, user_path(comment.user_id ) %>
+      <%= "#{t('views.default.published')} #{time_ago_in_words(comment.created_at)} #{t('views.default.by')}" %>
+      <%= render 'users/link_contributors', model: comment %>
     </div>
   </span>
   </div>

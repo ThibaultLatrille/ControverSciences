@@ -16,6 +16,10 @@ class Comment < ActiveRecord::Base
   has_many :comment_joins, dependent: :destroy
   has_many :go_patches, dependent: :destroy
   has_many :patch_messages, dependent: :destroy
+  has_many :user_patches, dependent: :destroy
+  has_many :contributor_comments, dependent: :destroy
+
+  alias_method :contributors, :contributor_comments
 
   after_create :cascading_create_comment
 
@@ -29,6 +33,14 @@ class Comment < ActiveRecord::Base
 
   def user_name
     User.select(:name).find(self.user_id).name
+  end
+
+  def authors
+    1 + self.contributors.count
+  end
+
+  def editors
+    [self.user_id]
   end
 
   def reference_title
