@@ -1,6 +1,9 @@
 class Question < ActiveRecord::Base
   belongs_to :user
 
+  validates :score, presence: true
+  validates_uniqueness_of :score
+
   before_save :to_markdown
 
   def to_markdown

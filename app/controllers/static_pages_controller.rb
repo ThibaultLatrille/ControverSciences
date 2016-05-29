@@ -68,6 +68,6 @@ class StaticPagesController < ApplicationController
   end
 
   def faq
-    @questions = Question.all
+    @questions = Question.order(:score => :asc)
   end
 end

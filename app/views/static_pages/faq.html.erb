@@ -38,6 +38,16 @@
                           <div class="panel-body">
                             <% if logged_in? && current_user.admin %>
                                 <div class="pull-right">
+                                  <% if question.score < (@questions.length - 1) %>
+                                    <%= link_to "<span class=\"glyphicon glyphicon-arrow-down\"></span>".html_safe,
+                                                down_questions_path(id: question.id),
+                                                class: "btn btn-default" %>
+                                  <% end %>
+                                  <% if question.score > 0 %>
+                                      <%= link_to "<span class=\"glyphicon glyphicon-arrow-up\"></span>".html_safe,
+                                                  up_questions_path(id: question.id),
+                                                  class: "btn btn-default" %>
+                                  <% end %>
                                   <%= link_to "<span class=\"glyphicon glyphicon-edit\"></span>".html_safe,
                                               edit_question_path(id: question.id),
                                               class: "btn btn-primary" %>

@@ -1,5 +1,15 @@
 module MajHelper
 
+  def maj_v_15
+    ActiveRecord::Base.transaction do
+      score = 0
+      Question.all.each do |question|
+        question.update_attribute(:score, score)
+        score += 1
+      end
+    end
+  end
+
   def maj_counter
     ActiveRecord::Base.transaction do
       Timeline.find_each do |timeline|

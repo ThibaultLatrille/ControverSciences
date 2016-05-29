@@ -65,7 +65,12 @@ Rails.application.routes.draw do
   get 'patches_modal' => 'patches#modal', as: 'patches_modal'
   resources :pending_users, only: [:destroy]
   resources :references, only: [:new, :create, :show, :edit, :update, :destroy]
-  resources :questions, only: [:create, :edit, :update, :destroy]
+  resources :questions, only: [:create, :edit, :update, :destroy] do
+    collection do
+      get 'down'
+      get 'up'
+    end
+  end
   resources :previews, only: [:create]
   resources :dead_links, only: [:create, :destroy, :index]
   resources :partners, only: [:new, :create, :edit, :destroy, :index, :update] do
