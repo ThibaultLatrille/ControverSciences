@@ -90,7 +90,7 @@ Rails.application.routes.draw do
   get 'faq' => 'static_pages#faq'
   get 'terms' => 'static_pages#terms'
   get 'about' => 'static_pages#about'
-  get 'home' => 'static_pages#new_home'
+  get 'home' => 'static_pages#home'
   get 'discover' => 'static_pages#discover'
   get 'comics' => 'static_pages#comics'
   get 'transition-rhone-alpes' => 'rhone_alpes#rhone_alpes'

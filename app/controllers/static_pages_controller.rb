@@ -3,10 +3,6 @@ class StaticPagesController < ApplicationController
     random_choices_and_favorite
   end
 
-  def new_home
-    random_choices_and_favorite
-  end
-
   def markdown_tutorial
     @timeline = Timeline.order(score: :desc).first
     @list = Reference.order(year: :desc).where(timeline_id: @timeline.id).pluck(:title, :id, :author)
