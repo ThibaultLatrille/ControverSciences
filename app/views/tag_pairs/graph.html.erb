@@ -25,7 +25,7 @@
                         _.each(mmap, function (b) {
                             var recs = _.filter(data, function (row) {
                                 return filter(row, a, b);
-                            })
+                            });
                             matrix[a.id][b.id] = accessor(recs, a, b);
                         });
                     });
@@ -51,7 +51,7 @@
                         }
                     });
                     return this;
-                }
+                };
         return mpr;
     }
     //*******************************************************************

@@ -122,7 +122,7 @@ Matrix.Rotation = function(angle, u) {
     u.y * u.x * mcos + u.z * sina, cosa + pow(u.y, 2) * mcos, u.y * u.z * mcos - u.x * sina,
     u.z * u.x * mcos - u.y * sina, u.z * u.y * mcos + u.x * sina, cosa + pow(u.z, 2) * mcos
   ]);
-}
+};
 Mproto.mul = function(m) {
   var a = [], i, j, mmatrix = (m.xform ? 1 : 0);
   for(i = 1; i <= 3; ++i)
@@ -542,7 +542,7 @@ function FindTextBoundingBox(s,f,ht) {
   c = cv.getContext('2d');
   c.fillStyle = '#000';
   c.fillRect(0,0,w,h);
-  TextSet(c,ht + 'px ' + f,'#fff',s,0,0,0,0,[],'centre')
+  TextSet(c,ht + 'px ' + f,'#fff',s,0,0,0,0,[],'centre');
 
   idata = c.getImageData(0,0,w,h);
   w1 = idata.width; h1 = idata.height;
@@ -1012,7 +1012,7 @@ Oproto.Ants = function(c) {
     ants = [l,g];
   }
   c.setLineDash(ants);
-}
+};
 Oproto.DrawOutline = function(c,x,y,w,h,colour) {
   var r = min(this.radius, h/2, w/2);
   c.strokeStyle = colour;
@@ -2091,8 +2091,8 @@ TagCanvas.Start = function(id,l,o) {
 function tccall(f,id) {
   TagCanvas.tc[id] && TagCanvas.tc[id][f]();
 }
-TagCanvas.Linear = function(t, t0) { return t0 / t; }
-TagCanvas.Smooth = function(t, t0) { return 0.5 - cos(t0 * Math.PI / t) / 2; }
+TagCanvas.Linear = function(t, t0) { return t0 / t; };
+TagCanvas.Smooth = function(t, t0) { return 0.5 - cos(t0 * Math.PI / t) / 2; };
 TagCanvas.Pause = function(id) { tccall('Pause',id); };
 TagCanvas.Resume = function(id) { tccall('Resume',id); };
 TagCanvas.Reload = function(id) { tccall('Load',id); };

@@ -1600,7 +1600,7 @@
                   "target": 214,
                   "value": 1
               }]
-          }
+          };
 
           var nodes = graph.nodes.slice(),
                   links = [],
@@ -1676,7 +1676,7 @@
                   setTimeout(function () {
                       var array;
                       $('[data-toggle="tooltip"]').tooltip('hide');
-                      array = getRandomSubarray($('[data-toggle="tooltip"]'), Math.ceil(Math.random() * 5) + 3)
+                      array = getRandomSubarray($('[data-toggle="tooltip"]'), Math.ceil(Math.random() * 5) + 3);
                       array.tooltip('show')
                   }, 7000 + (2500 * ind));
               })(i);

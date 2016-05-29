@@ -1036,7 +1036,7 @@ Voronoi.prototype.addBeachsection = function(site) {
         // and if so create circle events, to handle the point of collapse.
         this.attachCircleEvent(lArc);
         this.attachCircleEvent(rArc);
-        return;
+        
     }
 };
 

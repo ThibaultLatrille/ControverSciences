@@ -421,7 +421,7 @@
         },
         // public method: goes to a specific page
         jump: function (page) {
-            this.hideHover()
+            this.hideHover();
             page -= 1;
 
             if (page === this.current || page >= this.itemsCount || page < 0) {

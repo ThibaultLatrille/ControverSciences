@@ -7,7 +7,7 @@
     else if (typeof define == 'function' && typeof define.amd == 'object') define(definition);
     else this[name] = definition();
 }('Jets', function() {
-    "use strict"
+    "use strict";
 
     function Jets(opts) {
         if( ! (this instanceof Jets)) {
@@ -27,7 +27,7 @@
         var defaults = {
             searchSelector: '*AND',
             diacriticsMap: {}
-        }
+        };
 
         self.options = {};
         ['columns', 'addImportant', 'searchSelector', 'manualContentHandling', 'diacriticsMap'].forEach(function(name) {
@@ -107,7 +107,7 @@
                 }).join(' ')
                     : self._getText(tag);
                 tag.setAttribute('data-jets', self.replaceDiacritics(text.trim().replace(/\s+/g, ' ').toLowerCase()));
-            };
+            }
         },
         replaceDiacritics: function(text) {
             var diacritics = this.options.diacriticsMap;
