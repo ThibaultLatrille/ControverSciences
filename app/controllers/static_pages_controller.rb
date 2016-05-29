@@ -1,6 +1,17 @@
 class StaticPagesController < ApplicationController
+  before_action :count_empty, only: [:empty_comments, :empty_summaries, :empty_references]
+
   def home
     random_choices_and_favorite
+  end
+
+  def count_empty
+    if logged_in?
+    current_user.empty_references = Timeline.where(user_id: current_user.id, nb_references: 0..3).count
+    current_user.empty_comments   = Reference.where(user_id: current_user.id, title_fr: '').count
+    current_user.empty_summaries  = Timeline.where(user_id: current_user.id, nb_summaries: 0)
+                                        .where.not(nb_references: 0..3).count
+    end
   end
 
   def markdown_tutorial
