@@ -30,44 +30,21 @@
             <span class="glyphicon glyphicon-menu-hamburger"></span>
           </a>
           <ul class="dropdown-menu">
+            <li><%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe, users_path %> </li>
+            <li><%= link_to "<b><span class=\"icon-superman bigger\" ></span> La bande dessinée</b>".html_safe, comics_path %> </li>
+            <li><%= link_to "<b><span class=\"icon-graph-int bigger\" ></span> #{t('views.navigation.contributions')}</b>".html_safe, contributions_path %> </li>
+            <li class="divider"></li>
+            <li><%= link_to "<b><span class=\"icon-layers bigger\" ></span> La vie d'une controverse</b>".html_safe, discover_path %> </li>
+            <li><%= link_to "<b><span class=\"icon-network bigger\" ></span> #{t('views.timelines.edges')}</b>".html_safe, timelines_graph_path %> </li>
+            <li><%= link_to "<b><span class=\"icon-circo bigger\" ></span> Pluridisciplinarité du site</b>".html_safe, tag_pairs_graph_path %> </li>
+            <li class="divider"></li>
+                <li><%= link_to "<b><span class=\"icon-reference bigger\" ></span> #{t('views.navigation.empty_ref')}</b>".html_safe, empty_references_path %></li>
+                <li><%= link_to "<b><span class=\"icon-comment bigger\" ></span> #{t('views.navigation.empty_comments')}</b>".html_safe, empty_comments_path %></li>
+                <li><%= link_to "<b><span class=\"icon-summary bigger\" ></span> #{t('views.navigation.empty_summaries')}</b>".html_safe, empty_summaries_path %></li>
+            <li class="divider"></li>
             <li><%= link_to "<b><span class=\"glyphicon glyphicon-book font12\" ></span> &nbsp La charte du site</b>".html_safe, magna_charta_path %></li>
             <li><%= link_to "<b><span class=\"glyphicon glyphicon-question-sign font12\" ></span> &nbsp #{t('views.navigation.faq')}</b>".html_safe, faq_path %></li>
-            <li class="divider"></li>
-            <li><%= link_to "<b><span class=\"icon-users bigger\" ></span> #{t('views.navigation.users')}</b>".html_safe, users_path %> </li>
-            <li><%= link_to "<b><span class=\"icon-graph-int bigger\" ></span> #{t('views.navigation.contributions')}</b>".html_safe, contributions_path %> </li>
-            <li><%= link_to "<b><span class=\"icon-network bigger\" ></span> #{t('views.timelines.edges')}</b>".html_safe, timelines_graph_path %> </li>
-            <li><%= link_to "<b><span class=\"icon-circo bigger\" ></span> Pluridisciplinarité</b>".html_safe, tag_pairs_graph_path %> </li>
-            <li><%= link_to  t('views.partners.index_html'), partners_path %> </li>
-            <li class="divider"></li>
-            <% if logged_in? && !current_user.private_timeline && current_user.empty_references > 0 %>
-                <li>
-                  <%= link_to "<span class=\"badge badge-li\"> #{current_user.empty_references} </span>
-                      #{t('views.header.empty_ref')}".html_safe,
-                              empty_references_path(filter: "mine") %>
-
-                </li>
-            <% else %>
-                <li><%= link_to "<b><span class=\"icon-reference bigger\" ></span> #{t('views.navigation.empty_ref')}</b>".html_safe, empty_references_path %></li>
-            <% end %>
-            <% if logged_in? && !current_user.private_timeline && current_user.empty_comments > 0 %>
-                <li>
-                  <%= link_to "<span class=\"badge badge-li\"> #{current_user.empty_comments} </span>
-                      #{t('views.header.empty_comments')}".html_safe,
-                              empty_comments_path(filter: "mine") %>
-
-                </li>
-            <% else %>
-                <li><%= link_to "<b><span class=\"icon-comment bigger\" ></span> #{t('views.navigation.empty_comments')}</b>".html_safe, empty_comments_path %></li>
-            <% end %>
-            <% if logged_in? && !current_user.private_timeline && current_user.empty_summaries > 0 %>
-                <li>
-                  <%= link_to "<span class=\"badge badge-li\"> #{current_user.empty_summaries} </span>
-                      #{t('views.header.empty_summaries')}".html_safe,
-                              empty_summaries_path(filter: "mine") %>
-                </li>
-            <% else %>
-                <li><%= link_to "<b><span class=\"icon-summary bigger\" ></span> #{t('views.navigation.empty_summaries')}</b>".html_safe, empty_summaries_path %></li>
-            <% end %>
+            <li><%= link_to "<b><span class=\"icon icon-frog font12\" ></span> &nbsp À propos</b>".html_safe, about_path %></li>
           </ul>
         </li>
         <% if logged_in? %>
