@@ -69,7 +69,6 @@ class FramesController < ApplicationController
 
   def update
     @frame = Frame.find(params[:id])
-    @my_frame = Frame.find(params[:id])
     if @frame.user_id == current_user.id || current_user.admin
       if GoPatch.where(frame_id: params[:id]).count > 0
         flash[:danger] = t('controllers.patches_pending')

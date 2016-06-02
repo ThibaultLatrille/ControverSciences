@@ -221,20 +221,22 @@ module ApplicationHelper
   end
 
   def binary_value_explanation(binary, value)
-    text = I18n.t('helpers.binary_value_text')
-    case value
-      when 1
-        return text + I18n.t('helpers.binary_value_1') + binary.split('&&')[0].downcase + "."
-      when 2
-        return text + I18n.t('helpers.binary_value_2') + binary.split('&&')[0].downcase + "."
-      when 3
-        return text + I18n.t('helpers.binary_value_3')
-      when 4
-        return text + I18n.t('helpers.binary_value_4') + binary.split('&&')[1].downcase + "."
-      when 5
-        return text + I18n.t('helpers.binary_value_5') + binary.split('&&')[1].downcase + "."
-      else
-        return ''
+    if binary.present?
+      text = I18n.t('helpers.binary_value_text')
+      case value
+        when 1
+          text + I18n.t('helpers.binary_value_1') + binary.split('&&')[0].downcase + "."
+        when 2
+          text + I18n.t('helpers.binary_value_2') + binary.split('&&')[0].downcase + "."
+        when 3
+          text + I18n.t('helpers.binary_value_3')
+        when 4
+          text + I18n.t('helpers.binary_value_4') + binary.split('&&')[1].downcase + "."
+        when 5
+          text + I18n.t('helpers.binary_value_5') + binary.split('&&')[1].downcase + "."
+        else
+          ''
+      end
     end
   end
 
