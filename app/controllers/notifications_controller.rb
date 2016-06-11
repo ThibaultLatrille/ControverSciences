@@ -11,7 +11,7 @@ class NotificationsController < ApplicationController
                           .group("category").count
     @category_count.default = 0
     if @category_count.blank?
-      flash[:info] = "Vous n'avez pas de nouvelles notifications."
+      flash[:info] = "Vous n'avez pas de nouvelle notification."
       redirect_to user_path(current_user)
     else
       if params[:filter]
