@@ -137,6 +137,7 @@ Rails.application.routes.draw do
   get 'assistant/selection' => 'assistant#selection'
   get 'assistant/profils' => 'assistant#profils'
   get 'notifications/index'
+  get 'notifications/news'
   get 'notifications/patches'
   get 'notifications/redirect'
   get 'notifications/delete_all'

@@ -1,0 +1,60 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    Les nouveautés de la semaine
+    <div class="panel-group" role="tablist" aria-multiselectable="true">
+      <% if @timelines.any? %>
+          <%= t('views.pluralize.timelines', count: @timelines.length) %>
+          <br>
+          <% @timelines.each do |timeline| %>
+              <%= timeline.name.html_safe %>: <br>
+              <%= link_to timeline_url(timeline), timeline_url(timeline) %> <br><br>
+          <% end %>
+          <br/><br><br>
+      <% end %>
+      <% if @frames.any? %>
+          <%= t('views.pluralize.frames', count: @frames.length) %>
+          <br>
+          <% @frames.each do |frame| %>
+              <%= frame.timeline.name.html_safe %>: <br>
+              <%= link_to  timeline_url(frame.timeline ),  timeline_url(frame.timeline ) %> <br><br>
+          <% end %>
+          <br/><br><br>
+      <% end %>
+      <% if @summaries.any? %>
+          <%= t('views.pluralize.summaries', count: @summaries.length) %>
+          <br>
+          <% @summaries.each do |summary| %>
+              <%= summary.timeline.name.html_safe %>: <br>
+              <%= link_to  timeline_url(summary.timeline ),  timeline_url(summary.timeline ) %><br><br>
+          <% end %>
+          <br/><br><br>
+      <% end %>
+      <% if @references.any? %>
+          <%= t('views.pluralize.raw_references', count: @references.length) %>
+          <br>
+          <% @references.each do |reference| %>
+              <%=  reference.title_display.html_safe %>: <br>
+              <%= link_to reference_url(reference), reference_url(reference) %>
+              <br>
+                Dans la controverse
+              <%= reference.timeline.name.html_safe %>: <br>
+              <%= link_to  timeline_url(reference.timeline ),  timeline_url(reference.timeline ) %> <br><br>
+          <% end %>
+          <br/><br><br>
+      <% end %>
+      <% if @comments.any? %>
+          <%= t('views.pluralize.comments', count: @comments.length) %>
+          <br>
+          <% @comments.each do |comment| %>
+              <%=  comment.reference.title_display.html_safe %>: <br>
+              <%= link_to reference_url(comment.reference), reference_url(comment.reference) %>
+              <br>
+              Dans la controverse
+              <%= comment.timeline.name.html_safe %>: <br>
+              <%= link_to  timeline_url(comment.timeline ),  timeline_url(comment.timeline ) %> <br><br>
+          <% end %>
+          <br/><br><br>
+      <% end %>
+    </div>
+  </div>
+</div>

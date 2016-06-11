@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
 
   before_action :logged_in_user, only: [:index, :important, :delete, :delete_all,
                                         :delete_all_important, :redirect,
-                                        :selection_redirect]
+                                        :selection_redirect, :news]
 
   def index
     @category_count = Notification.select(:category)
@@ -85,6 +85,34 @@ class NotificationsController < ApplicationController
     else
       redirect_to notifications_important_path
     end
+  end
+
+  def news
+    day = params[:day].present? ? params[:day].to_i : 30
+    @timelines = Timeline.select(:id, :slug, :name).where(
+        'created_at >= :five_days_ago',
+        :five_days_ago => Time.now - day.days
+    )
+    @references = Reference.includes(:timeline).select(:id, :slug, :timeline_id, :title, :title_fr).where(
+        'created_at >= :five_days_ago',
+        :five_days_ago => Time.now - day.days
+    )
+    @comments = Comment.includes(:reference).includes(:timeline).select(:id, :reference_id, :timeline_id, :title_markdown).where(
+        'created_at >= :five_days_ago',
+        :five_days_ago => Time.now - day.days
+    )
+    @summaries = Summary.includes(:timeline).select(:id, :timeline_id, :content).where(
+        'created_at >= :five_days_ago',
+        :five_days_ago => Time.now - day.days
+    )
+    @frames = Frame.includes(:timeline).select(:id, :timeline_id, :name)
+                  .where.not(timeline_id: @timelines.map { |t| t.id }).where(
+        'created_at >= :five_days_ago',
+        :five_days_ago => Time.now - day.days
+    )
+    @timelines = @timelines.where.not(private: true)
+    @comments = @comments.where(public: true)
+    @summaries = @summaries.where(public: true)
   end
 
   private
