@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
 
   before_action :logged_in_user, only: [:index, :important, :delete, :delete_all,
                                         :delete_all_important, :redirect,
-                                        :selection_redirect, :news]
+                                        :selection_redirect]
 
   def index
     @category_count = Notification.select(:category)
