@@ -29,7 +29,7 @@ en:
       edit_help_html: "You can leave some fields empty.
                             The more succint and precise your analysis, the better for the readers.
                             <br/>
-                            The <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown is accepted</a>.
+                            The <a href=\"/markdown-tutorial\" target=\"_blank\">markdown is accepted</a>.
                             Plus, you can insert internal links towards the references for this controversy
                             (<span class=\"icon-reference normal\"></span> button in the tool bar) to allow 
                             the reader a better browsing between references for the controversy."
@@ -130,7 +130,7 @@ en:
       edit: Edit your title and/or your frame
       edit_title: Title of the controversy
       edit_frame: !!Frame and focus of the controversy
-      edit_info_html: "The <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown is
+      edit_info_html: "The <a href=\"/markdown-tutorial\" target=\"_blank\">markdown is
                                          accepted</a>"
       binary: There are two antagonistic answers to this controversy
       binary_info: "!!By checking this box and filling in both antagonists, you allow for the references to be sorted.
@@ -174,7 +174,7 @@ en:
         ​​<b>​[Conclusion and perspective]</b>​<br>
         &nbsp Mark out what seems substantiated from what is up to more discussion. Reflection on the stakes.
         <br><br>
-        The <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown is accepted</a>.
+        The <a href="/markdown-tutorial" target="_blank">markdown is accepted</a>.
         Plus, you can insert internal links towards the references for this controversy
         (<span class="icon-reference normal"></span> button in the tool bar) to allow
         the reader a better browsing between references for the controversy.

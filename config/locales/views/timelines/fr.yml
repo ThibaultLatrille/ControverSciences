@@ -30,8 +30,8 @@ fr:
       edit_help_html: "Vous pouvez laisser certains champs vides.
                             Plus votre analyse est concise et précise, plus les lecteurs pourront la comprendre facilement.
                             <br/>
-                            Le <a href=\"http://openclassrooms.com/courses/redigez-en-markdown\" target=\"_blank\">markdown est supporté</a>.
-                            De plus vous pouvez insérer des liens internes vers les références de cette controverse
+                            Le <a href=\"/markdown-tutorial\" target=\"_blank\">markdown est supporté</a>.
+                            De plus vous pouvez insérer des <b>liens internes vers les références </b>analysées de cette controverse
                             (bouton <span class=\"icon-reference normal\"></span> dans la barre d'outils) afin de permettre
                             au lecteur une meilleure navigation entre les références de la controverse."
       reference_href: Lien vers la référence
@@ -147,7 +147,7 @@ fr:
           Hypothèses éventuelles – Méthodologies – Théories et concepts clés
       edit_info_html: |-
         Il est indispensable de se rappeler que le cadre est avant tout l'occasion d'exposer au public certains éléments indispensable à la compréhension et au traitement scientifique de la controverse.
-        Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
+        Le <a href="/markdown-tutorial" target="_blank">markdown est supporté</a>.
       binary: Pour cette controverse, il existe deux réponses antagonistes
       binary_info: "En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les références.
                                           Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse."
@@ -186,8 +186,8 @@ fr:
         La synthèse est un résumé général de la controverse. Son ​<b>objectif</b>​ est d'<b>intégrer</b> l'ensemble des <b>références analysées</b>​,
         et d'en dresser un <b>bilan</b>​.
         <br><br>
-        Le <a href="http://openclassrooms.com/courses/redigez-en-markdown" target="_blank">markdown est supporté</a>.
-        De plus vous pouvez insérer des liens internes vers les références de cette controverse
+        Le <a href="/markdown-tutorial" target="_blank">markdown est supporté</a>.
+        De plus vous pouvez insérer des <b>liens internes vers les références</b> de cette controverse
         (bouton <span class="icon-reference normal"></span> dans la barre d'outils) afin de permettre
         au lecteur une meilleure navigation dans la controverse.
       no_favorite: Vous n'avez pas de synthèse favorite
