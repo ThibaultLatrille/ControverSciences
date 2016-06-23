@@ -83,7 +83,7 @@ class TasksController < ApplicationController
       @emails +=1
       UserDetail.update_counters(@user.user_detail.id, countdown: (15+rand(30)))
     end
-    UserDetail.decrement_counter(:countdown, UserDetail.all.map(&:id))
+    UserDetail.decrement_counter(:countdown, UserDetail.where.not(countdown: 0).map(&:id))
   end
 
   def notif_slack
