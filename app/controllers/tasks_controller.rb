@@ -63,8 +63,8 @@ class TasksController < ApplicationController
         UserDetail.update_counters(@user.user_detail.id, countdown: @user.user_detail.frequency)
       end
     end
-    not_activated_users = User.joins(:user_detail)
-                              .where.not(user_details: {refused: true})
+    not_activated_users = User.joins(:user_detail).joins(:pending_user)
+                              .where.not(pending_users: {refused: true})
                               .where(user_details: {countdown: 0})
                               .where(activated: false)
     @resend_activation = true
