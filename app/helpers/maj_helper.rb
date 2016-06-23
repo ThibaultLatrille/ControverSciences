@@ -19,6 +19,15 @@ module MajHelper
     end
   end
 
+  def maj_refill
+    ActiveRecord::Base.transaction do
+      Reference.find_each.map{|r| r.comments.map(&:save)}
+      Timeline.find_each.map{|t| t.summaries.map(&:save)}
+      Timeline.find_each.map{|t| t.frames.map(&:save)}
+    end
+  end
+
+
   def maj_v_14
     ActiveRecord::Base.transaction do
       UserDetail.find_each do |user_detail|
