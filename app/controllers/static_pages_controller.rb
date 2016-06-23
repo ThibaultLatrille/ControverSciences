@@ -16,7 +16,8 @@ class StaticPagesController < ApplicationController
 
   def markdown_tutorial
     @timeline = Timeline.order(score: :desc).first
-    @list = Reference.order(year: :desc).where(timeline_id: @timeline.id).pluck(:title, :id, :author)
+    @list = Reference.order(year: :desc).where(timeline_id: @timeline.id)
+                .pluck(:title, :id, :author, :year)
     @tim_list = timelines_connected_to(@timeline.id)
   end
 

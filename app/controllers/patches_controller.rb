@@ -35,7 +35,8 @@ class PatchesController < ApplicationController
     end
     if @patch.summary_id || @patch.comment_id
       @tim_list = timelines_connected_to(@patch.parent.timeline_id)
-      @list = Reference.order(year: :desc).where(timeline_id: @patch.parent.timeline_id).pluck(:title, :id, :author)
+      @list = Reference.order(year: :desc).where(timeline_id: @patch.parent.timeline_id)
+                  .pluck(:title, :id, :author, :year)
     end
   end
 

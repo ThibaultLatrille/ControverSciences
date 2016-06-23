@@ -30,11 +30,11 @@
             <br><br><br>
         <% end %>
         <div id="jetsRefContent" data-toggle="buttons">
-          <% references_list.each do |name, id, author| %>
+          <% references_list.each do |name, id, author, year| %>
               <div class="btn btn-default btn-block text-left timeline-private_timeline-check">
                 <%= radio_button_tag :reference_id, checked_value = id, unchecked_value = nil, title: name %>
                 <b><%= name.html_safe %></b><br>
-                <i><%= author.html_safe %></i>
+                <%= year %> - <i><%= author.html_safe %></i>
                   <span class="pull-right checked">
                             </span>
               </div>

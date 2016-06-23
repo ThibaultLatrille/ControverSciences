@@ -9,7 +9,8 @@ class SummariesController < ApplicationController
       @summary = Summary.new
       @summary.timeline_id = params[:timeline_id]
       @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
-      @list = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id).pluck(:title, :id, :author)
+      @list = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id)
+                  .pluck(:title, :id, :author, :year)
       @tim_list = timelines_connected_to(@summary.timeline_id)
     end
   end
@@ -28,7 +29,8 @@ class SummariesController < ApplicationController
       flash[:success] = t('controllers.summary_added')
       redirect_to @summary
     else
-      @list = Reference.order(year: :desc).where(timeline_id: summary_params[:timeline_id]).pluck(:title, :id, :author)
+      @list = Reference.order(year: :desc).where(timeline_id: summary_params[:timeline_id])
+                  .pluck(:title, :id, :author, :year)
       @tim_list = timelines_connected_to(summary_params[:timeline_id])
       @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
       render 'new'
@@ -42,7 +44,8 @@ class SummariesController < ApplicationController
     else
       @summary = Summary.find(params[:id])
       @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
-      @list = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id).pluck(:title, :id, :author)
+      @list = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id)
+                  .pluck(:title, :id, :author, :year)
       @tim_list = timelines_connected_to(@summary.timeline_id)
     end
   end
@@ -69,7 +72,8 @@ class SummariesController < ApplicationController
           redirect_to @summary
         else
           @my_timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(@summary.timeline_id)
-          @list = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id).pluck(:title, :id, :author)
+          @list = Reference.order(year: :desc).where(timeline_id: @summary.timeline_id)
+                      .pluck(:title, :id, :author, :year)
           @tim_list = timelines_connected_to(@summary.timeline_id)
           render 'edit'
         end
