@@ -13,7 +13,6 @@ class Frame < ActiveRecord::Base
   has_many :go_patches, dependent: :destroy
   has_many :binaries, dependent: :destroy
   has_many :patch_messages, dependent: :destroy
-  has_many :user_patches, dependent: :destroy
   has_many :contributor_frames, dependent: :destroy
 
   alias_method :contributors, :contributor_frames

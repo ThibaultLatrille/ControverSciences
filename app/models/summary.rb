@@ -16,7 +16,6 @@ class Summary < ActiveRecord::Base
   has_many :notification_selections, dependent: :destroy
   has_many :go_patches, dependent: :destroy
   has_many :patch_messages, dependent: :destroy
-  has_many :user_patches, dependent: :destroy
   has_many :contributor_summaries, dependent: :destroy
 
   alias_method :contributors, :contributor_summaries

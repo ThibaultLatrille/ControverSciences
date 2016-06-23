@@ -16,7 +16,6 @@ class Comment < ActiveRecord::Base
   has_many :comment_joins, dependent: :destroy
   has_many :go_patches, dependent: :destroy
   has_many :patch_messages, dependent: :destroy
-  has_many :user_patches, dependent: :destroy
   has_many :contributor_comments, dependent: :destroy
 
   alias_method :contributors, :contributor_comments
