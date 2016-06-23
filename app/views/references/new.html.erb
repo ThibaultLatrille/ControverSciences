@@ -20,6 +20,12 @@
         <div class="panel-body">
           <br>
 
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <%= t('views.references.constrain_html') %>
+            </div>
+          </div>
+
           <div class="clearfix">
             <%= form_for(@reference) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
@@ -69,6 +75,12 @@
                           <span class="glyphicon glyphicon-refresh"></span></button>
                       </span>
                   <%= f.text_field :title, class: 'form-control myforms' %>
+                </div>
+                <br>
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <%= t('views.references.astuce_html') %>
+                  </div>
                 </div>
                 <br>
                 <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>

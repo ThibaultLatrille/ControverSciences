@@ -96,6 +96,18 @@ fr:
       maybe_you_changed: Mais vous avez peut être changé d'avis ?
       you_think: Vous pensez que
       sci_hub: (en utilisant Sci-Hub)
+      constrain_html: |-
+        Les <b> articles de presse et autres documents non académiques </b>,
+        même s'ils s'intègrent dans une démarche scientifique,
+        ne <b>sont pas acceptés</b> en tant que références sur ControverSciences. <br><br>
+        Vous pouvez en revanche les inclure dans le corps de vos contributions (cadres, synthèses ou analyses) avec un
+        lien hypertexte externe s'ils apportent un éclairage
+        intéressant à une référence académique ou à une controverse.
+        <br> <br>Pour plus d'informations, <a href="/magna-charta" target="_blank">voir la charte</a>
+      astuce_html: |-
+        <b>Astuce </b>: utiliser le bouton <span class="glyphicon glyphicon-refresh"></span> pour
+        remplir les champs automatiquement à partir du nom ou doi.
+        Pensez quand même à vérifier les informations !
     edges:
       new_edge: Ajouter des nouveaux liens
       to_timeline: Les liens concernant la controverse
