@@ -136,6 +136,8 @@ group :development do
   gem 'missing_t'
 
   gem 'boilerman'
+
+  gem 'pry-rails'
 end
 
 group :production do
