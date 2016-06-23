@@ -4,10 +4,10 @@ class UsersController < ApplicationController
   before_action :admin_user, only: [:destroy]
 
 
-  def fetch_user_detail
-    @user_detail = UserDetail.find_by_user_id(params[:id])
+  def fetch_user_detail(id)
+    @user_detail = UserDetail.find_by_user_id(id)
     unless @user_detail
-      @user_detail = UserDetail.new(user_id: params[:id])
+      @user_detail = UserDetail.new(user_id: id)
       @user_detail.send_email = true
       @user_detail.frequency = 15
     end
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     @user_pwd = User.find(params[:id])
-    fetch_user_detail
+    fetch_user_detail(@user.id)
   end
 
   def create
@@ -99,12 +99,12 @@ class UsersController < ApplicationController
           flash[:success] = t('controllers.user_updated')
           redirect_to @user
         else
-          fetch_user_detail
+          fetch_user_detail(@user.id)
           render 'edit'
         end
       else
         @user_pwd.errors.add(:base, t('controllers.wrong_short_pwd'))
-        fetch_user_detail
+        fetch_user_detail(@user.id)
         render 'edit'
       end
     else
@@ -112,7 +112,7 @@ class UsersController < ApplicationController
         flash[:success] = t('controllers.user_updated')
         redirect_to @user
       else
-        fetch_user_detail
+        fetch_user_detail(@user.id)
         render 'edit'
       end
     end
