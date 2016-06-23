@@ -236,11 +236,11 @@ fr:
       all_built: Qui ont éclos
       all_timelines: Toutes
       show_versus: Afficher la répartition des références
-      hide_versus: Masquer la répartition des références
+      hide_versus: Afficher la répartition des références
       show_star: Afficher la pertinence des références
-      hide_star: Masquer la pertinence des références
+      hide_star: Afficher la pertinence des références
       show_no_comment: Afficher les références non analysées
-      hide_no_comment: Masquer les références non analysées
+      hide_no_comment: Afficher les références non analysées
     likes:
       clic_on: Cliquer sur les buttons
       get_notified: pour être notifié des changements dans ces controverses.
