@@ -1,5 +1,5 @@
 namespace :admin  do
-  task :send_notifications => :environment do
+  task :notifications => :environment do
     controller = TasksController.new
     controller.send_patches
     controller.send_notifications
