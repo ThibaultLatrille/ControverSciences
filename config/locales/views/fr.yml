@@ -368,7 +368,7 @@ fr:
       send_email: "Fréquence d'envoi d'emails si vous avez des notifications non lues :"
       terms: Les conditions générales d'utilisation
       magna_charta: La Magna Charta
-      website: 'Site web :'
+      website: 'Site web ou compte twitter:'
       wrote: a écrit
       identicon: Générer votre identicon
       confirmation_pwd_ok: Votre mot de passe a bien été confirmé.
