@@ -77,7 +77,7 @@
                     <%= link_to "<span class=\"fat icon-summary\"></span> <br> #{t('views.patches.edit_version')}".html_safe,
                                 patch.frame_id ?
                                         edit_frame_path(patch.mine_parent.id) : patch.summary_id ?
-                                        edit_summary_path(patch.mine_parent.id) : new_comment_path(patch.mine_parent.id),
+                                        edit_summary_path(patch.mine_parent.id) : edit_comment_path(patch.mine_parent.id),
                                 class: "btn btn-primary btn-lg" %>
                     <br><br>
                     <div class="panel-danger panel">
