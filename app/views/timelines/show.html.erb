@@ -20,14 +20,6 @@
             <span class="fat icon-reference"></span>
             <%= @timeline.nb_references %>
           </div>
-          <div class="sticky" data-placement="right"
-               title="<%= t('views.pluralize.edits', count: @timeline.nb_edits) %>"
-               data-toggle="tooltip">
-            <span class="fat icon-summary"></span>
-            <%= @timeline.nb_edits %>
-          </div>
-          <br>
-
           <div class="sticky" data-placement="bottom"
                title="<%= t('views.pluralize.views', count: @timeline.views) +
                                   distance_of_time_in_words_to_now(@timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? @timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00")) %>"
