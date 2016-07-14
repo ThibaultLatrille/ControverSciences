@@ -48,6 +48,11 @@
 
             </div>
             <br>
+            <br>
+            <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+        </span> #{t('views.edition.add_timeline_links')}".html_safe,
+                        edges_path(timeline_id: timeline_id),
+                        class: "btn btn-primary btn-block", target: "_blank" %>
           </div>
       <% else %>
           <div class="modal-body">

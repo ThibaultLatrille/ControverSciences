@@ -3,13 +3,13 @@ fr:
     edition:
       necessary: champs obligatoires.
       caption: Légende de la figure
-      add_timeline_link: Créer un lien vers une controverse
+      add_timeline_link: Utiliser un lien vers une controverse
       add_timeline_links: Créer des liens entre cette controverse et d'autres
       imposible: Opération impossible
       timeline_not_linked: La controverse sur laquelle vous vous trouvez n'est actuellement liée à aucune autre.
-      add_reference_link: Créer un lien vers une référence
+      add_reference_link: Utiliser un lien vers une référence
       add_href: Ajouter un lien externe
-      add_link: Ajouter ce lien
+      add_link: Utiliser ce lien
       make_private: Rendre une contribution privée vous fera perdre tous les crédits qui lui ont été attribués.
       character_much: caractères en trop !
       character_left: caractères restants.
