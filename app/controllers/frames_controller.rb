@@ -21,6 +21,7 @@ class FramesController < ApplicationController
       end
     end
     @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
+    @tim_list = timelines_connected_to(@frame.timeline_id)
   end
 
   def create
@@ -46,6 +47,7 @@ class FramesController < ApplicationController
         @frame.binary = false
       end
       @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
+      @tim_list = timelines_connected_to(@frame.timeline_id)
       render 'new'
     end
   end
@@ -57,6 +59,7 @@ class FramesController < ApplicationController
       redirect_to patches_target_path(frame_id: params[:id])
     else
       @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
+      @tim_list = timelines_connected_to(@frame.timeline_id)
       if @frame.binary != ''
         @frame.binary_left = @frame.binary.split('&&')[0]
         @frame.binary_right = @frame.binary.split('&&')[1]
@@ -87,6 +90,7 @@ class FramesController < ApplicationController
           redirect_to @frame
         else
           @my_timeline = Timeline.select(:id, :slug, :nb_frames, :name).find(@frame.timeline_id)
+          @tim_list = timelines_connected_to(@frame.timeline_id)
           render 'edit'
         end
       end

@@ -138,7 +138,7 @@
     $("#description0").markdown({
         autofocus: false,
         savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS']
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl']
     });
     $(document).ready(function () {
         if (!$('#check-box').is(':checked')) {
@@ -159,3 +159,5 @@
 <script type="text/javascript">
     setupLengthCounter([[0, 2500, 180], [1, 180]])
 </script>
+
+<%= render 'modals/timelines_list', timelines_list: @tim_list, timeline_id: @frame.timeline_id  %>

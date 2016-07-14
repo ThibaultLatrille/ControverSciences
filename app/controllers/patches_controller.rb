@@ -33,10 +33,12 @@ class PatchesController < ApplicationController
         @patch.message = message.message
       end
     end
-    if @patch.summary_id || @patch.comment_id
+    if @patch.summary_id || (@patch.comment_id && @patch.field != 6)
       @tim_list = timelines_connected_to(@patch.parent.timeline_id)
       @list = Reference.order(year: :desc).where(timeline_id: @patch.parent.timeline_id)
                   .pluck(:title, :id, :author, :year)
+    elsif @patch.frame_id && @patch.field == 1
+      @tim_list = timelines_connected_to(@patch.parent.timeline_id)
     end
   end
 

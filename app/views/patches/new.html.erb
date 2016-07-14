@@ -104,11 +104,12 @@
         });
     </script>
 <% elsif @patch.frame_id && @patch.field == 1 %>
+    <%= render 'modals/timelines_list', timelines_list: @tim_list, timeline_id: @patch.parent.timeline_id %>
     <script type="text/javascript">
         $("#description").markdown({
             autofocus: true,
             savable: false,
-            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS']
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl']
         });
     </script>
 <% else %>
