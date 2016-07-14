@@ -27,11 +27,11 @@ class ReferenceEdge < ActiveRecord::Base
   end
 
   def target_short
-    Reference.select(:title, :year).find(self.target)
+    Reference.select(:title, :year, :id, :author).find(self.target)
   end
 
   def reference_short
-    Reference.select(:title, :year).find(self.reference_id)
+    Reference.select(:title, :year, :id, :author).find(self.reference_id)
   end
 
   def reference_title

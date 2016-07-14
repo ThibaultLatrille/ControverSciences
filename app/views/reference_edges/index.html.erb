@@ -59,7 +59,9 @@
                         <% end %>
                       </div>
                       <h4>
-                            <%= link_to "#{reference_edge.target_short.year} - #{reference_edge.target_short.title}".html_safe,
+                            <%= link_to "#{reference_edge.target_short.year} -
+                            #{reference_edge.target_short.title} <br>
+                            <i> #{reference_edge.target_short.author} </i> ".html_safe,
                                         reference_path(reference_edge.target) %>
                       </h4>
                     </div>
@@ -101,10 +103,10 @@
                       <% end %>
 
                       <div id="jetsContent" data-toggle="buttons">
-                        <% @reference_names_older.each do |name, year,  id| %>
+                        <% @reference_names_older.each do |name, year,  id, author| %>
                             <div class="btn btn-default btn-block text-left timeline-edge-check">
                               <%= f.check_box :target, {:multiple => true}, checked_value = id, unchecked_value = nil %>
-                              <%= year %> - <%= name.html_safe %>
+                              <%= year %> - <%= name.html_safe %> - <i><%= author.html_safe %></i>
                               <span class="pull-right checked glyphicon glyphicon-link">
                             </span>
                             </div>
@@ -152,7 +154,9 @@
                         <% end %>
                       </div>
                       <h4>
-                        <%= link_to "#{reference_edge.reference_short.year} - #{reference_edge.reference_short.title}".html_safe,
+                        <%= link_to "#{reference_edge.reference_short.year} -
+                        #{reference_edge.reference_short.title} <br>
+                            <i> #{reference_edge.reference_short.author} </i> ".html_safe,
                                     reference_path(reference_edge.reference_id) %>
                       </h4>
                     </div>
@@ -194,10 +198,10 @@
                       <% end %>
 
                       <div id="jetsContent" data-toggle="buttons">
-                        <% @reference_names_newer.each do |name, year, id| %>
+                        <% @reference_names_newer.each do |name, year, id, author| %>
                             <div class="btn btn-default btn-block text-left timeline-edge-check">
                               <%= f.check_box :from_ids, {:multiple => true}, checked_value = id, unchecked_value = nil %>
-                              <%= year %> - <%= name.html_safe %>
+                              <%= year %> - <%= name.html_safe %> - <i><%= author.html_safe %></i>
                               <span class="pull-right checked glyphicon glyphicon-link">
                             </span>
                             </div>

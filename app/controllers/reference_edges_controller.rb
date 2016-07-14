@@ -44,8 +44,8 @@ class ReferenceEdgesController < ApplicationController
     reference_ids << params[:reference_id].to_i
     reference_names = Reference.order(year: :desc).where(timeline_id: params[:timeline_id])
                           .where.not(id: reference_ids.flatten.uniq)
-    @reference_names_newer = reference_names.where('year >= :ref_year', :ref_year => year).pluck(:title, :year, :id)
-    @reference_names_older = reference_names.where('year <= :ref_year', :ref_year => year).pluck(:title, :year, :id)
+    @reference_names_newer = reference_names.where('year >= :ref_year', :ref_year => year).pluck(:title, :year, :id, :author)
+    @reference_names_older = reference_names.where('year <= :ref_year', :ref_year => year).pluck(:title, :year, :id, :author)
     @my_vote_likes = ReferenceEdgeVote.where(user_id: current_user.id, value: true,
                                              reference_edge_id: reference_edges.map { |e| e.id }).pluck(:reference_edge_id)
     @my_vote_dislikes = ReferenceEdgeVote.where(user_id: current_user.id, value: false,
