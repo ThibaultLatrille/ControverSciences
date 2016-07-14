@@ -22,7 +22,7 @@
           </div>
           <div class="sticky" data-placement="bottom"
                title="<%= t('views.pluralize.views', count: @timeline.views) +
-                                  distance_of_time_in_words_to_now(@timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? @timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00")) %>"
+                              distance_of_time_in_words_to_now(@timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? @timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00")) %>"
                data-toggle="tooltip">
             <span class="fat icon-views"></span>
             <%= @timeline.views %>
@@ -176,62 +176,64 @@
     <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-sm-offset-1 col-md-offset-0">
       <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
-          <% if @timeline.private && logged_in? && current_user.admin %>
-              <div class="panel panel-info">
-                <div class="panel-heading center">
-                  <%= link_to "<span class=\"icon icon-lock normal\"></span> #{t('views.timelines.make_public')} ".html_safe,
-                              set_public_timelines_path(timeline_id: @timeline.id),
-                              data: {confirm: t('views.timelines.confirm')} %>
-                </div>
-              </div>
-          <% end %>
           <% if @timeline.private && logged_in? %>
+              <% if current_user.admin %>
+                  <div class="panel panel-info">
+                    <div class="panel-heading center">
+                      <%= link_to "<span class=\"icon icon-lock normal\"></span> #{t('views.timelines.make_public')} ".html_safe,
+                                  set_public_timelines_path(timeline_id: @timeline.id),
+                                  data: {confirm: t('views.timelines.confirm')} %>
+                    </div>
+                  </div>
+              <% end %>
               <div class="panel panel-info">
                 <div class="panel-heading center">
                   <%= link_to "<span class=\"icon icon-users fat\"></span> #{t('views.private_timelines.to_timeline')}".html_safe,
                               private_timelines_path(timeline_id: @timeline.id), class: "hvr-grow" %>
                 </div>
               </div>
-          <% elsif logged_in? %>
-              <% if @timeline.staging %>
-                  <div class="panel panel-info">
-                    <div class="panel-heading center">
-                      <% if current_user.admin %>
-                          <%= link_to "<span class=\"icon icon-hatch bigger\"></span>".html_safe,
-                                      switch_staging_timelines_path(timeline_id: @timeline.id),
-                                      "data-toggle" => :tooltip,
-                                      class: "btn btn-default green pull-right",
-                                      title: t('views.timelines.make_public') %>
-                      <% end %>
-                      <span style="font-size: 1.4em">
+          <% elsif @timeline.staging %>
+              <div class="panel panel-info">
+                <div class="panel-heading center">
+                  <% if logged_in? && current_user.admin %>
+                      <%= link_to "<span class=\"icon icon-hatch bigger\"></span>".html_safe,
+                                  switch_staging_timelines_path(timeline_id: @timeline.id),
+                                  "data-toggle" => :tooltip,
+                                  class: "btn btn-default green pull-right",
+                                  title: t('views.timelines.make_public') %>
+                  <% end %>
+                  <span style="font-size: 1.4em">
                 <span class="icon icon-staging fat"></span>
-                        <%= t('views.timelines.is_staging_html') %>
+                    <%= t('views.timelines.is_staging_html') %>
               </span> <br>
               <span style="font-size: 1.2em">
+                <% if logged_in? %>
                 <%= t('views.timelines.is_staging_sub') %>
+                <% else %>
+                <%= t('views.timelines.is_staging_sub_not_logged') %>
+                <% end %>
               </span>
-                    </div>
-                  </div>
-              <% else %>
-                  <div class="panel panel-info">
-                    <div class="panel-heading center">
-                      <% if current_user.admin %>
-                          <%= link_to "<span class=\"icon icon-egg bigger\"></span>".html_safe,
-                                      switch_staging_timelines_path(timeline_id: @timeline.id),
-                                      "data-toggle" => :tooltip,
-                                      class: "btn btn-default red pull-right",
-                                      title: t('views.timelines.make_staging') %>
-                      <% end %>
-                      <span style="font-size: 1.4em">
+                </div>
+              </div>
+          <% elsif logged_in? %>
+              <div class="panel panel-info">
+                <div class="panel-heading center">
+                  <% if current_user.admin %>
+                      <%= link_to "<span class=\"icon icon-egg bigger\"></span>".html_safe,
+                                  switch_staging_timelines_path(timeline_id: @timeline.id),
+                                  "data-toggle" => :tooltip,
+                                  class: "btn btn-default red pull-right",
+                                  title: t('views.timelines.make_staging') %>
+                  <% end %>
+                  <span style="font-size: 1.4em">
                 <span class="icon icon-built fat"></span>
-                        <%= t('views.timelines.is_built_html') %>
+                    <%= t('views.timelines.is_built_html') %>
               </span> <br>
               <span style="font-size: 1.2em">
                 <%= t('views.timelines.is_built_sub') %>
               </span>
-                    </div>
-                  </div>
-              <% end %>
+                </div>
+              </div>
           <% end %>
         </div>
       </div>
@@ -302,43 +304,43 @@
                     </div>
                   </div>
                   <script type="text/javascript">
-                      $(document).ready(function () {
-                          if ($('#timeline_has_picture').val() === 'true') {
-                              $('#delete').show();
-                              $('#ajouter').text("<%= t('views.picture.edit_figure') %>");
+                    $(document).ready(function () {
+                      if ($('#timeline_has_picture').val() === 'true') {
+                        $('#delete').show();
+                        $('#ajouter').text("<%= t('views.picture.edit_figure') %>");
+                      }
+                      $(function () {
+                        'use strict';
+                        // Change this to the location of your server-side upload handler:
+                        $('#fileupload').fileupload({
+                          url: "<%= figures_url + "?img_timeline_id=" + @timeline.id.to_s %>",
+                          type: 'POST',
+                          dataType: 'json',
+                          done: function (e, data) {
+                            $('#upload-btn').show(300);
+                            $('#progress').hide(300);
+                            if (data.result.id == null) {
+                              $('#size-warning').show(300);
+                            } else {
+                              $('#timeline_has_picture').val('true');
+                              $('#timeline_delete_picture').val('false');
+                              $('#size-warning').hide();
+                              $('#uploaded').css("background", "white url(" + data.result.picture.url + ")");
+                            }
+                          },
+                          start: function (e, data) {
+                            $('#upload-btn').hide();
+                            $('#progress').show();
                           }
-                          $(function () {
-                              'use strict';
-                              // Change this to the location of your server-side upload handler:
-                              $('#fileupload').fileupload({
-                                  url: "<%= figures_url + "?img_timeline_id=" + @timeline.id.to_s %>",
-                                  type: 'POST',
-                                  dataType: 'json',
-                                  done: function (e, data) {
-                                      $('#upload-btn').show(300);
-                                      $('#progress').hide(300);
-                                      if (data.result.id == null) {
-                                          $('#size-warning').show(300);
-                                      } else {
-                                          $('#timeline_has_picture').val('true');
-                                          $('#timeline_delete_picture').val('false');
-                                          $('#size-warning').hide();
-                                          $('#uploaded').css("background", "white url(" + data.result.picture.url + ")");
-                                      }
-                                  },
-                                  start: function (e, data) {
-                                      $('#upload-btn').hide();
-                                      $('#progress').show();
-                                  }
-                              }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-                          });
-                          $('#delete').click(function () {
-                              $('#delete').hide(300);
-                              $('#uploaded').css("background", "white");
-                              $('#ajouter').text("<%=t('views.picture.add_figure')%>");
-                              $('#timeline_delete_picture').val('true');
-                          });
+                        }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
                       });
+                      $('#delete').click(function () {
+                        $('#delete').hide(300);
+                        $('#uploaded').css("background", "white");
+                        $('#ajouter').text("<%=t('views.picture.add_figure')%>");
+                        $('#timeline_delete_picture').val('true');
+                      });
+                    });
                   </script>
               <% end %>
             </div>
@@ -435,26 +437,26 @@
               </div>
             </div>
             <script type="text/javascript">
-                $(document).ready(function () {
-                    $("#summary").readmore({
-                        speed: 750,
-                        heightMargin: 100,
-                        embedCSS: false,
-                        collapsedHeight: 450,
-                        moreLink: '<div class="readmore"><a href="#" class="btn btn-lg btn-default">' +
-                        '<span class="glyphicon glyphicon-menu-down"></span> <%= t('views.timelines.read_more') %> ' +
-                        '<span class="glyphicon glyphicon-menu-down"></span> ' +
-                        '</a></div>',
-                        lessLink: '<div class="hidden"></div>'
-                    });
+              $(document).ready(function () {
+                $("#summary").readmore({
+                  speed: 750,
+                  heightMargin: 100,
+                  embedCSS: false,
+                  collapsedHeight: 450,
+                  moreLink: '<div class="readmore"><a href="#" class="btn btn-lg btn-default">' +
+                  '<span class="glyphicon glyphicon-menu-down"></span> <%= t('views.timelines.read_more') %> ' +
+                  '<span class="glyphicon glyphicon-menu-down"></span> ' +
+                  '</a></div>',
+                  lessLink: '<div class="hidden"></div>'
                 });
+              });
             </script>
           </div>
       <% end %>
 
       <% if @references.any? && !@timeline.binary.blank? &&
-              (logged_in? ? Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0).count > 0 :
-                      Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0, title_fr: '').count > 0) %>
+          (logged_in? ? Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0).count > 0 :
+              Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0, title_fr: '').count > 0) %>
           <%= javascript_include_tag 'chart' %>
 
           <div id="versus-chart" class="row" style="display: none">
@@ -483,113 +485,113 @@
             </div>
           </div>
           <script type="text/javascript">
-              $(document).ready(function () {
-                  var $versusChart = $("#versus-chart"), $versusClick = $('#versus-click');
-                  $versusClick.on('inview', function (event, isInView) {
-                      if (isInView) {
-                          if (!$versusClick.hasClass("active")) {
-                              $versusClick.click()
-                          }
-                      }
-                  });
-                  $versusClick.click(function () {
-                      if ($(this).hasClass("active")) {
-                          $(this).removeClass("active");
-                          $('.cd-color').addClass("uni-color");
-                          $('.cd-orange').addClass("uni-orange");
-                          $('#text-versus').text("<%= t('views.timelines.show_versus') %>");
-                          $versusChart.hide(500);
-                      } else {
-                          $(this).addClass("active");
-                          $('#text-versus').text("<%= t('views.timelines.hide_versus') %>");
-                          $('.cd-color').removeClass("uni-color");
-                          $('.cd-orange').removeClass("uni-orange");
-                          $versusChart.show(500, function () {
-                              var data = [
-                                  {
-                                      value: $('.binary1').length,
-                                      color: "rgba(11,132,165,1.0)",
-                                      highlight: "rgba(11,132,165,0.6)",
-                                      label: '<%= @timeline.binary_explanation(1) -%>'
-                                  },
-                                  {
-                                      value: $('.binary2').length,
-                                      color: "rgba(174,214,136,1.0)",
-                                      highlight: "rgba(174,214,136,0.6)",
-                                      label: '<%= @timeline.binary_explanation(2) -%>'
-                                  },
-                                  {
-                                      value: $('.binary3').length,
-                                      color: "rgba(245,199,103,1.0)",
-                                      highlight: "rgba(245,199,103,0.6)",
-                                      label: '<%= @timeline.binary_explanation(3) -%>'
-                                  },
-                                  {
-                                      value: $('.binary4').length,
-                                      color: "rgba(255,160,86,1.0)",
-                                      highlight: "rgba(255,160,86,0.6)",
-                                      label: '<%= @timeline.binary_explanation(4) -%>'
-                                  },
-                                  {
-                                      value: $('.binary5').length,
-                                      color: "rgba(202,71,47,1.0)",
-                                      highlight: "rgba(202,71,47,0.6)",
-                                      label: '<%= @timeline.binary_explanation(5) -%>'
-                                  }
-                              ];
-                              Chart.defaults.global.responsive = true;
-                              Chart.defaults.global.tooltipTemplate = "<%%= value %> références";
-                              (function () {
-                                  var helpers = Chart.helpers,
-                                          canvas = $("#myChart").get(0),
-                                          ctx = canvas.getContext('2d'),
-                                          versusDoughnut = new Chart(ctx).Doughnut(data, {
-                                              legendTemplate: "<div><%% for (var i=0; i<segments.length; i++){%><div class=\"clearfix\"><div class=\"pics\" style=\"background-color:<%%=segments[i].fillColor%>\"></div><div class=\"labels\"><%%if(segments[i].label){%><%%=segments[i].label%></div><%%}%></div><%%}%></div>"
-                                          });
-                                  $('#doughtnut-legend').html(versusDoughnut.generateLegend());
-                                  helpers.addEvent(canvas, 'mousemove', function (evt) {
-                                      var segments = versusDoughnut.getSegmentsAtEvent(evt);
-                                      if (segments.length > 0) {
-                                          canvas.style.cursor = "pointer";
-                                      }
-                                      else {
-                                          canvas.style.cursor = "default";
-                                      }
-                                  });
-
-                                  helpers.addEvent(canvas, 'click', function (evt) {
-                                      versusDoughnut.options.animation = true;
-                                      versusDoughnut.options.onAnimationComplete = function () {
-                                          this.showTooltip(this.activeElements, true);
-                                      };
-                                      var segments = versusDoughnut.getSegmentsAtEvent(evt);
-                                      helpers.each(segments, function (bar) {
-                                          if (bar.active) {
-                                              $(bar.references).hide(500);
-                                              bar.active = false;
-                                              bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.8)');
-                                              bar._saved.fillColor = bar.baseColor.replace('1.0)', '0.1)');
-                                          } else {
-                                              bar.active = true;
-                                              $(bar.references).show(500);
-                                              bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.6)');
-                                              bar._saved.fillColor = bar.baseColor.replace('1.0)', '1.0)');
-                                          }
-                                      });
-                                      if (segments.length > 0) {
-                                          versusDoughnut.update();
-                                      }
-                                  });
-                                  $.each(versusDoughnut.segments, function (key, bar) {
-                                      bar.active = true;
-                                      bar.references = ".binary" + (key + 1).toString();
-                                      bar.baseColor = bar.fillColor;
-                                  });
-                              })();
-                          });
-                      }
-                  });
+            $(document).ready(function () {
+              var $versusChart = $("#versus-chart"), $versusClick = $('#versus-click');
+              $versusClick.on('inview', function (event, isInView) {
+                if (isInView) {
+                  if (!$versusClick.hasClass("active")) {
+                    $versusClick.click()
+                  }
+                }
               });
+              $versusClick.click(function () {
+                if ($(this).hasClass("active")) {
+                  $(this).removeClass("active");
+                  $('.cd-color').addClass("uni-color");
+                  $('.cd-orange').addClass("uni-orange");
+                  $('#text-versus').text("<%= t('views.timelines.show_versus') %>");
+                  $versusChart.hide(500);
+                } else {
+                  $(this).addClass("active");
+                  $('#text-versus').text("<%= t('views.timelines.hide_versus') %>");
+                  $('.cd-color').removeClass("uni-color");
+                  $('.cd-orange').removeClass("uni-orange");
+                  $versusChart.show(500, function () {
+                    var data = [
+                      {
+                        value: $('.binary1').length,
+                        color: "rgba(11,132,165,1.0)",
+                        highlight: "rgba(11,132,165,0.6)",
+                        label: '<%= @timeline.binary_explanation(1) -%>'
+                      },
+                      {
+                        value: $('.binary2').length,
+                        color: "rgba(174,214,136,1.0)",
+                        highlight: "rgba(174,214,136,0.6)",
+                        label: '<%= @timeline.binary_explanation(2) -%>'
+                      },
+                      {
+                        value: $('.binary3').length,
+                        color: "rgba(245,199,103,1.0)",
+                        highlight: "rgba(245,199,103,0.6)",
+                        label: '<%= @timeline.binary_explanation(3) -%>'
+                      },
+                      {
+                        value: $('.binary4').length,
+                        color: "rgba(255,160,86,1.0)",
+                        highlight: "rgba(255,160,86,0.6)",
+                        label: '<%= @timeline.binary_explanation(4) -%>'
+                      },
+                      {
+                        value: $('.binary5').length,
+                        color: "rgba(202,71,47,1.0)",
+                        highlight: "rgba(202,71,47,0.6)",
+                        label: '<%= @timeline.binary_explanation(5) -%>'
+                      }
+                    ];
+                    Chart.defaults.global.responsive = true;
+                    Chart.defaults.global.tooltipTemplate = "<%%= value %> références";
+                    (function () {
+                      var helpers = Chart.helpers,
+                          canvas = $("#myChart").get(0),
+                          ctx = canvas.getContext('2d'),
+                          versusDoughnut = new Chart(ctx).Doughnut(data, {
+                            legendTemplate: "<div><%% for (var i=0; i<segments.length; i++){%><div class=\"clearfix\"><div class=\"pics\" style=\"background-color:<%%=segments[i].fillColor%>\"></div><div class=\"labels\"><%%if(segments[i].label){%><%%=segments[i].label%></div><%%}%></div><%%}%></div>"
+                          });
+                      $('#doughtnut-legend').html(versusDoughnut.generateLegend());
+                      helpers.addEvent(canvas, 'mousemove', function (evt) {
+                        var segments = versusDoughnut.getSegmentsAtEvent(evt);
+                        if (segments.length > 0) {
+                          canvas.style.cursor = "pointer";
+                        }
+                        else {
+                          canvas.style.cursor = "default";
+                        }
+                      });
+
+                      helpers.addEvent(canvas, 'click', function (evt) {
+                        versusDoughnut.options.animation = true;
+                        versusDoughnut.options.onAnimationComplete = function () {
+                          this.showTooltip(this.activeElements, true);
+                        };
+                        var segments = versusDoughnut.getSegmentsAtEvent(evt);
+                        helpers.each(segments, function (bar) {
+                          if (bar.active) {
+                            $(bar.references).hide(500);
+                            bar.active = false;
+                            bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.8)');
+                            bar._saved.fillColor = bar.baseColor.replace('1.0)', '0.1)');
+                          } else {
+                            bar.active = true;
+                            $(bar.references).show(500);
+                            bar._saved.highlightColor = bar.baseColor.replace('1.0)', '0.6)');
+                            bar._saved.fillColor = bar.baseColor.replace('1.0)', '1.0)');
+                          }
+                        });
+                        if (segments.length > 0) {
+                          versusDoughnut.update();
+                        }
+                      });
+                      $.each(versusDoughnut.segments, function (key, bar) {
+                        bar.active = true;
+                        bar.references = ".binary" + (key + 1).toString();
+                        bar.baseColor = bar.fillColor;
+                      });
+                    })();
+                  });
+                }
+              });
+            });
           </script>
           <div id="versus-click" class="btn btn-default">
             <span class="icon-versus"></span> &nbsp
@@ -610,19 +612,19 @@
               </div>
               <br>
               <script type="text/javascript">
-                  $(document).ready(function () {
-                      $('#star-click').click(function () {
-                          if ($(this).hasClass("active")) {
-                              $(this).removeClass("active");
-                              $('#text-star').text("<%= t('views.timelines.show_star') %>");
-                              $('.frog').fadeOut(600);
-                          } else {
-                              $(this).addClass("active");
-                              $('#text-star', this).text("<%= t('views.timelines.hide_star') %>");
-                              $('.frog').fadeIn(600);
-                          }
-                      });
+                $(document).ready(function () {
+                  $('#star-click').click(function () {
+                    if ($(this).hasClass("active")) {
+                      $(this).removeClass("active");
+                      $('#text-star').text("<%= t('views.timelines.show_star') %>");
+                      $('.frog').fadeOut(600);
+                    } else {
+                      $(this).addClass("active");
+                      $('#text-star', this).text("<%= t('views.timelines.hide_star') %>");
+                      $('.frog').fadeIn(600);
+                    }
                   });
+                });
               </script>
           <% end %>
           <% if logged_in? && @titles > 0 %>
@@ -635,66 +637,66 @@
                 &nbsp <span id="text-no-comment"><%= t('views.timelines.hide_no_comment', count: @titles) %></span>
               </div>
               <script type="text/javascript">
-                  $(document).ready(function () {
-                      $('#no-comment').click(function () {
-                          if ($(this).hasClass("active")) {
-                              $(this).removeClass("active");
-                              $('#text-no-comment').text("<%= t('views.timelines.show_no_comment') %>");
-                              $('.need-comment').hide(600);
-                          } else {
-                              $(this).addClass("active");
-                              $('#text-no-comment', this).text("<%= t('views.timelines.hide_no_comment') %>");
-                              $('.need-comment').show(600);
-                          }
-                      });
+                $(document).ready(function () {
+                  $('#no-comment').click(function () {
+                    if ($(this).hasClass("active")) {
+                      $(this).removeClass("active");
+                      $('#text-no-comment').text("<%= t('views.timelines.show_no_comment') %>");
+                      $('.need-comment').hide(600);
+                    } else {
+                      $(this).addClass("active");
+                      $('#text-no-comment', this).text("<%= t('views.timelines.hide_no_comment') %>");
+                      $('.need-comment').show(600);
+                    }
                   });
+                });
               </script>
           <% end %>
           <div id="cd-timeline" class="cd-container">
             <%= render :partial => 'references/reference', :collection => @references, :locals => {:binary => @timeline.binary} %>
           </div>
           <script type="text/javascript">
-              $(document).ready(function () {
-                  $('.fetcher').click(function () {
-                      $(this).hide();
-                      $(this).before('<svg version="1.1" class="fetcher-loader pull-right" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-                  });
-                  $('.linked-ref').click(function (e) {
-                      var id = $(this).data("ref");
-                      $("#button" + id).trigger('click');
-                      if ($("#ref-" + id).hasClass("glyphicon-chevron-down")) {
-                          $("#ref-" + id).trigger('click');
-                      }
-                      $("#block-" + id).show(500);
-                      if ($('#block-' + id).length) {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          $('html, body').animate({
-                              scrollTop: $('#block-' + id).offset().top - 80
-                          }, 500);
-                          return false
-                      } else {
-                          return true
-                      }
-                  });
-                  $('.detail').click(function () {
-                      if ($(this).hasClass("glyphicon-chevron-down")) {
-                          $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-                          $(this).parent().parent().parent().find('.ref').show(500);
-                          $('html, body').animate({
-                              scrollTop: $(this).parent().parent().parent().offset().top - 80
-                          }, 500)
-                      }
-                      else {
-                          $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-                          $(this).parent().parent().parent().find('.ref').hide(500)
-                      }
-                  });
+            $(document).ready(function () {
+              $('.fetcher').click(function () {
+                $(this).hide();
+                $(this).before('<svg version="1.1" class="fetcher-loader pull-right" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
               });
+              $('.linked-ref').click(function (e) {
+                var id = $(this).data("ref");
+                $("#button" + id).trigger('click');
+                if ($("#ref-" + id).hasClass("glyphicon-chevron-down")) {
+                  $("#ref-" + id).trigger('click');
+                }
+                $("#block-" + id).show(500);
+                if ($('#block-' + id).length) {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  $('html, body').animate({
+                    scrollTop: $('#block-' + id).offset().top - 80
+                  }, 500);
+                  return false
+                } else {
+                  return true
+                }
+              });
+              $('.detail').click(function () {
+                if ($(this).hasClass("glyphicon-chevron-down")) {
+                  $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+                  $(this).parent().parent().parent().find('.ref').show(500);
+                  $('html, body').animate({
+                    scrollTop: $(this).parent().parent().parent().offset().top - 80
+                  }, 500)
+                }
+                else {
+                  $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+                  $(this).parent().parent().parent().find('.ref').hide(500)
+                }
+              });
+            });
           </script>
       <% end %>
       <% if @timelines.count > 2 %>
-         <b> À voir aussi : </b>
+          <b> À voir aussi : </b>
           <div id="myCanvasContainer">
             <canvas id="tagCanvas" class="img-responsive" width="1920" height="480">
             </canvas>
@@ -711,22 +713,22 @@
             <% end %>
           </div>
           <script type="text/javascript">
-              $(document).ready(function () {
-                  if (!$('#tagCanvas').tagcanvas({
-                              textColour: '#3686BE',
-                              outlineMethod: "colour",
-                              outlineColour: "#24597E",
-                              textFont: "Ubuntu, 700",
-                              wheelZoom: false,
-                              hideTags: false,
-                              splitWidth: 800,
-                              textHeight: "32",
-                              maxSpeed: 0.03,
-                              depth: 0.75
-                          }, 'tags')) {
-                      $('#myCanvasContainer').hide();
-                  }
-              });
+            $(document).ready(function () {
+              if (!$('#tagCanvas').tagcanvas({
+                    textColour: '#3686BE',
+                    outlineMethod: "colour",
+                    outlineColour: "#24597E",
+                    textFont: "Ubuntu, 700",
+                    wheelZoom: false,
+                    hideTags: false,
+                    splitWidth: 800,
+                    textHeight: "32",
+                    maxSpeed: 0.03,
+                    depth: 0.75
+                  }, 'tags')) {
+                $('#myCanvasContainer').hide();
+              }
+            });
           </script>
           <br>
           <%= javascript_include_tag 'tagcanvas' %>
@@ -766,8 +768,8 @@
 <%= render 'shared/subscription' %>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        setupSubscription();
-        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    });
+  $(document).ready(function () {
+    setupSubscription();
+    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+  });
 </script>

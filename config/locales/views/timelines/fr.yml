@@ -27,7 +27,7 @@ fr:
       delete: Supprimer votre analyse
       from_reference: "De la référence "
       from_timeline: "Dans la controverse "
-      edit_help_html: "Vous pouvez laisser certains champs vides.
+      edit_help_html: "Vous pouvez laisser certains <b>champs vides</b>, ils ne seront <b>pas pris en compte</b> dans l'analyse.
                             Plus votre analyse est concise et précise, plus les lecteurs pourront la comprendre facilement.
                             <br/>
                             Le <a href=\"/markdown-tutorial\" target=\"_blank\">markdown est supporté</a>.
@@ -238,6 +238,7 @@ fr:
       remove_staging: Faire éclore cette controverse
       is_staging_html: Cette controverse est encore à l'état embryonnaire&nbsp!
       is_staging_sub: Aidez la à éclore !
+      is_staging_sub_not_logged: Vous venez de mettre les pieds dans les tréfonds en construction de ControverSciences.
       is_built_html: Cette controverse a éclos, elle s'est ouverte au monde&nbsp!
       is_built_sub: Aidez la à continuer sa métamorphose !
       are_staging_html: Ces controverses sont encore à l'état embryonnaire&nbsp!
