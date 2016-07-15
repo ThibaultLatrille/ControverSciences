@@ -248,6 +248,8 @@
 
 <%= render 'modals/href' %>
 
+<%= render 'modals/wiki' %>
+
 <div class="modal fade" id="warning" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content panel-warning">
@@ -269,7 +271,7 @@
     $("#description6").markdown({
         autofocus: false,
         savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold']
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold']
     });
     $(document).ready(function () {
         if ($('#comment_has_picture').val() === 'true') {

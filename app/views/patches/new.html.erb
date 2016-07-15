@@ -97,6 +97,8 @@
     <%= render 'modals/reference_list', references_list: @list %>
 
     <%= render 'modals/href' %>
+
+    <%= render 'modals/wiki' %>
     <script type="text/javascript">
         $("#description").markdown({
             autofocus: true,
@@ -109,7 +111,7 @@
         $("#description").markdown({
             autofocus: true,
             savable: false,
-            hiddenButtons: ['cmdLinkInt', 'cmdUrl']
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki']
         });
     </script>
 <% else %>
@@ -117,7 +119,7 @@
         $("#description").markdown({
             autofocus: true,
             savable: false,
-            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold']
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold']
         });
     </script>
 <% end %>
@@ -127,7 +129,7 @@
     $("#description1").markdown({
         autofocus: true,
         savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS']
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS']
     });
     (function () {
 

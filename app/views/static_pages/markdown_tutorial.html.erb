@@ -70,42 +70,44 @@ En remplaçant le nom du lien par le symbole `*`, la référence est numérotée
 
 <%= render 'modals/href' %>
 
+<%= render 'modals/wiki' %>
+
 <script type="text/javascript">
     $("#bold").markdown({
         hideHelp: true,
         autofocus: false,
         savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdSuperScript', 'cmdSubScript']
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#script").markdown({
         hideHelp: true,
         autofocus: false,
         savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic']
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic']
     });
     $("#list").markdown({
         hideHelp: true,
         autofocus: false,
         savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#href").markdown({
         hideHelp: true,
         autofocus: false,
         savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
+        hiddenButtons: ['cmdLinkInt', 'cmdLinkCVS', 'cmdWiki', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#link").markdown({
         hideHelp: true,
         autofocus: false,
         savable: false,
-        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
+        hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#link-tim").markdown({
         hideHelp: true,
         autofocus: false,
         savable: false,
-        hiddenButtons: ['cmdLinkCVS', 'cmdUrl', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
+        hiddenButtons: ['cmdLinkCVS', 'cmdUrl', 'cmdWiki', 'cmdList', 'cmdListO', 'cmdBold', 'cmdItalic', 'cmdSuperScript', 'cmdSubScript']
     });
     $("#sandbox").markdown({
         hideHelp: true,

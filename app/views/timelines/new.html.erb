@@ -102,12 +102,12 @@
         $("#description1").markdown({
             autofocus: false,
             savable: false,
-            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold']
+            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold']
         });
         $("#description0").markdown({
             autofocus: false,
             savable: false,
-            hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdLinkCVS']
+            hiddenButtons: ['cmdLinkInt', 'cmdLinkCVS']
         });
         $('#check-box').click(function () {
             if ($(this).is(':checked')) {
@@ -124,3 +124,7 @@
 <script type="text/javascript">
     setupLengthCounter([[0, 2500, 180], [1, 180]])
 </script>
+
+<%= render 'modals/href' %>
+
+<%= render 'modals/wiki' %>
