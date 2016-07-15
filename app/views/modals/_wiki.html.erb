@@ -1,0 +1,61 @@
+<div class="modal fade" id="mywiki" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"> <span class="icon-wiki bigger"></span> Créer un lien vers un article Wikipédia </h4>
+      </div>
+      <div class="modal-body">
+        <b>Mot clé pour vous cherchez l'article sur wikipédia</b>
+        <input id="wiki-text" type="text" class="form-control" value="Controverse">
+        <br>
+        <div class="center clearfix">
+          <button type="button" class="btn btn-success" data-dismiss="modal" data-toggled="no" id="save-btn-wiki">
+            <span class="icon icon-wiki"></span>
+            Créer un lien vers l'article wikipédia sélectionné
+          </button>
+        </div>
+        <br>
+        <div id="wiki-example" class="center">
+          <b>e.g.</b> [<span class="ex-wiki-text"></span>](<span class="ex-wiki-link"></span>)
+          <span style="padding: 0 5px">&#8594;</span>
+          <a class="ex-wiki-href" target="_blank" href=''><span class="ex-wiki-text"></span></a>
+        </div>
+        <br>
+        <div id="wiki-loader" class="center" style="display: none">
+          Chargement <br>
+          <div class="loader">
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+              <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
+                <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite" />
+              </rect>
+              <rect x="8" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite" />
+              </rect>
+              <rect x="16" y="10" width="4" height="10" fill="#333"  opacity="0.2">
+                <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+                <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite" />
+              </rect>
+            </svg>
+          </div>
+        </div>
+        <div id="wiki-list" data-toggle="buttons">
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $('#save-btn-wiki').on('click', function (event) {
+        this.setAttribute("data-toggled", 'yes');
+    });
+</script>

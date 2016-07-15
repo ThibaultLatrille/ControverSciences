@@ -144,6 +144,12 @@
                                 'href': '#myref'
                             });
                         }
+                        if (button.wiki == true) {
+                            buttonContainer.attr({
+                                'data-toggle': 'modal',
+                                'href': '#mywiki'
+                            });
+                        }
                         if (button.toggle == true) {
                             buttonContainer.attr('data-toggle', 'button');
                         } else {
@@ -1078,6 +1084,97 @@
                                     e.setSelection(cursor, cursor + chunk.length);
                                     throw new Error("Everything is alright")
                                 }
+                            }
+                        });
+                    }
+                }, {
+                    name: 'cmdWiki',
+                    wiki: true,
+                    title: 'Insérer un lien Wikipédia',
+                    hotkey: 'Ctrl+L',
+                    icon: {glyph: 'icon-wiki bigger', fa: 'fa fa-link', 'fa-3': 'icon-link'},
+                    callback: function (e) {
+                        var $saveWiki = $('#save-btn-wiki');
+                        var $exWiki = $('#wiki-example');
+                        var chunk, cursor, link, selected = e.getSelection();
+                        var typingTimer, fmdata = [];
+                        var $input = $("#wiki-text");
+                        if (e.getSelection().length != 0) {
+                            $input.val(e.getSelection().text)
+                        }
+                        var $wikiList = $("#wiki-list"), $loader = $("#wiki-loader");
+                        $wikiList.empty();
+                        $saveWiki.hide();
+                        $exWiki.hide();
+                        var limit = 6;
+                        var doneTypingInterval = 500;
+                        function doneTyping() {
+                            $wikiList.empty();
+                            $loader.show();
+                            $saveWiki.hide();
+                            $exWiki.hide();
+                            var playListURL = 'http://fr.wikipedia.org/w/api.php?action=opensearch&search=+' +
+                                $input.val() + '&limit=' + limit
+                                + '&namespace=0&format=json&callback=?';
+                            $.getJSON(playListURL ,function(data) {
+                                $loader.hide();
+                                if (data[1].length == 0){
+                                    $wikiList.append('<div class="center"><b>Aucun article Wikipédia ne correspond à votre requête.</b><br><span class="icon-1 big"></span></div>')
+                                } else {
+                                    $.each(data[1], function(i, item) {
+                                        fmdata += [data[1][i], data[2][i], data[3][i]];
+                                        $wikiList.append('<div class="btn btn-default btn-block text-left">'
+                                            + '<input type="radio" name="wiki_id" id="wiki_id_"'+ i + ' value="'+ data[3][i]
+                                            + '" title="' + data[1][i] + '">'
+                                            + '<b>' + data[1][i] + '</b><br>'
+                                            + data[2][i] + '<br>'
+                                            + '<i>' + decodeURI(data[3][i]) + '</i>'
+                                            + '</div>')
+                                    });
+                                    var $radio = $("input[type='radio'][name='wiki_id']");
+                                    $radio.change(function () {
+                                        link = decodeURI(this.value);
+                                        if (selected.length == 0) {
+                                            chunk = $input.val()
+                                        } else {
+                                            chunk = selected.text
+                                        }
+                                        $('.ex-wiki-text').text(chunk);
+                                        $('.ex-wiki-link').text(link);
+                                        $('.ex-wiki-href').attr('href', link);
+                                    });
+                                    $radio.first().trigger("change");
+                                    var input = $radio.first().prop('checked', true);
+                                    input.parent().addClass("active");
+                                    $exWiki.show();
+                                    $saveWiki.show();
+                                }
+                            });
+                        }
+                        $(document).ready(function () {
+                            doneTyping()
+                        });
+                        $input.on('keyup', function () {
+                            clearTimeout(typingTimer);
+                            typingTimer = setTimeout(doneTyping, doneTypingInterval);
+                        });
+                        $input.on('keydown', function () {
+                            clearTimeout(typingTimer);
+                        });
+
+                        $('#mywiki').one('hidden.bs.modal', function (event) {
+                            if ($saveWiki.data("toggled") === 'yes') {
+                                $saveWiki.data("toggled", 'no');
+
+                                // transform selection and set the cursor into chunked text
+                                e.replaceSelection('[' + chunk + '](' + link + ')');
+                                cursor = selected.start + 1;
+
+                                // Set the cursor
+
+                                e.$textarea.focus();
+                                e.setSelection(cursor, cursor + chunk.length);
+                                throw new Error("Everything is alright")
                             }
                         });
                     }
