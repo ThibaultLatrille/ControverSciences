@@ -55,4 +55,8 @@ class String
         .gsub(/[0-9]\. /, '')
         .gsub("\r\n", " ").length
   end
+
+  def transliterate
+    I18n.transliterate(self.downcase)
+  end
 end

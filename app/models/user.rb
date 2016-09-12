@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
                 :invalid_email, :terms_of_service, :invited, :timelines_count,
                 :empty_references, :empty_comments, :empty_summaries, :admin_patches,
                 :notif_patches, :admin_dead_links, :admin_pending_users, :pending_patches
-  before_save :downcase_email
+  before_save :transliterate_email
   before_create :create_activation_digest
 
   validates_acceptance_of :terms_of_service
@@ -158,7 +158,7 @@ class User < ActiveRecord::Base
   private
 
   # Converts email to all lower-case.
-  def downcase_email
-    self.email = email.downcase
+  def transliterate_email
+    self.email = email.transliterate
   end
 end

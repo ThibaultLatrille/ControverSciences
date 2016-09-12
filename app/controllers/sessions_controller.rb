@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
+    user = User.find_by(email: params[:session][:email].transliterate)
     if user && user.authenticate(params[:session][:password])
       if user.activated?
         log_in user
@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
   end
 
   def send_activation
-    user = User.find_by(email: params[:email].downcase)
+    user = User.find_by(email: params[:email].transliterate)
     if user && !user.activated?
       random_choices_and_favorite
       if PendingUser.find_by_user_id(user.id)
