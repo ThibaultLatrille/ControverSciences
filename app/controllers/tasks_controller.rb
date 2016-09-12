@@ -87,11 +87,13 @@ class TasksController < ApplicationController
   end
 
   def notif_slack
-    Slack.configure do |config|
-      config.token = ENV['SLACK_API_TOKEN']
+    if @emails > 0
+      Slack.configure do |config|
+        config.token = ENV['SLACK_API_TOKEN']
+      end
+      client = Slack::Web::Client.new
+      admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
+      client.chat_postMessage(channel: admin_group['id'], text: "#{@emails} #{t('controllers.email_sent')}")
     end
-    client = Slack::Web::Client.new
-    admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
-    client.chat_postMessage(channel: admin_group['id'], text: "#{@emails} #{t('controllers.email_sent')}")
   end
 end
