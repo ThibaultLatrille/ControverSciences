@@ -44,3 +44,5 @@ en:
         target: "One or a few links with references must be selected"
       edge:
         target: "One or a few links with controversies must be selected"
+      private:
+        target: "One or a few contributors must be selected"

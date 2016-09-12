@@ -46,3 +46,5 @@ fr:
         target: "Un ou plusieurs liens avec des références doivent être sélectionées"
       edge:
         target: "Un ou plusieurs liens avec des controverses doivent être sélectionées"
+      private:
+        target: "Un ou plusieurs contributeurs doivent être sélectionées"

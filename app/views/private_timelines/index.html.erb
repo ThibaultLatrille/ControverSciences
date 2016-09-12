@@ -43,7 +43,9 @@
                   <%= render 'shared/error_messages', object: f.object %>
                   <%= f.hidden_field :timeline_id, value: params[:timeline_id] %>
 
-                  <%= f.button "<span class=\"icon icon-users\" aria-hidden=\"true\"></span>&nbsp #{t('views.private_timelines.add_private_timeline')}".html_safe,
+                  <%= f.button "<span id=\"number-item\" class=\"badge badge-li\">0</span>
+                                &nbsp #{t('views.private_timelines.add_private_timeline')}
+                                <span class=\"icon icon-users\" aria-hidden=\"true\"></span>".html_safe,
                                class: 'btn btn-success pull-right',
                                style: "margin: 5px;",
                                data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')}"} %>
@@ -59,8 +61,8 @@
 
                   <div id="jetsContent" data-toggle="buttons">
                     <% @user_names.each do |name, id| %>
-                        <div class="btn btn-default btn-block text-left timeline-private_timeline-check">
-                          <%= f.check_box :user_id, {:multiple => true}, checked_value = id, unchecked_value = nil %>
+                        <div class="btn btn-default btn-block text-left timeline-private_timeline-check btn-box">
+                          <%= f.check_box :user_id, {class: "check-box", :multiple => true}, checked_value = id, unchecked_value = nil %>
                           <%= name.html_safe %>
                           <span class="pull-right checked icon icon-user">
                             </span>
@@ -83,9 +85,21 @@
 </div>
 
 <script type="text/javascript">
-    $('[data-toggle="tooltip"]').tooltip({container: 'body'});
-    var jets = new Jets({
+    $(document).ready(function () {
+      $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+      var jets = new Jets({
         searchTag: '#jetsSearch',
         contentTag: '#jetsContent'
-    });
+      });
+
+      var $numberItem = $('#number-item');
+
+      function toggleDestroyButton() {
+        $numberItem.text($(".check-box:checked").length);
+      }
+
+      $(".check-box").on('change', function () {
+        toggleDestroyButton()
+      });
+    })
 </script>

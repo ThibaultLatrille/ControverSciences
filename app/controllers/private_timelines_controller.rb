@@ -41,7 +41,7 @@ class PrivateTimelinesController < ApplicationController
     end
     @private_timeline = PrivateTimeline.new
     if count == 0
-      @private_timeline.errors.add(:base, t('activerecord.attributes.edge.target'))
+      @private_timeline.errors.add(:base, t('activerecord.attributes.private.target'))
     else
       flash.now[:success] = t('controllers.slack_invit', email: current_user.email)
     end
