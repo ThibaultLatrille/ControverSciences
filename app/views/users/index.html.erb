@@ -31,15 +31,28 @@
             <%= search_field_tag(:filter, params[:filter], placeholder: " " + t('views.default.search')) %>
           </div>
       <% end %>
-      <h1>
-        <%= t('views.pluralize.users', count: @users_count) %>
-      </h1><br>
+      <% if params[:editors].present? || params[:contributors].present? %>
+          <h1><%= t('views.pluralize.users', count: @users_count) %> à cette contribution </h1>
+          <div class="center">
+            <%= link_to "<span class=\"icon-arrow-left normal\"></span> Revenir à la contribution".html_safe,
+                        request.referer, class: "btn btn-default btn-lg" %>
+          </div>
+      <% else %>
+          <h1><%= t('views.pluralize.users', count: @users_count) %></h1>
+      <% end %>
+      <br>
       <div id="comments">
         <div class="row page">
           <%= render @users %>
           <%= paginate @users %>
         </div>
       </div>
+      <% if params[:editors].present? || params[:contributors].present? %>
+          <div class="center">
+            <%= link_to "<span class=\"icon-users normal\"></span> Voir tous #{t('views.navigation.users')}".html_safe,
+                        users_path, class: "btn btn-default btn-lg" %>
+          </div>
+      <% end %>
     </div>
   </div>
 </div>

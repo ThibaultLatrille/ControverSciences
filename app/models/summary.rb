@@ -1,5 +1,6 @@
 class Summary < ActiveRecord::Base
   require 'HTMLlinks'
+  include Contribution
 
   attr_accessor :delete_picture, :has_picture
 
@@ -30,22 +31,6 @@ class Summary < ActiveRecord::Base
   validates :content, presence: true
 
   validates_uniqueness_of :user_id, :scope => :timeline_id
-
-  def user_name
-    User.select(:name).find(self.user_id).name
-  end
-
-  def authors
-    1 + self.contributors.count
-  end
-
-  def editors
-    [self.user_id]
-  end
-
-  def timeline_name
-    Timeline.select(:name).find(self.timeline_id).name
-  end
 
   def picture?
     self.figure_id ? true : false

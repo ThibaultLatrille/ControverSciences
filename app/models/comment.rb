@@ -1,6 +1,7 @@
 class Comment < ActiveRecord::Base
   require 'HTMLlinks'
   include ApplicationHelper
+  include Contribution
 
   attr_accessor :delete_picture, :has_picture
 
@@ -30,24 +31,8 @@ class Comment < ActiveRecord::Base
   validate :content_validation
   validates_uniqueness_of :user_id, :scope => :reference_id
 
-  def user_name
-    User.select(:name).find(self.user_id).name
-  end
-
-  def authors
-    1 + self.contributors.count
-  end
-
-  def editors
-    [self.user_id]
-  end
-
   def reference_title
     Reference.select(:title).find(self.reference_id).title
-  end
-
-  def timeline_name
-    Timeline.select(:name).find(self.timeline_id).name
   end
 
   def picture?

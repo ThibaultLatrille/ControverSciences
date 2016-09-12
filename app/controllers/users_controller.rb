@@ -3,7 +3,6 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: [:destroy]
 
-
   def fetch_user_detail(id)
     @user_detail = UserDetail.find_by_user_id(id)
     unless @user_detail
@@ -30,6 +29,9 @@ class UsersController < ApplicationController
 
   def index
     query = User.includes(:user_detail).where(activated: true).order(score: :desc, created_at: :desc)
+    if params[:editors].present? || params[:contributors].present?
+      query = query.where(id: params[:editors].push(params[:contributors]))
+    end
     unless params[:filter].blank?
       query = query.search_by_name(params[:filter])
     end

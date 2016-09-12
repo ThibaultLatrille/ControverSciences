@@ -1,5 +1,6 @@
 class BestComment < ActiveRecord::Base
   belongs_to :reference
+  include Contribution
 
   validates :reference_id, presence: true
   validates_uniqueness_of :reference_id

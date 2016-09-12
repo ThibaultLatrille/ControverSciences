@@ -1,5 +1,7 @@
 class Frame < ActiveRecord::Base
   include ApplicationHelper
+  include Contribution
+
   require 'HTMLlinks'
 
   attr_accessor :binary_left, :binary_right
@@ -30,22 +32,6 @@ class Frame < ActiveRecord::Base
   validate :content_validation
 
   validates_uniqueness_of :user_id, :scope => :timeline_id
-
-  def user_name
-    User.select(:name).find(self.user_id).name
-  end
-
-  def authors
-    1 + self.contributors.count
-  end
-
-  def editors
-    [self.user_id]
-  end
-
-  def timeline_name
-    Timeline.select(:name).find(self.timeline_id).name
-  end
 
   def my_frame_credit(user_id)
     credit = FrameCredit.select(:value).find_by( user_id: user_id, frame_id: self.id )
