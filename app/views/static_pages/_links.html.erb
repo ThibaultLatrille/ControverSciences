@@ -9,7 +9,7 @@
             timelines_graph_path,
             class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %> <br> <br>
 <%= link_to "<b><span class=\"icon-circo bigger\" ></span> ControverSciences est-il inter-disciplinaire ?</b>".html_safe,
-            tag_pairs_graph_path,
+            tag_pairs_graph_path(:timeline => true),
             class: "btn btn-lg btn-primary", style: "font-size: 1.4em; padding: 0.5em 1.5em;" %> <br> <br>
 <%= link_to "<b>#{t('views.partners.index_html')}</b>".html_safe,
             partners_path,

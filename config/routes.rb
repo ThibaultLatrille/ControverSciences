@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'static_pages#home'
+  root 'timelines#index'
   resources :users do
     collection do
       get 'checkemail'

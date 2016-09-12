@@ -146,7 +146,7 @@ class User < ActiveRecord::Base
 
   def notifications_count
     notifications_all + notif_patches + nb_notifs + pending_patches +
-        admin_patches + admin_dead_links + admin_pending_users
+        admin_patches + admin_dead_links + admin_pending_users + invited
   end
 
   # Creates and assigns the activation token and digest.

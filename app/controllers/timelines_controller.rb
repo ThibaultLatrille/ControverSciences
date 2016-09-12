@@ -10,13 +10,20 @@ class TimelinesController < ApplicationController
   end
 
   def index
+    @option = false
     if params[:sort] == 'nb_edits'
       params[:sort] = 'nb_comments'
     end
-    unless %w(score score_recent created_at nb_contributors nb_references  nb_comments nb_summaries nb_likes).include? params[:sort]
+    if %w(score score_recent created_at nb_contributors nb_references  nb_comments nb_summaries nb_likes).include? params[:sort]
+      @option = true
+    else
       params[:sort] = 'score'
     end
-    params[:order] = (params[:order].present? && (params[:order] == 'asc' || params[:order] == 'desc')) ? params[:order] : "desc"
+    if params[:order].present? && (params[:order] == 'asc' || params[:order] == 'desc')
+      @option = true
+    else
+      params[:order] = "desc"
+    end
     query = Timeline.includes(:tags).order(params[:sort].blank? ? :score : params[:sort].to_sym => params[:order],
                                            created_at: params[:order])
                 .where.not(private: true)
@@ -29,6 +36,7 @@ class TimelinesController < ApplicationController
     unless params[:tag].blank? || params[:tag] == 'all' || params[:tag] == [''] || params[:tag] == ["all"]
       query = query.joins(taggings: :tag)
                   .where(tags: {name: params[:tag]})
+      @option = true
     end
     if logged_in?
       unless params[:interest].blank?

@@ -5,45 +5,74 @@
   <%= image_tag "rocket.svg", class: "img-responsive" %>
 </div>
 <div class="container-fluid">
-  <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 center">
-    <br>
-    <% if @favorite %>
-        <a href="<%= timeline_path(@favorite) %>" class="home-btn btn">
+  <div class="col-xs-12 col-md-offset-1 col-md-10 center">
+    <div>
+      <br>
+      <a href="<%= about_path %>" class="home-btn btn"  style="font-size: 1.8em;">
           <span class="full">
-            <span class="icon icon-rocket mirrors"></span>
+            <span class="icon icon-frog"></span>
           </span><b>
-          <%= @favorite.name.html_safe %></b><br><em>
-          <span class="icon icon-rocket bigger mirrors"></span>
-          Controverse à l'affiche
-          <span class="icon icon-rocket bigger"></span> </em>
-        </a><br>
-    <% end %>
-    <% @choices.each do |choice| %>
-        <a rel="nofollow" data-method="post"
-           href="<%= timeline_choices_path(timeline_id: choice.id,
-                                           friendly_id: choice.slug,
-                                           choices: @choices.map { |t| t.id }) %>"
-           class="home-btn btn home-btn-sm">
-                <span class="full">
-            <span class="icon icon-<%= choice.tags.any? ? choice.tags.first.name : nil %>"></span>
-          </span>
-          <b><%= simple_format(word_wrap(choice.name, line_width: 40), {}, wrapper_tag: "div") %></b>
-          <em>
-            <%= choice.tags.map{ |t| tags_hash[t.name]}.join(", ") %>
-          </em>
-        </a>
-    <% end %>
-    <br>
-    <a href="<%= timelines_path %>" class="home-btn btn" style="font-size: 1.8em;">
+        Qui sommes nous ?</b><br><em>
+        <span class="icon-frog bigger"></span> Visite des
+        locaux &nbsp;<span class="icon-frog mirrors bigger"></span></em>
+      </a>
+      <br>
+      <a href="<%= users_path %>" class="home-btn btn">
+          <span class="full" style="top: 15%">
+            <span class="icon icon-users"></span>
+          </span><b>
+        Qui sont les contributeurs ?</b><br><em>
+        <span class="icon-users bigger"></span> Rencontrez les &nbsp; <span class="icon-users bigger mirrors"></span>
+      </em>
+      </a>
+      <a href="<%= comics_path %>" class="home-btn btn">
           <span class="full">
-            <span class="icon icon-search"></span>
+            <span class="icon icon-superman mirrors"></span>
           </span><b>
-      <% if logged_in? %> Toutes les controverses
-      <% else %> Les controverses écloses
-      <% end %></b><br><em>
-      <span class="icon-search bigger"></span> Partez en
-      exploration &nbsp;<span class="icon-search bigger mirrors"></span> </em>
-    </a>
+        <% if logged_in? %> Quel contributeur êtes-vous ?
+        <% else %> Quel contributeur seriez-vous ?
+        <% end %></b><br><em>
+        <span class="icon-superman bigger"></span> La bande
+        dessinée &nbsp;<span class="icon-superman mirrors bigger"></span></em>
+      </a>
+      <% if logged_in? %>
+          <a href="<%= user_path(current_user) %>" class="home-btn btn">
+              <span class="full">
+            <span class="icon icon-user"></span>
+          </span><b>
+            Qui êtes-vous ?</b><br><em>
+            <span class="icon-user bigger"></span> <%= t('views.header.user') %> &nbsp;<span class="icon-user mirrors bigger"></span></em>
+          </a>
+      <% end %>
+      <a href="<%= magna_charta_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="glyphicon glyphicon-book mirrors"></span>
+          </span><b>
+        Quelles fondations pour le site ?
+      </b><br><em>
+        <span class="glyphicon glyphicon-book"></span> La charte du site &nbsp;
+        <span class="glyphicon glyphicon-book mirrors"></span></em>
+      </a>
+      <a href="<%= faq_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="glyphicon glyphicon-question-sign"></span>
+          </span><b>
+        Vous avez des questions ?
+      </b><br><em>
+        <span class="glyphicon glyphicon-question-sign "></span>
+        La foire aux questions &nbsp;
+        <span class="glyphicon glyphicon-question-sign "></span></em>
+      </a>
+      <a href="<%= contributions_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-graph-int"></span>
+          </span><b>
+        ControverSciences évolue-t-il ? </b><br><em>
+        <span class="icon-graph-int mirrors bigger"></span> Graphe
+        interactif &nbsp;<span class="icon-graph-int bigger"></span> </em>
+      </a>
+      <br>
+    </div>
     <div class="carousel-container">
       <div id="mycarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner home-carrousel" role="listbox">
@@ -70,6 +99,7 @@
       </div>
     </div>
     <br>
+    <br><br>
   </div>
 </div>
 <hr style="height: 0; margin: 0; border-top: 2px solid #ccc">
@@ -78,112 +108,7 @@
 <div id="my-container" class="container-fluid">
   <div id="body-controversciences">
     <div class="col-xs-12 col-md-offset-1 col-md-10 center">
-      <div>
-        <br>
-        <a href="<%= discover_path %>" class="home-btn btn">
-          <span class="full">
-            <span class="icon icon-layers"></span>
-          </span><b>
-          Quel est le cycle de vie d'une controverse ? </b><br><em>
-          <span class="icon-layers bigger"></span> Animation &nbsp;<span class="inline icon-layers bigger mirrors"></span>
-        </em>
-        </a>
-        <br>
-        <a href="<%= timelines_graph_path %>" class="home-btn btn">
-          <span class="full">
-            <span class="icon icon-network"></span>
-          </span><b>
-          Les controverses sont-elles liées ? </b><br><em>
-          <span class="icon-network bigger"></span> Carte
-          interactive &nbsp;<span class="icon-network mirrors bigger"></span> </em>
-        </a>
-        <a href="<%= contributions_path %>" class="home-btn btn">
-          <span class="full">
-            <span class="icon icon-graph-int"></span>
-          </span><b>
-          ControverSciences évolue-t-il ? </b><br><em>
-          <span class="icon-graph-int mirrors bigger"></span> Graphe
-          interactif &nbsp;<span class="icon-graph-int bigger"></span> </em>
-        </a>
-        <a href="<%= tag_pairs_graph_path %>" class="home-btn btn">
-          <span class="full">
-            <span class="icon icon-circo"></span>
-          </span><b>
-          ControverSciences est-il inter-disciplinaire ? </b><br><em>
-          <span class="icon-circo bigger"></span> Diagramme à cordes
-          interactif &nbsp;<span class="icon-circo bigger mirrors"></span> </em>
-        </a>
-        <a href="<%= users_path %>" class="home-btn btn">
-          <span class="full" style="top: 15%">
-            <span class="icon icon-users"></span>
-          </span><b>
-          Qui sont les contributeurs ?</b><br><em>
-          <span class="icon-users bigger"></span> Rencontrez les &nbsp; <span class="icon-users bigger mirrors"></span>
-        </em>
-        </a>
-        <a href="<%= about_path %>" class="home-btn btn">
-          <span class="full">
-            <span class="icon icon-frog"></span>
-          </span><b>
-          Qui sommes nous ?</b><br><em>
-          <span class="icon-frog bigger"></span> Visite des
-          locaux &nbsp;<span class="icon-frog mirrors bigger"></span></em>
-        </a>
-        <a href="<%= comics_path %>" class="home-btn btn">
-          <span class="full">
-            <span class="icon icon-superman mirrors"></span>
-          </span><b>
-          <% if logged_in? %> Quel contributeur êtes-vous ?
-          <% else %> Quel contributeur seriez-vous ?
-          <% end %></b><br><em>
-          <span class="icon-superman bigger"></span> La bande
-          dessinée &nbsp;<span class="icon-superman mirrors bigger"></span></em>
-        </a>
-        <a href="<%= magna_charta_path %>" class="home-btn btn">
-          <span class="full">
-            <span class="glyphicon glyphicon-book mirrors"></span>
-          </span><b>
-          Quelles fondations pour le site ?
-        </b><br><em>
-          <span class="glyphicon glyphicon-book"></span> La charte du site &nbsp;
-          <span class="glyphicon glyphicon-book mirrors"></span></em>
-        </a>
-        <a href="<%= faq_path %>" class="home-btn btn">
-          <span class="full">
-            <span class="glyphicon glyphicon-question-sign"></span>
-          </span><b>
-          Vous avez des questions ?
-        </b><br><em>
-          <span class="glyphicon glyphicon-question-sign "></span>
-          La foire aux questions &nbsp;
-          <span class="glyphicon glyphicon-question-sign "></span></em>
-        </a>
-        <% if logged_in? %>
-            <a href="<%= user_path(current_user) %>" class="home-btn btn">
-              <span class="full">
-            <span class="icon icon-user"></span>
-          </span><b>
-              Qui êtes-vous ?</b><br><em>
-              <span class="icon-user bigger"></span> <%= t('views.header.user') %> &nbsp;<span class="icon-user mirrors bigger"></span></em>
-            </a>
-        <% end %>
-        <br>
-      </div>
-      <div class="row">
-        <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-          <div class="bb-custom-wrapper shadow-effect">
-            <b style="font-size: 2em; color: #414042;">
-              Organiser, analyser et synthètiser <br>
-              la connaissance scientifique
-            </b>
-            <br> <br>
-
-            <%= image_tag "3rules.jpg", class: "img-responsive" %>
-          </div>
-          <br>
-          <br>
-        </div>
-      </div>
+      <br>      <br>
       <a href="<%= empty_references_path %>" class="home-btn btn">
           <span class="full">
             <span class="icon icon-reference"></span>
@@ -215,14 +140,89 @@
       </em>
       </a>
       <br>
-      <a href="<%= timelines_path %>" class="home-btn btn" style="font-size: 1.8em;"><b>
+    <div class="row">
+      <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+        <br><br>
+        <div class="bb-custom-wrapper shadow-effect">
+          <b style="font-size: 2em; color: #414042;">
+            Organiser, analyser et synthètiser <br>
+            la connaissance scientifique
+          </b>
+          <br> <br>
+
+          <%= image_tag "3rules.jpg", class: "img-responsive" %>
+        </div>
+        <br>
+        <br>
+      </div>
+    </div>
+    </div>
+    <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8 center">
+      <a href="<%= timelines_path %>" class="home-btn btn" style="font-size: 1.8em;">
+          <span class="full">
+            <span class="icon icon-search"></span>
+          </span><b>
         <% if logged_in? %> Toutes les controverses
         <% else %> Les controverses écloses
         <% end %></b><br><em>
         <span class="icon-search bigger"></span> Partez en
         exploration &nbsp;<span class="icon-search bigger mirrors"></span> </em>
+      </a><br><br>
+      <a href="<%= discover_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-layers"></span>
+          </span><b>
+        Quel est le cycle de vie d'une controverse ? </b><br><em>
+        <span class="icon-hatch bigger"></span> Animation &nbsp;<span class="inline icon-hatch bigger mirrors"></span>
+      </em>
       </a>
-      <br><br>
+      <br>
+      <a href="<%= timelines_graph_path %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-network"></span>
+          </span><b>
+        Les controverses sont-elles liées ? </b><br><em>
+        <span class="icon-network bigger"></span> Carte
+        interactive &nbsp;<span class="icon-network mirrors bigger"></span> </em>
+      </a>
+      <a href="<%= tag_pairs_graph_path(:timeline => true) %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-circo"></span>
+          </span><b>
+        Les controverses sont-elles inter-disciplinaire ? </b><br><em>
+        <span class="icon-circo bigger"></span> Diagramme à cordes
+        interactif &nbsp;<span class="icon-circo bigger mirrors"></span> </em>
+      </a>
+      <br>      <br>
+      <% if @favorite %>
+          <a href="<%= timeline_path(@favorite) %>" class="home-btn btn">
+          <span class="full">
+            <span class="icon icon-rocket mirrors"></span>
+          </span><b>
+            <%= @favorite.name.html_safe %></b><br><em>
+            <span class="icon icon-rocket bigger mirrors"></span>
+            Controverse à l'affiche
+            <span class="icon icon-rocket bigger"></span> </em>
+          </a><br>
+      <% end %>
+      <% @choices.each do |choice| %>
+          <a rel="nofollow" data-method="post"
+             href="<%= timeline_choices_path(timeline_id: choice.id,
+                                             friendly_id: choice.slug,
+                                             choices: @choices.map { |t| t.id }) %>"
+             class="home-btn btn home-btn-sm">
+                <span class="full">
+            <span class="icon icon-<%= choice.tags.any? ? choice.tags.first.name : nil %>"></span>
+          </span>
+            <b><%= simple_format(word_wrap(choice.name, line_width: 40), {}, wrapper_tag: "div") %></b>
+            <em>
+              <%= choice.tags.map{ |t| tags_hash[t.name]}.join(", ") %>
+            </em>
+          </a>
+      <% end %>
+      <br>
+      <br>
     </div>
+
   </div>
 </div>

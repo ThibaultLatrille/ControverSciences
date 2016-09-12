@@ -9,7 +9,14 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-lg-offset-2 col-lg-8">
       <div class="cadre search-div">
-        <div class="pull-right">
+        <% unless @option %>
+        <div class="pull-right ">
+          <button id="filter-button" class="btn btn-default">
+            <span class="font12 icon-techno"></span> Options avancées
+          </button>
+        </div>
+        <% end %>
+        <div class="pull-right filter" <%= @option ? nil : 'style="display: none"'.html_safe %>>
           <div class="btn-group">
             <button class="btn btn-default dropdown-toggle" type="button"
                     id="dropdownMenuTri" data-toggle="dropdown">
@@ -87,7 +94,7 @@
               <%= hidden_field_tag(:staging, params[:staging]) %>
           <% end %>
         </div>
-        <div class="row center">
+        <div class="row center filter" <%= @option ? nil : 'style="display: none"'.html_safe %>>
           <br/>
           <% if params[:tag].first.blank? || (params[:tag].include? 'all') %>
               <div class="btn btn-default active cursor-default" style="padding: 8px 8px;">
@@ -120,8 +127,8 @@
                 <%= "<span class=\"icon-#{key}\"></span> ".html_safe %>
               </a>
           <% end %>
+          <br/>
         </div>
-        <br/>
         <% if logged_in? %>
             <div class="row center">
               <% if params[:staging] == "true" %>
@@ -232,8 +239,6 @@
       <% if logged_in? %>
           <br>
           <div class="list-group">
-            <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges')}".html_safe, timelines_graph_path,
-                        class: "list-group-item" %>
             <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
 		       </span> #{t('views.timelines.new')}".html_safe,
                         new_timeline_path,
@@ -346,7 +351,7 @@
                    </span> #{t('views.timelines.new')}".html_safe,
                           timelines_path, class: "btn btn-block btn-primary" %>
           <% else %>
-              <%= link_to "<span class=\"bigger icon icon-staging\" >
+              <%= link_to "<span class=\"icon icon-staging\" >
                    </span> #{t('views.timelines.login')}
                         <span class=\"badge badge-blue-background\"> #{@staging_count} </span> ".html_safe,
                           login_path, class: "btn btn-block btn-primary" %>
@@ -395,6 +400,11 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+      $('#filter-button').on( 'click', function() {
+        console.log("bim")
+        $('#filter-button').hide();
+        $('.filter').show();
+      });
         $('.loading-image').imagesLoaded().progress( function( instance, image ) {
             if (image.isLoaded) {
                 $(image.img).addClass("loaded");
