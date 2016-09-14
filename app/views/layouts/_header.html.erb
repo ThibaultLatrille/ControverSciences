@@ -1,5 +1,5 @@
 <header id="top" class="navbar navbar-fixed-top bs-docs-nav" role="banner">
-  <div class="pull-right" style="padding: 8px 8px 0 0">
+  <div id="social-image" class="pull-right" style="padding: 8px 8px 0 0">
     <a href="https://twitter.com/ControverSci" class="hvr-grow" target="_blank">
       <%= image_tag("link_1.png", :height => "30px") %>
     </a>
@@ -27,7 +27,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-            <strong>Les controverses</strong>
+            <strong>Les controverses</strong> <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li><%= link_to "<b><span class=\"icon-search bigger\"></span> &nbsp Partez en exploration</b>".html_safe, root_path %> </li>
@@ -35,11 +35,15 @@
             <li><%= link_to "<b><span class=\"icon-hatch bigger\" ></span> &nbsp Comment naissent-elles ?</b>".html_safe, discover_path %> </li>
             <li><%= link_to "<b><span class=\"icon-network bigger\" ></span> &nbsp Sont-elles liées ?</b>".html_safe, timelines_graph_path %> </li>
             <li><%= link_to "<b><span class=\"icon-circo bigger\" ></span> &nbsp Sont-elles inter-disciplinaire ?</b>".html_safe, tag_pairs_graph_path(:timeline => true) %> </li>
+            <% if logged_in? %>
+            <li class="divider"></li>
+            <li><%= link_to "<b><span class=\"icon-plus bigger\" ></span> &nbsp Créer une controverse </b>".html_safe, new_timeline_path %> </li>
+            <% end %>
           </ul>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-            <strong>Controver</strong>Sciences
+            <strong>Controver</strong>Sciences <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li><%= link_to "<b><span class=\"icon-rocket bigger\" ></span> &nbsp Visite guidée du site</b>".html_safe, home_path %> </li>
@@ -58,7 +62,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
 
-                <% if current_user.private_timeline ? true : current_user.notifications_count > 0 %>
+                <% if current_user.private_timeline ? current_user.timelines_count > 0 : current_user.notifications_count > 0 %>
                     <span class="badge badge-li" style="color: #4E7DC9; background-color: #FDFDFD"><%= current_user.private_timeline ? current_user.timelines_count : current_user.notifications_count %></span>
                 <% else %>
                     <span class="fat icon-user"></span>

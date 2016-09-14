@@ -129,9 +129,6 @@ footer #about-link a:hover {
   footer #about-link a {
     font-size: 18px;
   }
-  header #logo-header {
-    display: none;
-  }
 }
 
 .badge-li {
@@ -271,9 +268,20 @@ header {
   }
 }
 
-@media (max-width: 768px) {
-  .navbar-nav > li > a {
-    line-height: 35px;
+@media (max-width: 767px) {
+  .navbar-nav > li {
+    a{
+      line-height: 30px;
+    }
+    ul > li > a {
+      color: white !important;
+    }
+  }
+  header #logo-header {
+    display: none;
+  }
+  header #social-image {
+    display: none;
   }
 }
 
