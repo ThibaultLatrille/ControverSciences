@@ -33,7 +33,7 @@
           <% else %>
               <%= t('views.private_timelines.no_participating') %>
           <% end %>
-          <br><br>
+          <br><br><br><br>
           <div class="panel panel-success">
             <div class="panel-heading">
               <h4><span class="icon icon-users"></span> <%= t('views.private_timelines.new_private_timeline') %></h4>
@@ -46,8 +46,9 @@
                   <%= f.button "<span id=\"number-item\" class=\"badge badge-li\">0</span>
                                 &nbsp #{t('views.private_timelines.add_private_timeline')}
                                 <span class=\"icon icon-users\" aria-hidden=\"true\"></span>".html_safe,
+                               id: 'collabs',
                                class: 'btn btn-success pull-right',
-                               style: "margin: 5px;",
+                               style: "margin: 5px; display:none;",
                                data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.creating')}"} %>
 
                   <% if @user_names.count > 6 %>
@@ -72,12 +73,16 @@
 
                   <br/>
               <% end %>
+            </div>
+          </div>
+          <br>
+          <br>
+            <div class="center">
               <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>#{t('views.private_timelines.invit_extern')}</b>".html_safe,
                           new_invitation_path(timeline_id: params[:timeline_id]),
                           remote: true,
-                          class: "btn btn-primary pull-right" %>
+                          class: "btn btn-primary" %>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -93,9 +98,16 @@
       });
 
       var $numberItem = $('#number-item');
+      var $collabs = $('#collabs');
 
       function toggleDestroyButton() {
-        $numberItem.text($(".check-box:checked").length);
+        var number = $(".check-box:checked").length
+        if (number == 0){
+          $collabs.hide()
+        } else {
+          $collabs.show();
+          $numberItem.text($(".check-box:checked").length);
+        }
       }
 
       $(".check-box").on('change', function () {

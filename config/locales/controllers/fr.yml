@@ -63,6 +63,9 @@ fr:
     slack_already_invited: "Vous avez deja reçu l'invitation de Slack à l'adresse %{email}, mais vous n'avez pas encore activé votre compte. Veuillez contacter admin@controversciences.org si vous ne trouvez pas cet email"
     slack_connexion_lost: Le serveur n'a pas pu se connecter à Slack
     slack_invit: "Votre invitation a été envoyé à l'adresse %{email} !"
+    private_invit:
+      one: "%{count} invitation a été envoyé !"
+      other: "%{count} invitations ont été envoyé !"
     question_added: Q&A ajoutée !
     question_updated: Changements sauvegardés !
     user_dont_exist: "Impossible de trouver ce contributeur dans la base de données"
