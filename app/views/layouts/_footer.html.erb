@@ -9,6 +9,7 @@
         </h4>
       </div>
       <div class="modal-body clearfix">
+        <% if logged_in? %>
         <div class="panel panel-info">
           <div class="panel-heading center">
             <p>
@@ -19,6 +20,7 @@
             </div>
           </div>
         </div>
+        <% end %>
         <%= form_for(:issue, url: issues_path, remote: true,
                      html: {role: :form, 'data-model' => 'issue'}) do |f| %>
             <div class="form-group">
