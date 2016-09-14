@@ -1113,7 +1113,7 @@
                             $loader.show();
                             $saveWiki.hide();
                             $exWiki.hide();
-                            var playListURL = 'http://fr.wikipedia.org/w/api.php?action=opensearch&search=+' +
+                            var playListURL = 'https://fr.wikipedia.org/w/api.php?action=opensearch&search=+' +
                                 $input.val() + '&limit=' + limit
                                 + '&namespace=0&format=json&callback=?';
                             $.getJSON(playListURL ,function(data) {
