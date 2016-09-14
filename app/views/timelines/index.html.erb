@@ -130,6 +130,7 @@
           <br/>
         </div>
         <% if logged_in? %>
+            <br>
             <div class="row center">
               <% if params[:staging] == "true" %>
                   <a href="<%= timelines_path(:sort => params[:sort],
