@@ -25,10 +25,10 @@
             <hr style="width: 250px"/>
             <%= t('views.pluralize.edges', count: summary.summary_links.count) %>
             <ul class="list-links">
-              <% summary.summary_links.includes(:reference).each do |link| %>
+              <% summary.sorted_links.each do |link| %>
                   <li>
                     <span>
-                  <% if link.count %>
+                  <% if link.count > 0 %>
                       [<%= link.count %>]
                   <% else %>
                       •

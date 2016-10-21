@@ -162,6 +162,10 @@ class Summary < ActiveRecord::Base
     refill_best_summary
   end
 
+  def sorted_links
+    self.summary_links.includes(:reference).order( 'summary_links.count ASC' )
+  end
+
   private
 
   def content_validation
