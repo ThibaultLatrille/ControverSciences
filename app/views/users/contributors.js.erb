@@ -1,6 +1,0 @@
-$("body").append("<%= escape_javascript(render partial: 'users/contributors',
-        locals: {editors: @editors, contributors: @contributors}) %>");
-$('#contributors').modal('show');
-$("#contributors").on('hidden.bs.modal', function () {
-    $(this).remove()
-});

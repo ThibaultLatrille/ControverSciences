@@ -7,7 +7,6 @@ Rails.application.routes.draw do
       get 'slack'
     end
   end
-  get 'contributors' => 'users#contributors', as: 'contributors'
   resources :timelines, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
     collection do
       get 'set_public'

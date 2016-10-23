@@ -206,10 +206,6 @@ class UsersController < ApplicationController
     @links = ids.uniq { |e| [e[0], e[1]].sort }
   end
 
-  def contributors
-    @editors = User.where(id: params[:editors])
-    @contributors = User.where(id: params[:contributors])
-  end
 
   private
 
