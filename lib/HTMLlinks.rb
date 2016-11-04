@@ -57,6 +57,6 @@ class String
   end
 
   def transliterate
-    I18n.transliterate(self.downcase)
+    I18n.transliterate(self.downcase).strip
   end
 end
