@@ -70,7 +70,7 @@
               <div class="panel panel-default">
                 <div class="panel-body">
                   <%= f.label :binary do %>
-                      <%= f.check_box :binary, id: "check-box", value: true %>
+                      <%= f.check_box :binary, {checked: @frame.binary == 't' ? true : false, id: "check-box"}, value: true %>
                       <span> <%= t('views.frames.binary') %> </span>
                   <% end %>
                   <div id="binary-box">
