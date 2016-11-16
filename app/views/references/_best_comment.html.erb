@@ -71,4 +71,4 @@
                 class: "btn btn-default pull-right stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
 <% end %>
 
-<%= link_to t('views.references.more'), reference_path(best_comment.reference_id), class: "btn btn-primary" %>
+<%= link_to "<span class=\"icon-reference\"></span> #{t('views.references.more')}".html_safe, reference_path(best_comment.reference_id), class: "btn btn-primary" %>

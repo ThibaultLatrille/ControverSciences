@@ -1,5 +1,5 @@
 <% if logged_in? %>
-    <div class="pull-right">
+    <div>
       <%= link_to "<span class=\"fat icon-fork\"></span>".html_safe,
                   patches_modal_path(summary_id: summary_id),
                   remote:       true,

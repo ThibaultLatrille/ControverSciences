@@ -4,16 +4,19 @@
   <div class="panel-footer clearfix">
     <div class="content">
       <div class="clearfix">
-        <%= render 'patches/link_frame', field: 0, frame_id: frame.id %>
         <h1 class="shadowed">
           <br/>
         <span class="content<%= frame.id*10 + 0 %>">
            <%= frame.name_markdown.html_safe %>
         </span>
-          <br/><br/>
+          <% if logged_in? %>
+              <%= render 'patches/link_frame', field: 0, frame_id: frame.id %>
+          <% else %>
+              <br/>
+          <% end %>
+          <br/>
         </h1>
         <% if frame.content != '' %>
-            <%= render 'patches/link_frame', field: 1, frame_id: frame.id %>
             <div class="cadre text-justify content<%= frame.id*10 + 1 %>">
               <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
               <%= frame.content_markdown.html_safe %>
@@ -21,6 +24,9 @@
                   <hr>
                   <b style="font-size: 1.4em"><%= t('views.frames.why') %></b><br>
                   <%= frame.why_markdown.html_safe %>
+              <% end %>
+              <% if logged_in? %>
+              <%= render 'patches/link_frame', field: 1, frame_id: frame.id %>
               <% end %>
             </div>
             <br/>

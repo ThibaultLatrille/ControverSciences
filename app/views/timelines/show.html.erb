@@ -242,10 +242,6 @@
         <div id="uploaded" class="panel-body" style="background: white url(<%= @timeline.picture_url %>); background-size: 100%; background-repeat:no-repeat;">
           <div class="content">
             <div class="clearfix">
-
-              <% if logged_in? && @improve_frame %>
-                  <%= render 'patches/link_frame', field: 0, frame_id: @improve_frame.id %>
-              <% end %>
               <div class="pull-right" style="margin: 8px 5px 0 0">
                 <%= render 'likes/subscription', subscribed: (logged_in? && @my_like), timeline: @timeline %>
               </div>
@@ -259,7 +255,11 @@
         <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 0 %>">
            <%= @timeline.name.html_safe %>
         </span>
+                <% if logged_in? && @improve_frame %>
+                    <%= render 'patches/link_frame', field: 0, frame_id: @improve_frame.id %>
+                <% else %>
                 <br/><br/>
+                <% end %>
               </h1>
               <% if logged_in? && current_user.admin %>
                   <div id="source-timeline" class="panel-heading">
@@ -349,16 +349,26 @@
         <div id="uploaded" class="panel-body">
           <div class="content">
             <% if @timeline.frame != '' %>
-                <% if logged_in? && @improve_frame %>
-                    <%= render 'patches/link_frame', field: 1, frame_id: @improve_frame.id %>
-                <% end %>
                 <div class="cadre text-justify clearfix">
                   <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
             <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 1 %>">
               <%= @timeline.frame.html_safe %>
+              <% if @improve_frame.present? %>
               <span class="pull-right">
                 <%= render 'users/link_contributors', model: @improve_frame %>
                 </span>
+                <% end %>
+                <% if logged_in? && @improve_frame %>
+                    <%= render 'patches/link_frame', field: 1, frame_id: @improve_frame.id %>
+                <% end %>
+                <% if @timeline.nb_frames > 1 %>
+                  <div style="margin-top: 5px">
+                  <%= link_to "<span class=\"icon-frog-laurel\"></span>
+                              &nbsp #{t("views.timelines.see_frames_#{logged_in?}", count: @timeline.nb_frames)}".html_safe,
+                              frames_path(timeline_id: @timeline.id),
+                              class: "btn btn-default" %>
+                  </div>
+                <% end %>
            </span>
                 </div>
                 <br/>
@@ -404,13 +414,14 @@
                     <span class="pull-right">
                       <%= render 'users/link_contributors', model: @summary %>
                     </span>
-                    <br/>
-                    <br/>
-                    <% if logged_in? %>
-                        <%= render 'patches/link_summary', summary_id: @summary.id %>
-                        <br/>
-                        <br/>
-                        <br/>
+                    <%= render 'patches/link_summary', summary_id: @summary.id %>
+                    <% if @timeline.nb_summaries > 1 %>
+                    <div style="margin-top: 5px">
+                      <%= link_to "<span class=\"icon-frog-laurel\"></span>
+                              &nbsp #{t("views.timelines.see_frames_#{logged_in?}", count: @timeline.nb_summaries)}".html_safe,
+                                  summaries_path(timeline_id: @timeline.id),
+                                  class: "btn btn-default" %>
+                    </div>
                     <% end %>
                     <% if @summary.summary_links.count > 0 %>
                         <hr style="width: 250px"/>
@@ -429,11 +440,9 @@
                               </li>
                           <% end %>
                         </ul>
-                        <br/>
                     <% end %>
                   </div>
                 </div>
-                <br/>
               </div>
             </div>
             <script type="text/javascript">
