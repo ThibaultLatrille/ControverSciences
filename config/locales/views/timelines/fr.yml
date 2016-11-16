@@ -232,6 +232,10 @@ fr:
       read_more: Lire la suite
       source_necessary: La source est nécessaire
       strongly: Fermement
+      see_summaries_false: "%{count} propositions de titres et de cadres sont en compétition"
+      see_summaries_true: "Choisissez votre favorite parmis %{count} synthèses"
+      see_frames_false: "%{count} synthèses sont en compétition"
+      see_frames_true: "Choisissez votre favorite parmis %{count} améliorations du cadre"
       make_favorite: Mettre cette controverse au premier plan
       remove_favorite: Enlever cette controverse du premier plan
       make_staging: Retourner cette controverse à l'état embryonnaire

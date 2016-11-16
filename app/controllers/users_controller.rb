@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: [:destroy]
 
   def fetch_user_detail(id)
     @user_detail = UserDetail.find_by_user_id(id)
@@ -92,11 +91,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy_confirmation
+  end
+
   def update
     @user = User.find(params[:id])
     @user_pwd = User.find(params[:id])
     if params[:user][:old_password].present?
-      if @user_pwd.authenticated?("password", params[:user][:old_password])
+      if @user_pwd.authenticated?(:password, params[:user][:old_password])
         if @user_pwd.update(user_password_params)
           flash[:success] = t('controllers.user_updated')
           redirect_to @user
@@ -167,9 +169,20 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = t('controllers.user_deleted')
-    redirect_to users_url
+    if current_user.admin
+      User.find(params[:id]).anon_and_destroy
+      flash[:success] = t('controllers.user_deleted')
+      redirect_to users_url
+    elsif not current_user.private_timeline
+      if current_user.authenticated?(:password, user_password_params[:password])
+        current_user.anon_and_destroy
+        flash[:success] = t('controllers.user_deleted')
+        redirect_to users_url
+      else
+        current_user.errors.add(:base, "Mauvais mot de passe")
+        render 'destroy_confirmation'
+      end
+    end
   end
 
   def previous

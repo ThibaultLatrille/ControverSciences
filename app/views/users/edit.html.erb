@@ -158,6 +158,12 @@
               <% end %>
             </div>
           </div>
+          <div class="center">
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>Supprimer votre compte".html_safe,
+                        destroy_confirmation_users_path,
+                        class:  "btn btn-danger"%>
+          </div>
+          <br/>
         </div>
     <% end %>
   </div>

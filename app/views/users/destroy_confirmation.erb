@@ -1,0 +1,34 @@
+<% provide(:title, "Edition du profil") %>
+<div id="my-container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+      <div class="panel panel-danger">
+        <div class="panel-heading clearfix">
+          <span style="font-size: 2em"> Supprimer votre compte </span>
+        </div>
+        <div class="panel-body">
+          <%= form_for(current_user, method: :delete) do |f| %>
+              <%= render 'shared/error_messages', object: f.object %>
+              <div class="panel panel-danger">
+                <div class="panel-heading clearfix">
+                  <span class="glyphicon glyphicon-warning-sign"></span>
+                  ette opération est irréversible, l'ensemble de vos données (dont les analyses et synthèses) seront supprimées.
+                  <br>
+                  Seules vos références et controverses seront transférées sur un compte anonyme,
+                  afin que les autres contributeurs puissent continuer à les alimenter et construire le site.
+                </div>
+              </div>
+              <br>
+              <%= f.label :password, 'Confirmer votre mot de passe' %>
+              <%= f.password_field :password, class: 'form-control' %>
+              <br/>
+              <div id="test"> </div>
+              <%= f.button "Supprimer votre compte &nbsp <span class=\"glyphicon glyphicon-trash\" aria-hidden=\"true\"></span>".html_safe,
+                           class: 'btn btn-danger pull-right',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -155,6 +155,16 @@ class User < ActiveRecord::Base
     self.activation_digest = User.digest(activation_token)
   end
 
+  def anon_and_destroy
+    anon_id = User.find_by(email: "contact@controversciences.org").id
+    Reference.where(:user_id => self.id).update_all(user_id: anon_id)
+    Timeline.where(:user_id => self.id).update_all(user_id: anon_id)
+    Comment.where(user_id: self.id).map(&:destroy_with_counters)
+    Frame.where(user_id: self.id).map(&:destroy_with_counters)
+    Summary.where(user_id: self.id).map(&:destroy_with_counters)
+    self.destroy
+  end
+
   private
 
   # Converts email to all lower-case.
