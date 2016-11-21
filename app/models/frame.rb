@@ -182,10 +182,10 @@ class Frame < ActiveRecord::Base
   def update_timeline
     if self.best
       tim = self.timeline
-      tim.update_columns(name: self.name_markdown, frame: self.content_markdown, binary: self.binary)
       if tim.binary != self.binary
         tim.reset_binary(self.binary, self.id)
       end
+      tim.update_columns(name: self.name_markdown, frame: self.content_markdown, binary: self.binary)
     end
   end
 
