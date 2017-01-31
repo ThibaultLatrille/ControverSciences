@@ -1,4 +1,4 @@
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
   attr_accessor :ids
 
   belongs_to :user

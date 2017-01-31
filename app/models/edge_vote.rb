@@ -1,4 +1,4 @@
-class EdgeVote < ActiveRecord::Base
+class EdgeVote < ApplicationRecord
   belongs_to :user
   belongs_to :edge
 

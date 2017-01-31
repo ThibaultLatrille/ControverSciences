@@ -1,4 +1,4 @@
-class PrivateTimeline < ActiveRecord::Base
+class PrivateTimeline < ApplicationRecord
   belongs_to :user
   belongs_to :timeline
 

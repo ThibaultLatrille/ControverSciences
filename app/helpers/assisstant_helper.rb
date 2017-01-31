@@ -1,7 +1,7 @@
 module AssisstantHelper
 
   def anonymize_data
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       User.find_each do |user|
         user.first_name = Faker::Name.first_name
         user.last_name = Faker::Name.last_name

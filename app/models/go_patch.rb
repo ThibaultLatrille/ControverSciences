@@ -1,4 +1,4 @@
-class GoPatch < ActiveRecord::Base
+class GoPatch < ApplicationRecord
   include ApplicationHelper
 
   has_many :patch_messages

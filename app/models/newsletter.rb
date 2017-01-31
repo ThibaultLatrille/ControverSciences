@@ -1,2 +1,2 @@
-class Newsletter < ActiveRecord::Base
+class Newsletter < ApplicationRecord
 end

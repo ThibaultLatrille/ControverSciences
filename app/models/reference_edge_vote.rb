@@ -1,4 +1,4 @@
-class ReferenceEdgeVote < ActiveRecord::Base
+class ReferenceEdgeVote < ApplicationRecord
   belongs_to :user
   belongs_to :reference_edge
   belongs_to :timeline

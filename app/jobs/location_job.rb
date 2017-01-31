@@ -3,7 +3,7 @@ class LocationJob
 
   def perform(suggestion_id,suggestion_child_id,
               user_id,   ip_address,user_agent)
-    ActiveRecord::Base.connection_pool.with_connection do
+    ApplicationRecord.connection_pool.with_connection do
       Location.create(user_id: user_id,
                              suggestion_id: suggestion_id,
                              suggestion_child_id: suggestion_child_id,

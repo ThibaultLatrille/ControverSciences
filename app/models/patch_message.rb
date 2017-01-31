@@ -1,4 +1,4 @@
-class PatchMessage < ActiveRecord::Base
+class PatchMessage < ApplicationRecord
   belongs_to :go_patch
   belongs_to :comment
   belongs_to :summary

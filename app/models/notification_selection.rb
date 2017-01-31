@@ -1,4 +1,4 @@
-class NotificationSelection < ActiveRecord::Base
+class NotificationSelection < ApplicationRecord
   belongs_to :user
   belongs_to :timeline
   belongs_to :reference

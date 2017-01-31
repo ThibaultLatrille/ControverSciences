@@ -1,4 +1,4 @@
-class FrameCredit < ActiveRecord::Base
+class FrameCredit < ApplicationRecord
   belongs_to :timeline
   belongs_to :user
   belongs_to :frame

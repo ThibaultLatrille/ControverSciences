@@ -1,4 +1,4 @@
-class SuggestionChild < ActiveRecord::Base
+class SuggestionChild < ApplicationRecord
   require 'HTMLlinks'
 
   belongs_to :user

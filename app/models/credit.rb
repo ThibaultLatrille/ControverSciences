@@ -1,4 +1,4 @@
-class Credit < ActiveRecord::Base
+class Credit < ApplicationRecord
   belongs_to :user
   belongs_to :timeline
   belongs_to :summary

@@ -1,4 +1,4 @@
-class PartnerLove < ActiveRecord::Base
+class PartnerLove < ApplicationRecord
   belongs_to :partner
   belongs_to :user
 

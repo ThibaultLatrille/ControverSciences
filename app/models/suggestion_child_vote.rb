@@ -1,4 +1,4 @@
-class SuggestionChildVote < ActiveRecord::Base
+class SuggestionChildVote < ApplicationRecord
   belongs_to :suggestion_child
   belongs_to :user
 

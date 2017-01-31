@@ -1,4 +1,4 @@
-class PendingUser < ActiveRecord::Base
+class PendingUser < ApplicationRecord
   belongs_to :user
 
   after_create :send_new_account_email

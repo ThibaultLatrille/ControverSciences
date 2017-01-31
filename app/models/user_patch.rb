@@ -1,4 +1,4 @@
-class UserPatch < ActiveRecord::Base
+class UserPatch < ApplicationRecord
   belongs_to :user
   belongs_to :go_patch
 

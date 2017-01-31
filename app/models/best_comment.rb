@@ -1,4 +1,4 @@
-class BestComment < ActiveRecord::Base
+class BestComment < ApplicationRecord
   belongs_to :reference
   include Contribution
 

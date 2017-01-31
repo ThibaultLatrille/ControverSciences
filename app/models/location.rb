@@ -1,4 +1,4 @@
-class Location < ActiveRecord::Base
+class Location < ApplicationRecord
   belongs_to :user
   belongs_to :suggestion
   belongs_to :suggestionChild

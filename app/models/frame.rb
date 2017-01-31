@@ -1,4 +1,4 @@
-class Frame < ActiveRecord::Base
+class Frame < ApplicationRecord
   include ApplicationHelper
   include Contribution
 

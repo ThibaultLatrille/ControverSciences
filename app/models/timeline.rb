@@ -1,4 +1,4 @@
-class Timeline < ActiveRecord::Base
+class Timeline < ApplicationRecord
 
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]

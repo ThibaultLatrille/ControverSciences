@@ -1,4 +1,4 @@
-class ReferenceUserTag < ActiveRecord::Base
+class ReferenceUserTag < ApplicationRecord
   include ApplicationHelper
   belongs_to :reference
   belongs_to :user

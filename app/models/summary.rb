@@ -1,4 +1,4 @@
-class Summary < ActiveRecord::Base
+class Summary < ApplicationRecord
   require 'HTMLlinks'
   include Contribution
 

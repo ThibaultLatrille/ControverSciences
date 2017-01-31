@@ -1,4 +1,4 @@
-class Figure < ActiveRecord::Base
+class Figure < ApplicationRecord
   include CarrierWave::MiniMagick
   belongs_to :reference
   belongs_to :timeline

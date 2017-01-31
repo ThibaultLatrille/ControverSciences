@@ -1,4 +1,4 @@
-class Binary < ActiveRecord::Base
+class Binary < ApplicationRecord
   belongs_to :timeline
   belongs_to :reference
   belongs_to :user

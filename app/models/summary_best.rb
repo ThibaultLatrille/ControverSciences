@@ -1,4 +1,4 @@
-class SummaryBest < ActiveRecord::Base
+class SummaryBest < ApplicationRecord
   belongs_to :user
   belongs_to :timeline
   belongs_to :summary

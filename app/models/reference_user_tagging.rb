@@ -1,4 +1,4 @@
-class ReferenceUserTagging < ActiveRecord::Base
+class ReferenceUserTagging < ApplicationRecord
   belongs_to :tag
   belongs_to :reference_user_tag
   belongs_to :reference

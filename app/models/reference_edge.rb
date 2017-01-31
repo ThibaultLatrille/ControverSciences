@@ -1,4 +1,4 @@
-class ReferenceEdge < ActiveRecord::Base
+class ReferenceEdge < ApplicationRecord
   include ApplicationHelper
   belongs_to :reference
   belongs_to :timeline

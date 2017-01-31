@@ -1,4 +1,4 @@
-class SummaryLink < ActiveRecord::Base
+class SummaryLink < ApplicationRecord
   belongs_to :user
   belongs_to :timeline
   belongs_to :reference

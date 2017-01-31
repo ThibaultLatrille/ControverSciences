@@ -1,4 +1,4 @@
-class Edge < ActiveRecord::Base
+class Edge < ApplicationRecord
   belongs_to :timeline
   belongs_to :user
 

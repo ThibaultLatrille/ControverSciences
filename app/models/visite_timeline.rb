@@ -1,4 +1,4 @@
-class VisiteTimeline < ActiveRecord::Base
+class VisiteTimeline < ApplicationRecord
   belongs_to :user
   belongs_to :timeline
 

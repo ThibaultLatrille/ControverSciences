@@ -1,4 +1,4 @@
-class ContributorComment < ActiveRecord::Base
+class ContributorComment < ApplicationRecord
   belongs_to :comment
   belongs_to :user
 

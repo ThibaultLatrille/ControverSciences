@@ -1,4 +1,4 @@
-class Issue < ActiveRecord::Base
+class Issue < ApplicationRecord
   after_create :git_hub_api
 
   private

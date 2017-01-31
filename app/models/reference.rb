@@ -1,4 +1,4 @@
-class Reference < ActiveRecord::Base
+class Reference < ApplicationRecord
   include ApplicationHelper
 
   extend FriendlyId

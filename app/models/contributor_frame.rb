@@ -1,4 +1,4 @@
-class ContributorFrame < ActiveRecord::Base
+class ContributorFrame < ApplicationRecord
   belongs_to :frame
   belongs_to :user
 

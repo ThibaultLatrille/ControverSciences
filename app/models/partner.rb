@@ -1,4 +1,4 @@
-class Partner < ActiveRecord::Base
+class Partner < ApplicationRecord
   require 'HTMLlinks'
 
   attr_accessor :delete_picture, :has_picture

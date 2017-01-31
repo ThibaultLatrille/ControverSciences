@@ -1,4 +1,4 @@
-class CommentJoin < ActiveRecord::Base
+class CommentJoin < ApplicationRecord
   belongs_to :reference
   belongs_to :comment
 

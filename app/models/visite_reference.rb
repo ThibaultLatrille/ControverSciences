@@ -1,4 +1,4 @@
-class VisiteReference < ActiveRecord::Base
+class VisiteReference < ApplicationRecord
   belongs_to :user
   belongs_to :reference
 

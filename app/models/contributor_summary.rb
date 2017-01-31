@@ -1,4 +1,4 @@
-class ContributorSummary < ActiveRecord::Base
+class ContributorSummary < ApplicationRecord
   belongs_to :summary
   belongs_to :user
 

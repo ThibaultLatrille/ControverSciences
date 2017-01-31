@@ -1,4 +1,4 @@
-class Suggestion < ActiveRecord::Base
+class Suggestion < ApplicationRecord
   require 'HTMLlinks'
 
   belongs_to :user

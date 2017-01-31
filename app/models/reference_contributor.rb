@@ -1,4 +1,4 @@
-class ReferenceContributor < ActiveRecord::Base
+class ReferenceContributor < ApplicationRecord
   belongs_to :user
   belongs_to :reference
   validates :user_id, presence: true

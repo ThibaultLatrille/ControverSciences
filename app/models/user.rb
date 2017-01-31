@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
 
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]

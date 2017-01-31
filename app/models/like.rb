@@ -1,4 +1,4 @@
-class Like < ActiveRecord::Base
+class Like < ApplicationRecord
   belongs_to :timeline
   belongs_to :user
   has_many :notifications

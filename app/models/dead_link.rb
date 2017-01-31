@@ -1,4 +1,4 @@
-class DeadLink < ActiveRecord::Base
+class DeadLink < ApplicationRecord
   belongs_to :reference
   belongs_to :user
 

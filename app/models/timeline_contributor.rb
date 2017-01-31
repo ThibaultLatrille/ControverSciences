@@ -1,4 +1,4 @@
-class TimelineContributor < ActiveRecord::Base
+class TimelineContributor < ApplicationRecord
   belongs_to :user
   belongs_to :timeline
   validates :user_id, presence: true
