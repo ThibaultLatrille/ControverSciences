@@ -252,15 +252,17 @@
               <% end %>
               <h1 class="shadowed">
                 <br/>
-        <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 0 %>">
-           <%= @timeline.name.html_safe %>
-        </span>
-                <% if logged_in? && @improve_frame %>
-                    <%= render 'patches/link_frame', field: 0, frame_id: @improve_frame.id %>
-                <% else %>
-                <br/><br/>
-                <% end %>
+                <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 0 %>">
+                   <%= @timeline.name.html_safe %>
+                </span>
               </h1>
+              <% if logged_in? && @improve_frame %>
+                  <div class="center" style="margin-top: -15px">
+                    <%= render 'patches/link_frame', field: 0, frame_id: @improve_frame.id %>
+                  </div>
+              <% else %>
+                  <br/><br/>
+              <% end %>
               <% if logged_in? && current_user.admin %>
                   <div id="source-timeline" class="panel-heading">
                     <%= form_for(@timeline, html: {multipart: true}, remote: true) do |f| %>
