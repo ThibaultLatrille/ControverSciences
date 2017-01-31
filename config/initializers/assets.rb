@@ -8,7 +8,6 @@ Rails.application.config.assets.version = '4.7'
 Rails.application.config.assets.precompile += %w( chart.js )
 Rails.application.config.assets.precompile += %w( not_logged.js )
 Rails.application.config.assets.precompile += %w( comics.js )
-Rails.application.config.assets.precompile += %w( tagcanvas.js )
 Rails.application.config.assets.precompile += %w( voronoi.js )
 Rails.application.config.assets.precompile += %w( morphSVG.js )
 Rails.application.config.assets.precompile += %w( diff_match_patch.js )
