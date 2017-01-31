@@ -48,13 +48,6 @@ class TimelinesController < ApplicationController
 
     @staging_count = query.where(staging: true).count
     @built_count = query.where(staging: false).count
-
-    if logged_in? && params[:staging] == "true"
-      query = query.where(staging: true)
-    elsif (logged_in? && params[:staging] == "false") || !logged_in?
-      query = query.where(staging: false)
-    end
-    @timelines = query.page(params[:page]).per(24)
     params[:tag] = [params[:tag]].flatten
   end
 
