@@ -17,7 +17,7 @@
 <% end %>
 <% for fi in 0..5 %>
     <% if best_comment["f_#{fi}_comment_id".to_sym] %>
-        <b> <%= category_hash[@ref.category][fi] %> </b>
+        <b class="font12"> <%= category_hash[@ref.category][fi] %> </b>
         <div class="text-justify">
           <%= best_comment.markdown(fi).html_safe %>
         </div>

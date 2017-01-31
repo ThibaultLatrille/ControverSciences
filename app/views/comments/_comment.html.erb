@@ -1,7 +1,7 @@
 <div class="panel panel-default comment">
   <div class="panel-body clearfix">
     <% unless comment.empty_field?( 6 ) %>
-        <b> <%= category_hash[comment.category][6] %>
+        <b class="font12"> <%= category_hash[comment.category][6] %>
         </b> :
         <div class="clearfix">
           <h5> <%= comment.title_markdown.html_safe %>   </h5>
@@ -28,7 +28,7 @@
   <span class="content">
     <% for fi in 0..5 %>
         <% unless comment.empty_field?( fi ) %>
-            <b>  <%= category_hash[comment.category][fi] %> :
+            <b class="font12">  <%= category_hash[comment.category][fi] %> :
             </b>
             <div class="text-justify clearfix">
               <%= comment["markdown_#{fi}".to_sym].html_safe %>
