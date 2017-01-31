@@ -48,6 +48,13 @@ class TimelinesController < ApplicationController
 
     @staging_count = query.where(staging: true).count
     @built_count = query.where(staging: false).count
+
+    if logged_in? && params[:staging] == "true"
+      query = query.where(staging: true)
+    elsif (logged_in? && params[:staging] == "false") || !logged_in?
+      query = query.where(staging: false)
+    end
+    @timelines = query.page(params[:page]).per(24)
     params[:tag] = [params[:tag]].flatten
   end
 
@@ -106,18 +113,6 @@ class TimelinesController < ApplicationController
           @summary = Summary.find(summary_best.summary_id)
         else
           @summary = nil
-        end
-        timeline_ids = Edge.select(:target, :timeline_id)
-                           .where("timeline_id = ? OR target = ?",
-                                  @timeline.id,
-                                  @timeline.id).map { |e| [e.target, e.timeline_id] }.flatten.uniq
-        if timeline_ids.length > 2
-          @timelines = Timeline.select(:slug, :id, :name)
-                           .where(id: timeline_ids)
-                           .where.not(private: true)
-                           .where.not(id: @timeline.id).limit(7).order("RANDOM()")
-        else
-          @timelines = []
         end
         if logged_in?
           @timeline.update_visite_by_user(current_user.id)
