@@ -21,4 +21,12 @@ module MajHelper
       Timeline.find_each.map{|t| t.references.each{ |r| r.update_columns(binary: t.binary)}}
     end
   end
+
+  def maj_content
+    ActiveRecord::Base.transaction do
+      Summary.find_each.map{|t| t.save! }
+      Comment.find_each.map{|t| t.save! }
+      Frame.find_each.map{|t| t.save! }
+    end
+  end
 end
