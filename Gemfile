@@ -3,13 +3,11 @@ source 'https://rubygems.org'
 ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~>4.2'
-
+gem 'rails', '~> 5.0.1'
 
 # Internationalization
 gem 'i18n'
 gem 'rails-i18n'
-
 
 # Execute js
 gem 'therubyracer'
@@ -21,12 +19,11 @@ gem 'bcrypt'
 # Pagination and infinit scrolling
 gem 'kaminari'
 
-
 ## Assets compilation and processing
 # Use SCSS for stylesheets
 gem 'coffee-script'
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sass-rails', '~> 5.0'
 # Autoprefixer for Ruby and Ruby on Rails
 gem 'autoprefixer-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -106,15 +103,16 @@ group :test do
   gem 'guard-minitest',     '2.3.1'
 end
 
+group :production do
+  gem 'rails_12factor'
+  gem 'unicorn'
+end
+
 group :development do
-  # Web console for development in view : "<%= console %>"
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
 
-  # Database seeding with fake data
-  gem 'faker',                '1.4.2'
-  gem 'spring',  '1.1.3'
-  gem 'quiet_assets'
-
+  gem 'faker'
+  gem 'spring'
   # Model and controller UML class diagram generator, run: 'rake diagram:all'
   gem 'railroady'
 
@@ -138,9 +136,4 @@ group :development do
   gem 'boilerman'
 
   gem 'pry-rails'
-end
-
-group :production do
-  gem 'rails_12factor'
-  gem 'unicorn'
 end
