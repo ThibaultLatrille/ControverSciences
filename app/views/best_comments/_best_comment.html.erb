@@ -9,7 +9,7 @@
             <% if  fi == 7 %>
                 <div id="content7" class="row">
                   <div class="col-xs-12 col-md-6">
-                    <%= image_tag best_comment.picture_url, class: "img-rounded img-responsive" %>
+                    <%= image_tag best_comment.picture_url, class: "img-rounded img-responsive" unless best_comment.picture_url.blank? %>
                   </div>
                   <div class="col-xs-12 col-md-6">
                     <div class="caption">

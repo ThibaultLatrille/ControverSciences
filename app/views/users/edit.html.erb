@@ -12,7 +12,7 @@
               </div>
         <span id="caption" style="display: none">
           <span id="original">
-            <%= image_tag @user_detail.picture_url, class: "img-rounded", height: "80px" %>
+            <%= image_tag @user_detail.picture_url, class: "img-rounded", height: "80px" unless @user_detail.picture_url.blank? %>
           </span>
           <span id="uploaded" style="display: none">
             <%= image_tag '', class: "img-rounded", height: "80px" %>

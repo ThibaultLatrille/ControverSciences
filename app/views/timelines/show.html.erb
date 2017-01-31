@@ -397,7 +397,7 @@
                     <div class="pull-right">
                       <div class="thumbnail">
                         <a class="fancybox" rel="gallery" href="<%= @summary.picture_url %>">
-                          <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" %>
+                          <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" unless @summary.picture_url.blank? %>
                           <div class="glyphicon glyphicon-zoom-in"></div>
                         </a>
 

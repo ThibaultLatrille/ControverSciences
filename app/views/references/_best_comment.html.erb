@@ -6,7 +6,7 @@
 
       <div class="thumbnail">
         <a class="fancybox" rel="gallery" href="<%= best_comment.picture_url %>">
-        <%= image_tag best_comment.picture_url, class: "img-rounded img-responsive" %>
+        <%= image_tag best_comment.picture_url, class: "img-rounded img-responsive" unless best_comment.picture_url.blank? %>
           <div class="glyphicon glyphicon-zoom-in"></div>
         </a>
         <div class="caption">
