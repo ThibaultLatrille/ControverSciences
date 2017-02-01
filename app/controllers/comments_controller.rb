@@ -93,7 +93,7 @@ class CommentsController < ApplicationController
       @timeline = Timeline.select(:id, :slug, :private).find(@comment.timeline_id)
       if @timeline.private && !logged_in?
         flash[:danger] = "Cette analyse appartient à une controverse privée, vous ne pouvez pas y accèder !"
-        redirect_to t
+        redirect_to timelines_path
       else
         unless @comment.public
           if current_user && current_user.id == @comment.user_id
