@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -39,9 +38,8 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "f_5_user_id"
     t.integer  "f_6_user_id"
     t.integer  "f_7_user_id"
+    t.index ["reference_id"], name: "index_best_comments_on_reference_id", using: :btree
   end
-
-  add_index "best_comments", ["reference_id"], name: "index_best_comments_on_reference_id", using: :btree
 
   create_table "binaries", force: :cascade do |t|
     t.integer  "timeline_id"
@@ -51,11 +49,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "frame_id"
+    t.index ["reference_id"], name: "index_binaries_on_reference_id", using: :btree
+    t.index ["timeline_id"], name: "index_binaries_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_binaries_on_user_id", using: :btree
   end
-
-  add_index "binaries", ["reference_id"], name: "index_binaries_on_reference_id", using: :btree
-  add_index "binaries", ["timeline_id"], name: "index_binaries_on_timeline_id", using: :btree
-  add_index "binaries", ["user_id"], name: "index_binaries_on_user_id", using: :btree
 
   create_table "comment_joins", force: :cascade do |t|
     t.integer  "reference_id"
@@ -63,10 +60,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "field"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["comment_id"], name: "index_comment_joins_on_comment_id", using: :btree
+    t.index ["reference_id"], name: "index_comment_joins_on_reference_id", using: :btree
   end
-
-  add_index "comment_joins", ["comment_id"], name: "index_comment_joins_on_comment_id", using: :btree
-  add_index "comment_joins", ["reference_id"], name: "index_comment_joins_on_reference_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -109,42 +105,38 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.float    "f_7_score",        default: 0.0
     t.integer  "figure_id"
     t.boolean  "notif_generated",  default: false
+    t.index ["figure_id"], name: "index_comments_on_figure_id", using: :btree
+    t.index ["reference_id"], name: "index_comments_on_reference_id", using: :btree
+    t.index ["timeline_id"], name: "index_comments_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
-
-  add_index "comments", ["figure_id"], name: "index_comments_on_figure_id", using: :btree
-  add_index "comments", ["reference_id"], name: "index_comments_on_reference_id", using: :btree
-  add_index "comments", ["timeline_id"], name: "index_comments_on_timeline_id", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "contributor_comments", force: :cascade do |t|
     t.integer  "comment_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_contributor_comments_on_comment_id", using: :btree
+    t.index ["user_id"], name: "index_contributor_comments_on_user_id", using: :btree
   end
-
-  add_index "contributor_comments", ["comment_id"], name: "index_contributor_comments_on_comment_id", using: :btree
-  add_index "contributor_comments", ["user_id"], name: "index_contributor_comments_on_user_id", using: :btree
 
   create_table "contributor_frames", force: :cascade do |t|
     t.integer  "frame_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["frame_id"], name: "index_contributor_frames_on_frame_id", using: :btree
+    t.index ["user_id"], name: "index_contributor_frames_on_user_id", using: :btree
   end
-
-  add_index "contributor_frames", ["frame_id"], name: "index_contributor_frames_on_frame_id", using: :btree
-  add_index "contributor_frames", ["user_id"], name: "index_contributor_frames_on_user_id", using: :btree
 
   create_table "contributor_summaries", force: :cascade do |t|
     t.integer  "summary_id"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["summary_id"], name: "index_contributor_summaries_on_summary_id", using: :btree
+    t.index ["user_id"], name: "index_contributor_summaries_on_user_id", using: :btree
   end
-
-  add_index "contributor_summaries", ["summary_id"], name: "index_contributor_summaries_on_summary_id", using: :btree
-  add_index "contributor_summaries", ["user_id"], name: "index_contributor_summaries_on_user_id", using: :btree
 
   create_table "credits", force: :cascade do |t|
     t.integer  "user_id"
@@ -152,21 +144,19 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "summary_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["summary_id"], name: "index_credits_on_summary_id", using: :btree
+    t.index ["timeline_id"], name: "index_credits_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_credits_on_user_id", using: :btree
   end
-
-  add_index "credits", ["summary_id"], name: "index_credits_on_summary_id", using: :btree
-  add_index "credits", ["timeline_id"], name: "index_credits_on_timeline_id", using: :btree
-  add_index "credits", ["user_id"], name: "index_credits_on_user_id", using: :btree
 
   create_table "dead_links", force: :cascade do |t|
     t.integer  "reference_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["reference_id"], name: "index_dead_links_on_reference_id", using: :btree
+    t.index ["user_id"], name: "index_dead_links_on_user_id", using: :btree
   end
-
-  add_index "dead_links", ["reference_id"], name: "index_dead_links_on_reference_id", using: :btree
-  add_index "dead_links", ["user_id"], name: "index_dead_links_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",               default: 0, null: false
@@ -180,9 +170,8 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
-
-  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "domains", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -196,10 +185,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "updated_at"
     t.integer  "edge_id"
     t.boolean  "value"
+    t.index ["edge_id"], name: "index_edge_votes_on_edge_id", using: :btree
+    t.index ["user_id"], name: "index_edge_votes_on_user_id", using: :btree
   end
-
-  add_index "edge_votes", ["edge_id"], name: "index_edge_votes_on_edge_id", using: :btree
-  add_index "edge_votes", ["user_id"], name: "index_edge_votes_on_user_id", using: :btree
 
   create_table "edges", force: :cascade do |t|
     t.integer  "timeline_id"
@@ -211,9 +199,8 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "plus",        default: 0
     t.integer  "minus",       default: 0
     t.integer  "balance",     default: 0
+    t.index ["timeline_id"], name: "index_edges_on_timeline_id", using: :btree
   end
-
-  add_index "edges", ["timeline_id"], name: "index_edges_on_timeline_id", using: :btree
 
   create_table "figures", force: :cascade do |t|
     t.integer  "reference_id"
@@ -227,11 +214,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "img_timeline_id"
     t.text     "source",                      default: ""
     t.integer  "partner_id"
+    t.index ["reference_id"], name: "index_figures_on_reference_id", using: :btree
+    t.index ["timeline_id"], name: "index_figures_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_figures_on_user_id", using: :btree
   end
-
-  add_index "figures", ["reference_id"], name: "index_figures_on_reference_id", using: :btree
-  add_index "figures", ["timeline_id"], name: "index_figures_on_timeline_id", using: :btree
-  add_index "figures", ["user_id"], name: "index_figures_on_user_id", using: :btree
 
   create_table "frame_credits", force: :cascade do |t|
     t.integer  "timeline_id"
@@ -239,11 +225,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "frame_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["frame_id"], name: "index_frame_credits_on_frame_id", using: :btree
+    t.index ["timeline_id"], name: "index_frame_credits_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_frame_credits_on_user_id", using: :btree
   end
-
-  add_index "frame_credits", ["frame_id"], name: "index_frame_credits_on_frame_id", using: :btree
-  add_index "frame_credits", ["timeline_id"], name: "index_frame_credits_on_timeline_id", using: :btree
-  add_index "frame_credits", ["user_id"], name: "index_frame_credits_on_user_id", using: :btree
 
   create_table "frames", force: :cascade do |t|
     t.integer  "timeline_id"
@@ -260,10 +245,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.text     "binary",           default: ""
     t.text     "why",              default: ""
     t.text     "why_markdown",     default: ""
+    t.index ["timeline_id"], name: "index_frames_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_frames_on_user_id", using: :btree
   end
-
-  add_index "frames", ["timeline_id"], name: "index_frames_on_timeline_id", using: :btree
-  add_index "frames", ["user_id"], name: "index_frames_on_user_id", using: :btree
 
   create_table "go_patches", force: :cascade do |t|
     t.integer  "comment_id"
@@ -277,12 +261,11 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "updated_at"
     t.integer  "counter",        default: 0
     t.integer  "countdown",      default: 0
+    t.index ["comment_id"], name: "index_go_patches_on_comment_id", using: :btree
+    t.index ["frame_id"], name: "index_go_patches_on_frame_id", using: :btree
+    t.index ["summary_id"], name: "index_go_patches_on_summary_id", using: :btree
+    t.index ["user_id"], name: "index_go_patches_on_user_id", using: :btree
   end
-
-  add_index "go_patches", ["comment_id"], name: "index_go_patches_on_comment_id", using: :btree
-  add_index "go_patches", ["frame_id"], name: "index_go_patches_on_frame_id", using: :btree
-  add_index "go_patches", ["summary_id"], name: "index_go_patches_on_summary_id", using: :btree
-  add_index "go_patches", ["user_id"], name: "index_go_patches_on_user_id", using: :btree
 
   create_table "invitations", force: :cascade do |t|
     t.integer  "user_id"
@@ -294,11 +277,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.text     "user_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["reference_id"], name: "index_invitations_on_reference_id", using: :btree
+    t.index ["timeline_id"], name: "index_invitations_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_invitations_on_user_id", using: :btree
   end
-
-  add_index "invitations", ["reference_id"], name: "index_invitations_on_reference_id", using: :btree
-  add_index "invitations", ["timeline_id"], name: "index_invitations_on_timeline_id", using: :btree
-  add_index "invitations", ["user_id"], name: "index_invitations_on_user_id", using: :btree
 
   create_table "issues", force: :cascade do |t|
     t.string   "title",      limit: 255
@@ -316,9 +298,8 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
   end
-
-  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "links", force: :cascade do |t|
     t.integer  "user_id"
@@ -328,12 +309,11 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "count"
+    t.index ["comment_id"], name: "index_links_on_comment_id", using: :btree
+    t.index ["reference_id"], name: "index_links_on_reference_id", using: :btree
+    t.index ["timeline_id"], name: "index_links_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_links_on_user_id", using: :btree
   end
-
-  add_index "links", ["comment_id"], name: "index_links_on_comment_id", using: :btree
-  add_index "links", ["reference_id"], name: "index_links_on_reference_id", using: :btree
-  add_index "links", ["timeline_id"], name: "index_links_on_timeline_id", using: :btree
-  add_index "links", ["user_id"], name: "index_links_on_user_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.integer  "user_id"
@@ -346,11 +326,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.text     "address"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["suggestion_child_id"], name: "index_locations_on_suggestion_child_id", using: :btree
+    t.index ["suggestion_id"], name: "index_locations_on_suggestion_id", using: :btree
+    t.index ["user_id"], name: "index_locations_on_user_id", using: :btree
   end
-
-  add_index "locations", ["suggestion_child_id"], name: "index_locations_on_suggestion_child_id", using: :btree
-  add_index "locations", ["suggestion_id"], name: "index_locations_on_suggestion_id", using: :btree
-  add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
 
   create_table "newsletters", force: :cascade do |t|
     t.text     "email"
@@ -369,14 +348,13 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "field"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["comment_id"], name: "index_notification_selections_on_comment_id", using: :btree
+    t.index ["frame_id"], name: "index_notification_selections_on_frame_id", using: :btree
+    t.index ["reference_id"], name: "index_notification_selections_on_reference_id", using: :btree
+    t.index ["summary_id"], name: "index_notification_selections_on_summary_id", using: :btree
+    t.index ["timeline_id"], name: "index_notification_selections_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_notification_selections_on_user_id", using: :btree
   end
-
-  add_index "notification_selections", ["comment_id"], name: "index_notification_selections_on_comment_id", using: :btree
-  add_index "notification_selections", ["frame_id"], name: "index_notification_selections_on_frame_id", using: :btree
-  add_index "notification_selections", ["reference_id"], name: "index_notification_selections_on_reference_id", using: :btree
-  add_index "notification_selections", ["summary_id"], name: "index_notification_selections_on_summary_id", using: :btree
-  add_index "notification_selections", ["timeline_id"], name: "index_notification_selections_on_timeline_id", using: :btree
-  add_index "notification_selections", ["user_id"], name: "index_notification_selections_on_user_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
@@ -392,26 +370,24 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "suggestion_id"
     t.integer  "frame_id"
     t.integer  "suggestion_child_id"
+    t.index ["comment_id"], name: "index_notifications_on_comment_id", using: :btree
+    t.index ["frame_id"], name: "index_notifications_on_frame_id", using: :btree
+    t.index ["like_id"], name: "index_notifications_on_like_id", using: :btree
+    t.index ["reference_id"], name: "index_notifications_on_reference_id", using: :btree
+    t.index ["suggestion_id"], name: "index_notifications_on_suggestion_id", using: :btree
+    t.index ["summary_id"], name: "index_notifications_on_summary_id", using: :btree
+    t.index ["timeline_id"], name: "index_notifications_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_notifications_on_user_id", using: :btree
   end
-
-  add_index "notifications", ["comment_id"], name: "index_notifications_on_comment_id", using: :btree
-  add_index "notifications", ["frame_id"], name: "index_notifications_on_frame_id", using: :btree
-  add_index "notifications", ["like_id"], name: "index_notifications_on_like_id", using: :btree
-  add_index "notifications", ["reference_id"], name: "index_notifications_on_reference_id", using: :btree
-  add_index "notifications", ["suggestion_id"], name: "index_notifications_on_suggestion_id", using: :btree
-  add_index "notifications", ["summary_id"], name: "index_notifications_on_summary_id", using: :btree
-  add_index "notifications", ["timeline_id"], name: "index_notifications_on_timeline_id", using: :btree
-  add_index "notifications", ["user_id"], name: "index_notifications_on_user_id", using: :btree
 
   create_table "partner_loves", force: :cascade do |t|
     t.integer  "partner_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["partner_id"], name: "index_partner_loves_on_partner_id", using: :btree
+    t.index ["user_id"], name: "index_partner_loves_on_user_id", using: :btree
   end
-
-  add_index "partner_loves", ["partner_id"], name: "index_partner_loves_on_partner_id", using: :btree
-  add_index "partner_loves", ["user_id"], name: "index_partner_loves_on_user_id", using: :btree
 
   create_table "partners", force: :cascade do |t|
     t.integer  "user_id"
@@ -426,9 +402,8 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "loves",                default: 0
+    t.index ["user_id"], name: "index_partners_on_user_id", using: :btree
   end
-
-  add_index "partners", ["user_id"], name: "index_partners_on_user_id", using: :btree
 
   create_table "patch_messages", force: :cascade do |t|
     t.integer  "go_patch_id"
@@ -440,10 +415,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "frame_id"
     t.integer  "summary_id"
     t.text     "message_markdown", default: ""
+    t.index ["go_patch_id"], name: "index_patch_messages_on_go_patch_id", using: :btree
+    t.index ["user_id"], name: "index_patch_messages_on_user_id", using: :btree
   end
-
-  add_index "patch_messages", ["go_patch_id"], name: "index_patch_messages_on_go_patch_id", using: :btree
-  add_index "patch_messages", ["user_id"], name: "index_patch_messages_on_user_id", using: :btree
 
   create_table "pending_users", force: :cascade do |t|
     t.integer  "user_id"
@@ -451,19 +425,17 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "refused",    default: false
+    t.index ["user_id"], name: "index_pending_users_on_user_id", using: :btree
   end
-
-  add_index "pending_users", ["user_id"], name: "index_pending_users_on_user_id", using: :btree
 
   create_table "private_timelines", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "timeline_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["timeline_id"], name: "index_private_timelines_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_private_timelines_on_user_id", using: :btree
   end
-
-  add_index "private_timelines", ["timeline_id"], name: "index_private_timelines_on_timeline_id", using: :btree
-  add_index "private_timelines", ["user_id"], name: "index_private_timelines_on_user_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.integer  "user_id"
@@ -474,9 +446,8 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "score"
+    t.index ["user_id"], name: "index_questions_on_user_id", using: :btree
   end
-
-  add_index "questions", ["user_id"], name: "index_questions_on_user_id", using: :btree
 
   create_table "ratings", force: :cascade do |t|
     t.integer  "reference_id"
@@ -485,11 +456,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["reference_id"], name: "index_ratings_on_reference_id", using: :btree
+    t.index ["timeline_id"], name: "index_ratings_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_ratings_on_user_id", using: :btree
   end
-
-  add_index "ratings", ["reference_id"], name: "index_ratings_on_reference_id", using: :btree
-  add_index "ratings", ["timeline_id"], name: "index_ratings_on_timeline_id", using: :btree
-  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
   create_table "reference_contributors", force: :cascade do |t|
     t.integer  "user_id"
@@ -497,10 +467,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.boolean  "bool"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["reference_id"], name: "index_reference_contributors_on_reference_id", using: :btree
+    t.index ["user_id"], name: "index_reference_contributors_on_user_id", using: :btree
   end
-
-  add_index "reference_contributors", ["reference_id"], name: "index_reference_contributors_on_reference_id", using: :btree
-  add_index "reference_contributors", ["user_id"], name: "index_reference_contributors_on_user_id", using: :btree
 
   create_table "reference_edge_votes", force: :cascade do |t|
     t.integer  "timeline_id"
@@ -510,11 +479,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "reference_edge_id"
     t.boolean  "value"
     t.integer  "category"
+    t.index ["reference_edge_id"], name: "index_reference_edge_votes_on_reference_edge_id", using: :btree
+    t.index ["timeline_id"], name: "index_reference_edge_votes_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_reference_edge_votes_on_user_id", using: :btree
   end
-
-  add_index "reference_edge_votes", ["reference_edge_id"], name: "index_reference_edge_votes_on_reference_edge_id", using: :btree
-  add_index "reference_edge_votes", ["timeline_id"], name: "index_reference_edge_votes_on_timeline_id", using: :btree
-  add_index "reference_edge_votes", ["user_id"], name: "index_reference_edge_votes_on_user_id", using: :btree
 
   create_table "reference_edges", force: :cascade do |t|
     t.integer  "timeline_id"
@@ -528,31 +496,28 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "plus",         default: 0
     t.integer  "minus",        default: 0
     t.integer  "balance",      default: 0
+    t.index ["reference_id"], name: "index_reference_edges_on_reference_id", using: :btree
+    t.index ["timeline_id"], name: "index_reference_edges_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_reference_edges_on_user_id", using: :btree
   end
-
-  add_index "reference_edges", ["reference_id"], name: "index_reference_edges_on_reference_id", using: :btree
-  add_index "reference_edges", ["timeline_id"], name: "index_reference_edges_on_timeline_id", using: :btree
-  add_index "reference_edges", ["user_id"], name: "index_reference_edges_on_user_id", using: :btree
 
   create_table "reference_taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "reference_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["reference_id"], name: "index_reference_taggings_on_reference_id", using: :btree
+    t.index ["tag_id"], name: "index_reference_taggings_on_tag_id", using: :btree
   end
-
-  add_index "reference_taggings", ["reference_id"], name: "index_reference_taggings_on_reference_id", using: :btree
-  add_index "reference_taggings", ["tag_id"], name: "index_reference_taggings_on_tag_id", using: :btree
 
   create_table "reference_user_taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "reference_user_tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["reference_user_tag_id"], name: "index_reference_user_taggings_on_reference_user_tag_id", using: :btree
+    t.index ["tag_id"], name: "index_reference_user_taggings_on_tag_id", using: :btree
   end
-
-  add_index "reference_user_taggings", ["reference_user_tag_id"], name: "index_reference_user_taggings_on_reference_user_tag_id", using: :btree
-  add_index "reference_user_taggings", ["tag_id"], name: "index_reference_user_taggings_on_tag_id", using: :btree
 
   create_table "reference_user_tags", force: :cascade do |t|
     t.integer  "reference_id"
@@ -560,11 +525,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["reference_id"], name: "index_reference_user_tags_on_reference_id", using: :btree
+    t.index ["timeline_id"], name: "index_reference_user_tags_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_reference_user_tags_on_user_id", using: :btree
   end
-
-  add_index "reference_user_tags", ["reference_id"], name: "index_reference_user_tags_on_reference_id", using: :btree
-  add_index "reference_user_tags", ["timeline_id"], name: "index_reference_user_tags_on_timeline_id", using: :btree
-  add_index "reference_user_tags", ["user_id"], name: "index_reference_user_tags_on_user_id", using: :btree
 
   create_table "references", force: :cascade do |t|
     t.integer  "user_id"
@@ -602,11 +566,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "category"
     t.string   "slug",              limit: 255
     t.integer  "views",                         default: 0
+    t.index ["slug"], name: "index_references_on_slug", unique: true, using: :btree
+    t.index ["timeline_id"], name: "index_references_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_references_on_user_id", using: :btree
   end
-
-  add_index "references", ["slug"], name: "index_references_on_slug", unique: true, using: :btree
-  add_index "references", ["timeline_id"], name: "index_references_on_timeline_id", using: :btree
-  add_index "references", ["user_id"], name: "index_references_on_user_id", using: :btree
 
   create_table "suggestion_child_votes", force: :cascade do |t|
     t.integer  "suggestion_child_id"
@@ -614,9 +577,8 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.index ["user_id"], name: "index_suggestion_child_votes_on_user_id", using: :btree
   end
-
-  add_index "suggestion_child_votes", ["user_id"], name: "index_suggestion_child_votes_on_user_id", using: :btree
 
   create_table "suggestion_children", force: :cascade do |t|
     t.integer  "user_id"
@@ -629,10 +591,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "updated_at"
     t.text     "content_markdown", default: ""
     t.text     "name",             default: ""
+    t.index ["suggestion_id"], name: "index_suggestion_children_on_suggestion_id", using: :btree
+    t.index ["user_id"], name: "index_suggestion_children_on_user_id", using: :btree
   end
-
-  add_index "suggestion_children", ["suggestion_id"], name: "index_suggestion_children_on_suggestion_id", using: :btree
-  add_index "suggestion_children", ["user_id"], name: "index_suggestion_children_on_user_id", using: :btree
 
   create_table "suggestion_votes", force: :cascade do |t|
     t.integer  "suggestion_id"
@@ -640,9 +601,8 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.index ["user_id"], name: "index_suggestion_votes_on_user_id", using: :btree
   end
-
-  add_index "suggestion_votes", ["user_id"], name: "index_suggestion_votes_on_user_id", using: :btree
 
   create_table "suggestions", force: :cascade do |t|
     t.integer  "user_id"
@@ -655,9 +615,8 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "children",         default: 0
     t.text     "content_markdown", default: ""
     t.text     "name",             default: ""
+    t.index ["user_id"], name: "index_suggestions_on_user_id", using: :btree
   end
-
-  add_index "suggestions", ["user_id"], name: "index_suggestions_on_user_id", using: :btree
 
   create_table "summaries", force: :cascade do |t|
     t.integer  "user_id"
@@ -674,11 +633,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.text     "caption_markdown", default: ""
     t.integer  "figure_id"
     t.boolean  "notif_generated",  default: false
+    t.index ["figure_id"], name: "index_summaries_on_figure_id", using: :btree
+    t.index ["timeline_id"], name: "index_summaries_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_summaries_on_user_id", using: :btree
   end
-
-  add_index "summaries", ["figure_id"], name: "index_summaries_on_figure_id", using: :btree
-  add_index "summaries", ["timeline_id"], name: "index_summaries_on_timeline_id", using: :btree
-  add_index "summaries", ["user_id"], name: "index_summaries_on_user_id", using: :btree
 
   create_table "summary_bests", force: :cascade do |t|
     t.integer  "user_id"
@@ -686,11 +644,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "summary_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["summary_id"], name: "index_summary_bests_on_summary_id", using: :btree
+    t.index ["timeline_id"], name: "index_summary_bests_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_summary_bests_on_user_id", using: :btree
   end
-
-  add_index "summary_bests", ["summary_id"], name: "index_summary_bests_on_summary_id", using: :btree
-  add_index "summary_bests", ["timeline_id"], name: "index_summary_bests_on_timeline_id", using: :btree
-  add_index "summary_bests", ["user_id"], name: "index_summary_bests_on_user_id", using: :btree
 
   create_table "summary_links", force: :cascade do |t|
     t.integer  "user_id"
@@ -700,12 +657,11 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "count"
+    t.index ["reference_id"], name: "index_summary_links_on_reference_id", using: :btree
+    t.index ["summary_id"], name: "index_summary_links_on_summary_id", using: :btree
+    t.index ["timeline_id"], name: "index_summary_links_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_summary_links_on_user_id", using: :btree
   end
-
-  add_index "summary_links", ["reference_id"], name: "index_summary_links_on_reference_id", using: :btree
-  add_index "summary_links", ["summary_id"], name: "index_summary_links_on_summary_id", using: :btree
-  add_index "summary_links", ["timeline_id"], name: "index_summary_links_on_timeline_id", using: :btree
-  add_index "summary_links", ["user_id"], name: "index_summary_links_on_user_id", using: :btree
 
   create_table "tag_pairs", force: :cascade do |t|
     t.integer  "tag_theme_source"
@@ -721,10 +677,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "timeline_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
+    t.index ["timeline_id"], name: "index_taggings_on_timeline_id", using: :btree
   end
-
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-  add_index "taggings", ["timeline_id"], name: "index_taggings_on_timeline_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -738,10 +693,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "choices",     default: [], array: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["timeline_id"], name: "index_timeline_choices_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_timeline_choices_on_user_id", using: :btree
   end
-
-  add_index "timeline_choices", ["timeline_id"], name: "index_timeline_choices_on_timeline_id", using: :btree
-  add_index "timeline_choices", ["user_id"], name: "index_timeline_choices_on_user_id", using: :btree
 
   create_table "timeline_contributors", force: :cascade do |t|
     t.integer  "user_id"
@@ -749,10 +703,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.boolean  "bool"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["timeline_id"], name: "index_timeline_contributors_on_timeline_id", using: :btree
+    t.index ["user_id"], name: "index_timeline_contributors_on_user_id", using: :btree
   end
-
-  add_index "timeline_contributors", ["timeline_id"], name: "index_timeline_contributors_on_timeline_id", using: :btree
-  add_index "timeline_contributors", ["user_id"], name: "index_timeline_contributors_on_user_id", using: :btree
 
   create_table "timelines", force: :cascade do |t|
     t.text     "name"
@@ -776,11 +729,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.boolean  "staging",                     default: false
     t.integer  "views",                       default: 0
     t.boolean  "favorite",                    default: false
+    t.index ["created_at"], name: "index_timelines_on_created_at", using: :btree
+    t.index ["slug"], name: "index_timelines_on_slug", unique: true, using: :btree
+    t.index ["user_id"], name: "index_timelines_on_user_id", using: :btree
   end
-
-  add_index "timelines", ["created_at"], name: "index_timelines_on_created_at", using: :btree
-  add_index "timelines", ["slug"], name: "index_timelines_on_slug", unique: true, using: :btree
-  add_index "timelines", ["user_id"], name: "index_timelines_on_user_id", using: :btree
 
   create_table "user_details", force: :cascade do |t|
     t.integer  "user_id"
@@ -796,20 +748,18 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.hstore   "profil"
     t.integer  "countdown",                    default: 15
     t.integer  "frequency",                    default: 15
+    t.index ["figure_id"], name: "index_user_details_on_figure_id", using: :btree
+    t.index ["user_id"], name: "index_user_details_on_user_id", using: :btree
   end
-
-  add_index "user_details", ["figure_id"], name: "index_user_details_on_figure_id", using: :btree
-  add_index "user_details", ["user_id"], name: "index_user_details_on_user_id", using: :btree
 
   create_table "user_patches", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "go_patch_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["go_patch_id"], name: "index_user_patches_on_go_patch_id", using: :btree
+    t.index ["user_id"], name: "index_user_patches_on_user_id", using: :btree
   end
-
-  add_index "user_patches", ["go_patch_id"], name: "index_user_patches_on_go_patch_id", using: :btree
-  add_index "user_patches", ["user_id"], name: "index_user_patches_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",              limit: 255
@@ -835,10 +785,9 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.integer  "target_patches",                default: 0
     t.text     "first_name",                    default: ""
     t.text     "last_name",                     default: ""
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["slug"], name: "index_users_on_slug", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
   create_table "visite_references", force: :cascade do |t|
     t.integer  "user_id"
@@ -846,11 +795,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "counter",      default: 0
+    t.index ["reference_id"], name: "index_visite_references_on_reference_id", using: :btree
+    t.index ["user_id", "reference_id"], name: "index_visite_references_on_user_id_and_reference_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_visite_references_on_user_id", using: :btree
   end
-
-  add_index "visite_references", ["reference_id"], name: "index_visite_references_on_reference_id", using: :btree
-  add_index "visite_references", ["user_id", "reference_id"], name: "index_visite_references_on_user_id_and_reference_id", unique: true, using: :btree
-  add_index "visite_references", ["user_id"], name: "index_visite_references_on_user_id", using: :btree
 
   create_table "visite_timelines", force: :cascade do |t|
     t.integer  "user_id"
@@ -858,11 +806,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "counter",     default: 0
+    t.index ["timeline_id"], name: "index_visite_timelines_on_timeline_id", using: :btree
+    t.index ["user_id", "timeline_id"], name: "index_visite_timelines_on_user_id_and_timeline_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_visite_timelines_on_user_id", using: :btree
   end
-
-  add_index "visite_timelines", ["timeline_id"], name: "index_visite_timelines_on_timeline_id", using: :btree
-  add_index "visite_timelines", ["user_id", "timeline_id"], name: "index_visite_timelines_on_user_id_and_timeline_id", unique: true, using: :btree
-  add_index "visite_timelines", ["user_id"], name: "index_visite_timelines_on_user_id", using: :btree
 
   create_table "votes", force: :cascade do |t|
     t.integer  "user_id"
@@ -872,11 +819,10 @@ ActiveRecord::Schema.define(version: 20160529183704) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "field"
+    t.index ["comment_id"], name: "index_votes_on_comment_id", using: :btree
+    t.index ["reference_id"], name: "index_votes_on_reference_id", using: :btree
+    t.index ["user_id"], name: "index_votes_on_user_id", using: :btree
   end
-
-  add_index "votes", ["comment_id"], name: "index_votes_on_comment_id", using: :btree
-  add_index "votes", ["reference_id"], name: "index_votes_on_reference_id", using: :btree
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
 
   add_foreign_key "contributor_comments", "comments"
   add_foreign_key "contributor_comments", "users"
