@@ -17,6 +17,13 @@
 public/uploads/
 /uploads
 
+/VectorArt
+/Media
+/Administratif
+
+mainkey.txt
+*.kdb
+*.kdbx
 *~
 *.swp
 .idea
