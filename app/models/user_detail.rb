@@ -5,7 +5,7 @@ class UserDetail < ApplicationRecord
 
   validates :user_id, presence: true
   validates_uniqueness_of :user_id
-  validates :frequency, presence: true, inclusion: { in: [0, 1, 7, 15, 30]}
+  validates :frequency, presence: true, inclusion: { in: [0, 30, 180, 365]}
 
   before_save :save_with_markdown
 
