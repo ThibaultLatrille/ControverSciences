@@ -4,7 +4,7 @@ class AccountActivationsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && !user.activated? && user.authenticated?(:activation, params[:id])
       user.activate
-      UserDetail.create( user_id: user.id )
+      UserDetail.create( user_id: user.id, frequency: 180, countdown: 180)
       begin
         if Rails.env.production?
           mg_client = Mailgun::Client.new ENV['MAILGUN_CS_API']

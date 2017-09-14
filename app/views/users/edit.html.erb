@@ -58,16 +58,16 @@
               <div id="binary-box" class="btn-group-justified" data-toggle="buttons">
                 <label class="btn btn-default">
                   <%= f.radio_button :frequency, checked_value = 30,
-                                     {id: "week", autocomplete: "off"}%> mensuelle </label>
+                                     {id: "month", autocomplete: "off"}%> mensuelle </label>
                 <label class="btn btn-default">
                   <%= f.radio_button :frequency, checked_value = 180,
-                                     {id: "week", autocomplete: "off"}%> bi-annuelle </label>
+                                     {id: "semester", autocomplete: "off"}%> bi-annuelle </label>
                 <label class="btn btn-default">
                   <%= f.radio_button :frequency, checked_value = 365,
-                                     {id: "week", autocomplete: "off"}%> annuelle </label>
+                                     {id: "year", autocomplete: "off"}%> annuelle </label>
                 <label class="btn btn-default">
                   <%= f.radio_button :frequency, checked_value = 0,
-                                     {id: "week", autocomplete: "off"}%> jamais </label>
+                                     {id: "never", autocomplete: "off"}%> jamais </label>
               </div>
               <br/>
               <%= f.hidden_field :has_picture, value: @user_detail.picture? %>
