@@ -106,6 +106,12 @@
                           <%= t('views.mailer.the_team') %></a> <%= t('views.mailer.notif_wish') %>
                       </td>
                     </tr>
+                    <tr>
+                      <td style="font-family: Roboto-Regular,Helvetica,Arial,sans-serif; font-size: 13px; color: #202020; line-height: 1.5;">
+                        <a style="text-decoration: none;color:#454545;border-bottom: 1px dotted#454545" href='<%= unsuscribe_email_url(email: @user_notif.email) -%>'>
+                          Se désabonner </a>
+                      </td>
+                    </tr>
                     <tr height="16px"></tr>
                   </table>
                 </td>

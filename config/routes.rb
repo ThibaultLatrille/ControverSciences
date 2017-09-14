@@ -158,6 +158,7 @@ Rails.application.routes.draw do
   get 'my_items/votes'
   get "/fetch_children" => 'suggestion_children#from_suggestion', as: 'fetch_children'
   get 'feed' => 'timelines#feed', :as => "feed"
+  get 'unsuscribe_email' => 'user_details#unsuscribe', as: 'unsuscribe_email'
   if Rails.env.development?
     get '/public/uploads/:file', to: redirect { |path_params, req|
       "/uploads/#{path_params[:file]}.#{path_params[:format]}"

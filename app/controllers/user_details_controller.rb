@@ -31,6 +31,18 @@ class UserDetailsController < ApplicationController
     end
   end
 
+  def unsuscribe
+    u = User.find_by(email: params[:email])
+    if u
+      flash[:success] = "Vous avez bien été désabonné."
+      UserDetail.where(id: u.id).update_all(send_email: false, frequency: 0)
+      redirect_to user_path(u)
+    else
+      flash[:danger] = "Cette adresse email n'existe pas."
+      redirect_to_home
+    end
+  end
+
   private
 
   def user_detail_params
