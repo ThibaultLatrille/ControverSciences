@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   private
 
   def invalid_token
-    render 'layouts/invalid_token', :layout => false
+    render 'static_pages/invalid_token', :layout => false
   end
 
   # Confirms a logged-in user.
