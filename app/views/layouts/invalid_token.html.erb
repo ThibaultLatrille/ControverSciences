@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cette page n'existe pas</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      text-align: left;
+      background-color: #ffffff;
+    }
+
+  </style>
+</head>
+<body>
+<h2>
+  Votre session a expiré
+</h2>
+<h4>
+La mauvaise nouvelle, c'est qu'il va falloir fermer toutes les fenêtres actuellement ouvertes sur ControverSciences et vous reconnecter.
+  <br>
+La bonne nouvelle, c'est que les données que vous avez envoyées ne sont pas perdues, elles sont ci-dessous.
+</h4>
+Si l'erreur persiste, contacter l'admin à <a href="mailto:thibault.latrille@controversciences.org">thibault.latrille@controversciences.org</a>
+<br/><br/>
+<% params.each do |param, value| %>
+
+    <b><%= param %> </b>: <%= value %> <br/><br/>
+
+    <% if value.respond_to? :each %>
+        <% value.each do |nested_param, nested_value| %>
+            <b> <%= nested_param %> </b>: <%= nested_value %> <br/><br/>
+        <% end %>
+    <% end %>
+
+<% end %>
+</body>
+</html>

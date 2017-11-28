@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   include SessionsHelper
 
+  rescue_from ActionController::InvalidAuthenticityToken, :with => :invalid_token
+
   before_action :set_locale
 
   def set_locale
@@ -45,6 +47,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def invalid_token
+    render 'layouts/invalid_token', :layout => false
+  end
 
   # Confirms a logged-in user.
   def logged_in_user
