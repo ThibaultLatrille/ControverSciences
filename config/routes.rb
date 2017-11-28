@@ -46,7 +46,6 @@ Rails.application.routes.draw do
   resources :suggestion_child_votes, only: [:create]
   get 'livre-d-or' => 'suggestions#index'
   resources :issues, only: [:create]
-  resources :reponses, only: [:create]
   resources :figures, only: [:create] do
     collection do
       post 'identicon'
@@ -99,7 +98,6 @@ Rails.application.routes.draw do
   get 'home' => 'static_pages#home'
   get 'discover' => 'static_pages#discover'
   get 'comics' => 'static_pages#comics'
-  get 'transition-rhone-alpes' => 'rhone_alpes#rhone_alpes'
   get 'student-demo-cup' => 'presentations#student_demo_cup_intro'
   get 'student-demo-cup-protocol' => 'presentations#student_demo_cup_protocol'
   get 'student-demo-cup-controversciences' => 'presentations#student_demo_cup_core'

@@ -1,4 +1,0 @@
-$('#newissue<%= @reponse_id %>').modal('hide');
-$('form > input[type=reset]','#newissue<%= @reponse_id %>').trigger('click');
-$('.active','#newissue<%= @reponse_id %>').removeClass("active");
-$("#notifications").prepend("<%= escape_javascript(render partial: 'issue/alert') %>");
