@@ -7,12 +7,16 @@ class CommentsController < ApplicationController
       redirect_to edit_comment_path(id: comment.id)
     else
       @comment = Comment.new
-      reference = Reference.select(:id, :slug, :timeline_id).find(params[:reference_id])
-      @comment.reference_id = reference.id
-      @comment.timeline_id = reference.timeline_id
-      @list = Reference.order(year: :desc).where(timeline_id: @comment.timeline_id).pluck(:title, :id, :author, :year)
-      @tim_list = timelines_connected_to(@comment.timeline_id)
-      @myreference = Reference.find(@comment.reference_id)
+      @myreference = Reference.find(params[:reference_id]) rescue nil
+      if @myreference.blank?
+        flash[:danger] = "Cette référence n'existe pas (ou plus) !"
+        redirect_to timelines_path
+      else
+        @comment.reference_id = @myreference.id
+        @comment.timeline_id = @myreference.timeline_id
+        @list = Reference.order(year: :desc).where(timeline_id: @comment.timeline_id).pluck(:title, :id, :author, :year)
+        @tim_list = timelines_connected_to(@comment.timeline_id)
+      end
     end
   end
 
