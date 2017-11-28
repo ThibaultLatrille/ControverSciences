@@ -105,8 +105,10 @@
       </script>
 
   <% end %>
-    <br/>
-    <br/>
+    <br>
+    <div class="center">
+      <%= link_to "<b><span class=\"icon-superman bigger\" ></span> &nbsp Quel contributeur êtes-vous ?</b>".html_safe, comics_path %>
+    </div><br>
   </div>
     <div class="panel-group" role="tablist" aria-multiselectable="true">
       <% if @timelines.any? %>
