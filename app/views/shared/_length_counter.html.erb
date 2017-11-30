@@ -8,7 +8,22 @@
                 .replace(/[0-9]\. /g, '');
         return out.length
     }
+    function sumArray(someArray) {
+        var total = 0;
+        for (var i = 0; i < someArray.length; i++) {
+            total += someArray[i] << 0;
+        }
+        return total
+    }
+    isAnyTaskInProgress = false;
+    window.onbeforeunload = confirmExit;
+    function confirmExit() {
+        if (isAnyTaskInProgress) {
+            return "Some task is in progress. Are you sure, you want to close?";
+        }
+    }
     function setupLengthCounter(array) {
+        var lenArray = new Array(array.length).fill(0);
         $.each(array, function (index, limit) {
             var typingTimer;                //timer identifier
             var doneTypingInterval = 100;  //time in ms, 5 second for example
@@ -17,8 +32,14 @@
             var value = limit[0];
             var $input = $('#description' + value);
             var $charleft =  $('#characterLeft' + value);
+            lenArray[index] = countCharacters($input.val());
             function doneTyping() {
                 var len = countCharacters($input.val());
+                lenArray[index] = len;
+                isAnyTaskInProgress = sumArray(lenArray) > 0;
+                set_char(len);
+            }
+            function set_char(len) {
                 if (len >= max) {
                     $charleft.css({"color": "#a94442"});
                     $charleft.text((len - max) + ' <%= t('views.edition.character_much') %>');
@@ -30,9 +51,8 @@
                     $charleft.text((max - len) + ' <%= t('views.edition.character_left') %>');
                 }
             }
-
             $(document).ready(function () {
-                doneTyping()
+                set_char(lenArray[index])
             });
             $input.on('keyup', function () {
                 clearTimeout(typingTimer);
