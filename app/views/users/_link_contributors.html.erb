@@ -1,4 +1,4 @@
-Il y a <%= time_ago_in_words model.created_at %> par
+<%= "#{t('views.default.published')} #{time_ago_in_words(model.created_at)} #{t('views.default.by')}" %>
 <% if model.authors > 1 %>
     <%= link_to "#{model.user_name} <i><b> et al.</b></i>".html_safe,
                 users_path(editors: model.editors,

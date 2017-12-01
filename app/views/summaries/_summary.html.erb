@@ -18,7 +18,6 @@
       <div class="text-justify content<%= summary.id %>">
         <%= summary.markdown.html_safe %>
             <div class="pull-right">
-              <%= "#{t('views.default.published')} #{time_ago_in_words(summary.created_at)} #{t('views.default.by')}" %>
               <%= render 'users/link_contributors', model: summary %>
             </div>
         <% if logged_in? %>

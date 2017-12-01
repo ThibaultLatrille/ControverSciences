@@ -128,7 +128,7 @@
         </div>
     <% end %>
     <div class="cadre pull-right">
-      <%= "#{t('views.default.published')} #{time_ago_in_words(frame.created_at)} #{t('views.default.by')}" %>
+
       <%= render 'users/link_contributors', model: frame %>
     </div>
     <% if logged_in? %>
