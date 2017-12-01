@@ -64,6 +64,9 @@
 
               <br/>
               <%= render 'static_pages/charte_frame' %>
+              <% if @frame.best %>
+                  <%= f.hidden_field :why, value: "" %>
+              <% else %>
               <br/>
               <br/>
               <b style="font-size: 1.4em"><%= t('views.frames.why') %></b>
@@ -75,6 +78,7 @@
                   <%= t('views.frames.why_info') %>
                 </div>
               </div>
+              <% end %>
               <br/>
               <br/>
 
@@ -141,7 +145,6 @@
         hiddenButtons: ['cmdLinkInt']
     });
     $(document).ready(function () {
-      console.log($('#check-box'))
         if (!$('#check-box').is(':checked')) {
             $('#binary-box').hide()
         }
