@@ -36,7 +36,7 @@
             function doneTyping() {
                 var len = countCharacters($input.val());
                 lenArray[index] = len;
-                // isAnyTaskInProgress = sumArray(lenArray) > 0;
+                isAnyTaskInProgress = sumArray(lenArray) > 0;
                 set_char(len);
             }
             function set_char(len) {
@@ -61,6 +61,9 @@
             $input.on('keydown', function () {
                 clearTimeout(typingTimer);
             });
+        });
+        $('.btn-success').on('click', function (event) {
+            isAnyTaskInProgress = false;
         });
     }
 </script>
