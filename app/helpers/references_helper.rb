@@ -54,7 +54,7 @@ module ReferencesHelper
   end
 
   def fetch_from_crossref(doi)
-    cross_ref = Faraday.new(:url => 'http://search.crossref.org')
+    cross_ref = Faraday.new(:url => 'https://search.crossref.org')
     begin
       response = cross_ref.get '/dois', {:q => doi} do |request|
         request.headers['Content-Type'] = 'application/json'
@@ -62,7 +62,6 @@ module ReferencesHelper
     rescue Faraday::ConnectionFailed
       raise ConnectionError, "Could not connect to the crossref server"
     end
-
     raise ConnectionError, "Http request to crossref produced a #{response.status}" unless response.status == 200
 
     reference_json = JSON.parse(response.body)[0]
