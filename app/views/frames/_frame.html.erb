@@ -1,4 +1,11 @@
-<%= javascript_include_tag 'chart' %>
+<% if frame.binaries.count > 0%>
+    <% unless @charset %>
+        <%= javascript_include_tag 'chartBar' %>
+    <% else %>
+        <% @charset = true %>
+    <% end %>
+<% end %>
+
 
 <div id="frame-id-<%= frame.id %>" class="panel <%= logged_in? && @my_frame_credit && @my_frame_credit.frame_id == frame.id ? "panel-success" : "panel-default" %>">
   <div class="panel-footer clearfix">
@@ -6,7 +13,7 @@
       <div class="clearfix">
         <h1 class="shadowed">
           <br/>
-        <span class="content<%= frame.id*10 + 0 %>">
+          <span class="content<%= frame.id*10 + 0 %>">
            <%= frame.name_markdown.html_safe %>
         </span>
           <% if logged_in? %>
@@ -26,7 +33,7 @@
                   <%= frame.why_markdown.html_safe %>
               <% end %>
               <% if logged_in? %>
-              <%= render 'patches/link_frame', field: 1, frame_id: frame.id %>
+                  <%= render 'patches/link_frame', field: 1, frame_id: frame.id %>
               <% end %>
             </div>
             <br/>
@@ -37,98 +44,99 @@
         <div class="center">
           <br/>
           <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
-          &nbsp<%= image_tag("versus.png", alt: "Versus", :height => "82px") %>&nbsp
-          <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%></b>
-          <br/>
+          &nbsp &nbsp <span style="font-size: 1.4em">ou</span>  &nbsp &nbsp
+          <b style="font-size: 2.2em"><%= frame.binary.split('&&')[1].humanize -%> ? </b>
+          <br/><br/>
           <span id="versus-click"></span>
           <% if frame.binaries.count > 0 %>
-              <div id="versus-chart" class="row" style="display: none">
-                <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-                  <div class="row">
-                    <div class="col-xs-12 col-md-offset-1 col-md-6">
-                      <canvas id="myChart"></canvas>
-                    </div>
-                    <div class="col-xs-10 col-xs-offset-1 col-md-offset-0 col-md-4">
-                      <div id="doughtnut-legend"></div>
-                    </div>
-                  </div>
-                </div>
+              <div class="row">
+              <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                <canvas id="chartjs"></canvas>
               </div>
-              <script type="text/javascript">
-                  $(document).ready(function () {
-                      var binaries_dico = <%= raw frame.binaries_dico.to_json -%>, context = "#frame-id-<%= frame.id %>";
-                      var $versusChart = $("#versus-chart", context), $versusClick = $('#versus-click', context);
-                      $versusClick.on('inview', function (event, isInView) {
-                          if (isInView) {
-                              if (!$versusClick.hasClass("active") && (binaries_dico[1] + binaries_dico[2] + binaries_dico[3] +
-                                      binaries_dico[4] + binaries_dico[5]) > 0) {
-                                  $versusClick.addClass("active");
-                                  $versusChart.show(500, function () {
-                                      var data = [
-                                          {
-                                              value: binaries_dico[1],
-                                              color: "rgba(11,132,165,1.0)",
-                                              highlight: "rgba(11,132,165,0.6)",
-                                              label: '<%= frame.binary_explanation(1) -%>'
-                                          },
-                                          {
-                                              value: binaries_dico[2],
-                                              color: "rgba(174,214,136,1.0)",
-                                              highlight: "rgba(174,214,136,0.6)",
-                                              label: '<%= frame.binary_explanation(2) -%>'
-                                          },
-                                          {
-                                              value: binaries_dico[3],
-                                              color: "rgba(245,199,103,1.0)",
-                                              highlight: "rgba(245,199,103,0.6)",
-                                              label: '<%= frame.binary_explanation(3) -%>'
-                                          },
-                                          {
-                                              value: binaries_dico[4],
-                                              color: "rgba(255,160,86,1.0)",
-                                              highlight: "rgba(255,160,86,0.6)",
-                                              label: '<%= frame.binary_explanation(4) -%>'
-                                          },
-                                          {
-                                              value: binaries_dico[5],
-                                              color: "rgba(202,71,47,1.0)",
-                                              highlight: "rgba(202,71,47,0.6)",
-                                              label: '<%= frame.binary_explanation(5) -%>'
-                                          }
-                                      ];
-                                      Chart.defaults.global.responsive = true;
-                                      Chart.defaults.global.tooltipTemplate = "<%%= value %> références";
-                                      (function () {
-                                          var helpers = Chart.helpers,
-                                                  canvas = $("#myChart", context).get(0),
-                                                  ctx = canvas.getContext('2d'),
-                                                  versusDoughnut = new Chart(ctx).Doughnut(data, {
-                                                      legendTemplate: "<div><%% for (var i=0; i<segments.length; i++){%><div class=\"clearfix\"><div class=\"pics\" style=\"background-color:<%%=segments[i].fillColor%>\"></div><div class=\"labels\"><%%if(segments[i].label){%><%%=segments[i].label%></div><%%}%></div><%%}%></div>"
-                                                  });
-                                          $('#doughtnut-legend', context).html(versusDoughnut.generateLegend());
-                                          helpers.addEvent(canvas, 'mousemove', function (evt) {
-                                              var segments = versusDoughnut.getSegmentsAtEvent(evt);
-                                              if (segments.length > 0) {
-                                                  canvas.style.cursor = "pointer";
-                                              }
-                                              else {
-                                                  canvas.style.cursor = "default";
-                                              }
-                                          });
-                                      })();
-                                  });
+              </div>
+              <script>
+                  var context = "#frame-id-<%= frame.id %>";
+                  var binaries_dico = <%= raw frame.binaries_dico.to_json -%>;
+                  var sum_binaries = binaries_dico[1] + binaries_dico[2] + binaries_dico[3] + binaries_dico[4] + binaries_dico[5];
+                  new Chart($("#chartjs", context), {
+                      type: "horizontalBar",
+                      data: {
+                          datasets: [{
+                              label: '<%= frame.binary_explanation(1) -%>',
+                              data: [binaries_dico[1]*100/sum_binaries],
+                              backgroundColor: "rgba(11,132,165,0.6)",
+                              borderColor: "rgba(11,132,165,1.0)",
+                              borderWidth: 2
+                          },{
+                              label: '<%= frame.binary_explanation(2) -%>',
+                              data: [binaries_dico[2]*100/sum_binaries],
+                              backgroundColor: "rgba(174,214,136,0.6)",
+                              borderColor: "rgba(174,214,136,1.0)",
+                              borderWidth: 2
+                          },{
+                              label: '<%= frame.binary_explanation(3) -%>',
+                              data: [binaries_dico[3]*100/sum_binaries],
+                              backgroundColor: "rgba(245,199,103,0.6)",
+                              borderColor: "rgba(245,199,103,1.0)",
+                              borderWidth: 2
+                          },{
+                              label: '<%= frame.binary_explanation(4) -%>',
+                              data: [binaries_dico[4]*100/sum_binaries],
+                              backgroundColor: "rgba(255,160,86,0.6)",
+                              borderColor: "rgba(255,160,86,1.0)",
+                              borderWidth: 2
+                          },{
+                              label: '<%= frame.binary_explanation(5) -%>',
+                              data: [binaries_dico[5]*100/sum_binaries],
+                              backgroundColor: "rgba(202,71,47,0.6)",
+                              borderColor: "rgba(202,71,47,1.0)",
+                              borderWidth: 2
+                          }
+                          ]
+                      },
+                      options: {
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          legend: {
+                              fontFamily: "'Ubuntu', sans-serif"
+                          },
+                          scales: {
+                              xAxes: [{
+                                  stacked: true,
+                                  ticks: {
+                                      callback: function(value, index, values) {
+                                          return value + "%";
+                                      }
+                                  }
+
+                              }],
+                              yAxes: [{
+                                  display: false,
+                                  stacked: true
+                              }]
+                          },
+                          tooltips: {
+                              callbacks: {
+                                  label: function(item, data) {
+                                      var datasetLabel = data.datasets[item.datasetIndex].label || '';
+                                      var endlabel = binaries_dico[item.datasetIndex + 1] + " référence";
+                                      if (binaries_dico[item.datasetIndex + 1] > 1) {
+                                          endlabel += "s"
+                                      }
+                                      return datasetLabel + ': ' + endlabel ;
+                                  }
                               }
                           }
-                      });
+                      }
                   });
               </script>
-              <br>
-              <br>
+          <% else %>
+              Aucune référence n'a encore été classée.
           <% end %>
+          <br><br>
         </div>
     <% end %>
     <div class="cadre pull-right">
-
       <%= render 'users/link_contributors', model: frame %>
     </div>
     <% if logged_in? %>

@@ -33,24 +33,3 @@
     color: #000000;
   }
 }
-
-
-#doughtnut-legend div{
-  div {
-    margin-bottom: 5px;
-    .pics {
-      float: left;
-      width: 24px;
-      height: 24px;
-      margin-right: 8px;
-      border-radius: 2px;
-    }
-    .labels{
-      display: inline-block;
-      vertical-align: middle;
-      height: 24px;
-      min-height: 24px;
-      line-height: 24px;
-    }
-  }
-}

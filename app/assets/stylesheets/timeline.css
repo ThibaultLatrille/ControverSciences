@@ -99,14 +99,6 @@
     transition: background .6s ease-in;
 }
 
-.uni-color{
-    background: #3366CC !important;
-}
-
-.uni-orange{
-    background: #2DABE3 !important;
-}
-
 .grey, .grey:hover {background-color: #BBC6DB; color: #f6f9fb}
 
 .cd-frog{
