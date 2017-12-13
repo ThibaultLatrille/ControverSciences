@@ -35,9 +35,25 @@
                     </div>
                   </div>
                 </div>
+                <% if @reference.comments.any? %>
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-offset-1 col-sm-10 center">
+                      <div id="warning-ref" class="alert alert-danger" style="display: none">
+                        Cette référence possède <%= t('views.pluralize.comments', count: @reference.comments.count) %>.
+                        <br>
+                        <span class="glyphicon glyphicon-warning-sign"></span>
+                        Les analyses de cette référence seront modifiées par ce changement de catégorie. <br>
+                          Ceci risque d'entrainer une <b> suppression de certains champs des analyses.</b>
+                      </div>
+                      </div>
+                    </div>
+                <% end %>
                 <script type="text/javascript">
+                    var init_cat = -1;
                     $(document).ready(function () {
-                        $("input[type='radio'][name='reference[category]']:checked").parent().addClass("active");
+                        var radio_cat = $("input[type='radio'][name='reference[category]']:checked");
+                        init_cat = radio_cat[0].value;
+                        radio_cat.parent().addClass("active");
                     });
                     var source = {};
                     <% category_source.each do |key, value| %>
@@ -48,6 +64,11 @@
                     unique_id[<%= key %>] = "<%= value %>";
                     <% end %>
                     $("input[type='radio'][name='reference[category]']").change(function (e) {
+                        if (e.target.value === init_cat){
+                            $('#warning-ref').hide();
+                        } else {
+                            $('#warning-ref').show();
+                        }
                         var valueSelected = this.value;
                         $('#source').html(source[valueSelected] + '*');
                         $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[valueSelected]);
