@@ -109,9 +109,9 @@ class Reference < ApplicationRecord
   def binary_font_size(value)
     sum = self.binary_1+self.binary_2+self.binary_3+self.binary_4+self.binary_5
     if sum > 0
-      1+1.0*self["binary_#{value}"]/sum
+      1+0.5*self["binary_#{value}"]/sum
     else
-      1.5
+      1
     end
   end
 
@@ -120,18 +120,18 @@ class Reference < ApplicationRecord
     if sum > 0
       case value
         when 1
-          1+1.0*self.star_1/sum
+          1+0.5*self.star_1/sum
         when 2
-          1+1.0*self.star_2/sum
+          1+0.5*self.star_2/sum
         when 3
-          1+1.0*self.star_3/sum
+          1+0.5*self.star_3/sum
         when 4
-          1+1.0*self.star_4/sum
+          1+0.5*self.star_4/sum
         when 5
-          1+1.0*self.star_5/sum
+          1+0.5*self.star_5/sum
       end
     else
-      1.5
+      1.0
     end
   end
 

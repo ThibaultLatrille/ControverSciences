@@ -49,7 +49,7 @@
                     <% end %>
                     $("input[type='radio'][name='reference[category]']").change(function (e) {
                         var valueSelected = this.value;
-                        $('#source').html(source[valueSelected] + ' *');
+                        $('#source').html(source[valueSelected] + '*');
                         $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[valueSelected]);
                     });
                 </script>

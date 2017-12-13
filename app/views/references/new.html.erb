@@ -131,44 +131,7 @@
                     <% end %>
                   </div>
                 </div>
-                <% unless @reference.timeline.binary.blank? %>
-                    <hr style="margin: 1em 5em">
-                    <br>
-
-                    <div class="clearfix">
-                      <br>
-                      <b><%= @reference.timeline.name.html_safe %></b>
-
-                      <div class="center">
-                        <br/>
-                        <b style="font-size: 1.5em"><%= @reference.timeline.binary.split('&&')[0].humanize -%></b>
-                        &nbsp ou &nbsp
-                        <b style="font-size: 1.5em"><%= @reference.timeline.binary.split('&&')[1].humanize -%></b>
-                      </div>
-                      <br/><br/>
-                      <%= f.hidden_field :reference_id, value: @reference.id %>
-                      <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-                      <div class="btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-default <%= @reference.user_binary == "none" ? "active" : nil %>"
-                               title="<%= t('views.references.no_advise') %>" data-toggle="tooltip">
-                          <%= f.radio_button :user_binary, checked_value = "none",
-                                             {id: "none", autocomplete: "off"} %>
-                          <span class="icon-no"></span>
-                        </label>
-                        <% (1..5).each do |key| %>
-                            <label class="btn btn-default btn-select <%= @reference.user_binary == key.to_s ? "active" : nil %> btn-frog<%= key %>"
-                                   title="<%= binary_value_explanation(@reference.timeline.binary, key) -%>" data-toggle="tooltip">
-                              <%= f.radio_button :user_binary, checked_value = key.to_s,
-                                                 {id: key, autocomplete: "off"} %>
-                              <span class="icon-frog cd-frog"></span>
-                            </label>
-                        <% end %>
-                      </div>
-                      <br/>
-                    </div>
-                <% end %>
-                <hr style="margin: 1em 5em">
-                <br>
+                <br/>
 
                 <div class="clearfix">
                   <%= f.label t('views.references.how_you_star') %>
@@ -189,11 +152,43 @@
                     <% end %>
                   </div>
                 </div>
-                <br/>
+                <% unless @reference.timeline.binary.blank? %>
+                    <br/>
+
+                    <div class="clearfix">
+                        <b><%= @reference.timeline.name.html_safe %>
+
+                          <%= @reference.timeline.binary.split('&&')[0].humanize -%>
+                          ou
+                          <%= @reference.timeline.binary.split('&&')[1].humanize -%>
+                        </b>
+                      <br style="margin-bottom: 5px">
+                      <%= f.hidden_field :reference_id, value: @reference.id %>
+                      <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
+                      <div class="btn-group-justified" data-toggle="buttons">
+                        <label class="btn btn-default <%= @reference.user_binary == "none" ? "active" : nil %>"
+                               title="<%= t('views.references.no_advise') %>" data-toggle="tooltip">
+                          <%= f.radio_button :user_binary, checked_value = "none",
+                                             {id: "none", autocomplete: "off"} %>
+                          <span class="icon-no"></span>
+                        </label>
+                        <% (1..5).each do |key| %>
+                            <label class="btn btn-default btn-select <%= @reference.user_binary == key.to_s ? "active" : nil %> btn-frog<%= key %>"
+                                   title="<%= binary_value_explanation(@reference.timeline.binary, key) -%>" data-toggle="tooltip">
+                              <%= f.radio_button :user_binary, checked_value = key.to_s,
+                                                 {id: key, autocomplete: "off"} %>
+                              <span class="icon-frog cd-frog"></span>
+                            </label>
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
+                <br>
                 <%= f.button "#{t('views.references.add')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
                              id: "submit-button",
                              class: 'btn btn-success btn-lg pull-right',
                              data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')}"} %>
+
 
             <% end %>
           </div>

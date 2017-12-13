@@ -306,87 +306,6 @@
           <% end %>
         </li>
       <% end %>
-      <% unless @reference.binary.blank? %>
-          <li class="list-group-item clearfix">
-            <% if logged_in? %>
-                <div class="clearfix">
-                  <%= form_for :binary, :url => binaries_path do |f| %>
-                      <div class="center">
-                        <br/>
-                        <b style="font-size: 1.5em"><%= @reference.binary.split('&&')[0].humanize -%></b>
-                        &nbsp ou &nbsp
-                        <b style="font-size: 1.5em"><%= @reference.binary.split('&&')[1].humanize -%></b>
-                      </div>
-                      <br/><br/>
-                      <%= f.hidden_field :reference_id, value: @reference.id %>
-                      <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-                      <% unless @user_binary.nil? %>
-                          <b>
-                            <%= t('views.references.maybe_binary') %>
-                          </b>
-                      <% end %>
-                      <div class="btn-group-justified" data-toggle="buttons">
-                        <% unless @user_binary.nil? %>
-                            <label class="btn btn-default"
-                                   title="<%= t('views.references.delete_advise') %>" data-toggle="tooltip">
-                              <%= f.radio_button :value, checked_value = "none",
-                                                 {id: "none", autocomplete: "off"} %>
-                              <span class="icon-no"></span>
-                            </label>
-                        <% end %>
-                        <% (1..5).each do |key| %>
-                            <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> btn-frog<%= key %>"
-                                   title="<%= binary_value_explanation(@reference.binary, key) -%>" data-toggle="tooltip">
-                              <%= f.radio_button :value, checked_value = key,
-                                                 {id: key, autocomplete: "off"} %>
-                              <span class="icon-frog cd-frog"></span>
-                            </label>
-                        <% end %>
-                      </div>
-                      <br/>
-
-                      <div class="pull-right">
-                        <% if @user_binary.nil? %>
-				<%= f.button "#{t('views.buttons.advise')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
-                                         class: "btn btn-success",
-                                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
-                        <% else %>
-                            <%= f.button "#{t('views.buttons.save_edit')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
-                                         class: "btn btn-success",
-                                         name: "update",
-                                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
-                        <% end %>
-                      </div>
-                  <% end %>
-                </div>
-            <% else %>
-                <div class="center">
-                  <br/>
-                  <b style="font-size: 1.5em"><%= @reference.binary.split('&&')[0].humanize -%></b>
-                  &nbsp ou &nbsp
-                  <b style="font-size: 1.5em"><%= @reference.binary.split('&&')[1].humanize -%></b>
-                </div>
-                <br/><br/>
-
-                <div class="row">
-                  <div class="col-xs-1">
-                  </div>
-                  <% (1..5).each do |key| %>
-                      <div class="col-xs-2">
-                        <div class="cursor-default div-frog<%= key %>"
-                             title="<%= t('views.references.user_binary', count: @reference["binary_#{key}".to_sym] ) %> <%= binary_value_explanation(@reference.binary, key).downcase -%>"
-                             data-toggle="tooltip">
-                        <span class="icon-frog cd-frog" style="font-size: <%= @reference.binary_font_size( key ) -%>em;">
-                            <%= @reference["binary_#{key}".to_sym] -%>
-                        </span>
-                        </div>
-                      </div>
-                  <% end %>
-                </div>
-            <% end %>
-            <br/>
-          </li>
-      <% end %>
       <li class="list-group-item clearfix">
         <% if logged_in? %>
             <%= form_for :rating, :url => ratings_path do |f| %>
@@ -445,16 +364,87 @@
               <% star_hash.each do |key, value| %>
                   <div class="col-xs-2">
                     <div class="cursor-default"
-                         title="<<%= t('views.references.user_binary', count: @reference["star_#{key}".to_sym]) -%> <%= value.downcase %>" data-toggle="tooltip">
-                        <span class="icon-<%= key %>" style="font-size: <%= @reference.star_font_size( key ) -%>em;">
-                        <%= @reference["star_#{key}".to_sym] -%>
-                    </span>
+                         title="<%= t('views.references.user_binary', count: @reference["star_#{key}".to_sym]) -%> <%= value.downcase %>" data-toggle="tooltip">
+                        <span style="font-size: <%= @reference.star_font_size( key ) -%>em;">
+                          <span class="icon-<%= key %>" ></span>
+                          <span><%= @reference["star_#{key}".to_sym] -%></span>
+                        </span>
                     </div>
                   </div>
               <% end %>
             </div>
         <% end %>
       </li>
+      <% unless @reference.binary.blank? %>
+          <li class="list-group-item clearfix">
+              <b> <%= @reference.timeline_name.html_safe %> <%= @reference.binary.split('&&')[0].humanize -%>
+              ou
+              <%= @reference.binary.split('&&')[1].humanize -%></b>
+            <br style="margin-bottom: 5px">
+            <% if logged_in? %>
+                <div class="clearfix">
+                  <%= form_for :binary, :url => binaries_path do |f| %>
+                      <%= f.hidden_field :reference_id, value: @reference.id %>
+                      <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
+                      <% unless @user_binary.nil? %>
+                          <b>
+                            <%= t('views.references.maybe_binary') %>
+                          </b>
+                      <% end %>
+                      <div class="btn-group-justified" data-toggle="buttons">
+                        <% unless @user_binary.nil? %>
+                            <label class="btn btn-default"
+                                   title="<%= t('views.references.delete_advise') %>" data-toggle="tooltip">
+                              <%= f.radio_button :value, checked_value = "none",
+                                                 {id: "none", autocomplete: "off"} %>
+                              <span class="icon-no"></span>
+                            </label>
+                        <% end %>
+                        <% (1..5).each do |key| %>
+                            <label class="btn btn-default btn-select <%= @user_binary == key ? "selected" : nil %> btn-frog<%= key %>"
+                                   title="<%= binary_value_explanation(@reference.binary, key) -%>" data-toggle="tooltip">
+                              <%= f.radio_button :value, checked_value = key,
+                                                 {id: key, autocomplete: "off"} %>
+                              <span class="icon-frog cd-frog"></span>
+                            </label>
+                        <% end %>
+                      </div>
+                      <br/>
+
+                      <div class="pull-right">
+                        <% if @user_binary.nil? %>
+				<%= f.button "#{t('views.buttons.advise')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
+                                         class: "btn btn-success",
+                                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')} "} %>
+                        <% else %>
+                            <%= f.button "#{t('views.buttons.save_edit')} &nbsp <span class=\"glyphicon glyphicon-ok\"></span>".html_safe,
+                                         class: "btn btn-success",
+                                         name: "update",
+                                         data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
+                        <% end %>
+                      </div>
+                  <% end %>
+                </div>
+            <% else %>
+                <div class="row">
+                  <div class="col-xs-1">
+                  </div>
+                  <% (1..5).each do |key| %>
+                      <div class="col-xs-2">
+                        <div class="cursor-default div-frog<%= key %>"
+                             title="<%= t('views.references.user_binary', count: @reference["binary_#{key}".to_sym] ) %> <%= binary_value_explanation(@reference.binary, key).downcase -%>"
+                             data-toggle="tooltip">
+                        <span style="font-size: <%= @reference.binary_font_size( key ) -%>em;">
+                          <span class="icon-frog cd-frog" ></span>
+                          <span><%= @reference["binary_#{key}".to_sym] -%></span>
+                        </span>
+                        </div>
+                      </div>
+                  <% end %>
+                </div>
+            <% end %>
+          </li>
+      <% end %>
     </ul>
   </div>
   <div class="panel-footer clearfix">
