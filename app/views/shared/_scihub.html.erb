@@ -1,4 +1,5 @@
-<form style="margin-top: 5px" action="http://80.82.77.84/" method="post" target="_blank">
+<% unless ENV['SCI_HUB'].blank? %>
+<form style="margin-top: 5px" action="<%= ENV['SCI_HUB'] %>" method="post" target="_blank">
   <button class="btn btn-default"
           name="request"
           value="<%= reference.doi.present? ?
@@ -11,3 +12,4 @@
     <%= t('views.references.url') + ' ' + t('views.references.sci_hub') %>
   </button>
 </form>
+<% end %>
