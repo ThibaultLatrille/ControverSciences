@@ -28,14 +28,17 @@ class UsersController < ApplicationController
 
   def index
     query = User.includes(:user_detail).where(activated: true).order(score: :desc, created_at: :desc)
-    if params[:editors].present? || params[:contributors].present?
-      query = query.where(id: params[:editors].push(params[:contributors]))
-    end
     unless params[:filter].blank?
       query = query.search_by_name(params[:filter])
     end
-    @users_count = query.count
-    @users = query.page(params[:page]).per(24)
+    if params[:editors].present? || params[:contributors].present?
+      query = query.find(params[:editors].push(params[:contributors]))
+      @users_count = query.count
+    else
+      @users_count = query.count
+      query = query.page(params[:page]).per(24)
+    end
+    @users = query
   end
 
   def show

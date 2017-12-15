@@ -44,7 +44,9 @@
       <div id="comments">
         <div class="row page">
           <%= render @users %>
-          <%= paginate @users %>
+          <% unless @users.kind_of?(Array) %>
+            <%= paginate @users %>
+          <% end %>
         </div>
       </div>
       <% if params[:editors].present? || params[:contributors].present? %>
