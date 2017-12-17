@@ -351,10 +351,6 @@
     content: "\e800";
 }
 
-.icon-circo:before {
-    content: "\e902";
-}
-
 .icon-empty-set:before, .icon-0:before {
     content: "\e645";
 }
@@ -363,35 +359,46 @@
     content: "\e801";
 }
 
-.icon-telescope:before {
+.icon-latex:before {
     content: "\e900";
 }
-
-.icon-pillar:before {
+.icon-tex:before {
     content: "\e901";
 }
-
-.icon-flow-fork:before {
+.icon-telescope:before {
+    content: "\e902";
+}
+.icon-pillar:before {
     content: "\e903";
 }
-.icon-flow-fork-blank:before {
+.icon-circo:before {
     content: "\e904";
 }
-.icon-flow-line:before {
+.icon-flow-fork:before {
     content: "\e905";
 }
-.icon-flow-straight:before {
+.icon-flow-fork-blank:before {
     content: "\e906";
 }
-.icon-layers:before {
+.icon-flow-line:before {
     content: "\e907";
 }
-.icon-superman:before {
+.icon-flow-straight:before {
     content: "\e908";
 }
-.icon-todd:before {
+.icon-layers:before {
     content: "\e909";
 }
-.icon-wiki:before {
+.icon-superman:before {
     content: "\e90a";
 }
+.icon-todd:before {
+    content: "\e90b";
+}
+.icon-wiki:before {
+    content: "\e90c";
+}
+.icon-pdf:before {
+    content: "\eadf";
+}
+
