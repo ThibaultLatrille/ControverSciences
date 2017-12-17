@@ -379,6 +379,8 @@ GEM
     rails-i18n (5.0.2)
       i18n (~> 0.7)
       railties (~> 5.0)
+    rails-latex (2.2.1)
+      rails (>= 3.0.0, < 6)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -534,6 +536,7 @@ DEPENDENCIES
   railroady
   rails (~> 5.0.1)
   rails-i18n
+  rails-latex
   rails_12factor
   redcarpet
   reek
@@ -554,4 +557,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.12.1
+   1.14.6

@@ -61,6 +61,17 @@ class BestComment < ApplicationRecord
     User.select( :email ).find(self.user_id).email.partition("@")[0].gsub(".", "_" ) + "_ref_#{self.reference_id}"
   end
 
+  def content( fi )
+    case fi
+      when 6
+        Comment.select( :title ).find( self.f_6_comment_id ).title
+      when 7
+        Comment.select( :caption).find( self.f_7_comment_id ).caption
+      else
+        Comment.select( "f_#{fi}_content".to_sym ).find( self["f_#{fi}_comment_id".to_sym] )["f_#{fi}_content".to_sym]
+    end
+  end
+
   def markdown( fi )
     case fi
       when 6

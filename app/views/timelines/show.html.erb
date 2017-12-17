@@ -97,14 +97,14 @@
       <% end %>
       <% if logged_in? %>
           <div class="list-group">
-            <%= link_to "<span class=\"glyphicon glyphicon-plus-sign\" >
+            <%= link_to "<span class=\"icon-reference normal\" >
             </span> #{t('views.references.new')}".html_safe,
                         new_reference_path(timeline_id: @timeline.id),
                         class: "list-group-item" %>
           </div>
           <% if @timeline.nb_references > 0 %>
               <div class="list-group">
-                <% if @timeline.nb_references > 1 %>
+                <% if current_user.admin and @timeline.nb_references > 1 %>
                     <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges_ref')}".html_safe,
                                 references_graph_path(timeline_id: @timeline.id),
                                 class: "list-group-item" %>
@@ -149,6 +149,14 @@
                     </div>
                   </div>
                 </div>
+                <% if logged_in? and current_user.admin %>
+                <%= link_to "<span class=\"normal icon-pdf\"></span> Télécharger le document (.pdf)".html_safe,
+                            timelines_download_pdf_path(timeline_id: @timeline.id, format: :pdf),
+                            class: "list-group-item" %>
+                  <%= link_to "<span class=\"normal icon-tex\"></span> Télécharger la source (.tex)".html_safe,
+                              timelines_download_tex_path(timeline_id: @timeline.id),
+                              class: "list-group-item" %>
+                <% end %>
               </div>
           <% end %>
       <% end %>

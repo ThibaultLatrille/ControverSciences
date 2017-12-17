@@ -2,7 +2,7 @@ module AssisstantHelper
 
   def anonymize_data
     ApplicationRecord.transaction do
-      User.find_each do |user|
+      User.all.each do |user|
         user.first_name = Faker::Name.first_name
         user.last_name = Faker::Name.last_name
         user.name = Faker::Name.name
@@ -27,7 +27,7 @@ module AssisstantHelper
 
   def update_all_profils
     max = {1 => 0.0, 2 => 0.0, 3 => 0.0, 4 => 0.0, 5 => 0.0, 6 => 0.0, 7 => 0.0, 8 => 0.0, 9 => 0.0 }
-    UserDetail.find_each do |user_detail|
+    UserDetail.all.each do |user_detail|
       user_detail.profil = {}
       count = Timeline.where(user_id: user_detail.user_id ).count
       user_detail.profil[1] = count > 0 ? Timeline.where(user_id: user_detail.id ).sum(:score) / count : count

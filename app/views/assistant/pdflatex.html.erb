@@ -1,0 +1,63 @@
+<div id="my-container" class="container-fluid">
+<div class="col-xs-12 col-md-10 col-md-offset-1">
+  <% if @frames.any? %>
+    <h3>Cadres</h3> <br>
+    <% @frames.each do |frame, exp, text| %>
+      <%= link_to frame.name.html_safe, edit_frame_path(frame), target: "_blank" %> <br>
+      <%= exp %> <br>
+      <%= form_for(:partial_tex, url: assistant_partial_tex_path(format: :pdf), method: :post) do |f| %>
+        <%= f.hidden_field :text, value: text %>
+        <%= f.button "Render pdf".html_safe, class: 'btn btn-primary pull-right' %>
+      <% end %>
+      <br><br>
+    <% end %>
+  <% else %>
+    Aucun cadre ne pose problème <br>
+  <% end %>
+
+  <% if @summaries.any? %>
+    <br><h3>Synthèses</h3> <br>
+    <% @summaries.each do |summary, exp, text| %>
+      <%= link_to summary.timeline_name.html_safe, edit_summary_path(summary), target: "_blank" %> <br>
+      <%= exp %> <br>
+      <%= form_for(:partial_tex, url: assistant_partial_tex_path(format: :pdf), method: :post) do |f| %>
+        <%= f.hidden_field :text, value: text %>
+        <%= f.button "Render pdf".html_safe, class: 'btn btn-primary pull-right' %>
+      <% end %>
+       <br><br>
+    <% end %>
+  <% else %>
+    Aucune synthèse ne pose problème <br>
+  <% end %>
+
+  <% if @references.any? %>
+    <br><h3>Références</h3> <br>
+    <% @references.each do |ref, exp, text| %>
+      <%= link_to ref.title.html_safe, edit_reference_path(ref), target: "_blank" %> <br>
+      <%= exp %> <br>
+      <%= form_for(:partial_tex, url: assistant_partial_tex_path(format: :pdf), method: :post) do |f| %>
+        <%= f.hidden_field :text, value: text %>
+        <%= f.button "Render pdf".html_safe, class: 'btn btn-primary pull-right' %>
+      <% end %>
+      <br><br>
+    <% end %>
+  <% else %>
+    Aucune référence ne pose problème <br>
+  <% end %>
+
+  <% if @comments.any? %>
+    <br><h3>Analyses</h3> <br>
+    <% @comments.each do |commment, exp, text| %>
+      <%= link_to commment.reference.title.html_safe, edit_comment_path(commment), target: "_blank" %> <br>
+      <%= exp %> <br>
+      <%= form_for(:partial_tex, url: assistant_partial_tex_path(format: :pdf), method: :post) do |f| %>
+        <%= f.hidden_field :text, value: text %>
+        <%= f.button "Render pdf".html_safe, class: 'btn btn-primary pull-right' %>
+      <% end %>
+      <br><br>
+    <% end %>
+  <% else %>
+    Aucune analyse ne pose problème <br>
+  <% end %>
+</div>
+</div>

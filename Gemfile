@@ -97,6 +97,8 @@ gem 'geocoder'
 # Ruby asynchronous processing library using concurrent-ruby
 gem 'sucker_punch'
 
+gem 'rails-latex'
+
 group :test do
   gem 'minitest-reporters', '1.0.5'
   gem 'mini_backtrace',     '0.1.3'

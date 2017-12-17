@@ -2,6 +2,8 @@
 <div class="col-md-6 col-md-offset-3">
   <%= link_to t('views.assistant.index', count: current_user.admin_pending_users), assistant_index_path,
               class: "btn btn-block btn-primary" %>
+  <%= link_to "Voir les contributions qui ne compilent pas en pdf", assistant_pdflatex_path,
+              class: "btn btn-block btn-primary" %>
 <%= link_to t('views.assistant.timelines'), assistant_timelines_path,
         class: "btn btn-block btn-danger" %>
 <%= link_to t('views.assistant.users'), assistant_users_path,

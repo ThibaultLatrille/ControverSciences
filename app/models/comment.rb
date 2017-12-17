@@ -50,6 +50,19 @@ class Comment < ApplicationRecord
     end
   end
 
+  def all_content()
+    result = ""
+    if field_content(6).present?
+      result += field_content(6)
+    end
+    for field in (0..5).to_a.push(7) do
+      if field_content(field).present?
+        result += "\n" + field_content(field)
+      end
+    end
+    result
+  end
+
   def field_content(field)
     case field
       when 6

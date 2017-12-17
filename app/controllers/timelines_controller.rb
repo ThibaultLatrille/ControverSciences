@@ -233,6 +233,41 @@ class TimelinesController < ApplicationController
     redirect_to timeline_path(timelines[i])
   end
 
+  def download_pdf
+    LatexToPdf.config[:parse_runs] = 2
+    begin
+      fetch_data_for_tex(params[:timeline_id])
+      data = render_to_string(:template => 'timelines/download_pdf.pdf.erb', layout: true)
+      send_data data,
+                filename: "#{@timeline.slug}.pdf",
+                type: "application/pdf"
+    rescue ActiveRecord::RecordNotFound
+      flash[:danger] = t('controllers.timeline_record_not_found')
+      redirect_to timelines_path
+    end
+  end
+
+  def download_tex
+    LatexToPdf.config[:parse_runs] = 0
+    begin
+      fetch_data_for_tex(params[:timeline_id])
+      render_to_string(:template => 'timelines/download_pdf.pdf.erb', layout: true)
+      tex = File.open("./tmp/rails-latex/input.tex")
+      send_data tex.read,
+                filename: "#{@timeline.slug}.tex",
+                type: "application/bib"
+    rescue ActiveRecord::RecordNotFound
+      flash[:danger] = t('controllers.timeline_record_not_found')
+      redirect_to timelines_path
+    rescue Exception => exp
+      file = exp.to_s[('rails-latex failed: See '.length)..-(' for details'.length+1)][0..-4]+"tex"
+      tex = File.open(file)
+      send_data tex.read,
+                filename: "#{@timeline.slug}.tex",
+                type: "application/bib"
+    end
+  end
+
   def download_bibtex
     references= Reference.where(timeline_id: params[:timeline_id])
     if params[:format] == "json"
@@ -274,6 +309,28 @@ class TimelinesController < ApplicationController
                                })
     end
     bib
+  end
+
+  def fetch_data_for_tex(timeline_id)
+    @timeline = Timeline.select(:id, :private, :slug).find(timeline_id)
+    if @timeline.private && !logged_in?
+      flash[:danger] = "Cette controverse est privée, vous ne pouvez pas y accèder !"
+      redirect_to_back timelines_path
+    else
+      @frame = Frame.find_by(timeline_id: params[:timeline_id], best: true)
+
+      summary_best = SummaryBest.find_by(timeline_id: @timeline.id)
+      if summary_best
+        @summary = Summary.find(summary_best.summary_id)
+      else
+        @summary = nil
+      end
+      ref_query = Reference.order(year: :desc).where(timeline_id: @timeline.id)
+      unless logged_in?
+        ref_query = ref_query.where.not(title_fr: '')
+      end
+      @references = ref_query
+    end
   end
 
   def timeline_params

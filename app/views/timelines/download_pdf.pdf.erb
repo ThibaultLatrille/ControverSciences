@@ -1,0 +1,41 @@
+\title{<%= lesc(@frame.name, section=true) %>}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Cadre}
+
+<%= lesc @frame.content %>
+
+<% if @summary.present? %>
+    \section{Synthèse}
+    <%= lesc @summary.content %>
+<% end %>
+
+<% if @references.any? %>
+    \section{Références}
+
+    <% @references.each do |reference| %>
+
+        <% best_comment = reference.best_comment %>
+
+        <% if best_comment.present? and best_comment["f_6_comment_id".to_sym].present? %>
+          \subsection{<%=  lesc(best_comment.content( 6 ), section=true)  %>}
+        <% else %>
+          \subsection{<%=  lesc(reference.title, section=true) %>}
+        <% end %>
+
+        <% if best_comment.present? and best_comment.not_empty %>
+              <% for fi in 0..5 %>
+                  <% if best_comment["f_#{fi}_comment_id".to_sym].present? %>
+                    \subsubsection*{<%= lesc(category_hash[reference.category][fi], section=true) %>}
+                    <%= lesc best_comment.content(fi) %>
+                  <% end %>
+              <% end %>
+        <% end %>
+    <% end %>
+<% end %>
+
+\end{document}

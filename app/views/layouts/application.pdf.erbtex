@@ -1,0 +1,82 @@
+\documentclass[8pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[gen]{eurosym}
+
+\usepackage{lmodern}
+\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}
+\renewcommand*\contentsname{Table des matières}
+
+\DeclareUnicodeCharacter{2606}{}
+\DeclareUnicodeCharacter{F0F0}{}
+\DeclareUnicodeCharacter{2060}{}
+\DeclareUnicodeCharacter{FEFF}{}
+\DeclareUnicodeCharacter{FFFE}{}
+\DeclareUnicodeCharacter{FE0E}{}
+\DeclareUnicodeCharacter{A8}{}
+\DeclareUnicodeCharacter{300}{}
+\DeclareUnicodeCharacter{301}{}
+\DeclareUnicodeCharacter{302}{}
+\DeclareUnicodeCharacter{303}{}
+\DeclareUnicodeCharacter{308}{\"}
+\DeclareUnicodeCharacter{202F}{~}
+\DeclareUnicodeCharacter{2002}{ }
+\DeclareUnicodeCharacter{2003}{ }
+\DeclareUnicodeCharacter{2004}{ }
+\DeclareUnicodeCharacter{2005}{ }
+\DeclareUnicodeCharacter{2006}{ }
+\DeclareUnicodeCharacter{2007}{ }
+\DeclareUnicodeCharacter{2008}{ }
+\DeclareUnicodeCharacter{2009}{ }
+\DeclareUnicodeCharacter{200A}{ }
+\DeclareUnicodeCharacter{307}{.}
+\DeclareUnicodeCharacter{200B}{\,}
+\DeclareUnicodeCharacter{B4}{'}
+\DeclareUnicodeCharacter{201F}{"}
+\DeclareUnicodeCharacter{B4}{'}
+\DeclareUnicodeCharacter{2028}{\\ }
+\DeclareUnicodeCharacter{2044}{/}
+\DeclareUnicodeCharacter{FB00}{ff}
+\DeclareUnicodeCharacter{FB01}{fi}
+\DeclareUnicodeCharacter{FB02}{fl}
+\DeclareUnicodeCharacter{FB03}{ffi}
+\DeclareUnicodeCharacter{FB04}{ffl}
+\DeclareUnicodeCharacter{20AC}{\euro{}}
+\DeclareUnicodeCharacter{2212}{$-$}
+\DeclareUnicodeCharacter{B2}{$^2$}
+\DeclareUnicodeCharacter{221E}{$\infty$}
+\DeclareUnicodeCharacter{223C}{$\sim$}
+\DeclareUnicodeCharacter{2243}{$\simeq$}
+\DeclareUnicodeCharacter{B0}{$^{\circ}$}
+\DeclareUnicodeCharacter{25E6}{$^{\circ}$}
+\DeclareUnicodeCharacter{D7}{$\times$}
+\DeclareUnicodeCharacter{B1}{$\pm$}
+\DeclareUnicodeCharacter{2236}{$:$}
+\DeclareUnicodeCharacter{2265}{$\geq$}
+\DeclareUnicodeCharacter{2264}{$\leq$}
+\DeclareUnicodeCharacter{2192}{$\to$}
+\DeclareUnicodeCharacter{27A5}{$\Rightarrow$}
+\DeclareUnicodeCharacter{2197}{$\uparrow$}
+\DeclareUnicodeCharacter{2198}{$\downarrow$}
+\DeclareUnicodeCharacter{21D1}{$\Uparrow$}
+\DeclareUnicodeCharacter{394}{$\Delta$}
+\DeclareUnicodeCharacter{2225}{$\parallel$}
+\DeclareUnicodeCharacter{3B1}{$\alpha$}
+\DeclareUnicodeCharacter{3B2}{$\beta$}
+\DeclareUnicodeCharacter{3B3}{$\gamma$}
+\DeclareUnicodeCharacter{3B4}{$\delta$}
+\DeclareUnicodeCharacter{3B5}{$\epsilon$}
+\DeclareUnicodeCharacter{3BB}{$\lambda$}
+\DeclareUnicodeCharacter{3BC}{$\mu$}
+\DeclareUnicodeCharacter{B5}{$\mu$}
+\DeclareUnicodeCharacter{3C6}{$\phi$}
+\DeclareUnicodeCharacter{3C7}{$\chi$}
+\DeclareUnicodeCharacter{3C8}{$\psi$}
+\DeclareUnicodeCharacter{3B8}{$\theta$}
+\DeclareUnicodeCharacter{3C4}{$\tau$}
+\DeclareUnicodeCharacter{2248}{$\approx$}
+
+
+<%= yield %>
+
