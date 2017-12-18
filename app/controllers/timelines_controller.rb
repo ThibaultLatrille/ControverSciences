@@ -244,6 +244,12 @@ class TimelinesController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       flash[:danger] = t('controllers.timeline_record_not_found')
       redirect_to timelines_path
+    rescue Exception => exp
+      file = exp.to_s[('rails-latex failed: See '.length)..-(' for details'.length+1)]
+      log = File.open(file)
+      send_data log.read,
+                filename: "#{@timeline.slug}.txt",
+                type: "application/txt"
     end
   end
 
@@ -260,7 +266,7 @@ class TimelinesController < ApplicationController
       flash[:danger] = t('controllers.timeline_record_not_found')
       redirect_to timelines_path
     rescue Exception => exp
-      file = exp.to_s[('rails-latex failed: See '.length)..-(' for details'.length+1)][0..-4]+"tex"
+      file = exp.to_s[('rails-latex failed: See '.length)..-(' for details'.length+1)][0..-4]+'tex'
       tex = File.open(file)
       send_data tex.read,
                 filename: "#{@timeline.slug}.tex",
