@@ -22,7 +22,7 @@
         return out.length
     }
 
-    function set_char(len, min, max, $charleft, $accept) {
+    function set_char(len, min, max, $charleft, $accept, first) {
         if (len >= max) {
             $charleft.css({"color": "#a94442"});
             $charleft.text((len - max) + ' <%= t('views.edition.character_much') %>');
@@ -34,7 +34,9 @@
         } else {
             $charleft.css({"color": "#5cb85c"});
             $charleft.text((max - len) + ' <%= t('views.edition.character_left') %>');
-            $accept.show();
+            if (!first) {
+                $accept.show();
+            }
         }
     }
 
@@ -56,19 +58,15 @@
                     patches = dmp.patch_fromText($(settings.changedContainer, this).text());
                     changed = dmp.patch_apply(patches, original)[0];
                     diffs = dmp.diff_main(original, changed);
-                    var $charLeft = $("#charLeft", this);
-                    var minLength = parseInt($charLeft.data('min-len'));
-                    var maxLength = parseInt($charLeft.data('max-len'));
-                    set_char(countCharacters(diffs_to_content(diffs)), minLength, maxLength, $charLeft, $charLeft);
                     dmp.diff_cleanupSemantic(diffs);
 
-                    $.fn.prettyTextDiff.fillContainer(diffs, settings, this, dmp);
+                    $.fn.prettyTextDiff.fillContainer(diffs, settings, this, dmp, true);
                     return this;
                 });
             }
         });
 
-        $.fn.prettyTextDiff.fillContainer = function (diffs, settings, self, dmp) {
+        $.fn.prettyTextDiff.fillContainer = function (diffs, settings, self, dmp, first) {
             var diff_as_html = $.map(diffs, function (diff, i) {
                 return $.fn.prettyTextDiff.createHTML(diff, i, diffs);
             });
@@ -81,7 +79,7 @@
             set_char(countCharacters(diffs_to_content(diffs)),
                 parseInt($charLeft.data('min-len')),
                 parseInt($charLeft.data('max-len')),
-                $charLeft, $("#accept-patches", self));
+                $charLeft, $("#accept-patches", self), first);
             // Re-add event handler for all matching elements
             $(".patch-validate", self).on("click", function () {
                 var diff, index;
@@ -93,11 +91,11 @@
                         if (index != 0 && diffs[index - 1][0] == DIFF_DELETE) {
                             diffs.splice(index - 1, 1);
                         }
-                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
+                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp, false);
                         return true;
                     case DIFF_DELETE:
                         diffs.splice(index, 1);
-                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
+                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp, false);
                         return true;
                 }
             });
@@ -111,11 +109,11 @@
                             diffs[index - 1][0] = 0;
                         }
                         diffs.splice(index, 1);
-                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
+                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp, false);
                         return true;
                     case DIFF_DELETE:
                         diff[0] = 0;
-                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
+                        $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp, false);
                         return true;
                 }
             });
