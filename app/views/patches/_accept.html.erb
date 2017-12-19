@@ -61,6 +61,7 @@
                     var maxLength = parseInt($charLeft.data('max-len'));
                     set_char(countCharacters(diffs_to_content(diffs)), minLength, maxLength, $charLeft, $charLeft);
                     dmp.diff_cleanupSemantic(diffs);
+
                     $.fn.prettyTextDiff.fillContainer(diffs, settings, this, dmp);
                     return this;
                 });
@@ -77,16 +78,15 @@
             $(".patch-refuse", self).off();
 
             var $charLeft = $("#charLeft", self);
-            var $acceptPatches = $("#accept-patches", self);
-            var minLength = parseInt($charLeft.data('min-len'));
-            var maxLength = parseInt($charLeft.data('max-len'));
-
+            set_char(countCharacters(diffs_to_content(diffs)),
+                parseInt($charLeft.data('min-len')),
+                parseInt($charLeft.data('max-len')),
+                $charLeft, $("#accept-patches", self));
             // Re-add event handler for all matching elements
             $(".patch-validate", self).on("click", function () {
                 var diff, index;
                 index = parseInt($(this).data('id'));
                 diff = diffs[index];
-                var flag = false;
                 switch (diff[0]) {
                     case DIFF_INSERT:
                         diff[0] = 0;
@@ -94,20 +94,17 @@
                             diffs.splice(index - 1, 1);
                         }
                         $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
-                        flag = true;
+                        return true;
                     case DIFF_DELETE:
                         diffs.splice(index, 1);
                         $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
-                        flag = true;
+                        return true;
                 }
-                set_char(countCharacters(diffs_to_content(diffs)), minLength, maxLength, $charLeft, $acceptPatches);
-                return flag;
             });
             $(".patch-refuse", self).on("click", function () {
                 var diff, index;
                 index = parseInt($(this).data('id'));
                 diff = diffs[index];
-                var flag = false;
                 switch (diff[0]) {
                     case DIFF_INSERT:
                         if (index != 0 && diffs[index - 1][0] == DIFF_DELETE) {
@@ -115,14 +112,12 @@
                         }
                         diffs.splice(index, 1);
                         $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
-                        flag = true;
+                        return true;
                     case DIFF_DELETE:
                         diff[0] = 0;
                         $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp);
-                        flag = true;
+                        return true;
                 }
-                set_char(countCharacters(diffs_to_content(diffs)), minLength, maxLength, $charLeft, $acceptPatches);
-                return flag;
             });
             $("#accept-patches", self).on("click", function () {
                 var $this = $(this);
