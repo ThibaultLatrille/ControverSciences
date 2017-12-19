@@ -30,6 +30,8 @@ class HTMLlinks < Redcarpet::Render::HTML
         end
         "<a href=\"#{self.root_url + "/references/" + link}\" class=\"linked-ref\" data-ref=\"#{link}\" target=\"_blank\">#{content}</a>"
       end
+    elsif link.blank?
+      content
     elsif (link[0..6] == "http://") || (link[0..7] == "https://")
       "<a href=\"#{link}\" target=\"_blank\">#{content}</a>"
     elsif link[0..10] == "/timelines/" || link[0..13] == "/controverses/"
