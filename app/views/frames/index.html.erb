@@ -45,19 +45,19 @@
                 <% unless @improve %>
                     <div class="btn-group">
                       <%= link_to "#{t('views.frames.mine')} (".html_safe + (@improve ? "0" : "1") + ")",
-                                  frames_path(timeline_id: params[:timeline_id], :filter => 'mine'),
+                                  frames_path(timeline_id: @timeline.id, :filter => 'mine'),
                                   class: "btn btn-default #{ params[:filter] == "mine" ? "active" : nil }" %>
                     </div>
                 <% end %>
                 <div class="btn-group">
                   <%= link_to "#{t('views.frames.index')} (#{@timeline.nb_frames})".html_safe,
-                              frames_path(timeline_id: params[:timeline_id]),
+                              frames_path(timeline_id: @timeline.id),
                               class: "btn btn-default #{ params[:filter] == nil ? "active" : nil }" %>
                 </div>
                 <% if @my_credit %>
                     <div class="btn-group">
                       <%= link_to t('views.frames.favorite'),
-                                  frames_path(timeline_id: params[:timeline_id], :filter => 'my-vote'),
+                                  frames_path(timeline_id: @timeline.id, :filter => 'my-vote'),
                                   class: "btn btn-default #{ params[:filter] == "my-vote" ? "active" : nil }" %>
                     </div>
                 <% end %>
@@ -70,11 +70,11 @@
                   </button>
                   <ul class="dropdown-menu" role="menu">
                     <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
-                      <%= link_to t('views.sorting.score'), frames_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.score'), frames_path(timeline_id: @timeline.id,
                                                                       :sort        => 'score',
                                                                       :order       => params[:order]) %> </li>
                     <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
-                      <%= link_to t('views.sorting.created_at'), frames_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.created_at'), frames_path(timeline_id: @timeline.id,
                                                                   :sort        => 'created_at',
                                                                   :order       => params[:order]) %> </li>
                   </ul>
@@ -87,10 +87,10 @@
                   </button>
                   <ul class="dropdown-menu" role="menu">
                     <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
-                      <%= link_to t('views.sorting.desc'), frames_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.desc'), frames_path(timeline_id: @timeline.id,
                                                                           :sort        => params[:sort], :order => 'desc') %> </li>
                     <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
-                      <%= link_to t('views.sorting.asc'), frames_path(timeline_id: params[:timeline_id],
+                      <%= link_to t('views.sorting.asc'), frames_path(timeline_id: @timeline.id,
                                                            :sort        => params[:sort], :order => 'asc') %> </li>
                   </ul>
                 </div>

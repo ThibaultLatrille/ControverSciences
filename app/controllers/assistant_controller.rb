@@ -55,7 +55,7 @@ class AssistantController < ApplicationController
     end
 
     if parse_comments
-      Comment.first(50).each do |comment|
+      Comment.all.each do |comment|
         render_to_pdf(comment, comment.all_content, @comments)
       end
     end
