@@ -22,22 +22,39 @@
         return out.length
     }
 
-    function set_char(len, min, max, $charleft, $accept, first) {
+    function set_char(len, min, max, $charleft, $accept, $restart, first) {
         if (len >= max) {
             $charleft.css({"color": "#a94442"});
             $charleft.text((len - max) + ' <%= t('views.edition.character_much') %>');
             $accept.hide();
+            $restart.show();
         } else if (len <= min) {
             $charleft.css({"color": "#a94442"});
             $charleft.text('<%= t('views.default.at_least') %> ' + (min - len) + ' <%= t('views.edition.character_miss') %>');
             $accept.hide();
+            $restart.show();
         } else {
             $charleft.css({"color": "#5cb85c"});
             $charleft.text((max - len) + ' <%= t('views.edition.character_left') %>');
             if (!first) {
                 $accept.show();
+                $restart.show();
+            } else {
+                $accept.hide();
+                $restart.hide();
             }
         }
+    }
+
+    function initialize(settings, dmp, cont) {
+        var changed, diffs, original, patches;
+        $(settings.diffContainer, cont).html('');
+        original = $(settings.originalContainer, cont).text();
+        patches = dmp.patch_fromText($(settings.changedContainer, cont).text());
+        changed = dmp.patch_apply(patches, original)[0];
+        diffs = dmp.diff_main(original, changed);
+        dmp.diff_cleanupSemantic(diffs);
+        $.fn.prettyTextDiff.fillContainer(diffs, settings, cont, dmp, true)
     }
 
     (function () {
@@ -53,14 +70,12 @@
                 settings = $.extend(settings, options);
                 dmp = new diff_match_patch();
                 return this.each(function () {
-                    var changed, diffs, original, patches;
-                    original = $(settings.originalContainer, this).text();
-                    patches = dmp.patch_fromText($(settings.changedContainer, this).text());
-                    changed = dmp.patch_apply(patches, original)[0];
-                    diffs = dmp.diff_main(original, changed);
-                    dmp.diff_cleanupSemantic(diffs);
-
-                    $.fn.prettyTextDiff.fillContainer(diffs, settings, this, dmp, true);
+                    var self;
+                    self = this;
+                    $("#reset-patches", this).on("click", function () {
+                        initialize(settings, dmp, self);
+                    });
+                    initialize(settings, dmp, self);
                     return this;
                 });
             }
@@ -75,11 +90,15 @@
             $("#accept-patches", self).off();
             $(".patch-refuse", self).off();
 
-            var $charLeft = $("#charLeft", self);
+            var $charLeft;
+            $charLeft = $("#charLeft", self);
             set_char(countCharacters(diffs_to_content(diffs)),
                 parseInt($charLeft.data('min-len')),
                 parseInt($charLeft.data('max-len')),
-                $charLeft, $("#accept-patches", self), first);
+                $charLeft,
+                $("#accept-patches", self),
+                $("#reset-patches", self),
+                first);
             // Re-add event handler for all matching elements
             $(".patch-validate", self).on("click", function () {
                 var diff, index;
@@ -88,7 +107,7 @@
                 switch (diff[0]) {
                     case DIFF_INSERT:
                         diff[0] = 0;
-                        if (index != 0 && diffs[index - 1][0] == DIFF_DELETE) {
+                        if (index !== 0 && diffs[index - 1][0] === DIFF_DELETE) {
                             diffs.splice(index - 1, 1);
                         }
                         $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp, false);
@@ -105,7 +124,7 @@
                 diff = diffs[index];
                 switch (diff[0]) {
                     case DIFF_INSERT:
-                        if (index != 0 && diffs[index - 1][0] == DIFF_DELETE) {
+                        if (index !== 0 && diffs[index - 1][0] === DIFF_DELETE) {
                             diffs[index - 1][0] = 0;
                         }
                         diffs.splice(index, 1);
@@ -125,7 +144,7 @@
                 $this.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
                 var new_content, patches, patchesText;
                 patches = dmp.patch_make(diffs).filter(function( obj ) {
-                  return obj.diffs[1][1] != '';
+                  return obj.diffs[1][1] !== '';
                 });
                 patchesText = dmp.patch_toText(patches);
                 new_content = diffs_to_content(diffs);
@@ -142,8 +161,11 @@
                     },
                     method: 'POST'
                 })
-                .done(function( data, textStatus, jqXHR ) {
+                .done(function(data, textStatus, jqXHR ) {
                     $('#done', self).show();
+                    $(settings.originalContainer, self).text(new_content);
+                    $(settings.changedContainer, self).text(patchesText);
+                    initialize(settings, dmp, self);
                 })
                 .fail(function( jqXHR, textStatus, errorThrown ) {
                     $('#fail', self).show();
@@ -155,10 +177,8 @@
             });
             return true
         };
-
         $.fn.prettyTextDiff.createHTML = function (diff, i, diffs) {
-            var data, html, operation, pattern_amp, pattern_gt, pattern_lt, pattern_para, text, diffId, onClick;
-            html = [];
+            var data, operation, pattern_amp, pattern_gt, pattern_lt, pattern_para, text, diffId, patchClick;
             diffId = ' data-id="' + i + '"';
             patchClick = '<span class="validations-checkox"><span class="inside">' +
                     '<span class="patch-refuse"' + diffId + '> <span class="glyphicon glyphicon-remove"></span> </span>' +
@@ -168,14 +188,15 @@
             pattern_lt = /</g;
             pattern_gt = />/g;
             pattern_para = /\n/g;
-            operation = diff[0], data = diff[1];
-            if (data != '') {
+            operation = diff[0];
+            data = diff[1];
+            if (data !== '') {
                 text = data.replace(pattern_amp, '&amp;').replace(pattern_lt, '&lt;').replace(pattern_gt, '&gt;').replace(pattern_para, '<br>');
                 switch (operation) {
                     case DIFF_INSERT:
                         return '<ins>' + text + '</ins>' + patchClick;
                     case DIFF_DELETE:
-                        if ((i != (diffs.length - 1)) && (diffs[i + 1][0] == DIFF_INSERT)) {
+                        if ((i !== (diffs.length - 1)) && (diffs[i + 1][0] === DIFF_INSERT)) {
                             return '<del>' + text + '</del>';
                         } else {
                             return '<del>' + text + '</del>' + patchClick;
