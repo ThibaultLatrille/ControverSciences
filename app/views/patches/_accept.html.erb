@@ -73,6 +73,7 @@
                     var self;
                     self = this;
                     $("#reset-patches", this).on("click", function () {
+                        $('#alert-div', self).html('');
                         initialize(settings, dmp, self);
                     });
                     initialize(settings, dmp, self);
@@ -162,13 +163,23 @@
                     method: 'POST'
                 })
                 .done(function(data, textStatus, jqXHR ) {
-                    $('#done', self).show();
                     $(settings.originalContainer, self).text(new_content);
                     $(settings.changedContainer, self).text(patchesText);
                     initialize(settings, dmp, self);
+                    $('#alert-div', self).html('<div class="alert alert-success alert-dismissible" role="alert">' +
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                    '<span class="glyphicon glyphicon-thumbs-up"></span> &nbsp' +
+                    'Vos changements ont été enregistrés.' +
+                    '</div>')
                 })
                 .fail(function( jqXHR, textStatus, errorThrown ) {
-                    $('#fail', self).show();
+                    $('#alert-div', self).html('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                        '<span class="glyphicon glyphicon-warning-sign"></span> &nbsp' +
+                        "Une erreur s'est produite et vos changements n'ont pas été enregistrés. <br>" +
+                        "Si l'erreur persiste, contacter l'admin à " +
+                        '<a href=\"mailto:thibault.latrille@controversciences.org\">thibault.latrille@controversciences.org</a>\n' +
+                        '</div>')
                 })
                 .always(function( data_jqXHR, textStatus, jqXHR_errorThrown ) {
                     $('.loader-like').remove();
