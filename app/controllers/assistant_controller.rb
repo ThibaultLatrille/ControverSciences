@@ -65,12 +65,6 @@ class AssistantController < ApplicationController
     end
   end
 
-  def users
-    update_score_users
-    flash[:success] = t('controllers.updated_score_users')
-    redirect_to assistant_path
-  end
-
   def timelines
     update_score_timelines
     flash[:success] = t('controllers.updated_score_timelines')
