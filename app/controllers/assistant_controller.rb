@@ -20,6 +20,20 @@ class AssistantController < ApplicationController
     @text  = params[:partial_tex][:text]
   end
 
+  def pdftimlatex
+    LatexToPdf.config[:parse_runs] = 2
+
+    @timelines = []
+
+    Timeline.all.each do |timeline|
+      render_tim_pdf(timeline, @timelines)
+    end
+
+    respond_to do |format|
+      format.html { render template: 'assistant/pdftimlatex.html.erb'}
+    end
+  end
+
   def pdflatex
     LatexToPdf.config[:parse_runs] = 1
 

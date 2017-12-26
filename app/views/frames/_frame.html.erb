@@ -62,31 +62,31 @@
                       type: "horizontalBar",
                       data: {
                           datasets: [{
-                              label: '<%= frame.binary_explanation(1) -%>',
+                              label: "<%= frame.binary_explanation(1).html_safe -%>",
                               data: [binaries_dico[1]*100/sum_binaries],
                               backgroundColor: "rgba(11,132,165,0.6)",
                               borderColor: "rgba(11,132,165,1.0)",
                               borderWidth: 2
                           },{
-                              label: '<%= frame.binary_explanation(2) -%>',
+                              label: "<%= frame.binary_explanation(2).html_safe -%>",
                               data: [binaries_dico[2]*100/sum_binaries],
                               backgroundColor: "rgba(174,214,136,0.6)",
                               borderColor: "rgba(174,214,136,1.0)",
                               borderWidth: 2
                           },{
-                              label: '<%= frame.binary_explanation(3) -%>',
+                              label: "<%= frame.binary_explanation(3).html_safe -%>",
                               data: [binaries_dico[3]*100/sum_binaries],
                               backgroundColor: "rgba(245,199,103,0.6)",
                               borderColor: "rgba(245,199,103,1.0)",
                               borderWidth: 2
                           },{
-                              label: '<%= frame.binary_explanation(4) -%>',
+                              label: "<%= frame.binary_explanation(4).html_safe -%>",
                               data: [binaries_dico[4]*100/sum_binaries],
                               backgroundColor: "rgba(255,160,86,0.6)",
                               borderColor: "rgba(255,160,86,1.0)",
                               borderWidth: 2
                           },{
-                              label: '<%= frame.binary_explanation(5) -%>',
+                              label: "<%= frame.binary_explanation(5).html_safe -%>",
                               data: [binaries_dico[5]*100/sum_binaries],
                               backgroundColor: "rgba(202,71,47,0.6)",
                               borderColor: "rgba(202,71,47,1.0)",

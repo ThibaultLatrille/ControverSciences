@@ -95,4 +95,24 @@ module LatexHelper
     end
   end
 
+  def render_tim_pdf(model, list)
+    @timeline = model
+    @frame = Frame.find_by(timeline_id: model.id, best: true)
+    if @frame
+      summary_best = SummaryBest.find_by(timeline_id: model.id)
+      if summary_best
+        @summary = Summary.find(summary_best.summary_id)
+      else
+        @summary = nil
+      end
+      @references = Reference.order(year: :desc).where(timeline_id: @timeline.id)
+      begin
+        render_to_string(:template => 'timelines/download_pdf.pdf.erb', layout: true)
+      rescue Exception => exp
+        file = exp.to_s[('rails-latex failed: See '.length)..-(' for details'.length+1)]
+        log = File.open(file).read[24020..-1]
+        list.append([model, log])
+      end
+    end
+  end
 end

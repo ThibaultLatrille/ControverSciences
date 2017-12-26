@@ -246,10 +246,21 @@ class TimelinesController < ApplicationController
       redirect_to timelines_path
     rescue Exception => exp
       file = exp.to_s[('rails-latex failed: See '.length)..-(' for details'.length+1)]
-      log = File.open(file)
-      send_data log.read,
-                filename: "#{@timeline.slug}.txt",
-                type: "application/txt"
+      log = File.open(file).read
+      if logged_in? and current_user.admin
+        send_data log,
+                  filename: "#{@timeline.slug}.txt",
+                  type: "application/txt"
+      else
+        Slack.configure do |config|
+          config.token = ENV['SLACK_API_TOKEN']
+        end
+        client = Slack::Web::Client.new
+        stack_group = client.groups_list['groups'].detect { |c| c['name'] == 'stack_trace' }
+        client.chat_postMessage(channel: stack_group['id'], text: log)
+        flash[:danger] = "Il y a eu un problème avec la génération du pdf :-("
+        redirect_to timeline_path(@timeline)
+      end
     end
   end
 

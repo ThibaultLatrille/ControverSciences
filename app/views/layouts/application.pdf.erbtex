@@ -34,7 +34,6 @@
 \DeclareUnicodeCharacter{200B}{\,}
 \DeclareUnicodeCharacter{B4}{'}
 \DeclareUnicodeCharacter{201F}{"}
-\DeclareUnicodeCharacter{B4}{'}
 \DeclareUnicodeCharacter{2028}{\\ }
 \DeclareUnicodeCharacter{2044}{/}
 \DeclareUnicodeCharacter{FB00}{ff}
@@ -45,6 +44,9 @@
 \DeclareUnicodeCharacter{20AC}{\euro{}}
 \DeclareUnicodeCharacter{2212}{$-$}
 \DeclareUnicodeCharacter{B2}{$^2$}
+\DeclareUnicodeCharacter{BC}{$1/4$}
+\DeclareUnicodeCharacter{BD}{$1/2$}
+\DeclareUnicodeCharacter{BE}{$3/4$}
 \DeclareUnicodeCharacter{221E}{$\infty$}
 \DeclareUnicodeCharacter{223C}{$\sim$}
 \DeclareUnicodeCharacter{2243}{$\simeq$}

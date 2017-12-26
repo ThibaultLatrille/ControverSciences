@@ -137,6 +137,7 @@ Rails.application.routes.draw do
   get 'assistant/selection' => 'assistant#selection'
   get 'assistant/profils' => 'assistant#profils'
   get 'assistant/pdflatex' => 'assistant#pdflatex'
+  get 'assistant/pdftimlatex' => 'assistant#pdftimlatex'
   post 'assistant/partial_tex' => 'assistant#partial_tex'
   get 'notifications/index'
   get 'notifications/news'

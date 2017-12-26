@@ -1,0 +1,15 @@
+<div id="my-container" class="container-fluid">
+<div class="col-xs-12 col-md-10 col-md-offset-1">
+  <% if @timelines.any? %>
+    <h3>Controverses</h3> <br>
+    <% @timelines.each do |timeline, exp| %>
+      <%= link_to timeline.name.html_safe, timeline_path(timeline), target: "_blank" %> <br>
+      <%= exp %> <br>
+      <br><br>
+    <% end %>
+  <% else %>
+    Aucune controverse ne pose problème <br>
+  <% end %>
+
+</div>
+</div>
