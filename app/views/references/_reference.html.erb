@@ -9,14 +9,20 @@
 
     <div class="cd-timeline-content">
       <h2>
-         <%= link_to "#{reference.title_display} <div style=\"margin-top: 8px; font-style: italic; font-size: 0.6em\"> #{reference.title} </div>".html_safe, reference, class: "hvr-grow1" %>
+         <%= link_to "#{reference.title_display}".html_safe, reference, class: "hvr-grow1" %>
         <%= link_to "<span class=\"glyphicon glyphicon-chevron-down hvr-grow pull-right\"> </span>".html_safe,
                     from_timeline_path(:reference_id => reference.id), :remote => true, id: "button#{reference.id}", class: "fetcher" %>
         <span  id="ref-<%= reference.id %>" class="detail glyphicon glyphicon-chevron-up hvr-grow pull-right" style="display: none"></span>
       </h2>
-      <div id="reference<%= reference.id %>" class="ref clearfix" style="display: none">
+      <div class="cd-date"><b><%= category_names[reference.category] %></b> - <%= reference.display_year %> - <i><%= reference.journal %></i> <br>
+          <%= reference.title %> <br>
+          <i> <%= reference.author %></i>
       </div>
-      <span class="cd-date"><%= reference.display_year %> - <b><%= category_names[reference.category] %></b></span>
+      <br>
+      <div class="row">
+        <div id="reference<%= reference.id %>" class="ref clearfix col-xs-12" style="display: none">
+        </div>
+      </div>
     </div>
 </div>
 <% else %>
@@ -32,9 +38,14 @@
         <h2 style="font-size: 1.3em"> <%= link_to "#{reference.title}<br/><br/><span class=\"orange\"><span class=\"icon icon-comment bigger\"></span>
 	#{t('views.references.no_comment')}</span>".html_safe, new_comment_path(reference_id: reference.id ), class: "hvr-grow1" %>
         </h2>
-        <div id="reference<%= reference.id %>" class="ref clearfix" style="display: none">
+        <div class="cd-date"><b><%= category_names[reference.category] %></b> - <%= reference.display_year %> - <i><%= reference.journal %></i> <br>
+          <i> <%= reference.author %></i>
         </div>
-        <span class="cd-date"><%= reference.display_year %> - <b><%= category_names[reference.category] %></b></span>
+        <br>
+        <div class="row">
+          <div id="reference<%= reference.id %>" class="ref clearfix col-xs-12" style="display: none">
+          </div>
+        </div>
       </div>
     </div>
 <% end %>

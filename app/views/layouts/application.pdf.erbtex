@@ -3,6 +3,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[gen]{eurosym}
+\usepackage{color}
 
 \usepackage{lmodern}
 \usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=2cm]{geometry}
@@ -79,6 +80,7 @@
 \DeclareUnicodeCharacter{3C4}{$\tau$}
 \DeclareUnicodeCharacter{2248}{$\approx$}
 
+\definecolor{blue}{RGB}{15,117,188}
 
 <%= yield %>
 

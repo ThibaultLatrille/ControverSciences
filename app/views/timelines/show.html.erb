@@ -664,14 +664,11 @@
                   $('.detail').click(function () {
                       if ($(this).hasClass("glyphicon-chevron-down")) {
                           $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-                          $(this).parent().parent().parent().find('.ref').show(500);
-                          $('html, body').animate({
-                              scrollTop: $(this).parent().parent().parent().offset().top - 80
-                          }, 500)
+                          $(this).parent().parent().parent().find('.ref').fadeIn(500);
                       }
                       else {
                           $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-                          $(this).parent().parent().parent().find('.ref').hide(500)
+                          $(this).parent().parent().parent().find('.ref').fadeOut(500)
                       }
                   });
               });

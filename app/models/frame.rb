@@ -52,7 +52,7 @@ class Frame < ApplicationRecord
         safe_links_only: true
     }
     renderer_no_wrap = RenderWithoutWrap.new(render_options)
-    renderer = Redcarpet::Render::HTML.new(render_options)
+    renderer = RenderSubScript.new(render_options)
     extensions = {
         autolink: true,
         lax_spacing: true,

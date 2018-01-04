@@ -11,8 +11,15 @@ module LatexHelper
     end
 
     def link(link, title, content)
-      if content[0] == "*"
-        ''
+      if link !~ /\D/ && !link.blank? && link != "0"
+        ref = "\\textcolor{blue}{<sup>[\\ref{ref-#{link}}, \\, p. \\pageref{ref-#{link}}]<endsub>}"
+        if content[0] == "*"
+          ref
+        else
+          content + ref
+        end
+      elsif content.length > 6 and ((content[0..6] == "http://") || (content[0..7] == "https://"))
+        "\\textcolor{blue}{#{content}}"
       else
         content
       end
@@ -28,9 +35,9 @@ module LatexHelper
 
     def superscript(text)
       if text[0] == "_"
-        "$_{#{text[1..-1]}}"
+        "<sub>#{text[1..-1]}<endsub>"
       else
-        "$^{#{text}}"
+        "<sup>#{text}<endsub>"
       end
     end
 
@@ -62,6 +69,11 @@ module LatexHelper
     end
   end
 
+  def escap_char(text)
+    escape_re = /([_$&%#^])/
+    text.gsub(escape_re) {|m| "\\#{m}"}
+  end
+
   def lesc(text, section=false)
     renderer = LaTeXRender.new
     extensions = {
@@ -72,9 +84,11 @@ module LatexHelper
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     latexstr = redcarpet.render(text)
 
-    escape_re = /([_$&%#^])/
-    latexstr.gsub!(escape_re) {|m| "\\#{m}"}
-    latexstr.sub!("~", "$\\sim$")
+    latexstr = escap_char(latexstr)
+    latexstr.gsub!("~", "$\\sim$")
+    latexstr.gsub!("<sub>", "$_{")
+    latexstr.gsub!("<sup>", "$^{")
+    latexstr.gsub!("<endsub>", "}$")
     if section
       latexstr[0..-6].html_safe
     else

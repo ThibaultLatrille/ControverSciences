@@ -33,7 +33,7 @@ class SuggestionChild < ApplicationRecord
         no_styles: true,
         safe_links_only: true
     }
-    renderer = Redcarpet::Render::HTML.new(render_options)
+    renderer = RenderSubScript.new(render_options)
     extensions = {
         autolink: true,
         lax_spacing: true,

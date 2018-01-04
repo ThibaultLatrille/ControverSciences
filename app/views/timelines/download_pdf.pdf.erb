@@ -24,7 +24,18 @@
         <% if best_comment.present? and best_comment["f_6_comment_id".to_sym].present? %>
           \subsection{<%=  lesc(best_comment.content( 6 ), section=true)  %>}
         <% else %>
-          \subsection{<%=  lesc(reference.title, section=true) %>}
+          \subsection{<%= escap_char(reference.title).html_safe  %>}
+        <% end %>
+
+        \label{ref-<%= reference.id %>}
+
+        \textbf{<%= category_names[reference.category] %>} - <%= reference.display_year %> - <%= escap_char(reference.journal).html_safe %>
+        <% if best_comment.present? and best_comment["f_6_comment_id".to_sym].present? %>
+        \\ <%= escap_char(reference.title).html_safe  %>
+        <% end %>
+        \\ \textit{ <%=  escap_char(reference.author).html_safe %>}
+        <% if reference.doi.present? and reference.category < 3 %>
+        \\ \textcolor{blue}{https://doi.org/<%= reference.doi %>}
         <% end %>
 
         <% if best_comment.present? and best_comment.not_empty %>

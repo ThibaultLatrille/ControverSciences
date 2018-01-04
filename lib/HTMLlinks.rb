@@ -1,4 +1,4 @@
-class Redcarpet::Render::HTML
+class RenderSubScript < Redcarpet::Render::HTML
   def superscript(text)
     if text[0] == "_"
       "<sub>#{text[1..-1]}</sub>"
@@ -8,7 +8,7 @@ class Redcarpet::Render::HTML
   end
 end
 
-class HTMLlinks < Redcarpet::Render::HTML
+class HTMLlinks < RenderSubScript
   attr_accessor :links
   attr_accessor :counter
   attr_accessor :root_url
@@ -42,7 +42,7 @@ class HTMLlinks < Redcarpet::Render::HTML
   end
 end
 
-class RenderWithoutWrap < Redcarpet::Render::HTML
+class RenderWithoutWrap < RenderSubScript
   def postprocess(full_document)
     Regexp.new(/\A<p>(.*)<\/p>\Z/m).match(full_document)[1] rescue full_document
   end

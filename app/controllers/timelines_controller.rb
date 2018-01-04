@@ -123,7 +123,6 @@ class TimelinesController < ApplicationController
         @improve_frame = Frame.find_by(best: true, timeline_id: @timeline.id)
         @titles = Reference.where(timeline_id: @timeline.id, title_fr: '').count
         ref_query = Reference.order(year: :desc).where(timeline_id: @timeline.id)
-                        .select(:category, :id, :slug, :title_fr, :title, :year, :binary_most, :star_most, :nb_edits)
         unless logged_in?
           ref_query = ref_query.where.not(title_fr: '')
         end

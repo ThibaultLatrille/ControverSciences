@@ -1,10 +1,6 @@
 $("#reference<%= params[:reference_id] %>").html(
         "<%= escape_javascript(render partial: 'references/best_comment',
-        locals: { best_comment: @best_comment } ) %>").fadeIn(500, function() {
-            $('html, body').animate({
-                scrollTop: $('#block-'+<%= params[:reference_id] %>).offset().top-80
-            }, 500);
-        });
+        locals: { best_comment: @best_comment } ) %>").fadeIn(500);
 $("#ref-<%= params[:reference_id] %>").show();
 $("#button<%= params[:reference_id] %>").remove();
 $('.fetcher-loader',"#block-<%= params[:reference_id] %>").remove();
