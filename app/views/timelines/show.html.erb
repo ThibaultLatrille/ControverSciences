@@ -149,7 +149,7 @@
                     </div>
                   </div>
                 </div>
-                <% if logged_in? and current_user.can_switch_admin %>
+                <% if logged_in? %>
                 <%= link_to "<span class=\"normal icon-pdf\"></span> Télécharger le document (.pdf)".html_safe,
                             timelines_download_pdf_path(timeline_id: @timeline.id, format: :pdf),
                             class: "list-group-item" %>

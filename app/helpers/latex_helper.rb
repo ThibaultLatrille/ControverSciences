@@ -12,14 +12,16 @@ module LatexHelper
 
     def link(link, title, content)
       if link !~ /\D/ && !link.blank? && link != "0"
-        ref = "\\textcolor{blue}{<sup>[\\ref{ref-#{link}}, \\, p. \\pageref{ref-#{link}}]<endsub>}"
+        ref = "\\textcolor{blue}{<sup>[\\ref{ref-#{link}}, p. \\pageref{ref-#{link}}]<endsub>}"
         if content[0] == "*"
           ref
         else
           content + ref
         end
-      elsif content.length > 6 and ((content[0..6] == "http://") || (content[0..7] == "https://"))
-        "\\textcolor{blue}{#{content}}"
+      elsif link.blank?
+        content
+      elsif (link[0..6] == "http://") || (link[0..7] == "https://")
+        "#{content}\\footnote{#{link}}"
       else
         content
       end
@@ -86,9 +88,9 @@ module LatexHelper
 
     latexstr = escap_char(latexstr)
     latexstr.gsub!("~", "$\\sim$")
-    latexstr.gsub!("<sub>", "$_{")
-    latexstr.gsub!("<sup>", "$^{")
-    latexstr.gsub!("<endsub>", "}$")
+    latexstr.gsub!("<sub>", "$_{\\textrm{")
+    latexstr.gsub!("<sup>", "$^{\\textrm{")
+    latexstr.gsub!("<endsub>", "}}$")
     if section
       latexstr[0..-6].html_safe
     else

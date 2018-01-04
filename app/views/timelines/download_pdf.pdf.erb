@@ -35,7 +35,7 @@
         <% end %>
         \\ \textit{ <%=  escap_char(reference.author).html_safe %>}
         <% if reference.doi.present? and reference.category < 3 %>
-        \\ \textcolor{blue}{https://doi.org/<%= reference.doi %>}
+        \\ \textcolor{blue}{https://doi.org/<%= escap_char(reference.doi.strip) %>}
         <% end %>
 
         <% if best_comment.present? and best_comment.not_empty %>
