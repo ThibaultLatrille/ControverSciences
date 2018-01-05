@@ -10,6 +10,15 @@
       <div id="original" style="display: none"><%= patch.parent_content %></div>
       <div id="patches" data-patchId="<%= patch.id %>" style="display: none"><%= patch.content %></div>
       <div id="diff" style="text-align: justify"></div>
+      <div id="all-button" class="center">
+        <br>
+        <span id="all-refuse" class="btn btn-danger">
+          <span class="glyphicon glyphicon-remove"></span> Refuser tous les changements
+        </span>
+        <span id="all-validate" class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span> Accepter tous les changements
+        </span>
+      </div>
       <% if (patch.target_user_id == current_user.id || current_user.admin  ) && patch.patch_messages.any? %>
           <%= render 'patch_messages/messages', patch_messages: patch.patch_messages %>
       <% end %>
@@ -30,21 +39,13 @@
         <span id="charLeft"
               data-min-len="<%= patch.content_ch_min %>"
               data-max-len="<%= patch.content_ch_max %>"></span><br>
-        <div id="all-refuse" class="btn btn-danger pull-right"
-             data-frame-id="<%= patch.frame_id %>"
-             data-field="<%= patch.field %>"
-             data-comment-id="<%=  patch.comment_id %>"
-             data-summary-id="<%=  patch.summary_id %>"
-             data-validate="<%= patches_accept_path %>">
-          <span class="glyphicon glyphicon-remove"></span> Refuser tous les changements
-        </div>
         <div id="accept-patches" class="btn btn-success"
              data-frame-id="<%= patch.frame_id %>"
              data-field="<%= patch.field %>"
              data-comment-id="<%=  patch.comment_id %>"
              data-summary-id="<%=  patch.summary_id %>"
              data-validate="<%= patches_accept_path %>" style="display: none">
-          <span class="glyphicon glyphicon-ok"></span> Sauvegarder les changements
+          <span class="glyphicon glyphicon-save"></span> Sauvegarder les changements
         </div><br>
         <div id="reset-patches" class="btn btn-primary pull-right" style="display: none; margin-top: 5px">
           <span class="glyphicon glyphicon-refresh"></span> Recommencer

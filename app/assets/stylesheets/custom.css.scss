@@ -1284,6 +1284,24 @@ del {
   padding: 5px 10px !important;
 }
 
+#all-validate {
+  opacity: 0.6;
+  background: #5cb85c !important;
+}
+#all-validate:hover {
+  background: #5cb85c !important;
+  opacity: 1;
+}
+
+#all-refuse {
+  opacity: 0.6;
+  background: $red-error !important;
+}
+#all-refuse:hover {
+  opacity: 1;
+  background: $red-error !important;
+}
+
 #diff .validations-checkox {
   position: relative;
   display: inline;

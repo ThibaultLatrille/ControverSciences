@@ -22,7 +22,7 @@
     <% if logged_in? && current_user.admin && current_user.id != @user.id %>
         <div class="panel panel-danger">
           <div class="panel-heading clearfix">
-            <span class="glyphicon glyphicon-warning-sign"></span> <%= t('views.users.for_admins') %> <br/>
+            <span class="glyphicon glyphicon-alert"></span> <%= t('views.users.for_admins') %> <br/>
             <a href="mailto:<%= @user.email %>"><%= @user.email %></a>
             <br/>
             <%= link_to t('views.users.connect_as') + " " + @user.name, login_for_admin_path(id:@user.id) %>
