@@ -92,6 +92,16 @@
                 return $.fn.prettyTextDiff.createHTML(diff, i, diffs);
             });
             $(settings.diffContainer, self).html(diff_as_html.join(''));
+
+            var patches;
+            patches = dmp.patch_make(diffs).filter(function( obj ) {
+                return obj.diffs[1][1] !== '';
+            });
+
+            if (patches.length === 0) {
+                $("#all-button", self).hide();
+            }
+
             $(".patch-validate", self).off();
             $(".patch-refuse", self).off();
             $("#accept-patches", self).off();
@@ -163,7 +173,6 @@
                     }
                     index += 1;
                 }
-                $("#all-button", self).hide();
                 $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp, false);
             });
             $("#all-refuse", self).on("click", function () {
@@ -184,7 +193,6 @@
                     }
                     index += 1;
                 }
-                $("#all-button", self).hide();
                 $.fn.prettyTextDiff.fillContainer(diffs, settings, self, dmp, false);
             });
             $("#accept-patches", self).on("click", function () {
