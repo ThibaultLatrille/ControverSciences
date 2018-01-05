@@ -25,10 +25,19 @@
               <% end %>
           <% end %>
       <% end %>
-      <div class="pull-right">
+
+      <div class="pull-right clearfix">
         <span id="charLeft"
               data-min-len="<%= patch.content_ch_min %>"
               data-max-len="<%= patch.content_ch_max %>"></span><br>
+        <div id="all-refuse" class="btn btn-danger pull-right"
+             data-frame-id="<%= patch.frame_id %>"
+             data-field="<%= patch.field %>"
+             data-comment-id="<%=  patch.comment_id %>"
+             data-summary-id="<%=  patch.summary_id %>"
+             data-validate="<%= patches_accept_path %>">
+          <span class="glyphicon glyphicon-remove"></span> Refuser tous les changements
+        </div>
         <div id="accept-patches" class="btn btn-success"
              data-frame-id="<%= patch.frame_id %>"
              data-field="<%= patch.field %>"
@@ -43,7 +52,7 @@
       </div>
       <div class="row">
         <div id="alert-div" class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
-      </div>
+        </div>
       </div>
     </div>
     <br/>

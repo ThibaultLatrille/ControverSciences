@@ -22,13 +22,13 @@
         return out.length
     }
 
-    function set_char(len, min, max, $charleft, $accept, $restart, first) {
-        if (len >= max) {
+    function set_char(len, min, max, $charleft, $accept, $restart, $allrefuse, first) {
+        if (len > max) {
             $charleft.css({"color": "#a94442"});
             $charleft.text((len - max) + ' <%= t('views.edition.character_much') %>');
             $accept.hide();
             $restart.show();
-        } else if (len <= min) {
+        } else if (len < min) {
             $charleft.css({"color": "#a94442"});
             $charleft.text('<%= t('views.default.at_least') %> ' + (min - len) + ' <%= t('views.edition.character_miss') %>');
             $accept.hide();
@@ -39,9 +39,11 @@
             if (!first) {
                 $accept.show();
                 $restart.show();
+                $allrefuse.hide();
             } else {
                 $accept.hide();
                 $restart.hide();
+                $allrefuse.show();
             }
         }
     }
@@ -88,8 +90,9 @@
             });
             $(settings.diffContainer, self).html(diff_as_html.join(''));
             $(".patch-validate", self).off();
-            $("#accept-patches", self).off();
             $(".patch-refuse", self).off();
+            $("#accept-patches", self).off();
+            $("#all-refuse", self).off();
 
             var $charLeft;
             $charLeft = $("#charLeft", self);
@@ -99,6 +102,7 @@
                 $charLeft,
                 $("#accept-patches", self),
                 $("#reset-patches", self),
+                $("#all-refuse", self),
                 first);
             // Re-add event handler for all matching elements
             $(".patch-validate", self).on("click", function () {
@@ -137,10 +141,53 @@
                         return true;
                 }
             });
-            $("#accept-patches", self).on("click", function () {
+            $("#all-refuse", self).on("click", function () {
                 var $this = $(this);
                 $this.hide();
                 $('#fail', self).hide();
+                $this.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
+                var new_content;
+                new_content = $(settings.originalContainer, self).text();
+                $.ajax({
+                    url: $this.data('validate'),
+                    data: {
+                        frame_id: $this.data('frame-id'),
+                        comment_id: $this.data('comment-id'),
+                        summary_id: $this.data('summary-id'),
+                        field: $this.data('field'),
+                        counter: 0,
+                        content: "",
+                        parent_content: new_content
+                    },
+                    method: 'POST'
+                })
+                .done(function(data, textStatus, jqXHR ) {
+                    $(settings.originalContainer, self).text(new_content);
+                    $(settings.changedContainer, self).text("");
+                    initialize(settings, dmp, self);
+                    $('#alert-div', self).html('<div class="alert alert-success alert-dismissible" role="alert">' +
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                        '<span class="glyphicon glyphicon-thumbs-up"></span> &nbsp' +
+                        'Vos changements ont été enregistrés.' +
+                        '</div>')
+                })
+                .fail(function( jqXHR, textStatus, errorThrown ) {
+                    $('#alert-div', self).html('<div class="alert alert-danger alert-dismissible" role="alert">' +
+                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+                        '<span class="glyphicon glyphicon-warning-sign"></span> &nbsp' +
+                        "Une erreur s'est produite et vos changements n'ont pas été enregistrés. <br>" +
+                        "Si l'erreur persiste, contacter l'admin à " +
+                        '<a href=\"mailto:thibault.latrille@controversciences.org\">thibault.latrille@controversciences.org</a>\n' +
+                        '</div>')
+                })
+                .always(function( data_jqXHR, textStatus, jqXHR_errorThrown ) {
+                    $('.loader-like').remove();
+                });
+
+            });
+            $("#accept-patches", self).on("click", function () {
+                var $this = $(this);
+                $this.hide();
                 $('#fail', self).hide();
                 $this.after('<svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
                 var new_content, patches, patchesText;

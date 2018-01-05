@@ -40,10 +40,10 @@
                 set_char(len);
             }
             function set_char(len) {
-                if (len >= max) {
+                if (len > max) {
                     $charleft.css({"color": "#a94442"});
                     $charleft.text((len - max) + ' <%= t('views.edition.character_much') %>');
-                } else if (len <= min) {
+                } else if (len < min) {
                     $charleft.css({"color": "#a94442"});
                     $charleft.text('<%= t('views.default.at_least') %> ' + (min - len) + ' <%= t('views.edition.character_miss') %>');
                 } else {
