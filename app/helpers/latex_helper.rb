@@ -88,9 +88,9 @@ module LatexHelper
 
     latexstr = escap_char(latexstr)
     latexstr.gsub!("~", "$\\sim$")
-    latexstr.gsub!("<sub>", "$_{\\textrm{")
-    latexstr.gsub!("<sup>", "$^{\\textrm{")
-    latexstr.gsub!("<endsub>", "}}$")
+    latexstr.gsub!("<sub>", "$_{\\textrm{\\footnotesize{")
+    latexstr.gsub!("<sup>", "$^{\\textrm{\\footnotesize{")
+    latexstr.gsub!("<endsub>", "}}}$")
     if section
       latexstr[0..-6].html_safe
     else
