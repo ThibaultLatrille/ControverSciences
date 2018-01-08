@@ -100,6 +100,11 @@
 
             if (patches.length === 0) {
                 $("#all-button", self).hide();
+                if (first) {
+                    $("#edit-button", self).show();
+                }
+            } else {
+                $("#edit-button", self).hide();
             }
 
             $(".patch-validate", self).off();

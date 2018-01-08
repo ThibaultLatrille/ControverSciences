@@ -1,4 +1,4 @@
-<div class="row center">
+<div class="alert-success-sent row center">
   <div class="center col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
     <div class="alert alert-success alert-dismissible center" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -6,15 +6,6 @@
       </button>
       <div class="center">
       Suggestion envoyée !
-        <br>
-      <br>
-      <%= link_to "<span class=\"icon-arrow-left normal\"></span> Retour à la controverse".html_safe, timeline_path(@patch.parent.timeline_id),
-                  class: "btn btn-default center" %>
-      <br><br>
-      <% if @patch.comment_id %>
-          <%= link_to "<span class=\"icon-arrow-left normal\"></span> Retour à la référence".html_safe, reference_path(@patch.parent.reference_id),
-                      class: "btn btn-default center" %>
-      <% end %>
       </div>
     </div>
   </div>

@@ -50,6 +50,12 @@
         <div id="reset-patches" class="btn btn-primary pull-right" style="display: none; margin-top: 5px">
           <span class="glyphicon glyphicon-refresh"></span> Recommencer
         </div>
+        <a id="edit-button" class="btn btn-primary" style="display: none"
+           href="<%=
+             patch.comment_id ? edit_comment_path(patch.comment_id) :
+                 patch.summary_id ? edit_summary_path(patch.summary_id) : edit_frame_path(patch.frame_id) %>">
+          <span class="glyphicon glyphicon-edit"></span> Editer la contribution
+        </a>
       </div>
       <div class="row">
         <div id="alert-div" class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">

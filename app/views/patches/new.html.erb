@@ -178,11 +178,10 @@
                     success: function(data) {
                         $('.loader-like').remove();
                         $('#timeout-errors').hide();
-                        $this.show();
+                        $this.hide();
                     },
                     error: function(XMLHttpRequest, textStatus, errorThrown) {
                         $('.loader-like').remove();
-                        $('#timeout-errors').show();
                         $this.show();
                     }
                 });
@@ -221,8 +220,10 @@
         $("#patch-form").hide();
         $("#patch-validate").show();
         $('#description').prettyTextDiff();
+        $('#send-patches').show();
     });
     $("#back-edit").on("click", function () {
+        $(".alert-success-sent").remove();
         $("#error_explanation").remove();
         $("#patch-form").show();
         $("#patch-validate").hide();
