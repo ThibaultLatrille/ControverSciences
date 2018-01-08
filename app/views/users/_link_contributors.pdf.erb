@@ -1,0 +1,14 @@
+\begin{flushright}
+\small
+<% unless model.created_at.blank? %>
+  <%= "#{t('views.default.published')} #{time_ago_in_words(model.created_at)}" %>
+<% end %>
+<%= t('views.default.by') -%>
+\textit{
+<% if model.authors > 1 %>
+  <%= model.contributors_name %>
+<% else %>
+  <%= model.user_name %>
+<% end %>
+}
+\end{flushright}
