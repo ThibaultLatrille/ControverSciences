@@ -39,6 +39,13 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+    if request.env["REQUEST_URI"] == cookies[:request_uri]
+      cookies[:nbr_refresh] ||= 0
+      cookies[:nbr_refresh] = cookies[:nbr_refresh].to_i + 1
+    else
+      cookies[:nbr_refresh] = 0
+    end
+    cookies[:request_uri] = request.env["REQUEST_URI"]
   end
 
   def render(*args)

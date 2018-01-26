@@ -127,27 +127,71 @@
   </div>
 </div>
 
-<% if @tips.present? && @tips.length > 0 %>
+<% if cookies[:nbr_refresh].present? && cookies[:nbr_refresh] > 4 %>
 
-    <div id="tips-large" class=''>
-      <% @tips.each do |tip| %>
-          <h1>
-            <%= tip %>
-          </h1>
-      <% end %>
+  <div class="modal fade" id="manyrefresh" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <br/>
+          <h4 class="center">
+            Un petit geste pour la planète ?<br>
+            <span class="fat icon-planet"></span>
+          </h4>
+        </div>
+        <div class="modal-body clearfix">
+          Chaque chargement de page possède un coût écologique. Ainsi, rafraîchir frénétiquement cette page n'est pas très éco-responsable.
+          <br><br>
+
+
+          Pour vous aider à réduire votre empreinte écologique laissée sur internet, voici une liste (non-exhaustive) de bonnes pratiques :
+          <br><br>
+          <ul>
+            <li>Installer un bloqueur de publicité (<i>i.e.</i> <a href="https://www.ublock.org/">µBlock</a>), en effet les publicités sont très gourmandes en bande passante.</li>
+            <li>Se désinscrire des newsletters mail qu'on ne lit pas.</li>
+            <li>Ne pas écouter de la musique sur des sites de streaming vidéo (<i>i.e.</i> Youtube).</li>
+            <li>Limiter le nombre de programmes ou d'onglets de votre navigateur.</li>
+          </ul>
+          <br>
+          Et tant d'autres petits gestes consultable sur le site de l'ADEME:
+            <ul>
+              <li>
+                <a href="http://www.ademe.fr/particuliers-eco-citoyens/bureau/internet-e-mails-limiter-impacts" target="_blank">
+                  Internet et e-mails : limiter les impacts
+                </a>
+              </li>
+              <li>
+                <a href="http://www.ademe.fr/sites/default/files/assets/documents/guide-pratique-face-cachee-numerique.pdf" target="_blank">
+                  La face cachée du numérique
+                </a>
+              </li>
+              <li>
+                <a href="http://www.ademe.fr/sites/default/files/assets/documents/guide-pratique-ecoresponsable-au-bureau.pdf" target="_blank">
+                  Eco-responsable au bureau
+                </a>
+              </li>
+            </ul><br>
+          <div class="center">
+            <% (0..18).each do |i| %>
+              <span class="fat icon-bug-<%= i %>"></span>
+            <% end %>
+            <br>
+            <br>
+            La seule énergie propre, c'est celle qu'on ne consomme pas !
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
+        </div>
+      </div>
     </div>
-    <div id="tips-small" class="hvr-grow">
-      <%= image_tag("help.png", :height => "30px") %>
-    </div>
+  </div>
 
     <script type="text/javascript">
-        $('#tips-small').click(function () {
-            $(this).fadeOut(800);
-            $('#tips-large').show(500);
-        });
-        $('#tips-large').click(function () {
-            $(this).hide(500);
-            $('#tips-small').fadeIn(800);
+        $(document).ready(function () {
+          $('#manyrefresh').modal('show');
         });
     </script>
 <% end %>
@@ -187,3 +231,4 @@
         $('.my-btn', this).responsiveEqualHeightGrid();
     });
 </script>
+
