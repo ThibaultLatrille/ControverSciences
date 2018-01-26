@@ -160,6 +160,7 @@
               </div>
           <% end %>
       <% end %>
+      <% if cookies[:social_buttons] %>
       <div>
         <a href="https://twitter.com/share"
            class="twitter-share-button"
@@ -174,6 +175,7 @@
              data-layout="button_count">
         </div>
       </div>
+      <% end %>
       <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>#{t('views.buttons.invit')}</b>".html_safe,
                   new_invitation_path(timeline_id: @timeline.id),
                   remote: true,

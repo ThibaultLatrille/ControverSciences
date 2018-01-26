@@ -141,7 +141,7 @@
           </h4>
         </div>
         <div class="modal-body clearfix">
-          Chaque chargement de page possède un coût écologique. Ainsi, rafraîchir frénétiquement cette page n'est pas très éco-responsable.
+          Chaque chargement de page possède un coût écologique. Ainsi, rafraîchir frénétiquement cette page n'est pas très éco-responsable. <span class="font12 icon-4"></span>
           <br><br>
 
 
@@ -149,7 +149,7 @@
           <br><br>
           <ul>
             <li>Installer un bloqueur de publicité (<i>i.e.</i> <a href="https://www.ublock.org/">µBlock</a>), en effet les publicités sont très gourmandes en bande passante.</li>
-            <li>Se désinscrire des newsletters mail qu'on ne lit pas.</li>
+            <li>Se désinscrire des <i>newsletters</i> qu'on ne lit pas.</li>
             <li>Ne pas écouter de la musique sur des sites de streaming vidéo (<i>i.e.</i> Youtube).</li>
             <li>Limiter le nombre de programmes ou d'onglets de votre navigateur.</li>
           </ul>
@@ -196,8 +196,36 @@
     </script>
 <% end %>
 
+<% unless cookies[:social_buttons] %>
+  <div class="modal fade" id="social-buttons" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <br/>
+        </div>
+        <div class="modal-body clearfix">
+          <span class="font12">
+            Les boutons de partage et de <i>like</i> proposés par Facebook et Twitter permettent à ces réseaux sociaux de savoir à quelle heure et sur
+            quelles pages de ControverSciences vous naviguez. <br><br>
+            <b>Ainsi par respect de votre privée, nous désactivons par défaut ces boutons de partage.</b>
+            <br><br>
+          </span>
+          <%= image_tag("facebook.png", alt: "facebook", :class => "img-responsive", style: "width:100%;") %>
+          <br>
+          <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> Activer les boutons de réseaux sociaux".html_safe, social_buttons_path, class: "btn btn-primary pull-right" %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 <footer class="clearfix">
+
   <div id="social-footer" class="pull-right">
+    <% if cookies[:social_buttons] %>
     &nbsp
     <a href="https://twitter.com/ControverSci"
        class="twitter-follow-button"
@@ -212,8 +240,14 @@
             data-href="https://www.facebook.com/ControverSciences">
         </span>
     </div>
+    <% else %>
+      <span class="white-href"> <br>
+      <a href="#social-buttons" data-toggle="modal">
+        Où sont les boutons de réseaux sociaux ? &nbsp </a></span>
+    <% end %>
   </div>
-  <div id="about-link">
+
+  <div id="about-link" class="white-href">
     <a id="contact" href="mailto:contact@controversciences.org" class="glyphicon glyphicon-envelope"></a>
     <%= link_to "<span class=\"icon-frog normal\"></span>".html_safe + t('views.footer.about'), about_path %>
   </div>

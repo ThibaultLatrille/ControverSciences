@@ -110,6 +110,7 @@ Rails.application.routes.draw do
   get 'newsletter' => 'static_pages#newsletter'
   get 'login_for_admin' => 'sessions#as_admin'
   get 'signup' => 'users#new'
+  get 'social_buttons' => 'users#social_buttons'
   get 'login' => 'sessions#new'
   get 'tag-pairs-graph' => 'tag_pairs#graph'
   get 'reference-pairs' => 'tag_pairs#reference_pairs'
