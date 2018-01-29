@@ -72,13 +72,6 @@
             <span class="fat icon-reference"></span>
             <span class="badge"><%= timeline.nb_references %></span>
           </div>
-          <div class="sticky" data-placement="right"
-               title="<%= t('views.pluralize.views', count: timeline.views) +
-                                  distance_of_time_in_words_to_now( timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00") ) %>"
-               data-toggle="tooltip">
-            <span class="fat icon-views"></span>
-            <span class="badge"><%= timeline.views %></span>
-          </div>
         </div>
         <div class="background">
         </div>

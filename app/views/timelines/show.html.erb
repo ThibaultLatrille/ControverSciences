@@ -20,13 +20,6 @@
             <span class="fat icon-reference"></span>
             <%= @timeline.nb_references %>
           </div>
-          <div class="sticky" data-placement="bottom"
-               title="<%= t('views.pluralize.views', count: @timeline.views) +
-                              distance_of_time_in_words_to_now(@timeline.created_at > Time.parse("2015-10-01 00:00:00 +02:00") ? @timeline.created_at : Time.parse("2015-10-01 00:00:00 +02:00")) %>"
-               data-toggle="tooltip">
-            <span class="fat icon-views"></span>
-            <%= @timeline.views %>
-          </div>
         </div>
         <%= link_to "<span class=\"icon-arrow-left normal\"></span> #{t('views.navigation.back_timelines')}".html_safe,
                     timelines_path(:sort => params[:sort], :order => params[:order]),
@@ -175,6 +168,9 @@
              data-layout="button_count">
         </div>
       </div>
+      <% else %>
+      <a href="#social-buttons" data-toggle="modal" class="btn btn-sm btn-primary" style="padding: 1px 6px; margin-top: 5px;">
+        Où sont les boutons de réseaux sociaux ? &nbsp </a>
       <% end %>
       <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>#{t('views.buttons.invit')}</b>".html_safe,
                   new_invitation_path(timeline_id: @timeline.id),

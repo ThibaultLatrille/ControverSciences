@@ -206,14 +206,13 @@
         </div>
         <div class="modal-body clearfix">
           <span class="font12">
-            Les boutons de partage et de <i>like</i> proposés par Facebook et Twitter permettent à ces réseaux sociaux de savoir à quelle heure et sur
-            quelles pages de ControverSciences vous naviguez. <br><br>
-            <b>Ainsi par respect de votre privée, nous désactivons par défaut ces boutons de partage.</b>
+            Par respect de votre privée, nous <b>désactivons par défaut</b> les boutons de partage et de <i>like</i> proposés par Facebook et Twitter. Ceux-ci permettent à ces réseaux sociaux de savoir à quelle heure et sur
+            quelles pages de ControverSciences vous naviguez.
             <br><br>
           </span>
           <%= image_tag("facebook.png", alt: "facebook", :class => "img-responsive", style: "width:100%;") %>
           <br>
-          <%= link_to "<span class=\"glyphicon glyphicon-thumbs-up\"></span> Activer les boutons de réseaux sociaux".html_safe, social_buttons_path, class: "btn btn-primary pull-right" %>
+          <%= link_to "Activer les boutons de réseaux sociaux", social_buttons_path, class: "btn btn-primary pull-right" %>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
