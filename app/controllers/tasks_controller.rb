@@ -92,7 +92,7 @@ class TasksController < ApplicationController
         config.token = ENV['SLACK_API_TOKEN']
       end
       client = Slack::Web::Client.new
-      admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
+      admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'mails' }
       client.chat_postMessage(channel: admin_group['id'], text: "#{@emails} #{t('controllers.email_sent')}")
     end
   end

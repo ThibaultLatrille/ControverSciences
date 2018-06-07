@@ -34,7 +34,7 @@
             <li class="divider"></li>
             <li><%= link_to "<b><span class=\"icon-hatch bigger\" ></span> &nbsp Comment naissent-elles ?</b>".html_safe, discover_path %> </li>
             <li><%= link_to "<b><span class=\"icon-network bigger\" ></span> &nbsp Sont-elles liées ?</b>".html_safe, timelines_graph_path %> </li>
-            <li><%= link_to "<b><span class=\"icon-circo bigger\" ></span> &nbsp Sont-elles inter-disciplinaire ?</b>".html_safe, tag_pairs_graph_path(:timeline => true) %> </li>
+            <li><%= link_to "<b><span class=\"icon-circo bigger\" ></span> &nbsp Sont-elles inter-disciplinaires ?</b>".html_safe, tag_pairs_graph_path(:timeline => true) %> </li>
             <% if logged_in? %>
             <li class="divider"></li>
             <li><%= link_to "<b><span class=\"icon-plus bigger\" ></span> &nbsp Créer une controverse </b>".html_safe, new_timeline_path %> </li>
