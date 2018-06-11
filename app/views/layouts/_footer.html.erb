@@ -197,7 +197,7 @@
 <% end %>
 
 <% unless cookies[:social_buttons] %>
-  <div class="modal fade" id="social-buttons" tabindex="-1" role="dialog">
+  <div class="modal fade" id="modal-disp" tabindex="-1" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -210,7 +210,7 @@
             quelles pages de ControverSciences vous naviguez.
             <br><br>
           </span>
-          <%= image_tag("facebook.png", alt: "facebook", :class => "img-responsive", style: "width:100%;") %>
+          <%= image_tag("surveillance.png", alt: "surveillance", :class => "img-responsive", style: "width:100%;") %>
           <br>
           <%= link_to "Activer les boutons de réseaux sociaux", social_buttons_path, class: "btn btn-primary pull-right" %>
         </div>
@@ -222,8 +222,7 @@
   </div>
 <% end %>
 <footer class="clearfix">
-
-  <div id="social-footer" class="pull-right">
+  <div id="footer-disp" class="pull-right">
     <% if cookies[:social_buttons] %>
     &nbsp
     <a href="https://twitter.com/ControverSci"
@@ -241,7 +240,7 @@
     </div>
     <% else %>
       <span class="white-href"> <br>
-      <a href="#social-buttons" data-toggle="modal">
+      <a href="#modal-disp" data-toggle="modal">
         Où sont les boutons de réseaux sociaux ? &nbsp </a></span>
     <% end %>
   </div>
