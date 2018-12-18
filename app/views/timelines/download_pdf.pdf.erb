@@ -47,8 +47,8 @@
           <%= lesc best_comment.content(fi) %>
         <% end %>
       <% end %>
+      <%= render 'users/link_contributors', model: best_comment %>
     <% end %>
-    <%= render 'users/link_contributors', model: best_comment %>
 
   <% end %>
 <% end %>
