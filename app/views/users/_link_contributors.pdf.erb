@@ -6,9 +6,9 @@
 <%= t('views.default.by') -%>
 \textit{
 <% if model.authors > 1 %>
-  <%= model.contributors_name %>
+  <%= escap_char(model.contributors_name).html_safe %>
 <% else %>
-  <%= model.user_name %>
+  <%= escap_char(model.user_name).html_safe %>
 <% end %>
 }
 \end{flushright}
