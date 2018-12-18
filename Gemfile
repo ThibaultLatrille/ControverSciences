@@ -10,7 +10,7 @@ gem 'i18n'
 gem 'rails-i18n'
 
 # Execute js
-gem 'therubyracer'
+gem 'mini_racer'
 gem 'execjs'
 
 # Use ActiveModel has_secure_password

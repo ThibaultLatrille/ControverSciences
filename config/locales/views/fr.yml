@@ -4,6 +4,7 @@ fr:
       patch: Suggérer une amélioration à l'auteur, ou proposer une autre version.
       confirm: Êtes-vous certain ?
       published: Publiée il y a
+      modified: Dernière modification il y a
       by: par
       by_cap: Par
       public_f: Publique
@@ -60,7 +61,6 @@ fr:
       in_timeline: Dans la controverse
       of_reference: De la référence
       of_timeline: De la controverse
-      reference: La référence
       summary: La synthèse
       timeline: La controverse
       your_comments: Vos analyses
@@ -69,7 +69,7 @@ fr:
       your_summaries: Vos synthèses
       your_timelines: Vos controverses
       your_frame: Votre proposition de titre et de cadre
-      your_summary: Voir la synthèse
+      see_summary: Voir la synthèse
       your_summary_of_timeline: Votre synthèse de la controverse
       your_comment: Votre analyse
       your_summary: Votre synthèse

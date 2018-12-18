@@ -7,7 +7,10 @@
                 users_path(editors: model.editors,
                                   contributors: model.contributors.map(&:user_id)),
                 'data-toggle' => 'tooltip',
-                'title' => model.contributors_name %>
+                'title' => model.contributors_name %>.
 <% else %>
-    <%= link_to model.user_name, user_path(model.user_id)%>
+    <%= link_to model.user_name, user_path(model.user_id)%>.
+<% end %>
+<% unless model.updated_at.blank? %>
+ <br> <%= "#{t('views.default.modified')} #{time_ago_in_words(model.created_at)}" %>.
 <% end %>
