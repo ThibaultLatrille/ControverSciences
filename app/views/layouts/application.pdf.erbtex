@@ -64,6 +64,8 @@
 \DeclareUnicodeCharacter{2198}{$\downarrow$}
 \DeclareUnicodeCharacter{21D1}{$\Uparrow$}
 \DeclareUnicodeCharacter{394}{$\Delta$}
+\DeclareUnicodeCharacter{2206}{$\Delta$}
+\DeclareUnicodeCharacter{3A6}{$\phi$}
 \DeclareUnicodeCharacter{2225}{$\parallel$}
 \DeclareUnicodeCharacter{3B1}{$\alpha$}
 \DeclareUnicodeCharacter{3B2}{$\beta$}
