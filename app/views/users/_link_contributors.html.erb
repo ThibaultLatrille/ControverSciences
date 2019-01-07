@@ -12,5 +12,5 @@
     <%= link_to model.user_name, user_path(model.user_id)%>.
 <% end %>
 <% unless model.updated_at.blank? %>
- <br> <%= "#{t('views.default.modified')} #{time_ago_in_words(model.created_at)}" %>.
+ <br> <%= "#{t('views.default.modified')} #{time_ago_in_words(model.updated_at)}" %>.
 <% end %>
