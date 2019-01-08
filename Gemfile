@@ -69,9 +69,12 @@ gem 'pg_search'
 gem 'email_validator'
 
 # Image upload, resize and storing
-gem 'carrierwave'
 gem 'mini_magick'
-gem 'fog-aws'
+gem 'fog-aws', require: false # or require: 'fog/aws'
+
+# avoid having carrierwave loading during bundler
+# setup.  We need to get ./lib in the load_path first.
+gem 'carrierwave', require: false
 
 # Truncate HTML and close tags
 gem 'truncate_html'

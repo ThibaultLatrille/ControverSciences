@@ -8,6 +8,14 @@ Bundler.require(*Rails.groups)
 
 module SampleApp
   class Application < Rails::Application
+    # TODO Stop-gap workaround to carrierwave doing "require 'fog'"
+    # This let's us get ./lib in the load path, where our own
+    # fog.rb is loaded for carrierwave, but we've already loaded
+    # fog-aws, which is all we need anyway.
+    config.before_configuration do
+      require 'carrierwave'
+    end
+
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
