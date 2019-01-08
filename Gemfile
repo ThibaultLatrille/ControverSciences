@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.3.0'
+ruby '2.5.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.2.2'
 
 # Internationalization
 gem 'i18n'
@@ -23,7 +23,8 @@ gem 'kaminari'
 # Use SCSS for stylesheets
 gem 'coffee-script'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
+
 # Autoprefixer for Ruby and Ruby on Rails
 gem 'autoprefixer-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -33,7 +34,7 @@ gem 'uglifier'
 gem 'rabl'
 gem 'oj'
 
-gem 'sdoc',         '0.4.0', group: :doc
+gem 'sdoc', group: :doc
 
 # Bib parser to seed the references
 gem 'bibtex-ruby'
@@ -70,7 +71,7 @@ gem 'email_validator'
 # Image upload, resize and storing
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'fog'
+gem 'fog-aws'
 
 # Truncate HTML and close tags
 gem 'truncate_html'
@@ -136,8 +137,6 @@ group :development do
   # Internationalizer
   gem 'i15r'
   gem 'missing_t'
-
-  gem 'boilerman'
 
   gem 'pry-rails'
 end

@@ -292,10 +292,10 @@ fr:
       no_notifs: Vous n'avez aucune nouvelle notification
       typos: Les suggestions que vous ont apporté les contributeurs
       upvoted: Vos contributions qui ont pris la première place
-      patches: "Vos suggestions d'amélioration qui ont été examinées par l'auteur"
-      patch_summary: "Vos suggestions d'amélioration de synthèses qui ont été examinées par l'auteur"
-      patch_frame: "Vos suggestions d'amélioration de titres et de cadres qui ont été examinées par l'auteur"
-      patch_comment: "Vos suggestions d'amélioration d'analyses qui ont été examinées par l'auteur"
+      patches: "Vos suggestions évaluées par l'auteur"
+      patch_summary: "Vos suggestions évaluées par l'auteur de la synthèse"
+      patch_frame: "Vos suggestions évaluées par l'auteur du titre et du cadre"
+      patch_comment: "Vos suggestions évaluées par l'auteur de l'analyse"
     patches:
       new_version: Proposer une nouvelle version
       edit_version: Modifier votre contribution
