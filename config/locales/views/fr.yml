@@ -125,8 +125,8 @@ fr:
         one: "Cette référence est citée par %{count} autre référence."
         other: "Cette référence est citée par %{count} autres références."
       edges:
-        one: "Cette synthèse se base sur %{count} référence analysée."
-        other: "Cette synthèse se base sur %{count} références analysées."
+        one: "Cette synthèse se base sur %{count} référence."
+        other: "Cette synthèse se base sur %{count} références."
       patches:
         one: "%{count} suggestion"
         other: "%{count} suggestions"

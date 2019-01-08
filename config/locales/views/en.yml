@@ -118,8 +118,8 @@ en:
         one: "This reference is cited by %{count} other reference."
         other: "This reference is cited by %{count} other references."
       edges:
-        one: "This summary is based upon %{count} analysed reference."
-        other: "This summary is based upon %{count} analysed references."
+        one: "This summary is based upon %{count} reference."
+        other: "This summary is based upon %{count} references."
       patches:
         one: "%{count} suggestion"
         other: "%{count} suggestions"
