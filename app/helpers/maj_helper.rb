@@ -22,6 +22,9 @@ module MajHelper
 
   def maj_update_binary
     ApplicationRecord.transaction do
+      Timeline.find_each do |timeline|
+        timeline.reset_binary(timeline.binary, Frame.find_by(timeline_id: timeline.id, best: true).id)
+      end
       Timeline.find_each.map {|t| t.references.each {|r| r.update_columns(binary: t.binary)}}
     end
   end

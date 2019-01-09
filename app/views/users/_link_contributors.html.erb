@@ -1,16 +1,20 @@
 <% unless model.created_at.blank? %>
-<%= "#{t('views.default.published')} #{time_ago_in_words(model.created_at)}" %>
+  <%= "#{t('views.default.published')} #{time_ago_in_words(model.created_at)}" %>
 <% end %>
 <%= t('views.default.by') %>
-<% if model.authors > 1 %>
-    <%= link_to "#{model.user_name} <i><b> et al.</b></i>".html_safe,
-                users_path(editors: model.editors,
-                                  contributors: model.contributors.map(&:user_id)),
-                'data-toggle' => 'tooltip',
-                'title' => model.contributors_name %>.
+<% if model.authors > 2 %>
+  <%= link_to "#{model.user_name} <i><b> et collaborateurs.</b></i>".html_safe,
+              users_path(editors: model.editors,
+                         contributors: model.contributors.map(&:user_id)),
+              'data-toggle' => 'tooltip',
+              'title' => model.contributors_name %>.
+<% elsif model.authors == 2 %>
+  <%= link_to model.contributors_name.html_safe,
+              users_path(editors: model.editors,
+                         contributors: model.contributors.map(&:user_id)) %>.
 <% else %>
-    <%= link_to model.user_name, user_path(model.user_id)%>.
+  <%= link_to model.user_name, user_path(model.user_id) %>.
 <% end %>
 <% unless model.updated_at.blank? %>
- <br> <%= "#{t('views.default.modified')} #{time_ago_in_words(model.updated_at)}" %>.
+  <br> <%= "#{t('views.default.modified')} #{time_ago_in_words(model.updated_at)}" %>.
 <% end %>

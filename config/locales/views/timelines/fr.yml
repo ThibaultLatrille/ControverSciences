@@ -16,7 +16,7 @@ fr:
       character_miss: caractères manquants !
     best_comments:
       caption: Légende
-      display_all: Toutes les contributions
+      display_all: Voir les autres contributions sur ce point
       upvote: Sélectionner cette analyse comme votre favorite
       downvote: Vous avez selectionné cette analyse comme votre favorite
     comments:
@@ -65,7 +65,6 @@ fr:
       doi_fac: "Identifiant unique (facultatif) : "
       dead_link: Signaler un lien mort
       edges: Ajouter ou modifier les citations vers d'autres références
-      edit: Modifier la référence
       edit_from: Editer une référence appartenant à la controverse
       favorite_comment: Votre analyse favorite
       is_open_access: Cette référence est en libre accès
@@ -163,7 +162,6 @@ fr:
       binary: Pour cette controverse, il existe deux réponses antagonistes
       binary_info: "En cochant cette case et en renseignant les deux antagonistes, vous permettez de classer les références.
                                           Si la controverse n'est pas une question fermée, décochez cette case ou reformulez la controverse."
-      delete: Supprimer votre contribution
       index: Tous les titres et cadres de cette controverse
       frame: "Cadre, focus et mise au point "
       upvote: Sélectionner cette contribution comme votre favorite
@@ -223,7 +221,6 @@ fr:
       login: Identifiez-vous pour voir les controverses à l'état embryonnaire
       make_public: Cette controverse est privée. Souhaitez vous la rendre publique
       neutral: Neutre
-      new: Créer une nouvelle controverse
       new_edges: Ajouter ou modifier les liens vers d'autres controverses
       new_frame: Proposer une amélioration de titre et de cadre
       none_params: Aucune controverse ne correspond à ces critères de sélection
