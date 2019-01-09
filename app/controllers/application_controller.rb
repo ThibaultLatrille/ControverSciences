@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_back(default = root_url)
     if request.env["HTTP_REFERER"].present? and request.env["HTTP_REFERER"] != request.env["REQUEST_URI"]
-      redirect_to :back
+      redirect_back(fallback_location: root_path)
     else
       redirect_to default
     end

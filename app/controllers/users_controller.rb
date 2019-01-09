@@ -19,11 +19,11 @@ class UsersController < ApplicationController
     mydomain = params[:user].partition("@")[2]
     Domain.all.pluck(:name).each do |domain|
       if mydomain.include? domain
-        render :nothing => true, :status => 200
+        render body: nil, :status => 200, :content_type => 'text/html'
         return true
       end
     end
-    render :nothing => true, :status => 409
+    render body: nil, :status => 409, :content_type => 'text/html'
   end
 
   def index

@@ -7,9 +7,9 @@ class EdgeVotesController < ApplicationController
       if vote
         begin
           vote.destroy!
-          render :nothing => true, :status => 204
+          render body: nil, :status => 204, :content_type => 'text/html'
         rescue
-          render :nothing => true, :status => 401
+          render body: nil, :status => 401, :content_type => 'text/html'
         end
       else
         vote = EdgeVote.new(edge_id: params[:id],
@@ -17,13 +17,13 @@ class EdgeVotesController < ApplicationController
                                   value: params[:value] == "true" ? true : false)
         begin
           vote.save!
-          render :nothing => true, :status => 201
+          render body: nil, :status => 201, :content_type => 'text/html'
         rescue
-          render :nothing => true, :status => 401
+          render body: nil, :status => 401, :content_type => 'text/html'
         end
       end
     else
-      render :nothing => true, :status => 401
+      render body: nil, :status => 401, :content_type => 'text/html'
     end
   end
 end

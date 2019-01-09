@@ -95,12 +95,12 @@ class PatchesController < ApplicationController
     if @patch.target_user_id == current_user.id || current_user.admin
       if @patch.accept_and_save(params[:parent_content])
         User.increment_counter(:target_patches, @patch.target_user_id)
-        render :nothing => true, :status => 201
+        render body: nil, :status => 201, :content_type => 'text/html'
       else
-        render :nothing => true, :status => 409
+        render body: nil, :status => 409, :content_type => 'text/html'
       end
     else
-      render :nothing => true, :status => 403
+      render body: nil, :status => 403, :content_type => 'text/html'
     end
   end
 
