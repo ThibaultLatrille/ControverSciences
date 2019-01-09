@@ -127,6 +127,7 @@ class ReferencesController < ApplicationController
         if @reference.save
           Binary.create({user_id: current_user.id,
                          timeline_id: @reference.timeline_id,
+                         frame_id: Frame.find_by(timeline_id: @reference.timeline_id, best: true).id,
                          reference_id: @reference.id, value: @reference.user_binary})
           Rating.create({user_id: current_user.id,
                          timeline_id: @reference.timeline_id,

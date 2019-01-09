@@ -36,4 +36,13 @@ module MajHelper
       Frame.find_each.map {|t| t.save!}
     end
   end
+
+  def maj_to_markdown
+    ApplicationRecord.transaction do
+      Summary.find_each.map {|t| t.update_with_markdown}
+      Comment.find_each.map {|t| t.update_with_markdown}
+      Frame.find_each.map {|t| t.save_with_markdown}
+      Reference.find_each.map {|t| t.save}
+    end
+  end
 end

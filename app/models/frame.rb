@@ -65,6 +65,7 @@ class Frame < ApplicationRecord
     self.content_markdown = redcarpet.render(self.content)
     self.why_markdown = redcarpet.render(self.why)
     self.name_markdown = redcarpet_no_wrap.render(self.name)
+    self.name_markdown.gsub!(" ?", "&nbsp?")
   end
 
   def save_with_markdown

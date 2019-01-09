@@ -206,6 +206,7 @@ class Timeline < ApplicationRecord
       create_notifications
     end
     TimelineContributor.create({user_id: self.user_id, timeline_id: self.id, bool: true})
+    Like.create({user_id: self.user_id, timeline_id: self.id})
   end
 
 end

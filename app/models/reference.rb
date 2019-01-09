@@ -29,7 +29,7 @@ class Reference < ApplicationRecord
   has_many :figures, dependent: :destroy
   has_many :dead_links, dependent: :destroy
 
-  around_update :delete_if_review
+  around_update :delete_if_limit_change
 
   after_create :cascading_save_ref
   before_create :binary_timeline
@@ -40,7 +40,7 @@ class Reference < ApplicationRecord
   validates :timeline_id, presence: true
 
   validates_presence_of :title, :author, :year, :url, :journal
-  validates_uniqueness_of :timeline_id, :if => Proc.new { |c| not c.doi.blank? }, :scope => [:doi]
+  validates_uniqueness_of :timeline_id, :if => Proc.new {|c| not c.doi.blank?}, :scope => [:doi]
 
   def get_tag_list
     tags.map(&:name)
@@ -107,28 +107,28 @@ class Reference < ApplicationRecord
   end
 
   def binary_font_size(value)
-    sum = self.binary_1+self.binary_2+self.binary_3+self.binary_4+self.binary_5
+    sum = self.binary_1 + self.binary_2 + self.binary_3 + self.binary_4 + self.binary_5
     if sum > 0
-      1+0.5*self["binary_#{value}"]/sum
+      1 + 0.5 * self["binary_#{value}"] / sum
     else
       1
     end
   end
 
   def star_font_size(value)
-    sum = self.star_1+self.star_2+self.star_3+self.star_4+self.star_5
+    sum = self.star_1 + self.star_2 + self.star_3 + self.star_4 + self.star_5
     if sum > 0
       case value
-        when 1
-          1+0.5*self.star_1/sum
-        when 2
-          1+0.5*self.star_2/sum
-        when 3
-          1+0.5*self.star_3/sum
-        when 4
-          1+0.5*self.star_4/sum
-        when 5
-          1+0.5*self.star_5/sum
+      when 1
+        1 + 0.5 * self.star_1 / sum
+      when 2
+        1 + 0.5 * self.star_2 / sum
+      when 3
+        1 + 0.5 * self.star_3 / sum
+      when 4
+        1 + 0.5 * self.star_4 / sum
+      when 5
+        1 + 0.5 * self.star_5 / sum
       end
     else
       1.0
@@ -166,25 +166,24 @@ class Reference < ApplicationRecord
     end
   end
 
-  def delete_if_review
+  def delete_if_limit_change
     category = self.category_was
     yield
     if category != self.category
-      if self.category == 1
-        Comment.where(reference_id: self.id).update_all(f_1_content: '', f_2_content: '',
-                                                        markdown_1: '', markdown_2: '',
-                                                        f_1_balance: 0, f_2_balance: 0,
-                                                        f_1_score: 0.0, f_2_score: 0.0)
-        CommentJoin.where(reference_id: self.id, field: 1..2).destroy_all
-        Vote.where(reference_id: self.id, field: 1..2).destroy_all
-        BestComment.where(reference_id: self.id).update_all(f_1_comment_id: nil, f_2_comment_id: nil,
-                                                            f_1_user_id: nil, f_2_user_id: nil)
-      elsif self.category == 3 || self.category == 4
-        Comment.where(reference_id: self.id).update_all(f_2_content: '', markdown_2: '',
-                                                        f_2_balance: 0, f_2_score: 0.0)
-        CommentJoin.where(reference_id: self.id, field: 2).destroy_all
-        Vote.where(reference_id: self.id, field: 2).destroy_all
-        BestComment.where(reference_id: self.id).update_all(f_2_comment_id: nil, f_2_user_id: nil)
+      (0..7).each do |field|
+        unless category_limit[category][field].nil?
+          if category_limit[self.category][field].nil? or
+              (category_limit[self.category][field] < category_limit[category][field])
+            Comment.where(reference_id: self.id).update_all("f_#{field}_content".to_sym => '',
+                                                            "markdown_#{field}".to_sym => '',
+                                                            "f_#{field}_balance".to_sym => '',
+                                                            "f_#{field}_score".to_sym => '')
+            CommentJoin.where(reference_id: self.id, field: field).destroy_all
+            Vote.where(reference_id: self.id, field: field).destroy_all
+            BestComment.where(reference_id: self.id).update_all("f_#{field}_comment_id".to_sym => nil,
+                                                                "f_#{field}_user_id".to_sym => nil,)
+          end
+        end
       end
     end
   end
@@ -202,7 +201,7 @@ class Reference < ApplicationRecord
     notifications = []
     Like.where(timeline_id: self.timeline_id).pluck(:user_id).each do |user_id|
       unless self.user_id == user_id
-        notifications << Notification.new(user_id:      user_id, timeline_id: self.timeline_id,
+        notifications << Notification.new(user_id: user_id, timeline_id: self.timeline_id,
                                           reference_id: self.id, category: 2)
       end
     end
