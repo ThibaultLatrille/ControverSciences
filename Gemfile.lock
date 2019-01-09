@@ -127,7 +127,6 @@ GEM
     formatador (0.2.5)
     friendly_id (5.2.5)
       activerecord (>= 4.0.0)
-    geocoder (1.5.0)
     gli (2.18.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -338,8 +337,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sucker_punch (2.1.1)
-      concurrent-ruby (~> 1.0)
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
@@ -392,7 +389,6 @@ DEPENDENCIES
   faraday_middleware
   fog-aws
   friendly_id
-  geocoder
   guard-minitest (= 2.3.1)
   i15r
   i18n
@@ -425,7 +421,6 @@ DEPENDENCIES
   slack-notifier
   slack-ruby-client
   spring
-  sucker_punch
   truncate_html
   uglifier
   unicorn

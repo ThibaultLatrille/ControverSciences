@@ -17,9 +17,7 @@
                     frame: t('views.model.frames'),
                     summary: t('views.model.summaries'),
                     reference: t('views.model.references'),
-                    comment: t('views.model.comments'),
-                    suggestion: "Le livre d'or",
-                    suggestion_child: "Les réactions"}.each do |key, value| %>
+                    comment: t('views.model.comments')}.each do |key, value| %>
                     <% if @category_count[sym_to_int_notifs_hash[key]] > 0 %>
                         <%= link_to "<span class=\"badge\">#{@category_count[sym_to_int_notifs_hash[key]]}</span>
           <span class=\"icon-#{key} font16\"></span> &nbsp ".html_safe+value,
@@ -318,47 +316,6 @@
                             <td> <%= link_to notif.comment.user_name, user_path(notif.comment.user_id), class: "btn btn-primary" %> </td>
                             <td> <%= link_to notif.reference.title_display, reference_path(notif.reference_id), class: "btn btn-primary" %> </td>
                             <td>  <%= link_to notif.timeline.name.html_safe, timeline_path(notif.timeline_id), class: "btn btn-primary" %> </td>
-                          </tr>
-                      <% end %>
-                  <% end %>
-                  </tbody>
-                </table>
-            <% elsif @filter == :suggestion or @filter == :suggestion_child %>
-                <div class="panel-heading">
-                  Les nouveaux commentaires sur controversciences
-                  (<%= @models.length %>)
-                </div>
-                <table id="notification-timelines" class="table table-striped table-hover">
-                  <thead>
-                  <tr>
-                    <th class="col-xs-1"><input title="toggle all" type="checkbox" id="checktimelines">
-                      <span class="glyphicon glyphicon-trash red"></span></th>
-                    <th class="col-xs-2"> <span class="glyphicon glyphicon-time"></span>  </th>
-                    <th class="col-xs-6"> Le commentaire</th>
-                    <th class="col-xs-3"> Par</th>
-                  </tr>
-                  </thead>
-                  <tbody class="page">
-                  <% if !@models.any? %>
-                      <tr class="notification-sel-comment">
-                        <td></td>
-                        <td> Pas de nouveautés</td>
-                        <td></td>
-                      </tr>
-                  <% else %>
-                      <% @models.each do |sugg| %>
-                          <tr class="notification-sel-comment">
-                            <td> <%= f.check_box :ids, {class: "destroy-box", :multiple => true},
-                                                 checked_value = sugg.id, unchecked_value = nil %> </td>
-                            <td> <%= t('views.default.ago') %> <%= time_ago_in_words(sugg.created_at) %> </td>
-                            <td> <%= link_to truncate(sugg.comment, length: 140, separator: ' '),
-                                             notifications_redirect_path(id: sugg.id, filter: @filter) %> </td>
-
-                            <% if sugg.user_id %>
-                                <td> <%= link_to sugg.user_name, user_path(sugg.user_id), class: "btn btn-primary" %> </td>
-                            <% else %>
-                                <td> <%= sugg.user_name %> </td>
-                            <% end %>
                           </tr>
                       <% end %>
                   <% end %>

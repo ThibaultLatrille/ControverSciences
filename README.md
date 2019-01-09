@@ -16,10 +16,10 @@ Follow steps in
 
 Don't forget to append '--rails --ruby' for a all in one installation
 
-ControverSciences is currently using ruby 2.3.0
+ControverSciences is currently using ruby 2.5.3
 ```
-rvm install 2.3.0
-rvm use 2.3.0
+rvm install 2.5.3
+rvm use 2.5.3
 gem install bundler
 ```
 

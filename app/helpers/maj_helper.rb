@@ -1,4 +1,8 @@
 module MajHelper
+  def destroy_empty_notifs
+    Notification.where(timeline_id: nil, reference_id: nil, summary_id: nil, comment_id: nil, like_id: nil, field: nil, frame_id: nil).destroy_all
+  end
+
   def maj_counter
     ApplicationRecord.transaction do
       Timeline.find_each do |timeline|
@@ -10,23 +14,23 @@ module MajHelper
 
   def maj_refill
     ApplicationRecord.transaction do
-      Reference.find_each.map{|r| r.comments.map(&:save)}
-      Timeline.find_each.map{|t| t.summaries.map(&:save)}
-      Timeline.find_each.map{|t| t.frames.map(&:save)}
+      Reference.find_each.map {|r| r.comments.map(&:save)}
+      Timeline.find_each.map {|t| t.summaries.map(&:save)}
+      Timeline.find_each.map {|t| t.frames.map(&:save)}
     end
   end
 
   def maj_update_binary
     ApplicationRecord.transaction do
-      Timeline.find_each.map{|t| t.references.each{ |r| r.update_columns(binary: t.binary)}}
+      Timeline.find_each.map {|t| t.references.each {|r| r.update_columns(binary: t.binary)}}
     end
   end
 
   def maj_content
     ApplicationRecord.transaction do
-      Summary.find_each.map{|t| t.save! }
-      Comment.find_each.map{|t| t.save! }
-      Frame.find_each.map{|t| t.save! }
+      Summary.find_each.map {|t| t.save!}
+      Comment.find_each.map {|t| t.save!}
+      Frame.find_each.map {|t| t.save!}
     end
   end
 end

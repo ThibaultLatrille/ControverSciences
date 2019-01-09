@@ -256,18 +256,6 @@ en:
     issue:
       taken_into_account: Your comment has been taken into account!
       thank: Thanks!
-    partners:
-      new: !!Add a website on the newsfeed <span class="glyphicon glyphicon-heart"></span>
-      edit: Edit information
-      create: !!Create this website and add it to the newsfeed <span class="glyphicon glyphicon-heart"></span>
-      suggest: !!Suggest a website to add to the newsfeed <span class="glyphicon glyphicon-heart"></span>
-      name: Their name
-      description: Their description
-      url: Link to their website
-      why: Why make them appear on ControverSciences ?
-      index_html: !!Newsfeed <span class="glyphicon glyphicon-heart"></span>
-      index_sub_html: Because we love what they do and want to share it here with you!
-      taken_into_account: Your suggestion was sent to the webmasters
     password:
       new: Ask for a new password
       change: Change password

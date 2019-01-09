@@ -270,18 +270,6 @@ fr:
     issue:
       taken_into_account: Votre remarque a été prise en compte !
       thank: Merci !
-    partners:
-      new: Ajouter un site sur le mur du <span class="glyphicon glyphicon-heart"></span>
-      edit: Modifier les information
-      create: Créer ce site et l'ajouter sur le mur du <span class="glyphicon glyphicon-heart"></span>
-      suggest: Suggèrer un site à ajouter sur le mur du <span class="glyphicon glyphicon-heart"></span>
-      name: Son nom
-      description: Sa description
-      url: Lien vers le site
-      why: Pourquoi le faire apparaître sur ControverSciences ?
-      index_html: <span class="glyphicon glyphicon-heart"></span> On aime, on partage !
-      index_sub_html: Parce qu'on aime ce qu'ils font et qu'on veut le partager ici avec vous !
-      taken_into_account: Votre suggestion a été envoyée aux admins
     password:
       new: Demander un nouveau mot de passe
       change: Changer de mot de passe

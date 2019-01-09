@@ -36,8 +36,6 @@ fr:
         year: "L'année de publication"
         url: "Le lien vers la référence"
         journal: "Le journal"
-      suggestion:
-        comment: "Le message"
       summary:
         content: "La synthèse"
       reference_edge:

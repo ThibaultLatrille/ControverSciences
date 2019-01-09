@@ -64,10 +64,6 @@ class NotificationsController < ApplicationController
         redirect_to comment_path(notification_params)
       when 8, 9, 12
         redirect_to frame_path(notification_params)
-      when 10
-        redirect_to suggestion_path(notification_params)
-      when 11
-        redirect_to suggestion_child_path(notification_params)
       else
         redirect_to notifications_index_path(filter: filter_params)
     end

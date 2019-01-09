@@ -27,10 +27,6 @@ class User < ApplicationRecord
   has_many :notification_selections, dependent: :destroy
   has_many :visite_references, dependent: :destroy
   has_many :visite_timelines, dependent: :destroy
-  has_many :suggestions, dependent: :destroy
-  has_many :suggestion_children, dependent: :destroy
-  has_many :suggestion_votes, dependent: :destroy
-  has_many :suggestion_child_votes, dependent: :destroy
   has_many :go_patches, dependent: :destroy
   has_many :received_patches, class_name: "GoPatch", foreign_key: "target_user_id", dependent: :destroy
   has_many :frames, dependent: :destroy
@@ -47,8 +43,6 @@ class User < ApplicationRecord
   has_many :figures, dependent: :destroy
   has_many :binaries, dependent: :destroy
   has_many :dead_links, dependent: :destroy
-  has_many :partners, dependent: :destroy
-  has_many :partner_loves, class_name: "PartnerLove", dependent: :destroy
   has_many :private_timelines, dependent: :destroy
   has_many :timeline_choices, dependent: :destroy
   has_many :locations, dependent: :destroy

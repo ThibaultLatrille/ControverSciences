@@ -93,17 +93,6 @@ class Timeline < ApplicationRecord
     self.nb_summaries + self.nb_comments
   end
 
-  def nb_suggestions
-    nb = self.suggestion.children
-    if nb == 0
-      ''
-    elsif nb == 1
-      " (#{nb} réponse)"
-    else
-      " (#{nb} réponses)"
-    end
-  end
-
   def binary_explanation(value)
     case value
       when 1

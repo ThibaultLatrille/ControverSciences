@@ -40,11 +40,6 @@ Rails.application.routes.draw do
     end
   end
   resources :frame_credits, only: [:new, :create, :destroy]
-  resources :suggestions, only: [:index, :create, :show, :edit, :update, :destroy]
-  resources :suggestion_children, only: [:create, :show, :edit, :update, :destroy]
-  resources :suggestion_votes, only: [:create]
-  resources :suggestion_child_votes, only: [:create]
-  get 'livre-d-or' => 'suggestions#index'
   resources :issues, only: [:create]
   resources :figures, only: [:create] do
     collection do
@@ -73,12 +68,6 @@ Rails.application.routes.draw do
   end
   resources :previews, only: [:create]
   resources :dead_links, only: [:create, :destroy, :index]
-  resources :partners, only: [:new, :create, :edit, :destroy, :index, :update] do
-    collection do
-      post 'suggest'
-    end
-  end
-  resources :partner_loves, only: [:create]
   resources :private_timelines, only: [:index, :create] do
     collection do
       get 'add_current_user'
@@ -156,11 +145,8 @@ Rails.application.routes.draw do
   get 'notifications/summary_selection'
   get 'notifications/frame_selection'
   get 'notifications/selection_redirect'
-  get 'notifications/suggestion'
-  get 'notifications/suggestions'
   get 'my_items/items'
   get 'my_items/votes'
-  get "/fetch_children" => 'suggestion_children#from_suggestion', as: 'fetch_children'
   get 'feed' => 'timelines#feed', :as => "feed"
   get 'unsuscribe_email' => 'user_details#unsuscribe', as: 'unsuscribe_email'
   if Rails.env.development?

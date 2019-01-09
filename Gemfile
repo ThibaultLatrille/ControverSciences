@@ -95,12 +95,6 @@ gem 'friendly_id'
 # Slack Api wrapper
 gem 'slack-ruby-client'
 
-# Complete Ruby geocoding solution
-gem 'geocoder'
-
-# Ruby asynchronous processing library using concurrent-ruby
-gem 'sucker_punch'
-
 gem 'rails-latex'
 
 gem 'lograge'

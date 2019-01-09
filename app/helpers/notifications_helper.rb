@@ -8,8 +8,6 @@ module NotificationsHelper
      selection: 6,
      frame: 8,
      frame_selection: 9,
-     suggestion: 10,
-     suggestion_child: 11,
      patch_frame: 12,
      patch_summary: 13,
      patch_comment: 14}
@@ -24,8 +22,6 @@ module NotificationsHelper
      6 => :comment_id,
      8 => :frame_id,
      9 => :frame_id,
-     10 => :suggestion_id,
-     11 => :suggestion_child_id,
      12 => :frame_id,
      13 => :summary_id,
      14 => :comment_id}
@@ -64,12 +60,6 @@ module NotificationsHelper
         when 8, 9, 12
           query = Frame.select(:id, :timeline_id, :user_id, :created_at)
                       .includes(:timeline, :user)
-        when 10
-          query = Suggestion.select(:id, :comment, :name, :user_id, :created_at)
-                      .includes(:user)
-        when 11
-          query = SuggestionChild.select(:id, :comment, :name, :user_id, :created_at)
-                      .includes(:user)
         else
           query = nil
       end

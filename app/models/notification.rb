@@ -7,7 +7,5 @@ class Notification < ApplicationRecord
   belongs_to :reference
   belongs_to :summary
   belongs_to :comment
-  belongs_to :suggestion
-  belongs_to :suggestion_child
   belongs_to :frame
 end
