@@ -77,9 +77,11 @@ class Reference < ApplicationRecord
 
   def destroy_with_counters
     nb_comments = self.comments.count
+    timeline = self.timeline
     Timeline.decrement_counter(:nb_references, self.timeline_id)
     Timeline.update_counters(self.timeline_id, nb_comments: -nb_comments)
     self.destroy
+    timeline.summaries.each.map(&:update_with_markdown)
   end
 
   def same_doi
