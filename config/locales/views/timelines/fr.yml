@@ -51,12 +51,13 @@ fr:
       add: Ajouter la référence
       be_first: Soyez le premier à ecrire une analyse
       best_comment: La meilleure analyse
-      categories: Article, Review, Méta-analyse, Livre ou thèse
+      categories: Article, Review, Méta-analyse, Livre, Thèse ou Lettre de réponse
       category_0: Article
       category_1: Review
       category_2: Méta-analyse
       category_3: Livre
       category_4: Thèse
+      category_5: Lettre de réponse
       category_source_journal: Journal
       category_source_book: Editeur du livre
       category_source_univ: Université ou établissement d'accueil de la thèse

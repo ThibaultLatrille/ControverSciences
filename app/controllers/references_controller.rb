@@ -85,6 +85,7 @@ class ReferencesController < ApplicationController
     @reference = Reference.new
     @reference.open_access = false
     @reference.category = 0
+    @reference.year = Date.current.year
     @reference.timeline_id = params[:timeline_id]
     @reference.user_binary = "none"
     @reference.user_rating = "none"
@@ -140,7 +141,12 @@ class ReferencesController < ApplicationController
           else
             flash[:success] = t('controllers.ref_added_no_tags')
           end
-          redirect_to new_comment_path(reference_id: @reference.id)
+          if @reference.category == 5
+            redirect_to reference_edges_path(timeline_id:  @reference.timeline_id,
+                                             reference_id: @reference.id)
+          else
+            redirect_to new_comment_path(reference_id: @reference.id)
+          end
         else
           @tag_list = params[:reference][:tag_list].blank? ? [] : params[:reference][:tag_list]
           params[:timeline_id] = reference_params[:timeline_id]

@@ -27,22 +27,22 @@ module ApplicationHelper
   end
 
   def tags_hash
-    {"archeology"   => I18n.t('helpers.tags_hash_0'),
-     "biology"      => I18n.t('helpers.tags_hash_1'),
-     "chemistry"    => I18n.t('helpers.tags_hash_2'),
-     "planet"       => I18n.t('helpers.tags_hash_3'),
+    {"archeology" => I18n.t('helpers.tags_hash_0'),
+     "biology" => I18n.t('helpers.tags_hash_1'),
+     "chemistry" => I18n.t('helpers.tags_hash_2'),
+     "planet" => I18n.t('helpers.tags_hash_3'),
      "epistemology" => I18n.t('helpers.tags_hash_4'),
-     "geography"    => I18n.t('helpers.tags_hash_5'),
-     "geology"      => I18n.t('helpers.tags_hash_6'),
-     "history"      => I18n.t('helpers.tags_hash_7'),
-     "informatics"  => I18n.t('helpers.tags_hash_8'),
-     "linguistic"   => I18n.t('helpers.tags_hash_9'),
-     "pie"          => I18n.t('helpers.tags_hash_10'),
-     "medicine"     => I18n.t('helpers.tags_hash_11'),
-     "physics"      => I18n.t('helpers.tags_hash_12'),
-     "psycho"       => I18n.t('helpers.tags_hash_13'),
-     "socio"        => I18n.t('helpers.tags_hash_14'),
-     "techno"       => I18n.t('helpers.tags_hash_15')
+     "geography" => I18n.t('helpers.tags_hash_5'),
+     "geology" => I18n.t('helpers.tags_hash_6'),
+     "history" => I18n.t('helpers.tags_hash_7'),
+     "informatics" => I18n.t('helpers.tags_hash_8'),
+     "linguistic" => I18n.t('helpers.tags_hash_9'),
+     "pie" => I18n.t('helpers.tags_hash_10'),
+     "medicine" => I18n.t('helpers.tags_hash_11'),
+     "physics" => I18n.t('helpers.tags_hash_12'),
+     "psycho" => I18n.t('helpers.tags_hash_13'),
+     "socio" => I18n.t('helpers.tags_hash_14'),
+     "techno" => I18n.t('helpers.tags_hash_15')
     }
   end
 
@@ -51,7 +51,8 @@ module ApplicationHelper
      1 => I18n.t('views.references.category_1'),
      2 => I18n.t('views.references.category_2'),
      3 => I18n.t('views.references.category_3'),
-     4 => I18n.t('views.references.category_4')}
+     4 => I18n.t('views.references.category_4'),
+     5 => I18n.t('views.references.category_5')}
   end
 
   def category_source
@@ -59,7 +60,8 @@ module ApplicationHelper
      1 => I18n.t('views.references.category_source_journal'),
      2 => I18n.t('views.references.category_source_journal'),
      3 => I18n.t('views.references.category_source_book'),
-     4 => I18n.t('views.references.category_source_univ')}
+     4 => I18n.t('views.references.category_source_univ'),
+     5 => I18n.t('views.references.category_source_journal')}
   end
 
   def category_unique_id
@@ -67,7 +69,8 @@ module ApplicationHelper
      1 => I18n.t('views.references.category_doi'),
      2 => I18n.t('views.references.category_doi'),
      3 => I18n.t('views.references.category_issn'),
-     4 => I18n.t('views.references.category_issn')}
+     4 => I18n.t('views.references.category_issn'),
+     5 => I18n.t('views.references.category_doi')}
   end
 
   def category_hash
@@ -106,7 +109,13 @@ module ApplicationHelper
            4 => I18n.t('helpers.category_hash_phd_4'),
            5 => I18n.t('helpers.category_hash_phd_5'),
            6 => I18n.t('helpers.category_hash_phd_6'),
-           7 => I18n.t('helpers.category_hash_phd_7')}
+           7 => I18n.t('helpers.category_hash_phd_7')},
+     5 => {0 => I18n.t('helpers.category_hash_letter_0'),
+           3 => I18n.t('helpers.category_hash_letter_3'),
+           4 => I18n.t('helpers.category_hash_letter_4'),
+           5 => I18n.t('helpers.category_hash_letter_5'),
+           6 => I18n.t('helpers.category_hash_letter_6'),
+           7 => I18n.t('helpers.category_hash_review_7')}
     }
   end
 
@@ -146,6 +155,12 @@ module ApplicationHelper
            4 => 1000,
            5 => 1000,
            6 => 180,
+           7 => 1000},
+     5 => {0 => 4000,
+           3 => 1000,
+           4 => 1000,
+           5 => 1000,
+           6 => 180,
            7 => 1000}
     }
   end
@@ -176,7 +191,11 @@ module ApplicationHelper
            1 => I18n.t('helpers.category_explanation_summary', category: I18n.t('helpers.phd')),
            3 => I18n.t('helpers.category_explanation_limits', category: I18n.t('helpers.phd')),
            4 => I18n.t('helpers.category_explanation_more', category: I18n.t('helpers.phd')),
-           5 => I18n.t('helpers.category_explanation_remarque', category: I18n.t('helpers.phd'))}
+           5 => I18n.t('helpers.category_explanation_remarque', category: I18n.t('helpers.phd'))},
+     5 => {0 => I18n.t('helpers.category_explanation_summary', category: I18n.t('helpers.review')),
+           3 => I18n.t('helpers.category_explanation_limits', category: I18n.t('helpers.review')),
+           4 => I18n.t('helpers.category_explanation_more', category: I18n.t('helpers.review')),
+           5 => I18n.t('helpers.category_explanation_remarque', category: I18n.t('helpers.review'))},
     }
   end
 
@@ -224,18 +243,18 @@ module ApplicationHelper
     if binary.present?
       text = I18n.t('helpers.binary_value_text')
       case value
-        when 1
-          text + I18n.t('helpers.binary_value_1') + binary.split('&&')[0].downcase + "."
-        when 2
-          text + I18n.t('helpers.binary_value_2') + binary.split('&&')[0].downcase + "."
-        when 3
-          text + I18n.t('helpers.binary_value_3')
-        when 4
-          text + I18n.t('helpers.binary_value_4') + binary.split('&&')[1].downcase + "."
-        when 5
-          text + I18n.t('helpers.binary_value_5') + binary.split('&&')[1].downcase + "."
-        else
-          ''
+      when 1
+        text + I18n.t('helpers.binary_value_1') + binary.split('&&')[0].downcase + "."
+      when 2
+        text + I18n.t('helpers.binary_value_2') + binary.split('&&')[0].downcase + "."
+      when 3
+        text + I18n.t('helpers.binary_value_3')
+      when 4
+        text + I18n.t('helpers.binary_value_4') + binary.split('&&')[1].downcase + "."
+      when 5
+        text + I18n.t('helpers.binary_value_5') + binary.split('&&')[1].downcase + "."
+      else
+        ''
       end
     end
   end

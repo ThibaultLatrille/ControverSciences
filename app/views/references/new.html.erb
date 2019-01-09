@@ -28,43 +28,43 @@
 
           <div class="clearfix">
             <%= form_for(@reference) do |f| %>
-                <%= render 'shared/error_messages', object: f.object %>
-                <br>
-                <div class="row">
-                  <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
-                    <div class="btn-group-justified" data-toggle="buttons">
-                      <% category_names.each do |key, value| %>
-                          <label class="btn btn-default btn-select">
-                            <%= f.radio_button :category, checked_value = key,
-                                               {id: key, autocomplete: "off"} %>
-                            <%= value %>
-                          </label>
-                      <% end %>
-                    </div>
+              <%= render 'shared/error_messages', object: f.object %>
+              <br>
+              <div class="row">
+                <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
+                  <div class="btn-group-justified" data-toggle="buttons">
+                    <% category_names.each do |key, value| %>
+                      <label class="btn btn-default btn-select">
+                        <%= f.radio_button :category, checked_value = key,
+                                           {id: key, autocomplete: "off"} %>
+                        <%= value %>
+                      </label>
+                    <% end %>
                   </div>
                 </div>
-                <script type="text/javascript">
-                    $(document).ready(function () {
-                        $("input[type='radio'][name='reference[category]']:checked").parent().addClass("active");
-                    });
-                    var source = {};
-                    <% category_source.each do |key, value| %>
-                    source[<%= key %>] = '<%= value %>';
-                    <% end %>
-                    var unique_id = {};
-                    <% category_unique_id.each do |key, value| %>
-                    unique_id[<%= key %>] = "<%= value %>";
-                    <% end %>
-                    $("input[type='radio'][name='reference[category]']").change(function (e) {
-                        var valueSelected = this.value;
-                        $('#source').html(source[valueSelected] + ' *');
-                        $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[valueSelected]);
-                    });
-                </script>
-                <br/>
-                <%= f.label t('views.references.title_original') + "*" %>
+              </div>
+              <script type="text/javascript">
+                  $(document).ready(function () {
+                      $("input[type='radio'][name='reference[category]']:checked").parent().addClass("active");
+                  });
+                  var source = {};
+                  <% category_source.each do |key, value| %>
+                  source[<%= key %>] = '<%= value %>';
+                  <% end %>
+                  var unique_id = {};
+                  <% category_unique_id.each do |key, value| %>
+                  unique_id[<%= key %>] = "<%= value %>";
+                  <% end %>
+                  $("input[type='radio'][name='reference[category]']").change(function (e) {
+                      var valueSelected = this.value;
+                      $('#source').html(source[valueSelected] + ' *');
+                      $('#unique_id').html('<%= t('views.references.doi_fac') %>' + unique_id[valueSelected]);
+                  });
+              </script>
+              <br/>
+              <%= f.label t('views.references.title_original') + "*" %>
 
-                <div class="input-group">
+              <div class="input-group">
                       <span class="input-group-btn">
                         <button class="btn btn-primary"
                                 name="title"
@@ -74,120 +74,120 @@
                                 onclick="freeze()">
                           <span class="glyphicon glyphicon-refresh"></span></button>
                       </span>
-                  <%= f.text_field :title, class: 'form-control myforms' %>
+                <%= f.text_field :title, class: 'form-control myforms' %>
+              </div>
+              <br>
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <%= t('views.references.astuce_html') %>
                 </div>
-                <br>
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <%= t('views.references.astuce_html') %>
-                  </div>
-                </div>
-                <br>
-                <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-                <%= f.label :open_access do %>
-                    <%= f.check_box :open_access %>
-                    <span> &nbsp <%= t('views.references.is_open_access') %> </span>
-                <% end %>
-                <br/>
-                <br/>
-                <%= f.label t('views.references.url_new') %>
-                <%= f.text_field :url, class: 'form-control myforms' %>
-                <br/>
-                <%= f.label category_source[@reference.category] + "*", id: "source" %>
-                <%= f.text_field :journal, class: 'form-control myforms' %>
-                <br/>
-                <%= f.label t('views.references.year') + "*" %>
-                <%= f.select :year, (1859..Date.current.year).to_a.reverse.push(["Avant 1859", 0]), {}, {class: 'form-control myforms'} %>
-                <br/>
-                <%= f.label t('views.references.author') + "*" %>
-                <%= f.text_field :author, class: 'form-control myforms' %>
-                <br/>
-                <%= f.label t('views.references.abstract_fac') %>
-                <%= f.text_area :abstract, :class => "form-control myforms textarea",
-                                id: "markdown-textarea" %>
-                <br/>
-                <%= f.label t('views.references.doi_fac') + category_unique_id[@reference.category], id: "unique_id" %>
-                <%= f.text_field :doi, class: 'form-control myforms' %>
-                <br/>
-                <%= f.label :Tags, t('views.default.tags') %> </br>
-                <div class="container-fluid">
-                  <div data-toggle="buttons">
-                    <% tags_hash.each do |key, value| %>
-                        <% if @tag_list.include? key %>
-                            <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
-                              <div class="my-btn">
-                                <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
-                                <span class="fat icon-<%= key %>"></span> <%= value %>
-                              </div>
-                            </div>
-                        <% else %>
-                            <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
-                              <div class="my-btn">
-                                <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
-                                <span class="fat icon-<%= key %>"></span> <%= value %>
-                              </div>
-                            </div>
-                        <% end %>
+              </div>
+              <br>
+              <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
+              <%= f.label :open_access do %>
+                <%= f.check_box :open_access %>
+                <span> &nbsp <%= t('views.references.is_open_access') %> </span>
+              <% end %>
+              <br/>
+              <br/>
+              <%= f.label t('views.references.url_new') %>
+              <%= f.text_field :url, class: 'form-control myforms' %>
+              <br/>
+              <%= f.label category_source[@reference.category] + "*", id: "source" %>
+              <%= f.text_field :journal, class: 'form-control myforms' %>
+              <br/>
+              <%= f.label t('views.references.year') + "*" %>
+              <%= f.number_field :year, in: 0...(Date.current.year + 1), class: 'form-control myforms' %>
+              <br/>
+              <%= f.label t('views.references.author') + "*" %>
+              <%= f.text_field :author, class: 'form-control myforms' %>
+              <br/>
+              <%= f.label t('views.references.abstract_fac') %>
+              <%= f.text_area :abstract, :class => "form-control myforms textarea",
+                              id: "markdown-textarea" %>
+              <br/>
+              <%= f.label t('views.references.doi_fac') + category_unique_id[@reference.category], id: "unique_id" %>
+              <%= f.text_field :doi, class: 'form-control myforms' %>
+              <br/>
+              <%= f.label :Tags, t('views.default.tags') %> </br>
+              <div class="container-fluid">
+                <div data-toggle="buttons">
+                  <% tags_hash.each do |key, value| %>
+                    <% if @tag_list.include? key %>
+                      <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3 active">
+                        <div class="my-btn">
+                          <%= f.check_box :tag_list, {checked: true, :multiple => true}, checked_value = key, unchecked_value = nil %>
+                          <span class="fat icon-<%= key %>"></span> <%= value %>
+                        </div>
+                      </div>
+                    <% else %>
+                      <div class="btn btn-default col-xs-12 col-sm-4 col-lg-3">
+                        <div class="my-btn">
+                          <%= f.check_box :tag_list, {:multiple => true}, checked_value = key, unchecked_value = nil %>
+                          <span class="fat icon-<%= key %>"></span> <%= value %>
+                        </div>
+                      </div>
                     <% end %>
-                  </div>
+                  <% end %>
                 </div>
+              </div>
+              <br/>
+
+              <div class="clearfix">
+                <%= f.label t('views.references.how_you_star') %>
+                <div class="btn-group-justified" data-toggle="buttons">
+                  <label class="btn btn-default btn-select  <%= @reference.user_rating == "none" ? "active" : nil %>"
+                         title="<%= t('views.references.no_advise') %>" data-toggle="tooltip">
+                    <%= f.radio_button :user_rating, checked_value = "none",
+                                       {id: "none", autocomplete: "off"} %>
+                    <span class="icon-no"></span>
+                  </label>
+                  <% star_hash.each do |key, value| %>
+                    <label class="btn btn-default btn-select <%= @reference.user_rating == key.to_s ? "active" : nil %>"
+                           title="<%= value %>" data-toggle="tooltip">
+                      <%= f.radio_button :user_rating, checked_value = key.to_s,
+                                         {id: key, autocomplete: "off"} %>
+                      <span class="icon-<%= key %>"></span>
+                    </label>
+                  <% end %>
+                </div>
+              </div>
+              <% unless @reference.timeline.binary.blank? %>
                 <br/>
 
                 <div class="clearfix">
-                  <%= f.label t('views.references.how_you_star') %>
+                  <b><%= @reference.timeline.name.html_safe %>
+
+                    <%= @reference.timeline.binary.split('&&')[0].humanize -%>
+                    ou
+                    <%= @reference.timeline.binary.split('&&')[1].humanize -%>
+                  </b>
+                  <br style="margin-bottom: 5px">
+                  <%= f.hidden_field :reference_id, value: @reference.id %>
+                  <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
                   <div class="btn-group-justified" data-toggle="buttons">
-                    <label class="btn btn-default btn-select  <%= @reference.user_rating == "none" ? "active" : nil %>"
+                    <label class="btn btn-default <%= @reference.user_binary == "none" ? "active" : nil %>"
                            title="<%= t('views.references.no_advise') %>" data-toggle="tooltip">
-                      <%= f.radio_button :user_rating, checked_value = "none",
+                      <%= f.radio_button :user_binary, checked_value = "none",
                                          {id: "none", autocomplete: "off"} %>
                       <span class="icon-no"></span>
                     </label>
-                    <% star_hash.each do |key, value| %>
-                        <label class="btn btn-default btn-select <%= @reference.user_rating == key.to_s ? "active" : nil %>"
-                               title="<%= value %>" data-toggle="tooltip">
-                          <%= f.radio_button :user_rating, checked_value = key.to_s,
-                                             {id: key, autocomplete: "off"} %>
-                          <span class="icon-<%= key %>"></span>
-                        </label>
+                    <% (1..5).each do |key| %>
+                      <label class="btn btn-default btn-select <%= @reference.user_binary == key.to_s ? "active" : nil %> btn-frog<%= key %>"
+                             title="<%= binary_value_explanation(@reference.timeline.binary, key) -%>" data-toggle="tooltip">
+                        <%= f.radio_button :user_binary, checked_value = key.to_s,
+                                           {id: key, autocomplete: "off"} %>
+                        <span class="icon-frog cd-frog"></span>
+                      </label>
                     <% end %>
                   </div>
                 </div>
-                <% unless @reference.timeline.binary.blank? %>
-                    <br/>
-
-                    <div class="clearfix">
-                        <b><%= @reference.timeline.name.html_safe %>
-
-                          <%= @reference.timeline.binary.split('&&')[0].humanize -%>
-                          ou
-                          <%= @reference.timeline.binary.split('&&')[1].humanize -%>
-                        </b>
-                      <br style="margin-bottom: 5px">
-                      <%= f.hidden_field :reference_id, value: @reference.id %>
-                      <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
-                      <div class="btn-group-justified" data-toggle="buttons">
-                        <label class="btn btn-default <%= @reference.user_binary == "none" ? "active" : nil %>"
-                               title="<%= t('views.references.no_advise') %>" data-toggle="tooltip">
-                          <%= f.radio_button :user_binary, checked_value = "none",
-                                             {id: "none", autocomplete: "off"} %>
-                          <span class="icon-no"></span>
-                        </label>
-                        <% (1..5).each do |key| %>
-                            <label class="btn btn-default btn-select <%= @reference.user_binary == key.to_s ? "active" : nil %> btn-frog<%= key %>"
-                                   title="<%= binary_value_explanation(@reference.timeline.binary, key) -%>" data-toggle="tooltip">
-                              <%= f.radio_button :user_binary, checked_value = key.to_s,
-                                                 {id: key, autocomplete: "off"} %>
-                              <span class="icon-frog cd-frog"></span>
-                            </label>
-                        <% end %>
-                      </div>
-                    </div>
-                <% end %>
-                <br>
-                <%= f.button "#{t('views.references.add')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                             id: "submit-button",
-                             class: 'btn btn-success btn-lg pull-right',
-                             data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')}"} %>
+              <% end %>
+              <br>
+              <%= f.button "#{t('views.references.add')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                           id: "submit-button",
+                           class: 'btn btn-success btn-lg pull-right',
+                           data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.saving')}"} %>
 
 
             <% end %>
@@ -206,6 +206,7 @@
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS']
     });
     $('.my-btn').responsiveEqualHeightGrid();
+
     function freeze() {
         $("#submit-button").hide();
         $(".myforms").attr('readonly', true)

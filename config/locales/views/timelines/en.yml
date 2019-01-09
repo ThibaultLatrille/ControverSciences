@@ -61,7 +61,7 @@ en:
       category_source_univ: !!University or hosting institution for the thesis
       category_doi: DOI, PMID or else
       category_issn: ISSN, ISBN, ISNI, ARK or else
-      doi_fac: "!!Unique user name (optional): "
+      doi_fac: "Unique identifier (optional): "
       dead_link: Signal broken link
       edges: Add or edit quotations to other references
       edit: Edit reference

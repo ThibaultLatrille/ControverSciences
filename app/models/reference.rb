@@ -38,9 +38,21 @@ class Reference < ApplicationRecord
 
   validates :user_id, presence: true
   validates :timeline_id, presence: true
+  validate :content_validation
 
   validates_presence_of :title, :author, :year, :url, :journal
   validates_uniqueness_of :timeline_id, :if => Proc.new {|c| not c.doi.blank?}, :scope => [:doi]
+
+  def content_validation
+    unless self.year.nil?
+      if self.year < 1
+        errors.add(:year, 'L\'année de publication doit être positive')
+      end
+      if self.year > Date.current.year
+        errors.add(:year, "L'année de publication doit être inférieur à #{Date.current.year + 1}, seriez-vous un voyageur temporel ?")
+      end
+    end
+  end
 
   def get_tag_list
     tags.map(&:name)
