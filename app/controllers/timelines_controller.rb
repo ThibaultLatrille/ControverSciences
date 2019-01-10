@@ -234,6 +234,7 @@ class TimelinesController < ApplicationController
 
   def download_pdf
     LatexToPdf.config[:parse_runs] = 2
+    LatexToPdf.config[:command] = "lualatex"
     begin
       fetch_data_for_tex(params[:timeline_id])
       data = render_to_string(:template => 'timelines/download_pdf.pdf.erb', layout: true)

@@ -17,11 +17,14 @@ class AssistantController < ApplicationController
 
   def partial_tex
     LatexToPdf.config[:parse_runs] = 1
+    LatexToPdf.config[:command] = "lualatex"
+
     @text  = params[:partial_tex][:text]
   end
 
   def pdftimlatex
     LatexToPdf.config[:parse_runs] = 2
+    LatexToPdf.config[:command] = "lualatex"
 
     @timelines = []
 
@@ -36,6 +39,7 @@ class AssistantController < ApplicationController
 
   def pdflatex
     LatexToPdf.config[:parse_runs] = 1
+    LatexToPdf.config[:command] = "lualatex"
 
     @frames = []
     @summaries = []

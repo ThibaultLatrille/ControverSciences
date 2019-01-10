@@ -1,7 +1,7 @@
 \begin{flushright}
 \small
 <% unless model.created_at.blank? %>
-  <%= "#{t('views.default.published')} #{time_ago_in_words(model.created_at)}" %>
+  <%= "#{t('views.default.published')} #{time_ago_in_words(model.created_at)}".html_safe %>
 <% end %>
 <%= t('views.default.by') -%>
 \textit{
