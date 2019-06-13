@@ -45,7 +45,6 @@ class User < ApplicationRecord
   has_many :dead_links, dependent: :destroy
   has_many :private_timelines, dependent: :destroy
   has_many :timeline_choices, dependent: :destroy
-  has_many :locations, dependent: :destroy
   has_many :patch_messages, dependent: :destroy
   has_many :user_patches, dependent: :destroy
 
