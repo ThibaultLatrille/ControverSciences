@@ -23,19 +23,19 @@ class HTMLlinks < RenderSubScript
           self.counter += 1
           self.links[link.to_i] = count
         end
-        "<a href=\"#{self.root_url + "/references/" + link}\" class=\"linked-ref\" data-ref=\"#{link}\" target=\"_blank\"><sup>[#{count}]</sup></a>"
+        "<a href=\"#{"/references/" + link}\" class=\"linked-ref\" data-ref=\"#{link}\" target=\"_blank\"><sup>[#{count}]</sup></a>"
       else
         unless self.links[link.to_i]
           self.links[link.to_i] = false
         end
-        "<a href=\"#{self.root_url + "/references/" + link}\" class=\"linked-ref\" data-ref=\"#{link}\" target=\"_blank\">#{content}</a>"
+        "<a href=\"#{"/references/" + link}\" class=\"linked-ref\" data-ref=\"#{link}\" target=\"_blank\">#{content}</a>"
       end
     elsif link.blank?
       content
     elsif (link[0..6] == "http://") || (link[0..7] == "https://")
       "<a href=\"#{link}\" target=\"_blank\">#{content}</a>"
     elsif link[0..10] == "/timelines/" || link[0..13] == "/controverses/"
-      "<a href=\"#{self.root_url + link }\" target=\"_blank\">#{content}</a>"
+      "<a href=\"#{link}\" target=\"_blank\">#{content}</a>"
     else
       content
     end
