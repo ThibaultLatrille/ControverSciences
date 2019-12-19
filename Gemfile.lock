@@ -239,7 +239,7 @@ GEM
     public_suffix (3.0.3)
     rabl (0.14.0)
       activesupport (>= 2.3.14)
-    rack (2.0.6)
+    rack (2.0.8)
     rack-contrib (2.1.0)
       rack (~> 2.0)
     rack-test (1.1.0)
