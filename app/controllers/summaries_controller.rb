@@ -104,7 +104,12 @@ class SummariesController < ApplicationController
   end
 
   def index
-    @timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find(params[:timeline_id])
+    @timeline = Timeline.select(:id, :slug, :nb_summaries, :name).find_by(id: params[:timeline_id])
+    if @timeline.nil?
+      flash[:danger] = t('controllers.timeline_record_not_found')
+      redirect_to timelines_path
+      return
+    end
     if logged_in?
       user_id = current_user.id
       @timeline.update_visite_by_user(user_id)

@@ -19,14 +19,12 @@ module ReferencesHelper
       ref.journal = /<i>(.+)<\/i>/.match(fullcit)[1]
     rescue StandardError
       logger.warn "The citation doesn't contain journal."
-      nil
     end
     begin
       authors_match = /^([\D]+,\s)*\d{4}/.match(fullcit)[1]
       ref.author = authors_match.nil? ? '' : authors_match[0..-3]
     rescue StandardError
       logger.warn "The citation doesn't contain authors."
-      nil
     end
     ref.title = ref_json["title"]
     # DOI is parsed to remove leading "http://dx.doi.org/" to extract the actual DOI

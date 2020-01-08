@@ -50,6 +50,7 @@ fr:
     summary_record_not_found: Cette synthèse n'existe pas (ou plus)
     timeline_added: Controverse ajoutée !
     timeline_record_not_found: Cette controverse n'existe pas (ou plus)
+    frame_record_not_found: Ce cadre de controverse n'existe pas (ou plus)
     updated_profils: Les profils ont été mis à jour
     updated_score_timelines: Les valeurs sélectives des controverses sont à jour
     updated_score_users: Les valeurs sélectives des utilisateurs sont à jour

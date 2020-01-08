@@ -32,7 +32,7 @@
 
               <div id="characterLeft1"></div>
               <br/>
-              <%= f.text_area :name, class: 'form-control textarea', id: "description1" %>
+              <%= f.text_area :name, class: 'form-control textarea', id: "frame-area" %>
               <br/>
               <%= render 'static_pages/charte' %>
 
@@ -115,7 +115,7 @@
 
 
 <script type="text/javascript">
-    $("#description1").markdown({
+    $("#frame-area").markdown({
         autofocus: false,
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS', 'cmdList', 'cmdListO', 'cmdBold']

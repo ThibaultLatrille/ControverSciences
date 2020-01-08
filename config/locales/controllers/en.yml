@@ -49,6 +49,7 @@ en:
     summary_record_not_found: This synthesis does not, or no longer, exist
     timeline_added: Controversy added!
     timeline_record_not_found: This controversy does not, or no longer, exist
+    frame_record_not_found: This controversy frame does not, or no longer, exist
     updated_profils: Profiles were updated
     updated_score_timelines: !!!Les valeurs sélectives des controverses sont à jour
     updated_score_users: !!!Les valeurs sélectives des utilisateurs sont à jour

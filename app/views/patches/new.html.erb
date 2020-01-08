@@ -23,7 +23,7 @@
 
           <div id="characterLeft1"></div>
 
-          <textarea id="description1" class="form-control textarea" value="<%= @patch.message %>"><%= @patch.message %></textarea>
+          <textarea id="message-area" class="form-control textarea" value="<%= @patch.message %>"><%= @patch.message %></textarea>
 
           <br>
           <div id="patch-form">
@@ -126,7 +126,7 @@
 <%= render 'shared/length_counter' %>
 
 <script type="text/javascript">
-    $("#description1").markdown({
+    $("#message-area").markdown({
         autofocus: true,
         savable: false,
         hiddenButtons: ['cmdLinkInt', 'cmdUrl', 'cmdWiki', 'cmdLinkCVS']
@@ -169,7 +169,7 @@
                         comment_id: $this.data('comment-id'),
                         summary_id: $this.data('summary-id'),
                         field: $this.data('field'),
-                        message: $('#description1').val(),
+                        message: $('#message-area').val(),
                         length: countCharacters($('#description').val()),
                         counter: patches.length,
                         content: patchesText

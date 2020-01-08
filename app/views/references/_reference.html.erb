@@ -4,7 +4,7 @@
          title="<%= (reference.binary_most == 0 && reference.star_most == 0 ) ? t('views.references.no_votes') :
                             binary_value_explanation( binary, reference.binary_most ) -%>
                             <%= star_hash[reference.star_most] -%>" data-toggle="tooltip">
-      <span class="frog icon-<%= reference.star_most %>" style="display: none"></span>
+      <span class="frog <%= reference.star_most != 0 ? "icon-#{reference.star_most}" : "" %>>"></span>
     </div>
 
     <div class="cd-timeline-content">
@@ -31,7 +31,7 @@
            title="<%= (reference.binary_most == 0 && reference.star_most == 0 ) ? t('views.references.no_votes') :
                               binary_value_explanation( binary, reference.binary_most ) -%>
            <%= star_hash[reference.star_most] -%> Cette référence n'a pas encore été analysée" data-toggle="tooltip">
-        <span class="frog icon-<%= reference.star_most %>" style="display: none"></span>
+        <span class="frog <%= reference.star_most != 0 ? "icon-#{reference.star_most}" : "" %>"></span>
       </div>
       <div class="cd-timeline-content">
 

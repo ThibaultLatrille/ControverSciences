@@ -32,13 +32,10 @@ class UsersController < ApplicationController
       query = query.search_by_name(params[:filter])
     end
     if params[:editors].present? || params[:contributors].present?
-      query = query.find(params[:editors].push(params[:contributors]))
-      @users_count = query.count
-    else
-      @users_count = query.count
-      query = query.page(params[:page]).per(24)
+      query = query.where(id: params[:editors].push(params[:contributors]).flatten)
     end
-    @users = query
+    @users_count = query.count
+    @users = query.page(params[:page]).per(24)
   end
 
   def show

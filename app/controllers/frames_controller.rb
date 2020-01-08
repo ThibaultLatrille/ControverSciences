@@ -100,7 +100,12 @@ class FramesController < ApplicationController
   end
 
   def show
-    @frame = Frame.find(params[:id])
+    @frame = Frame.find_by(id: params[:id])
+    if @frame.nil?
+      flash[:danger] = t('controllers.frame_record_not_found')
+      redirect_to_back
+      return
+    end
     if logged_in?
       @improve = Frame.where(user_id: current_user.id, timeline_id: @frame.timeline_id).count == 1 ? false : true
       @my_frame_credit = FrameCredit.find_by(user_id: current_user.id, timeline_id: @frame.timeline_id)

@@ -254,8 +254,8 @@ fr:
       hide_versus: Afficher la répartition des références
       show_star: Afficher la pertinence des références
       hide_star: Afficher la pertinence des références
-      show_no_comment: Afficher les références non analysées
-      hide_no_comment: Afficher les références non analysées
+      show_no_comment: "%{count} références non analysées"
+      hide_no_comment: "%{count} références non analysées"
     likes:
       clic_on: Cliquer sur les buttons
       get_notified: pour être notifié des changements dans ces controverses.

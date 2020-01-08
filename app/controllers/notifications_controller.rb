@@ -51,8 +51,14 @@ class NotificationsController < ApplicationController
 
   def redirect
     category = sym_to_int_notifs_hash[filter_params.to_sym]
-    Notification.find_by(user_id: current_user.id, category: category, field: params[:field],
-                         category_to_model_hash[category] => notification_params).destroy
+    notif = Notification.find_by(user_id: current_user.id, category: category, field: params[:field],
+                         category_to_model_hash[category] => notification_params)
+    if notif.nil?
+      redirect_to notifications_index_path(filter: filter_params)
+      return
+    else
+      notif.destroy
+    end
     case category
       when 1
         redirect_to timeline_path(notification_params)
