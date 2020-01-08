@@ -13,11 +13,11 @@
  *= require bootstrap
  *= require hover.css
  *= require bootstrap-markdown.min.css
- *= require custom.css.scss
+ *= require custom.css
  *= require font.css
  *= require timeline.css
- *= require d3-graph.css.scss
- *= require chart.css.scss
+ *= require d3-graph.css
+ *= require chart.css
  *= require fancyBox.css
  *= require menu.css
  *= require pagination.css
