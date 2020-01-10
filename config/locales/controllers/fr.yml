@@ -35,7 +35,7 @@ fr:
     pwd_updated: Mot de passe modifié.
     ref_added: Référence ajoutée avec succès.
     ref_added_no_tags: Référence ajoutée, mais les thèmes n'ont pas été pris en compte.
-    ref_argument_error: Votre requête n'a rien donné de concluant.
+    ref_argument_error: Votre requête n'a malheuresement rien donnée de concluant, le DOI ne semble pas être complet.
     ref_connexion_error: Impossible de se connecter aux serveurs qui délivrent les metadonnées.
     ref_record_not_found: Cette référence n'existe pas (ou plus)
     ref_same_doi: Cette référence a déjà été ajouté à cette controverse !

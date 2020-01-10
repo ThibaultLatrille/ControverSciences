@@ -40,9 +40,7 @@ gem 'sdoc', group: :doc
 gem 'bibtex-ruby'
 
 # Connect to an API from an external domain
-gem 'faraday'
-gem 'faraday_middleware'
-gem 'json'
+gem 'serrano'
 
 # Markdown processing
 gem 'redcarpet'

@@ -106,7 +106,7 @@ fr:
         <br> <br>Pour plus d'informations, <a href="/magna-charta" target="_blank">voir la charte</a>
       astuce_html: |-
         <b>Astuce </b>: utiliser le bouton <span class="glyphicon glyphicon-refresh"></span> pour
-        remplir les champs automatiquement à partir du nom ou doi.
+        remplir les champs automatiquement à partir du DOI. <br>
         Pensez quand même à vérifier les informations !
     edges:
       new_edge: Ajouter des nouveaux liens

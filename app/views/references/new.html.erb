@@ -62,26 +62,27 @@
                   });
               </script>
               <br/>
-              <%= f.label t('views.references.title_original') + "*" %>
-
-              <div class="input-group">
-                      <span class="input-group-btn">
-                        <button class="btn btn-primary"
-                                name="title"
-                                title="Complétion automatique à partir du titre de la référence"
-                                data-toggle="tooltip"
-                                type="submit"
-                                onclick="freeze()">
-                          <span class="glyphicon glyphicon-refresh"></span></button>
-                      </span>
-                <%= f.text_field :title, class: 'form-control myforms' %>
-              </div>
-              <br>
               <div class="panel panel-info">
                 <div class="panel-heading">
                   <%= t('views.references.astuce_html') %>
                 </div>
               </div>
+              <%= f.label t('views.references.doi_fac') + category_unique_id[@reference.category], id: "unique_id" %>
+              <div class="input-group">
+                      <span class="input-group-btn">
+                        <button class="btn btn-primary"
+                                name="doi"
+                                title="Complétion automatique à partir du DOI"
+                                data-toggle="tooltip"
+                                type="submit"
+                                onclick="freeze()">
+                          <span class="glyphicon glyphicon-refresh"></span></button>
+                      </span>
+              <%= f.text_field :doi, class: 'form-control myforms' %>
+              </div>
+              <br/>
+              <%= f.label t('views.references.title_original') + "*" %>
+              <%= f.text_field :title, class: 'form-control myforms' %>
               <br>
               <%= f.hidden_field :timeline_id, value: @reference.timeline_id %>
               <%= f.label :open_access do %>
@@ -90,7 +91,7 @@
               <% end %>
               <br/>
               <br/>
-              <%= f.label t('views.references.url_new') %>
+              <%= f.label t('views.references.url_new') + "*"%>
               <%= f.text_field :url, class: 'form-control myforms' %>
               <br/>
               <%= f.label category_source[@reference.category] + "*", id: "source" %>
@@ -105,9 +106,6 @@
               <%= f.label t('views.references.abstract_fac') %>
               <%= f.text_area :abstract, :class => "form-control myforms textarea",
                               id: "markdown-textarea" %>
-              <br/>
-              <%= f.label t('views.references.doi_fac') + category_unique_id[@reference.category], id: "unique_id" %>
-              <%= f.text_field :doi, class: 'form-control myforms' %>
               <br/>
               <%= f.label :Tags, t('views.default.tags') %> </br>
               <div class="container-fluid">

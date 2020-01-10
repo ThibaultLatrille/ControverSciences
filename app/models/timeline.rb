@@ -4,7 +4,7 @@ class Timeline < ApplicationRecord
   friendly_id :name, use: [:slugged, :finders]
 
   include ApplicationHelper
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :search_by_name,
                   :against => [:name, :frame],
                   :ignoring => :accents,

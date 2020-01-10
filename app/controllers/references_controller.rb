@@ -96,24 +96,17 @@ class ReferencesController < ApplicationController
     @reference = Reference.new(reference_params)
     @reference.user_id = current_user.id
     @reference.title_fr = ''
-    if params[:title] || params[:doi]
-      if params[:title]
-        query = params[:reference][:title]
-      else
-        query = params[:reference][:doi]
-      end
+    if params[:doi]
+      query = params[:reference][:doi]
       unless query.blank?
         begin
           @reference = fetch_reference(query)
           @reference.category = reference_params[:category]
-          @reference.open_access = reference_params[:open_access]
           @reference.timeline_id = reference_params[:timeline_id]
         rescue ArgumentError
           flash.now[:danger] = t('controllers.ref_argument_error')
         rescue ConnectionError
           flash.now[:danger] = t('controllers.ref_connexion_error')
-        rescue StandardError
-          flash.now[:danger] = t('controllers.ref_standard_error')
         end
       end
       @tag_list = params[:reference][:tag_list].blank? ? [] : params[:reference][:tag_list]
