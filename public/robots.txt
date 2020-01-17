@@ -2,5 +2,4 @@
 #
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-agent: *
-# Disallow: /
-Sitemap: https://controversciences.s3.amazonaws.com/sitemaps/sitemap_index.xml.gz
+Disallow: /*?*
