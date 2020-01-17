@@ -31,29 +31,29 @@
             <ul class="dropdown-menu" role="menu">
               <li <%= params[:sort]=='score' || params[:sort].nil? ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.score'), timelines_path(:sort => 'score', :filter => params[:filter], :interest => params[:interest],
-                                                                     :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+                                                                     :staging => params[:staging], :order => params[:order], :tag => params[:tag]), rel: "nofollow" %> </li>
               <li <%= params[:sort]=='score_recent' ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.score_recent'), timelines_path(:sort => 'score_recent', :filter => params[:filter], :interest => params[:interest],
-                                                                            :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+                                                                            :staging => params[:staging], :order => params[:order], :tag => params[:tag]), rel: "nofollow" %> </li>
               <li <%= params[:sort]=='created_at' ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.created_at'), timelines_path(:sort => 'created_at', :filter => params[:filter], :interest => params[:interest],
-                                                                          :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+                                                                          :staging => params[:staging], :order => params[:order], :tag => params[:tag]), rel: "nofollow" %> </li>
               <li <%= params[:sort]=='nb_contributors' ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.nb_contributors'), timelines_path(:sort => 'nb_contributors', :filter => params[:filter], :interest => params[:interest],
-                                                                               :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+                                                                               :staging => params[:staging], :order => params[:order], :tag => params[:tag]), rel: "nofollow" %> </li>
               <li <%= params[:sort]=='nb_references' ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.nb_references'), timelines_path(:sort => 'nb_references', :filter => params[:filter], :interest => params[:interest],
-                                                                             :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+                                                                             :staging => params[:staging], :order => params[:order], :tag => params[:tag]), rel: "nofollow" %> </li>
               <li <%= params[:sort]=='nb_comments' ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.nb_comments'), timelines_path(:sort => 'nb_comments', :filter => params[:filter], :interest => params[:interest],
-                                                                           :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+                                                                           :staging => params[:staging], :order => params[:order], :tag => params[:tag]), rel: "nofollow" %> </li>
               <li <%= params[:sort]=='nb_summaries' ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.nb_summaries'), timelines_path(:sort => 'nb_summaries', :filter => params[:filter], :interest => params[:interest],
-                                                                            :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+                                                                            :staging => params[:staging], :order => params[:order], :tag => params[:tag]), rel: "nofollow" %> </li>
               <li <%= params[:sort]=='nb_likes' ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.nb_likes'),
                             timelines_path(:sort => 'nb_likes', :interest => params[:interest],
-                                           :staging => params[:staging], :order => params[:order], :tag => params[:tag]) %> </li>
+                                           :staging => params[:staging], :order => params[:order], :tag => params[:tag]), rel: "nofollow" %> </li>
             </ul>
           </div>
           <div class="btn-group">
@@ -65,10 +65,10 @@
             <ul class="dropdown-menu" role="menu">
               <li <%= params[:order]=='desc' || params[:order].nil? ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.desc'), timelines_path(:sort => params[:sort], :filter => params[:filter], :interest => params[:interest],
-                                                                    :staging => params[:staging], :order => 'desc', :tag => params[:tag]) %> </li>
+                                                                    :staging => params[:staging], :order => 'desc', :tag => params[:tag]), rel: "nofollow" %> </li>
               <li <%= params[:order]=='asc' ? "class=selected" : nil %> >
                 <%= link_to t('views.sorting.asc'), timelines_path(:sort => params[:sort], :filter => params[:filter], :interest => params[:interest],
-                                                                   :staging => params[:staging], :order => 'asc', :tag => params[:tag]) %> </li>
+                                                                   :staging => params[:staging], :order => 'asc', :tag => params[:tag]), rel: "nofollow" %> </li>
             </ul>
           </div>
         </div>
@@ -102,7 +102,7 @@
                                           :staging => params[:staging],
                                           :interest => params[:interest],
                                           :tag => 'all') %>"
-                 class="btn btn-default" style="padding: 8px 8px;">
+                 class="btn btn-default" rel="nofollow" style="padding: 8px 8px;">
                 <%= t('views.sorting.all_theme') %>
               </a>
           <% end %>
@@ -118,6 +118,7 @@
                            ) %>"
                  class="btn btn-default <%= (params[:tag].blank? || (params[:tag].include? 'all')) ? nil : ((params[:tag].include? key) ? "active" : nil) %>"
                  title="<%= value %>"
+                 rel="nofollow"
                  data-toggle="tooltip">
                 <%= "<span class=\"icon-#{key}\"></span> ".html_safe %>
               </a>
