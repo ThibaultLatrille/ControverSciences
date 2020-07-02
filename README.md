@@ -5,8 +5,8 @@
 ### Clone the repository and cd to the dir
 
 ```
-$ git clone https://github.com/ThibaultLatrille/ControverSciences.git
-$ cd /ControverSciences
+git clone https://github.com/ThibaultLatrille/ControverSciences.git
+cd /ControverSciences
 ```
 
 ### Install RVM for managing ruby version
@@ -16,27 +16,27 @@ Follow steps in
 
 Don't forget to append '--rails --ruby' for a all in one installation
 
-ControverSciences is currently using ruby 2.5.3
+ControverSciences is currently using ruby 2.5.6
 ```
-rvm install 2.5.3
-rvm use 2.5.3
+rvm install 2.5.6
+rvm use 2.5.6
 gem install bundler
 ```
 
-### Install PostgreSQL 9.4 and create role
+### Install PostgreSQL and create role
 
 Install the Postgresql libraries:
 
 ```
-$ sudo apt-get install postgresql-9.4
-$ sudo apt-get install libpq-dev
+sudo apt-get install postgresql
+sudo apt-get install libpq-dev
 ```
 
 Then create the user (AKA "role") inside PostgreSQL:
 
 ```
-$ sudo su - postgres
-$ psql -d postgres
+sudo su - postgres
+psql -d postgres
 postgres=# create role controversciences login superuser password 'password';
 postgres=# \q
 ```
@@ -45,29 +45,20 @@ postgres=# \q
 ### Install the gems
 
 ```
-$ bundle install
+bundle install
 ```
 
-### Create database and populate with Fake data
-
+### Create database and populate with anonymized data
 ```
-$ rake db:create
-$ sh ./dump/pg_restore
+rake db:create
+sh ./dump/pg_restore
 ```
-
-If you get an error at this step, as the following:
-
-```
-could not connect to server: Connection refused Is the server running on host "localhost" (::1) and accepting TCP/IP connections on port 5432?
-could not connect to server: Connection refused Is the server running on host "localhost" (127.0.0.1) and accepting TCP/IP connections on port 5432? 
-```
-
-It may be because the postgresql port is not well defined. Please check in the config file `/etc/postgresql/9.4/main/postgresql.conf` that `port=5432`.
+The password is as defined above during role creation: 'password'
 
 ### Run local webserver
 
 ```
-$ rails s
+rails s
 ```
 
 Navigate to 127.0.0.1:3000 with your favorite browser and you are Up & Running
@@ -75,8 +66,8 @@ Navigate to 127.0.0.1:3000 with your favorite browser and you are Up & Running
 ## Repopulate the database after a maj or if you screwed the database
 
 ```
-$ rake db:drop db:create
-$ sh ./dump/pg_restore
+rake db:drop db:create
+sh ./dump/pg_restore
 ```
 
 ### Connect as an admin of the website in the local version

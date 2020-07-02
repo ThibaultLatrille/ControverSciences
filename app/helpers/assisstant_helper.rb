@@ -21,7 +21,7 @@ module AssisstantHelper
       Comment.where( public: false).destroy_all
       Summary.where( public: false).destroy_all
       Timeline.where( private: true).destroy_all
-      Location.destroy_all
+      Notification.destroy_all
     end
   end
 
