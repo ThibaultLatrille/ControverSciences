@@ -85,6 +85,7 @@ Rails.application.routes.draw do
   get 'terms' => 'static_pages#terms'
   get 'about' => 'static_pages#about'
   get 'home' => 'static_pages#home'
+  get 'AREN' => 'static_pages#aren'
   get 'discover' => 'static_pages#discover'
   get 'comics' => 'static_pages#comics'
   get 'student-demo-cup' => 'presentations#student_demo_cup_intro'
