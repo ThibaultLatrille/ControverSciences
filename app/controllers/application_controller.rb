@@ -23,7 +23,6 @@ class ApplicationController < ActionController::Base
   end
 
   def before_render
-    print(request.env["HTTP_USER_AGENT"] + "\n")
     if logged_in?
       if current_user.private_timeline
         current_user.timelines_count = Timeline.where(user_id: current_user.id, private: true).count
