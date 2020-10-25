@@ -315,6 +315,7 @@ fr:
       to_valid: Vos suggestions d'amélioration à valider
       waiting: Vous avez des suggestions d'amélioration en attentes pour cette contribution
       edit: Souhaitez vous modifier votre contribution ?
+      can_edit_frame: Vous pouvez modifier cette contribution en tant que participant à une controverse privée
       suggest: Vous pouvez suggérer des améliorations à l'auteur de cette contribution, qu'il sera le seul à pouvoir valider.
       yours_wait: Des suggestions d'amélioration pour cette contribution sont en attentes.
       why: Utilisez cette option pour corriger des fautes de français ou améliorer des tournures de phrases.

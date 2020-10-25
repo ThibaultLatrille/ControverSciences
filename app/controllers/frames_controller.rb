@@ -72,7 +72,7 @@ class FramesController < ApplicationController
 
   def update
     @frame = Frame.find(params[:id])
-    if @frame.user_id == current_user.id || current_user.admin
+    if @frame.user_id == current_user.id || current_user.admin || can_edit_private_timeline(@frame, current_user.id)
       if GoPatch.where(frame_id: params[:id]).count > 0
         flash[:danger] = t('controllers.patches_pending')
         redirect_to patches_target_path(frame_id: params[:id])

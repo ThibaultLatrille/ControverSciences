@@ -279,6 +279,7 @@ en:
       to_valid: Your suggestions for improvement you have yet to accept
       waiting: You have waiting suggestions for improvement for this contribution
       edit: Do you wish to edit your contribution?
+      can_edit_frame: You can edit this contribution as participant in a private controversy
       suggest: You can make suggestions to the author of this contribution, he or she will be the only one enable to accept them.
       yours_wait: Your suggestions for improvement for this contribution are waiting to be accepted.
       why: Use this option for English mistakes and syntax suggestions

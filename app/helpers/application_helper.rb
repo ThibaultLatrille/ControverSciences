@@ -262,4 +262,8 @@ module ApplicationHelper
   def user_name(user_id)
     User.select(:name).find(user_id).name
   end
+
+  def can_edit_private_timeline(frame, user_id)
+    PrivateTimeline.find_by(user_id: user_id, timeline_id: frame.timeline_id) && frame.timeline.staging
+  end
 end

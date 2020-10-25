@@ -5,7 +5,8 @@ class PatchesController < ApplicationController
     @patch = GoPatch.new(get_params)
     @patch.target_user_id = @patch.parent.user_id
     @patch.user_id = current_user.id
-    if @patch.target_user_id == current_user.id
+    @can_edit_frame = @patch.frame_id && can_edit_private_timeline(@patch.parent, current_user.id)
+    if @patch.target_user_id == current_user.id || @can_edit_frame
       @user_counter = GoPatch.where(target_user_id: current_user.id,
                                summary_id: @patch.summary_id,
                                comment_id: @patch.comment_id,
@@ -65,7 +66,11 @@ class PatchesController < ApplicationController
     if current_user.admin
       @patches = @patches.where.not(target_user_id: current_user.id)
     else
-      @patches = @patches.where(target_user_id: current_user.id)
+      if get_params[:frame_id] && can_edit_private_timeline(Frame.find(get_params[:frame_id]), current_user.id)
+        @patches = @patches.where(target_user_id: Frame.find(get_params[:frame_id]).user_id)
+      else
+        @patches = @patches.where(target_user_id: current_user.id)
+      end
     end
     if get_params[:summary_id]
       @patches = @patches.includes(:summary)
@@ -82,9 +87,21 @@ class PatchesController < ApplicationController
     query = GoPatch.includes(:frame).includes(:summary).includes(:comment).includes(:patch_messages)
     if current_user.admin
       @patches = query.where.not(target_user_id: current_user.id)
-
     else
-      @patches = query.where(target_user_id: current_user.id)
+      query.where(target_user_id: current_user.id)
+        PrivateTimeline.where(user_id: current_user.id).all.each do |private_timeline|
+        if private_timeline.timeline.staging
+          frame = Frame.find_by(timeline_id: private_timeline.timeline.id, user_id: private_timeline.timeline.user_id)
+          if frame
+            query = query.or(query.where(target_user_id: frame.user_id))
+          end
+        end
+      end
+      @patches = query
+    end
+    if @patches.count == 0
+      flash[:info] = t('controllers.no_patches')
+      redirect_to_back
     end
   end
 
@@ -92,7 +109,7 @@ class PatchesController < ApplicationController
     @patch = GoPatch.find_by(get_params)
     @patch.counter = params[:counter]
     @patch.content = params[:content]
-    if @patch.target_user_id == current_user.id || current_user.admin
+    if @patch.target_user_id == current_user.id || current_user.admin || (@patch.frame_id && can_edit_private_timeline(@patch.parent, current_user.id))
       if @patch.accept_and_save(params[:parent_content])
         User.increment_counter(:target_patches, @patch.target_user_id)
         render body: nil, :status => 201, :content_type => 'text/html'

@@ -20,6 +20,7 @@ en:
     frame_deleted: Contribution sent to the trash.
     frame_saved: Contribution saved.
     frame_updated: Contribution modified.
+    no_patches: You don't have pending suggestions.
     impossible_action: This action is impossible.
     impossible_edit: !!This modification cannot be carried out.
     mailer_invitation: and ControverSciences invite you to discover

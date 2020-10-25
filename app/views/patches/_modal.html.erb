@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="modal-body center font12 clearfix">
-        <% if patch.target_user_id == current_user.id %>
+        <% if patch.target_user_id == current_user.id || @can_edit_frame %>
             <% if @user_counter > 0 %>
                 <%= t('views.patches.waiting') %>
                 <br>
@@ -22,7 +22,11 @@
                             class: "btn btn-primary btn-lg" %>
 
             <% else %>
-                <%= t('views.patches.edit') %>
+                <% if @can_edit_frame %>
+                  <%= t('views.patches.can_edit_frame') %>
+                <% else %>
+                  <%= t('views.patches.edit') %>
+                <% end %>
                 <br>
                 <br>
                 <%= link_to "<span class=\"icon icon-summary\"></span> #{t('views.patches.edit_contrib')}".html_safe,

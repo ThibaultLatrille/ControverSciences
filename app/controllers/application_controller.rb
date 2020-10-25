@@ -27,8 +27,19 @@ class ApplicationController < ActionController::Base
       if current_user.private_timeline
         current_user.timelines_count = Timeline.where(user_id: current_user.id, private: true).count
       else
-        current_user.invited = PrivateTimeline.where(user_id: current_user.id).count
+        privates = PrivateTimeline.where(user_id: current_user.id)
+        current_user.invited = privates.count
         current_user.notif_patches = GoPatch.where(target_user_id: current_user.id).sum(:counter)
+        if current_user.invited > 0
+          privates.all.each do |private_timeline|
+            if private_timeline.timeline.staging
+              frame = Frame.find_by(timeline_id: private_timeline.timeline.id, user_id: private_timeline.timeline.user_id)
+              if frame
+                current_user.notif_patches += GoPatch.where(target_user_id: frame.user_id).sum(:counter)
+              end
+            end
+          end
+        end
         current_user.pending_patches = UserPatch.where(user_id: current_user.id).count
         if current_user.can_switch_admin
           current_user.admin_patches = GoPatch.where.not(target_user_id: current_user.id).sum(:counter)
