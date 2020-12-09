@@ -8,10 +8,10 @@ class PatchesController < ApplicationController
     @can_edit_frame = @patch.frame_id && can_edit_private_timeline(@patch.parent, current_user.id)
     if @patch.target_user_id == current_user.id || @can_edit_frame
       @user_counter = GoPatch.where(target_user_id: current_user.id,
-                               summary_id: @patch.summary_id,
-                               comment_id: @patch.comment_id,
-                               frame_id: @patch.frame_id).sum(:counter)
-      else
+                                    summary_id: @patch.summary_id,
+                                    comment_id: @patch.comment_id,
+                                    frame_id: @patch.frame_id).sum(:counter)
+    else
       @counter = GoPatch.where(field: @patch.field,
                                summary_id: @patch.summary_id,
                                comment_id: @patch.comment_id,
@@ -37,7 +37,7 @@ class PatchesController < ApplicationController
     if @patch.summary_id || (@patch.comment_id && @patch.field != 6)
       @tim_list = timelines_connected_to(@patch.parent.timeline_id)
       @list = Reference.order(year: :desc).where(timeline_id: @patch.parent.timeline_id)
-                  .pluck(:title, :id, :author, :year)
+                       .pluck(:title, :id, :author, :year)
     elsif @patch.frame_id && @patch.field == 1
       @tim_list = timelines_connected_to(@patch.parent.timeline_id)
     end
@@ -88,8 +88,8 @@ class PatchesController < ApplicationController
     if current_user.admin
       @patches = query.where.not(target_user_id: current_user.id)
     else
-      query.where(target_user_id: current_user.id)
-        PrivateTimeline.where(user_id: current_user.id).all.each do |private_timeline|
+      query = query.where(target_user_id: current_user.id)
+      PrivateTimeline.where(user_id: current_user.id).all.each do |private_timeline|
         if private_timeline.timeline.staging
           frame = Frame.find_by(timeline_id: private_timeline.timeline.id, user_id: private_timeline.timeline.user_id)
           if frame
