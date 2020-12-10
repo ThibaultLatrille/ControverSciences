@@ -87,8 +87,14 @@ class Comment < ApplicationRecord
   end
 
   def balance
-    self.f_0_balance + self.f_1_balance + self.f_2_balance +
-        self.f_3_balance + self.f_4_balance + self.f_5_balance + self.f_6_balance + self.f_7_balance
+    (self.f_0_balance.nil? ? 0 : self.f_0_balance)
+    + (self.f_1_balance.nil? ? 0 : self.f_1_balance)
+    + (self.f_2_balance.nil? ? 0 : self.f_2_balance)
+    + (self.f_3_balance.nil? ? 0 : self.f_3_balance)
+    + (self.f_4_balance.nil? ? 0 : self.f_4_balance)
+    + (self.f_5_balance.nil? ? 0 : self.f_5_balance)
+    + (self.f_6_balance.nil? ? 0 : self.f_6_balance)
+    + (self.f_7_balance.nil? ? 0 : self.f_7_balance)
   end
 
   def my_vote(user_id, field)
