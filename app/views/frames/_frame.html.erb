@@ -40,7 +40,7 @@
         <% end %>
       </div>
     </div>
-    <% unless frame.binary.blank? %>
+    <% if !frame.binary.blank? and frame.binary != "&&" %>
         <div class="center">
           <br/>
           <b style="font-size: 2.2em"><%= frame.binary.split('&&')[0].humanize -%></b>
