@@ -471,7 +471,7 @@
           </div>
       <% end %>
 
-      <% if @references.any? && !@timeline.binary.blank? &&
+      <% if @references.any? && (!@timeline.binary.blank? and @timeline.binary != "&&") &&
           (logged_in? ? Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0).count > 0 :
               Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0, title_fr: '').count > 0) %>
 

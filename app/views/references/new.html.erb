@@ -150,7 +150,7 @@
                   <% end %>
                 </div>
               </div>
-              <% unless @reference.timeline.binary.blank? %>
+              <% if !@reference.timeline.binary.blank? and @reference.timeline.binary != "&&" %>
                 <br/>
 
                 <div class="clearfix">

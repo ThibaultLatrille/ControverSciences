@@ -375,7 +375,7 @@
             </div>
         <% end %>
       </li>
-      <% unless @reference.binary.blank? %>
+      <% if !@reference.binary.blank? and @reference.binary != "&&" %>
           <li class="list-group-item clearfix">
               <b> <%= @reference.timeline_name.html_safe %> <%= @reference.binary.split('&&')[0].humanize -%>
               ou
