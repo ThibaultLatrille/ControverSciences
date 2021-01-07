@@ -17,7 +17,7 @@ module Contribution
   end
 
   def contributors_name
-    list = User.where(id: self.editors.push(self.contributors.pluck(:user_id)).flatten).pluck(:name)
+    list = User.find(self.editors.push(self.contributors.pluck(:user_id)).flatten).pluck(:name)
     if list.length == 1
       list.first
     elsif list.length == 2
