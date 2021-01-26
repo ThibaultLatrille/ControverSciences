@@ -18,7 +18,9 @@ module Contribution
 
   def contributors_name
     list = User.find(self.editors.push(self.contributors.pluck(:user_id)).flatten).pluck(:name)
-    if list.length == 1
+    if list.length == 0
+      ""
+    elsif list.length == 1
       list.first
     elsif list.length == 2
       list.join(' et ')

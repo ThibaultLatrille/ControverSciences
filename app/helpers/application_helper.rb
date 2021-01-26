@@ -1,5 +1,33 @@
 module ApplicationHelper
 
+  def author
+    out = "\nNom\t1er auteur\tContributions"
+    User.find(79).timelines.each do |private_timeline|
+      out += "\n" + private_timeline.name.html_safe
+      authors = {}
+      private_timeline.references.each do |ref|
+        if ref.best_comment&.user_id
+          unless authors.include?(ref.best_comment.user_id)
+            authors[ref.best_comment.user_id] =  {"editors" => 0, "contributors" => 0, "name" => User.find(ref.best_comment.user_id).name}
+          end
+          authors[ref.best_comment.user_id]["editors"] += 1
+          ref.best_comment.contributors.each do |c|
+            unless authors.include?(c.user_id)
+              authors[c.user_id] =  {"editors" => 0, "contributors" => 0, "name" => c.user.name}
+            end
+            authors[c.user_id]["contributors"] += 1
+          end
+        end
+      end
+      out += "\nNom\t1er auteur\tContributions"
+      authors.each do |k, dico|
+        print(dico)
+        out += "\n" + dico["name"].to_s + "\t" + dico["editors"].to_s + "\t" + dico["contributors"].to_s
+      end
+    end
+    print(out)
+  end
+
   def random_choices_and_favorite
     @choices = Timeline.includes(:tags).select(:slug, :id, :name).limit(5).order("RANDOM()")
     if logged_in?
