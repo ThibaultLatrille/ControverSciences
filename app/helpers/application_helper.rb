@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  def author
+  def author_nb_contributions
     out = "\nNom\t1er auteur\tContributions"
     User.find(79).timelines.each do |private_timeline|
       out += "\n" + private_timeline.name.html_safe
