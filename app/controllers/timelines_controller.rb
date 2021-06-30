@@ -257,8 +257,7 @@ class TimelinesController < ApplicationController
             config.token = ENV['SLACK_API_TOKEN']
           end
           client = Slack::Web::Client.new
-          stack_group = client.groups_list['groups'].detect { |c| c['name'] == 'pdf_failed' }
-          client.chat_postMessage(channel: stack_group['id'], text: timeline_url(@timeline))
+          client.chat_postMessage(channel: ENV['SLACK_PDF_FAILED_ID'], text: timeline_url(@timeline))
         end
         flash[:danger] = "Il y a eu un problème avec la génération du pdf :-("
         redirect_to timeline_path(@timeline)

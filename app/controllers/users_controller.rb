@@ -150,8 +150,7 @@ class UsersController < ApplicationController
               flash[:success] = t('controllers.slack_invit', email: current_user.email)
               redirect_to_back users_path
             rescue
-              admin_group = client.groups_list['groups'].detect { |c| c['name'] == 'admins' }
-              client.chat_postMessage(channel: admin_group['id'], text: "#{current_user.email} invitation needs to be resent !")
+              client.chat_postMessage(channel: ENV['SLACK_ADMIN_ID'], text: "#{current_user.email} invitation needs to be resent !")
               flash[:danger] = t('controllers.slack_already_invited', email: current_user.email)
               redirect_to_back users_path
             end
