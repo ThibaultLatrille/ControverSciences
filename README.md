@@ -6,7 +6,7 @@
 
 ```
 git clone https://github.com/ThibaultLatrille/ControverSciences.git
-cd /ControverSciences
+cd ControverSciences
 ```
 
 ### Install RVM for managing ruby version
@@ -18,8 +18,8 @@ Don't forget to append '--rails --ruby' for a all in one installation
 
 ControverSciences is currently using ruby 2.5.6
 ```
-rvm install 2.5.6
-rvm use 2.5.6
+rvm install 2.7.3
+rvm use 2.7.3
 gem install bundler
 ```
 
