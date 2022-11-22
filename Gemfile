@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '2.7.3'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.6'
+gem 'rails', '5.2.8'
 
 # Internationalization
 gem 'i18n'
@@ -41,6 +41,7 @@ gem 'bibtex-ruby'
 
 # Connect to an API from an external domain
 gem 'serrano'
+gem 'faraday-retry'
 
 # Markdown processing
 gem 'redcarpet'
