@@ -9,7 +9,7 @@ class NewslettersController < ApplicationController
               :subject=> t('controllers.newsletter'),
               :from=>"ControverSciences.org <contact@controversciences.org>",
               :to => newsletter_params[:email],
-              :html => render_to_string( :file => 'user_mailer/newsletter', layout: nil ).to_str
+              :html => render_to_string('user_mailer/newsletter', layout: nil ).to_str
           }
           mg_client.send_message "controversciences.org", message
         end

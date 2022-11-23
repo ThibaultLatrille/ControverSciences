@@ -19,7 +19,7 @@ class TasksController < ApplicationController
             :subject => "#{@target_user.name}, #{t('controllers.notifs_patches')}",
             :from => "ControverSciences.org <contact@controversciences.org>",
             :to => @target_user.email,
-            :html => render_to_string(:file => 'user_mailer/patches', layout: nil).to_str
+            :html => render_to_string( 'user_mailer/patches', layout: nil).to_str
         }
         mg_client.send_message "controversciences.org", message
         @emails ||= 0
@@ -55,7 +55,7 @@ class TasksController < ApplicationController
             :subject => "#{@user_notif.name}, #{t('controllers.notifs_news')}",
             :from => "ControverSciences.org <contact@controversciences.org>",
             :to => @user_notif.email,
-            :html => render_to_string(:file => 'user_mailer/notifications', layout: nil).to_str
+            :html => render_to_string( 'user_mailer/notifications', layout: nil).to_str
         }
         mg_client.send_message "controversciences.org", message
         @emails ||= 0
@@ -76,7 +76,7 @@ class TasksController < ApplicationController
           :subject => t('controllers.activation_email'),
           :from => "ControverSciences.org<activation@controversciences.org>",
           :to => @user.email,
-          :html => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
+          :html => render_to_string( 'user_mailer/account_activation', layout: nil).to_str
       }
       mg_client.send_message "controversciences.org", message
       @emails ||= 0

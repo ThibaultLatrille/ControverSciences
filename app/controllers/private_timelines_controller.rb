@@ -32,7 +32,7 @@ class PrivateTimelinesController < ApplicationController
               :subject =>  (CGI.unescapeHTML subject),
               :from=>"ControverSciences <invitation@controversciences.org>",
               :to => @invitation.target_email,
-              :html => render_to_string( :file => 'user_mailer/invitation', layout: nil ).to_str
+              :html => render_to_string('user_mailer/invitation', layout: nil ).to_str
           }
           mg_client.send_message "controversciences.org", message
         end

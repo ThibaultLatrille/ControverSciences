@@ -195,7 +195,7 @@ class TimelinesController < ApplicationController
               :subject => t('controllers.eclosion_email'),
               :from => "ControverSciences.org <contact@controversciences.org>",
               :to => @eclosion_user.email,
-              :html => render_to_string(:file => 'user_mailer/eclosion', layout: nil).to_str
+              :html => render_to_string( 'user_mailer/eclosion', layout: nil).to_str
           }
           mg_client.send_message "controversciences.org", message
         end

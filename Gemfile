@@ -3,7 +3,13 @@ source 'https://rubygems.org'
 ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.8'
+gem 'rails', '6.1.7'
+
+gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
+gem 'faraday-retry'
+
 
 # Internationalization
 gem 'i18n'
@@ -41,7 +47,6 @@ gem 'bibtex-ruby'
 
 # Connect to an API from an external domain
 gem 'serrano'
-gem 'faraday-retry'
 
 # Markdown processing
 gem 'redcarpet'
@@ -73,7 +78,7 @@ gem 'fog-aws', require: false # or require: 'fog/aws'
 
 # avoid having carrierwave loading during bundler
 # setup.  We need to get ./lib in the load_path first.
-gem 'carrierwave', require: false
+gem 'carrierwave'
 
 # Truncate HTML and close tags
 gem 'truncate_html'
@@ -111,6 +116,8 @@ end
 
 group :development do
   gem 'web-console'
+  gem 'webrick'
+  gem 'listen'
 
   gem 'faker'
   gem 'spring'

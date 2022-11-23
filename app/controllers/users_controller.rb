@@ -80,7 +80,7 @@ class UsersController < ApplicationController
               :subject => t('controllers.activation_email'),
               :from => "ControverSciences.org <activation@controversciences.org>",
               :to => @user.email,
-              :html => render_to_string(:file => 'user_mailer/account_activation', layout: nil).to_str
+              :html => render_to_string( 'user_mailer/account_activation', layout: nil).to_str
           }
           mg_client.send_message "controversciences.org", message
         end
