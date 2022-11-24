@@ -27,7 +27,7 @@ fr:
       back_timelines: Revenir aux controverses
       back_reference: Revenir à la référence
       back: Revenir en arrière
-      users: Les contributeurs
+      users: Les contribut·eur·rice·s
       contributions: Évolution des contributions
       new_contributions: Nouvelles contributions
       empty_comments: Analyser
@@ -45,7 +45,7 @@ fr:
       next: "Suivante &rsaquo;"
       truncate: "&hellip;"
     model:
-      users: Les contributeurs
+      users: Les contribut·eur·rice·s
       timelines: Les controverses
       reference: La référence
       references: Les références
@@ -80,8 +80,8 @@ fr:
        other: " erreurs"
     pluralize:
       users:
-        one: "%{count} contributeur"
-        other: "%{count} contributeurs"
+        one: "%{count} contribut·eur·rice"
+        other: "%{count} contribut·eur·rice·s"
       comments:
         one: "%{count} analyse"
         other: "%{count} analyses"
@@ -156,7 +156,7 @@ fr:
       score_recent: Activité récente
       created_at: Date de création
       created_at_sort: Tri par date
-      nb_contributors: Nombre de contributeurs
+      nb_contributors: Nombre de contribut·eur·rice·s
       nb_references: Nombre de références
       nb_comments: Nombre d'analyses
       nb_summaries: Nombre de synthèses
@@ -348,11 +348,11 @@ fr:
         <br><br>
         Si vous souhaitez dialoguer avec d'autres contributeurs ou avec les fondateurs du site,
         n'hésitez pas à nous y rejoindre ! <br><br>
-      next: Contributeur suivant
+      next: Contribut·eur·rice suivant
       pending: Votre incription est en cours de traitement, un email vous sera envoyé
         dès que la demande sera acceptée.
       pending_confirm: Confirmation en attente
-      previous: Contributeur précédent
+      previous: Contribut·eur·rice précédent
       send_email: "Fréquence d'envoi d'emails si vous avez des notifications non lues :"
       terms: Les conditions générales d'utilisation
       magna_charta: La Magna Charta
