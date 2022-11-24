@@ -36,14 +36,6 @@
           </div>
         </div>
     <% end %>
-    <% if logged_in? && current_user.id == @user.id %>
-      <div class="pull-right" style="margin-right: 10px">
-        <a href="#join-slack" data-toggle="modal" class="cadre hvr-grow">
-          <%= image_tag("slack.png", alt: "Slack", height: "48px")%>
-          <b style="font-size: 1.4em"><%= t('views.users.talk_slack') %></b>
-        </a>
-      </div>
-  <% end %>
     <% if @user_detail && @user_detail.id && @user_detail.job.present? %>
       <b> <%= t('views.users.job') %> </b><br/>
             <%= @user_detail.job  %>

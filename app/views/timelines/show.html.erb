@@ -28,149 +28,130 @@
                     next_timeline_path(id: @timeline.id),
                     class: "list-group-item" %>
         <% if logged_in? %>
-            <%= link_to "<span class=\"glyphicon glyphicon-link\" >
+          <%= link_to "<span class=\"glyphicon glyphicon-link\" >
 			</span>  #{t('views.timelines.new_edges')}".html_safe,
-                        edges_path(timeline_id: @timeline.id),
-                        class: "list-group-item" %>
-            <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
-                <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.timelines.delete')}".html_safe,
-                            timeline_path(@timeline), method: :delete,
-                            data: {confirm: t('views.default.confirm')},
-                            class: "list-group-item list-group-item-danger" %>
-            <% end %>
+                      edges_path(timeline_id: @timeline.id),
+                      class: "list-group-item" %>
+          <% if (@timeline.user_id == current_user.id && !current_user.private_timeline) || current_user.admin %>
+            <%= link_to "<span class=\"glyphicon glyphicon-trash\"></span> #{t('views.timelines.delete')}".html_safe,
+                        timeline_path(@timeline), method: :delete,
+                        data: { confirm: t('views.default.confirm') },
+                        class: "list-group-item list-group-item-danger" %>
+          <% end %>
         <% end %>
       </div>
       <div class="list-group">
         <% if @timeline.nb_frames > 1 %>
-            <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_frames}</span>
+          <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_frames}</span>
 	      &nbsp #{t('views.model.frames')}".html_safe,
-                        frames_path(timeline_id: @timeline.id),
-                        class: "list-group-item" %>
+                      frames_path(timeline_id: @timeline.id),
+                      class: "list-group-item" %>
         <% elsif logged_in? && !@my_frame %>
-            <%= link_to "<span class=\"icon-summary normal\" >
+          <%= link_to "<span class=\"icon-summary normal\" >
 				</span> #{t('views.timelines.new_frame')}".html_safe,
-                        new_frame_path(timeline_id: @timeline.id),
-                        class: "list-group-item" %>
+                      new_frame_path(timeline_id: @timeline.id),
+                      class: "list-group-item" %>
         <% end %>
         <% if logged_in? && @my_frame %>
-            <%= link_to "<span class=\"icon-summary normal\"></span>
+          <%= link_to "<span class=\"icon-summary normal\"></span>
                                 </span> #{t('views.model.your_frame')}".html_safe,
-                        frames_path(timeline_id: @timeline.id, filter: "mine"),
-                        :class => "list-group-item" %>
+                      frames_path(timeline_id: @timeline.id, filter: "mine"),
+                      :class => "list-group-item" %>
         <% end %>
       </div>
 
       <% if logged_in? %>
-          <div class="list-group">
-            <% if @summary && @timeline.nb_summaries > 1 %>
-                <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
-                  &nbsp #{t('views.model.summaries_of')} ".html_safe,
-                            summaries_path(timeline_id: @timeline.id),
-                            class: "list-group-item" %>
-            <% end %>
-            <% if @improve %>
-                <%= link_to "<span class=\"icon-summary normal\" >
-                    </span> #{t('views.summaries.new')}".html_safe,
-                            new_summary_path(timeline_id: @timeline.id),
-                            :class => "list-group-item" %>
-            <% else %>
-                <%= link_to "<span class=\"icon-summary normal\"></span>
-                  #{t('views.model.your_summary')}".html_safe,
-                            summaries_path(timeline_id: @timeline.id, filter: "mine"),
-                            :class => "list-group-item" %>
-            <% end %>
-          </div>
-      <% elsif @timeline.nb_summaries > 1 %>
-          <div class="list-group">
+        <div class="list-group">
+          <% if @summary && @timeline.nb_summaries > 1 %>
             <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
-              &nbsp #{t('views.model.summaries_of')} ".html_safe,
+                  &nbsp #{t('views.model.summaries_of')} ".html_safe,
                         summaries_path(timeline_id: @timeline.id),
                         class: "list-group-item" %>
-          </div>
+          <% end %>
+          <% if @improve %>
+            <%= link_to "<span class=\"icon-summary normal\" >
+                    </span> #{t('views.summaries.new')}".html_safe,
+                        new_summary_path(timeline_id: @timeline.id),
+                        :class => "list-group-item" %>
+          <% else %>
+            <%= link_to "<span class=\"icon-summary normal\"></span>
+                  #{t('views.model.your_summary')}".html_safe,
+                        summaries_path(timeline_id: @timeline.id, filter: "mine"),
+                        :class => "list-group-item" %>
+          <% end %>
+        </div>
+      <% elsif @timeline.nb_summaries > 1 %>
+        <div class="list-group">
+          <%= link_to "<span class=\"badge pull-left\">#{@timeline.nb_summaries}</span>
+              &nbsp #{t('views.model.summaries_of')} ".html_safe,
+                      summaries_path(timeline_id: @timeline.id),
+                      class: "list-group-item" %>
+        </div>
       <% end %>
       <% if logged_in? %>
-          <div class="list-group">
-            <%= link_to "<span class=\"icon-reference normal\" >
+        <div class="list-group">
+          <%= link_to "<span class=\"icon-reference normal\" >
             </span> #{t('views.references.new')}".html_safe,
-                        new_reference_path(timeline_id: @timeline.id),
+                      new_reference_path(timeline_id: @timeline.id),
+                      class: "list-group-item" %>
+        </div>
+        <% if @timeline.nb_references > 0 %>
+          <div class="list-group">
+            <% if current_user.admin and @timeline.nb_references > 1 %>
+              <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges_ref')}".html_safe,
+                          references_graph_path(timeline_id: @timeline.id),
+                          class: "list-group-item" %>
+            <% end %>
+            <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> #{t('views.timelines.dl_bib')}".html_safe,
+                        '#download-biblio', 'data-toggle' => 'modal',
                         class: "list-group-item" %>
-          </div>
-          <% if @timeline.nb_references > 0 %>
-              <div class="list-group">
-                <% if current_user.admin and @timeline.nb_references > 1 %>
-                    <%= link_to "<span class=\"icon-network normal\"></span> #{t('views.timelines.edges_ref')}".html_safe,
-                                references_graph_path(timeline_id: @timeline.id),
-                                class: "list-group-item" %>
-                <% end %>
-                <%= link_to "<span class=\"glyphicon glyphicon-download\"></span> #{t('views.timelines.dl_bib')}".html_safe,
-                            '#download-biblio', 'data-toggle' => 'modal',
-                            class: "list-group-item" %>
-                <div class="modal fade" id="download-biblio" tabindex="-1" role="dialog">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <br/>
+            <div class="modal fade" id="download-biblio" tabindex="-1" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <br/>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
+                        <%= link_to image_tag("bib.png", alt: "Bibtex", :class => "img-responsive", style: "width:100%;"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
+                                    class: "hvr-grow" %>
                       </div>
-                      <div class="modal-body">
-                        <div class="row">
-                          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
-                            <%= link_to image_tag("bib.png", alt: "Bibtex", :class => "img-responsive", style: "width:100%;"),
-                                        timelines_download_bibtex_url(timeline_id: @timeline.id, format: "bib"),
-                                        class: "hvr-grow" %>
-                          </div>
-                          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
-                            <%= link_to image_tag("xml.png", alt: "Xml", :class => "img-responsive", style: "width:100%;"),
-                                        timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
-                                        class: "hvr-grow" %>
-                          </div>
-                          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
-                            <%= link_to image_tag("json.png", alt: "json", :class => "img-responsive", style: "width:100%;"),
-                                        timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
-                                        class: "hvr-grow" %>
-                          </div>
-                          <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
-                            <%= link_to image_tag("yaml.png", alt: "yaml", :class => "img-responsive", style: "width:100%;"),
-                                        timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
-                                        class: "hvr-grow" %>
-                          </div>
-                        </div>
+                      <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
+                        <%= link_to image_tag("xml.png", alt: "Xml", :class => "img-responsive", style: "width:100%;"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "xml"),
+                                    class: "hvr-grow" %>
                       </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"> <%= t('views.default.close') %> </button>
+                      <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
+                        <%= link_to image_tag("json.png", alt: "json", :class => "img-responsive", style: "width:100%;"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "json"),
+                                    class: "hvr-grow" %>
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-offset-0 col-md-3">
+                        <%= link_to image_tag("yaml.png", alt: "yaml", :class => "img-responsive", style: "width:100%;"),
+                                    timelines_download_bibtex_url(timeline_id: @timeline.id, format: "yaml"),
+                                    class: "hvr-grow" %>
                       </div>
                     </div>
                   </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"> <%= t('views.default.close') %> </button>
+                  </div>
                 </div>
-                <% if logged_in? %>
-                <%= link_to "<span class=\"normal icon-pdf\"></span> Télécharger le document (.pdf)".html_safe,
-                            timelines_download_pdf_path(timeline_id: @timeline.id, format: :pdf),
-                            class: "list-group-item" %>
-                  <%= link_to "<span class=\"normal icon-tex\"></span> Télécharger la source (.tex)".html_safe,
-                              timelines_download_tex_path(timeline_id: @timeline.id),
-                              class: "list-group-item" %>
-                <% end %>
               </div>
-          <% end %>
-      <% end %>
-      <% if cookies[:social_buttons] %>
-      <div>
-        <a href="https://twitter.com/share"
-           class="twitter-share-button"
-           data-text="<%= CGI::unescapeHTML(@timeline.name) %>"
-           data-via="ControverSci">
-          Tweet
-        </a>
-      </div>
-      <div>
-        <div class="fb-share-button"
-             data-href="<%= timeline_path @timeline %>"
-             data-layout="button_count">
-        </div>
-      </div>
-      <% else %>
-      <a href="#modal-disp" data-toggle="modal" class="btn btn-sm btn-primary" style="padding: 1px 6px; margin-top: 5px;">
-        Où sont les boutons de réseaux sociaux ? &nbsp </a>
+            </div>
+            <% if logged_in? %>
+              <%= link_to "<span class=\"normal icon-pdf\"></span> Télécharger le document (.pdf)".html_safe,
+                          timelines_download_pdf_path(timeline_id: @timeline.id, format: :pdf),
+                          class: "list-group-item" %>
+              <%= link_to "<span class=\"normal icon-tex\"></span> Télécharger la source (.tex)".html_safe,
+                          timelines_download_tex_path(timeline_id: @timeline.id),
+                          class: "list-group-item" %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
       <%= link_to "<span class=\"glyphicon glyphicon-envelope\"></span> <b>#{t('views.buttons.invit')}</b>".html_safe,
                   new_invitation_path(timeline_id: @timeline.id),
@@ -183,63 +164,63 @@
       <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-8 col-sm-offset-1 col-lg-offset-2">
           <% if @timeline.private && logged_in? %>
-              <% if current_user.admin %>
-                  <div class="panel panel-info">
-                    <div class="panel-heading center">
-                      <%= link_to "<span class=\"icon icon-lock normal\"></span> #{t('views.timelines.make_public')} ".html_safe,
-                                  set_public_timelines_path(timeline_id: @timeline.id),
-                                  data: {confirm: t('views.timelines.confirm')} %>
-                    </div>
-                  </div>
-              <% end %>
+            <% if current_user.admin %>
               <div class="panel panel-info">
                 <div class="panel-heading center">
-                  <%= link_to "<span class=\"icon icon-users fat\"></span> #{t('views.private_timelines.to_timeline')}".html_safe,
-                              private_timelines_path(timeline_id: @timeline.id), class: "hvr-grow" %>
+                  <%= link_to "<span class=\"icon icon-lock normal\"></span> #{t('views.timelines.make_public')} ".html_safe,
+                              set_public_timelines_path(timeline_id: @timeline.id),
+                              data: { confirm: t('views.timelines.confirm') } %>
                 </div>
               </div>
+            <% end %>
+            <div class="panel panel-info">
+              <div class="panel-heading center">
+                <%= link_to "<span class=\"icon icon-users fat\"></span> #{t('views.private_timelines.to_timeline')}".html_safe,
+                            private_timelines_path(timeline_id: @timeline.id), class: "hvr-grow" %>
+              </div>
+            </div>
           <% elsif @timeline.staging %>
-              <div class="panel panel-info">
-                <div class="panel-heading center">
-                  <% if logged_in? && current_user.admin %>
-                      <%= link_to "<span class=\"icon icon-hatch bigger\"></span>".html_safe,
-                                  switch_staging_timelines_path(timeline_id: @timeline.id),
-                                  "data-toggle" => :tooltip,
-                                  class: "btn btn-default green pull-right",
-                                  title: t('views.timelines.remove_staging') %>
-                  <% end %>
-                  <span style="font-size: 1.4em">
+            <div class="panel panel-info">
+              <div class="panel-heading center">
+                <% if logged_in? && current_user.admin %>
+                  <%= link_to "<span class=\"icon icon-hatch bigger\"></span>".html_safe,
+                              switch_staging_timelines_path(timeline_id: @timeline.id),
+                              "data-toggle" => :tooltip,
+                              class: "btn btn-default green pull-right",
+                              title: t('views.timelines.remove_staging') %>
+                <% end %>
+                <span style="font-size: 1.4em">
                 <span class="icon icon-staging fat"></span>
-                    <%= t('views.timelines.is_staging_html') %>
+                  <%= t('views.timelines.is_staging_html') %>
               </span> <br>
-                  <span style="font-size: 1.2em">
+                <span style="font-size: 1.2em">
                 <% if logged_in? %>
                 <%= t('views.timelines.is_staging_sub') %>
                 <% else %>
                 <%= t('views.timelines.is_staging_sub_not_logged') %>
                 <% end %>
               </span>
-                </div>
               </div>
+            </div>
           <% elsif logged_in? %>
-              <div class="panel panel-info">
-                <div class="panel-heading center">
-                  <% if current_user.admin %>
-                      <%= link_to "<span class=\"icon icon-egg bigger\"></span>".html_safe,
-                                  switch_staging_timelines_path(timeline_id: @timeline.id),
-                                  "data-toggle" => :tooltip,
-                                  class: "btn btn-default red pull-right",
-                                  title: t('views.timelines.make_staging') %>
-                  <% end %>
-                  <span style="font-size: 1.4em">
+            <div class="panel panel-info">
+              <div class="panel-heading center">
+                <% if current_user.admin %>
+                  <%= link_to "<span class=\"icon icon-egg bigger\"></span>".html_safe,
+                              switch_staging_timelines_path(timeline_id: @timeline.id),
+                              "data-toggle" => :tooltip,
+                              class: "btn btn-default red pull-right",
+                              title: t('views.timelines.make_staging') %>
+                <% end %>
+                <span style="font-size: 1.4em">
                 <span class="icon icon-built fat"></span>
-                    <%= t('views.timelines.is_built_html') %>
+                  <%= t('views.timelines.is_built_html') %>
               </span> <br>
-                  <span style="font-size: 1.2em">
+                <span style="font-size: 1.2em">
                 <%= t('views.timelines.is_built_sub') %>
               </span>
-                </div>
               </div>
+            </div>
           <% end %>
         </div>
       </div>
@@ -252,104 +233,104 @@
                 <%= render 'likes/subscription', subscribed: (logged_in? && @my_like), timeline: @timeline %>
               </div>
               <% @timeline.get_tag_list.each do |name| %>
-                  <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
-                              timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
-                              class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
+                <%= link_to "<span class=\"fat icon-#{name}\"></span> ".html_safe,
+                            timelines_path(:sort => params[:sort], :order => params[:order], :tag => name),
+                            class: "btn btn-default stick hvr-shadow", title: tags_hash[name], "data-toggle" => "tooltip" %>
               <% end %>
               <h1 class="shadowed">
                 <br/>
-                <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 0 %>">
+                <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id * 10 + 0 %>">
                    <%= @timeline.name.html_safe %>
                 </span>
               </h1>
               <% if logged_in? && @improve_frame %>
-                  <div class="center" style="margin-top: -15px">
-                    <%= render 'patches/link_frame', field: 0, frame_id: @improve_frame.id %>
-                  </div>
+                <div class="center" style="margin-top: -15px">
+                  <%= render 'patches/link_frame', field: 0, frame_id: @improve_frame.id %>
+                </div>
               <% else %>
-                  <br/><br/>
+                <br/><br/>
               <% end %>
               <% if logged_in? && current_user.admin %>
-                  <div id="source-timeline" class="panel-heading">
-                    <%= form_for(@timeline, html: {multipart: true}, remote: true) do |f| %>
-                        <%= f.hidden_field :has_picture, value: @timeline.picture? %>
-                        <%= f.hidden_field :delete_picture, value: false %>
-                        <%= f.hidden_field :img_timeline_id, value: @timeline.id %>
-                        <%= f.text_field :source, value: (@timeline.figure_id.blank? ? nil : @timeline.figure.source), placeholder: t('views.picture.source'), class: 'form-control' %>
-                        <br/>
+                <div id="source-timeline" class="panel-heading">
+                  <%= form_for(@timeline, html: { multipart: true }, remote: true) do |f| %>
+                    <%= f.hidden_field :has_picture, value: @timeline.picture? %>
+                    <%= f.hidden_field :delete_picture, value: false %>
+                    <%= f.hidden_field :img_timeline_id, value: @timeline.id %>
+                    <%= f.text_field :source, value: (@timeline.figure_id.blank? ? nil : @timeline.figure.source), placeholder: t('views.picture.source'), class: 'form-control' %>
+                    <br/>
 
-                        <div id="size-warning" class="row" style="display: none">
-                          <div class="col-xs-10 col-xs-offset-1">
-                            <div class="alert alert-danger alert-dismissible" role="alert">
-                              <strong>
-                                <span class="glyphicon glyphicon-alert"></span>
-                                <%= t('views.picture.invalid_banner') %>
-                              </strong>
-                            </div>
-                          </div>
+                    <div id="size-warning" class="row" style="display: none">
+                      <div class="col-xs-10 col-xs-offset-1">
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                          <strong>
+                            <span class="glyphicon glyphicon-alert"></span>
+                            <%= t('views.picture.invalid_banner') %>
+                          </strong>
                         </div>
-                        <%= f.button "#{t('views.buttons.save')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
-                                     class: 'btn btn-success pull-right',
-                                     data: {disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} "} %>
-                    <% end %>
-                    <div>
-                      <div id="upload-btn" class="btn btn-default fileinput-button">
-                        <i class="glyphicon glyphicon-folder-open"></i>&nbsp
-                        <span id="ajouter"> <%= t('views.picture.add_figure') %> </span>
-                        <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
-                      </div>
-                      <div id="progress" style="display: none">
-                        <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-                          <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
-                            <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
-                          </path>
-                        </svg>
-                      </div>
-                      <div id="delete" class="btn btn-danger" style="display: none">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
-                        <%= t('views.picture.delete_figure') %>
                       </div>
                     </div>
+                    <%= f.button "#{t('views.buttons.save')} &nbsp <span class=\"glyphicon glyphicon-ok\" aria-hidden=\"true\"></span>".html_safe,
+                                 class: 'btn btn-success pull-right',
+                                 data: { disable_with: "<span class=\"glyphicon glyphicon-save\" aria-hidden=\"true\"></span> &nbsp #{t('views.buttons.editing')} " } %>
+                  <% end %>
+                  <div>
+                    <div id="upload-btn" class="btn btn-default fileinput-button">
+                      <i class="glyphicon glyphicon-folder-open"></i>&nbsp
+                      <span id="ajouter"> <%= t('views.picture.add_figure') %> </span>
+                      <input accept="image/jpeg,image/gif,image/png,image/svg" id="fileupload" type="file" name="figure[picture]" multiple>
+                    </div>
+                    <div id="progress" style="display: none">
+                      <svg version="1.1" class="loader-like" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                        <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                          <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/>
+                        </path>
+                      </svg>
+                    </div>
+                    <div id="delete" class="btn btn-danger" style="display: none">
+                      <span class="glyphicon glyphicon-trash" aria-hidden="true"> </span>
+                      <%= t('views.picture.delete_figure') %>
+                    </div>
                   </div>
-                  <script type="text/javascript">
-                      $(document).ready(function () {
-                          if ($('#timeline_has_picture').val() === 'true') {
-                              $('#delete').show();
-                              $('#ajouter').text("<%= t('views.picture.edit_figure') %>");
-                          }
-                          $(function () {
-                              'use strict';
-                              // Change this to the location of your server-side upload handler:
-                              $('#fileupload').fileupload({
-                                  url: "<%= figures_url + "?img_timeline_id=" + @timeline.id.to_s %>",
-                                  type: 'POST',
-                                  dataType: 'json',
-                                  done: function (e, data) {
-                                      $('#upload-btn').show(300);
-                                      $('#progress').hide(300);
-                                      if (data.result.id == null) {
-                                          $('#size-warning').show(300);
-                                      } else {
-                                          $('#timeline_has_picture').val('true');
-                                          $('#timeline_delete_picture').val('false');
-                                          $('#size-warning').hide();
-                                          $('#uploaded').css("background", "white url(" + data.result.picture.url + ")");
-                                      }
-                                  },
-                                  start: function (e, data) {
-                                      $('#upload-btn').hide();
-                                      $('#progress').show();
-                                  }
-                              }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
-                          });
-                          $('#delete').click(function () {
-                              $('#delete').hide(300);
-                              $('#uploaded').css("background", "white");
-                              $('#ajouter').text("<%=t('views.picture.add_figure')%>");
-                              $('#timeline_delete_picture').val('true');
-                          });
-                      });
-                  </script>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        if ($('#timeline_has_picture').val() === 'true') {
+                            $('#delete').show();
+                            $('#ajouter').text("<%= t('views.picture.edit_figure') %>");
+                        }
+                        $(function () {
+                            'use strict';
+                            // Change this to the location of your server-side upload handler:
+                            $('#fileupload').fileupload({
+                                url: "<%= figures_url + "?img_timeline_id=" + @timeline.id.to_s %>",
+                                type: 'POST',
+                                dataType: 'json',
+                                done: function (e, data) {
+                                    $('#upload-btn').show(300);
+                                    $('#progress').hide(300);
+                                    if (data.result.id == null) {
+                                        $('#size-warning').show(300);
+                                    } else {
+                                        $('#timeline_has_picture').val('true');
+                                        $('#timeline_delete_picture').val('false');
+                                        $('#size-warning').hide();
+                                        $('#uploaded').css("background", "white url(" + data.result.picture.url + ")");
+                                    }
+                                },
+                                start: function (e, data) {
+                                    $('#upload-btn').hide();
+                                    $('#progress').show();
+                                }
+                            }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+                        });
+                        $('#delete').click(function () {
+                            $('#delete').hide(300);
+                            $('#uploaded').css("background", "white");
+                            $('#ajouter').text("<%=t('views.picture.add_figure')%>");
+                            $('#timeline_delete_picture').val('true');
+                        });
+                    });
+                </script>
               <% end %>
             </div>
           </div>
@@ -357,19 +338,19 @@
         <div id="uploaded" class="panel-body">
           <div class="content">
             <% if @timeline.frame != '' %>
-                <div class="cadre text-justify clearfix">
-                  <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
-                  <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id*10 + 1 %>">
+              <div class="cadre text-justify clearfix">
+                <b style="font-size: 1.4em"><%= t('views.frames.frame') %> :</b><br/>
+                <span class="content<%= @improve_frame.blank? ? "nil" : @improve_frame.id * 10 + 1 %>">
               <%= @timeline.frame.html_safe %>
-                    <% if @improve_frame.present? %>
+                  <% if @improve_frame.present? %>
               <span class="pull-right">
                 <%= render 'users/link_contributors', model: @improve_frame %>
                 </span>
                 <% end %>
-                    <% if logged_in? && @improve_frame %>
+                  <% if logged_in? && @improve_frame %>
                     <%= render 'patches/link_frame', field: 1, frame_id: @improve_frame.id %>
                 <% end %>
-                    <% if @timeline.nb_frames > 1 %>
+                  <% if @timeline.nb_frames > 1 %>
                   <div style="margin-top: 5px">
                   <%= link_to "<span class=\"icon-frog-laurel\"></span>
                               &nbsp #{t("views.timelines.see_frames_#{logged_in?}", count: @timeline.nb_frames)}".html_safe,
@@ -378,65 +359,65 @@
                   </div>
                 <% end %>
            </span>
-                </div>
-                <br/>
+              </div>
+              <br/>
             <% end %>
             <% if logged_in? && current_user.admin %>
-                <div class="pull-right" style="margin-right: 8px;">
-                  <% if @timeline.favorite %>
-                      <%= link_to "<span class=\"icon icon-rocket normal\"></span>".html_safe,
-                                  switch_favorite_timelines_path(timeline_id: @timeline.id),
-                                  "data-toggle" => :tooltip,
-                                  class: "btn btn-default green pull-right",
-                                  title: t('views.timelines.make_favorite') %>
-                  <% end %>
-                </div>
+              <div class="pull-right" style="margin-right: 8px;">
+                <% if @timeline.favorite %>
+                  <%= link_to "<span class=\"icon icon-rocket normal\"></span>".html_safe,
+                              switch_favorite_timelines_path(timeline_id: @timeline.id),
+                              "data-toggle" => :tooltip,
+                              class: "btn btn-default green pull-right",
+                              title: t('views.timelines.make_favorite') %>
+                <% end %>
+              </div>
             <% end %>
           </div>
         </div>
       </div>
       <% if @summary %>
-          <div id="summary-panel" class="panel panel-default comment">
-            <div id="summary-panel" class="panel-body">
-              <div id="summary" class="clearfix">
-                <% if @summary.picture? %>
-                    <div class="pull-right">
-                      <div class="thumbnail">
-                        <a class="fancybox" rel="gallery" href="<%= @summary.picture_url %>">
-                          <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" unless @summary.picture_url.blank? %>
-                          <div class="glyphicon glyphicon-zoom-in"></div>
-                        </a>
+        <div id="summary-panel" class="panel panel-default comment">
+          <div id="summary-panel" class="panel-body">
+            <div id="summary" class="clearfix">
+              <% if @summary.picture? %>
+                <div class="pull-right">
+                  <div class="thumbnail">
+                    <a class="fancybox" rel="gallery" href="<%= @summary.picture_url %>">
+                      <%= image_tag @summary.picture_url, class: "img-rounded img-responsive" unless @summary.picture_url.blank? %>
+                      <div class="glyphicon glyphicon-zoom-in"></div>
+                    </a>
 
-                        <div class="caption">
-                          <%= @summary.caption_markdown.html_safe %>
-                        </div>
-                      </div>
+                    <div class="caption">
+                      <%= @summary.caption_markdown.html_safe %>
                     </div>
-                <% end %>
-                <div class="justify">
-                  <b style="font-size: 1.4em"><%= t('views.model.summary') %> :</b>
+                  </div>
+                </div>
+              <% end %>
+              <div class="justify">
+                <b style="font-size: 1.4em"><%= t('views.model.summary') %> :</b>
 
-                  <div class="content<%= @summary.id %>">
-                    <%= @summary.markdown.html_safe %>
+                <div class="content<%= @summary.id %>">
+                  <%= @summary.markdown.html_safe %>
 
-                    <span class="pull-right">
+                  <span class="pull-right">
                       <%= render 'users/link_contributors', model: @summary %>
                     </span>
-                    <%= render 'patches/link_summary', summary_id: @summary.id %>
-                    <% if @timeline.nb_summaries > 1 %>
-                        <div style="margin-top: 5px">
-                          <%= link_to "<span class=\"icon-frog-laurel\"></span>
+                  <%= render 'patches/link_summary', summary_id: @summary.id %>
+                  <% if @timeline.nb_summaries > 1 %>
+                    <div style="margin-top: 5px">
+                      <%= link_to "<span class=\"icon-frog-laurel\"></span>
                               &nbsp #{t("views.timelines.see_summaries_#{logged_in?}", count: @timeline.nb_summaries)}".html_safe,
-                                      summaries_path(timeline_id: @timeline.id),
-                                      class: "btn btn-default" %>
-                        </div>
-                    <% end %>
-                    <% if @summary.summary_links.count > 0 %>
-                        <hr style="width: 250px"/>
-                        <%= t('views.pluralize.edges', count: @summary.summary_links.count) %>
-                        <ul class="list-links">
-                          <% @summary.sorted_links.each do |link| %>
-                              <li>
+                                  summaries_path(timeline_id: @timeline.id),
+                                  class: "btn btn-default" %>
+                    </div>
+                  <% end %>
+                  <% if @summary.summary_links.count > 0 %>
+                    <hr style="width: 250px"/>
+                    <%= t('views.pluralize.edges', count: @summary.summary_links.count) %>
+                    <ul class="list-links">
+                      <% @summary.sorted_links.each do |link| %>
+                        <li>
                                 <span>
                               <% if link.count && link.count > 0 %>
                                   [<%= link.count %>]
@@ -444,210 +425,210 @@
                                   •
                               <% end %>
                                 </span>
-                                <%= link_to link.reference.title_display, reference_path(link.reference), target: "_blank", class: "linked-ref", "data-ref" => link.reference_id %>
-                              </li>
-                          <% end %>
-                        </ul>
-                    <% end %>
-                  </div>
+                          <%= link_to link.reference.title_display, reference_path(link.reference), target: "_blank", class: "linked-ref", "data-ref" => link.reference_id %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  <% end %>
                 </div>
               </div>
             </div>
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $("#summary").readmore({
-                        speed: 750,
-                        heightMargin: 100,
-                        embedCSS: false,
-                        collapsedHeight: 450,
-                        moreLink: '<div class="readmore"><a href="#" class="btn btn-lg btn-default">' +
-                        '<span class="glyphicon glyphicon-menu-down"></span> <%= t('views.timelines.read_more') %> ' +
-                        '<span class="glyphicon glyphicon-menu-down"></span> ' +
-                        '</a></div>',
-                        lessLink: '<div class="hidden"></div>'
-                    });
-                });
-            </script>
           </div>
+          <script type="text/javascript">
+              $(document).ready(function () {
+                  $("#summary").readmore({
+                      speed: 750,
+                      heightMargin: 100,
+                      embedCSS: false,
+                      collapsedHeight: 450,
+                      moreLink: '<div class="readmore"><a href="#" class="btn btn-lg btn-default">' +
+                          '<span class="glyphicon glyphicon-menu-down"></span> <%= t('views.timelines.read_more') %> ' +
+                          '<span class="glyphicon glyphicon-menu-down"></span> ' +
+                          '</a></div>',
+                      lessLink: '<div class="hidden"></div>'
+                  });
+              });
+          </script>
+        </div>
       <% end %>
 
       <% if @references.any? && (!@timeline.binary.blank? and @timeline.binary != "&&") &&
-          (logged_in? ? Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0).count > 0 :
-              Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0, title_fr: '').count > 0) %>
+        (logged_in? ? Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0).count > 0 :
+           Reference.where(timeline_id: @timeline.id).where.not(binary_most: 0, title_fr: '').count > 0) %>
 
-          <%= javascript_include_tag 'chartBar' %>
+        <%= javascript_include_tag 'chartBar' %>
 
-          <div id="versus-chart" class="row">
-            <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-              <div class="panel panel-default">
-                <div class="center">
-                  <br>
-                  <span style="font-size: 1.4em"><%= @timeline.name.html_safe %></span> <br>
-                  <b style="font-size: 1.4em"><%= @timeline.binary.split('&&')[0].humanize -%></b>&nbsp ou &nbsp<b style="font-size: 1.4em"><%= @timeline.binary.split('&&')[1].humanize -%> ? </b>
-                  <br/>
-                </div>
-                <br/>
-
-                <div class="row">
-                  <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
-                    <canvas id="chartjs"></canvas>
-                  </div>
-                </div>
+        <div id="versus-chart" class="row">
+          <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+            <div class="panel panel-default">
+              <div class="center">
                 <br>
+                <span style="font-size: 1.4em"><%= @timeline.name.html_safe %></span> <br>
+                <b style="font-size: 1.4em"><%= @timeline.binary.split('&&')[0].humanize -%></b>&nbsp ou
+                &nbsp<b style="font-size: 1.4em"><%= @timeline.binary.split('&&')[1].humanize -%> ? </b>
+                <br/>
               </div>
-            </div>
-          </div>
-          <% (1..5).each do |i| %>
-            <span id="binary-explanation-<%= i %>" class="hidden"><%= @timeline.binary_explanation(i).html_safe -%></span>
-          <% end %>
-          <script type="text/javascript">
-              $(document).ready(function () {
-                  var binaries_dico = {
-                      1: $('.binary1').length,
-                      2: $('.binary2').length,
-                      3: $('.binary3').length,
-                      4: $('.binary4').length,
-                      5: $('.binary5').length
-                  };
-                  var sum_binaries = binaries_dico[1] + binaries_dico[2] + binaries_dico[3] + binaries_dico[4] + binaries_dico[5];
-                  new Chart($("#chartjs"), {
-                      type: "horizontalBar",
-                      data: {
-                          datasets: [{
-                              label: $("#binary-explanation-1").text(),
-                              data: [binaries_dico[1] * 100 / sum_binaries],
-                              backgroundColor: "rgba(11,132,165,0.6)",
-                              borderColor: "rgba(11,132,165,1.0)",
-                              borderWidth: 2
-                          }, {
-                              label: $("#binary-explanation-2").text(),
-                              data: [binaries_dico[2] * 100 / sum_binaries],
-                              backgroundColor: "rgba(174,214,136,0.6)",
-                              borderColor: "rgba(174,214,136,1.0)",
-                              borderWidth: 2
-                          }, {
-                              label: $("#binary-explanation-3").text(),
-                              data: [binaries_dico[3] * 100 / sum_binaries],
-                              backgroundColor: "rgba(245,199,103,0.6)",
-                              borderColor: "rgba(245,199,103,1.0)",
-                              borderWidth: 2
-                          }, {
-                              label: $("#binary-explanation-4").text(),
-                              data: [binaries_dico[4] * 100 / sum_binaries],
-                              backgroundColor: "rgba(255,160,86,0.6)",
-                              borderColor: "rgba(255,160,86,1.0)",
-                              borderWidth: 2
-                          }, {
-                              label: $("#binary-explanation-5").text(),
-                              data: [binaries_dico[5] * 100 / sum_binaries],
-                              backgroundColor: "rgba(202,71,47,0.6)",
-                              borderColor: "rgba(202,71,47,1.0)",
-                              borderWidth: 2
-                          }
-                          ]
-                      },
-                      options: {
-                          responsive: true,
-                          maintainAspectRatio: false,
-                          legend: {
-                              fontFamily: "'Ubuntu', sans-serif"
-                          },
-                          scales: {
-                              xAxes: [{
-                                  stacked: true,
-                                  ticks: {
-                                      callback: function (value, index, values) {
-                                          return value + "%";
-                                      }
-                                  }
-
-                              }],
-                              yAxes: [{
-                                  display: false,
-                                  stacked: true
-                              }]
-                          },
-                          tooltips: {
-                              callbacks: {
-                                  label: function (item, data) {
-                                      var datasetLabel = data.datasets[item.datasetIndex].label || '';
-                                      var endlabel = binaries_dico[item.datasetIndex + 1] + " référence";
-                                      if (binaries_dico[item.datasetIndex + 1] > 1) {
-                                          endlabel += "s"
-                                      }
-                                      return datasetLabel + ': ' + endlabel;
-                                  }
-                              }
-                          }
-                      }
-                  });
-              });
-          </script>
-          <br>
-      <% end %>
-      <% if @references.any? %>
-          <% if logged_in? && @titles > 0 %>
               <br/>
 
-              <div id="no-comment" class="btn btn-sm btn-default active"
-                   title="<%= t('views.pluralize.reference_no_comment', count: @titles) %>."
-                   data-toggle="tooltip">
-                &nbsp <span class="icon-comment"></span>
-                &nbsp <span id="text-no-comment"><%= t('views.timelines.hide_no_comment', count: @titles) %></span>
+              <div class="row">
+                <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+                  <canvas id="chartjs"></canvas>
+                </div>
               </div>
-              <script type="text/javascript">
-                  $(document).ready(function () {
-                      $('#no-comment').click(function () {
-                          if ($(this).hasClass("active")) {
-                              $(this).removeClass("active");
-                              $('.need-comment').hide(600);
-                          } else {
-                              $(this).addClass("active");
-                              $('.need-comment').show(600);
-                          }
-                      });
-                  });
-              </script>
-          <% end %>
-          <div id="cd-timeline" class="cd-container">
-            <%= render :partial => 'references/reference', :collection => @references, :locals => {:binary => @timeline.binary} %>
+              <br>
+            </div>
+          </div>
+        </div>
+        <% (1..5).each do |i| %>
+          <span id="binary-explanation-<%= i %>" class="hidden"><%= @timeline.binary_explanation(i).html_safe -%></span>
+        <% end %>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var binaries_dico = {
+                    1: $('.binary1').length,
+                    2: $('.binary2').length,
+                    3: $('.binary3').length,
+                    4: $('.binary4').length,
+                    5: $('.binary5').length
+                };
+                var sum_binaries = binaries_dico[1] + binaries_dico[2] + binaries_dico[3] + binaries_dico[4] + binaries_dico[5];
+                new Chart($("#chartjs"), {
+                    type: "horizontalBar",
+                    data: {
+                        datasets: [{
+                            label: $("#binary-explanation-1").text(),
+                            data: [binaries_dico[1] * 100 / sum_binaries],
+                            backgroundColor: "rgba(11,132,165,0.6)",
+                            borderColor: "rgba(11,132,165,1.0)",
+                            borderWidth: 2
+                        }, {
+                            label: $("#binary-explanation-2").text(),
+                            data: [binaries_dico[2] * 100 / sum_binaries],
+                            backgroundColor: "rgba(174,214,136,0.6)",
+                            borderColor: "rgba(174,214,136,1.0)",
+                            borderWidth: 2
+                        }, {
+                            label: $("#binary-explanation-3").text(),
+                            data: [binaries_dico[3] * 100 / sum_binaries],
+                            backgroundColor: "rgba(245,199,103,0.6)",
+                            borderColor: "rgba(245,199,103,1.0)",
+                            borderWidth: 2
+                        }, {
+                            label: $("#binary-explanation-4").text(),
+                            data: [binaries_dico[4] * 100 / sum_binaries],
+                            backgroundColor: "rgba(255,160,86,0.6)",
+                            borderColor: "rgba(255,160,86,1.0)",
+                            borderWidth: 2
+                        }, {
+                            label: $("#binary-explanation-5").text(),
+                            data: [binaries_dico[5] * 100 / sum_binaries],
+                            backgroundColor: "rgba(202,71,47,0.6)",
+                            borderColor: "rgba(202,71,47,1.0)",
+                            borderWidth: 2
+                        }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: {
+                            fontFamily: "'Ubuntu', sans-serif"
+                        },
+                        scales: {
+                            xAxes: [{
+                                stacked: true,
+                                ticks: {
+                                    callback: function (value, index, values) {
+                                        return value + "%";
+                                    }
+                                }
+
+                            }],
+                            yAxes: [{
+                                display: false,
+                                stacked: true
+                            }]
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function (item, data) {
+                                    var datasetLabel = data.datasets[item.datasetIndex].label || '';
+                                    var endlabel = binaries_dico[item.datasetIndex + 1] + " référence";
+                                    if (binaries_dico[item.datasetIndex + 1] > 1) {
+                                        endlabel += "s"
+                                    }
+                                    return datasetLabel + ': ' + endlabel;
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+        <br>
+      <% end %>
+      <% if @references.any? %>
+        <% if logged_in? && @titles > 0 %>
+          <br/>
+
+          <div id="no-comment" class="btn btn-sm btn-default active"
+               title="<%= t('views.pluralize.reference_no_comment', count: @titles) %>."
+               data-toggle="tooltip">
+            &nbsp <span class="icon-comment"></span>
+            &nbsp <span id="text-no-comment"><%= t('views.timelines.hide_no_comment', count: @titles) %></span>
           </div>
           <script type="text/javascript">
               $(document).ready(function () {
-                  $('.fetcher').click(function () {
-                      $(this).hide();
-                      $(this).before('<svg version="1.1" class="fetcher-loader pull-right" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
-                  });
-                  $('.linked-ref').click(function (e) {
-                      var id = $(this).data("ref");
-                      $("#button" + id).trigger('click');
-                      if ($("#ref-" + id).hasClass("glyphicon-chevron-down")) {
-                          $("#ref-" + id).trigger('click');
-                      }
-                      $("#block-" + id).show(500);
-                      if ($('#block-' + id).length) {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          $('html, body').animate({
-                              scrollTop: $('#block-' + id).offset().top - 80
-                          }, 500);
-                          return false
+                  $('#no-comment').click(function () {
+                      if ($(this).hasClass("active")) {
+                          $(this).removeClass("active");
+                          $('.need-comment').hide(600);
                       } else {
-                          return true
-                      }
-                  });
-                  $('.detail').click(function () {
-                      if ($(this).hasClass("glyphicon-chevron-down")) {
-                          $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
-                          $(this).parent().parent().parent().find('.ref').fadeIn(500);
-                      }
-                      else {
-                          $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
-                          $(this).parent().parent().parent().find('.ref').fadeOut(500)
+                          $(this).addClass("active");
+                          $('.need-comment').show(600);
                       }
                   });
               });
           </script>
+        <% end %>
+        <div id="cd-timeline" class="cd-container">
+          <%= render :partial => 'references/reference', :collection => @references, :locals => { :binary => @timeline.binary } %>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.fetcher').click(function () {
+                    $(this).hide();
+                    $(this).before('<svg version="1.1" class="fetcher-loader pull-right" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve"> <path fill="#000" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z"> <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"/></path></svg>');
+                });
+                $('.linked-ref').click(function (e) {
+                    var id = $(this).data("ref");
+                    $("#button" + id).trigger('click');
+                    if ($("#ref-" + id).hasClass("glyphicon-chevron-down")) {
+                        $("#ref-" + id).trigger('click');
+                    }
+                    $("#block-" + id).show(500);
+                    if ($('#block-' + id).length) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        $('html, body').animate({
+                            scrollTop: $('#block-' + id).offset().top - 80
+                        }, 500);
+                        return false
+                    } else {
+                        return true
+                    }
+                });
+                $('.detail').click(function () {
+                    if ($(this).hasClass("glyphicon-chevron-down")) {
+                        $(this).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+                        $(this).parent().parent().parent().find('.ref').fadeIn(500);
+                    } else {
+                        $(this).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+                        $(this).parent().parent().parent().find('.ref').fadeOut(500)
+                    }
+                });
+            });
+        </script>
       <% end %>
     </div>
   </div>
@@ -658,19 +639,19 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <% if logged_in? %>
-            <br/>
+          <br/>
 
-            <h2 class="modal-title" id="myModalLabel"> <%= t('views.sessions.server_dead') %> </h2>
+          <h2 class="modal-title" id="myModalLabel"> <%= t('views.sessions.server_dead') %> </h2>
         <% else %>
-            <br/>
+          <br/>
 
-            <h2 class="modal-title" id="myModalLabel"> <%= t('views.sessions.action_login') %>
-            </h2>
-            <br/>
-            <%= link_to t('views.header.login'), login_path, class: "btn btn-lg btn-primary" %>
-            <div class="pull-right">
-              <%= link_to t('views.sessions.new_user'), signup_path, class: "btn btn-lg btn-primary" %>
-            </div>
+          <h2 class="modal-title" id="myModalLabel"> <%= t('views.sessions.action_login') %>
+          </h2>
+          <br/>
+          <%= link_to t('views.header.login'), login_path, class: "btn btn-lg btn-primary" %>
+          <div class="pull-right">
+            <%= link_to t('views.sessions.new_user'), signup_path, class: "btn btn-lg btn-primary" %>
+          </div>
         <% end %>
         <br/>
       </div>

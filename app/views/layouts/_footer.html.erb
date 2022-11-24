@@ -99,34 +99,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="join-slack" tabindex="-1" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content clearfix">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <br/>
-      </div>
-      <div class="font12 modal-body clearfix center">
-        <%= t('views.users.why_slack_html') %>
-        <% if logged_in? %>
-            <a href="<%= slack_users_path %>" class="cadre hvr-grow center">
-              <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
-              <b style="font-size: 1.4em"><%= t('views.users.join_slack') %></b>
-            </a>
-        <% else %>
-            <a href="<%= new_user_path %>" class="cadre hvr-grow center">
-              <%= image_tag("slack.png", alt: "Slack", height: "48px") %>
-              <b style="font-size: 1.4em"><%= t('views.sessions.new_user_slack') %></b>
-            </a>
-        <% end %>
-      </div>
-      <div class="pull-right">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <% if cookies[:nbr_refresh].present? && cookies[:nbr_refresh] > 4 %>
 
   <div class="modal fade" id="manyrefresh" tabindex="-1" role="dialog">
@@ -196,53 +168,34 @@
     </script>
 <% end %>
 
-<% unless cookies[:social_buttons] %>
-  <div class="modal fade" id="modal-disp" tabindex="-1" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <br/>
-        </div>
-        <div class="modal-body clearfix">
-          <span class="font12">
-            Par respect pour votre vie privée, nous <b>désactivons par défaut</b> les boutons de partage et de <i>like</i> proposés par Facebook et Twitter. <br>Ces boutons permettent à aux réseaux sociaux de savoir à quelle heure et sur
-            quelles pages de ControverSciences vous naviguez.
-            <br><br>
-          </span>
-          <%= image_tag("surveillance.png", alt: "surveillance", :class => "img-responsive", style: "width:100%;") %>
-          <br>
-          <%= link_to "Activer les boutons de réseaux sociaux", social_buttons_path, class: "btn btn-primary pull-right" %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
-        </div>
+<div class="modal fade" id="modal-disp" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <br/>
+      </div>
+      <div class="modal-body clearfix">
+        <span class="font12">
+          Par respect pour votre vie privée, Controver<b>Sciences</b> n'a pas les boutons de partage et de <i>like</i> proposés par Facebook et Twitter.
+          <br>Ces boutons permettent à aux réseaux sociaux de savoir à quelle heure et sur quelles pages de ControverSciences vous naviguez.
+          <br><br>
+        </span>
+        <%= image_tag("surveillance.png", alt: "surveillance", :class => "img-responsive", style: "width:100%;") %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('views.footer.close') %></button>
       </div>
     </div>
   </div>
-<% end %>
+</div>
+
 <footer class="clearfix">
   <div id="footer-disp" class="pull-right">
-    <% if cookies[:social_buttons] %>
-    &nbsp
-    <a href="https://twitter.com/ControverSci"
-       class="twitter-follow-button"
-       data-show-count="false"></a>
-    &nbsp
-    <div class="cs-fb-like">
-      <span class="fb-like"
-            data-layout="button_count"
-            data-show-faces="false"
-            data-share="true"
-            data-colorscheme="light"
-            data-href="https://www.facebook.com/ControverSciences">
-        </span>
-    </div>
-    <% else %>
       <span class="white-href"> <br>
       <a href="#modal-disp" data-toggle="modal">
-        Où sont les boutons de réseaux sociaux ? &nbsp </a></span>
-    <% end %>
+        Où sont les boutons <i>share</i> et <i>like</i> ? &nbsp </a>
+      </span>
   </div>
 
   <div id="about-link" class="white-href">

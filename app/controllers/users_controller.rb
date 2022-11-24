@@ -218,11 +218,6 @@ class UsersController < ApplicationController
     @links = ids.uniq { |e| [e[0], e[1]].sort }
   end
 
-  def social_buttons
-    cookies[:social_buttons] = true
-    redirect_to_back
-  end
-
   private
 
   def user_password_params
