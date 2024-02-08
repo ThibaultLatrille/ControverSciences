@@ -54,17 +54,15 @@ class PasswordResetsController < ApplicationController
     if @user.password_reset_expired?
       flash[:danger] = t('controllers.expired_reset')
       redirect_to new_password_reset_path
-    elsif @user.update_attributes(user_params)
-      if (params[:user][:password].blank? &&
-          params[:user][:password_confirmation].blank?)
-        flash.now[:danger] = t('controllers.pwd_or_confirm_error')
-        render 'edit'
-      else
+    elsif params[:user][:password].blank? or (params[:user][:password] != params[:user][:password_confirmation])
+      flash.now[:danger] = t('controllers.pwd_or_confirm_error')
+      render 'edit'
+    elsif @user.update_attribute(:password, params[:user][:password])
         flash[:success] = t('controllers.pwd_updated')
         log_in @user
         redirect_to @user
-      end
     else
+      flash.now[:danger] = t('controllers.pwd_or_confirm_error')
       render 'edit'
     end
   end
