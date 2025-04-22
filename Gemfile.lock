@@ -261,9 +261,9 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.0)
-    nokogiri (1.16.2-arm64-darwin)
+    nokogiri (1.18.8-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.2-x86_64-linux)
+    nokogiri (1.18.8-x86_64-linux-gnu)
       racc (~> 1.4)
     octokit (8.1.0)
       base64
@@ -288,7 +288,7 @@ GEM
     public_suffix (5.0.4)
     rabl (0.16.1)
       activesupport (>= 2.3.14)
-    racc (1.7.3)
+    racc (1.8.1)
     rack (2.2.8)
     rack-contrib (2.4.0)
       rack (< 4)
